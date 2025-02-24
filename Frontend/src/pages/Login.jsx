@@ -4,16 +4,23 @@ import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import { MdLogin } from "react-icons/md";
+import { FaUserShield } from "react-icons/fa6";
+import { PiChefHat } from "react-icons/pi";
 import { ImSpinner9 } from "react-icons/im";
 import { Tooltip } from "@mui/material";
 
-import { Form,Title,Input,Label,Input_Group,Label_Popup,Button,Whitespace,Link,Spinner_Link } from '../components/styled/Forms'
+import { Form,Title,Input,Label,Input_Group,Label_Popup,ButtonBlue,Whitespace,Link,Spinner_Link } from '../components/styled/Forms'
 import { Alerta_Azul } from '../components/styled/Notifications'
 
 import Footer from '../components/footer/Footer';
 
-export default function Login () {
+export default function Login(){
+
+    const [loadingAdministration,isLoadingAdministration] = useState(false);
+    const [loadingFormAdministration,isloadingFormAdministration] = useState(false);
+
+
+    const [loadingKitchen,isLoadingKitchen] = useState(false);
 
     const [textEmail,setTextEmail] = useState(false);
     const [isFocusedEmail, setIsFocusedEmail] = useState(false);
@@ -37,6 +44,12 @@ export default function Login () {
 
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+    const Administration = async () => {
+        isLoadingAdministration(true);
+        await delay(2000);
+        isloadingFormAdministration(true);
+    }
+
     const CreateAccounts = async () => {
         setLoadingCreateAccounts(true);
         document.title = "Cargando...";
@@ -58,9 +71,11 @@ export default function Login () {
                     limit={5}
                 />
                 <Form>
-                    <img src={Logo} alt="Logo de SXW" className="logo-form-1"/>
-                    <Title><MdLogin></MdLogin></Title>
-                    <Input_Group>
+                    <img src={Logo} alt="Logo de Hospital Puerta de Hierro" className="logo-form-1"/>
+                    {loadingAdministration ? (
+                        loadingFormAdministration ? (
+                            <>
+                            <Input_Group>
                         <Label 
                             isLabelUp={isFocusedEmail}
                             isFocused={isFocusedEmailColor}
@@ -118,16 +133,21 @@ export default function Login () {
                             <Label_Popup>Escribe tú Contraseña</Label_Popup>
                         )}
                     </Input_Group>
-                    <Whitespace/>
-                    <Tooltip title='Administrador' placement="top">
-                        <Button><MdLogin/></Button>
-                    </Tooltip>
-                    <Tooltip title='Cocinero' placement="top">
-                        <Button><MdLogin/></Button>
-                    </Tooltip>
-                    <Tooltip title='Medico' placement="top">
-                        <Button><MdLogin/></Button>
-                    </Tooltip>
+                          
+                        </>
+                        ) : (
+                            <Spinner_Link><ImSpinner9/></Spinner_Link>
+                        )
+                    ):(
+                        <>
+                            <Tooltip title='Administración' placement="top">
+                                <ButtonBlue onClick={Administration}><FaUserShield/></ButtonBlue>
+                            </Tooltip>
+                            <Tooltip title='Cocina' placement="top">
+                                <ButtonBlue><PiChefHat/></ButtonBlue>
+                            </Tooltip>
+                        </>
+                    )}
                     {loadingCreateAccounts ? (
                         <Spinner_Link><ImSpinner9/></Spinner_Link>
                     ) : (

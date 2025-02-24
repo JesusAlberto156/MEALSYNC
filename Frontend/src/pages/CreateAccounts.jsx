@@ -8,7 +8,7 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import { ImSpinner9 } from "react-icons/im";
 import { Tooltip } from "@mui/material";
 
-import { Form,Title,Input,Label,Input_Group,Label_Popup,Button,Whitespace,Link,Spinner_Link } from '../components/styled/Forms'
+import { Form,Title,Input,Label,Input_Group,Label_Popup,ButtonBlue,Whitespace,Link,Spinner_Link } from '../components/styled/Forms'
 import { Alerta_Azul } from '../components/styled/Notifications'
 
 import Footer from '../components/footer/Footer';

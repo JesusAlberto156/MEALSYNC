@@ -184,7 +184,7 @@ export const Whitespace = styled.div`
         margin-Bottom: 1px;
     }
 `;
-export const Button = styled.button`
+export const ButtonBlue = styled.button`
     width: 60%;
     padding: 6px;
     margin-left: 20%;
@@ -199,28 +199,28 @@ export const Button = styled.button`
     box-sizing: border-box;
     
     &:hover {
-        background-color:rgb(13, 122, 55);
+        background-color:rgb(13, 60, 122);
         transform: translateY(-2px);
         transform: scale(1.1);
     }
 
     @media (max-width: 768px) {
-        background-color:rgb(13, 122, 55);
+        background-color:rgb(13, 60, 122);
         font-size: 22px;
 
         &:hover {
-            background-color:rgb(10, 92, 42);
+            background-color:rgb(13, 96, 122);
             transform: translateY(-2px);
             transform: scale(1.1);
         }
     }
 
     @media (max-width: 480px) {
-        background-color:rgb(13, 122, 55);
+        background-color:rgb(13, 60, 122);
         font-size: 20px;
 
         &:hover {
-            background-color:rgb(10, 92, 42);
+            background-color:rgb(13, 96, 122);
             transform: translateY(-2px);
             transform: scale(1.1);
         }

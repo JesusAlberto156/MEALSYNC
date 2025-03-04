@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Background = styled.div`
     background-color: rgba(0, 0, 0);
+    z-index: 11;
     color: white;
     text-align: center;
     padding: 1rem 0;

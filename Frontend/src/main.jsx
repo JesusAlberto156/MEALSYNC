@@ -4,8 +4,10 @@ import { createRoot } from 'react-dom/client'
 import './components/styled/Backgrounds.css'
 import "react-toastify/dist/ReactToastify.css";
 
-import CreateAccounts from './pages/CreateAccounts'
 import Login from './pages/Login'
+import Menu from './pages/Menu';
+import Administration from './pages/Administration';
+import Warehouse from './pages/Warehouse';
 
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
@@ -19,8 +21,16 @@ const router = createHashRouter([
     element:<Login/>
   },
   {
-    path:'/CreateAccounts',
-    element:<CreateAccounts/>
+    path:'/Menu',
+    element:<Menu/>
+  },
+  {
+    path:'/Administration',
+    element:<Administration/>
+  },
+  {
+    path:'/Warehouse',
+    element:<Warehouse/>
   }
 ]);
 

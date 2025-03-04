@@ -20,7 +20,7 @@ body, html {
 }
 
 .background-login {
-    background-Image: url('../imgs/1.jpg');
+    background-Image: url('../imgs/Background-Login.jpg');
     background-Size: cover;
     background-Position: center;
     width: 100vw;
@@ -32,17 +32,15 @@ body, html {
     align-Items: center;
 }
 
-.background-create-accounts {
-    background-Image: url('../imgs/BackgroundCreateAccounts.jpg');
-    background-Size: cover;
-    background-Position: center;
+.background-menu {
+    background-image: url('../imgs/Background-Menu.jpg');
+    background-size: cover;
+    background-position: center;
     width: 100vw;
     height: 100vh;
-    max-height: none;
-    position: relative;
     display: flex;
-    justify-Content: center; 
-    align-Items: center;
+    justify-content: center; 
+    align-items: center;
 }
 
 .logo-form-1 {

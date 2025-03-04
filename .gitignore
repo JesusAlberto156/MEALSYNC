@@ -26,3 +26,4 @@ dist-ssr
 #Archivos especificos
 .env
 credentials.js
+credentials.jsx

@@ -1,0 +1,21 @@
+@api = http://localhost:3156/sxw/usuarios
+
+### GET INICIO SESION
+GET {{api}}/existe/cuenta/?email=chuy492001@gmail.com
+### GET COMPROBAR CUENTA
+GET {{api}}/verificar/cuenta/?email=chuy@gmail.com
+### GET COMPROBAR CORREO
+GET {{api}}/verificar/correo/?email=chuy492001@gmail.com
+### POST ITEM
+POST {{api}}/
+Content-Type: application/json
+
+{
+    "usuario":"Legendario",
+    "nombre":"Jesús Alberto Partida Michel",
+    "email":"chuy492001@gmail.com",
+    "contraseña":"Legendario156",
+    "tipo":false
+}
+### POST CUENTA
+POST {{api}}/chuy492001@gmail.com?contraseña=@Halo4321reach

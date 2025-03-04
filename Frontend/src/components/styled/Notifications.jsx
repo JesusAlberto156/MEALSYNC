@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { toast } from "react-toastify";
 
-const Toast_Azul = styled.div`
+const Toast_Blue = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['closeToast', 'toastProps', 'isPaused'].includes(prop)
+})`
     background: darkblue;
     color: #fff;
     font-size: 18px;
@@ -27,8 +29,8 @@ const Toast_Azul = styled.div`
         left: 16px;
     }
 `;
-export const Alerta_Azul = (mensaje) => {
-    toast(<Toast_Azul>{mensaje}</Toast_Azul>, {
+export const Alert_Blue = (mensaje) => {
+    toast(<Toast_Blue>{mensaje}</Toast_Blue>, {
         style:{
             background:'darkblue'
         },
@@ -36,7 +38,9 @@ export const Alerta_Azul = (mensaje) => {
         closeOnClick:true
     });
 };
-const Toast_Verde = styled.div`
+const Toast_Green = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['closeToast', 'toastProps', 'isPaused'].includes(prop)
+})`
     background: darkgreen;
     color: #fff;
     font-size: 18px;
@@ -62,8 +66,8 @@ const Toast_Verde = styled.div`
         left: 16px;
     }
 `;
-export const Alerta_Verde = (mensaje) => {
-    toast(<Toast_Verde>{mensaje}</Toast_Verde>, {
+export const Alert_Green = (mensaje) => {
+    toast(<Toast_Green>{mensaje}</Toast_Green>, {
         style:{
             background:'darkgreen'
         },
@@ -71,7 +75,9 @@ export const Alerta_Verde = (mensaje) => {
         closeOnClick:true
     });
 };
-const Toast_Amarillo = styled.div`
+const Toast_Yellow = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['closeToast', 'toastProps', 'isPaused'].includes(prop)
+})`
     background: darkgoldenrod;
     color: #fff;
     font-size: 18px;
@@ -97,8 +103,8 @@ const Toast_Amarillo = styled.div`
         left: 16px;
     }
 `;
-export const Alerta_Amarillo = (mensaje) => {
-    toast(<Toast_Amarillo>{mensaje}</Toast_Amarillo>, {
+export const Alert_Yellow = (mensaje) => {
+    toast(<Toast_Yellow>{mensaje}</Toast_Yellow>, {
         style:{
             background:'darkgoldenrod'
         },
@@ -106,7 +112,9 @@ export const Alerta_Amarillo = (mensaje) => {
         closeOnClick:true
     });
 };
-const Toast_Rojo = styled.div`
+const Toast_Red = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['closeToast', 'toastProps', 'isPaused'].includes(prop)
+})`
     background: darkred;
     color: #fff;
     font-size: 18px;
@@ -132,8 +140,8 @@ const Toast_Rojo = styled.div`
         left: 16px;
     }
 `;
-export const Alerta_Rojo = (mensaje) => {
-    toast(<Toast_Rojo>{mensaje}</Toast_Rojo>, {
+export const Alert_Red = (mensaje) => {
+    toast(<Toast_Red>{mensaje}</Toast_Red>, {
         style:{
             background:'darkred'
         },

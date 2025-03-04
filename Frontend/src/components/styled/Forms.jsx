@@ -1,6 +1,21 @@
 import styled, { keyframes } from 'styled-components';
 
-//--------LOGIN/CREATE-ACCOUNTS--------
+//--------ANIMATION--------
+const Rotate = keyframes`
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+`;
+const fadeAnimation = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+//--------ANIMATION--------
+//--------LOGIN--------
 export const Form = styled.div`
     position: fixed;
     top: 5%;
@@ -39,12 +54,13 @@ export const Form = styled.div`
         gap: 10px;
     }
 `;
-export const Title = styled.div`
+export const Title_Fade = styled.div`
     color: white;
     font-size: 1.2rem;
     font-family:Arial, Helvetica, sans-serif;
     margin-bottom: 25px;
     font-weight: bold;
+    animation: ${fadeAnimation} 2s infinite;
 
     @media (max-width: 768px) {
         font-size: 1.1rem;
@@ -101,7 +117,9 @@ export const Input = styled.input`
         box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
     }
 `;
-export const Label = styled.label`
+export const Label = styled.label.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isLabelUp' && prop !== 'isFocused',
+})`
     z-index: 0;
     position: absolute;
     top: 14px;
@@ -113,12 +131,12 @@ export const Label = styled.label`
     transition: 0.2s ease;
     white-space: nowrap;
 
-    ${({ isLabelUp }) => isLabelUp && `
+    ${(props) =>  props.isLabelUp && `
         top: -10px;
         font-size: 0.9rem;
     `}
 
-    ${({ isFocused }) => isFocused && `
+    ${(props) => props.isFocused && `
         color: aqua;
     `}
 
@@ -127,12 +145,12 @@ export const Label = styled.label`
         top: 14px;
         left: 5px;
 
-        ${({ isLabelUp }) => isLabelUp && `
+        ${(props) => props.isLabelUp && `
             top: -8px;
             font-size: 0.8rem;
         `}
 
-        ${({ isFocused }) => isFocused && `
+        ${(props) => props.isFocused && `
             color: aqua;
         `}
     }
@@ -142,12 +160,12 @@ export const Label = styled.label`
         top: 12px;
         left: 3px;
 
-        ${({ isLabelUp }) => isLabelUp && `
+        ${(props) => props.isLabelUp && `
             top: -6px;
             font-size: 0.7rem;
         `}
 
-        ${({ isFocused }) => isFocused && `
+        ${(props) => props.isFocused && `
             color: aqua;
         `}
     }
@@ -184,7 +202,7 @@ export const Whitespace = styled.div`
         margin-Bottom: 1px;
     }
 `;
-export const ButtonBlue = styled.button`
+export const Button_Blue = styled.button`
     width: 60%;
     padding: 6px;
     margin-left: 20%;
@@ -204,6 +222,14 @@ export const ButtonBlue = styled.button`
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        background-color: gray;
+        border-color: gray;
+        transform: none;
+    }
+
     @media (max-width: 768px) {
         background-color:rgb(13, 60, 122);
         font-size: 22px;
@@ -221,6 +247,89 @@ export const ButtonBlue = styled.button`
 
         &:hover {
             background-color:rgb(13, 96, 122);
+            transform: translateY(-2px);
+            transform: scale(1.1);
+        }
+    }
+`;
+export const Button_Block = styled.button`
+    width: 60%;
+    padding: 6px;
+    margin-left: 20%;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 25px;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+    background-color: gray;
+    border-color: gray;
+    transform: none;
+
+    &:hover {
+        transform: translateY(-2px);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.1);
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.1);
+        }
+    }
+`;
+export const Button_Green = styled.button`
+    width: 60%;
+    padding: 6px;
+    margin-left: 20%;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(13, 122, 55);
+        transform: translateY(-2px);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        background-color:rgb(13, 122, 55);
+        font-size: 22px;
+
+        &:hover {
+            background-color:rgb(10, 92, 42);
+            transform: translateY(-2px);
+            transform: scale(1.1);
+        }
+    }
+
+    @media (max-width: 480px) {
+        background-color:rgb(13, 122, 55);
+        font-size: 20px;
+
+        &:hover {
+            background-color:rgb(10, 92, 42);
             transform: translateY(-2px);
             transform: scale(1.1);
         }
@@ -268,15 +377,7 @@ export const Link = styled.button`
         }
     }
 `;
-const Rotate = keyframes`
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-`;
-export const Spinner_Link = styled.div`
+export const Spinner_Blue = styled.div`
     width: 40%;
     padding: 2px;
     margin-left: 30%;
@@ -299,4 +400,4 @@ export const Spinner_Link = styled.div`
         font-size: 15px;
     }
 `;
-//--------LOGIN/CREATE-ACCOUNTS--------
+//--------LOGIN--------

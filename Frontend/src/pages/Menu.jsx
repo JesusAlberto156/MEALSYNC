@@ -1,90 +1,67 @@
-import { useLocation } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useEffect,useContext } from "react";
 import { ToastContainer } from "react-toastify";
+import { typeUserContext } from "../contexts/TypeUserProvider";
+import { viewSidebarContext } from "../contexts/SwitchViewSidebarProvider";
+import { modalOutLoginContext,modalShoppingCartContext } from "../contexts/ModalsProvider";
+import { sidebarVisibleContext } from "../contexts/SidebarVisibleProvider";
 
 import Home from '../components/menu/Home';
-import OptionsMenu from '../components/menu/Menu';
+import OptionsMenu from '../components/menu/OptionsMenu';
 
-import { Alert_Blue,Alert_Green } from "../components/styled/Notifications";
+import { Alert_Blue } from "../components/styled/Notifications";
+
 import OutLogin from "../components/modals/OutLogin";
-import { Background } from "../components/styled/Menu";
+import AlertMedico from "../components/modals/AlertMedico";
+import ShoppingCart from "../components/modals/ShoppingCart";
+
+import { Background_Menu } from "../components/styled/Backgrounds";
 
 import Sidebar from "../components/sidebar/Sidebar";
-import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-import Medico from "../components/modals/Medico";
 
 export default function Menu(){
-
-    const location = useLocation();
-    const user = location.state?.user || '';
+    const [typeUser] = useContext(typeUserContext);
+    const [viewSidebar] = useContext(viewSidebarContext);
+    const [isModalOutLogin] = useContext(modalOutLoginContext);
+    const [isModalShoppingCart] = useContext(modalShoppingCartContext);
+    const [sidebarVisible] = useContext(sidebarVisibleContext);
     
-    const [activeView, setActiveView] = useState('Inicio')
-    const switchView = (view) => setActiveView(view);
- 
-    const[activeOption, setActiveOption] = useState('Inicio')
-
-    const [modalOutLogin,setModalOutLogin] = useState(false);
-    const [modalMedico,setModalMedico] = useState(true);
-
     useEffect(() => {
-            document.title = "MEALSYNC_Menú"
-            Alert_Green('¡Sesión iniciada!')
+            document.title = "MEALSYNC_Menú_Inicio"
             Alert_Blue("¡Bienvenido(a) a MEALSYNC!");
     },[]);
 
-    const [sidebarVisible,isSidebarVisible] = useState(true);
-
     return(
         <div className="app-container">
-                <div className="background-menu">
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    closeOnClick
-                    pauseOnHover
-                    dragga
-                    limit={5}
-                />
-                <Sidebar 
-                    user={user} 
-                    onSwitchView={switchView} 
-                    isModalOutLogin={setModalOutLogin} 
-                    isSidebarVisible={isSidebarVisible}
-                    setActiveOption={setActiveOption}
-                />
-                    <div id="content">
-                        <div id="main-content">
-                            <Background sidebarVisible={sidebarVisible}>
-                                {activeOption === 'Inicio' ? (
-                                    <></>
-                                ):(
-                                    <Navbar setActiveOption={activeOption}/>
-                                )}
-                            {activeView === 'Inicio' ? (
-                                <Home/>
-                            ):(
-                                <></>
-                            )}
-                            {activeView === 'Menu' ? (
+            <div className="background-menu">
+                <Sidebar/>
+                <div id="content">
+                    <div id="main-content">
+                        <Background_Menu sidebarVisible={sidebarVisible}>
+                            {viewSidebar === 'Menu' ? (
                                 <OptionsMenu/>
                             ):(
-                                <></>
+                                <Home/>
                             )}
-                            {user === 'Medico' ? (
-                                <Medico isModal={setModalMedico}/>
-                            ):(
-                                <></>
-                            )}
-                            </Background>
-                            {modalOutLogin ? (
-                                <OutLogin isModal={setModalOutLogin}/>
-                            ):(
-                                <></>
-                            )}
-                        </div>
+                        </Background_Menu>
+                        {typeUser === 'Medico' ? (
+                            <AlertMedico/>
+                        ):(
+                            <></>
+                        )}
+                        {isModalOutLogin ? (
+                            <OutLogin/>
+                        ):(
+                            <></>
+                        )}
+                        {isModalShoppingCart ? (
+                            <ShoppingCart/>
+                        ):(
+                            <></>
+                        )}
                     </div>
                 </div>
+            </div>
             <Footer/>
         </div>
     );

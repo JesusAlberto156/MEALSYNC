@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { activeOptionContext } from "../../contexts/ActiveOptionProvider";
 
 import { Tooltip } from "@mui/material";
 
@@ -16,144 +18,149 @@ import { SiCocacola } from "react-icons/si";
 import { GiHotMeal } from "react-icons/gi";
 import { FaHourglassStart } from "react-icons/fa";
 
-import { Background, Container, Logo, Button_Aqua } from "../styled/Navbar";
+import { Background_Navbar} from '../styled/Backgrounds';
+import { Container_Navbar } from "../styled/Containers";
+import { Logo_Navbar} from '../styled/Imgs';
+import { Button_Black_Navbar} from '../styled/Buttons';
 
-export default function Navbar({ setActiveOption }){
+export default function Navbar(){
+    
+    const [activeOption] = useContext(activeOptionContext);
 
     return(
-        <Container>   
-            <Logo/> 
-            <Background>
-                {setActiveOption === 'General' ? (
+        <Container_Navbar>   
+            <Logo_Navbar/> 
+            <Background_Navbar>
+                {activeOption === 'General' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Aqua><RiDrinks2Fill/></Button_Aqua>
+                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Jugos del día' placement="right-start">
-                            <Button_Aqua><SiJuce/></Button_Aqua>
+                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Aqua><MdFreeBreakfast/></Button_Aqua>
+                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Comida' placement="right-start">
-                            <Button_Aqua><GiMeal/></Button_Aqua>
+                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Pasta y Ensaladas' placement="right-start">
-                            <Button_Aqua><PiBowlFoodFill/></Button_Aqua>
+                            <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Snacks' placement="right-start">
-                            <Button_Aqua><IoFastFood/></Button_Aqua>
+                            <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Postres' placement="right-start">
-                            <Button_Aqua><LuDessert/></Button_Aqua>
+                            <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Cafetería' placement="right-start">
-                            <Button_Aqua><GiCoffeeCup/></Button_Aqua>
+                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
                         </Tooltip>
                     </>
                 ):(
                     <></>
                 )}
-                {setActiveOption === 'Colaboradores' ? (
+                {activeOption === 'Colaboradores' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Aqua><RiDrinks2Fill/></Button_Aqua>
+                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Jugos' placement="right-start">
-                            <Button_Aqua><SiJuce/></Button_Aqua>
+                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Aqua><MdFreeBreakfast/></Button_Aqua>
+                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Comida' placement="right-start">
-                            <Button_Aqua><GiMeal/></Button_Aqua>
+                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Ensaladas' placement="right-start">
-                            <Button_Aqua><PiBowlFoodFill/></Button_Aqua>
+                            <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Mariscos' placement="right-start">
-                            <Button_Aqua><GiFoodChain/></Button_Aqua>
+                            <Button_Black_Navbar><GiFoodChain/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Snacks' placement="right-start">
-                            <Button_Aqua><IoFastFood/></Button_Aqua>
+                            <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Frutas' placement="right-start">
-                            <Button_Aqua><LuDessert/></Button_Aqua>
+                            <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Cafetería' placement="right-start">
-                            <Button_Aqua><GiCoffeeCup/></Button_Aqua>
+                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Otros' placement="right-start">
-                            <Button_Aqua><GiKnifeFork/></Button_Aqua>
+                            <Button_Black_Navbar><GiKnifeFork/></Button_Black_Navbar>
                         </Tooltip>
                     </>
                 ):(
                     <></>
                 )}
-                {setActiveOption === 'Nutriologo' ? (
+                {activeOption === 'Nutriologo' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Aqua><RiDrinks2Fill/></Button_Aqua>
+                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Jugos del día' placement="right-start">
-                            <Button_Aqua><SiJuce/></Button_Aqua>
+                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Aqua><MdFreeBreakfast/></Button_Aqua>
+                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Comida' placement="right-start">
-                            <Button_Aqua><GiMeal/></Button_Aqua>
+                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Pasta y Ensaladas' placement="right-start">
-                            <Button_Aqua><PiBowlFoodFill/></Button_Aqua>
+                            <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Snacks' placement="right-start">
-                            <Button_Aqua><IoFastFood/></Button_Aqua>
+                            <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Postres' placement="right-start">
-                            <Button_Aqua><LuDessert/></Button_Aqua>
+                            <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Cafetería' placement="right-start">
-                            <Button_Aqua><GiCoffeeCup/></Button_Aqua>
+                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Personalizados' placement="right-start">
-                            <Button_Aqua><BiSolidCustomize/></Button_Aqua>
+                            <Button_Black_Navbar><BiSolidCustomize/></Button_Black_Navbar>
                         </Tooltip>
                     </>
                 ):(
                     <></>
                 )}
-                {setActiveOption === 'Medico' ? (
+                {activeOption === 'Medico' ? (
                     <>
                         <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Aqua><MdFreeBreakfast/></Button_Aqua>
+                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Platillos Fuertes' placement="right-start">
-                            <Button_Aqua><GiHotMeal/></Button_Aqua>
+                            <Button_Black_Navbar><GiHotMeal/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Entrada' placement="right-start">
-                            <Button_Aqua><FaHourglassStart/></Button_Aqua>
+                            <Button_Black_Navbar><FaHourglassStart/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Platillos Comida' placement="right-start">
-                            <Button_Aqua><GiMeal/></Button_Aqua>
+                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Aqua><RiDrinks2Fill/></Button_Aqua>
+                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Jugos Naturales' placement="right-start">
-                            <Button_Aqua><SiJuce/></Button_Aqua>
+                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Bebidas Calientes' placement="right-start">
-                            <Button_Aqua><GiCoffeeCup/></Button_Aqua>
+                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Refrescos' placement="right-start">
-                            <Button_Aqua><SiCocacola/></Button_Aqua>
+                            <Button_Black_Navbar><SiCocacola/></Button_Black_Navbar>
                         </Tooltip>
                     </>
                 ):(
                     <></>
                 )}
-            </Background>
-        </Container>
+            </Background_Navbar>
+        </Container_Navbar>
     );
 }

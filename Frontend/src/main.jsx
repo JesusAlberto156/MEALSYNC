@@ -1,15 +1,19 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import './components/styled/Backgrounds.css'
 import "react-toastify/dist/ReactToastify.css";
+import { Bounce, ToastContainer } from "react-toastify";
 
 import Login from './pages/Login'
 import Menu from './pages/Menu';
-import Administration from './pages/Administration';
-import Warehouse from './pages/Warehouse';
+import Administrator from './pages/Administrator';
+import Error from './pages/Error';
 
 import { createHashRouter, RouterProvider } from 'react-router-dom'
+
+import { PrivateRouteAdministration } from './routers/PrivateRouteAdministration';
+import { PrivateRouteKitchen } from './routers/PrivateRouteKitchen';
+import { AppProviders } from './contexts/AppProviders';
 
 const router = createHashRouter([
   {
@@ -21,21 +25,46 @@ const router = createHashRouter([
     element:<Login/>
   },
   {
-    path:'/Menu',
-    element:<Menu/>
+    path:'/',
+    element: <PrivateRouteAdministration/>,
+    children: [
+      {
+        path:'Administrator',
+        element:<Administrator/>
+      },
+    ]
   },
   {
-    path:'/Administration',
-    element:<Administration/>
+    path:'/',
+    element: <PrivateRouteKitchen/>,
+    children: [
+      {
+        path:'Menu',
+        element:<Menu/>
+      },
+    ]
   },
   {
-    path:'/Warehouse',
-    element:<Warehouse/>
+    path:'*',
+    errorElement:<Error/>
   }
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <AppProviders>
     <RouterProvider router={router}/>
-  </StrictMode>,
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      closeOnClick
+      pauseOnHover
+      draggable
+      pauseOnFocusLoss
+      newestOnTop={false}
+      hideProgressBar={false}
+      rtl={false}
+      transition={Bounce}
+      limit={5}
+    />
+  </AppProviders> 
 )

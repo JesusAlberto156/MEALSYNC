@@ -105,3 +105,41 @@ export const Container_Button_Footer = styled.div`
     }
 `;
 //--------FOOTER--------
+//--------ERROR--------
+export const Container_Title_Error = styled.div`
+    width: 20%;
+    display: flex;
+    gap: 20px; 
+    justify-content: center; 
+    align-items: center;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+        width: 50%;
+    }
+
+    @media (max-width: 480px) {
+        gap: 5px;
+        width: 60%;
+    }
+`;
+//--------ERROR--------
+//--------LOADING--------
+export const Container_Title_Loading = styled.div`
+    width: 20%;
+    display: flex;
+    gap: 20px; 
+    justify-content: center; 
+    align-items: center;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+        width: 50%;
+    }
+
+    @media (max-width: 480px) {
+        gap: 5px;
+        width: 60%;
+    }
+`;
+//--------LOADING--------

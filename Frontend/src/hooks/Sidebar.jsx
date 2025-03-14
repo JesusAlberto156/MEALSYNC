@@ -24,23 +24,53 @@ export const useSidebarActions = () => {
         setActiveOption(Option);
     };
 
-    const Colaboradores = (View, Option) => {
+    const Collaborators = (View, Option) => {
         document.title = "MEALSYNC_Menú_Colaboradores";
         setViewSidebar(View);
         setActiveOption(Option);
     };
 
-    const Nutriologo = (View, Option) => {
+    const Nutritionist = (View, Option) => {
         document.title = "MEALSYNC_Menú_Nutriologo";
         setViewSidebar(View);
         setActiveOption(Option);
     };
 
-    const Medico = (View, Option) => {
+    const Doctor = (View, Option) => {
         document.title = "MEALSYNC_Menú_Medico";
         setViewSidebar(View);
         setActiveOption(Option);
     };
 
-    return { HomeMenu, General, Colaboradores, Nutriologo, Medico };
+    const HomeAdministration = (View) => {
+        document.title = "MEALSYNC_Administración_Inicio";
+        setViewSidebar(View);
+        setActiveOption(View);
+    };
+
+    const Users = (View, Option) => {
+        document.title = "MEALSYNC_Administración_Usuarios";
+        setViewSidebar(View);
+        setActiveOption(Option);
+    };
+
+    const Suppliers = (View, Option) => {
+        document.title = "MEALSYNC_Administración_Proveedores";
+        setViewSidebar(View);
+        setActiveOption(Option);
+    };
+
+    const Menus = (View, Option) => {
+        document.title = "MEALSYNC_Administración_Menús";
+        setViewSidebar(View);
+        setActiveOption(Option);
+    };
+
+    const Inventory = (View, Option) => {
+        document.title = "MEALSYNC_Administración_Inventarios";
+        setViewSidebar(View);
+        setActiveOption(Option);
+    };
+
+    return { HomeMenu, General, Collaborators, Nutritionist, Doctor, HomeAdministration, Users, Suppliers, Menus, Inventory };
 };

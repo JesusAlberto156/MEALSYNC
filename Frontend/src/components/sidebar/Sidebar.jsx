@@ -31,7 +31,7 @@ export default function Sidebar() {
 
   const toggleSidebar = useToggleSidebar();
   const modalOutLogin = useModalOutLogin();
-  const { HomeMenu, General, Colaboradores, Nutriologo, Medico} = useSidebarActions();
+  const { HomeMenu, General, Collaborators, Nutritionist, Doctor, HomeAdministration, Users, Suppliers, Menus, Inventory} = useSidebarActions();
 
   const [typeUser] = useContext(typeUserContext);
   const [sidebarVisible] = useContext(sidebarVisibleContext);
@@ -85,13 +85,13 @@ export default function Sidebar() {
                 </li>
               </Tooltip>
               <Tooltip title='Colaboradores' placement="right">
-                <li onClick={() => Colaboradores('Menu','Colaboradores')}><a>Colaboradores
+                <li onClick={() => Collaborators('Menu','Colaboradores')}><a>Colaboradores
                     <span><IoIosPeople/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Nutriólogo' placement="right">
-                <li onClick={() => Nutriologo('Menu','Nutriologo')}><a>Nutriólogo
+                <li onClick={() => Nutritionist('Menu','Nutriologo')}><a>Nutriólogo
                     <span><IoNutrition/></span>
                   </a>
                 </li>
@@ -154,7 +154,7 @@ export default function Sidebar() {
           ):(
             <></>
           )}
-          {typeUser == 'Medico' ? (
+          {typeUser === 'Medico' ? (
             <>
               <Tooltip title='Inicio' placement="right">
                 <li onClick={() => HomeMenu('Inicio')}><a>Inicio
@@ -163,8 +163,68 @@ export default function Sidebar() {
                 </li>
               </Tooltip>
               <Tooltip title='Menú' placement="right">
-                <li onClick={() => Medico('Menu','Medico')}><a>Menú
+                <li onClick={() => Doctor('Menu','Medico')}><a>Menú
                     <span><MdOutlineRestaurantMenu/></span>
+                  </a>
+                </li>
+              </Tooltip>
+            </>
+          ):(
+            <></>
+          )}
+          {typeUser === 'Administrador' ? (
+            <>
+              <Tooltip title='Inicio' placement="right">
+                <li onClick={() => HomeAdministration('Inicio')}><a>Inicio
+                    <span><BiSolidHomeAlt2/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Usuarios' placement="right">
+                <li onClick={() => Users('Usuarios','Administrador')}><a>Usuarios
+                    <span><BiSolidHomeAlt2/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Proveedores' placement="right">
+                <li onClick={() => Suppliers('Proveedores','Administrador')}><a>Proveedores
+                    <span><BiSolidHomeAlt2/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Menús' placement="right">
+                <li onClick={() => Menus('Menus','Administrador')}><a>Menús
+                    <span><BiSolidHomeAlt2/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Inventario' placement="right">
+                <li onClick={() => Inventory('Inventario','Administrador')}><a>Inventario
+                    <span><BiSolidHomeAlt2/></span>
+                  </a>
+                </li>
+              </Tooltip>
+            </>
+          ):(
+            <></>
+          )}
+          {typeUser === 'Chef' ? (
+            <>
+              <Tooltip title='Inicio' placement="right">
+                <li onClick={() => HomeAdministration('Inicio')}><a>Inicio
+                    <span><BiSolidHomeAlt2/></span>
+                  </a>
+                </li>
+              </Tooltip>
+            </>
+          ):(
+            <></>
+          )}
+          {typeUser === 'Almacen' ? (
+            <>
+              <Tooltip title='Inicio' placement="right">
+                <li onClick={() => HomeAdministration('Inicio')}><a>Inicio
+                    <span><BiSolidHomeAlt2/></span>
                   </a>
                 </li>
               </Tooltip>

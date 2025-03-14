@@ -43,6 +43,17 @@ body, html {
     align-items: center;
 }
 
+.background-administrator {
+    background-image: url('../imgs/Background-Menu.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
 .logo-form-1 {
     position: relative;
     left: 50%;

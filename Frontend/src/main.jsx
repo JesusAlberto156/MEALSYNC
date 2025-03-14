@@ -1,8 +1,6 @@
 import { createRoot } from 'react-dom/client'
 
 import './components/styled/Backgrounds.css'
-import "react-toastify/dist/ReactToastify.css";
-import { Bounce, ToastContainer } from "react-toastify";
 
 import Login from './pages/Login'
 import Menu from './pages/Menu';
@@ -46,25 +44,12 @@ const router = createHashRouter([
   },
   {
     path:'*',
-    errorElement:<Error/>
+    element:<Error/>
   }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <AppProviders>
     <RouterProvider router={router}/>
-    <ToastContainer
-      position="top-right"
-      autoClose={5000}
-      closeOnClick
-      pauseOnHover
-      draggable
-      pauseOnFocusLoss
-      newestOnTop={false}
-      hideProgressBar={false}
-      rtl={false}
-      transition={Bounce}
-      limit={5}
-    />
   </AppProviders> 
 )

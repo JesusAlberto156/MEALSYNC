@@ -1,11 +1,16 @@
 import Logo from "../components/imgs/Logo-Vertical-Digital.png"
-
 import { useEffect,useState,useContext } from "react";
-import { loadingContext } from "../contexts/LoadingProvider";
+import { useNavigate } from "react-router-dom";
 import { optionsContext } from '../contexts/OptionsProvider'
 import { nameLoginContext } from '../contexts/NameLoginProvider'
 import { passwordLoginContext } from '../contexts/PasswordLoginProvider'
+import { toastContext } from '../contexts/ToastProvider';
+import { loggedContext } from "../contexts/LoggedProvider";
+import { permissionContext } from "../contexts/PermissionProvider";
+import { typeUserContext } from "../contexts/TypeUserProvider";
+import { userContext } from "../contexts/UserProvider";
 
+import { Toaster } from 'sonner';
 import { useLoginOptions } from "../hooks/Options";
 import { useLogin } from "../hooks/UserSession";
 
@@ -21,7 +26,6 @@ import { IoNutrition } from "react-icons/io5";
 import { FaUserMd } from "react-icons/fa";
 
 import { IoArrowBackCircle } from "react-icons/io5";
-import { ImSpinner9 } from "react-icons/im";
 import { Tooltip } from "@mui/material";
 import { MdLogin } from "react-icons/md";
 
@@ -30,16 +34,17 @@ import { Form_Login } from '../components/styled/Forms'
 import { Input_Group_Login,Input_Login } from "../components/styled/Inputs";
 import { Button_Blue_Login,Button_Green_Login,Button_Block_Login } from "../components/styled/Buttons";
 import { Label_Login,Label_Popup_Login } from "../components/styled/Labels";
-import { Spinner_Blue } from '../components/styled/Spinners';
 import { Whitespace_Login } from "../components/styled/Whitespaces";
-import { Alert_Blue} from '../components/styled/Notifications'
+import { Alert_Greeting,Toast_Styles } from '../components/styled/Notifications'
 
 import Footer from '../components/footer/Footer';
+import { Loading } from "./Loading";
+
+import { decryptData } from "../services/Crypto";
 
 export default function Login(){
     const [name,setName] = useContext(nameLoginContext);
     const [password,setPassword] = useContext(passwordLoginContext);
-    const [isLoading,setIsLoading] = useContext(loadingContext);
     const {
             loadingOption, isLoadingOption,
             loadingAdministration, isLoadingAdministration,
@@ -56,15 +61,76 @@ export default function Login(){
     const [isFocusedPassword, setIsFocusedPassword] = useState(false);
     const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
 
+    const [toast] = useContext(toastContext);
+
+    const [user,setUser] = useContext(userContext);
+    const [permission,setPermission] = useContext(permissionContext);
+    const [isLogged,setIsLogged] = useContext(loggedContext);
+    const [typeUser,setTypeUser] = useContext(typeUserContext);
+    
+    const navigate = useNavigate();
+
+    const [loading,setLoading] = useState(false);
+
+    useEffect(() => {
+        const user = sessionStorage.getItem('User');
+        const permissions = sessionStorage.getItem('Permission');
+        const type = sessionStorage.getItem('Type');
+        
+        if(user && permissions && type){
+            try{
+                const decryptedUser = decryptData(user);
+                const decryptedPermission = decryptData(permissions);
+                const decryptedType = decryptData(type);
+
+                if(decryptedUser && decryptedPermission && decryptedType){
+                    setUser(JSON.parse(decryptedUser));
+                    setPermission(JSON.parse(decryptedPermission));
+                    setTypeUser(decryptedType);
+                    console.log('Credenciales cargadas correctamente.');
+                }else{
+                    console.log('Error al desencriptar datos almacenados.');
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+            }
+        }
+        setTimeout(() => {
+            setLoading(true);
+        },500);
+    },[]);
+
+    useEffect(() => {
+        if(isLogged){
+            if (permission.administrador && typeUser === "Administrador") navigate("/Administrator");
+            if (permission.chef && typeUser === "Chef") navigate("/Administrator");
+            if (permission.almacen && typeUser === "Almacen") navigate("/Administrator");
+            if (permission.cocinero && typeUser === "Cocinero") navigate("/Menu");
+            if (permission.nutriologo && typeUser === "Nutriologo") navigate("/Menu");
+            if (permission.medico && typeUser === "Medico") navigate("/Menu");
+        }
+    },[isLogged,permission,typeUser,navigate])
+
+    useEffect(() => {
+        document.title='MEALSYNC_Cargando'
+        setTimeout(() => {
+            document.title = "MEALSYNC_Iniciar_Sesión"
+        },1000)
+        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
+        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
+    }, []);
+
     useEffect(() => {
         document.title = "MEALSYNC_Iniciar_Sesión"
-    
-        Alert_Blue("¡Bienvenido(a) a MEALSYNC!");
-        Alert_Blue("¡Inicia sesión para acceder a la pagina principal!");
-    }, []);
+        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
+        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
+    },[loading]);
+
 
     const { useOptionTypeUsers, useOptionUsers, useBackLogin} = useLoginOptions();
     const Login = useLogin();
+
+    if(!loading) return <Loading/>
 
     return(
         <div className="app-container">
@@ -72,11 +138,6 @@ export default function Login(){
                 <Form_Login>
                     <img src={Logo} alt="Logo de Hospital Puerta de Hierro" className="logo-form-1"/>
                     <Title_Fade_Login>Bienvenido(a)</Title_Fade_Login>
-                    {isLoading ? (
-                        <Spinner_Blue><ImSpinner9/></Spinner_Blue>
-                    ):(
-                        <></>
-                    )}
                     {loadingOption ? (
                         <>
                             <Tooltip title='Administración' placement="top">
@@ -211,6 +272,25 @@ export default function Login(){
                 </Form_Login>        
             </div>
             <Footer/>
+            {toast ? (
+                <Toast_Styles>
+                    <Toaster
+                    visibleToasts={3}
+                    richColors
+                    theme='light'
+                    position='top-right'
+                    />
+                </Toast_Styles>
+            ):(
+                <Toast_Styles>
+                    <Toaster
+                    visibleToasts={3}
+                    richColors
+                    theme='dark'
+                    position='top-right'
+                    />
+                </Toast_Styles>
+            )}
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fadeAnimation } from './Animations';
+import { fadeAnimation,Rotate } from './Animations';
 
 //--------LOGIN--------
 export const Title_Fade_Login = styled.div`
@@ -87,3 +87,53 @@ export const Text_Footer = styled.p`
     }
 `;
 //--------FOOTER--------
+//--------ERROR--------
+export const Title_Fade_Error = styled.div`
+    color: white;
+    font-size: 4rem;
+    font-family:Arial, Helvetica, sans-serif;
+    margin-bottom: 25px;
+    font-weight: bold;
+    animation: ${fadeAnimation} 2s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 3.5rem;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 3rem;
+    }
+`;
+export const Text_Error = styled.div`
+    color: white;
+    font-size: 2rem;
+    font-family:Arial, Helvetica, sans-serif;  
+    font-weight: bold;
+    
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1rem;
+    }
+`;
+//--------ERROR--------
+//--------LOADING--------
+export const Title_Fade_Loading = styled.div`
+    color: white;
+    font-size: 4rem;
+    font-family:Arial, Helvetica, sans-serif;
+    margin-bottom: 25px;
+    font-weight: bold;
+    animation: ${fadeAnimation} 2s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 3.5rem;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 3rem;
+    }
+`;
+//--------LOADING--------

@@ -315,6 +315,51 @@ export const Button_Icon_Exit_Modal = styled.button`
     } 
 `;
 //--------MODAL--------
+//--------ERROR--------
+export const Button_White_Error = styled.button`
+    width: 10%;
+    padding: 8px;
+    background-color: transparent;
+    color: white;
+    margin-top: 20px;
+    border-radius: 15px;
+    font-size: 30px;
+    text-align: center;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:white;
+        color: Black;
+        transform: translateY(-2px);
+        transform: scale(1.3);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 25px;
+        width: 15%;
+        padding: 10px;
+
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.2);
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        width: 20%;
+        padding: 12px;
+
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.1);
+        }
+    }
+`;
+//--------ERROR--------
 
 export const Link = styled.button`
     width: 25%;

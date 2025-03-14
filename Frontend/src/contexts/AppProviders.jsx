@@ -5,7 +5,6 @@ import { ViewSidebarProvider } from './SwitchViewSidebarProvider';
 import { SidebarVisibleProvider } from './SidebarVisibleProvider';
 import { ActiveOptionProvider } from './ActiveOptionProvider';
 import { ModalOutLoginProvider,ModalAlertMedicoProvider,ModalShoppingCartProvider } from './ModalsProvider';
-import { LoadingProvider } from './LoadingProvider';
 import { NameLoginProvider } from './NameLoginProvider'
 import { PasswordLoginProvider } from './PasswordLoginProvider';
 import { OptionsProvider } from './OptionsProvider';
@@ -14,6 +13,7 @@ import { UsersProvider } from './UsersProvider';
 import { UserProvider } from './UserProvider';
 import { PermissionProvider } from './PermissionProvider';
 import { SocketProvider } from './SocketProvider';
+import { ToastProvider } from './ToastProvider';
 
 export const AppProviders = ({children}) => {
     return(
@@ -26,25 +26,25 @@ export const AppProviders = ({children}) => {
                                 <ModalOutLoginProvider>
                                     <ModalAlertMedicoProvider>
                                         <ModalShoppingCartProvider>
-                                            <LoadingProvider>
-                                                <NameLoginProvider>
-                                                    <PasswordLoginProvider>
-                                                        <OptionsProvider>
-                                                            <UsersProvider>
-                                                                <PermissionsProvider>
-                                                                    <UserProvider>
-                                                                        <PermissionProvider>
-                                                                            <SocketProvider>
-                                                                                {children}
-                                                                            </SocketProvider>
-                                                                        </PermissionProvider>
-                                                                    </UserProvider>
-                                                                </PermissionsProvider>
-                                                            </UsersProvider>
-                                                        </OptionsProvider>
-                                                    </PasswordLoginProvider>
-                                                </NameLoginProvider>
-                                            </LoadingProvider>
+                                            <NameLoginProvider>
+                                                <PasswordLoginProvider>
+                                                    <OptionsProvider>
+                                                        <UsersProvider>
+                                                            <PermissionsProvider>
+                                                                <UserProvider>
+                                                                    <PermissionProvider>
+                                                                        <SocketProvider>
+                                                                            <ToastProvider>
+                                                                                    {children}
+                                                                            </ToastProvider>
+                                                                        </SocketProvider>
+                                                                    </PermissionProvider>
+                                                                </UserProvider>
+                                                            </PermissionsProvider>
+                                                        </UsersProvider>
+                                                    </OptionsProvider>
+                                                </PasswordLoginProvider>
+                                            </NameLoginProvider>
                                         </ModalShoppingCartProvider>
                                     </ModalAlertMedicoProvider>
                                 </ModalOutLoginProvider>

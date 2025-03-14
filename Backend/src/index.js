@@ -2,6 +2,8 @@ import config from './config/config';
 import { conexionDB } from './config/database.config';
 import routerAPI from './mealsync/routes/index.js';
 
+import {  } from './config/crypto.js';
+
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';

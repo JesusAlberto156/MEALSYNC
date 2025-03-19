@@ -17,16 +17,23 @@ import { GiKnifeFork } from "react-icons/gi";
 import { SiCocacola } from "react-icons/si";
 import { GiHotMeal } from "react-icons/gi";
 import { FaHourglassStart } from "react-icons/fa";
+import { FaUserTag } from "react-icons/fa6";
+import { FaUserLock } from "react-icons/fa6";
+import { FaUserClock } from "react-icons/fa6";
 
 import { Background_Navbar} from '../styled/Backgrounds';
 import { Container_Navbar } from "../styled/Containers";
 import { Logo_Navbar} from '../styled/Imgs';
 import { Button_Black_Navbar} from '../styled/Buttons';
 
+import { useNavbarActions } from '../../hooks/Navbar'
+
 export default function Navbar(){
     
+    const { Switch } = useNavbarActions();
+    
     const [activeOption] = useContext(activeOptionContext);
-
+ 
     return(
         <Container_Navbar>   
             <Logo_Navbar/> 
@@ -155,6 +162,21 @@ export default function Navbar(){
                         </Tooltip>
                         <Tooltip title='Refrescos' placement="right-start">
                             <Button_Black_Navbar><SiCocacola/></Button_Black_Navbar>
+                        </Tooltip>
+                    </>
+                ):(
+                    <></>
+                )}
+                {activeOption === 'Usuarios' ? (
+                    <>
+                        <Tooltip title='General' placement="right-start">
+                            <Button_Black_Navbar onClick={() => Switch('General')}><FaUserTag/></Button_Black_Navbar>
+                        </Tooltip>
+                        <Tooltip title='Permisos' placement="right-start">
+                            <Button_Black_Navbar onClick={() => Switch('Permisos')}><FaUserLock/></Button_Black_Navbar>
+                        </Tooltip>
+                        <Tooltip title='Estatus' placement="right-start">
+                            <Button_Black_Navbar onClick={() => Switch('Estatus')}><FaUserClock/></Button_Black_Navbar>
                         </Tooltip>
                     </>
                 ):(

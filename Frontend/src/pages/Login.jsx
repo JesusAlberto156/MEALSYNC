@@ -9,6 +9,7 @@ import { loggedContext } from "../contexts/LoggedProvider";
 import { permissionContext } from "../contexts/PermissionProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { userContext } from "../contexts/UserProvider";
+import { statusUserContext } from "../contexts/StatusUserProvider";
 
 import { Toaster } from 'sonner';
 import { useLoginOptions } from "../hooks/Options";
@@ -67,7 +68,8 @@ export default function Login(){
     const [permission,setPermission] = useContext(permissionContext);
     const [isLogged,setIsLogged] = useContext(loggedContext);
     const [typeUser,setTypeUser] = useContext(typeUserContext);
-    
+    const [statusUser,setStatusUser] = useContext(statusUserContext);
+
     const navigate = useNavigate();
 
     const [loading,setLoading] = useState(false);
@@ -76,16 +78,19 @@ export default function Login(){
         const user = sessionStorage.getItem('User');
         const permissions = sessionStorage.getItem('Permission');
         const type = sessionStorage.getItem('Type');
-        
-        if(user && permissions && type){
+        const status = sessionStorage.getItem('StatusUser');
+
+        if(user && permissions && type && status){
             try{
                 const decryptedUser = decryptData(user);
                 const decryptedPermission = decryptData(permissions);
                 const decryptedType = decryptData(type);
+                const decryptedStatus = decryptData(status);
 
-                if(decryptedUser && decryptedPermission && decryptedType){
+                if(decryptedUser && decryptedPermission && decryptedType && decryptedStatus){
                     setUser(JSON.parse(decryptedUser));
                     setPermission(JSON.parse(decryptedPermission));
+                    setStatusUser(JSON.parse(decryptedStatus));
                     setTypeUser(decryptedType);
                     console.log('Credenciales cargadas correctamente.');
                 }else{

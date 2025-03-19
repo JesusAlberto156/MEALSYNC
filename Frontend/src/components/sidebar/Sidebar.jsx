@@ -17,6 +17,11 @@ import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { GiMeal } from "react-icons/gi";
 import { RiDrinks2Fill } from "react-icons/ri";
 import { FaSignOutAlt } from "react-icons/fa";
+import { MdWorkHistory } from "react-icons/md";
+import { MdStorage } from "react-icons/md";
+import { BiSolidFoodMenu } from "react-icons/bi";
+import { FaUserTie } from "react-icons/fa";
+import { FaUserGroup } from "react-icons/fa6";
 
 import { Title_Sidebar } from "../styled/Text";
 import { Tooltip } from "@mui/material";
@@ -31,7 +36,7 @@ export default function Sidebar() {
 
   const toggleSidebar = useToggleSidebar();
   const modalOutLogin = useModalOutLogin();
-  const { HomeMenu, General, Collaborators, Nutritionist, Doctor, HomeAdministration, Users, Suppliers, Menus, Inventory} = useSidebarActions();
+  const { Home, OptionsMenu, OptionsAdmnistration} = useSidebarActions();
 
   const [typeUser] = useContext(typeUserContext);
   const [sidebarVisible] = useContext(sidebarVisibleContext);
@@ -70,28 +75,28 @@ export default function Sidebar() {
         </div>
         <Title_Sidebar>{user.nombre}</Title_Sidebar>
         <ul>
+          <Tooltip title='Inicio' placement="right">
+            <li onClick={() => Home('Inicio')}><a>Inicio
+                <span><BiSolidHomeAlt2/></span>
+              </a>
+            </li>
+          </Tooltip>
           {typeUser === 'Cocinero' ? (
             <>
-              <Tooltip title='Inicio' placement="right">
-                <li onClick={() => HomeMenu('Inicio')}><a>Inicio
-                    <span><BiSolidHomeAlt2/></span>
-                  </a>
-                </li>
-              </Tooltip>
               <Tooltip title='General' placement="right">
-                <li onClick={() => General('Menu','General')}><a>General
+                <li onClick={() => OptionsMenu('Menu','General')}><a>General
                     <span><MdFamilyRestroom/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Colaboradores' placement="right">
-                <li onClick={() => Collaborators('Menu','Colaboradores')}><a>Colaboradores
+                <li onClick={() => OptionsMenu('Menu','Colaboradores')}><a>Colaboradores
                     <span><IoIosPeople/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Nutriólogo' placement="right">
-                <li onClick={() => Nutritionist('Menu','Nutriologo')}><a>Nutriólogo
+                <li onClick={() => OptionsMenu('Menu','Nutriologo')}><a>Nutriólogo
                     <span><IoNutrition/></span>
                   </a>
                 </li>
@@ -102,12 +107,6 @@ export default function Sidebar() {
           )}
           {typeUser === 'Nutriologo' ? (
             <>
-              <Tooltip title='Inicio' placement="right">
-                <li><a>Inicio
-                    <span className="icon-span"><BiSolidHomeAlt2/></span>
-                  </a>
-                </li>
-              </Tooltip>
               <Tooltip title='Bebidas' placement="right">
                 <li><a>Bebidas
                     <span><RiDrinks2Fill/></span>
@@ -156,14 +155,8 @@ export default function Sidebar() {
           )}
           {typeUser === 'Medico' ? (
             <>
-              <Tooltip title='Inicio' placement="right">
-                <li onClick={() => HomeMenu('Inicio')}><a>Inicio
-                    <span><BiSolidHomeAlt2/></span>
-                  </a>
-                </li>
-              </Tooltip>
               <Tooltip title='Menú' placement="right">
-                <li onClick={() => Doctor('Menu','Medico')}><a>Menú
+                <li onClick={() => OptionsMenu('Menu','Medico')}><a>Menú
                     <span><MdOutlineRestaurantMenu/></span>
                   </a>
                 </li>
@@ -174,33 +167,33 @@ export default function Sidebar() {
           )}
           {typeUser === 'Administrador' ? (
             <>
-              <Tooltip title='Inicio' placement="right">
-                <li onClick={() => HomeAdministration('Inicio')}><a>Inicio
-                    <span><BiSolidHomeAlt2/></span>
-                  </a>
-                </li>
-              </Tooltip>
               <Tooltip title='Usuarios' placement="right">
-                <li onClick={() => Users('Usuarios','Administrador')}><a>Usuarios
-                    <span><BiSolidHomeAlt2/></span>
+                <li onClick={() => OptionsAdmnistration('Usuarios','General')}><a>Usuarios
+                    <span><FaUserGroup/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Proveedores' placement="right">
-                <li onClick={() => Suppliers('Proveedores','Administrador')}><a>Proveedores
-                    <span><BiSolidHomeAlt2/></span>
+                <li onClick={() => OptionsAdmnistration('Proveedores','')}><a>Proveedores
+                    <span><FaUserTie/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Menús' placement="right">
-                <li onClick={() => Menus('Menus','Administrador')}><a>Menús
-                    <span><BiSolidHomeAlt2/></span>
+                <li onClick={() => OptionsAdmnistration('Menus','')}><a>Menús
+                    <span><BiSolidFoodMenu/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <li onClick={() => Inventory('Inventario','Administrador')}><a>Inventario
-                    <span><BiSolidHomeAlt2/></span>
+                <li onClick={() => OptionsAdmnistration('Inventario','')}><a>Inventario
+                    <span><MdStorage/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Historial' placement="right">
+                <li onClick={() => OptionsAdmnistration('Historial','')}><a>Historial
+                    <span><MdWorkHistory/></span>
                   </a>
                 </li>
               </Tooltip>
@@ -210,9 +203,27 @@ export default function Sidebar() {
           )}
           {typeUser === 'Chef' ? (
             <>
-              <Tooltip title='Inicio' placement="right">
-                <li onClick={() => HomeAdministration('Inicio')}><a>Inicio
-                    <span><BiSolidHomeAlt2/></span>
+              <Tooltip title='Proveedores' placement="right">
+                <li onClick={() => OptionsAdmnistration('Proveedores','')}><a>Proveedores
+                    <span><FaUserTie/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Menús' placement="right">
+                <li onClick={() => OptionsAdmnistration('Menus','')}><a>Menús
+                    <span><BiSolidFoodMenu/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Inventario' placement="right">
+                <li onClick={() => OptionsAdmnistration('Inventario','')}><a>Inventario
+                    <span><MdStorage/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Historial' placement="right">
+                <li onClick={() => OptionsAdmnistration('Historial','')}><a>Historial
+                    <span><MdWorkHistory/></span>
                   </a>
                 </li>
               </Tooltip>
@@ -222,9 +233,21 @@ export default function Sidebar() {
           )}
           {typeUser === 'Almacen' ? (
             <>
-              <Tooltip title='Inicio' placement="right">
-                <li onClick={() => HomeAdministration('Inicio')}><a>Inicio
-                    <span><BiSolidHomeAlt2/></span>
+              <Tooltip title='Proveedores' placement="right">
+                <li onClick={() => OptionsAdmnistration('Proveedores','')}><a>Proveedores
+                    <span><FaUserTie/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Inventario' placement="right">
+                <li onClick={() => OptionsAdmnistration('Inventario','')}><a>Inventario
+                    <span><MdStorage/></span>
+                  </a>
+                </li>
+              </Tooltip>
+              <Tooltip title='Historial' placement="right">
+                <li onClick={() => OptionsAdmnistration('Historial','')}><a>Historial
+                    <span><MdWorkHistory/></span>
                   </a>
                 </li>
               </Tooltip>

@@ -14,6 +14,11 @@ import { usersContext } from '../contexts/UsersProvider';
 import { userContext } from "../contexts/UserProvider";
 import { permissionContext } from "../contexts/PermissionProvider";
 import { toastContext } from '../contexts/ToastProvider';
+import { searchTermContext } from "../contexts/SearchTermProvider";
+import { statusUserContext } from "../contexts/StatusUserProvider";
+import { statusUsersContext } from "../contexts/StatusUsersProvider";
+import { enableContext } from '../contexts/EnableProvider';
+import { socketContext } from "../contexts/SocketProvider";
 
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +37,10 @@ export const useLogin = () => {
     const [permissions, setPermissions] = useContext(permissionsContext);
     const [user,setUser] = useContext(userContext);
     const [permission,setPermission] = useContext(permissionContext);
-
+    const [statusUser,setStatusUser] = useContext(statusUserContext);
+    const [statusUsers,setStatusUsers] = useContext(statusUsersContext);
+    const [isEnable,setIsEnable] = useContext(enableContext);
+    const [socket] = useContext(socketContext);
     const [toast,setToast] = useContext(toastContext);
 
     const navigate = useNavigate();
@@ -45,8 +53,14 @@ export const useLogin = () => {
                 await delay(1000);
                 const existsUser = users.find(user => user.usuario === name);
                 if(!existsUser) return reject('¡Usuario no encontrado!...')
-                
+
                 if(existsUser.contrasena === password){
+
+                    const status = statusUsers.find(user => user.idusuario === existsUser.idusuario);
+                    if(!status) return reject('¡Usuario sin estatus!...');
+
+                    if(!status.habilitado) return reject('¡Este usuario no se encuentra habilitado!...');
+
                     const existsPermissions = permissions.find(permissions => permissions.idusuario === existsUser.idusuario);
                     if(!existsPermissions) return reject('¡Este usuario no cuenta con roles asignados!...')
                     
@@ -72,19 +86,35 @@ export const useLogin = () => {
                     setTimeout(() => {
                         const jsonUser = JSON.stringify(existsUser);
                         const jsonPermission = JSON.stringify(existsPermissions);
+                        const jsonStatusUser = JSON.stringify(status);
 
                         const encryptedUser = encryptData(jsonUser);
                         const encryptedPermission = encryptData(jsonPermission);
+                        const encryptedStatusUser = encryptData(jsonStatusUser);
                         const encryptedLogged = encryptData('true');
+                        const encryptedEnable = encryptData(status.habilitado ? 'true' : 'false');
                         const encryptedType = encryptData(typeUser);
 
-                        if( encryptedUser && encryptedPermission && encryptedLogged && encryptedType){
+                        if( encryptedUser && encryptedPermission && encryptedStatusUser && encryptedLogged && encryptedType && encryptedEnable){
                             console.log('¡Credenciales encriptadas correctamente!...')
+                            
+                            socket.on('statusUpdated', (response) => {
+                                if (response.error) {
+                                  console.error('Error:', response.error);
+                                } else {
+                                  console.log('Estatus actualizado:', response);
+                                }
+                              });
+                            
+                            socket.emit('updateStatusActive',existsUser.idusuario,1);
+
                             resolve('¡SESIÓN INICIADA!...');
                             sessionStorage.setItem('User',encryptedUser);
                             sessionStorage.setItem('Permission',encryptedPermission);
                             sessionStorage.setItem('Logged',encryptedLogged);
                             sessionStorage.setItem('Type',encryptedType);
+                            sessionStorage.setItem('Enable',encryptedEnable);
+                            sessionStorage.setItem('StatusUser',encryptedStatusUser);
                             setTimeout(() => {
                                 setToast(false);
                             },1500);
@@ -92,8 +122,13 @@ export const useLogin = () => {
                                 setIsLogged(true);
                                 setUser(existsUser);
                                 setPermission(existsPermissions);
+                                setStatusUser(status);
+                                setIsEnable(status.habilitado);
                                 navigate(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
                             },2000);
+                            return () => {
+                                socket.off('updateStatusActive');
+                            }
                         }else{
                             setIsLogged(false);
                             return console.log('¡Error al encriptar las credenciales!...')
@@ -138,6 +173,9 @@ export const useOutLogin = () => {
     const [user,setUser] = useContext(userContext);
     const [permission,setPermission] = useContext(permissionContext);
     const [toast,setToast] = useContext(toastContext);
+    const [searchTerm,setSearchTerm] = useContext(searchTermContext);
+    const [statusUser,setStatusUser] = useContext(statusUserContext);
+    const [isEnable,setIsEnable] = useContext(enableContext);
 
     const navigate = useNavigate();
 
@@ -156,6 +194,7 @@ export const useOutLogin = () => {
                     setViewSidebar('');
                     setViewNavbar('');
                     setActiveOption('');
+                    setSearchTerm('');
                     setSidebarVisible(true);
                     setModalAlertMedico(true);
                     setModalOutLogin(false);
@@ -167,13 +206,17 @@ export const useOutLogin = () => {
                     isLoadingLoginAdministration(false);
                     isLoadingLoginKitchen(false);
                     setIsLogged(false);
+                    setIsEnable(false);
                     setUser([]);
                     setPermission([]);
+                    setStatusUser([]);
                     setToast(false);
                     sessionStorage.removeItem('User');
                     sessionStorage.removeItem('Permission');
                     sessionStorage.removeItem('Logged');
                     sessionStorage.removeItem('Type');
+                    sessionStorage.removeItem('StatusUser')
+                    sessionStorage.removeItem('Enable');
                     navigate("/",{replace: true});
                 },2000)
             }catch(error){

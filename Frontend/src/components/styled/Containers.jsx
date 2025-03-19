@@ -30,7 +30,7 @@ export const Container_Navbar = styled.div`
     opacity:0.9;
 
     @media (max-width: 768px) {
-        height: 12%;
+        height: 14%;
     }
 
     @media (max-width: 480px) {
@@ -61,6 +61,24 @@ export const Container_Search_Bar = styled.div`
     @media (max-width: 480px) {
         height: 10%;
         top: 4%; 
+    }
+`;
+export const Container_Button_Search_Bar = styled.div`
+    display: flex;
+    width: 50%;
+    gap: 20px; 
+    justify-content: flex-end; 
+    alignItems: center;
+
+
+    @media (max-width: 768px) {
+        width: 65%;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 80%;
+        gap: 10px;
     }
 `;
 //--------SEARCH-BAR--------
@@ -143,3 +161,63 @@ export const Container_Title_Loading = styled.div`
     }
 `;
 //--------LOADING--------
+//--------OPTION NAVBAR--------
+export const Container_Option_Navbar = styled.div`
+    display: flex;    
+    flex-direction: column;                
+    justify-content: flex-start;     
+    align-items: center;      
+    background: transparent;
+    width: 100%;
+    height: auto;   
+    border-radius: 10px;       
+    position: relative; 
+    top: 6%;   
+    left: 1%;        
+    z-index: 1000;
+    @media (max-width: 768px) {
+        top: 5%;   
+        left: 3%;    
+    }
+
+    @media (max-width: 480px) {
+        top: 4%;
+        left: 5%;  
+    }
+`
+//--------OPTION NAVBAR--------
+
+export const Pagination = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 3%;
+    width: 80%;
+
+    button {
+        width: 12%;
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: rgb(58,93,174);
+        color: white;
+        border: 2px solid white;
+        border-radius: 20px;
+        transition: background-color 0.3s, transform 0.3s;
+
+        &:hover {
+            background-color: rgb(12, 54, 109);
+            transform: translateY(-2px);
+            transform: scale(1.1);
+        }
+            
+        &:disabled {
+            background-color: #e0e0e0;
+            color: black;
+            cursor: not-allowed; 
+        }
+    }
+    span {
+        font-size: 14px;
+    }
+`;

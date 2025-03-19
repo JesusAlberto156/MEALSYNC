@@ -1,6 +1,7 @@
 import { createContext, useContext,useEffect } from "react"
 import { usersContext } from './UsersProvider'
 import { permissionsContext } from './PermissionsProvider'
+import { statusUsersContext } from './StatusUsersProvider';
 
 import { decryptData } from "../services/Crypto";
 
@@ -13,20 +14,25 @@ const socket = io('http://localhost:3500/');
 export const SocketProvider = ({ children }) => {
     const [users,setUsers] = useContext(usersContext);
     const [permissions,setPermissions] = useContext(permissionsContext);
+    const [statusUsers,setStatusUsers] = useContext(statusUsersContext);
 
     useEffect(() => {
 
         const StoredUsers = sessionStorage.getItem('Users');
         const StoredPermissions = sessionStorage.getItem('Permissions');
+        const StoredStatusUsers = sessionStorage.getItem('StatusUsers');
 
-        if(StoredUsers && StoredPermissions){
+        if(StoredUsers && StoredPermissions && StoredStatusUsers){
             try{
                 const decryptedUsers = decryptData(StoredUsers);
                 const decryptedPermissions = decryptData(StoredPermissions);
+                const decryptedStatusUsers = decryptData(StoredStatusUsers);
 
-                if(decryptedUsers && decryptedPermissions){
+                if(decryptedUsers && decryptedPermissions && decryptedStatusUsers){
                     setUsers(JSON.parse(decryptedUsers));
                     setPermissions(JSON.parse(decryptedPermissions));
+                    setStatusUsers(JSON.parse(decryptedStatusUsers));
+
                     console.log('Datos cargados correctamente.');
                     return;
                 }else{
@@ -61,13 +67,25 @@ export const SocketProvider = ({ children }) => {
                 console.log('Error al desencriptar permisos');
             }
         });
+        socket.on('status',(result) => {
+            const decryptedData = decryptData(result);
+            if(decryptedData){
+                const parsedData = JSON.parse(decryptedData);
+                setStatusUsers(parsedData);
+                sessionStorage.setItem('StatusUsers',result);
+            }else{
+                console.log('Error al desencriptar estatus');
+            }
+        });
 
         socket.emit('users');
         socket.emit('permissions');
+        socket.emit('status');
 
         return () => {
             socket.off('users');
             socket.off('permissions');
+            socket.off('status');
         }
     },[]);
 

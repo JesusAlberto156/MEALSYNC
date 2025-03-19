@@ -1,7 +1,8 @@
 import { Tooltip } from "@mui/material";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 
 import { modalOutLoginContext } from '../../contexts/ModalsProvider';
+import { typeUserContext } from "../../contexts/TypeUserProvider";
 
 import { useOutLogin } from "../../hooks/UserSession";
 
@@ -16,10 +17,16 @@ import { ImExit } from "react-icons/im";
 export default function OutLogin(){
 
     const [isModal,setIsModal] = useContext(modalOutLoginContext);
-
+    const [typeUser] = useContext(typeUserContext);
+        
     const Cancel = async () => {
         setIsModal(false);
     }
+
+    useEffect(() => {
+        if(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico')document.title = "MEALSYNC_Menú_Cerrar_Sesión"
+        if(typeUser === 'Administrador' || typeUser === 'Chef' || typeUser === 'Almacen')document.title = "MEALSYNC_Administración_Cerrar_Sesión"
+    },[])
 
     const outLogin = useOutLogin();
 

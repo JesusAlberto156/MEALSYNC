@@ -14,6 +14,11 @@ import { UserProvider } from './UserProvider';
 import { PermissionProvider } from './PermissionProvider';
 import { SocketProvider } from './SocketProvider';
 import { ToastProvider } from './ToastProvider';
+import { SelectedRowProvider } from './SelectedRowProvider';
+import { SearchTermProvider } from './SearchTermProvider';
+import { StatusUserProvider } from './StatusUserProvider';
+import { StatusUsersProvider } from './StatusUsersProvider';
+import { EnableProvider } from './EnableProvider';
 
 export const AppProviders = ({children}) => {
     return(
@@ -33,11 +38,21 @@ export const AppProviders = ({children}) => {
                                                             <PermissionsProvider>
                                                                 <UserProvider>
                                                                     <PermissionProvider>
-                                                                        <SocketProvider>
-                                                                            <ToastProvider>
-                                                                                    {children}
-                                                                            </ToastProvider>
-                                                                        </SocketProvider>
+                                                                        <ToastProvider>
+                                                                            <SelectedRowProvider>
+                                                                                <SearchTermProvider>
+                                                                                    <StatusUserProvider>
+                                                                                        <StatusUsersProvider>
+                                                                                            <EnableProvider>
+                                                                                                <SocketProvider>
+                                                                                                    {children}
+                                                                                                </SocketProvider>
+                                                                                            </EnableProvider>
+                                                                                        </StatusUsersProvider>
+                                                                                    </StatusUserProvider>
+                                                                                </SearchTermProvider>
+                                                                            </SelectedRowProvider>
+                                                                        </ToastProvider>
                                                                     </PermissionProvider>
                                                                 </UserProvider>
                                                             </PermissionsProvider>

@@ -2,8 +2,6 @@ import config from './config/config';
 import { conexionDB } from './config/database.config';
 import routerAPI from './mealsync/routes/index.js';
 
-import {  } from './config/crypto.js';
-
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -11,7 +9,7 @@ import cors from 'cors';
 import { Server } from 'socket.io'; 
 import http from 'http';
 
-import { getUsersAllService,getPermissionsAllService } from './mealsync/services/usuarios.service.js';
+import { getUsersAllService,getPermissionsAllService,getStatusAllService,updateStatusActiveService } from './mealsync/services/usuarios.service.js';
 
 const app = express();
 
@@ -23,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const server = http.createServer(app);
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
@@ -79,6 +77,26 @@ io.on('connection', (socket) => {
       socket.emit('permissions',result);
     }catch(error){
       console.error('Error al obtener los datos: ',error)
+      return error;
+    }
+  })
+  socket.on('status', async () => {
+    try{
+      const result = await getStatusAllService();
+      console.log('Estatus de Usuarios Obtenidos');
+      socket.emit('status',result);
+    }catch(error){
+      console.error('Error al obtener los datos: ',error)
+      return error;
+    }
+  })
+  socket.on('updateStatusActive', async (id,bolean) => {
+    try{
+      const updateResult = await updateStatusActiveService(id,bolean);
+      console.log('Usuario activo/inactivo');
+      socket.emit('updateStatusActive',updateResult);
+    }catch(error){
+      console.error('Error al actualizar: ',error)
       return error;
     }
   })

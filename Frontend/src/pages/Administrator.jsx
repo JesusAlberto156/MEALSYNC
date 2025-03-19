@@ -13,6 +13,7 @@ import Footer from '../components/footer/Footer'
 import Sidebar from "../components/sidebar/Sidebar";
 import OutLogin from "../components/modals/OutLogin";
 import Home from "../components/pages/general/Home";
+import Users from "../components/pages/administration/Users";
 
 export default function Administrator(){
     const [isModalOutLogin] = useContext(modalOutLoginContext);
@@ -36,6 +37,11 @@ export default function Administrator(){
                         <Background_Administration sidebarVisible={sidebarVisible}>
                             {viewSidebar === 'Inicio' ? (
                                 <Home/>
+                            ):(
+                                <></>
+                            )}
+                            {viewSidebar === 'Usuarios' ? (
+                                <Users/>
                             ):(
                                 <></>
                             )}

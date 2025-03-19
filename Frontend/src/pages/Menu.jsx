@@ -32,7 +32,11 @@ export default function Menu(){
     const [toast] = useContext(toastContext);
 
     useEffect(() => {
-            document.title = "MEALSYNC_Menú_Inicio"
+            if(typeUser === 'Medico'){
+                document.title = "MEALSYNC_Inicio_Comprobación"
+            }else{
+                document.title = "MEALSYNC_Menú_Inicio"
+            }
             Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...','Blue');
             Alert_Greeting('Bienvenido(a)',`¡${user.nombrecorto}!...`,'Blue');
     },[]);

@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { viewSidebarContext } from "../contexts/SwitchViewSidebarProvider";
 import { activeOptionContext } from "../contexts/ActiveOptionProvider";
 import { sidebarVisibleContext } from "../contexts/SidebarVisibleProvider";
+import { typeUserContext } from "../contexts/TypeUserProvider";
+import { viewNavbarContext } from "../contexts/SwitchViewNavbarProvider";
+import { searchTermContext } from "../contexts/SearchTermProvider";
 
 export const useToggleSidebar = () => {
     const [sidebarVisible,setSidebarVisible] = useContext(sidebarVisibleContext);
@@ -11,66 +14,43 @@ export const useSidebarActions = () => {
 
     const [viewSidebar,setViewSidebar] = useContext(viewSidebarContext);
     const [activeOption,setActiveOption] = useContext(activeOptionContext);
+    const [viewNavbar,setViewNavbar] = useContext(viewNavbarContext);
+    const [searchTerm,setSearchTerm] = useContext(searchTermContext)
+    
+    const [typeUser] =  useContext(typeUserContext);
 
-    const HomeMenu = (View) => {
-        document.title = "MEALSYNC_Menú_Inicio";
+    const Home = (View) => {
+        if(typeUser === 'Cocinero' || typeUser === 'Medico' || typeUser === 'Nutriologo'){
+            document.title = "MEALSYNC_Menú_Inicio";
+        }else{
+            document.title = "MEALSYNC_Administración_Inicio";
+        }
         setViewSidebar(View);
         setActiveOption(View);
+        setSearchTerm('');
     };
 
-    const General = (View, Option) => {
-        document.title = "MEALSYNC_Menú_General";
-        setViewSidebar(View);
-        setActiveOption(Option);
+    const OptionsMenu = (view,option) => {
+        if(option === 'General'){document.title = "MEALSYNC_Menú_General";}
+        if(option === 'Colaboradores'){document.title = "MEALSYNC_Menú_Colaboradores";}
+        if(option === 'Nutriologo'){document.title = "MEALSYNC_Menú_Nutriologo";}
+        if(option === 'Medico'){document.title = "MEALSYNC_Menú_Medico";}
+        setViewSidebar(view);
+        setActiveOption(option);
+        setSearchTerm('');
+    }
+
+    const OptionsAdmnistration = (view, navbar) => {
+        if(view === 'Usuarios'){document.title = "MEALSYNC_Administración_Usuarios";}
+        if(view === 'Proveedores'){document.title = "MEALSYNC_Administración_Proveedores";}
+        if(view === 'Menus'){document.title = "MEALSYNC_Administración_Menús";}
+        if(view === 'Inventario'){document.title = "MEALSYNC_Administración_Inventario";}
+        if(view === 'Historial'){document.title = "MEALSYNC_Administración_Historial";}
+        setViewSidebar(view);
+        setActiveOption(view);
+        setViewNavbar(navbar);
+        setSearchTerm('');
     };
 
-    const Collaborators = (View, Option) => {
-        document.title = "MEALSYNC_Menú_Colaboradores";
-        setViewSidebar(View);
-        setActiveOption(Option);
-    };
-
-    const Nutritionist = (View, Option) => {
-        document.title = "MEALSYNC_Menú_Nutriologo";
-        setViewSidebar(View);
-        setActiveOption(Option);
-    };
-
-    const Doctor = (View, Option) => {
-        document.title = "MEALSYNC_Menú_Medico";
-        setViewSidebar(View);
-        setActiveOption(Option);
-    };
-
-    const HomeAdministration = (View) => {
-        document.title = "MEALSYNC_Administración_Inicio";
-        setViewSidebar(View);
-        setActiveOption(View);
-    };
-
-    const Users = (View, Option) => {
-        document.title = "MEALSYNC_Administración_Usuarios";
-        setViewSidebar(View);
-        setActiveOption(Option);
-    };
-
-    const Suppliers = (View, Option) => {
-        document.title = "MEALSYNC_Administración_Proveedores";
-        setViewSidebar(View);
-        setActiveOption(Option);
-    };
-
-    const Menus = (View, Option) => {
-        document.title = "MEALSYNC_Administración_Menús";
-        setViewSidebar(View);
-        setActiveOption(Option);
-    };
-
-    const Inventory = (View, Option) => {
-        document.title = "MEALSYNC_Administración_Inventarios";
-        setViewSidebar(View);
-        setActiveOption(Option);
-    };
-
-    return { HomeMenu, General, Collaborators, Nutritionist, Doctor, HomeAdministration, Users, Suppliers, Menus, Inventory };
+    return { Home, OptionsMenu, OptionsAdmnistration };
 };

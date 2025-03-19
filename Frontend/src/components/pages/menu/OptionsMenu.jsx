@@ -4,7 +4,7 @@ import { Whitespace_Menu } from '../../styled/Whitespaces'
 import SearchBar from "../../searchbar/SearchBar";
 import Navbar from "../../navbar/Navbar";
 
-export default function OptionsMenu({ isModalShoppingCart }){
+export default function OptionsMenu(){
 
     return(
         <>

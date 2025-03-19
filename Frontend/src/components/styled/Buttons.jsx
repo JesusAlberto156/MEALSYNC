@@ -221,6 +221,7 @@ export const Button_Black_Navbar = styled.button`
     @media (max-width: 768px) {
         width: 80px;
         font-size: 20px;
+      
 
         &:hover {
             transform: translateY(-2px);
@@ -360,6 +361,119 @@ export const Button_White_Error = styled.button`
     }
 `;
 //--------ERROR--------
+//--------SEARCH BAR--------
+export const Button_Blue_Search_Bar = styled.button`
+    width: 10%;
+    padding: 4px;
+    background-color: rgb(58,93,174);
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(12, 54, 109);
+        transform: translateY(-2px);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        width:20%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        width:40%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+`;
+export const Button_Green_Search_Bar = styled.button`
+    width: 10%;
+    padding: 4px;
+    background-color: rgb(20, 165, 76);
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(13, 112, 51);
+        transform: translateY(-2px);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        width:20%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        width:40%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+`;
+export const Button_Red_Search_Bar = styled.button`
+    width: 10%;
+    padding: 4px;
+    background-color: rgb(155, 9, 9);
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(87, 7, 7);
+        transform: translateY(-2px);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        width:20%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        width:40%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+`;
+//--------SEARCH BAR--------
 
 export const Link = styled.button`
     width: 25%;

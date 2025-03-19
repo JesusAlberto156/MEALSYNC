@@ -1,5 +1,4 @@
-import { getUsersAllService,getPermissionsAllService } from '../services/usuarios.service.js';
-import { io } from '../../index.js';
+import { getUsersAllService,getPermissionsAllService,getStatusAllService } from '../services/usuarios.service.js';
 
 // GET USER ALL
 const getUsersAllController = async (req,res) => {
@@ -21,4 +20,14 @@ const getPermissionsAllController = async (req,res) => {
   }
 }
 // GET PERMISSIONS ALL
-export { getUsersAllController,getPermissionsAllController };
+// GET STATUS ALL
+const getStatusAllController = async (req,res) => {
+  try{
+    const status = await getStatusAllService();
+    res.status(200).json(status);
+  } catch(error){
+    res.status(500).json({message: 'Error al obtener el estatus de los usuarios ', error: error.message});
+  }
+}
+// GET STATUS ALL
+export { getUsersAllController,getPermissionsAllController,getStatusAllController };

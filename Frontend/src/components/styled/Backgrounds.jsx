@@ -78,8 +78,8 @@ export const Background_Navbar = styled.div`
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
 
-     @media (max-width: 768px) {
-        height: 85%;
+    @media (max-width: 768px) {
+        height: 90%;
     }
 
     @media (max-width: 480px) {

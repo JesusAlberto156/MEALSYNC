@@ -1,6 +1,6 @@
 import { Outlet,Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { loggedContext } from "../contexts/LoggedProvider";
+import { loggedContext } from "../contexts/SessionProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 
 export const PrivateRouteKitchen = () => {

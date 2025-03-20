@@ -1,4 +1,4 @@
-import { getPermissionsAllService } from "../services/permissions.service";
+import { getPermissionsAllService } from "../services/permissions.service.js";
 
 export const permissions = (socket) => {
     socket.on('permissions', async () => {

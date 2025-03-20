@@ -1,31 +1,35 @@
-import { useContext } from 'react';
-import { viewNavbarContext } from '../../../contexts/SwitchViewNavbarProvider'
+import { useContext } from "react";
+import { sidebarContext,navbarContext } from "../../../contexts/ViewsProvider";
+
 import Navbar from "../../navbar/Navbar"
 import SearchBar from '../../searchbar/SearchBar'
 import TableUsers from "../../tables/TableUsers";
-import TablePermissions from '../../tables/TablePermissions';
+import TablePermissions from "../../tables/TablePermissions";
 import TableStatus from '../../tables/TableStatus';
 
 export default function Users(){
 
-    const [viewNavbar] = useContext(viewNavbarContext)
+    const [sidebar] = useContext(sidebarContext);
+    const [navbar] = useContext(navbarContext);
 
     return(
         <> 
             <Navbar/> 
             <SearchBar/>  
-            {viewNavbar === 'General' ? (
-                <TableUsers/>
-            ):(
-                <></>
-            )}
-            {viewNavbar === 'Permisos' ? (
-                <TablePermissions/>
-            ):(
-                <></>
-            )}
-            {viewNavbar === 'Estatus' ? (
-                <TableStatus/>
+            {sidebar === 'Usuarios' ? (
+                navbar === 'General' ? (
+                    <TableUsers/>
+                ):(
+                    navbar === 'Permisos' ? (
+                        <TablePermissions/>
+                    ):(
+                        navbar === 'Estatus' ? (
+                            <TableStatus/>
+                        ):(
+                            <></>
+                        )
+                    )
+                )
             ):(
                 <></>
             )}

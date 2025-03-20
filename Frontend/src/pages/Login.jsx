@@ -1,4 +1,3 @@
-import Logo from "../components/imgs/Logo-Vertical-Digital.png"
 import { useEffect,useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,12 +5,12 @@ import { Toaster } from 'sonner';
 import { Tooltip } from "@mui/material";
 
 import { loginContext,toastContext } from '../contexts/VariablesProvider'
+import { loggedContext,nameContext,passwordContext } from "../contexts/SessionProvider";
+import { permissionContext } from "../contexts/PermissionsProvider";
+import { typeUserContext } from "../contexts/TypeUserProvider";
+
 import { useOptionsLogin } from "../hooks/OptionsLogin";
 import { useLogin } from "../hooks/UserSession";
-
-import { loggedContext } from "../contexts/LoggedProvider";
-import { permissionContext } from "../contexts/PermissionProvider";
-import { typeUserContext } from "../contexts/TypeUserProvider";
 
 import { FaUserShield } from "react-icons/fa6";
 import { MdSoupKitchen } from "react-icons/md";
@@ -32,12 +31,13 @@ import { Label_Login,Label_Popup_Login } from "../components/styled/Labels";
 import { Whitespace_Login } from "../components/styled/Whitespaces";
 import { Alert_Greeting,Toast_Styles } from '../components/styled/Notifications'
 
+import Logo from "../components/imgs/Logo-Vertical-Digital.png"
 import Footer from '../components/footer/Footer';
 import Loading from "./Loading";
 
 export default function Login(){
-    const [name,setName] = useState('');
-    const [password,setPassword] = useState('');
+    const [name,setName] = useContext(nameContext);
+    const [password,setPassword] = useContext(passwordContext);
 
     const {
             loadingOption, isLoadingOption,
@@ -97,7 +97,7 @@ export default function Login(){
         Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
     },[loading]);
 
-    const { useOptionTypeUsers, useOptionUsers, useBackLogin} = useOptionsLogin({ setName,setPassword});
+    const { useOptionTypeUsers, useOptionUsers, useBackLogin} = useOptionsLogin();
 
     const Login = useLogin({ name,password });
 

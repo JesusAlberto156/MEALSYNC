@@ -1,7 +1,12 @@
 import React, { useState, useEffect,useContext } from "react";
+import { Tooltip } from "@mui/material";
+
 import { typeUserContext } from "../../contexts/TypeUserProvider";
-import { sidebarVisibleContext } from "../../contexts/SidebarVisibleProvider";
-import { userContext } from "../../contexts/UserProvider";
+import { visibleContext } from "../../contexts/VariablesProvider";
+import { userContext } from "../../contexts/UsersProvider";
+
+import { useModalOutLogin } from "../../hooks/Modals";
+import { useToggleSidebar,useSidebarViews } from '../../hooks/Sidebar'
 
 import { FaBars } from "react-icons/fa";
 import { BiSolidHomeAlt2 } from "react-icons/bi";
@@ -24,11 +29,8 @@ import { FaUserTie } from "react-icons/fa";
 import { FaUserGroup } from "react-icons/fa6";
 
 import { Title_Sidebar } from "../styled/Text";
-import { Tooltip } from "@mui/material";
 import { Background_Sidebar } from "../styled/Backgrounds";
 import { Button_Blue_Sidebar,Button_Red_Sidebar } from '../styled/Buttons';
-import { useModalOutLogin } from "../../hooks/Modals";
-import { useToggleSidebar,useSidebarActions } from '../../hooks/Sidebar'
 
 import './Sidebar.css';
 
@@ -36,10 +38,10 @@ export default function Sidebar() {
 
   const toggleSidebar = useToggleSidebar();
   const modalOutLogin = useModalOutLogin();
-  const { Home, OptionsMenu, OptionsAdmnistration} = useSidebarActions();
+  const { Home, Options } = useSidebarViews();
 
   const [typeUser] = useContext(typeUserContext);
-  const [sidebarVisible] = useContext(sidebarVisibleContext);
+  const [visible] = useContext(visibleContext);
   const [user] = useContext(userContext);
 
   const [profileImage, setProfileImage] = useState("https://img.freepik.com/vector-premium/icono-contacto-perfil-icono-avatar_1199668-1320.jpg?w=740");
@@ -47,9 +49,9 @@ export default function Sidebar() {
   useEffect(() => {
     const content = document.getElementById("content");
     if (content) {
-      content.className = sidebarVisible ? "with-sidebar" : "no-sidebar";
+      content.className = visible ? "with-sidebar" : "no-sidebar";
     }
-  }, [sidebarVisible]);
+  }, [visible]);
   
   return (
     <>
@@ -65,7 +67,7 @@ export default function Sidebar() {
           </Button_Blue_Sidebar>
         </Tooltip>    
       </Background_Sidebar>
-      <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
+      <div className={`sidebar ${visible ? 'visible' : 'hidden'}`}>
         <div className="profile-container">
           <img 
             src={profileImage} 
@@ -84,19 +86,19 @@ export default function Sidebar() {
           {typeUser === 'Cocinero' ? (
             <>
               <Tooltip title='General' placement="right">
-                <li onClick={() => OptionsMenu('Menu','General')}><a>General
+                <li onClick={() => Options('General','')}><a>General
                     <span><MdFamilyRestroom/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Colaboradores' placement="right">
-                <li onClick={() => OptionsMenu('Menu','Colaboradores')}><a>Colaboradores
+                <li onClick={() => Options('Colaboradores','')}><a>Colaboradores
                     <span><IoIosPeople/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Nutriólogo' placement="right">
-                <li onClick={() => OptionsMenu('Menu','Nutriologo')}><a>Nutriólogo
+                <li onClick={() => Options('Nutriologo','')}><a>Nutriólogo
                     <span><IoNutrition/></span>
                   </a>
                 </li>
@@ -156,7 +158,7 @@ export default function Sidebar() {
           {typeUser === 'Medico' ? (
             <>
               <Tooltip title='Menú' placement="right">
-                <li onClick={() => OptionsMenu('Menu','Medico')}><a>Menú
+                <li onClick={() => Options('Medico','')}><a>Menú
                     <span><MdOutlineRestaurantMenu/></span>
                   </a>
                 </li>
@@ -168,31 +170,31 @@ export default function Sidebar() {
           {typeUser === 'Administrador' ? (
             <>
               <Tooltip title='Usuarios' placement="right">
-                <li onClick={() => OptionsAdmnistration('Usuarios','General')}><a>Usuarios
+                <li onClick={() => Options('Usuarios','General')}><a>Usuarios
                     <span><FaUserGroup/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Proveedores' placement="right">
-                <li onClick={() => OptionsAdmnistration('Proveedores','')}><a>Proveedores
+                <li onClick={() => Options('Proveedores','')}><a>Proveedores
                     <span><FaUserTie/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Menús' placement="right">
-                <li onClick={() => OptionsAdmnistration('Menus','')}><a>Menús
+                <li onClick={() => Options('Menus','')}><a>Menús
                     <span><BiSolidFoodMenu/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <li onClick={() => OptionsAdmnistration('Inventario','')}><a>Inventario
+                <li onClick={() => Options('Inventario','')}><a>Inventario
                     <span><MdStorage/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
-                <li onClick={() => OptionsAdmnistration('Historial','')}><a>Historial
+                <li onClick={() => Options('Historial','')}><a>Historial
                     <span><MdWorkHistory/></span>
                   </a>
                 </li>
@@ -204,25 +206,25 @@ export default function Sidebar() {
           {typeUser === 'Chef' ? (
             <>
               <Tooltip title='Proveedores' placement="right">
-                <li onClick={() => OptionsAdmnistration('Proveedores','')}><a>Proveedores
+                <li onClick={() => Options('Proveedores','')}><a>Proveedores
                     <span><FaUserTie/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Menús' placement="right">
-                <li onClick={() => OptionsAdmnistration('Menus','')}><a>Menús
+                <li onClick={() => Options('Menus','')}><a>Menús
                     <span><BiSolidFoodMenu/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <li onClick={() => OptionsAdmnistration('Inventario','')}><a>Inventario
+                <li onClick={() => Options('Inventario','')}><a>Inventario
                     <span><MdStorage/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
-                <li onClick={() => OptionsAdmnistration('Historial','')}><a>Historial
+                <li onClick={() => Options('Historial','')}><a>Historial
                     <span><MdWorkHistory/></span>
                   </a>
                 </li>
@@ -234,19 +236,19 @@ export default function Sidebar() {
           {typeUser === 'Almacen' ? (
             <>
               <Tooltip title='Proveedores' placement="right">
-                <li onClick={() => OptionsAdmnistration('Proveedores','')}><a>Proveedores
+                <li onClick={() => Options('Proveedores','')}><a>Proveedores
                     <span><FaUserTie/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <li onClick={() => OptionsAdmnistration('Inventario','')}><a>Inventario
+                <li onClick={() => Options('Inventario','')}><a>Inventario
                     <span><MdStorage/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
-                <li onClick={() => OptionsAdmnistration('Historial','')}><a>Historial
+                <li onClick={() => Options('Historial','')}><a>Historial
                     <span><MdWorkHistory/></span>
                   </a>
                 </li>

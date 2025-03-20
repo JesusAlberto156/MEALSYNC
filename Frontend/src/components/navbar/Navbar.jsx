@@ -1,7 +1,9 @@
 import { useContext } from "react";
-import { activeOptionContext } from "../../contexts/ActiveOptionProvider";
-
 import { Tooltip } from "@mui/material";
+
+import { sidebarContext } from "../../contexts/ViewsProvider";
+
+import { useNavbarViews } from '../../hooks/Navbar'
 
 import { MdFreeBreakfast } from "react-icons/md";
 import { IoFastFood } from "react-icons/io5";
@@ -26,19 +28,17 @@ import { Container_Navbar } from "../styled/Containers";
 import { Logo_Navbar} from '../styled/Imgs';
 import { Button_Black_Navbar} from '../styled/Buttons';
 
-import { useNavbarActions } from '../../hooks/Navbar'
-
 export default function Navbar(){
     
-    const { Switch } = useNavbarActions();
+    const { Switch } = useNavbarViews();
     
-    const [activeOption] = useContext(activeOptionContext);
+    const [sidebar] = useContext(sidebarContext);
  
     return(
         <Container_Navbar>   
             <Logo_Navbar/> 
             <Background_Navbar>
-                {activeOption === 'General' ? (
+                {sidebar === 'General' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
                             <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
@@ -68,7 +68,7 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {activeOption === 'Colaboradores' ? (
+                {sidebar === 'Colaboradores' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
                             <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
@@ -104,7 +104,7 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {activeOption === 'Nutriologo' ? (
+                {sidebar === 'Nutriologo' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
                             <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
@@ -137,7 +137,7 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {activeOption === 'Medico' ? (
+                {sidebar === 'Medico' ? (
                     <>
                         <Tooltip title='Desayuno' placement="right-start">
                             <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
@@ -167,7 +167,7 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {activeOption === 'Usuarios' ? (
+                {sidebar === 'Usuarios' ? (
                     <>
                         <Tooltip title='General' placement="right-start">
                             <Button_Black_Navbar onClick={() => Switch('General')}><FaUserTag/></Button_Black_Navbar>

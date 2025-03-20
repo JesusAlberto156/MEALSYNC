@@ -1,15 +1,15 @@
 import { useState,useContext } from "react";
 import { usersContext } from "../contexts/UsersProvider";
-import { selectedRowContext } from "../contexts/SelectedRowProvider";
-import { searchTermContext } from '../contexts/SearchTermProvider';
+import { selectedRowContext,searchTermContext } from "../contexts/VariablesProvider";
 import { permissionsContext } from "../contexts/PermissionsProvider";
-import { statusUsersContext } from "../contexts/StatusUsersProvider";
+import { statusAllContext } from '../contexts/StatusProvider';
+
 
 export const useTableActions = () => {
 
     const [users,setUsers] = useContext(usersContext);
     const [permissions,setPermissions] = useContext(permissionsContext);
-    const [statusUsers,setStatusUsers] = useContext(statusUsersContext);
+    const [statusAll,setStatusAll] = useContext(statusAllContext);
     const [selectedRow,setSelectedRow] = useContext(selectedRowContext);
     const [searchTerm, setSearchTerm] = useContext(searchTermContext);
     
@@ -25,7 +25,7 @@ export const useTableActions = () => {
         const user = users.find(user => user.idusuario === data.idusuario);
         return user && user.nombre.toLowerCase().includes(searchTerm.toLowerCase());
     });
-    const filteredRecordsStatus = statusUsers.filter((data) => {
+    const filteredRecordsStatus = statusAll.filter((data) => {
         const user = users.find(user => user.idusuario === data.idusuario);
         return user && user.nombre.toLowerCase().includes(searchTerm.toLowerCase());
     });

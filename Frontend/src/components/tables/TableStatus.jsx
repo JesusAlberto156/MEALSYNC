@@ -1,21 +1,22 @@
 import { useContext,useEffect } from "react"
-import { selectedRowContext } from '../../contexts/SelectedRowProvider'
-import { permissionContext } from "../../contexts/PermissionProvider"
+import { Tooltip } from "@mui/material"
+
+import { selectedRowContext } from "../../contexts/VariablesProvider"
 import { usersContext } from "../../contexts/UsersProvider"
 
-import { Container_Option_Navbar,Pagination } from "../styled/Containers"
-import { Table,Tr,Th,Td } from "../styled/Tables"
-import { Tooltip } from "@mui/material"
+import { useTableActions } from "../../hooks/Table"
 
 import { GrNext,GrPrevious } from "react-icons/gr";
 import { FaCheck } from "react-icons/fa";
 
-import { useTableActions } from "../../hooks/Table"
+import { Container_Option_Navbar,Container_Table_Pagination } from "../styled/Containers"
+import { Table,Tr,Th,Td } from "../styled/Tables"
+import { Button_Block_Pagination,Button_Blue_Pagination } from "../styled/Buttons"
+import { Text_Pagination } from "../styled/Text";
 
 export default function TableStatus(){
 
     const [selectedRow,setSelectedRow] = useContext(selectedRowContext);
-    const [permissionUser] = useContext(permissionContext);
     const [users] = useContext(usersContext);
 
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = useTableActions();
@@ -45,37 +46,41 @@ export default function TableStatus(){
                     </thead>
                     <tbody>
                         {users.map((user) => (
-                            currentRecordsStatus.map((status) => (
-                                user.idusuario === status.idusuario ? (
-                                    <Tr
-                                        key={status.idestatus}
-                                        onClick={() => handleRowClick(status)}
-                                        style={{
-                                            backgroundColor: selectedRow === status ? '#e0f7fa' : 'transparent',
-                                            cursor: 'pointer',
-                                            transition: 'background-color 0.5s ease',
-                                        }}
-                                    >
-                                        <Td>{user.nombre}</Td>
-                                        <Td>{status.habilitado ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        <Td>{status.activo ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                    </Tr>
-                                ):(
-                                    <></>
-                                )
+                            currentRecordsStatus.filter((permission) => user.idusuario === permission.idusuario).map((status) => (
+                                <Tr
+                                    key={status.idestatus}
+                                    onClick={() => handleRowClick(status)}
+                                    style={{
+                                        backgroundColor: selectedRow === status ? '#e0f7fa' : 'transparent',
+                                        cursor: 'pointer',
+                                        transition: 'background-color 0.5s ease',
+                                    }}
+                                >
+                                    <Td>{user.nombre}</Td>
+                                    <Td>{status.habilitado ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    <Td>{status.activo ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                </Tr>
                             ))
                         ))}
                     </tbody>
                 </Table>
-                <Pagination>
-                    <Tooltip title='Anterior página' placement="top">
-                        <button disabled={currentPage === 1} onClick={prevPage}><GrPrevious/></button>
-                    </Tooltip>
-                    <span>Página {currentPage} de {totalPagesStatus}</span>
-                    <Tooltip title='Siguiente página' placement="top">
-                        <button disabled={currentPage === totalPagesStatus || totalPagesStatus === 0} onClick={nextPageStatus}><GrNext/></button>
-                    </Tooltip>
-                </Pagination>
+                <Container_Table_Pagination>
+                    {currentPage === 1 ? (
+                        <Button_Block_Pagination><GrPrevious/></Button_Block_Pagination>
+                    ):(
+                        <Tooltip title='Anterior página' placement="top">
+                            <Button_Blue_Pagination onClick={prevPage}><GrNext/></Button_Blue_Pagination>
+                        </Tooltip>
+                    )}
+                    <Text_Pagination>Página {currentPage} de {totalPagesStatus}</Text_Pagination>
+                    {currentPage === totalPagesStatus || totalPagesStatus === 0 ? (
+                        <Button_Block_Pagination><GrNext/></Button_Block_Pagination>
+                    ):(
+                        <Tooltip title='Siguiente página' placement="top">
+                            <Button_Blue_Pagination onClick={nextPageStatus}><GrNext/></Button_Blue_Pagination>
+                        </Tooltip>
+                    )} 
+                </Container_Table_Pagination>
             </Container_Option_Navbar>
         </>
     );

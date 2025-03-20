@@ -2,6 +2,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import { Tooltip } from "@mui/material";
+
+import { IoSettings } from "react-icons/io5";
+import { FaHome } from "react-icons/fa";
+import { IoIosWarning } from "react-icons/io";
+
 import { Background_Error } from "../components/styled/Backgrounds";
 import { Toast_Styles,Alert_Error, Alert_Verification } from "../components/styled/Notifications";
 import { Title_Fade_Error,Text_Error } from "../components/styled/Text";
@@ -10,9 +15,6 @@ import { Container_Title_Error } from "../components/styled/Containers";
 import { Button_White_Error } from "../components/styled/Buttons";
 import { Logo_Error } from '../components/styled/Imgs'
 import { Icon_Warning_Error } from "../components/styled/Icons";
-import { IoSettings } from "react-icons/io5";
-import { FaHome } from "react-icons/fa";
-import { IoIosWarning } from "react-icons/io";
 
 export default function Error(){
 

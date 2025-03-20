@@ -1,22 +1,18 @@
 import { useContext } from "react";
-import { viewSidebarContext } from "../contexts/SwitchViewSidebarProvider";
-import { activeOptionContext } from "../contexts/ActiveOptionProvider";
-import { sidebarVisibleContext } from "../contexts/SidebarVisibleProvider";
+import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
+import { visibleContext,searchTermContext } from "../contexts/VariablesProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
-import { viewNavbarContext } from "../contexts/SwitchViewNavbarProvider";
-import { searchTermContext } from "../contexts/SearchTermProvider";
 
 export const useToggleSidebar = () => {
-    const [sidebarVisible,setSidebarVisible] = useContext(sidebarVisibleContext);
-    return () => setSidebarVisible(prev => !prev);
+    const [visible,setVisible] = useContext(visibleContext);
+    return () => setVisible(prev => !prev);
 };
-export const useSidebarActions = () => {
 
-    const [viewSidebar,setViewSidebar] = useContext(viewSidebarContext);
-    const [activeOption,setActiveOption] = useContext(activeOptionContext);
-    const [viewNavbar,setViewNavbar] = useContext(viewNavbarContext);
+export const useSidebarViews = () => {
+
+    const [sidebar,setSidebar] = useContext(sidebarContext);
+    const [navbar,setNavbar] = useContext(navbarContext);
     const [searchTerm,setSearchTerm] = useContext(searchTermContext)
-    
     const [typeUser] =  useContext(typeUserContext);
 
     const Home = (View) => {
@@ -25,32 +21,24 @@ export const useSidebarActions = () => {
         }else{
             document.title = "MEALSYNC_Administración_Inicio";
         }
-        setViewSidebar(View);
-        setActiveOption(View);
+        setSidebar(View);
         setSearchTerm('');
     };
 
-    const OptionsMenu = (view,option) => {
-        if(option === 'General'){document.title = "MEALSYNC_Menú_General";}
-        if(option === 'Colaboradores'){document.title = "MEALSYNC_Menú_Colaboradores";}
-        if(option === 'Nutriologo'){document.title = "MEALSYNC_Menú_Nutriologo";}
-        if(option === 'Medico'){document.title = "MEALSYNC_Menú_Medico";}
-        setViewSidebar(view);
-        setActiveOption(option);
-        setSearchTerm('');
-    }
-
-    const OptionsAdmnistration = (view, navbar) => {
+    const Options = (view,navbar) => {
+        if(view === 'General'){document.title = "MEALSYNC_Menú_General";}
+        if(view === 'Colaboradores'){document.title = "MEALSYNC_Menú_Colaboradores";}
+        if(view === 'Nutriologo'){document.title = "MEALSYNC_Menú_Nutriologo";}
+        if(view === 'Medico'){document.title = "MEALSYNC_Menú_Medico";}
         if(view === 'Usuarios'){document.title = "MEALSYNC_Administración_Usuarios";}
         if(view === 'Proveedores'){document.title = "MEALSYNC_Administración_Proveedores";}
         if(view === 'Menus'){document.title = "MEALSYNC_Administración_Menús";}
         if(view === 'Inventario'){document.title = "MEALSYNC_Administración_Inventario";}
         if(view === 'Historial'){document.title = "MEALSYNC_Administración_Historial";}
-        setViewSidebar(view);
-        setActiveOption(view);
-        setViewNavbar(navbar);
+        setSidebar(view);
+        setNavbar(navbar);
         setSearchTerm('');
-    };
+    }
 
-    return { Home, OptionsMenu, OptionsAdmnistration };
+    return { Home,Options };
 };

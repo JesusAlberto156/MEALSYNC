@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { viewNavbarContext } from "../contexts/SwitchViewNavbarProvider";
-import { searchTermContext } from "../contexts/SearchTermProvider";
+import { navbarContext } from "../contexts/ViewsProvider";
+import { searchTermContext } from "../contexts/VariablesProvider";
 
-export const useNavbarActions = () => {
-    const [viewNavbar,setViewNavbar] = useContext(viewNavbarContext);
+export const useNavbarViews = () => {
+    const [navbar,setNavbar] = useContext(navbarContext);
     const [searchTerm,setSearchTerm] = useContext(searchTermContext);
 
     const Switch = (View) => {
-        setViewNavbar(View);
+        setNavbar(View);
         setSearchTerm('');
     };
 

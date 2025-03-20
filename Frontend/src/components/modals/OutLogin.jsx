@@ -1,18 +1,18 @@
-import { Tooltip } from "@mui/material";
 import { useContext,useEffect } from "react";
+import { Tooltip } from "@mui/material";
 
 import { modalOutLoginContext } from '../../contexts/ModalsProvider';
 import { typeUserContext } from "../../contexts/TypeUserProvider";
 
 import { useOutLogin } from "../../hooks/UserSession";
 
+import { MdCancel } from "react-icons/md";
+import { ImExit } from "react-icons/im";
+
 import { Background_Modal,Background_Modal_Out_Login } from "../styled/Backgrounds";
 import { Container_Modal,Container_Button_Modal } from "../styled/Containers";
 import { Title_Modal,Text_Modal } from "../styled/Text";
 import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../styled/Buttons";
-
-import { MdCancel } from "react-icons/md";
-import { ImExit } from "react-icons/im";
 
 export default function OutLogin(){
 

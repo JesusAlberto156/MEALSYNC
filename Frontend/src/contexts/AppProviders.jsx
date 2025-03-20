@@ -4,21 +4,11 @@ import { Users,User } from './UsersProvider';
 import { Permissions,Permission } from './PermissionsProvider';
 import { StatusAll,StatusUser } from './StatusProvider';
 import { TypeUser } from './TypeUserProvider';
+import { Logged,Enable,Name,Password } from './SessionProvider';
 
-import { Login,Toast } from './VariablesProvider';
-
-import { LoggedProvider } from './LoggedProvider';
-import { ViewNavbarProvider } from './SwitchViewNavbarProvider';
-import { ViewSidebarProvider } from './SwitchViewSidebarProvider';
-import { SidebarVisibleProvider } from './SidebarVisibleProvider';
-import { ActiveOptionProvider } from './ActiveOptionProvider';
-import { ModalOutLoginProvider,ModalAlertMedicoProvider,ModalShoppingCartProvider } from './ModalsProvider';
-import { OptionsProvider } from './VariablesProvider';
-import { ToastProvider } from './ToastProvider';
-import { SelectedRowProvider } from './SelectedRowProvider';
-import { SearchTermProvider } from './SearchTermProvider';
-
-import { EnableProvider } from './EnableProvider';
+import { Login,Toast,Visible,SelectedRow,SearchTerm } from './VariablesProvider';
+import { Navbar,Sidebar } from './ViewsProvider';
+import { ModalOutLogin,ModalAlertMedico,ModalShoppingCart } from './ModalsProvider';
 
 export const AppProviders = ({children}) => {
     return(
@@ -30,7 +20,35 @@ export const AppProviders = ({children}) => {
                             <StatusAll>
                                 <StatusUser>
                                     <TypeUser>
-
+                                        <Logged>
+                                            <Name>
+                                                <Password>
+                                                    <Enable>
+                                                        <Login>
+                                                            <Toast>
+                                                                <Visible>
+                                                                    <SelectedRow>
+                                                                        <SearchTerm>
+                                                                            <Navbar>
+                                                                                <Sidebar>
+                                                                                    <ModalOutLogin>
+                                                                                        <ModalAlertMedico>
+                                                                                            <ModalShoppingCart>
+                                                                                                {children}
+                                                                                            </ModalShoppingCart>
+                                                                                        </ModalAlertMedico>
+                                                                                    </ModalOutLogin>
+                                                                                </Sidebar>
+                                                                            </Navbar>
+                                                                        </SearchTerm>
+                                                                    </SelectedRow>
+                                                                </Visible>
+                                                            </Toast>
+                                                        </Login>
+                                                    </Enable>
+                                                </Password>
+                                            </Name>
+                                        </Logged>
                                     </TypeUser>
                                 </StatusUser>
                             </StatusAll>

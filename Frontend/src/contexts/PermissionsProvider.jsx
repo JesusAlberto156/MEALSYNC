@@ -10,28 +10,7 @@ export const Permissions = ({ children }) => {
 
     const [socket] = useContext(socketContext);
     
-    const [permissions,setPermissions] = useState(() => {
-        const StoredData = sessionStorage.getItem('Permissions');
-
-        if(StoredData){
-            try{
-                const decryptedData = decryptData(StoredData);
-
-                if(decryptedData){
-                    console.log('Permisos de usuarios cargados correctamente...');
-                    return JSON.parse(decryptedData);
-                }else{
-                    console.log('Error al desencriptar los permisos...');
-                    return [];
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-                return [];
-            }
-        }else{
-            return [];
-        }
-    });
+    const [permissions,setPermissions] = useState([]);
 
     useEffect(() => {
         const StoredData = sessionStorage.getItem('Permissions');
@@ -42,7 +21,7 @@ export const Permissions = ({ children }) => {
 
                 if(decryptedData){
                     console.log('Permisos de usuarios cargados correctamente...');
-                    setPermissions(decryptedData);
+                    setPermissions(JSON.parse(decryptedData));
                 }else{
                     console.log('Error al desencriptar los permisos...');
                     setPermissions([]);

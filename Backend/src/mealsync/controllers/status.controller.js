@@ -1,4 +1,4 @@
-import { getStatusAllService } from '../services/status.service';
+import { getStatusAllService } from '../services/status.service.js';
 
 // GET STATUS ALL
 const getStatusAllController = async (req,res) => {

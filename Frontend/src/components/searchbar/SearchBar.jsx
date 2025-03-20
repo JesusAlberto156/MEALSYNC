@@ -1,16 +1,11 @@
 import { useContext } from "react";
-import { typeUserContext } from "../../contexts/TypeUserProvider";
-import { viewNavbarContext } from "../../contexts/SwitchViewNavbarProvider";
-import { searchTermContext } from "../../contexts/SearchTermProvider";
-import { useModalShoppingCart } from '../../hooks/Modals'
-import { viewSidebarContext } from "../../contexts/SwitchViewSidebarProvider";
-
 import { Tooltip } from "@mui/material";
 
-import { Container_Search_Bar,Container_Button_Search_Bar } from "../styled/Containers";
-import { Input_Search_Bar_Menu} from '../styled/Inputs'
-import { Icon_Search_Menu,Icon_Shopping_Cart_Menu } from "../styled/Icons";
-import { Button_Blue_Search_Bar,Button_Green_Search_Bar,Button_Red_Search_Bar } from "../styled/Buttons";
+import { typeUserContext } from "../../contexts/TypeUserProvider";
+import { navbarContext,sidebarContext } from "../../contexts/ViewsProvider";
+import { searchTermContext } from "../../contexts/VariablesProvider";
+
+import { useModalShoppingCart } from '../../hooks/Modals'
 
 import { FcSearch } from "react-icons/fc";
 import { FaShoppingCart } from "react-icons/fa";
@@ -18,13 +13,18 @@ import { FaUserPen } from "react-icons/fa6";
 import { FaUserPlus } from "react-icons/fa6";
 import { FaUserXmark } from "react-icons/fa6";
 
+import { Container_Search_Bar,Container_Button_Search_Bar } from "../styled/Containers";
+import { Input_Search_Bar_Menu} from '../styled/Inputs'
+import { Icon_Search_Menu,Icon_Shopping_Cart_Menu } from "../styled/Icons";
+import { Button_Blue_Search_Bar,Button_Green_Search_Bar,Button_Red_Search_Bar } from "../styled/Buttons";
+
 export default function SearchBar (){
     
     const modalShoppingCart = useModalShoppingCart();
     const [typeUser] = useContext(typeUserContext);
-    const [viewNavbar] = useContext(viewNavbarContext);
+    const [navbar] = useContext(navbarContext);
     const [searchTerm,setSearchTerm] = useContext(searchTermContext);
-    const [viewSidebar] = useContext(viewSidebarContext);
+    const [sidebar] = useContext(sidebarContext);
 
     return(
         <>
@@ -49,8 +49,8 @@ export default function SearchBar (){
                 ):(
                     <></>
                 )}
-                {viewSidebar === 'Usuarios' ? (
-                    viewNavbar === 'General' ? (
+                {sidebar === 'Usuarios' ? (
+                    navbar === 'General' ? (
                         <>
                             <Container_Button_Search_Bar>
                                 <Tooltip title="Crear" placement="top">
@@ -62,7 +62,7 @@ export default function SearchBar (){
                             </Container_Button_Search_Bar>
                         </>
                     ):(
-                        viewNavbar === 'Permisos' ? (
+                        navbar === 'Permisos' ? (
                             <>
                                 <Container_Button_Search_Bar>
                                     <Tooltip title="Editar" placement="top">
@@ -71,7 +71,7 @@ export default function SearchBar (){
                                 </Container_Button_Search_Bar>
                             </>
                         ):(
-                            viewNavbar === 'Estatus' ? (
+                            navbar === 'Estatus' ? (
                                 <>
                                     <Container_Button_Search_Bar>
                                         <Tooltip title="Habilitar/Deshabilitar" placement="right">

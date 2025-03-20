@@ -1,6 +1,6 @@
-import { conexionDB } from "../../config/database.config";
-import { encryptData } from "../../config/crypto";
-const sql = require('mssql');
+import { conexionDB } from "../../config/database.config.js";
+import { encryptData } from "../../config/crypto.js";
+import sql from 'mssql';
 
 // GET USER ALL
 const getUsersAllService = async () => {

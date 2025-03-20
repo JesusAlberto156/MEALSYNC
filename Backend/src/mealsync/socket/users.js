@@ -1,4 +1,4 @@
-import { getUsersAllService } from "../services/users.service";
+import { getUsersAllService } from "../services/users.service.js";
 
 export const users = (socket) => {
     socket.on('users', async () => {

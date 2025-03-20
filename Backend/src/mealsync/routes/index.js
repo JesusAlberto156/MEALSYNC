@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import config from '../../config/config';
-import routerUser from './users.routes';
-import routerPermission from './permissions.routes';
-import routerStatus from './status.routes';
+import config from '../../config/config.js';
+import routerUser from './users.routes.js';
+import routerPermission from './permissions.routes.js';
+import routerStatus from './status.routes.js';
 
 const routerAPI = (app) => {
   const router = Router();

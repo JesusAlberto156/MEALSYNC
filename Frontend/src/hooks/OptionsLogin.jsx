@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { loginContext } from "../contexts/VariablesProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
+import { nameContext,passwordContext } from "../contexts/SessionProvider";
 
-export const useOptionsLogin = ({ setName,setPassword}) => {
+export const useOptionsLogin = () => {
 
     const {
         loadingOption, isLoadingOption,
@@ -14,7 +15,9 @@ export const useOptionsLogin = ({ setName,setPassword}) => {
     } = useContext(loginContext);
 
     const [typeUser,setTypeUser] = useContext(typeUserContext);
-
+    const [name,setName] = useContext(nameContext);
+    const [password,setPassword] = useContext(passwordContext);
+    
     const useOptionTypeUsers = (type) => {
         if(type === 'Administracion'){
             isLoadingAdministration(!loadingAdministration);

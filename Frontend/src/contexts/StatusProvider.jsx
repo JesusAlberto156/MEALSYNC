@@ -10,28 +10,7 @@ export const StatusAll = ({ children }) => {
 
     const [socket] = useContext(socketContext);
 
-    const [statusAll,setStatusAll] = useState(() => {
-        const StoredData = sessionStorage.getItem('StatusAll');
-
-        if(StoredData){
-            try{
-                const decryptedData = decryptData(StoredData);
-
-                if(decryptedData){
-                    console.log('Estatus de usuarios cargados correctamente...');
-                    return JSON.parse(decryptedData);
-                }else{
-                    console.log('Error al desencriptar los estatus...');
-                    return [];
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-                return [];
-            }
-        }else{
-            return [];
-        }
-    });
+    const [statusAll,setStatusAll] = useState([]);
 
     useEffect(() => {
         const StoredData = sessionStorage.getItem('StatusAll');
@@ -42,7 +21,7 @@ export const StatusAll = ({ children }) => {
 
                 if(decryptedData){
                     console.log('Estatus de usuarios cargados correctamente...');
-                    setStatusAll(decryptedData);
+                    setStatusAll(JSON.parse(decryptedData));
                 }else{
                     console.log('Error al desencriptar los estatus...');
                     setStatusAll([]);

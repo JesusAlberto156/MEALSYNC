@@ -1,4 +1,4 @@
-import { getPermissionsAllService } from '../services/permissions.service';
+import { getPermissionsAllService } from '../services/permissions.service.js';
 
 // GET PERMISSIONS ALL
 const getPermissionsAllController = async (req,res) => {

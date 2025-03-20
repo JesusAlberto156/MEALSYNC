@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js";
-import config from './config';
+import config from './config.js';
 
 const SECRET_KEY = config.SECRET_KEY;
 

@@ -1,13 +1,13 @@
 import { useEffect,useContext } from "react";
 import { Toaster } from 'sonner';
-import { Alert_Greeting,Toast_Styles } from "../components/styled/Notifications";
-import { toastContext } from '../contexts/ToastProvider';
-import { userContext } from "../contexts/UserProvider";
+
+import { toastContext,visibleContext } from "../contexts/VariablesProvider";
+import { userContext } from "../contexts/UsersProvider";
 import { modalOutLoginContext } from "../contexts/ModalsProvider";
-import { sidebarVisibleContext } from "../contexts/SidebarVisibleProvider";
-import { viewSidebarContext } from "../contexts/SwitchViewSidebarProvider";
+import { sidebarContext } from "../contexts/ViewsProvider";
 
 import { Background_Administration } from "../components/styled/Backgrounds";
+import { Alert_Greeting,Toast_Styles } from "../components/styled/Notifications";
 
 import Footer from '../components/footer/Footer'
 import Sidebar from "../components/sidebar/Sidebar";
@@ -17,8 +17,8 @@ import Users from "../components/pages/administration/Users";
 
 export default function Administrator(){
     const [isModalOutLogin] = useContext(modalOutLoginContext);
-    const [viewSidebar] = useContext(viewSidebarContext);
-    const [sidebarVisible] = useContext(sidebarVisibleContext);
+    const [sidebar] = useContext(sidebarContext);
+    const [visible] = useContext(visibleContext);
     const [toast] = useContext(toastContext);
     const [user,setUser] = useContext(userContext);
     
@@ -34,13 +34,13 @@ export default function Administrator(){
                 <Sidebar/>
                 <div id="content">
                     <div id="main-content">
-                        <Background_Administration sidebarVisible={sidebarVisible}>
-                            {viewSidebar === 'Inicio' ? (
+                        <Background_Administration sidebarVisible={visible}>
+                            {sidebar === 'Inicio' ? (
                                 <Home/>
                             ):(
                                 <></>
                             )}
-                            {viewSidebar === 'Usuarios' ? (
+                            {sidebar === 'Usuarios' ? (
                                 <Users/>
                             ):(
                                 <></>

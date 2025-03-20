@@ -474,6 +474,69 @@ export const Button_Red_Search_Bar = styled.button`
     }
 `;
 //--------SEARCH BAR--------
+//--------PAGINATION--------
+export const Button_Block_Pagination = styled.button`
+    width: 14%;
+    padding: 6px;
+    color: white;
+    border: 2px solid white;
+    border-radius: 15px;
+    font-size: 20px;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.7;
+    background-color: rgb(84,88,89);
+    transform: none;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+export const Button_Blue_Pagination = styled.button`
+    width: 14%;
+    padding: 6px;
+    background-color: rgb(58,93,174);
+    color: white;
+    border: 2px solid white;
+    border-radius: 15px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(12, 54, 109);
+        transform: translateY(-2px);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.3);
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.3);
+        }
+    }
+`;
+//--------PAGINATION--------
 
 export const Link = styled.button`
     width: 25%;

@@ -186,38 +186,13 @@ export const Container_Option_Navbar = styled.div`
     }
 `
 //--------OPTION NAVBAR--------
-
-export const Pagination = styled.div`
+//--------TABLE PAGINATION--------
+export const Container_Table_Pagination = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 2%;
     margin-top: 3%;
     width: 80%;
-
-    button {
-        width: 12%;
-        padding: 5px 10px;
-        cursor: pointer;
-        background-color: rgb(58,93,174);
-        color: white;
-        border: 2px solid white;
-        border-radius: 20px;
-        transition: background-color 0.3s, transform 0.3s;
-
-        &:hover {
-            background-color: rgb(12, 54, 109);
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-            
-        &:disabled {
-            background-color: #e0e0e0;
-            color: black;
-            cursor: not-allowed; 
-        }
-    }
-    span {
-        font-size: 14px;
-    }
 `;
+//--------TABLE PAGINATION--------

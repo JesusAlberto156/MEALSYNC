@@ -1,4 +1,4 @@
-import { getUsersAllService } from '../services/users.service';
+import { getUsersAllService } from '../services/users.service.js';
 
 // GET USER ALL
 const getUsersAllController = async (req,res) => {

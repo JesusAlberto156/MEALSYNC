@@ -137,3 +137,16 @@ export const Title_Fade_Loading = styled.div`
     }
 `;
 //--------LOADING--------
+//--------PAGINATION--------
+export const Text_Pagination = styled.span`
+    font-size: 16px;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 10px;
+    }
+`;
+//--------PAGINATION--------

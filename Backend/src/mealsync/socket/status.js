@@ -1,4 +1,4 @@
-import { getStatusAllService,updateStatusLoginService,updateStatusLogoutService } from "../services/status.service";
+import { getStatusAllService,updateStatusLoginService,updateStatusLogoutService } from "../services/status.service.js";
 
 export const status = (socket) => {
     socket.on('status', async () => {

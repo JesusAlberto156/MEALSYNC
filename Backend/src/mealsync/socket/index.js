@@ -1,6 +1,6 @@
-import { users } from './users';
-import { permissions} from './permissions';
-import { status } from './status';
+import { users } from './users.js';
+import { permissions} from './permissions.js';
+import { status } from './status.js';
 
 export const socketEvents = (io) => {
   io.on('connection', (socket) => {

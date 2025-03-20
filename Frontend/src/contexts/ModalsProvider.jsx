@@ -4,7 +4,7 @@ export const modalOutLoginContext = createContext(null);
 export const modalAlertMedicoContext = createContext(null);
 export const modalShoppingCartContext = createContext(null);
 
-export const ModalOutLoginProvider = ({ children }) => {
+export const ModalOutLogin = ({ children }) => {
 
     const [isModal,setIsModal] = useState(false);
 
@@ -14,7 +14,7 @@ export const ModalOutLoginProvider = ({ children }) => {
         </modalOutLoginContext.Provider>
     );
 }
-export const ModalAlertMedicoProvider = ({ children }) => {
+export const ModalAlertMedico = ({ children }) => {
 
     const [isModal,setIsModal] = useState(true);
 
@@ -24,7 +24,7 @@ export const ModalAlertMedicoProvider = ({ children }) => {
         </modalAlertMedicoContext.Provider>
     );
 }
-export const ModalShoppingCartProvider = ({ children }) => {
+export const ModalShoppingCart = ({ children }) => {
 
     const [isModal,setIsModal] = useState(false);
 

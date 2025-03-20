@@ -10,28 +10,7 @@ export const Users = ({ children }) => {
 
     const [socket] = useContext(socketContext);
 
-    const [users,setUsers] = useState(() => {
-        const StoredData = sessionStorage.getItem('Users');
-
-        if(StoredData){
-            try{
-                const decryptedData = decryptData(StoredData);
-
-                if(decryptedData){
-                    console.log('Usuarios cargados correctamente...');
-                    return JSON.parse(decryptedData);
-                }else{
-                    console.log('Error al desencriptar los usuarios...');
-                    return [];
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-                return [];
-            }
-        }else{
-            return [];
-        }
-    });
+    const [users,setUsers] = useState([]);
 
     useEffect(() => {
         const StoredData = sessionStorage.getItem('Users');
@@ -42,7 +21,7 @@ export const Users = ({ children }) => {
 
                 if(decryptedData){
                     console.log('Usuarios cargados correctamente...');
-                    setUsers(decryptedData);
+                    setUsers(JSON.parse(decryptedData));
                 }else{
                     console.log('Error al desencriptar los usuarios...');
                     setUsers([]);

@@ -1,16 +1,15 @@
-import { Background_Modal,Background_Modal_Out_Login } from "../styled/Backgrounds";
-import { Container_Modal,Container_Button_Modal } from "../styled/Containers";
-import { Title_Modal,Text_Modal } from "../styled/Text";
-import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../styled/Buttons";
-
-
+import { useContext } from "react";
 import { Tooltip } from "@mui/material";
+
+import { modalShoppingCartContext } from "../../contexts/ModalsProvider";
 
 import { MdCancel } from "react-icons/md";
 import { ImExit } from "react-icons/im";
 
-import { useContext } from "react";
-import { modalShoppingCartContext } from "../../contexts/ModalsProvider";
+import { Background_Modal,Background_Modal_Out_Login } from "../styled/Backgrounds";
+import { Container_Modal,Container_Button_Modal } from "../styled/Containers";
+import { Title_Modal,Text_Modal } from "../styled/Text";
+import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../styled/Buttons";
 
 export default function ShoppingCart(){
 

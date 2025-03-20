@@ -1,16 +1,19 @@
 import { useContext,useEffect } from "react"
-import { selectedRowContext } from '../../contexts/SelectedRowProvider'
-import { permissionContext } from "../../contexts/PermissionProvider"
+import { Tooltip } from "@mui/material"
+
+import { selectedRowContext } from "../../contexts/VariablesProvider"
+import { permissionContext } from "../../contexts/PermissionsProvider"
 import { usersContext } from "../../contexts/UsersProvider"
 
-import { Container_Option_Navbar,Pagination } from "../styled/Containers"
-import { Table,Tr,Th,Td } from "../styled/Tables"
-import { Tooltip } from "@mui/material"
+import { useTableActions } from "../../hooks/Table"
 
 import { GrNext,GrPrevious } from "react-icons/gr";
 import { FaCheck } from "react-icons/fa";
 
-import { useTableActions } from "../../hooks/Table"
+import { Container_Option_Navbar,Container_Table_Pagination } from "../styled/Containers"
+import { Table,Tr,Th,Td } from "../styled/Tables"
+import { Button_Block_Pagination,Button_Blue_Pagination } from "../styled/Buttons"
+import { Text_Pagination } from "../styled/Text";
 
 export default function TablePermissions(){
 
@@ -54,46 +57,50 @@ export default function TablePermissions(){
                     </thead>
                     <tbody>
                         {users.map((user) => (
-                            currentRecordsPermissions.map((permission) => (
-                                user.idusuario === permission.idusuario ? (
-                                    <Tr
-                                        key={permission.idpermiso}
-                                        onClick={() => handleRowClick(permission)}
-                                        style={{
-                                            backgroundColor: selectedRow === permission ? '#e0f7fa' : 'transparent',
-                                            cursor: 'pointer',
-                                            transition: 'background-color 0.5s ease',
-                                        }}
-                                    >
-                                        <Td>{user.nombre}</Td>
-                                        <Td>{permission.administrador ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        <Td>{permission.chef ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        <Td>{permission.almacen ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        <Td>{permission.cocinero ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        <Td>{permission.nutriologo ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        <Td>{permission.medico ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        {permissionUser.superAdmon ? (
-                                            <Td>{permission.superAdmon ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                        ):(
-                                            <></>
-                                        )}
-                                    </Tr>
-                                ):(
-                                    <></>
-                                )
+                            currentRecordsPermissions.filter((permission) => user.idusuario === permission.idusuario).map((permission) => (
+                                <Tr
+                                    key={permission.idpermiso}
+                                    onClick={() => handleRowClick(permission)}
+                                    style={{
+                                        backgroundColor: selectedRow === permission ? '#e0f7fa' : 'transparent',
+                                        cursor: 'pointer',
+                                        transition: 'background-color 0.5s ease',
+                                    }}
+                                >
+                                    <Td>{user.nombre}</Td>
+                                    <Td>{permission.administrador ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    <Td>{permission.chef ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    <Td>{permission.almacen ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    <Td>{permission.cocinero ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    <Td>{permission.nutriologo ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    <Td>{permission.medico ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    {permissionUser.superAdmon ? (
+                                        <Td>{permission.superAdmon ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    ):(
+                                        <></>
+                                    )}
+                                </Tr>
                             ))
                         ))}
                     </tbody>
                 </Table>
-                <Pagination>
-                    <Tooltip title='Anterior página' placement="top">
-                        <button disabled={currentPage === 1} onClick={prevPage}><GrPrevious/></button>
-                    </Tooltip>
-                    <span>Página {currentPage} de {totalPagesPermissions}</span>
-                    <Tooltip title='Siguiente página' placement="top">
-                        <button disabled={currentPage === totalPagesPermissions || totalPagesPermissions === 0} onClick={nextPagePermissions}><GrNext/></button>
-                    </Tooltip>
-                </Pagination>
+                <Container_Table_Pagination>
+                    {currentPage === 1 ? (
+                        <Button_Block_Pagination><GrPrevious/></Button_Block_Pagination>
+                    ):(
+                        <Tooltip title='Anterior página' placement="top">
+                            <Button_Blue_Pagination onClick={prevPage}><GrNext/></Button_Blue_Pagination>
+                        </Tooltip>
+                    )}
+                    <Text_Pagination>Página {currentPage} de {totalPagesPermissions}</Text_Pagination>
+                    {currentPage === totalPagesPermissions || totalPagesPermissions === 0 ? (
+                        <Button_Block_Pagination><GrNext/></Button_Block_Pagination>
+                    ):(
+                        <Tooltip title='Siguiente página' placement="top">
+                            <Button_Blue_Pagination onClick={nextPagePermissions}><GrNext/></Button_Blue_Pagination>
+                        </Tooltip>
+                    )} 
+                </Container_Table_Pagination>
             </Container_Option_Navbar>
         </>
     );

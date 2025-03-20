@@ -1,13 +1,16 @@
 import { useContext,useEffect } from "react"
-import { selectedRowContext } from '../../contexts/SelectedRowProvider'
-
-import { Container_Option_Navbar,Pagination } from "../styled/Containers"
-import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Tooltip } from "@mui/material"
+
+import { selectedRowContext } from "../../contexts/VariablesProvider"
+
+import { useTableActions } from "../../hooks/Table"
 
 import { GrNext,GrPrevious } from "react-icons/gr";
 
-import { useTableActions } from "../../hooks/Table"
+import { Container_Option_Navbar,Container_Table_Pagination } from "../styled/Containers"
+import { Table,Tr,Th,Td } from "../styled/Tables"
+import { Button_Block_Pagination,Button_Blue_Pagination } from "../styled/Buttons"
+import { Text_Pagination } from "../styled/Text";
 
 export default function TableUsers(){
 
@@ -61,15 +64,23 @@ export default function TableUsers(){
 
                     </tbody>
                 </Table>
-                <Pagination>
-                    <Tooltip title='Anterior página' placement="top">
-                        <button disabled={currentPage === 1} onClick={prevPage}><GrPrevious/></button>
-                    </Tooltip>
-                    <span>Página {currentPage} de {totalPagesUsers}</span>
-                    <Tooltip title='Siguiente página' placement="top">
-                        <button disabled={currentPage === totalPagesUsers || totalPagesUsers === 0} onClick={nextPageUsers}><GrNext/></button>
-                    </Tooltip>
-                </Pagination>
+                <Container_Table_Pagination>
+                    {currentPage === 1 ? (
+                        <Button_Block_Pagination><GrPrevious/></Button_Block_Pagination>
+                    ):(
+                        <Tooltip title='Anterior página' placement="top">
+                            <Button_Blue_Pagination onClick={prevPage}><GrNext/></Button_Blue_Pagination>
+                        </Tooltip>
+                    )}
+                    <Text_Pagination>Página {currentPage} de {totalPagesUsers}</Text_Pagination>
+                    {currentPage === totalPagesUsers || totalPagesUsers === 0 ? (
+                        <Button_Block_Pagination><GrNext/></Button_Block_Pagination>
+                    ):(
+                        <Tooltip title='Siguiente página' placement="top">
+                            <Button_Blue_Pagination onClick={nextPageUsers}><GrNext/></Button_Blue_Pagination>
+                        </Tooltip>
+                    )} 
+                </Container_Table_Pagination>
             </Container_Option_Navbar>
         </>
     );

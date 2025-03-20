@@ -1,6 +1,6 @@
-const sql = require('mssql');
+import sql from 'mssql';
 
-import config from './config';
+import config from './config.js';
 
 const conexionDB = async () => {
     try {

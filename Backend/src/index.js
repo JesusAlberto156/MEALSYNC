@@ -1,5 +1,5 @@
-import config from './config/config';
-import { conexionDB } from './config/database.config';
+import config from './config/config.js'
+import { conexionDB } from './config/database.config.js';
 import routerAPI from './mealsync/routes/index.js';
 
 import express from 'express';

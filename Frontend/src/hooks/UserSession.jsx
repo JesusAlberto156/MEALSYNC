@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { loggedContext } from "../contexts/LoggedProvider";
-import { optionsContext } from '../contexts/OptionsProvider';
+import { optionsContext } from '../contexts/VariablesProvider';
 import { nameLoginContext } from '../contexts/NameLoginProvider';
 import { passwordLoginContext } from '../contexts/PasswordLoginProvider';
 import { viewSidebarContext } from "../contexts/SwitchViewSidebarProvider";

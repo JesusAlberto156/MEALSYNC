@@ -1,8 +1,9 @@
 import { createContext, useState } from "react"
 
-export const optionsContext = createContext(null);
+export const loginContext = createContext(null);
+export const toastContext = createContext(null);
 
-export const OptionsProvider = ({ children }) => {
+export const Login = ({ children }) => {
 
     const [loadingOption,isLoadingOption] = useState(true);
     const [loadingAdministration,isLoadingAdministration] = useState(false);
@@ -12,7 +13,7 @@ export const OptionsProvider = ({ children }) => {
     const [loadingLoginKitchen,isLoadingLoginKitchen] = useState(false);
 
     return (
-        <optionsContext.Provider value={
+        <loginContext.Provider value={
             {loadingOption,isLoadingOption,
             loadingAdministration,isLoadingAdministration,
             loadingKitchen,isLoadingKitchen,
@@ -21,6 +22,17 @@ export const OptionsProvider = ({ children }) => {
             loadingLoginKitchen,isLoadingLoginKitchen}
         }>
             {children}
-        </optionsContext.Provider>
+        </loginContext.Provider>
+    );
+}
+
+export const Toast = ({ children }) => {
+
+    const [toast,setToast] = useState(false);
+
+    return (
+        <toastContext.Provider value={[toast,setToast]}>
+            {children}
+        </toastContext.Provider>
     );
 }

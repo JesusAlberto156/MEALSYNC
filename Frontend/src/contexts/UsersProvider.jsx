@@ -1,14 +1,113 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState, useEffect } from "react"
+import { decryptData } from "../services/Crypto";
+
+import { socketContext } from "./SocketProvider";
 
 export const usersContext = createContext(null);
+export const userContext = createContext(null);
 
-export const UsersProvider = ({ children }) => {
+export const Users = ({ children }) => {
 
-    const [users,setUsers] = useState([]);
+    const [socket] = useContext(socketContext);
+
+    const [users,setUsers] = useState(() => {
+        const StoredData = sessionStorage.getItem('Users');
+
+        if(StoredData){
+            try{
+                const decryptedData = decryptData(StoredData);
+
+                if(decryptedData){
+                    console.log('Usuarios cargados correctamente...');
+                    return JSON.parse(decryptedData);
+                }else{
+                    console.log('Error al desencriptar los usuarios...');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return [];
+            }
+        }else{
+            return [];
+        }
+    });
+
+    useEffect(() => {
+        const StoredData = sessionStorage.getItem('Users');
+
+        if(StoredData){
+            try{
+                const decryptedData = decryptData(StoredData);
+
+                if(decryptedData){
+                    console.log('Usuarios cargados correctamente...');
+                    setUsers(decryptedData);
+                }else{
+                    console.log('Error al desencriptar los usuarios...');
+                    setUsers([]);
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                setUsers([]);
+            }
+        }else{
+            socket.emit('users');
+
+            socket.on('users',(result) => {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    sessionStorage.setItem('Users',result);
+                    setUsers(parsedData);
+                }else{
+                    console.log('Error al desencriptar usuarios...');
+                    setUsers([]);
+                }
+            });
+        }
+
+        return () => {
+            socket.off('users');
+        }
+
+    },[socket]);
 
     return (
         <usersContext.Provider value={[users,setUsers]}>
             {children}
         </usersContext.Provider>
+    );
+}
+
+export const User = ({ children }) => {
+
+    const [user,setUser] = useState(() => {
+        const StoredData = sessionStorage.getItem('User');
+
+        if(StoredData){
+            try{
+                const decryptedData = decryptData(StoredData);
+
+                if(decryptedData){
+                    console.log('Credenciales cargadas correctamente...');
+                    return JSON.parse(decryptedData);
+                }else{
+                    console.log('Error al desencriptar las credenciales...');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return [];
+            }
+        }else{
+            return [];
+        }
+    });
+
+    return (
+        <userContext.Provider value={[user,setUser]}>
+            {children}
+        </userContext.Provider>
     );
 }

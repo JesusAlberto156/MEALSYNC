@@ -1,10 +1,8 @@
 import { useContext } from "react";
-import { optionsContext } from '../contexts/OptionsProvider'
-import { nameLoginContext } from '../contexts/NameLoginProvider'
-import { passwordLoginContext } from '../contexts/PasswordLoginProvider'
+import { loginContext } from "../contexts/VariablesProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 
-export const useLoginOptions = () => {
+export const useOptionsLogin = ({ setName,setPassword}) => {
 
     const {
         loadingOption, isLoadingOption,
@@ -13,10 +11,8 @@ export const useLoginOptions = () => {
         loadingLogin, isLoadingLogin,
         loadingLoginAdministration, isLoadingLoginAdministration,
         loadingLoginKitchen, isLoadingLoginKitchen
-    } = useContext(optionsContext);
+    } = useContext(loginContext);
 
-    const [name,setName] = useContext(nameLoginContext);
-    const [password,setPassword] = useContext(passwordLoginContext);
     const [typeUser,setTypeUser] = useContext(typeUserContext);
 
     const useOptionTypeUsers = (type) => {

@@ -3,25 +3,25 @@ import { decryptData } from "../services/Crypto";
 
 import { socketContext } from "./SocketProvider";
 
-export const permissionsContext = createContext(null);
-export const permissionContext = createContext(null);
+export const statusAllContext = createContext(null);
+export const statusUserContext = createContext(null);
 
-export const Permissions = ({ children }) => {
+export const StatusAll = ({ children }) => {
 
     const [socket] = useContext(socketContext);
-    
-    const [permissions,setPermissions] = useState(() => {
-        const StoredData = sessionStorage.getItem('Permissions');
+
+    const [statusAll,setStatusAll] = useState(() => {
+        const StoredData = sessionStorage.getItem('StatusAll');
 
         if(StoredData){
             try{
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('Permisos de usuarios cargados correctamente...');
+                    console.log('Estatus de usuarios cargados correctamente...');
                     return JSON.parse(decryptedData);
                 }else{
-                    console.log('Error al desencriptar los permisos...');
+                    console.log('Error al desencriptar los estatus...');
                     return [];
                 }
             } catch (error) {
@@ -34,66 +34,66 @@ export const Permissions = ({ children }) => {
     });
 
     useEffect(() => {
-        const StoredData = sessionStorage.getItem('Permissions');
+        const StoredData = sessionStorage.getItem('StatusAll');
 
         if(StoredData){
             try{
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('Permisos de usuarios cargados correctamente...');
-                    setPermissions(decryptedData);
+                    console.log('Estatus de usuarios cargados correctamente...');
+                    setStatusAll(decryptedData);
                 }else{
-                    console.log('Error al desencriptar los permisos...');
-                    setPermissions([]);
+                    console.log('Error al desencriptar los estatus...');
+                    setStatusAll([]);
                 }
             } catch (error) {
                 console.error('Error procesando datos de sessionStorage:',error);
-                setPermissions([]);
+                setStatusAll([]);
             }
         }else{
-            socket.emit('permissions');
+            socket.emit('status');
 
-            socket.on('permissions',(result) => {
+            socket.on('status',(result) => {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    sessionStorage.setItem('Permissions',result);
-                    setPermissions(parsedData);
+                    sessionStorage.setItem('StatusAll',result);
+                    setStatusAll(parsedData);
                 }else{
-                    console.log('Error al desencriptar permisos...');
-                    setPermissions([]);
+                    console.log('Error al desencriptar estatus...');
+                    setStatusAll([]);
                 }
             });
         }
 
         return () => {
-            socket.off('permissions');
+            socket.off('status');
         }
 
     },[socket]);
 
     return (
-        <permissionsContext.Provider value={[permissions,setPermissions]}>
+        <statusAllContext.Provider value={[statusAll,setStatusAll]}>
             {children}
-        </permissionsContext.Provider>
+        </statusAllContext.Provider>
     );
 }
 
-export const Permission = ({ children }) => {
+export const StatusUser = ({ children }) => {
 
-    const [permission,setPermission] = useState(() => {
-        const StoredData = sessionStorage.getItem('Permission');
+    const [statusUser,setStatusUser] = useState(() => {
+        const StoredData = sessionStorage.getItem('StatusUser');
 
         if(StoredData){
             try{
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('Permisos de la sesión cargados correctamente...');
+                    console.log('Estatus de sesión cargados correctamente...');
                     return JSON.parse(decryptedData);
                 }else{
-                    console.log('Error al desencriptar los permisos de la sesión...');
+                    console.log('Error al desencriptar el estatus de la sesión...');
                     return [];
                 }
             } catch (error) {
@@ -106,8 +106,8 @@ export const Permission = ({ children }) => {
     });
 
     return (
-        <permissionContext.Provider value={[permission,setPermission]}>
+        <statusUserContext.Provider value={[statusUser,setStatusUser]}>
             {children}
-        </permissionContext.Provider>
+        </statusUserContext.Provider>
     );
 }

@@ -1,33 +1,27 @@
 import Logo from "../components/imgs/Logo-Vertical-Digital.png"
 import { useEffect,useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { optionsContext } from '../contexts/OptionsProvider'
-import { nameLoginContext } from '../contexts/NameLoginProvider'
-import { passwordLoginContext } from '../contexts/PasswordLoginProvider'
-import { toastContext } from '../contexts/ToastProvider';
+
+import { Toaster } from 'sonner';
+import { Tooltip } from "@mui/material";
+
+import { loginContext,toastContext } from '../contexts/VariablesProvider'
+import { useOptionsLogin } from "../hooks/OptionsLogin";
+import { useLogin } from "../hooks/UserSession";
+
 import { loggedContext } from "../contexts/LoggedProvider";
 import { permissionContext } from "../contexts/PermissionProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
-import { userContext } from "../contexts/UserProvider";
-import { statusUserContext } from "../contexts/StatusUserProvider";
-
-import { Toaster } from 'sonner';
-import { useLoginOptions } from "../hooks/Options";
-import { useLogin } from "../hooks/UserSession";
 
 import { FaUserShield } from "react-icons/fa6";
 import { MdSoupKitchen } from "react-icons/md";
-
 import { FaUserSecret } from "react-icons/fa";
 import { FaWarehouse } from "react-icons/fa6";
 import { LuChefHat } from "react-icons/lu";
-
 import { GiChefToque } from "react-icons/gi";
 import { IoNutrition } from "react-icons/io5";
 import { FaUserMd } from "react-icons/fa";
-
 import { IoArrowBackCircle } from "react-icons/io5";
-import { Tooltip } from "@mui/material";
 import { MdLogin } from "react-icons/md";
 
 import { Title_Fade_Login } from "../components/styled/Text";
@@ -39,13 +33,12 @@ import { Whitespace_Login } from "../components/styled/Whitespaces";
 import { Alert_Greeting,Toast_Styles } from '../components/styled/Notifications'
 
 import Footer from '../components/footer/Footer';
-import { Loading } from "./Loading";
-
-import { decryptData } from "../services/Crypto";
+import Loading from "./Loading";
 
 export default function Login(){
-    const [name,setName] = useContext(nameLoginContext);
-    const [password,setPassword] = useContext(passwordLoginContext);
+    const [name,setName] = useState('');
+    const [password,setPassword] = useState('');
+
     const {
             loadingOption, isLoadingOption,
             loadingAdministration, isLoadingAdministration,
@@ -53,7 +46,7 @@ export default function Login(){
             loadingLogin, isLoadingLogin,
             loadingLoginAdministration, isLoadingLoginAdministration,
             loadingLoginKitchen, isLoadingLoginKitchen
-        } = useContext(optionsContext);
+        } = useContext(loginContext);
 
     const [textName,setTextName] = useState(false);
     const [isFocusedName, setIsFocusedName] = useState(false);
@@ -62,44 +55,17 @@ export default function Login(){
     const [isFocusedPassword, setIsFocusedPassword] = useState(false);
     const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
 
-    const [toast] = useContext(toastContext);
-
-    const [user,setUser] = useContext(userContext);
-    const [permission,setPermission] = useContext(permissionContext);
-    const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [typeUser,setTypeUser] = useContext(typeUserContext);
-    const [statusUser,setStatusUser] = useContext(statusUserContext);
+    const [loading,setLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    const [loading,setLoading] = useState(false);
+    const [toast] = useContext(toastContext);
+
+    const [permission,setPermission] = useContext(permissionContext);
+    const [isLogged,setIsLogged] = useContext(loggedContext);
+    const [typeUser,setTypeUser] = useContext(typeUserContext);
 
     useEffect(() => {
-        const user = sessionStorage.getItem('User');
-        const permissions = sessionStorage.getItem('Permission');
-        const type = sessionStorage.getItem('Type');
-        const status = sessionStorage.getItem('StatusUser');
-
-        if(user && permissions && type && status){
-            try{
-                const decryptedUser = decryptData(user);
-                const decryptedPermission = decryptData(permissions);
-                const decryptedType = decryptData(type);
-                const decryptedStatus = decryptData(status);
-
-                if(decryptedUser && decryptedPermission && decryptedType && decryptedStatus){
-                    setUser(JSON.parse(decryptedUser));
-                    setPermission(JSON.parse(decryptedPermission));
-                    setStatusUser(JSON.parse(decryptedStatus));
-                    setTypeUser(decryptedType);
-                    console.log('Credenciales cargadas correctamente.');
-                }else{
-                    console.log('Error al desencriptar datos almacenados.');
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-            }
-        }
         setTimeout(() => {
             setLoading(true);
         },500);
@@ -131,9 +97,9 @@ export default function Login(){
         Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
     },[loading]);
 
+    const { useOptionTypeUsers, useOptionUsers, useBackLogin} = useOptionsLogin({ setName,setPassword});
 
-    const { useOptionTypeUsers, useOptionUsers, useBackLogin} = useLoginOptions();
-    const Login = useLogin();
+    const Login = useLogin({ name,password });
 
     if(!loading) return <Loading/>
 

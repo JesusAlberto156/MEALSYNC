@@ -1,16 +1,15 @@
 import dotenv from 'dotenv';
-const { USER,PASSWORD,SERVER,DATABASE,PORT,API_URL,SECRET_KEY } = require('../../credentials/credentials');
 
 dotenv.config();
 
 export default {
     HOST: process.env.HOST || 'NO ENCONTRO VAR ENTORNO',
-    PORT: process.env.PORT || PORT,
-    API_URL: process.env.API_URL || API_URL,
-    SERVER: process.env.SERVER || SERVER,
-    DATABASE: process.env.DATABASE || DATABASE,
-    PASSWORD: process.env.PASSWORD || PASSWORD,
-    USER: process.env.USER || USER,
-    SECRET_KEY: process.env.SECRET_KEY || SECRET_KEY
+    PORT: process.env.PORT || 3000,
+    API_URL: process.env.API_URL || '/Mealsync',
+    SERVER: process.env.SERVER || 'localhost',
+    DATABASE: process.env.DATABASE || 'myDataBase',
+    PASSWORD: process.env.PASSWORD || 'defaultPassword',
+    USER: process.env.USER || 'defaultUser',
+    SECRET_KEY: process.env.SECRET_KEY || 'defaultSecretKey'
 }
 

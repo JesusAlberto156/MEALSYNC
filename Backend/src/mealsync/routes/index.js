@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import config from '../../config/config';
-import routerUser from './usuarios.routes';
+import routerUser from './users.routes';
+import routerPermission from './permissions.routes';
+import routerStatus from './status.routes';
 
 const routerAPI = (app) => {
   const router = Router();
@@ -8,6 +10,8 @@ const routerAPI = (app) => {
 
   app.use(api, router);
   router.use('/usuarios',routerUser);
+  router.use('/permisos',routerPermission);
+  router.use('/estatus',routerStatus);
 
   return router;
 };

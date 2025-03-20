@@ -9,7 +9,7 @@ import cors from 'cors';
 import { Server } from 'socket.io'; 
 import http from 'http';
 
-import { getUsersAllService,getPermissionsAllService,getStatusAllService,updateStatusActiveService } from './mealsync/services/usuarios.service.js';
+import { socketEvents } from './mealsync/socket/index.js'
 
 const app = express();
 
@@ -52,52 +52,4 @@ conexionDB().then(() => {
   process.exit(1);
 })
 
-io.on('connection', (socket) => {
-  console.log(`Cliente conectado: ${socket.id}`);
-
-  socket.on('disconnect', () => {
-    console.log(`Cliente desconectado: ${socket.id}`);
-  });
-
-  socket.on('users', async () => {
-    try{
-      const result = await getUsersAllService();
-      console.log('Usuarios Obtenidos');
-      socket.emit('users',result);
-    }catch(error){
-      console.error('Error al obtener los datos: ',error)
-      return error;
-    }
-  })
-
-  socket.on('permissions', async () => {
-    try{
-      const result = await getPermissionsAllService();
-      console.log('Permisos de Usuarios Obtenidos');
-      socket.emit('permissions',result);
-    }catch(error){
-      console.error('Error al obtener los datos: ',error)
-      return error;
-    }
-  })
-  socket.on('status', async () => {
-    try{
-      const result = await getStatusAllService();
-      console.log('Estatus de Usuarios Obtenidos');
-      socket.emit('status',result);
-    }catch(error){
-      console.error('Error al obtener los datos: ',error)
-      return error;
-    }
-  })
-  socket.on('updateStatusActive', async (id,bolean) => {
-    try{
-      const updateResult = await updateStatusActiveService(id,bolean);
-      console.log('Usuario activo/inactivo');
-      socket.emit('updateStatusActive',updateResult);
-    }catch(error){
-      console.error('Error al actualizar: ',error)
-      return error;
-    }
-  })
-})
+socketEvents(io);

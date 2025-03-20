@@ -28,11 +28,9 @@ import { encryptData } from "../services/Crypto";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const useLogin = () => {
+export const useLogin = ({ name,password }) => {
     const [typeUser,setTypeUser] = useContext(typeUserContext);
     const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [name,setName] = useContext(nameLoginContext);
-    const [password,setPassword] = useContext(passwordLoginContext);
     const [users, setUsers] = useContext(usersContext)
     const [permissions, setPermissions] = useContext(permissionsContext);
     const [user,setUser] = useContext(userContext);
@@ -150,6 +148,7 @@ export const useLogin = () => {
 
     return login;
 }
+
 export const useOutLogin = () => {
     const [name,setName] = useContext(nameLoginContext);
     const [password,setPassword] = useContext(passwordLoginContext);

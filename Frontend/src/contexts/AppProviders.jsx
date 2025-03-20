@@ -5,7 +5,7 @@ import { Permissions,Permission } from './PermissionsProvider';
 import { StatusAll,StatusUser } from './StatusProvider';
 import { TypeUser } from './TypeUserProvider';
 
-
+import { Login,Toast } from './VariablesProvider';
 
 import { LoggedProvider } from './LoggedProvider';
 import { ViewNavbarProvider } from './SwitchViewNavbarProvider';
@@ -13,8 +13,6 @@ import { ViewSidebarProvider } from './SwitchViewSidebarProvider';
 import { SidebarVisibleProvider } from './SidebarVisibleProvider';
 import { ActiveOptionProvider } from './ActiveOptionProvider';
 import { ModalOutLoginProvider,ModalAlertMedicoProvider,ModalShoppingCartProvider } from './ModalsProvider';
-import { NameLoginProvider } from './NameLoginProvider'
-import { PasswordLoginProvider } from './PasswordLoginProvider';
 import { OptionsProvider } from './VariablesProvider';
 import { ToastProvider } from './ToastProvider';
 import { SelectedRowProvider } from './SelectedRowProvider';

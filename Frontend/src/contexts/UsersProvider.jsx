@@ -13,6 +13,9 @@ export const Users = ({ children }) => {
     const [users,setUsers] = useState([]);
 
     useEffect(() => {
+
+        setTimeout(()=>{
+        },2000)
         const StoredData = sessionStorage.getItem('Users');
 
         if(StoredData){
@@ -39,6 +42,7 @@ export const Users = ({ children }) => {
                     const parsedData = JSON.parse(decryptedData);
                     sessionStorage.setItem('Users',result);
                     setUsers(parsedData);
+                    
                 }else{
                     console.log('Error al desencriptar usuarios...');
                     setUsers([]);

@@ -1,32 +1,34 @@
 import { getStatusAllService,updateStatusLoginService,updateStatusLogoutService } from "../services/status.service.js";
+import { io } from "../../index.js";
 
 export const status = (socket) => {
     socket.on('status', async () => {
         try{
             const result = await getStatusAllService();
             console.log('Estatus de Usuarios Obtenidos...');
-            socket.emit('status',result);
+            io.emit('status',result);
         }catch(error){
             console.error('Error al obtener los datos: ',error)
             return error;
         }
     });
-    socket.on('statusLogin', async (id,bolean) => {
+    socket.on('statusLogin', async (id) => {
         try{
-            const updateResult = await updateStatusLoginService(id,bolean);
+            await updateStatusLoginService(id);
+            console.log('Usuario Login... ');
             const result = await getStatusAllService();
-            console.log('Estatus actualizado... ',updateResult);
-            socket.emit('statusLogin',result);
+            io.emit('statusLogin',result);
         }catch(error){
             console.error('Error al actualizar: ',error)
             return error;
         }
     });
-    socket.on('statusLogout', async (id,bolean) => {
+    socket.on('statusLogout', async (id) => {
         try{
-            const updateResult = await updateStatusLogoutService(id,bolean);
-            console.log('Usuario Inactivo...');
-            socket.emit('statusLogout',updateResult);
+            await updateStatusLogoutService(id);
+            console.log('Usuario Logout...');
+            const result = await getStatusAllService();
+            io.emit('statusLogout',result);
         }catch(error){
             console.error('Error al actualizar: ',error)
             return error;

@@ -13,47 +13,26 @@ export const StatusAll = ({ children }) => {
     const [statusAll,setStatusAll] = useState([]);
 
     useEffect(() => {
-        const StoredData = sessionStorage.getItem('StatusAll');
+        socket.emit('status');
 
-        if(StoredData){
-            try{
-                const decryptedData = decryptData(StoredData);
-
-                if(decryptedData){
-                    console.log('Estatus de usuarios cargados correctamente...');
-                    setStatusAll(JSON.parse(decryptedData));
-                }else{
-                    console.log('Error al desencriptar los estatus...');
-                    setStatusAll([]);
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
+        socket.on('status',(result) => {
+            const decryptedData = decryptData(result);
+            if(decryptedData){
+                const parsedData = JSON.parse(decryptedData);
+                sessionStorage.setItem('StatusAll',result);
+                console.log('Estatus de usuarios obtenidos')
+                console.log(parsedData);
+                setStatusAll(parsedData);
+            }else{
+                console.log('Error al desencriptar estatus...');
                 setStatusAll([]);
             }
-        }else{
-            socket.emit('status');
-
-            socket.on('status',(result) => {
-                const decryptedData = decryptData(result);
-                if(decryptedData){
-                    const parsedData = JSON.parse(decryptedData);
-                    sessionStorage.setItem('StatusAll',result);
-                    setStatusAll(parsedData);
-                }else{
-                    console.log('Error al desencriptar estatus...');
-                    setStatusAll([]);
-                }
-            });
-        }
+        });
 
         return () => {
             socket.off('status');
         }
-    },[socket]);
-
-    useEffect(() =>{
-        console.log(statusAll);
-    },[statusAll]);
+    },[]);
 
     return (
         <statusAllContext.Provider value={[statusAll,setStatusAll]}>

@@ -6,16 +6,14 @@ import { permissionsContext,permissionContext } from "../contexts/PermissionsPro
 import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { loggedContext,enableContext,nameContext,passwordContext } from "../contexts/SessionProvider";
-
+import { socketContext } from "../contexts/SocketProvider";
 import { loginContext,toastContext,visibleContext,searchTermContext } from "../contexts/VariablesProvider";
 import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
 import { modalOutLoginContext,modalAlertMedicoContext,modalShoppingCartContext } from "../contexts/ModalsProvider";
 
-import { socketContext } from "../contexts/SocketProvider";
-
 import { Alert_Verification } from "../components/styled/Notifications";
 
-import { encryptData } from "../services/Crypto";
+import { encryptData,decryptData } from "../services/Crypto";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -34,6 +32,8 @@ export const useLogin = () => {
     const [name] = useContext(nameContext);
     const [password] = useContext(passwordContext);
 
+    const [socket] = useContext(socketContext);
+
     const navigate = useNavigate();
 
     const login = async () => {
@@ -43,38 +43,47 @@ export const useLogin = () => {
             try{
                 await delay(1000);
                 
-                const existsUser = users.find(user => user.usuario.trim() === name.trim());
+                const existsUser = users.find(user => user.usuario === name);
                 
                 if(!existsUser) return reject('¡Usuario no encontrado!...')
 
                 if(existsUser.contrasena === password){
 
-                    const existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
+                    let existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
                     if(!existsStatus) return reject('¡Usuario sin estatus!...');
                     if(!existsStatus.habilitado) return reject('¡Este usuario no se encuentra habilitado!...');
 
                     const existsPermission = permissions.find(permissions => permissions.idusuario === existsUser.idusuario);
                     if(!existsPermission) return reject('¡Este usuario no cuenta con roles asignados!...')
                 
-                    if(typeUser === 'Cocinero'){
-                        if(!existsPermission.cocinero) return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
-                    }
-                    if(typeUser === 'Nutriologo'){
-                        if(!existsPermission.nutriologo) return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
-                    }
-                    if(typeUser === 'Medico'){
-                        if(!existsPermission.medico) return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
-                    }
-                    if(typeUser === 'Administrador'){
-                        if(!existsPermission.administrador) return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
-                    }
-                    if(typeUser === 'Chef'){
-                        if(!existsPermission.chef) return reject('¡Este usuario no cuenta con el rol de CHEF!...');
-                    }
-                    if(typeUser === 'Almacen'){
-                        if(!existsPermission.almacen) return reject('¡Este usuario no cuenta con el rol de ALMACÉN!...');
-                    }
+                    if(typeUser === 'Cocinero' && !existsPermission.cocinero) return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
+                    if(typeUser === 'Nutriologo' && !existsPermission.nutriologo) return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
+                    if(typeUser === 'Medico' && !existsPermission.medico) return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
+                    if(typeUser === 'Administrador' && !existsPermission.administrador) return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
+                    if(typeUser === 'Chef' && !existsPermission.chef) return reject('¡Este usuario no cuenta con el rol de CHEF!...');
+                    if(typeUser === 'Almacen' && !existsPermission.almacen) return reject('¡Este usuario no cuenta con el rol de ALMACÉN!...');
 
+                    const statusResponse = await new Promise((resolve,reject) => {
+                        socket.emit('statusLogin',existsUser.idusuario);
+
+                        socket.on('statusLogin',(result) => {
+                            const decryptedData = decryptData(result);
+                            if(decryptedData){
+                                const parsedData = JSON.parse(decryptedData);
+                                setStatusAll(parsedData);
+                                sessionStorage.setItem('StatusAll',result);
+                                console.log('Se conecto el usuario ',existsUser.usuario);
+                                socket.emit('status');
+                                resolve(parsedData);
+                            }else{
+                                console.log('Error al desencriptar estatus...');
+                                reject('¡No es posible activar el usuario!...');
+                            }
+                        });
+                    });
+                    socket.off('statusLogin');
+                    existsStatus = statusResponse.find(user => user.idusuario === existsUser.idusuario);
+                    
                     setTimeout(() => {
                         const jsonUser = JSON.stringify(existsUser);
                         const jsonPermission = JSON.stringify(existsPermission);
@@ -91,8 +100,10 @@ export const useLogin = () => {
                             console.log('¡Credenciales encriptadas correctamente!...')
 
                             resolve('¡SESIÓN INICIADA!...');
+
                             sessionStorage.setItem('User',encryptedUser);
                             sessionStorage.setItem('Permission',encryptedPermission);
+                            
                             sessionStorage.setItem('Logged',encryptedLogged);
                             sessionStorage.setItem('TypeUser',encryptedType);
                             sessionStorage.setItem('Enable',encryptedEnable);
@@ -123,7 +134,7 @@ export const useLogin = () => {
 
         setToast(true);
         Alert_Verification(promise,'Verificando credenciales...','Light');
-        
+
         document.title = "MEALSYNC_Iniciar_Sesión";
     }
 

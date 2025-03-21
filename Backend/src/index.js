@@ -52,4 +52,4 @@ conexionDB().then(() => {
   process.exit(1);
 })
 
-socketEvents(io);
+socketEvents();

@@ -101,10 +101,10 @@ export const useLogin = () => {
                                 setToast(false);
                             },1500);
                             setTimeout(() => {
+                                setUser(jsonUser);
+                                setPermission(jsonPermission);
+                                setStatusUser(jsonStatus);
                                 setIsLogged(true);
-                                setUser(existsUser);
-                                setPermission(existsPermission);
-                                setStatusUser(existsStatus);
                                 setIsEnable(existsStatus.habilitado);
                                 navigate(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
                             },2000);

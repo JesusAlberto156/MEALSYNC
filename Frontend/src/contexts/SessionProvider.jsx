@@ -1,5 +1,8 @@
-import { createContext, useState,useEffect } from "react"
+import { createContext, useState,useEffect, useContext } from "react"
 import { decryptData } from "../services/Crypto";
+
+import { socketContext } from "./SocketProvider";
+import { statusAllContext,statusUserContext } from "./StatusProvider";
 
 export const loggedContext = createContext(null);
 export const enableContext = createContext(null);
@@ -7,6 +10,11 @@ export const nameContext = createContext(null);
 export const passwordContext = createContext(null);
 
 export const Logged = ({ children }) => {
+
+    const [statusAll,setStatusAll] = useContext(statusAllContext);
+    const [statusUser,setStatusUser] = useContext(statusUserContext);
+
+    const [socket] = useContext(socketContext);
 
     const [isLogged,setIsLogged] = useState(() => {
         const logged = sessionStorage.getItem('Logged');
@@ -29,6 +37,52 @@ export const Logged = ({ children }) => {
         }
         return false;
     });
+
+    useEffect(() => {
+        if(statusUser && statusUser.length > 0 && statusUser[0].idusuario){
+            if(!isLogged){
+                socket.emit('statusLogout',statusUser.idusuario)
+
+                socket.on('statusLogout',(result) => {
+                    console.log('Sesión desactivada:', result);
+                    
+                    const decryptedData = decryptData(result);
+                    if(decryptedData){
+                        const parsedData = JSON.parse(decryptedData);
+                        sessionStorage.setItem('StatusAll',result);
+                        setStatusAll(parsedData);
+                    }else{
+                        console.log('Error al desencriptar estatus...');
+                        setStatusAll([]);
+                    }
+                });
+
+                return () => {
+                    socket.off('statusLogout');
+                };
+            }else{
+                socket.emit('statusLogin',statusUser.idusuario)
+
+                socket.on('statusLogoin',(result) => {
+                    console.log('Sesión activada:', result);
+                    
+                    const decryptedData = decryptData(result);
+                    if(decryptedData){
+                        const parsedData = JSON.parse(decryptedData);
+                        sessionStorage.setItem('StatusAll',result);
+                        setStatusAll(parsedData);
+                    }else{
+                        console.log('Error al desencriptar estatus...');
+                        setStatusAll([]);
+                    }
+                });
+
+                return () => {
+                    socket.off('statusLogin');
+                };
+            }
+        }
+    },[isLogged]);
 
     return (
         <loggedContext.Provider value={[isLogged,setIsLogged]}>

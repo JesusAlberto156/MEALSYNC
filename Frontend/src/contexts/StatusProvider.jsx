@@ -49,8 +49,11 @@ export const StatusAll = ({ children }) => {
         return () => {
             socket.off('status');
         }
-
     },[socket]);
+
+    useEffect(() =>{
+        console.log(statusAll);
+    },[statusAll]);
 
     return (
         <statusAllContext.Provider value={[statusAll,setStatusAll]}>

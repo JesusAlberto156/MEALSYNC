@@ -14,8 +14,9 @@ export const status = (socket) => {
     socket.on('statusLogin', async (id,bolean) => {
         try{
             const updateResult = await updateStatusLoginService(id,bolean);
-            console.log('Usuario Activo...');
-            socket.emit('statusLogin',updateResult);
+            const result = await getStatusAllService();
+            console.log('Estatus actualizado... ',updateResult);
+            socket.emit('statusLogin',result);
         }catch(error){
             console.error('Error al actualizar: ',error)
             return error;

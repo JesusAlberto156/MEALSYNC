@@ -39,7 +39,7 @@ const updateStatusLoginService = async (id) => {
 }
 // UPDATE STATUS LOGIN 
 // UPDATE STATUS LOGIN
-const updateStatusLogoutService = async (id,bolean) => {
+const updateStatusLogoutService = async (id) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()

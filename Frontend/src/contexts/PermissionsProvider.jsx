@@ -13,44 +13,24 @@ export const Permissions = ({ children }) => {
     const [permissions,setPermissions] = useState([]);
 
     useEffect(() => {
-        const StoredData = sessionStorage.getItem('Permissions');
+        socket.emit('permissions');
 
-        if(StoredData){
-            try{
-                const decryptedData = decryptData(StoredData);
-
-                if(decryptedData){
-                    console.log('Permisos de usuarios cargados correctamente...');
-                    setPermissions(JSON.parse(decryptedData));
-                }else{
-                    console.log('Error al desencriptar los permisos...');
-                    setPermissions([]);
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
+        socket.on('permissions',(result) => {
+            const decryptedData = decryptData(result);
+            if(decryptedData){
+                const parsedData = JSON.parse(decryptedData);
+                console.log('Permisos de usuarios obtenidos...')
+                setPermissions(parsedData);
+            }else{
+                console.log('Error al desencriptar permisos...');
                 setPermissions([]);
             }
-        }else{
-            socket.emit('permissions');
-
-            socket.on('permissions',(result) => {
-                const decryptedData = decryptData(result);
-                if(decryptedData){
-                    const parsedData = JSON.parse(decryptedData);
-                    sessionStorage.setItem('Permissions',result);
-                    setPermissions(parsedData);
-                }else{
-                    console.log('Error al desencriptar permisos...');
-                    setPermissions([]);
-                }
-            });
-        }
+        });
 
         return () => {
             socket.off('permissions');
         }
-
-    },[socket]);
+    },[]);
 
     return (
         <permissionsContext.Provider value={[permissions,setPermissions]}>

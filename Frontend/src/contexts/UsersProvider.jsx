@@ -13,48 +13,25 @@ export const Users = ({ children }) => {
     const [users,setUsers] = useState([]);
 
     useEffect(() => {
+        socket.emit('users');
 
-        setTimeout(()=>{
-        },2000)
-        const StoredData = sessionStorage.getItem('Users');
-
-        if(StoredData){
-            try{
-                const decryptedData = decryptData(StoredData);
-
-                if(decryptedData){
-                    console.log('Usuarios cargados correctamente...');
-                    setUsers(JSON.parse(decryptedData));
-                }else{
-                    console.log('Error al desencriptar los usuarios...');
-                    setUsers([]);
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
+        socket.on('users',(result) => {
+            const decryptedData = decryptData(result);
+            if(decryptedData){
+                const parsedData = JSON.parse(decryptedData);
+                console.log('Usuarios obtenidos...')
+                setUsers(parsedData);
+                
+            }else{
+                console.log('Error al desencriptar usuarios...');
                 setUsers([]);
             }
-        }else{
-            socket.emit('users');
-
-            socket.on('users',(result) => {
-                const decryptedData = decryptData(result);
-                if(decryptedData){
-                    const parsedData = JSON.parse(decryptedData);
-                    sessionStorage.setItem('Users',result);
-                    setUsers(parsedData);
-                    
-                }else{
-                    console.log('Error al desencriptar usuarios...');
-                    setUsers([]);
-                }
-            });
-        }
+        });
 
         return () => {
             socket.off('users');
         }
-
-    },[socket]);
+    },[]);
 
     return (
         <usersContext.Provider value={[users,setUsers]}>

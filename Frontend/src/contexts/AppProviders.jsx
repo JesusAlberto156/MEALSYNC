@@ -8,7 +8,7 @@ import { Logged,Enable,Name,Password } from './SessionProvider';
 
 import { Login,Toast,Visible,SelectedRow,SearchTerm } from './VariablesProvider';
 import { Navbar,Sidebar } from './ViewsProvider';
-import { ModalOutLogin,ModalAlertMedico,ModalShoppingCart } from './ModalsProvider';
+import { ModalOutLogin,ModalAlertMedico,ModalShoppingCart,ModalUserEnable } from './ModalsProvider';
 
 export const AppProviders = ({children}) => {
     return(
@@ -34,7 +34,9 @@ export const AppProviders = ({children}) => {
                                                                                     <ModalOutLogin>
                                                                                         <ModalAlertMedico>
                                                                                             <ModalShoppingCart>
-                                                                                                {children}
+                                                                                                <ModalUserEnable>
+                                                                                                    {children}
+                                                                                                </ModalUserEnable>
                                                                                             </ModalShoppingCart>
                                                                                         </ModalAlertMedico>
                                                                                     </ModalOutLogin>

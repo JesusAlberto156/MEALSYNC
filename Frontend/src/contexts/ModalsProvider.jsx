@@ -3,6 +3,7 @@ import { createContext, useState } from "react"
 export const modalOutLoginContext = createContext(null);
 export const modalAlertMedicoContext = createContext(null);
 export const modalShoppingCartContext = createContext(null);
+export const modalUserEnableContext = createContext(null);
 
 export const ModalOutLogin = ({ children }) => {
 
@@ -32,5 +33,15 @@ export const ModalShoppingCart = ({ children }) => {
         <modalShoppingCartContext.Provider value={[isModal,setIsModal]}>
             {children}
         </modalShoppingCartContext.Provider>
+    );
+}
+export const ModalUserEnable = ({ children }) => {
+
+    const [isModal,setIsModal] = useState(false);
+
+    return (
+        <modalUserEnableContext.Provider value={[isModal,setIsModal]}>
+            {children}
+        </modalUserEnableContext.Provider>
     );
 }

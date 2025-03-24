@@ -24,7 +24,10 @@ export default function TableStatus(){
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("TableStatus");
-            if (table && !table.contains(event.target)) {
+            const buttons = document.querySelectorAll('#Habilitar, #Deshabilitar, #Enable');
+
+            if (table && !table.contains(event.target) &&
+            ![...buttons].some((btn) => btn.contains(event.target))) {
                 setSelectedRow(null);
             }
         };

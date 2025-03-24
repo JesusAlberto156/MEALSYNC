@@ -19,9 +19,7 @@ export const StatusAll = ({ children }) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
-                sessionStorage.setItem('StatusAll',result);
-                console.log('Estatus de usuarios obtenidos')
-                console.log(parsedData);
+                console.log('Estatus de usuarios obtenidos....')
                 setStatusAll(parsedData);
             }else{
                 console.log('Error al desencriptar estatus...');
@@ -51,7 +49,7 @@ export const StatusUser = ({ children }) => {
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('Estatus de sesión cargados correctamente...');
+                    console.log('Estatus de la sesión cargados correctamente...');
                     return JSON.parse(decryptedData);
                 }else{
                     console.log('Error al desencriptar el estatus de la sesión...');

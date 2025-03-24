@@ -6,14 +6,13 @@ import { permissionsContext,permissionContext } from "../contexts/PermissionsPro
 import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { loggedContext,enableContext,nameContext,passwordContext } from "../contexts/SessionProvider";
-import { socketContext } from "../contexts/SocketProvider";
-import { loginContext,toastContext,visibleContext,searchTermContext } from "../contexts/VariablesProvider";
+import { loginContext,toastContext,visibleContext,searchTermContext,selectedRowContext } from "../contexts/VariablesProvider";
 import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
 import { modalOutLoginContext,modalAlertMedicoContext,modalShoppingCartContext } from "../contexts/ModalsProvider";
 
 import { Alert_Verification } from "../components/styled/Notifications";
 
-import { encryptData,decryptData } from "../services/Crypto";
+import { encryptData } from "../services/Crypto";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -31,8 +30,6 @@ export const useLogin = () => {
 
     const [name] = useContext(nameContext);
     const [password] = useContext(passwordContext);
-
-    const [socket] = useContext(socketContext);
 
     const navigate = useNavigate();
 
@@ -52,6 +49,7 @@ export const useLogin = () => {
                     let existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
                     if(!existsStatus) return reject('¡Usuario sin estatus!...');
                     if(!existsStatus.habilitado) return reject('¡Este usuario no se encuentra habilitado!...');
+                    if(existsStatus.activo) return reject('¡Este usuario ya se encuentra activo!...');
 
                     const existsPermission = permissions.find(permissions => permissions.idusuario === existsUser.idusuario);
                     if(!existsPermission) return reject('¡Este usuario no cuenta con roles asignados!...')
@@ -62,63 +60,49 @@ export const useLogin = () => {
                     if(typeUser === 'Administrador' && !existsPermission.administrador) return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
                     if(typeUser === 'Chef' && !existsPermission.chef) return reject('¡Este usuario no cuenta con el rol de CHEF!...');
                     if(typeUser === 'Almacen' && !existsPermission.almacen) return reject('¡Este usuario no cuenta con el rol de ALMACÉN!...');
-
-                    const statusResponse = await new Promise((resolve,reject) => {
-                        socket.emit('statusLogin',existsUser.idusuario);
-
-                        socket.on('statusLogin',(result) => {
-                            const decryptedData = decryptData(result);
-                            if(decryptedData){
-                                const parsedData = JSON.parse(decryptedData);
-                                setStatusAll(parsedData);
-                                sessionStorage.setItem('StatusAll',result);
-                                console.log('Se conecto el usuario ',existsUser.usuario);
-                                socket.emit('status');
-                                resolve(parsedData);
-                            }else{
-                                console.log('Error al desencriptar estatus...');
-                                reject('¡No es posible activar el usuario!...');
-                            }
-                        });
-                    });
-                    socket.off('statusLogin');
-                    existsStatus = statusResponse.find(user => user.idusuario === existsUser.idusuario);
                     
                     setTimeout(() => {
                         const jsonUser = JSON.stringify(existsUser);
                         const jsonPermission = JSON.stringify(existsPermission);
-                        const jsonStatus = JSON.stringify(existsStatus);
 
                         const encryptedUser = encryptData(jsonUser);
                         const encryptedPermission = encryptData(jsonPermission);
-                        const encryptedStatus = encryptData(jsonStatus);
                         const encryptedLogged = encryptData('true');
-                        const encryptedEnable = encryptData(existsStatus.habilitado ? 'true' : 'false');
                         const encryptedType = encryptData(typeUser);
+                        const encryptedEnable = encryptData(existsStatus.habilitado ? 'true' : 'false');
 
-                        if( encryptedUser && encryptedPermission && encryptedStatus && encryptedLogged && encryptedType && encryptedEnable){
-                            console.log('¡Credenciales encriptadas correctamente!...')
-
+                        if( encryptedUser && encryptedPermission && encryptedLogged && encryptedType && encryptedEnable){
                             resolve('¡SESIÓN INICIADA!...');
 
                             sessionStorage.setItem('User',encryptedUser);
                             sessionStorage.setItem('Permission',encryptedPermission);
-                            
                             sessionStorage.setItem('Logged',encryptedLogged);
                             sessionStorage.setItem('TypeUser',encryptedType);
                             sessionStorage.setItem('Enable',encryptedEnable);
-                            sessionStorage.setItem('StatusUser',encryptedStatus);
+
                             setTimeout(() => {
                                 setToast(false);
                             },1500);
+                            
                             setTimeout(() => {
-                                setUser(jsonUser);
-                                setPermission(jsonPermission);
-                                setStatusUser(jsonStatus);
-                                setIsLogged(true);
-                                setIsEnable(existsStatus.habilitado);
-                                navigate(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
-                            },2000);
+                                setUser(JSON.parse(jsonUser));
+                                setPermission(JSON.parse(jsonPermission));
+                                setIsEnable(true);
+
+                                existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
+                                const jsonStatus = JSON.stringify(existsStatus);
+                                const encryptedStatus = encryptData(jsonStatus);
+
+                                if(encryptedStatus){
+                                    sessionStorage.setItem('StatusUser',encryptedStatus);
+                                    setStatusUser(JSON.parse(jsonStatus));
+                                    setIsLogged(true);
+                                    console.log('¡Credenciales encriptadas correctamente!...')
+                                    navigate(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
+                                }else{
+                                    return console.log('¡Error al encriptar el estatus de la sesión!...')
+                                }
+                            },1500);
                         }else{
                             setIsLogged(false);
                             return console.log('¡Error al encriptar las credenciales!...')
@@ -150,25 +134,30 @@ export const useOutLogin = () => {
             loadingLoginAdministration, isLoadingLoginAdministration,
             loadingLoginKitchen, isLoadingLoginKitchen
         } = useContext(loginContext);
-    const [typeUser,setTypeUser] = useContext(typeUserContext);
-    const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [sidebar,setSidebar] = useContext(sidebarContext);
-    const [navbar,setNavbar] = useContext(navbarContext);
+    const [toast,setToast] = useContext(toastContext); 
     const [visible,setVisible] = useContext(visibleContext);
-    const [modalAlertMedico,setModalAlertMedico] = useContext(modalAlertMedicoContext);
-    const [modalOutLogin,setModalOutLogin] = useContext(modalOutLoginContext);
-    const [modalShoppingCart,setModalShoppingCart] = useContext(modalShoppingCartContext);
-    const [user,setUser] = useContext(userContext);
-    const [permission,setPermission] = useContext(permissionContext);
-    const [toast,setToast] = useContext(toastContext);
+    const [selectedRow,setSelectedRow] = useContext(selectedRowContext);
     const [searchTerm,setSearchTerm] = useContext(searchTermContext);
 
-    const [statusUser,setStatusUser] = useContext(statusUserContext);
-    const [isEnable,setIsEnable] = useContext(enableContext);
+    const [navbar,setNavbar] = useContext(navbarContext);
+    const [sidebar,setSidebar] = useContext(sidebarContext);
+
+    const [modalOutLogin,setModalOutLogin] = useContext(modalOutLoginContext);
+    const [modalAlertMedico,setModalAlertMedico] = useContext(modalAlertMedicoContext);
+    const [modalShoppingCart,setModalShoppingCart] = useContext(modalShoppingCartContext);
 
     const [name,setName] = useContext(nameContext);
     const [password,setPassword] = useContext(passwordContext);
 
+    const [typeUser,setTypeUser] = useContext(typeUserContext);
+    
+    const [isLogged,setIsLogged] = useContext(loggedContext);
+    const [isEnable,setIsEnable] = useContext(enableContext);
+
+    const [statusUser,setStatusUser] = useContext(statusUserContext);
+    const [user,setUser] = useContext(userContext);
+    const [permission,setPermission] = useContext(permissionContext);
+    
     const navigate = useNavigate();
 
     const outLogin = async () => {
@@ -186,29 +175,39 @@ export const useOutLogin = () => {
                     isLoadingLogin(false);
                     isLoadingLoginAdministration(false);
                     isLoadingLoginKitchen(false);
-                    setTypeUser('');
-                    sessionStorage.removeItem('TypeUser');
-                    setIsLogged(false);
-                    sessionStorage.removeItem('Logged')
-                    setSidebar('Inicio');
-                    setNavbar('');
-                    setVisible(true);
-                    setModalAlertMedico(true);
-                    setModalOutLogin(false);
-                    setModalShoppingCart(false);
-                    setUser([]);
-                    sessionStorage.removeItem('User');
-                    setPermission([]);
-                    sessionStorage.removeItem('Permission');
                     setToast(false);
+                    setVisible(true);
+                    setSelectedRow(null);
                     setSearchTerm('');
-                    setStatusUser([]);
-                    sessionStorage.removeItem('StatusUser')                   
-                    setIsEnable(false);                   
-                    sessionStorage.removeItem('Enable');
+
+                    setNavbar('');
+                    setSidebar('Inicio');
+
+                    setModalOutLogin(false);
+                    setModalAlertMedico(true);
+                    setModalShoppingCart(false);
+
                     setName('');
                     setPassword('');
-                    navigate("/",{replace: true});
+
+                    setTypeUser('');
+                    sessionStorage.removeItem('TypeUser');
+
+                    setIsLogged(false);
+                    sessionStorage.removeItem('Logged');
+                    setIsEnable(null);
+                    sessionStorage.removeItem('Enable');
+                    
+                    setStatusUser([]);
+                    sessionStorage.removeItem('StatusUser') ;
+
+                    setTimeout(() => {
+                        setUser([]);
+                        sessionStorage.removeItem('User');
+                        setPermission([]);
+                        sessionStorage.removeItem('Permission');
+                        navigate("/",{replace: true});
+                    },200)
                 },2000)
             }catch(error){
                 reject('¡Ocurrio un error inesperado...');

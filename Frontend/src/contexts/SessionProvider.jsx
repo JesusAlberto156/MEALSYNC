@@ -2,7 +2,7 @@ import { createContext, useState,useEffect, useContext } from "react"
 import { decryptData } from "../services/Crypto";
 
 import { socketContext } from "./SocketProvider";
-import { statusAllContext,statusUserContext } from "./StatusProvider";
+import { userContext } from './UsersProvider';
 
 export const loggedContext = createContext(null);
 export const enableContext = createContext(null);
@@ -11,6 +11,8 @@ export const passwordContext = createContext(null);
 
 export const Logged = ({ children }) => {
 
+    const [socket] = useContext(socketContext);
+    const [user] = useContext(userContext);
     const [isLogged,setIsLogged] = useState(() => {
         const logged = sessionStorage.getItem('Logged');
 
@@ -19,10 +21,10 @@ export const Logged = ({ children }) => {
                 const decryptedData = decryptData(logged);
 
                 if(decryptedData){
-                    console.log('Inicio de sesión cargado correctamente.');
+                    console.log('Inicio de sesión cargado correctamente...');
                     return true;
                 }else{
-                    console.log('Error al desencriptar datos almacenados.');
+                    console.log('Error al desencriptar datos almacenados...');
                     return false;
                 }
             } catch (error) {
@@ -32,6 +34,32 @@ export const Logged = ({ children }) => {
         }
         return false;
     });
+
+    useEffect(() => {
+        if(isLogged){
+            socket.emit('statusLogin',user.idusuario,user.usuario);
+
+            socket.on('statusLogin',(mensaje,usuario) => {
+                console.log(mensaje,usuario);
+                socket.emit('status');
+            });
+
+            return () => {
+                socket.off('statusLogin');
+            }
+        }else{
+            socket.emit('statusLogout',user.idusuario,user.usuario);
+
+            socket.on('statusLogout',(mensaje,usuario) => {
+                console.log(mensaje,usuario);
+                socket.emit('status');
+            });
+
+            return () => {
+                socket.off('statusLogout');
+            }
+        }
+    },[isLogged]);
 
     return (
         <loggedContext.Provider value={[isLogged,setIsLogged]}>
@@ -42,6 +70,7 @@ export const Logged = ({ children }) => {
 
 export const Enable = ({ children }) => {
 
+    const [isLogged] = useContext(loggedContext);
     const [isEnable,setIsEnable] = useState(() => {
         const enable = sessionStorage.getItem('Enable');
 
@@ -50,23 +79,33 @@ export const Enable = ({ children }) => {
                 const decryptedData = decryptData(enable);
 
                 if(decryptedData){
-                    console.log('Estado de sesión cargado correctamente.');
+                    console.log('Estado de sesión cargado correctamente...');
                     if(decryptedData === 'false'){
                         return false;
                     }else{
                         return true;
                     }
                 }else{
-                    console.log('Error al desencriptar datos almacenados.');
-                    return false;
+                    console.log('Error al desencriptar datos almacenados...');
+                    return null;
                 }
             } catch (error) {
                 console.error('Error procesando datos de sessionStorage:',error);
-                return false;
+                return null;
             }
         }
-        return false;
+        return null;
     });
+
+    useEffect(() => {
+        if(isLogged){
+            if(isEnable){
+                
+            }else{
+
+            }
+        }
+    },[isEnable])
 
     return (
         <enableContext.Provider value={[isEnable,setIsEnable]}>

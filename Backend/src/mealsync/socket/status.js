@@ -1,4 +1,4 @@
-import { getStatusAllService,updateStatusLoginService,updateStatusLogoutService } from "../services/status.service.js";
+import { getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService } from "../services/status.service.js";
 import { io } from "../../index.js";
 
 export const status = (socket) => {
@@ -24,9 +24,27 @@ export const status = (socket) => {
     socket.on('statusLogout', async (id,usuario) => {
         try{
             await updateStatusLogoutService(id);
-            io.emit('statusLogin','Cerró sesión ',usuario);
+            io.emit('statusLogout','Cerró sesión ',usuario);
         }catch(error){
             console.error('Error al actualizar: ',error)
+            return error;
+        }
+    });
+    socket.on('statusEnable', async () => {
+        try{
+            await updateStatusEnableService(id);
+            io.emit('statusDisable','Se habilito a ',usuario);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
+            return error;
+        }
+    });
+    socket.on('statusDisable', async (id,usuario) => {
+        try{
+            await updateStatusDisableService(id);
+            io.emit('statusDisable','Se deshabilito a ',usuario);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
             return error;
         }
     });

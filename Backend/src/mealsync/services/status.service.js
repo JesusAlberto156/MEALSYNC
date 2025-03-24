@@ -37,7 +37,7 @@ const updateStatusLoginService = async (id) => {
     }
 }
 // UPDATE STATUS LOGIN 
-// UPDATE STATUS LOGIN
+// UPDATE STATUS LOGOUT
 const updateStatusLogoutService = async (id) => {
     try{
         const pool = await conexionDB();
@@ -55,6 +55,44 @@ const updateStatusLogoutService = async (id) => {
         throw error;
     }
 }
-// UPDATE STATUS LOGIN 
+// UPDATE STATUS LOGOUT
+// UPDATE STATUS ENABLE
+const updateStatusEnableService = async (id) => {
+    try {
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('id',sql.Int,id)
+            .query('UPDATE estatus SET habilitado = 1 WHERE idusuario = @id');
 
-export { getStatusAllService,updateStatusLoginService,updateStatusLogoutService };
+        if(result.rowsAffected[0]>0){
+            return 'Usuario habilitado...'
+        }else{
+            return 'No es posible actualizar el estatus, o estatus cambiado...'
+        }
+    }catch(error){
+        console.error('Error al actualizar el estatus: ',error.message);
+        throw error;
+    }
+}
+// UPDATE STATUS ENABLE
+// UPDATE STATUS DISABLE
+const updateStatusDisableService = async (id) => {
+    try {
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('id',sql.Int,id)
+            .query('UPDATE estatus SET habilitado = 0 WHERE idusuario = @id');
+
+        if(result.rowsAffected[0]>0){
+            return 'Usuario deshabilitado...'
+        }else{
+            return 'No es posible actualizar el estatus, o estatus cambiado...'
+        }
+    }catch(error){
+        console.error('Error al actualizar el estatus: ',error.message);
+        throw error;
+    }
+}
+// UPDATE STATUS DISABLE
+
+export { getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService };

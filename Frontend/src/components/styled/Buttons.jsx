@@ -315,6 +315,43 @@ export const Button_Icon_Exit_Modal = styled.button`
         }
     } 
 `;
+export const Button_Icon_Green_Modal = styled.button`
+    width: 100%;
+    padding: 6px;
+    background-color: rgb(20, 165, 76);
+    color: white;
+    border: 2px solid black;
+    border-radius: 15px;
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(13, 112, 51);
+        transform: translateY(-2px);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.2);
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding: 2px;
+        font-size: 22px;
+
+        &:hover {
+            transform: translateY(-2px);
+            transform: scale(1.2);
+        }
+    } 
+`;
 //--------MODAL--------
 //--------ERROR--------
 export const Button_White_Error = styled.button`
@@ -377,6 +414,45 @@ export const Button_Blue_Search_Bar = styled.button`
     
     &:hover {
         background-color:rgb(12, 54, 109);
+        transform: translateY(-2px);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        width:20%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        width:40%;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+`;
+export const Button_Block_Search_Bar = styled.button`
+    width: 10%;
+    padding: 4px;
+    background-color: rgb(84,88,89);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    transform: none;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
         transform: translateY(-2px);
         transform: scale(1.2);
     }

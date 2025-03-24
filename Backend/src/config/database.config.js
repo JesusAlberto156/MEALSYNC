@@ -1,20 +1,25 @@
 import sql from 'mssql';
-
 import config from './config.js';
+
+let pool = null;
 
 const conexionDB = async () => {
     try {
-        const pool = await sql.connect({
-            user: config.USER,
-            password: config.PASSWORD,
-            server: config.SERVER,
-            database: config.DATABASE,
-            options: {
-                encrypt: false,
-                trustServerCertificate: true
-            }
-        });
-        console.log('Conectado a la Base de Datos: ',config.DATABASE);
+        if(!pool){
+            pool = await sql.connect({
+                user: config.USER,
+                password: config.PASSWORD,
+                server: config.SERVER,
+                database: config.DATABASE,
+                options: {
+                    encrypt: false,
+                    trustServerCertificate: true
+                }
+            });
+            console.log('Conectado a la Base de Datos: ',config.DATABASE);
+        }else{
+            console.log('Utilizando conexión existente...');
+        }
 
         return pool;
     } catch (error) {
@@ -22,4 +27,4 @@ const conexionDB = async () => {
     }
 };
 
-export {conexionDB};
+export {conexionDB,sql};

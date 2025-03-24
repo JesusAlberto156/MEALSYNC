@@ -11,10 +11,6 @@ export const socketEvents = () => {
     permissions(socket);
     status(socket);
 
-    socket.on('message', () => {
-      io.emit('message',`Mensaje resivido de cliente: ${socket.id}`)
-    })
-
     socket.on('disconnect', () => {
       console.log(`Cliente desconectado: ${socket.id}`);
     });

@@ -1,6 +1,5 @@
-import { conexionDB } from "../../config/database.config.js";
+import { conexionDB,sql } from "../../config/database.config.js";
 import { encryptData } from "../../config/crypto.js";
-import sql from 'mssql';
 
 // GET USER ALL
 const getUsersAllService = async () => {

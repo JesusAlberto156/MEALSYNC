@@ -12,23 +12,19 @@ export const status = (socket) => {
             return error;
         }
     });
-    socket.on('statusLogin', async (id) => {
+    socket.on('statusLogin', async (id,usuario) => {
         try{
             await updateStatusLoginService(id);
-            console.log('Usuario Login... ');
-            const result = await getStatusAllService();
-            io.emit('statusLogin',result);
+            io.emit('statusLogin','Inicio sesión ',usuario);
         }catch(error){
             console.error('Error al actualizar: ',error)
             return error;
         }
     });
-    socket.on('statusLogout', async (id) => {
+    socket.on('statusLogout', async (id,usuario) => {
         try{
             await updateStatusLogoutService(id);
-            console.log('Usuario Logout...');
-            const result = await getStatusAllService();
-            io.emit('statusLogout',result);
+            io.emit('statusLogin','Cerró sesión ',usuario);
         }catch(error){
             console.error('Error al actualizar: ',error)
             return error;

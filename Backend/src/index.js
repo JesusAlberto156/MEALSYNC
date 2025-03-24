@@ -43,7 +43,7 @@ app.get(`${api}`, (req,res)=>{
 })
 
 conexionDB().then(() => {
-  console.log('Conexion a la base de datos exitosa');
+  console.log('Conexion a la base de datos exitosa...');
 
   routerAPI(app);
   

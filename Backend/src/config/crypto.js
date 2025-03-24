@@ -10,14 +10,14 @@ export const encryptData = (data) => {
 export const decryptData = (encryptedData) => {
     try {
         if (!encryptedData) {
-            throw new Error("No hay datos encriptados para desencriptar.");
+            throw new Error("No hay datos encriptados para desencriptar...");
         }
 
         const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);
         const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
 
         if (!decryptedString) {
-            throw new Error("La desencriptación falló. Posible clave incorrecta o datos corruptos.");
+            throw new Error("La desencriptación falló. Posible clave incorrecta o datos corruptos...");
         }
 
         return decryptedString;

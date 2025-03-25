@@ -83,11 +83,13 @@ export const useLogin = () => {
                             setTimeout(() => {
                                 setToast(false);
                             },1500);
-                            
+
+                            setIsEnable(true);
+
                             setTimeout(() => {
                                 setUser(JSON.parse(jsonUser));
                                 setPermission(JSON.parse(jsonPermission));
-                                setIsEnable(true);
+                                
 
                                 existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
                                 const jsonStatus = JSON.stringify(existsStatus);

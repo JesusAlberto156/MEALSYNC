@@ -3,9 +3,14 @@ import { decryptData } from "../services/Crypto";
 
 import { socketContext } from "./SocketProvider";
 import { userContext } from './UsersProvider';
+import { selectedRowContext } from "./VariablesProvider";
+import { navbarContext,sidebarContext } from "./ViewsProvider";
+
+import { useOutLogin } from "../hooks/UserSession";
 
 export const loggedContext = createContext(null);
 export const enableContext = createContext(null);
+export const enableUserContext = createContext(null);
 export const nameContext = createContext(null);
 export const passwordContext = createContext(null);
 
@@ -70,7 +75,9 @@ export const Logged = ({ children }) => {
 
 export const Enable = ({ children }) => {
 
-    const [isLogged] = useContext(loggedContext);
+    const [logged] = useContext(loggedContext);
+    const [socket] = useContext(socketContext);
+    const [user] = useContext(userContext);
     const [isEnable,setIsEnable] = useState(() => {
         const enable = sessionStorage.getItem('Enable');
 
@@ -97,12 +104,27 @@ export const Enable = ({ children }) => {
         return null;
     });
 
-    useEffect(() => {
-        if(isLogged){
-            if(isEnable){
-                
-            }else{
+    const outLogin = useOutLogin();
 
+    useEffect(() => {
+        if(logged){
+            socket.emit('statusDisable',user.idusuario,user.usuario);
+
+            socket.on('statusDisable',(mensaje,usuario) => {
+                console.log(mensaje,usuario);                
+                if(logged){
+                    if(usuario === user.usuario){
+                        outLogin;
+                    }else{
+                        socket.emit('status');
+                    }
+                }else{
+                    socket.emit('status');
+                }
+            });
+
+            return () => {
+                socket.off('statusDisable');
             }
         }
     },[isEnable])
@@ -111,6 +133,31 @@ export const Enable = ({ children }) => {
         <enableContext.Provider value={[isEnable,setIsEnable]}>
             {children}
         </enableContext.Provider>
+    );
+}
+
+export const EnableUser = ({ children }) => {
+
+    const [isLogged] = useContext(loggedContext);
+    const [selectedRow] = useContext(selectedRowContext);
+    const [navbar] = useContext(navbarContext);
+    const [sidebar] = useContext(sidebarContext);
+    const [enableUser,setEnableUser] = useState([]);
+
+    useEffect(() => {
+        if(isLogged){
+            if(navbar === 'Estatus' && sidebar === 'Usuarios' && enableUser.length === 0){
+                setEnableUser(selectedRow);
+            }else{
+                setEnableUser([]);
+            }
+        }
+    },[selectedRow]);
+
+    return (
+        <enableUserContext.Provider value={[enableUser,setEnableUser]}>
+            {children}
+        </enableUserContext.Provider>
     );
 }
 

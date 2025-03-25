@@ -4,7 +4,7 @@ import { Users,User } from './UsersProvider';
 import { Permissions,Permission } from './PermissionsProvider';
 import { StatusAll,StatusUser } from './StatusProvider';
 import { TypeUser } from './TypeUserProvider';
-import { Logged,Enable,Name,Password } from './SessionProvider';
+import { Logged,Enable,EnableUser,Name,Password } from './SessionProvider';
 
 import { Login,Toast,Visible,SelectedRow,SearchTerm } from './VariablesProvider';
 import { Navbar,Sidebar } from './ViewsProvider';
@@ -24,29 +24,31 @@ export const AppProviders = ({children}) => {
                                             <Name>
                                                 <Password>
                                                     <Enable>
-                                                        <Login>
-                                                            <Toast>
-                                                                <Visible>
-                                                                    <SelectedRow>
-                                                                        <SearchTerm>
-                                                                            <Navbar>
-                                                                                <Sidebar>
-                                                                                    <ModalOutLogin>
-                                                                                        <ModalAlertMedico>
-                                                                                            <ModalShoppingCart>
-                                                                                                <ModalUserEnable>
-                                                                                                    {children}
-                                                                                                </ModalUserEnable>
-                                                                                            </ModalShoppingCart>
-                                                                                        </ModalAlertMedico>
-                                                                                    </ModalOutLogin>
-                                                                                </Sidebar>
-                                                                            </Navbar>
-                                                                        </SearchTerm>
-                                                                    </SelectedRow>
-                                                                </Visible>
-                                                            </Toast>
-                                                        </Login>
+                                                        <EnableUser>
+                                                            <Login>
+                                                                <Toast>
+                                                                    <Visible>
+                                                                        <SelectedRow>
+                                                                            <SearchTerm>
+                                                                                <Navbar>
+                                                                                    <Sidebar>
+                                                                                        <ModalOutLogin>
+                                                                                            <ModalAlertMedico>
+                                                                                                <ModalShoppingCart>
+                                                                                                    <ModalUserEnable>
+                                                                                                        {children}
+                                                                                                    </ModalUserEnable>
+                                                                                                </ModalShoppingCart>
+                                                                                            </ModalAlertMedico>
+                                                                                        </ModalOutLogin>
+                                                                                    </Sidebar>
+                                                                                </Navbar>
+                                                                            </SearchTerm>
+                                                                        </SelectedRow>
+                                                                    </Visible>
+                                                                </Toast>
+                                                            </Login>
+                                                        </EnableUser>
                                                     </Enable>
                                                 </Password>
                                             </Name>

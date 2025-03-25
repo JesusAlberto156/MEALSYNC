@@ -30,7 +30,7 @@ export const status = (socket) => {
             return error;
         }
     });
-    socket.on('statusEnable', async () => {
+    socket.on('statusEnable', async (id,usuario) => {
         try{
             await updateStatusEnableService(id);
             io.emit('statusDisable','Se habilito a ',usuario);

@@ -4,7 +4,7 @@ import { Tooltip } from "@mui/material";
 import { modalUserEnableContext } from '../../contexts/ModalsProvider';
 import { selectedRowContext } from "../../contexts/VariablesProvider";
 
-import { useOutLogin } from "../../hooks/UserSession";
+import { useEnable } from "../../hooks/User";
 
 import { MdCancel } from "react-icons/md";
 import { FaUserSlash } from "react-icons/fa";
@@ -29,7 +29,7 @@ export default function UserEnable(){
         if(!selectedRow.habilitado)document.title = "MEALSYNC_Administración_Habilitar"
     },[]);
 
-    const outLogin = useOutLogin();
+    const enable = useEnable();
 
     return(
         <>
@@ -46,13 +46,13 @@ export default function UserEnable(){
                                 {selectedRow.habilitado ? (
                                     <>
                                         <Tooltip title="Deshabilitar" placement="top">
-                                            <Button_Icon_Exit_Modal id="Deshabilitar"><FaUserSlash/></Button_Icon_Exit_Modal>
+                                            <Button_Icon_Exit_Modal id="Deshabilitar" onClick={() => enable()}><FaUserSlash/></Button_Icon_Exit_Modal>
                                         </Tooltip>
                                     </>
                                 ):(
                                     <>
                                         <Tooltip title="Habilitar" placement="top">
-                                            <Button_Icon_Green_Modal id="Habilitar"><FaUser/></Button_Icon_Green_Modal>
+                                            <Button_Icon_Green_Modal id="Habilitar" onClick={() => enable()}><FaUser/></Button_Icon_Green_Modal>
                                         </Tooltip>
                                     </>
                                 )}

@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect } from "react"
 import { decryptData } from "../services/Crypto";
 
 import { socketContext } from "./SocketProvider";
+import { loggedContext } from "./SessionProvider";
+import { userContext } from "./UsersProvider";
 
 export const statusAllContext = createContext(null);
 export const statusUserContext = createContext(null);
@@ -9,6 +11,8 @@ export const statusUserContext = createContext(null);
 export const StatusAll = ({ children }) => {
 
     const [socket] = useContext(socketContext);
+    const [isLogged,setIsLogged] = useContext(loggedContext);    
+    const [isUser] = useContext(userContext);
 
     const [statusAll,setStatusAll] = useState([]);
 
@@ -31,6 +35,17 @@ export const StatusAll = ({ children }) => {
             socket.off('status');
         }
     },[]);
+
+    useEffect(() => {
+        if(isLogged && isUser !== 0){
+            const user = statusAll.find(user => user.idusuario === isUser.idusuario);
+            if(user){
+                if(!user.habilitado){
+                    setIsLogged(false);
+                }
+            }
+        }
+    },[statusAll]);
 
     return (
         <statusAllContext.Provider value={[statusAll,setStatusAll]}>

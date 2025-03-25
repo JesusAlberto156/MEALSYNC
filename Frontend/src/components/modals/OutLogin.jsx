@@ -43,7 +43,7 @@ export default function OutLogin(){
                                     <Button_Icon_Cancel_Modal onClick={Cancel}><MdCancel/></Button_Icon_Cancel_Modal>
                                 </Tooltip>
                                 <Tooltip title="Cerrar sesión" placement="top">
-                                    <Button_Icon_Exit_Modal onClick={outLogin}><ImExit/></Button_Icon_Exit_Modal>
+                                    <Button_Icon_Exit_Modal onClick={() => outLogin()}><ImExit/></Button_Icon_Exit_Modal>
                                 </Tooltip>
                             </Container_Button_Modal>
                         </Background_Modal_Out_Login>

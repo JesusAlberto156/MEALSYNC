@@ -30,19 +30,19 @@ export const status = (socket) => {
             return error;
         }
     });
-    socket.on('statusEnable', async (id,usuario) => {
+    socket.on('statusEnable', async (id,user) => {
         try{
             await updateStatusEnableService(id);
-            io.emit('statusDisable','Se habilito a ',usuario);
+            io.emit('statusEnable','Se habilito a ',user);
         }catch(error){
             console.error('Error al actualizar: ',error);
             return error;
         }
     });
-    socket.on('statusDisable', async (id,usuario) => {
+    socket.on('statusDisable', async (id,user) => {
         try{
             await updateStatusDisableService(id);
-            io.emit('statusDisable','Se deshabilito a ',usuario);
+            io.emit('statusDisable','Se deshabilito a ',user);
         }catch(error){
             console.error('Error al actualizar: ',error);
             return error;

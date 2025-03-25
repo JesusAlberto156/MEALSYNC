@@ -6,8 +6,10 @@ import { Tooltip } from "@mui/material";
 
 import { loginContext,toastContext } from '../contexts/VariablesProvider'
 import { loggedContext,nameContext,passwordContext } from "../contexts/SessionProvider";
-import { permissionContext } from "../contexts/PermissionsProvider";
+import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
+import { usersContext,userContext } from "../contexts/UsersProvider";
+import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
 
 import { useOptionsLogin } from "../hooks/OptionsLogin";
 import { useLogin } from "../hooks/UserSession";
@@ -29,11 +31,13 @@ import { Input_Group_Login,Input_Login } from "../components/styled/Inputs";
 import { Button_Blue_Login,Button_Green_Login,Button_Block_Login } from "../components/styled/Buttons";
 import { Label_Login,Label_Popup_Login } from "../components/styled/Labels";
 import { Whitespace_Login } from "../components/styled/Whitespaces";
-import { Alert_Greeting,Toast_Styles } from '../components/styled/Notifications'
+import { Alert_Greeting,Toast_Styles,Alert_Verification } from '../components/styled/Notifications'
 
 import Logo from "../components/imgs/Logo-Vertical-Digital.png"
 import Footer from '../components/footer/Footer';
 import Loading from "./Loading";
+
+import { encryptData } from "../services/Crypto";
 
 export default function Login(){
     const [name,setName] = useContext(nameContext);
@@ -56,14 +60,22 @@ export default function Login(){
     const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
 
     const [loading,setLoading] = useState(false);
+    const [toast,setToast] = useContext(toastContext);
 
     const navigate = useNavigate();
-
-    const [toast] = useContext(toastContext);
-
+    
+    
+    const [users] = useContext(usersContext);
+    const [statusAll] = useContext(statusAllContext);
+    const [permissions] = useContext(permissionsContext);
+    const [user,setUser] = useContext(userContext);
+    const [statusUser,setStatusUser] = useContext(statusUserContext);
     const [permission,setPermission] = useContext(permissionContext);
+
     const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [typeUser,setTypeUser] = useContext(typeUserContext);
+    const [typeUser] = useContext(typeUserContext);
+
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     useEffect(() => {
         setTimeout(() => {
@@ -73,14 +85,124 @@ export default function Login(){
 
     useEffect(() => {
         if(isLogged){
-            if (permission.administrador && typeUser === "Administrador") navigate("/Administrator");
-            if (permission.chef && typeUser === "Chef") navigate("/Administrator");
-            if (permission.almacen && typeUser === "Almacen") navigate("/Administrator");
-            if (permission.cocinero && typeUser === "Cocinero") navigate("/Menu");
-            if (permission.nutriologo && typeUser === "Nutriologo") navigate("/Menu");
-            if (permission.medico && typeUser === "Medico") navigate("/Menu");
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    await delay(1000);
+                    const existsUser = users.find(user => user.usuario === name);
+                    
+                    if(!existsUser) {
+                        setIsLogged(false);
+                        return reject('¡Usuario no encontrado!...');
+                    }
+                    
+                    if(existsUser.contrasena === password){
+                        let existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
+
+                        if(!existsStatus){
+                            setIsLogged(false);
+                            return reject('¡Usuario sin estatus!...');
+                        }
+                        if(!existsStatus.habilitado){
+                            setIsLogged(false);
+                            return reject('¡Este usuario no se encuentra habilitado!...');
+                        }
+                        if(existsStatus.activo){
+                            setIsLogged(false);
+                            return reject('¡Este usuario ya se encuentra activo!...');
+                        }
+            
+                        const existsPermission = permissions.find(permissions => permissions.idusuario === existsUser.idusuario);
+                        
+                        if(!existsPermission){ 
+                            setIsLogged(false);
+                            return reject('¡Este usuario no cuenta con roles asignados!...')
+                        }  
+                        if(typeUser === 'Cocinero' && !existsPermission.cocinero){
+                            setIsLogged(false);
+                            return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
+                        }
+                        if(typeUser === 'Nutriologo' && !existsPermission.cocinero){
+                            setIsLogged(false);
+                            return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
+                        }
+                        if(typeUser === 'Medico' && !existsPermission.cocinero){
+                            setIsLogged(false);
+                            return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
+                        }
+                        if(typeUser === 'Administrador' && !existsPermission.cocinero){
+                            setIsLogged(false);
+                            return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
+                        }
+                        if(typeUser === 'Chef' && !existsPermission.cocinero){
+                            setIsLogged(false);
+                            return reject('¡Este usuario no cuenta con el rol de CHEF!...');
+                        }
+                        if(typeUser === 'Almacen' && !existsPermission.cocinero){
+                            setIsLogged(false);
+                            return reject('¡Este usuario no cuenta con el rol de ALMACÉN!...');
+                        }
+
+                        setTimeout(() => {
+                            const jsonUser = JSON.stringify(existsUser);
+                            const jsonPermission = JSON.stringify(existsPermission);
+            
+                            const encryptedUser = encryptData(jsonUser);
+                            const encryptedPermission = encryptData(jsonPermission);
+                            const encryptedLogged = encryptData('true');
+                            const encryptedType = encryptData(typeUser);
+            
+                            if( encryptedUser && encryptedPermission && encryptedLogged && encryptedType){
+                                resolve('¡SESIÓN INICIADA!...');
+            
+                                sessionStorage.setItem('User',encryptedUser);
+                                sessionStorage.setItem('Permission',encryptedPermission);
+                                sessionStorage.setItem('Logged',encryptedLogged);
+                                sessionStorage.setItem('TypeUser',encryptedType);
+            
+                                setTimeout(() => {
+                                    setToast(false);
+                                    setIsLogged(false);
+                                },1500);
+            
+                                setTimeout(() => {
+                                    setUser(JSON.parse(jsonUser));
+                                    setPermission(JSON.parse(jsonPermission));
+                                    existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
+                                    const jsonStatus = JSON.stringify(existsStatus);
+                                    const encryptedStatus = encryptData(jsonStatus);
+            
+                                    if(encryptedStatus){
+                                        sessionStorage.setItem('StatusUser',encryptedStatus);
+                                        setStatusUser(JSON.parse(jsonStatus));
+                                        setIsLogged(true);
+                                        console.log('¡Credenciales encriptadas correctamente!...');
+                                        navigate(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
+                                    }else{
+                                        setIsLogged(false);
+                                        return console.log('¡Error al encriptar el estatus de la sesión!...')
+                                    }
+                                },1500);
+                            }else{
+                                setIsLogged(false);
+                                return console.log('¡Error al encriptar las credenciales!...')
+                            }
+                        },100)
+                    }else{
+                        setIsLogged(false);
+                        return reject('¡Usuario o contraseña incorrectos!...');
+                    }
+                }catch(error){
+                    setIsLogged(false);
+                    reject('¡Ocurrio un error inesperado...');
+                }
+            });
+
+            setToast(true);
+            Alert_Verification(promise,'Verificando credenciales...','Light');
+
+            document.title = "MEALSYNC_Iniciar_Sesión";
         }
-    },[isLogged,permission,typeUser,navigate])
+    },[isLogged]);
 
     useEffect(() => {
         document.title='MEALSYNC_Cargando'
@@ -99,7 +221,7 @@ export default function Login(){
 
     const { useOptionTypeUsers, useOptionUsers, useBackLogin} = useOptionsLogin();
 
-    const Login = useLogin({ name,password });
+    const Login = useLogin();
 
     if(!loading) return <Loading/>
 
@@ -219,7 +341,7 @@ export default function Login(){
                                 )}
                             </Input_Group_Login>
                             <Tooltip title='Iniciar sesión' placement="top">
-                                <Button_Green_Login onClick={Login}><MdLogin/></Button_Green_Login>
+                                <Button_Green_Login onClick={() => Login()}><MdLogin/></Button_Green_Login>
                             </Tooltip>
                         </>
                     ):(

@@ -40,8 +40,10 @@ export const StatusAll = ({ children }) => {
     useEffect(() => {
         if(isLogged && isUser !== 0){
             const user = isStatusAll.find(user => user.idusuario === isUser.idusuario);
-            if(user && ! !user.habilitado){
-                setIsLog(false);
+            if(user){
+                if(!user.habilitado){
+                    setIsLog(false);
+                }
             }
         }
     },[isStatusAll]);

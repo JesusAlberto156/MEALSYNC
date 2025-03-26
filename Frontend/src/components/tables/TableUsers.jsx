@@ -14,15 +14,15 @@ import { Text_Pagination } from "../styled/Text";
 
 export default function TableUsers(){
 
-    const [selectedRow,setSelectedRow] = useContext(selectedRowContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     
     const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = useTableActions();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const table = document.getElementById("TableUsers");
+            const table = document.getElementById("Tabla-Usuarios");
             if (table && !table.contains(event.target)) {
-                setSelectedRow(null);
+                setIsSelectedRow(null);
             }
         };
     
@@ -33,7 +33,7 @@ export default function TableUsers(){
     return(
         <>
             <Container_Option_Navbar>
-                <Table id="TableUsers">
+                <Table id="Tabla-Usuarios">
                     <thead>
                         <Tr>
                             <Th>ID Usuario</Th>
@@ -49,7 +49,7 @@ export default function TableUsers(){
                                 key={user.idusuario}
                                 onClick={() => handleRowClick(user)}
                                 style={{
-                                    backgroundColor: selectedRow === user ? '#e0f7fa' : 'transparent',
+                                    backgroundColor: isSelectedRow === user ? '#e0f7fa' : 'transparent',
                                     cursor: 'pointer',
                                     transition: 'background-color 0.5s ease',
                                 }}

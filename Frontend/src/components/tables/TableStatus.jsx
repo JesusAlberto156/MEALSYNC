@@ -16,19 +16,19 @@ import { Text_Pagination } from "../styled/Text";
 
 export default function TableStatus(){
 
-    const [selectedRow,setSelectedRow] = useContext(selectedRowContext);
-    const [users] = useContext(usersContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isUsers] = useContext(usersContext);
 
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = useTableActions();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const table = document.getElementById("TableStatus");
+            const table = document.getElementById("Tabla-Estatus");
             const buttons = document.querySelectorAll('#Habilitar, #Deshabilitar, #Enable');
 
             if (table && !table.contains(event.target) &&
             ![...buttons].some((btn) => btn.contains(event.target))) {
-                setSelectedRow(null);
+                setIsSelectedRow(null);
             }
         };
     
@@ -39,7 +39,7 @@ export default function TableStatus(){
     return(
         <>
             <Container_Option_Navbar>
-                <Table id="TableStatus">
+                <Table id="Tabla-Estatus">
                     <thead>
                         <Tr>
                             <Th>Nombre de Usuario</Th>
@@ -48,13 +48,13 @@ export default function TableStatus(){
                         </Tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
+                        {isUsers.map((user) => (
                             currentRecordsStatus.filter((permission) => user.idusuario === permission.idusuario).map((status) => (
                                 <Tr
                                     key={status.idestatus}
                                     onClick={() => handleRowClick(status)}
                                     style={{
-                                        backgroundColor: selectedRow === status ? '#e0f7fa' : 'transparent',
+                                        backgroundColor: isSelectedRow === status ? '#e0f7fa' : 'transparent',
                                         cursor: 'pointer',
                                         transition: 'background-color 0.5s ease',
                                     }}

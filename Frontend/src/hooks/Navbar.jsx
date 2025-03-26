@@ -3,13 +3,13 @@ import { navbarContext } from "../contexts/ViewsProvider";
 import { searchTermContext } from "../contexts/VariablesProvider";
 
 export const useNavbarViews = () => {
-    const [navbar,setNavbar] = useContext(navbarContext);
-    const [searchTerm,setSearchTerm] = useContext(searchTermContext);
+    const [isNavbar,setIsNavbar] = useContext(navbarContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
 
-    const Switch = (View) => {
-        setNavbar(View);
-        setSearchTerm('');
+    const navbarViews = (View) => {
+        setIsNavbar(View);
+        setIsSearchTerm('');
     };
 
-    return { Switch };
+    return navbarViews;
 }

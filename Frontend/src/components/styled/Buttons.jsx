@@ -246,8 +246,8 @@ export const Button_Icon_Cancel_Modal = styled.button`
     padding: 6px;
     background-color: rgb(58,93,174);
     color: white;
-    border: 2px solid black;
-    border-radius: 15px;
+    border: 2px solid white;
+    border-radius: 20px;
     font-size: 25px;
     text-align: center;
     cursor: pointer;
@@ -257,14 +257,14 @@ export const Button_Icon_Cancel_Modal = styled.button`
     &:hover {
         background-color:rgb(12, 54, 109);
         transform: translateY(-2px);
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
 
     @media (max-width: 768px) {
 
         &:hover {
             transform: translateY(-2px);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     }
 
@@ -274,7 +274,7 @@ export const Button_Icon_Cancel_Modal = styled.button`
 
         &:hover {
             transform: translateY(-2px);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     }
 `;
@@ -283,8 +283,8 @@ export const Button_Icon_Exit_Modal = styled.button`
     padding: 6px;
     background-color: rgb(155, 9, 9);
     color: white;
-    border: 2px solid black;
-    border-radius: 15px;
+    border: 2px solid white;
+    border-radius: 20px;
     font-size: 25px;
     text-align: center;
     cursor: pointer;
@@ -294,14 +294,14 @@ export const Button_Icon_Exit_Modal = styled.button`
     &:hover {
         background-color:rgb(100, 15, 15);
         transform: translateY(-2px);
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
 
     @media (max-width: 768px) {
 
         &:hover {
             transform: translateY(-2px);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     }
 
@@ -311,7 +311,7 @@ export const Button_Icon_Exit_Modal = styled.button`
 
         &:hover {
             transform: translateY(-2px);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     } 
 `;
@@ -320,8 +320,8 @@ export const Button_Icon_Green_Modal = styled.button`
     padding: 6px;
     background-color: rgb(20, 165, 76);
     color: white;
-    border: 2px solid black;
-    border-radius: 15px;
+    border: 2px solid white;
+    border-radius: 20px;
     font-size: 25px;
     text-align: center;
     cursor: pointer;
@@ -331,14 +331,14 @@ export const Button_Icon_Green_Modal = styled.button`
     &:hover {
         background-color:rgb(13, 112, 51);
         transform: translateY(-2px);
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
 
     @media (max-width: 768px) {
 
         &:hover {
             transform: translateY(-2px);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     }
 
@@ -348,7 +348,7 @@ export const Button_Icon_Green_Modal = styled.button`
 
         &:hover {
             transform: translateY(-2px);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     } 
 `;

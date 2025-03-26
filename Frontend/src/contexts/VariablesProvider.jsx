@@ -6,6 +6,7 @@ export const visibleContext = createContext(null);
 export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
 export const modalContext = createContext(null);
+export const optionModalContext = createContext(null);
 
 export const LoadingOptionLogin = ({ children }) => {
 
@@ -70,5 +71,16 @@ export const Modal = ({children}) => {
         <modalContext.Provider value={[isModal,setIsModal]}>
             {children}
         </modalContext.Provider>
+    );
+}
+
+export const OptionModal = ({children}) => {
+
+    const [isOptionModal,setIsOptionModal] = useState('');
+
+    return (
+        <optionModalContext.Provider value={[isOptionModal,setIsOptionModal]}>
+            {children}
+        </optionModalContext.Provider>
     );
 }

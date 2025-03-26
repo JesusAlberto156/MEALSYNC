@@ -5,8 +5,8 @@ import { typeUserContext } from "../../contexts/TypeUserProvider";
 import { visibleContext } from "../../contexts/VariablesProvider";
 import { userContext } from "../../contexts/UsersProvider";
 
-import { useModalOutLogin } from "../../hooks/Modal";
-import { useToggleSidebar,useSidebarViews } from '../../hooks/Sidebar'
+import { useModal } from "../../hooks/Modal";
+import { useToggleSidebar,useSidebarHome,useSidebarOption } from '../../hooks/Sidebar'
 
 import { FaBars } from "react-icons/fa";
 import { BiSolidHomeAlt2 } from "react-icons/bi";
@@ -37,27 +37,28 @@ import './Sidebar.css';
 export default function Sidebar() {
 
   const toggleSidebar = useToggleSidebar();
-  const modalOutLogin = useModalOutLogin();
-  const { Home, Options } = useSidebarViews();
+  const modal = useModal();
+  const sidebarHome = useSidebarHome();
+  const sidebarOption = useSidebarOption();
 
-  const [typeUser] = useContext(typeUserContext);
-  const [visible] = useContext(visibleContext);
-  const [user] = useContext(userContext);
+  const [isTypeUser] = useContext(typeUserContext);
+  const [isVisible] = useContext(visibleContext);
+  const [isUser] = useContext(userContext);
 
   const [profileImage, setProfileImage] = useState("https://img.freepik.com/vector-premium/icono-contacto-perfil-icono-avatar_1199668-1320.jpg?w=740");
   
   useEffect(() => {
     const content = document.getElementById("content");
     if (content) {
-      content.className = visible ? "with-sidebar" : "no-sidebar";
+      content.className = isVisible ? "with-sidebar" : "no-sidebar";
     }
-  }, [visible]);
+  }, [isVisible]);
   
   return (
     <>
       <Background_Sidebar>
         <Tooltip title='Salir' placement="left">
-          <Button_Red_Sidebar onClick={modalOutLogin}>
+          <Button_Red_Sidebar onClick={() => modal('Cerrar-Sesion')}>
             <span><FaSignOutAlt/></span>
           </Button_Red_Sidebar>
         </Tooltip>  
@@ -67,7 +68,7 @@ export default function Sidebar() {
           </Button_Blue_Sidebar>
         </Tooltip>    
       </Background_Sidebar>
-      <div className={`sidebar ${visible ? 'visible' : 'hidden'}`}>
+      <div className={`sidebar ${isVisible ? 'visible' : 'hidden'}`}>
         <div className="profile-container">
           <img 
             src={profileImage} 
@@ -75,30 +76,30 @@ export default function Sidebar() {
             className="profile-icon"
           />         
         </div>
-        <Title_Sidebar>{user.nombre}</Title_Sidebar>
+        <Title_Sidebar>{isUser.nombre}</Title_Sidebar>
         <ul>
           <Tooltip title='Inicio' placement="right">
-            <li onClick={() => Home('Inicio')}><a>Inicio
+            <li onClick={() => sidebarHome('Inicio')}><a>Inicio
                 <span><BiSolidHomeAlt2/></span>
               </a>
             </li>
           </Tooltip>
-          {typeUser === 'Cocinero' ? (
+          {isTypeUser === 'Cocinero' ? (
             <>
               <Tooltip title='General' placement="right">
-                <li onClick={() => Options('General','')}><a>General
+                <li onClick={() => sidebarOption('General','')}><a>General
                     <span><MdFamilyRestroom/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Colaboradores' placement="right">
-                <li onClick={() => Options('Colaboradores','')}><a>Colaboradores
+                <li onClick={() => sidebarOption('Colaboradores','')}><a>Colaboradores
                     <span><IoIosPeople/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Nutriólogo' placement="right">
-                <li onClick={() => Options('Nutriologo','')}><a>Nutriólogo
+                <li onClick={() => sidebarOption('Nutriologo','')}><a>Nutriólogo
                     <span><IoNutrition/></span>
                   </a>
                 </li>
@@ -107,7 +108,7 @@ export default function Sidebar() {
           ):(
             <></>
           )}
-          {typeUser === 'Nutriologo' ? (
+          {isTypeUser === 'Nutriologo' ? (
             <>
               <Tooltip title='Bebidas' placement="right">
                 <li><a>Bebidas
@@ -155,10 +156,10 @@ export default function Sidebar() {
           ):(
             <></>
           )}
-          {typeUser === 'Medico' ? (
+          {isTypeUser === 'Medico' ? (
             <>
               <Tooltip title='Menú' placement="right">
-                <li onClick={() => Options('Medico','')}><a>Menú
+                <li onClick={() => sidebarOption('Medico','')}><a>Menú
                     <span><MdOutlineRestaurantMenu/></span>
                   </a>
                 </li>
@@ -167,34 +168,34 @@ export default function Sidebar() {
           ):(
             <></>
           )}
-          {typeUser === 'Administrador' ? (
+          {isTypeUser === 'Administrador' ? (
             <>
               <Tooltip title='Usuarios' placement="right">
-                <li onClick={() => Options('Usuarios','General')}><a>Usuarios
+                <li onClick={() => sidebarOption('Usuarios','General')}><a>Usuarios
                     <span><FaUserGroup/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Proveedores' placement="right">
-                <li onClick={() => Options('Proveedores','')}><a>Proveedores
+                <li onClick={() => sidebarOption('Proveedores','')}><a>Proveedores
                     <span><FaUserTie/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Menús' placement="right">
-                <li onClick={() => Options('Menus','')}><a>Menús
+                <li onClick={() => sidebarOption('Menus','')}><a>Menús
                     <span><BiSolidFoodMenu/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <li onClick={() => Options('Inventario','')}><a>Inventario
+                <li onClick={() => sidebarOption('Inventario','')}><a>Inventario
                     <span><MdStorage/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
-                <li onClick={() => Options('Historial','')}><a>Historial
+                <li onClick={() => sidebarOption('Historial','')}><a>Historial
                     <span><MdWorkHistory/></span>
                   </a>
                 </li>
@@ -203,28 +204,28 @@ export default function Sidebar() {
           ):(
             <></>
           )}
-          {typeUser === 'Chef' ? (
+          {isTypeUser === 'Chef' ? (
             <>
               <Tooltip title='Proveedores' placement="right">
-                <li onClick={() => Options('Proveedores','')}><a>Proveedores
+                <li onClick={() => sidebarOption('Proveedores','')}><a>Proveedores
                     <span><FaUserTie/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Menús' placement="right">
-                <li onClick={() => Options('Menus','')}><a>Menús
+                <li onClick={() => sidebarOption('Menus','')}><a>Menús
                     <span><BiSolidFoodMenu/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <li onClick={() => Options('Inventario','')}><a>Inventario
+                <li onClick={() => sidebarOption('Inventario','')}><a>Inventario
                     <span><MdStorage/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
-                <li onClick={() => Options('Historial','')}><a>Historial
+                <li onClick={() => sidebarOption('Historial','')}><a>Historial
                     <span><MdWorkHistory/></span>
                   </a>
                 </li>
@@ -233,22 +234,22 @@ export default function Sidebar() {
           ):(
             <></>
           )}
-          {typeUser === 'Almacen' ? (
+          {isTypeUser === 'Almacen' ? (
             <>
               <Tooltip title='Proveedores' placement="right">
-                <li onClick={() => Options('Proveedores','')}><a>Proveedores
+                <li onClick={() => sidebarOption('Proveedores','')}><a>Proveedores
                     <span><FaUserTie/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <li onClick={() => Options('Inventario','')}><a>Inventario
+                <li onClick={() => sidebarOption('Inventario','')}><a>Inventario
                     <span><MdStorage/></span>
                   </a>
                 </li>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
-                <li onClick={() => Options('Historial','')}><a>Historial
+                <li onClick={() => sidebarOption('Historial','')}><a>Historial
                     <span><MdWorkHistory/></span>
                   </a>
                 </li>

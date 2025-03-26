@@ -43,11 +43,13 @@ export const Title_Sidebar = styled.div`
 `;
 //--------SIDEBAR--------
 //--------MODAL--------
-export const Title_Modal = styled.h1`
+export const Title_Fade_Modal = styled.h1`
     text-align: center;
     position: relative;
     margin-top: 1px;
     font-size: 30px;
+
+    animation: ${fadeAnimation} 2s infinite;
 
     @media (max-width: 768px) {
         font-size: 25px;
@@ -59,6 +61,9 @@ export const Title_Modal = styled.h1`
 `;
 export const Text_Modal = styled.p`
     font-size: 22px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
 
     @media (max-width: 768px) {
         font-size: 18px;

@@ -30,15 +30,15 @@ import { Button_Black_Navbar} from '../styled/Buttons';
 
 export default function Navbar(){
     
-    const { Switch } = useNavbarViews();
+    const navbarViews = useNavbarViews();
     
-    const [sidebar] = useContext(sidebarContext);
+    const [isSidebar] = useContext(sidebarContext);
  
     return(
         <Container_Navbar>   
             <Logo_Navbar/> 
             <Background_Navbar>
-                {sidebar === 'General' ? (
+                {isSidebar === 'General' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
                             <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
@@ -68,7 +68,7 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {sidebar === 'Colaboradores' ? (
+                {isSidebar === 'Colaboradores' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
                             <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
@@ -104,7 +104,7 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {sidebar === 'Nutriologo' ? (
+                {isSidebar === 'Nutriologo' ? (
                     <>
                         <Tooltip title='Bebidas' placement="right-start">
                             <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
@@ -137,7 +137,7 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {sidebar === 'Medico' ? (
+                {isSidebar === 'Medico' ? (
                     <>
                         <Tooltip title='Desayuno' placement="right-start">
                             <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
@@ -167,16 +167,16 @@ export default function Navbar(){
                 ):(
                     <></>
                 )}
-                {sidebar === 'Usuarios' ? (
+                {isSidebar === 'Usuarios' ? (
                     <>
                         <Tooltip title='General' placement="right-start">
-                            <Button_Black_Navbar onClick={() => Switch('General')}><FaUserTag/></Button_Black_Navbar>
+                            <Button_Black_Navbar onClick={() => navbarViews('General')}><FaUserTag/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Permisos' placement="right-start">
-                            <Button_Black_Navbar onClick={() => Switch('Permisos')}><FaUserLock/></Button_Black_Navbar>
+                            <Button_Black_Navbar onClick={() => navbarViews('Permisos')}><FaUserLock/></Button_Black_Navbar>
                         </Tooltip>
                         <Tooltip title='Estatus' placement="right-start">
-                            <Button_Black_Navbar onClick={() => Switch('Estatus')}><FaUserClock/></Button_Black_Navbar>
+                            <Button_Black_Navbar onClick={() => navbarViews('Estatus')}><FaUserClock/></Button_Black_Navbar>
                         </Tooltip>
                     </>
                 ):(

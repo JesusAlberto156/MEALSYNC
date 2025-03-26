@@ -27,7 +27,7 @@ export const useLogin = () => {
 
     const [isLog,setIsLog] = useContext(logContext);
 
-    const login = async () => {
+    const login = () => {
         setIsLog(true);
     }
 
@@ -38,7 +38,7 @@ export const useLogout = () => {
 
     const [isLog,setIsLog] = useContext(logContext);
 
-    const logout = async () => {
+    const logout = () => {
         setIsLog(false);
     }
 

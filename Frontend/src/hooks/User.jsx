@@ -1,25 +1,26 @@
 import { useContext } from "react";
-import { enableUserContext } from "../contexts/SessionProvider";
+import { enableContext } from "../contexts/SessionProvider";
 import { userContext } from "../contexts/UsersProvider";
-import { selectedRowContext } from "../contexts/VariablesProvider";
+import { selectedRowContext,modalContext,optionModalContext } from "../contexts/VariablesProvider";
 import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
-import { modalUserEnableContext } from "../contexts/ModalsProvider";
 
-export const useEnable = () => {
+export const useSwitchEnable = () => {
 
-    const [enableUser,setEnableUser] = useContext(enableUserContext);
-    const [isModal,setIsModal] = useContext(modalUserEnableContext);
-    const [selectedRow] = useContext(selectedRowContext);
-    const [user] = useContext(userContext);
-    const [navbar] = useContext(navbarContext);
-    const [sidebar] = useContext(sidebarContext);
+    const [isEnable,setIsEnable] = useContext(enableContext);
+    const [isModal,setIsModal] = useContext(modalContext);
+    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
+    const [isSelectedRow] = useContext(selectedRowContext);
+    const [isUser] = useContext(userContext);
+    const [isNavbar] = useContext(navbarContext);
+    const [isSidebar] = useContext(sidebarContext);
 
-    const switchEnable = async () => {
-        if(selectedRow !== null){
-            if(navbar === 'Estatus' && sidebar === 'Usuarios'){
+    const switchEnable = () => {
+        if(isSelectedRow !== null){
+            if(isNavbar === 'Estatus' && isSidebar === 'Usuarios' && isOptionModal === 'Habilitar-Usuario'){
                 setIsModal(false);
-                if(selectedRow.idusuario !== user.idusuario) setEnableUser(selectedRow);
-                if(selectedRow.idusuario === user.idusuario) setEnableUser(user);
+                setIsOptionModal('');
+                if(isSelectedRow.idusuario !== isUser.idusuario) setIsEnable(isSelectedRow);
+                if(isSelectedRow.idusuario === isUser.idusuario) setIsEnable(isUser);
             }
         }
     }

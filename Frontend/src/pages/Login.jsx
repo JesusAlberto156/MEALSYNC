@@ -4,7 +4,7 @@ import { Toaster } from 'sonner';
 import { Tooltip } from "@mui/material";
 import { encryptData } from "../services/Crypto";
 
-import { loadingOptionLoginContext,toastContext,visibleContext,selectedRowContext,searchTermContext,modalContext } from '../contexts/VariablesProvider'
+import { loadingOptionLoginContext,toastContext,visibleContext,selectedRowContext,searchTermContext,modalContext,optionModalContext } from '../contexts/VariablesProvider'
 import { loggedContext,nameContext,passwordContext,logContext,enableContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
@@ -48,6 +48,7 @@ export default function Login(){
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isModal,setIsModal] = useContext(modalContext);
+    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
     const [isSidebar,setIsSidebar] = useContext(sidebarContext);
     const [isNavbar,setIsNavbar] = useContext(navbarContext);
     const [isEnable,setIsEnable] = useContext(enableContext);
@@ -123,32 +124,89 @@ export default function Login(){
                         }
             
                         const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
-                        
+
                         if(!existsPermission){ 
                             setIsLog(false);
                             return reject('¡Este usuario no cuenta con roles asignados!...')
                         }  
+
+                        if(existsPermission.superAdmon){
+                            setTimeout(() => {
+                                const jsonUser = JSON.stringify(existsUser);
+                                const jsonPermission = JSON.stringify(existsPermission);
+                
+                                const encryptedUser = encryptData(jsonUser);
+                                const encryptedPermission = encryptData(jsonPermission);
+                                const encryptedLogged = encryptData('true');
+                                const encryptedLog = encryptData('true');
+                                const encryptedType = encryptData(isTypeUser);
+                
+                                if( encryptedUser && encryptedPermission && encryptedLogged && encryptedLog && encryptedType){
+                                    resolve('¡SESIÓN INICIADA!...');
+                
+                                    sessionStorage.setItem('User',encryptedUser);
+                                    sessionStorage.setItem('Permission',encryptedPermission);
+                                    sessionStorage.setItem('Logged',encryptedLogged);
+                                    sessionStorage.setItem('Log',encryptedLog);
+                                    sessionStorage.setItem('TypeUser',encryptedType);
+                
+                                    setTimeout(() => {
+                                        setIsToast(false);
+                                    },1500);
+                
+                                    setTimeout(() => {
+                                        setIsUser(JSON.parse(jsonUser));
+                                        setIsPermission(JSON.parse(jsonPermission));
+                                        
+                                        existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
+                                        
+                                        const jsonStatus = JSON.stringify(existsStatus);
+                                        const encryptedStatus = encryptData(jsonStatus);
+                
+                                        if(encryptedStatus){
+                                            sessionStorage.setItem('Status',encryptedStatus);
+                                            setIsStatusUser(JSON.parse(jsonStatus));
+                                            setIsLogged(true);
+    
+                                            if(isTypeUser === 'Medico'){
+                                                setIsModal(true);
+                                                setIsOptionModal('Alerta-Medica');
+                                            }
+                                            
+                                            console.log('¡Credenciales encriptadas correctamente!...');
+                                            navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
+                                        }else{
+                                            setIsLog(false);
+                                            return console.log('¡Error al encriptar el estatus de la sesión!...')
+                                        }
+                                    },1500);
+                                }else{
+                                    setIsLog(false);
+                                    return console.log('¡Error al encriptar las credenciales!...')
+                                }
+                            },100)
+                        }
                         if(isTypeUser === 'Cocinero' && !existsPermission.cocinero){
                             setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
                         }
-                        if(isTypeUser === 'Nutriologo' && !existsPermission.cocinero){
+                        if(isTypeUser === 'Nutriologo' && !existsPermission.nutriologo){
                             setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
                         }
-                        if(isTypeUser === 'Medico' && !existsPermission.cocinero){
+                        if(isTypeUser === 'Medico' && !existsPermission.medico){
                             setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
                         }
-                        if(isTypeUser === 'Administrador' && !existsPermission.cocinero){
+                        if(isTypeUser === 'Administrador' && !existsPermission.administrador){
                             setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
                         }
-                        if(isTypeUser === 'Chef' && !existsPermission.cocinero){
+                        if(isTypeUser === 'Chef' && !existsPermission.chef){
                             setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de CHEF!...');
                         }
-                        if(isTypeUser === 'Almacen' && !existsPermission.cocinero){
+                        if(isTypeUser === 'Almacen' && !existsPermission.almacen){
                             setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de ALMACÉN!...');
                         }
@@ -190,7 +248,10 @@ export default function Login(){
                                         setIsStatusUser(JSON.parse(jsonStatus));
                                         setIsLogged(true);
 
-                                        if(isTypeUser === 'Medico') setIsModal(true);
+                                        if(isTypeUser === 'Medico'){
+                                            setIsModal(true);
+                                            setIsOptionModal('Alerta-Medica');
+                                        }
                                         
                                         console.log('¡Credenciales encriptadas correctamente!...');
                                         navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
@@ -218,50 +279,6 @@ export default function Login(){
             Alert_Verification(promise,'Verificando credenciales...','Light');
 
             document.title = "MEALSYNC_Iniciar_Sesión";
-        }else if(!isLog && isLogged){
-            document.title = "Cargando...";
-            const promise = new Promise(async (resolve,reject) => {
-                try{
-                    setIsToast(true);
-                    
-                    setTimeout(() => {
-                        resolve('¡MEALSYNC le agradece su estancia!...');
-                    },1000);
-
-                    setTimeout(() => {
-                        setIsLoadingOptionLogin('');
-                        setIsToast(false);
-                        setIsVisible(true);
-                        setIsSelectedRow(null);
-                        setIsSearchTerm('');
-                        setIsModal(false);
-                        
-                        setIsSidebar('Inicio');
-                        setIsNavbar('');
-                        
-                        setIsTypeUser('');
-
-                        setIsLogged(false);
-                        setIsEnable([]);
-                        setIsName('');
-                        setIsPassword('');
-
-                        setIsUser([]);
-                        setIsPermission([]);
-                        setIsStatusUser([]);
-
-                        setTimeout(() => {
-                            setIsLog(false);
-                            sessionStorage.clear();
-                            navigate("/",{replace: true});
-                        },200)
-                    },2000)
-                }catch(error){
-                    reject('¡Ocurrio un error inesperado...');
-                }
-            });
-
-            Alert_Verification(promise,'¡Cerrando sesión!...','Light');
         }
     },[isLog]);
 

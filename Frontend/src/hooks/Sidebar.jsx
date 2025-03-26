@@ -4,28 +4,42 @@ import { visibleContext,searchTermContext } from "../contexts/VariablesProvider"
 import { typeUserContext } from "../contexts/TypeUserProvider";
 
 export const useToggleSidebar = () => {
-    const [visible,setVisible] = useContext(visibleContext);
-    return () => setVisible(prev => !prev);
+
+    const [isVisible,setIsVisible] = useContext(visibleContext);
+
+    const toggleSidebar = () => {
+        setIsVisible(!isVisible);
+    };
+
+    return toggleSidebar;
 };
 
-export const useSidebarViews = () => {
+export const useSidebarHome = () => {
 
-    const [sidebar,setSidebar] = useContext(sidebarContext);
-    const [navbar,setNavbar] = useContext(navbarContext);
-    const [searchTerm,setSearchTerm] = useContext(searchTermContext)
-    const [typeUser] =  useContext(typeUserContext);
+    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext)
+    const [isTypeUser] =  useContext(typeUserContext);
 
-    const Home = (View) => {
-        if(typeUser === 'Cocinero' || typeUser === 'Medico' || typeUser === 'Nutriologo'){
+    const sidebarHome = (View) => {
+        if(isTypeUser === 'Cocinero' || isTypeUser === 'Medico' || isTypeUser === 'Nutriologo'){
             document.title = "MEALSYNC_Menú_Inicio";
         }else{
             document.title = "MEALSYNC_Administración_Inicio";
         }
-        setSidebar(View);
-        setSearchTerm('');
+        setIsSidebar(View);
+        setIsSearchTerm('');
     };
 
-    const Options = (view,navbar) => {
+    return sidebarHome;
+};
+
+export const useSidebarOption = () => {
+
+    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
+    const [isNavbar,setIsNavbar] = useContext(navbarContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext)
+
+    const sidebarOption = (view,navbar) => {
         if(view === 'General'){document.title = "MEALSYNC_Menú_General";}
         if(view === 'Colaboradores'){document.title = "MEALSYNC_Menú_Colaboradores";}
         if(view === 'Nutriologo'){document.title = "MEALSYNC_Menú_Nutriologo";}
@@ -35,10 +49,10 @@ export const useSidebarViews = () => {
         if(view === 'Menus'){document.title = "MEALSYNC_Administración_Menús";}
         if(view === 'Inventario'){document.title = "MEALSYNC_Administración_Inventario";}
         if(view === 'Historial'){document.title = "MEALSYNC_Administración_Historial";}
-        setSidebar(view);
-        setNavbar(navbar);
-        setSearchTerm('');
+        setIsSidebar(view);
+        setIsNavbar(navbar);
+        setIsSearchTerm('');
     }
 
-    return { Home,Options };
+    return sidebarOption;
 };

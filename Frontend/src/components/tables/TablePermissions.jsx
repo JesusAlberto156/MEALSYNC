@@ -17,17 +17,17 @@ import { Text_Pagination } from "../styled/Text";
 
 export default function TablePermissions(){
 
-    const [selectedRow,setSelectedRow] = useContext(selectedRowContext);
-    const [permissionUser] = useContext(permissionContext);
-    const [users] = useContext(usersContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isPermission] = useContext(permissionContext);
+    const [isUsers] = useContext(usersContext);
 
     const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = useTableActions();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const table = document.getElementById("TablePermissions");
+            const table = document.getElementById("Tabla-Permisos");
             if (table && !table.contains(event.target)) {
-                setSelectedRow(null);
+                setIsSelectedRow(null);
             }
         };
     
@@ -38,7 +38,7 @@ export default function TablePermissions(){
     return(
         <>
             <Container_Option_Navbar>
-                <Table id="TablePermissions">
+                <Table id="Tabla-Permisos">
                     <thead>
                         <Tr>
                             <Th>Nombre de Usuario</Th>
@@ -48,7 +48,7 @@ export default function TablePermissions(){
                             <Th>Cocinero</Th>
                             <Th>Nutriologo</Th>
                             <Th>Medico</Th>
-                            {permissionUser.superAdmon ? (
+                            {isPermission.superAdmon ? (
                                 <Th>Super Administrador</Th>
                             ):(
                                 <></>
@@ -56,13 +56,13 @@ export default function TablePermissions(){
                         </Tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
+                        {isUsers.map((user) => (
                             currentRecordsPermissions.filter((permission) => user.idusuario === permission.idusuario).map((permission) => (
                                 <Tr
                                     key={permission.idpermiso}
                                     onClick={() => handleRowClick(permission)}
                                     style={{
-                                        backgroundColor: selectedRow === permission ? '#e0f7fa' : 'transparent',
+                                        backgroundColor: isSelectedRow === permission ? '#e0f7fa' : 'transparent',
                                         cursor: 'pointer',
                                         transition: 'background-color 0.5s ease',
                                     }}
@@ -74,7 +74,7 @@ export default function TablePermissions(){
                                     <Td>{permission.cocinero ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
                                     <Td>{permission.nutriologo ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
                                     <Td>{permission.medico ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                    {permissionUser.superAdmon ? (
+                                    {isPermission.superAdmon ? (
                                         <Td>{permission.superAdmon ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
                                     ):(
                                         <></>

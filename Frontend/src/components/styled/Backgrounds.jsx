@@ -104,9 +104,9 @@ export const Background_Modal = styled.div`
 export const Background_Modal_Out_Login = styled.div`
     max-height: 90vh;
     max-width: 90vw;
-    background: white;
-    border: 3px solid black;
-    padding: 30px;
+    border: 2px solid white;
+    background-color:rgba(204, 203, 198, 0.8);
+    padding: 20px;
     border-radius: 30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 `;
@@ -135,7 +135,8 @@ export const Background_Modal_User_Enable = styled.div`
     max-width: 90vw;
     overflow-y: auto;
     overflow-x: hidden;
-    background: white;
+    border: 2px solid white;
+    background-color:rgba(204, 203, 198, 0.8);
     padding: 20px;
     border-radius: 30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);

@@ -1,9 +1,8 @@
 import { useEffect,useContext } from "react";
 import { Toaster } from 'sonner';
 
-import { toastContext,visibleContext } from "../contexts/VariablesProvider";
+import { toastContext,visibleContext,modalContext,optionModalContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
-import { modalOutLoginContext } from "../contexts/ModalsProvider";
 import { sidebarContext } from "../contexts/ViewsProvider";
 
 import { Background_Administration } from "../components/styled/Backgrounds";
@@ -14,18 +13,21 @@ import Sidebar from "../components/sidebar/Sidebar";
 import OutLogin from "../components/modals/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
+import UserEnable from '../components/modals/UserEnable';
 
 export default function Administrator(){
-    const [isModalOutLogin] = useContext(modalOutLoginContext);
-    const [sidebar] = useContext(sidebarContext);
-    const [visible] = useContext(visibleContext);
-    const [toast] = useContext(toastContext);
-    const [user,setUser] = useContext(userContext);
+
+    const [isModal] = useContext(modalContext);
+    const [isOptionModal] = useContext(optionModalContext);
+    const [isSidebar] = useContext(sidebarContext);
+    const [isVisible] = useContext(visibleContext);
+    const [isToast] = useContext(toastContext);
+    const [isUser] = useContext(userContext);
     
     useEffect(() => {
         document.title = "MEALSYNC_Administración_Inicio"
         Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...','Blue');
-        Alert_Greeting('Bienvenido(a)',`¡${user.nombrecorto}!...`,'Blue');
+        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`,'Blue');
     },[]);
 
     return(
@@ -34,20 +36,33 @@ export default function Administrator(){
                 <Sidebar/>
                 <div id="content">
                     <div id="main-content">
-                        <Background_Administration sidebarVisible={visible}>
-                            {sidebar === 'Inicio' ? (
+                        <Background_Administration sidebarVisible={isVisible}>
+                            {isSidebar === 'Inicio' ? (
                                 <Home/>
                             ):(
                                 <></>
                             )}
-                            {sidebar === 'Usuarios' ? (
+                            {isSidebar === 'Usuarios' ? (
                                 <Users/>
                             ):(
                                 <></>
                             )}
                         </Background_Administration>
-                        {isModalOutLogin ? (
-                            <OutLogin/>
+                        {isOptionModal === 'Cerrar-Sesion' ? (
+                            isModal ? (
+                                <OutLogin/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Habilitar-Usuario' ? (
+                            isModal ? (
+                                <UserEnable/>
+                            ):(
+                                <></>
+                            )
                         ):(
                             <></>
                         )}
@@ -55,7 +70,7 @@ export default function Administrator(){
                 </div>
             </div>
             <Footer/>
-            {toast ? (
+            {isToast ? (
                 <Toast_Styles>
                     <Toaster
                     visibleToasts={3}

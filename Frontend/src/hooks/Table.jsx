@@ -7,27 +7,27 @@ import { statusAllContext } from '../contexts/StatusProvider';
 
 export const useTableActions = () => {
 
-    const [users,setUsers] = useContext(usersContext);
-    const [permissions,setPermissions] = useContext(permissionsContext);
-    const [statusAll,setStatusAll] = useContext(statusAllContext);
-    const [selectedRow,setSelectedRow] = useContext(selectedRowContext);
-    const [searchTerm, setSearchTerm] = useContext(searchTermContext);
+    const [isUsers] = useContext(usersContext);
+    const [isPermissions] = useContext(permissionsContext);
+    const [isStatusAll] = useContext(statusAllContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isSearchTerm] = useContext(searchTermContext);
     
     const [currentPage, setCurrentPage] = useState(1);
     
 
-    const filteredRecordsUsers = users.filter((data) =>
+    const filteredRecordsUsers = isUsers.filter((data) =>
         Object.values(data).some((value) =>
-          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+          value.toString().toLowerCase().includes(isSearchTerm.toLowerCase())
         )
     );
-    const filteredRecordsPermissions = permissions.filter((data) => {
-        const user = users.find(user => user.idusuario === data.idusuario);
-        return user && user.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+    const filteredRecordsPermissions = isPermissions.filter((data) => {
+        const user = isUsers.find(user => user.idusuario === data.idusuario);
+        return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
-    const filteredRecordsStatus = statusAll.filter((data) => {
-        const user = users.find(user => user.idusuario === data.idusuario);
-        return user && user.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+    const filteredRecordsStatus = isStatusAll.filter((data) => {
+        const user = isUsers.find(user => user.idusuario === data.idusuario);
+        return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
 
     const recordsPerPage = 10;
@@ -44,7 +44,7 @@ export const useTableActions = () => {
     const currentRecordsStatus = filteredRecordsStatus.slice(indexOfFirstRecord, indexOfLastRecord);
 
     const handleRowClick = (user) => {
-        setSelectedRow((prevSelected) => (prevSelected === user ? null : user));
+        setIsSelectedRow((prevSelected) => (prevSelected === user ? null : user));
     };
 
     const nextPageUsers = () => {

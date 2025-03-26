@@ -1,12 +1,16 @@
 import { useEffect,useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Toaster } from 'sonner';
 
 import { typeUserContext } from "../contexts/TypeUserProvider";
-import { sidebarContext } from "../contexts/ViewsProvider";
-import { toastContext,visibleContext,modalContext } from "../contexts/VariablesProvider";
+import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
+import { toastContext,visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
+import { permissionContext } from "../contexts/PermissionsProvider";
+import { statusUserContext } from "../contexts/StatusProvider";
+import { loggedContext,enableContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
 
-import { Alert_Greeting,Toast_Styles } from "../components/styled/Notifications";
+import { Alert_Greeting,Toast_Styles,Alert_Verification } from "../components/styled/Notifications";
 import { Background_Menu } from "../components/styled/Backgrounds";
 
 import OutLogin from "../components/modals/OutLogin";
@@ -19,12 +23,31 @@ import Footer from "../components/footer/Footer";
 
 export default function Menu(){
     
-    const [isTypeUser] = useContext(typeUserContext);
-    const [isSidebar] = useContext(sidebarContext);
-    const [isVisible] = useContext(visibleContext);
-    const [isUser] = useContext(userContext);
-    const [isModal] = useContext(modalContext);
-    const [isToast] = useContext(toastContext);
+    const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useContext(loadingOptionLoginContext);
+    const [isToast,setIsToast] = useContext(toastContext);
+    const [isVisible,setIsVisible] = useContext(visibleContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+    const [isModal,setIsModal] = useContext(modalContext);
+    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
+
+    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
+    const [isNavbar,setIsNavbar] = useContext(navbarContext);
+
+    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+    
+    const [isLogged,setIsLogged] = useContext(loggedContext);
+    const [isEnable,setIsEnable] = useContext(enableContext);
+    const [isName,setIsName] = useContext(nameContext);
+    const [isPassword,setIsPassword] = useContext(passwordContext);
+
+    const [isUser,setIsUser] = useContext(userContext);
+    const [isPermission,setIsPermission] = useContext(permissionContext);
+    const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
+
+    const [isLog,setIsLog] = useContext(logContext);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
             if(isTypeUser === 'Medico'){
@@ -35,6 +58,55 @@ export default function Menu(){
             Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...','Blue');
             Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`,'Blue');
     },[]);
+
+    useEffect(() => {
+        if(!isLog && isLogged){
+            document.title = "Cargando...";
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsToast(true);
+                    
+                    setTimeout(() => {
+                        resolve('¡MEALSYNC le agradece su estancia!...');
+                    },1000);
+
+                    setTimeout(() => {
+                        setIsLoadingOptionLogin('');
+                        setIsToast(false);
+                        setIsVisible(true);
+                        setIsSelectedRow(null);
+                        setIsSearchTerm('');
+                        setIsModal(false);
+                        setIsOptionModal('');
+                        
+                        setIsSidebar('Inicio');
+                        setIsNavbar('');
+                        
+                        setIsTypeUser('');
+
+                        setIsLogged(false);
+                        setIsEnable([]);
+                        setIsName('');
+                        setIsPassword('');
+
+                        setIsPermission([]);
+                        setIsStatusUser([]);
+
+                        setTimeout(() => {
+                            setIsUser([]);
+                            setIsLog(null);
+                            sessionStorage.clear();
+                            navigate("/",{replace: true});
+                        },200)
+                    },2000)
+                }catch(error){
+                    reject('¡Ocurrio un error inesperado...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Cerrando sesión!...','Light');
+        }
+    },[isLog]);
 
     return(
         <div className="app-container">
@@ -49,23 +121,33 @@ export default function Menu(){
                                 <OptionsMenu/>
                             )}
                         </Background_Menu>
-                        {isTypeUser === 'Medico' ? (
-                            <AlertMedico/>
+                        {isOptionModal === 'Alerta-Medica' ? (
+                            isModal ? (
+                                <AlertMedico/>
+                            ):(
+                                <></>
+                            )
+                            
                         ):(
                             <></>
                         )}
-                        {isSidebar === 'OutLogin' ? (
+                        {isOptionModal === 'Cerrar-Sesion' ? (
                             isModal ? (
                                 <OutLogin/>
                             ):(
                                 <></>
                             )
                         ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Carro-Compras' ? (
                             isModal ? (
                                 <ShoppingCart/>    
                             ):(
                                 <></>
                             )
+                        ):(
+                            <></>
                         )}
                     </div>
                 </div>

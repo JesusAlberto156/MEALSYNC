@@ -1,16 +1,16 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { decryptData } from "../services/Crypto";
 
-import { socketContext } from "./SocketProvider";
-
 export const permissionsContext = createContext(null);
 export const permissionContext = createContext(null);
+
+import { socketContext } from "./SocketProvider";
 
 export const Permissions = ({ children }) => {
 
     const [socket] = useContext(socketContext);
     
-    const [permissions,setPermissions] = useState([]);
+    const [isPermissions,setIsPermissions] = useState([]);
 
     useEffect(() => {
         socket.emit('permissions');
@@ -20,10 +20,10 @@ export const Permissions = ({ children }) => {
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
                 console.log('Permisos de usuarios obtenidos...')
-                setPermissions(parsedData);
+                setIsPermissions(parsedData);
             }else{
                 console.log('Error al desencriptar permisos...');
-                setPermissions([]);
+                setIsPermissions([]);
             }
         });
 
@@ -33,7 +33,7 @@ export const Permissions = ({ children }) => {
     },[]);
 
     return (
-        <permissionsContext.Provider value={[permissions,setPermissions]}>
+        <permissionsContext.Provider value={[isPermissions,setIsPermissions]}>
             {children}
         </permissionsContext.Provider>
     );
@@ -41,7 +41,7 @@ export const Permissions = ({ children }) => {
 
 export const Permission = ({ children }) => {
 
-    const [permission,setPermission] = useState(() => {
+    const [isPermission,setIsPermission] = useState(() => {
         const StoredData = sessionStorage.getItem('Permission');
 
         if(StoredData){
@@ -65,7 +65,7 @@ export const Permission = ({ children }) => {
     });
 
     return (
-        <permissionContext.Provider value={[permission,setPermission]}>
+        <permissionContext.Provider value={[isPermission,setIsPermission]}>
             {children}
         </permissionContext.Provider>
     );

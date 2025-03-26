@@ -5,7 +5,7 @@ import { typeUserContext } from "../../contexts/TypeUserProvider";
 import { visibleContext } from "../../contexts/VariablesProvider";
 import { userContext } from "../../contexts/UsersProvider";
 
-import { useModalOutLogin } from "../../hooks/Modals";
+import { useModalOutLogin } from "../../hooks/Modal";
 import { useToggleSidebar,useSidebarViews } from '../../hooks/Sidebar'
 
 import { FaBars } from "react-icons/fa";

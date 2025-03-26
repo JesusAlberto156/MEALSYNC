@@ -6,7 +6,7 @@ import { navbarContext,sidebarContext } from "../../contexts/ViewsProvider";
 import { searchTermContext,selectedRowContext } from "../../contexts/VariablesProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider"; 
 
-import { useModalShoppingCart,useModalUserEnable } from '../../hooks/Modals'
+import { useModalShoppingCart,useModalUserEnable } from '../../hooks/Modal'
 
 import { FcSearch } from "react-icons/fc";
 import { FaShoppingCart } from "react-icons/fa";

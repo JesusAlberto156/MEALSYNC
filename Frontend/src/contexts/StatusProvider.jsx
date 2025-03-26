@@ -1,20 +1,21 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { decryptData } from "../services/Crypto";
 
-import { socketContext } from "./SocketProvider";
-import { loggedContext } from "./SessionProvider";
-import { userContext } from "./UsersProvider";
-
 export const statusAllContext = createContext(null);
 export const statusUserContext = createContext(null);
+
+import { socketContext } from "./SocketProvider";
+import { loggedContext,logContext } from "./SessionProvider";
+import { userContext } from "./UsersProvider";
 
 export const StatusAll = ({ children }) => {
 
     const [socket] = useContext(socketContext);
-    const [isLogged,setIsLogged] = useContext(loggedContext);    
+    const [isLogged] = useContext(loggedContext); 
+    const [isLog,setIsLog] = useContext(logContext);   
     const [isUser] = useContext(userContext);
 
-    const [statusAll,setStatusAll] = useState([]);
+    const [isStatusAll,setIsStatusAll] = useState([]);
 
     useEffect(() => {
         socket.emit('status');
@@ -24,10 +25,10 @@ export const StatusAll = ({ children }) => {
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
                 console.log('Estatus de usuarios obtenidos....')
-                setStatusAll(parsedData);
+                setIsStatusAll(parsedData);
             }else{
                 console.log('Error al desencriptar estatus...');
-                setStatusAll([]);
+                setIsStatusAll([]);
             }
         });
 
@@ -38,17 +39,15 @@ export const StatusAll = ({ children }) => {
 
     useEffect(() => {
         if(isLogged && isUser !== 0){
-            const user = statusAll.find(user => user.idusuario === isUser.idusuario);
-            if(user){
-                if(!user.habilitado){
-                    setIsLogged(false);
-                }
+            const user = isStatusAll.find(user => user.idusuario === isUser.idusuario);
+            if(user && ! !user.habilitado){
+                setIsLog(false);
             }
         }
-    },[statusAll]);
+    },[isStatusAll]);
 
     return (
-        <statusAllContext.Provider value={[statusAll,setStatusAll]}>
+        <statusAllContext.Provider value={[isStatusAll,setIsStatusAll]}>
             {children}
         </statusAllContext.Provider>
     );
@@ -56,8 +55,8 @@ export const StatusAll = ({ children }) => {
 
 export const StatusUser = ({ children }) => {
 
-    const [statusUser,setStatusUser] = useState(() => {
-        const StoredData = sessionStorage.getItem('StatusUser');
+    const [isStatusUser,setIsStatusUser] = useState(() => {
+        const StoredData = sessionStorage.getItem('Status');
 
         if(StoredData){
             try{
@@ -80,7 +79,7 @@ export const StatusUser = ({ children }) => {
     });
 
     return (
-        <statusUserContext.Provider value={[statusUser,setStatusUser]}>
+        <statusUserContext.Provider value={[isStatusUser,setIsStatusUser]}>
             {children}
         </statusUserContext.Provider>
     );

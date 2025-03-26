@@ -5,7 +5,7 @@ export const typeUserContext = createContext(null);
 
 export const TypeUser = ({ children }) => {
 
-    const [typeUser,setTypeUser] = useState(() => {
+    const [isTypeUser,setIsTypeUser] = useState(() => {
         const StoredData = sessionStorage.getItem('TypeUser');
 
         if(StoredData){
@@ -29,7 +29,7 @@ export const TypeUser = ({ children }) => {
     });
 
     return (
-        <typeUserContext.Provider value={[typeUser,setTypeUser]}>
+        <typeUserContext.Provider value={[isTypeUser,setIsTypeUser]}>
             {children}
         </typeUserContext.Provider>
     );

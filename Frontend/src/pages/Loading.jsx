@@ -1,9 +1,9 @@
+import { IoSettings } from "react-icons/io5";
+
 import { Background_Loading } from "../components/styled/Backgrounds";
 import { Title_Fade_Loading } from "../components/styled/Text";
 import { Settings_Rotate } from "../components/styled/Settings";
 import { Container_Title_Loading } from "../components/styled/Containers";
-
-import { IoSettings } from "react-icons/io5";
 
 const Loading = () => {
     return(

@@ -2,9 +2,8 @@ import { useEffect,useContext } from "react";
 import { Toaster } from 'sonner';
 
 import { typeUserContext } from "../contexts/TypeUserProvider";
-import { modalOutLoginContext,modalShoppingCartContext } from "../contexts/ModalsProvider";
 import { sidebarContext } from "../contexts/ViewsProvider";
-import { toastContext,visibleContext } from "../contexts/VariablesProvider";
+import { toastContext,visibleContext,modalContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 
 import { Alert_Greeting,Toast_Styles } from "../components/styled/Notifications";
@@ -19,23 +18,22 @@ import Sidebar from "../components/sidebar/Sidebar";
 import Footer from "../components/footer/Footer";
 
 export default function Menu(){
-    const [typeUser] = useContext(typeUserContext);
-    const [sidebar] = useContext(sidebarContext);
-    const [isModalOutLogin] = useContext(modalOutLoginContext);
-    const [isModalShoppingCart] = useContext(modalShoppingCartContext);
-    const [visible] = useContext(visibleContext);
-    const [user,setUser] = useContext(userContext);
-
-    const [toast] = useContext(toastContext);
+    
+    const [isTypeUser] = useContext(typeUserContext);
+    const [isSidebar] = useContext(sidebarContext);
+    const [isVisible] = useContext(visibleContext);
+    const [isUser] = useContext(userContext);
+    const [isModal] = useContext(modalContext);
+    const [isToast] = useContext(toastContext);
 
     useEffect(() => {
-            if(typeUser === 'Medico'){
+            if(isTypeUser === 'Medico'){
                 document.title = "MEALSYNC_Inicio_Comprobación"
             }else{
                 document.title = "MEALSYNC_Menú_Inicio"
             }
             Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...','Blue');
-            Alert_Greeting('Bienvenido(a)',`¡${user.nombrecorto}!...`,'Blue');
+            Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`,'Blue');
     },[]);
 
     return(
@@ -44,33 +42,36 @@ export default function Menu(){
                 <Sidebar/>
                 <div id="content">
                     <div id="main-content">
-                        <Background_Menu sidebarVisible={visible}>
-                            {sidebar === 'Inicio' ? (
+                        <Background_Menu sidebarVisible={isVisible}>
+                            {isSidebar === 'Inicio' ? (
                                 <Home/>
                             ):(
                                 <OptionsMenu/>
                             )}
                         </Background_Menu>
-                        {typeUser === 'Medico' ? (
+                        {isTypeUser === 'Medico' ? (
                             <AlertMedico/>
                         ):(
                             <></>
                         )}
-                        {isModalOutLogin ? (
-                            <OutLogin/>
+                        {isSidebar === 'OutLogin' ? (
+                            isModal ? (
+                                <OutLogin/>
+                            ):(
+                                <></>
+                            )
                         ):(
-                            <></>
-                        )}
-                        {isModalShoppingCart ? (
-                            <ShoppingCart/>
-                        ):(
-                            <></>
+                            isModal ? (
+                                <ShoppingCart/>    
+                            ):(
+                                <></>
+                            )
                         )}
                     </div>
                 </div>
             </div>
             <Footer/>
-            {toast ? (
+            {isToast ? (
                 <Toast_Styles>
                     <Toaster
                     visibleToasts={3}

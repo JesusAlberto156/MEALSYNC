@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Tooltip } from "@mui/material";
 
-import { modalShoppingCartContext } from "../../contexts/ModalsProvider";
+import { modalContext } from "../../contexts/VariablesProvider";
 
 import { MdCancel } from "react-icons/md";
 import { ImExit } from "react-icons/im";
@@ -13,7 +13,7 @@ import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../styled/Butto
 
 export default function ShoppingCart(){
 
-    const [isModal,setIsModal] = useContext(modalShoppingCartContext);
+    const [isModal,setIsModal] = useContext(modalContext);
 
     const Cancel = async () => {
         setIsModal(false);

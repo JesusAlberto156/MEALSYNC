@@ -1,18 +1,50 @@
 import { createContext, useState,useEffect,useContext } from "react"
 import { decryptData } from "../services/Crypto";
 
+export const logContext = createContext(null);
+export const loggedContext = createContext(null);
+export const enableContext = createContext(null);
+export const nameContext = createContext(null);
+export const passwordContext = createContext(null);
+
 import { socketContext } from "./SocketProvider";
 import { userContext,usersContext } from './UsersProvider';
 
-export const loggedContext = createContext(null);
-export const enableUserContext = createContext(null);
-export const nameContext = createContext(null);
-export const passwordContext = createContext(null);
+export const Log = ({children}) => {
+
+    const [isLog,setIsLog] = useState(() => {
+        const log = sessionStorage.getItem('Log');
+
+        if(log){
+            try{
+                const decryptedData = decryptData(log);
+
+                if(decryptedData){
+                    console.log('Registro cargado correctamente...');
+                    return true;
+                }else{
+                    console.log('Error al desencriptar datos almacenados...');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return false;
+            }
+        }
+        return false;
+    });
+
+    return (
+        <logContext.Provider value={[isLog,setIsLog]}>
+            {children}
+        </logContext.Provider>
+    );
+}
 
 export const Logged = ({ children }) => {
 
     const [socket] = useContext(socketContext);
-    const [user] = useContext(userContext);
+    const [isUser] = useContext(userContext);
 
     const [isLogged,setIsLogged] = useState(() => {
         const logged = sessionStorage.getItem('Logged');
@@ -37,8 +69,8 @@ export const Logged = ({ children }) => {
     });
 
     useEffect(() => {
-        if(isLogged && user.length !== 0){
-            socket.emit('statusLogin',user.idusuario,user.usuario);
+        if(isLogged && isUser.length !== 0){
+            socket.emit('statusLogin',isUser.idusuario,isUser.usuario);
 
             socket.on('statusLogin',(mensaje,usuario) => {
                 console.log(mensaje,usuario);
@@ -48,8 +80,8 @@ export const Logged = ({ children }) => {
             return () => {
                 socket.off('statusLogin');
             }
-        }else if(user.length !== 0){
-            socket.emit('statusLogout',user.idusuario,user.usuario);
+        }else if(!isLogged && isUser.length !== 0){
+            socket.emit('statusLogout',isUser.idusuario,isUser.usuario);
 
             socket.on('statusLogout',(mensaje,usuario) => {
                 console.log(mensaje,usuario);
@@ -69,19 +101,19 @@ export const Logged = ({ children }) => {
     );
 }
 
-export const EnableUser = ({ children }) => {
+export const Enable = ({ children }) => {
     
-    const [users] = useContext(usersContext);
+    const [isUsers] = useContext(usersContext);
     const [socket] = useContext(socketContext);
 
-    const [enableUser,setEnableUser] = useState([]);
+    const [isEnable,setIsEnable] = useState([]);
 
     useEffect(() => {
-        if(enableUser.length !== 0){
-            if(enableUser.habilitado){
-                const userEnable = users.find(user => user.idusuario === enableUser.idusuario);
-                if(userEnable){
-                    socket.emit('statusDisable',enableUser.idusuario,userEnable.usuario);
+        if(isEnable.length !== 0){
+            const enable = isUsers.find(user => user.idusuario === isEnable.idusuario);
+            if(isEnable.habilitado){
+                if(enable){
+                    socket.emit('statusDisable',isEnable.idusuario,enable.usuario);
 
                     socket.on('statusDisable',(message,user) => {
                         console.log(message,user);
@@ -92,10 +124,9 @@ export const EnableUser = ({ children }) => {
                         socket.off('statusDisable');
                     }
                 }
-            }else{
-                const userEnable = users.find(user => user.idusuario === enableUser.idusuario);
-                if(userEnable){
-                    socket.emit('statusEnable',enableUser.idusuario,userEnable.usuario);
+            }else if(!isEnable.habilitado){
+                if(enable){
+                    socket.emit('statusEnable',isEnable.idusuario,enable.usuario);
 
                     socket.on('statusEnable',(message,user) => {
                         console.log(message,user);              
@@ -108,21 +139,21 @@ export const EnableUser = ({ children }) => {
                 }
             }
         }
-    },[enableUser]);
+    },[isEnable]);
 
     return (
-        <enableUserContext.Provider value={[enableUser,setEnableUser]}>
+        <enableContext.Provider value={[isEnable,setIsEnable]}>
             {children}
-        </enableUserContext.Provider>
+        </enableContext.Provider>
     );
 }
 
 export const Name = ({ children }) => {
 
-    const [name,setName] = useState('');
+    const [isName,setIsName] = useState('');
 
     return (
-        <nameContext.Provider value={[name,setName]}>
+        <nameContext.Provider value={[isName,setIsName]}>
             {children}
         </nameContext.Provider>
     );
@@ -130,10 +161,10 @@ export const Name = ({ children }) => {
 
 export const Password = ({ children }) => {
 
-    const [password,setPassword] = useState('');
+    const [isPassword,setIsPassword] = useState('');
 
     return (
-        <passwordContext.Provider value={[password,setPassword]}>
+        <passwordContext.Provider value={[isPassword,setIsPassword]}>
             {children}
         </passwordContext.Provider>
     );

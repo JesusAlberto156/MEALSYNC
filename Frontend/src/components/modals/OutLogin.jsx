@@ -1,10 +1,11 @@
 import { useContext,useEffect } from "react";
 import { Tooltip } from "@mui/material";
 
-import { modalOutLoginContext } from '../../contexts/ModalsProvider';
+import { modalContext } from "../../contexts/VariablesProvider";
 import { typeUserContext } from "../../contexts/TypeUserProvider";
+import { sidebarContext } from "../../contexts/ViewsProvider";
 
-import { useOutLogin } from "../../hooks/UserSession";
+import { useLogout } from '../../hooks/OptionsLogin'
 
 import { MdCancel } from "react-icons/md";
 import { ImExit } from "react-icons/im";
@@ -16,19 +17,21 @@ import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../styled/Butto
 
 export default function OutLogin(){
 
-    const [isModal,setIsModal] = useContext(modalOutLoginContext);
-    const [typeUser] = useContext(typeUserContext);
-        
+    const [isModal,setIsModal] = useContext(modalContext);
+    const [isTypeUser] = useContext(typeUserContext);
+    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
+
     const Cancel = async () => {
         setIsModal(false);
+        setIsSidebar('Inicio');
     }
 
     useEffect(() => {
-        if(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico')document.title = "MEALSYNC_Menú_Cerrar_Sesión"
-        if(typeUser === 'Administrador' || typeUser === 'Chef' || typeUser === 'Almacen')document.title = "MEALSYNC_Administración_Cerrar_Sesión"
+        if(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico')document.title = "MEALSYNC_Menú_Cerrar_Sesión"
+        if(isTypeUser === 'Administrador' || isTypeUser === 'Chef' || isTypeUser === 'Almacen')document.title = "MEALSYNC_Administración_Cerrar_Sesión"
     },[])
 
-    const outLogin = useOutLogin();
+    const outLogin = useLogout();
 
     return(
         <>

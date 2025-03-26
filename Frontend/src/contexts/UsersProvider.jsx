@@ -1,16 +1,16 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { decryptData } from "../services/Crypto";
 
-import { socketContext } from "./SocketProvider";
-
 export const usersContext = createContext(null);
 export const userContext = createContext(null);
+
+import { socketContext } from "./SocketProvider";
 
 export const Users = ({ children }) => {
 
     const [socket] = useContext(socketContext);
 
-    const [users,setUsers] = useState([]);
+    const [isUsers,setIsUsers] = useState([]);
 
     useEffect(() => {
         socket.emit('users');
@@ -20,11 +20,11 @@ export const Users = ({ children }) => {
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
                 console.log('Usuarios obtenidos...')
-                setUsers(parsedData);
+                setIsUsers(parsedData);
                 
             }else{
                 console.log('Error al desencriptar usuarios...');
-                setUsers([]);
+                setIsUsers([]);
             }
         });
 
@@ -34,7 +34,7 @@ export const Users = ({ children }) => {
     },[]);
 
     return (
-        <usersContext.Provider value={[users,setUsers]}>
+        <usersContext.Provider value={[isUsers,setIsUsers]}>
             {children}
         </usersContext.Provider>
     );
@@ -42,7 +42,7 @@ export const Users = ({ children }) => {
 
 export const User = ({ children }) => {
 
-    const [user,setUser] = useState(() => {
+    const [isUser,setIsUser] = useState(() => {
         const StoredData = sessionStorage.getItem('User');
 
         if(StoredData){
@@ -66,7 +66,7 @@ export const User = ({ children }) => {
     });
 
     return (
-        <userContext.Provider value={[user,setUser]}>
+        <userContext.Provider value={[isUser,setIsUser]}>
             {children}
         </userContext.Provider>
     );

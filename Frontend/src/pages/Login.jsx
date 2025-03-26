@@ -1,18 +1,18 @@
 import { useEffect,useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { Toaster } from 'sonner';
 import { Tooltip } from "@mui/material";
+import { encryptData } from "../services/Crypto";
 
-import { loginContext,toastContext } from '../contexts/VariablesProvider'
-import { loggedContext,nameContext,passwordContext } from "../contexts/SessionProvider";
+import { loadingOptionLoginContext,toastContext,visibleContext,selectedRowContext,searchTermContext,modalContext } from '../contexts/VariablesProvider'
+import { loggedContext,nameContext,passwordContext,logContext,enableContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
+import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
 
-import { useOptionsLogin } from "../hooks/OptionsLogin";
-import { useLogin } from "../hooks/UserSession";
+import { useOptionsLogin,useLogin } from "../hooks/OptionsLogin";
 
 import { FaUserShield } from "react-icons/fa6";
 import { MdSoupKitchen } from "react-icons/md";
@@ -37,21 +37,30 @@ import Logo from "../components/imgs/Logo-Vertical-Digital.png"
 import Footer from '../components/footer/Footer';
 import Loading from "./Loading";
 
-import { encryptData } from "../services/Crypto";
-
 export default function Login(){
-    const [name,setName] = useContext(nameContext);
-    const [password,setPassword] = useContext(passwordContext);
+    const [isName,setIsName] = useContext(nameContext);
+    const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useContext(loadingOptionLoginContext);
+    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+    const [isToast,setIsToast] = useContext(toastContext);
+    const [isLog,setIsLog] = useContext(logContext);
+    const [isVisible,setIsVisible] = useContext(visibleContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+    const [isModal,setIsModal] = useContext(modalContext);
+    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
+    const [isNavbar,setIsNavbar] = useContext(navbarContext);
+    const [isEnable,setIsEnable] = useContext(enableContext);
 
-    const {
-            loadingOption, isLoadingOption,
-            loadingAdministration, isLoadingAdministration,
-            loadingKitchen, isLoadingKitchen,
-            loadingLogin, isLoadingLogin,
-            loadingLoginAdministration, isLoadingLoginAdministration,
-            loadingLoginKitchen, isLoadingLoginKitchen
-        } = useContext(loginContext);
+    const [isUsers] = useContext(usersContext);
+    const [isPermissions] = useContext(permissionsContext);
+    const [isStatusAll] = useContext(statusAllContext);
+    const [isUser,setIsUser] = useContext(userContext);
+    const [isPermission,setIsPermission] = useContext(permissionContext);
+    const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
 
+    const [isLogged,setIsLogged] = useContext(loggedContext);
+    
     const [textName,setTextName] = useState(false);
     const [isFocusedName, setIsFocusedName] = useState(false);
     const [isFocusedNameColor, setIsFocusedNameColor] = useState(false);
@@ -59,86 +68,88 @@ export default function Login(){
     const [isFocusedPassword, setIsFocusedPassword] = useState(false);
     const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
 
-    const [loading,setLoading] = useState(false);
-    const [toast,setToast] = useContext(toastContext);
-
+    const [isLoading,setIsLoading] = useState(false);
+    
     const navigate = useNavigate();
-    
-    
-    const [users] = useContext(usersContext);
-    const [statusAll] = useContext(statusAllContext);
-    const [permissions] = useContext(permissionsContext);
-    const [user,setUser] = useContext(userContext);
-    const [statusUser,setStatusUser] = useContext(statusUserContext);
-    const [permission,setPermission] = useContext(permissionContext);
-
-    const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [typeUser] = useContext(typeUserContext);
 
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     useEffect(() => {
         setTimeout(() => {
-            setLoading(true);
+            setIsLoading(true);
         },500);
     },[]);
+    useEffect(() => {
+        document.title='MEALSYNC_Cargando'
+        setTimeout(() => {
+            document.title = "MEALSYNC_Iniciar_Sesión"
+        },1000)
+        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
+        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
+    }, []);
+    useEffect(() => {
+        document.title = "MEALSYNC_Iniciar_Sesión"
+        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
+        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
+    },[isLoading]);
 
     useEffect(() => {
-        if(isLogged){
+        if(isLog && !isLogged){
+            document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     await delay(1000);
-                    const existsUser = users.find(user => user.usuario === name);
+                    const existsUser = isUsers.find(user => user.usuario === isName);
                     
                     if(!existsUser) {
-                        setIsLogged(false);
+                        setIsLog(false);
                         return reject('¡Usuario no encontrado!...');
                     }
                     
-                    if(existsUser.contrasena === password){
-                        let existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
+                    if(existsUser.contrasena === isPassword){
+                        let existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
 
                         if(!existsStatus){
-                            setIsLogged(false);
+                            setIsLog(false);
                             return reject('¡Usuario sin estatus!...');
                         }
                         if(!existsStatus.habilitado){
-                            setIsLogged(false);
+                            setIsLog(false);
                             return reject('¡Este usuario no se encuentra habilitado!...');
                         }
                         if(existsStatus.activo){
-                            setIsLogged(false);
+                            setIsLog(false);
                             return reject('¡Este usuario ya se encuentra activo!...');
                         }
             
-                        const existsPermission = permissions.find(permissions => permissions.idusuario === existsUser.idusuario);
+                        const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
                         
                         if(!existsPermission){ 
-                            setIsLogged(false);
+                            setIsLog(false);
                             return reject('¡Este usuario no cuenta con roles asignados!...')
                         }  
-                        if(typeUser === 'Cocinero' && !existsPermission.cocinero){
-                            setIsLogged(false);
+                        if(isTypeUser === 'Cocinero' && !existsPermission.cocinero){
+                            setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
                         }
-                        if(typeUser === 'Nutriologo' && !existsPermission.cocinero){
-                            setIsLogged(false);
+                        if(isTypeUser === 'Nutriologo' && !existsPermission.cocinero){
+                            setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
                         }
-                        if(typeUser === 'Medico' && !existsPermission.cocinero){
-                            setIsLogged(false);
+                        if(isTypeUser === 'Medico' && !existsPermission.cocinero){
+                            setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
                         }
-                        if(typeUser === 'Administrador' && !existsPermission.cocinero){
-                            setIsLogged(false);
+                        if(isTypeUser === 'Administrador' && !existsPermission.cocinero){
+                            setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
                         }
-                        if(typeUser === 'Chef' && !existsPermission.cocinero){
-                            setIsLogged(false);
+                        if(isTypeUser === 'Chef' && !existsPermission.cocinero){
+                            setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de CHEF!...');
                         }
-                        if(typeUser === 'Almacen' && !existsPermission.cocinero){
-                            setIsLogged(false);
+                        if(isTypeUser === 'Almacen' && !existsPermission.cocinero){
+                            setIsLog(false);
                             return reject('¡Este usuario no cuenta con el rol de ALMACÉN!...');
                         }
 
@@ -149,81 +160,115 @@ export default function Login(){
                             const encryptedUser = encryptData(jsonUser);
                             const encryptedPermission = encryptData(jsonPermission);
                             const encryptedLogged = encryptData('true');
-                            const encryptedType = encryptData(typeUser);
+                            const encryptedLog = encryptData('true');
+                            const encryptedType = encryptData(isTypeUser);
             
-                            if( encryptedUser && encryptedPermission && encryptedLogged && encryptedType){
+                            if( encryptedUser && encryptedPermission && encryptedLogged && encryptedLog && encryptedType){
                                 resolve('¡SESIÓN INICIADA!...');
             
                                 sessionStorage.setItem('User',encryptedUser);
                                 sessionStorage.setItem('Permission',encryptedPermission);
                                 sessionStorage.setItem('Logged',encryptedLogged);
+                                sessionStorage.setItem('Log',encryptedLog);
                                 sessionStorage.setItem('TypeUser',encryptedType);
             
                                 setTimeout(() => {
-                                    setToast(false);
-                                    setIsLogged(false);
+                                    setIsToast(false);
                                 },1500);
             
                                 setTimeout(() => {
-                                    setUser(JSON.parse(jsonUser));
-                                    setPermission(JSON.parse(jsonPermission));
-                                    existsStatus = statusAll.find(user => user.idusuario === existsUser.idusuario);
+                                    setIsUser(JSON.parse(jsonUser));
+                                    setIsPermission(JSON.parse(jsonPermission));
+                                    
+                                    existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
+                                    
                                     const jsonStatus = JSON.stringify(existsStatus);
                                     const encryptedStatus = encryptData(jsonStatus);
             
                                     if(encryptedStatus){
-                                        sessionStorage.setItem('StatusUser',encryptedStatus);
-                                        setStatusUser(JSON.parse(jsonStatus));
+                                        sessionStorage.setItem('Status',encryptedStatus);
+                                        setIsStatusUser(JSON.parse(jsonStatus));
                                         setIsLogged(true);
+
+                                        if(isTypeUser === 'Medico') setIsModal(true);
+                                        
                                         console.log('¡Credenciales encriptadas correctamente!...');
-                                        navigate(typeUser === 'Cocinero' || typeUser === 'Nutriologo' || typeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
+                                        navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico' ? '/Menu' : '/Administrator',{ replace: true });
                                     }else{
-                                        setIsLogged(false);
+                                        setIsLog(false);
                                         return console.log('¡Error al encriptar el estatus de la sesión!...')
                                     }
                                 },1500);
                             }else{
-                                setIsLogged(false);
+                                setIsLog(false);
                                 return console.log('¡Error al encriptar las credenciales!...')
                             }
                         },100)
                     }else{
-                        setIsLogged(false);
+                        setIsLog(false);
                         return reject('¡Usuario o contraseña incorrectos!...');
                     }
                 }catch(error){
-                    setIsLogged(false);
+                    setIsLog(false);
                     reject('¡Ocurrio un error inesperado...');
                 }
             });
 
-            setToast(true);
+            setIsToast(true);
             Alert_Verification(promise,'Verificando credenciales...','Light');
 
             document.title = "MEALSYNC_Iniciar_Sesión";
+        }else if(!isLog && isLogged){
+            document.title = "Cargando...";
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsToast(true);
+                    
+                    setTimeout(() => {
+                        resolve('¡MEALSYNC le agradece su estancia!...');
+                    },1000);
+
+                    setTimeout(() => {
+                        setIsLoadingOptionLogin('');
+                        setIsToast(false);
+                        setIsVisible(true);
+                        setIsSelectedRow(null);
+                        setIsSearchTerm('');
+                        setIsModal(false);
+                        
+                        setIsSidebar('Inicio');
+                        setIsNavbar('');
+                        
+                        setIsTypeUser('');
+
+                        setIsLogged(false);
+                        setIsEnable([]);
+                        setIsName('');
+                        setIsPassword('');
+
+                        setIsUser([]);
+                        setIsPermission([]);
+                        setIsStatusUser([]);
+
+                        setTimeout(() => {
+                            setIsLog(false);
+                            sessionStorage.clear();
+                            navigate("/",{replace: true});
+                        },200)
+                    },2000)
+                }catch(error){
+                    reject('¡Ocurrio un error inesperado...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Cerrando sesión!...','Light');
         }
-    },[isLogged]);
+    },[isLog]);
 
-    useEffect(() => {
-        document.title='MEALSYNC_Cargando'
-        setTimeout(() => {
-            document.title = "MEALSYNC_Iniciar_Sesión"
-        },1000)
-        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
-        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
-    }, []);
+    const optionsLogin = useOptionsLogin();
+    const login = useLogin();
 
-    useEffect(() => {
-        document.title = "MEALSYNC_Iniciar_Sesión"
-        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
-        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
-    },[loading]);
-
-    const { useOptionTypeUsers, useOptionUsers, useBackLogin} = useOptionsLogin();
-
-    const Login = useLogin();
-
-    if(!loading) return <Loading/>
+    if(!isLoading) return <Loading/>
 
     return(
         <div className="app-container">
@@ -231,55 +276,55 @@ export default function Login(){
                 <Form_Login>
                     <img src={Logo} alt="Logo de Hospital Puerta de Hierro" className="logo-form-1"/>
                     <Title_Fade_Login>Bienvenido(a)</Title_Fade_Login>
-                    {loadingOption ? (
+                    {isLoadingOptionLogin === '' ? (
                         <>
                             <Tooltip title='Administración' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionTypeUsers('Administracion')}><FaUserShield/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('Administration','')}><FaUserShield/></Button_Blue_Login>
                             </Tooltip>
                             <Tooltip title='Cocina' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionTypeUsers('Cocina')}><MdSoupKitchen/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('Kitchen','')}><MdSoupKitchen/></Button_Blue_Login>
                             </Tooltip>
                         </>
                     ):(
                         <></>
                     )}
-                    {loadingAdministration ? (
+                    {isLoadingOptionLogin === 'Administration' ? (
                         <>
                             <Tooltip title='Administrador' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionUsers('Administracion','Administrador')}><FaUserSecret/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('Login','Administrador')}><FaUserSecret/></Button_Blue_Login>
                             </Tooltip>
                             <Tooltip title='Chef' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionUsers('Administracion','Chef')}><GiChefToque/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('Login','Chef')}><GiChefToque/></Button_Blue_Login>
                             </Tooltip>
                             <Tooltip title='Almacén' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionUsers('Administracion','Almacen')}><FaWarehouse/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('Login','Almacen')}><FaWarehouse/></Button_Blue_Login>
                             </Tooltip>
                             <Tooltip title='Atrás' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionTypeUsers('Administracion')}><IoArrowBackCircle/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('','')}><IoArrowBackCircle/></Button_Blue_Login>
                             </Tooltip>
                         </>
                     ):(
                         <></>
                     )}
-                    {loadingKitchen ? (
+                    {isLoadingOptionLogin === 'Kitchen' ? (
                         <>
                             <Tooltip title='Cocinero' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionUsers('Cocina','Cocinero')}><LuChefHat/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('Login','Cocinero')}><LuChefHat/></Button_Blue_Login>
                             </Tooltip>
                             <Tooltip title='Nutriólogo' placement="top">
-                                <Button_Block_Login onClick={() => useOptionUsers('Cocina','Nutriologo')}><IoNutrition/></Button_Block_Login>
+                                <Button_Block_Login onClick={() => optionsLogin('Login','Nutriologo')}><IoNutrition/></Button_Block_Login>
                             </Tooltip>
                             <Tooltip title='Médico' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionUsers('Cocina','Medico')}><FaUserMd/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('Login','Medico')}><FaUserMd/></Button_Blue_Login>
                             </Tooltip>
                             <Tooltip title='Atrás' placement="top">
-                                <Button_Blue_Login onClick={() => useOptionTypeUsers('Cocina')}><IoArrowBackCircle/></Button_Blue_Login>
+                                <Button_Blue_Login onClick={() => optionsLogin('','')}><IoArrowBackCircle/></Button_Blue_Login>
                             </Tooltip>
                         </>
                     ):(
                         <></>
                     )}
-                    {loadingLogin ? (
+                    {isLoadingOptionLogin === 'Login' ? (
                         <>
                             <Input_Group_Login>
                                 <Label_Login
@@ -289,7 +334,7 @@ export default function Login(){
                                     Nombre de usuario
                                 </Label_Login>
                                 <Input_Login
-                                    value={name}
+                                    value={isName}
                                     onClick={(e) => {
                                         setTextName(true);
                                         setIsFocusedNameColor(true);
@@ -304,7 +349,7 @@ export default function Login(){
                                             setIsFocusedName(true);
                                         }
                                     }}   
-                                    onChange={(e) => setName(e.target.value)} 
+                                    onChange={(e) => setIsName(e.target.value)} 
                                 />
                                 {textName && (
                                     <Label_Popup_Login>Escribe tú nombre de usuario</Label_Popup_Login>
@@ -318,7 +363,7 @@ export default function Login(){
                                     Contraseña
                                 </Label_Login>
                                 <Input_Login
-                                    value={password}
+                                    value={isPassword}
                                     onClick={(e) => {
                                         setTextPassword(true);
                                         setIsFocusedPasswordColor(true);
@@ -333,7 +378,7 @@ export default function Login(){
                                             setIsFocusedPassword(true);
                                         }
                                     }}   
-                                    onChange={(e) => setPassword(e.target.value)} 
+                                    onChange={(e) => setIsPassword(e.target.value)} 
                                     type="password"
                                 />
                                 {textPassword && (
@@ -341,23 +386,26 @@ export default function Login(){
                                 )}
                             </Input_Group_Login>
                             <Tooltip title='Iniciar sesión' placement="top">
-                                <Button_Green_Login onClick={() => Login()}><MdLogin/></Button_Green_Login>
+                                <Button_Green_Login onClick={() => login()}><MdLogin/></Button_Green_Login>
                             </Tooltip>
                         </>
                     ):(
                         <></>
                     )}
-                    {loadingLoginAdministration ? (
-                        <Tooltip title='Atrás' placement="top">
-                            <Button_Blue_Login onClick={() => useBackLogin('Administracion')}><IoArrowBackCircle/></Button_Blue_Login>
-                        </Tooltip>
-                    ):(
-                        <></>
-                    )}
-                    {loadingLoginKitchen ? (
-                        <Tooltip title='Atrás' placement="top">
-                            <Button_Blue_Login onClick={() => useBackLogin('Cocina')}><IoArrowBackCircle/></Button_Blue_Login>
-                        </Tooltip>
+                    {isLoadingOptionLogin === 'Login' ? (
+                        isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico' ? (
+                            <>
+                                <Tooltip title='Atrás' placement="top">
+                                    <Button_Blue_Login onClick={() => optionsLogin('Kitchen','')}><IoArrowBackCircle/></Button_Blue_Login>
+                                </Tooltip>   
+                            </>    
+                        ):(
+                            <>
+                                <Tooltip title='Atrás' placement="top">
+                                    <Button_Blue_Login onClick={() => optionsLogin('Administration','')}><IoArrowBackCircle/></Button_Blue_Login>
+                                </Tooltip>
+                            </>
+                        )
                     ):(
                         <></>
                     )}
@@ -365,7 +413,7 @@ export default function Login(){
                 </Form_Login>        
             </div>
             <Footer/>
-            {toast ? (
+            {isToast ? (
                 <Toast_Styles>
                     <Toaster
                     visibleToasts={3}

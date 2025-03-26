@@ -1,40 +1,29 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext,useState } from "react"
 
-export const loginContext = createContext(null);
+export const loadingOptionLoginContext = createContext(null);
 export const toastContext = createContext(null);
 export const visibleContext = createContext(null);
 export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
+export const modalContext = createContext(null);
 
-export const Login = ({ children }) => {
+export const LoadingOptionLogin = ({ children }) => {
 
-    const [loadingOption,isLoadingOption] = useState(true);
-    const [loadingAdministration,isLoadingAdministration] = useState(false);
-    const [loadingKitchen,isLoadingKitchen] = useState(false);
-    const [loadingLogin,isLoadingLogin] = useState(false);
-    const [loadingLoginAdministration,isLoadingLoginAdministration] = useState(false);
-    const [loadingLoginKitchen,isLoadingLoginKitchen] = useState(false);
+    const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useState('');
 
     return (
-        <loginContext.Provider value={
-            {loadingOption,isLoadingOption,
-            loadingAdministration,isLoadingAdministration,
-            loadingKitchen,isLoadingKitchen,
-            loadingLogin,isLoadingLogin,
-            loadingLoginAdministration,isLoadingLoginAdministration,
-            loadingLoginKitchen,isLoadingLoginKitchen}
-        }>
+        <loadingOptionLoginContext.Provider value={[isLoadingOptionLogin,setIsLoadingOptionLogin]}>
             {children}
-        </loginContext.Provider>
+        </loadingOptionLoginContext.Provider>
     );
 }
 
 export const Toast = ({ children }) => {
 
-    const [toast,setToast] = useState(false);
+    const [isToast,setIsToast] = useState(false);
 
     return (
-        <toastContext.Provider value={[toast,setToast]}>
+        <toastContext.Provider value={[isToast,setIsToast]}>
             {children}
         </toastContext.Provider>
     );
@@ -42,10 +31,10 @@ export const Toast = ({ children }) => {
 
 export const Visible = ({ children }) => {
 
-    const [visible,setVisible] = useState(true);
+    const [isVisible,setIsVisible] = useState(true);
 
     return (
-        <visibleContext.Provider value={[visible,setVisible]}>
+        <visibleContext.Provider value={[isVisible,setIsVisible]}>
             {children}
         </visibleContext.Provider>
     );
@@ -53,10 +42,10 @@ export const Visible = ({ children }) => {
 
 export const SelectedRow = ({ children }) => {
 
-    const [selectedRow,setSelectedRow] = useState(null);
+    const [isSelectedRow,setIsSelectedRow] = useState(null);
 
     return (
-        <selectedRowContext.Provider value={[selectedRow,setSelectedRow]}>
+        <selectedRowContext.Provider value={[isSelectedRow,setIsSelectedRow]}>
             {children}
         </selectedRowContext.Provider>
     );
@@ -64,11 +53,22 @@ export const SelectedRow = ({ children }) => {
 
 export const SearchTerm = ({ children }) => {
 
-    const [searchTerm,setSearchTerm] = useState('');
+    const [isSearchTerm,setIsSearchTerm] = useState('');
 
     return (
-        <searchTermContext.Provider value={[searchTerm,setSearchTerm]}>
+        <searchTermContext.Provider value={[isSearchTerm,setIsSearchTerm]}>
             {children}
         </searchTermContext.Provider>
+    );
+}
+
+export const Modal = ({children}) => {
+
+    const [isModal,setIsModal] = useState(false);
+
+    return (
+        <modalContext.Provider value={[isModal,setIsModal]}>
+            {children}
+        </modalContext.Provider>
     );
 }

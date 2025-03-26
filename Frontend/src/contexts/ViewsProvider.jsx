@@ -6,10 +6,10 @@ export const optionSidebarContext = createContext(null);
 
 export const Navbar = ({ children }) => {
 
-    const [navbar,setNavbar] = useState('');
+    const [isNavbar,setIsNavbar] = useState('');
 
     return (
-        <navbarContext.Provider value={[navbar,setNavbar]}>
+        <navbarContext.Provider value={[isNavbar,setIsNavbar]}>
             {children}
         </navbarContext.Provider>
     );
@@ -17,10 +17,10 @@ export const Navbar = ({ children }) => {
 
 export const Sidebar = ({ children }) => {
 
-    const [sidebar,setSidebar] = useState('Inicio');
+    const [isSidebar,setIsSidebar] = useState('Inicio');
 
     return (
-        <sidebarContext.Provider value={[sidebar,setSidebar]}>
+        <sidebarContext.Provider value={[isSidebar,setIsSidebar]}>
             {children}
         </sidebarContext.Provider>
     );

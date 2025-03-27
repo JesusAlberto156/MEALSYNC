@@ -65,7 +65,7 @@ export const Background_Menu = styled.div.withConfig({
 //--------NAVBAR--------
 export const Background_Navbar = styled.div`
     width: 100%;
-    height: 100%;
+    height: 80%;
     background: rgb(58,93,174);
     border-radius: 20px;
     display: flex;            
@@ -79,11 +79,11 @@ export const Background_Navbar = styled.div`
     scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
 
     @media (max-width: 768px) {
-        height: 90%;
+        height: 70%;
     }
 
     @media (max-width: 480px) {
-        height: 75%;
+        height: 60%;
     }
 `;
 //--------NAVBAR--------
@@ -101,36 +101,7 @@ export const Background_Modal = styled.div`
     z-index: 1000;
     overflow-y: auto;
 `;
-export const Background_Modal_Out_Login = styled.div`
-    max-height: 90vh;
-    max-width: 90vw;
-    border: 2px solid white;
-    background-color:rgba(204, 203, 198, 0.8);
-    padding: 20px;
-    border-radius: 30px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-`;
-export const Background_Modal_Shopping_Cart = styled.div`
-    max-height: 90vh;
-    max-width: 90vw;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-`;
-export const Background_Modal_Alert_Medico = styled.div`
-    max-height: 90vh;
-    max-width: 90vw;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-`;
-export const Background_Modal_Status = styled.div`
+export const Background_Modal_Componets = styled.div`
     max-height: 90vh;
     max-width: 90vw;
     overflow-y: auto;
@@ -138,8 +109,16 @@ export const Background_Modal_Status = styled.div`
     border: 2px solid white;
     background-color:rgba(204, 203, 198, 0.8);
     padding: 20px;
-    border-radius: 30px;
+    border-radius: 35px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        padding: 18px;
+    }
+    
+    @media (max-width: 480px) {
+        padding: 16px;
+    }
 `;
 //--------MODAL--------
 //--------FOOTER--------

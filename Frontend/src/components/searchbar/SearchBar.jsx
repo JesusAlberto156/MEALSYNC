@@ -201,7 +201,7 @@ export default function SearchBar (){
                                         <>
                                             <Container_Button_Search_Bar>
                                                 <Tooltip title="Agregar" placement="top">
-                                                    <Button_Green_Search_Bar id="Boton-Estatus-Agregar" onClick={() => modal('Agregar-Estatus')}><IoMdAddCircle/></Button_Green_Search_Bar>
+                                                    <Button_Green_Search_Bar onClick={() => modal('Agregar-Estatus')}><IoMdAddCircle/></Button_Green_Search_Bar>
                                                 </Tooltip>
                                             </Container_Button_Search_Bar>
                                         </>

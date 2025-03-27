@@ -64,3 +64,44 @@ export const Input_Search_Bar_Menu = styled.input`
     }
 `;
 //--------SEARCH-BAR MENU--------
+//--------MODAL---------
+export const Input_Radio_Modal = styled.input`
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:checked {
+        accent-color: rgb(20, 165, 76);
+    }
+
+    @media (max-width: 768px) {
+        width: 15px;
+        height: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 13px;
+        height: 13px;
+    }
+`;
+export const Input_Checkbox_Modal = styled.input`
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+
+    &:checked {
+        accent-color: rgb(20, 165, 76);
+    }
+
+    @media (max-width: 768px) {
+        width: 14px;
+        height: 14px;
+    }
+
+    @media (max-width: 480px) {
+        width: 13px;
+        height: 13px;
+    }
+`;
+//--------MODAL---------

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, useRef } from "react"
 import { decryptData } from "../services/Crypto";
 
 export const statusAllContext = createContext(null);
@@ -43,21 +43,23 @@ export const StatusAll = ({ children }) => {
         }
     },[]);
 
+    const alertShown = useRef(false);
+
     useEffect(() => {
-        if(isLogged && isUser !== 0){
+        if(isLogged && isUser !== 0 && !alertShown.current){
             const user = isStatusAll.find(user => user.idusuario === isUser.idusuario);
             if(user){
                 if(!user.habilitado){
                     Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...');
                     setTimeout(() => {
                         setIsLog(false);
-                    },1000);
+                    },3000);
                 }
             }else if (!user){
                 Alert_Warning('MEALSYNC','¡Ha perdido su estatus por un administrador!...');
                 setTimeout(() => {
                     setIsLog(false);
-                },1000);
+                },3000);
             }
         }
     },[isStatusAll]);
@@ -129,27 +131,26 @@ export const StatusEnable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{
-        
                             setIsToast(true);
         
                             setTimeout(() => {
-                                resolve('¡MEALSYNC deshabilito al usuario!...')
-                            },1000);
-        
-                            setTimeout(() => {
-                                setIsToast(false);
-        
                                 socket.emit('statusDisable',isStatusEnable.idusuario,enable.usuario);
         
                                 socket.on('statusDisable',(message,user) => {
                                     console.log(message,user);
                                     socket.emit('status');
                                 });
-        
+                                
+                                resolve('¡MEALSYNC deshabilito al usuario!...')
+
                                 return () => {
                                     socket.off('statusDisable');
                                 }
-                            },2000);
+                            },500);
+        
+                            setTimeout(() => {
+                                setIsToast(false);
+                            },1800);
         
                         }catch(error){
                             reject('¡Ocurrio un error inesperado!...');
@@ -162,16 +163,9 @@ export const StatusEnable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{
-        
                             setIsToast(true);
         
                             setTimeout(() => {
-                                resolve('¡MEALSYNC habilito al usuario!...')
-                            },1000);
-        
-                            setTimeout(() => {
-                                setIsToast(false);
-        
                                 socket.emit('statusEnable',isStatusEnable.idusuario,enable.usuario);
 
                                 socket.on('statusEnable',(message,user) => {
@@ -179,10 +173,16 @@ export const StatusEnable = ({ children }) => {
                                     socket.emit('status');
                                 });
 
+                                resolve('¡MEALSYNC habilito al usuario!...')
+
                                 return () => {
                                     socket.off('statusEnable');
                                 }
-                            },2000);
+                            },500);
+        
+                            setTimeout(() => {
+                                setIsToast(false);
+                            },1800);
         
                         }catch(error){
                             reject('¡Ocurrio un error inesperado!...');

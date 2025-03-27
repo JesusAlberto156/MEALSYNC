@@ -242,13 +242,13 @@ export const Button_Black_Navbar = styled.button`
 //--------NAVBAR--------
 //--------MODAL--------
 export const Button_Icon_Cancel_Modal = styled.button`
-    width: 100%;
-    padding: 6px;
+    width: 160px;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 30px;
     background-color: rgb(58,93,174);
     color: white;
     border: 2px solid white;
-    border-radius: 20px;
-    font-size: 25px;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
@@ -261,6 +261,10 @@ export const Button_Icon_Cancel_Modal = styled.button`
     }
 
     @media (max-width: 768px) {
+        width: 120px;
+        padding: 8px;
+        font-size: 25px;
+        border-radius: 30px;
 
         &:hover {
             transform: translateY(-2px);
@@ -269,8 +273,10 @@ export const Button_Icon_Cancel_Modal = styled.button`
     }
 
     @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 22px;
+        width: 80px;
+        padding: 6px;
+        font-size: 20px;
+        border-radius: 30px;
 
         &:hover {
             transform: translateY(-2px);
@@ -279,13 +285,13 @@ export const Button_Icon_Cancel_Modal = styled.button`
     }
 `;
 export const Button_Icon_Exit_Modal = styled.button`
-    width: 100%;
-    padding: 6px;
+    width: 160px;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 30px;
     background-color: rgb(155, 9, 9);
     color: white;
     border: 2px solid white;
-    border-radius: 20px;
-    font-size: 25px;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
@@ -298,6 +304,10 @@ export const Button_Icon_Exit_Modal = styled.button`
     }
 
     @media (max-width: 768px) {
+        width: 120px;
+        padding: 8px;
+        font-size: 25px;
+        border-radius: 30px;
 
         &:hover {
             transform: translateY(-2px);
@@ -306,8 +316,10 @@ export const Button_Icon_Exit_Modal = styled.button`
     }
 
     @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 22px;
+        width: 80px;
+        padding: 6px;
+        font-size: 20px;
+        border-radius: 30px;
 
         &:hover {
             transform: translateY(-2px);
@@ -316,13 +328,13 @@ export const Button_Icon_Exit_Modal = styled.button`
     } 
 `;
 export const Button_Icon_Green_Modal = styled.button`
-    width: 100%;
-    padding: 6px;
+    width: 160px;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 30px;
     background-color: rgb(20, 165, 76);
     color: white;
     border: 2px solid white;
-    border-radius: 20px;
-    font-size: 25px;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
@@ -335,7 +347,11 @@ export const Button_Icon_Green_Modal = styled.button`
     }
 
     @media (max-width: 768px) {
-
+        width: 120px;
+        padding: 8px;
+        font-size: 25px;
+        border-radius: 30px;
+        
         &:hover {
             transform: translateY(-2px);
             transform: scale(1.1);
@@ -343,8 +359,10 @@ export const Button_Icon_Green_Modal = styled.button`
     }
 
     @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 22px;
+        width: 80px;
+        padding: 6px;
+        font-size: 20px;
+        border-radius: 30px;
 
         &:hover {
             transform: translateY(-2px);

@@ -89,8 +89,37 @@ export const Container_Modal = styled.div`
 export const Container_Button_Modal = styled.div`
     display: flex;
     gap: 15px; 
-    justifyContent: center; 
-    alignItems: center;
+    justify-content: center; 
+    align-items: center;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 5px;
+    }
+`;
+export const Container_Select_Modal = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 5px;
+    }
+`;
+export const Container_Checkbox_Modal = styled.div`
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 15px;
 
     @media (max-width: 768px) {
         gap: 10px;

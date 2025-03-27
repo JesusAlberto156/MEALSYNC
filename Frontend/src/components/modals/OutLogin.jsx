@@ -9,7 +9,7 @@ import { useLogout } from '../../hooks/OptionsLogin'
 import { MdCancel } from "react-icons/md";
 import { ImExit } from "react-icons/im";
 
-import { Background_Modal,Background_Modal_Out_Login } from "../styled/Backgrounds";
+import { Background_Modal,Background_Modal_Componets } from "../styled/Backgrounds";
 import { Container_Modal,Container_Button_Modal } from "../styled/Containers";
 import { Title_Fade_Modal,Text_Modal } from "../styled/Text";
 import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../styled/Buttons";
@@ -37,9 +37,9 @@ export default function OutLogin(){
             <Container_Modal>
                 {isModal ? (
                     <Background_Modal>
-                        <Background_Modal_Out_Login>
+                        <Background_Modal_Componets>
                             <Title_Fade_Modal>¿Estas seguro?</Title_Fade_Modal>
-                            <Text_Modal>Cerrará la sesión</Text_Modal>
+                            <Text_Modal>Cerrará la sesión...</Text_Modal>
                             <Container_Button_Modal>
                                 <Tooltip title="Cancelar" placement="top">
                                     <Button_Icon_Cancel_Modal onClick={Cancel}><MdCancel/></Button_Icon_Cancel_Modal>
@@ -48,7 +48,7 @@ export default function OutLogin(){
                                     <Button_Icon_Exit_Modal onClick={() => logout()}><ImExit/></Button_Icon_Exit_Modal>
                                 </Tooltip>
                             </Container_Button_Modal>
-                        </Background_Modal_Out_Login>
+                        </Background_Modal_Componets>
                     </Background_Modal>
                 ):(
                     <></>

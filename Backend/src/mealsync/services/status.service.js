@@ -1,5 +1,5 @@
 import { conexionDB,sql } from "../../config/database.config.js";
-import { encryptData, encryptData } from "../../config/crypto.js";
+import { encryptData } from "../../config/crypto.js";
 
 // INSERT STATUS 
 const insertStatusService = async (id,habilitado) => {

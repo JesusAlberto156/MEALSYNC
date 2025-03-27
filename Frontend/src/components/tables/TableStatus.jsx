@@ -24,10 +24,10 @@ export default function TableStatus(){
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Tabla-Estatus");
-            const buttons = document.querySelectorAll('#Habilitar, #Deshabilitar, #Enable');
+            const elements = document.querySelectorAll('#Boton-Estatus-Cancelar, #Boton-Estatus-Habilitar, #Boton-Estatus-Deshabilitar, #Boton-Estatus-Eliminar, #Estatus-Habilitar, #Estatus-Eliminar');
 
             if (table && !table.contains(event.target) &&
-            ![...buttons].some((btn) => btn.contains(event.target))) {
+            ![...elements].some((btn) => btn.contains(event.target))) {
                 setIsSelectedRow(null);
             }
         };

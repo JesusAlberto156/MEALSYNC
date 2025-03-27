@@ -21,6 +21,10 @@ export default function AlertMedico(){
         setIsOptionModal('');
     }
 
+    useEffect(() => {
+        document.title = "MEALSYNC_Menú_Comprobación"
+    },[]);
+
     return(
         <>
             <Container_Modal>

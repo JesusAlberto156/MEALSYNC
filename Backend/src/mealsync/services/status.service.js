@@ -1,6 +1,26 @@
 import { conexionDB,sql } from "../../config/database.config.js";
-import { encryptData } from "../../config/crypto.js";
+import { encryptData, encryptData } from "../../config/crypto.js";
 
+// INSERT STATUS 
+const insertStatusService = async (id,habilitado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('id',sql.Int,id)
+            .input('habilitado',sql.Bit,habilitado)
+            .query('INSERT INTO estatus (habilitado, activo, idusuario) VALUES (@habilitado,0,@id)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Estatus de usuario insertado...'
+        }else{
+            return 'Inserción del estatus del usuario no realizada...'
+        }
+    }catch(error){
+        console.error('Error al insertar el estatus de los usuarios: ',error.message);
+        throw error;
+    }
+}
+// INSERT STATUS 
 // GET STATUS ALL
 const getStatusAllService = async () => {
     try{
@@ -17,7 +37,7 @@ const getStatusAllService = async () => {
         throw error;
     }
 }
-  // GET STATUS ALL
+// GET STATUS ALL
 // UPDATE STATUS LOGIN
 const updateStatusLoginService = async (id) => {
     try{
@@ -29,7 +49,7 @@ const updateStatusLoginService = async (id) => {
         if(result.rowsAffected[0]>0){
             return 'Usuario activo...'
         }else{
-            return 'No es posible actualizar el estatus, o estatus cambiado...'
+            return 'Activación del usuario no realizada...'
         }
     }catch(error){
         console.error('Error al actualizar el estatus: ',error.message);
@@ -48,7 +68,7 @@ const updateStatusLogoutService = async (id) => {
         if(result.rowsAffected[0]>0){
             return 'Usuario inactivo...'
         }else{
-            return 'No es posible actualizar el estatus, o estatus cambiado...'
+            return 'Desactivación del usuario no realizada...'
         }
     }catch(error){
         console.error('Error al actualizar el estatus: ',error.message);
@@ -67,7 +87,7 @@ const updateStatusEnableService = async (id) => {
         if(result.rowsAffected[0]>0){
             return 'Usuario habilitado...'
         }else{
-            return 'No es posible actualizar el estatus, o estatus cambiado...'
+            return 'Habilitación del usuario no realizada...'
         }
     }catch(error){
         console.error('Error al actualizar el estatus: ',error.message);
@@ -86,7 +106,7 @@ const updateStatusDisableService = async (id) => {
         if(result.rowsAffected[0]>0){
             return 'Usuario deshabilitado...'
         }else{
-            return 'No es posible actualizar el estatus, o estatus cambiado...'
+            return 'Deshabilitación del usuario no realizada...'
         }
     }catch(error){
         console.error('Error al actualizar el estatus: ',error.message);
@@ -94,5 +114,24 @@ const updateStatusDisableService = async (id) => {
     }
 }
 // UPDATE STATUS DISABLE
+// DELETE STATUS ID
+const deleteStatusIdService = async (id) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('id',sql.Int,id)
+            .query('DELETE FROM estatus WHERE idusuario = @id');
 
-export { getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService };
+        if(result.rowsAffected[0]>0){
+            return 'Estatus eliminado...'
+        }else{
+            return 'Eliminación del estatus del usuario no realizada...'
+        }
+    }catch(error){
+        console.error('Error al eliminar el estatus: ',error.message);
+        throw error;
+    }
+}
+// DELETE STATUS ID
+
+export { insertStatusService,getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService,deleteStatusIdService };

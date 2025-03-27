@@ -22,7 +22,7 @@ export default function Error(){
 
     useEffect(() => {
         document.title='MEALSYNC_Error'
-        Alert_Error('MEALSYNC','¡Error, página no encontrada!...','Red')
+        Alert_Error('MEALSYNC','¡Error, página no encontrada!...')
     })
 
     const Return = () => {

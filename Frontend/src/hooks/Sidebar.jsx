@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
 import { visibleContext,searchTermContext } from "../contexts/VariablesProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";

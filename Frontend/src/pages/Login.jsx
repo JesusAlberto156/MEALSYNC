@@ -4,13 +4,12 @@ import { Toaster } from 'sonner';
 import { Tooltip } from "@mui/material";
 import { encryptData } from "../services/Crypto";
 
-import { loadingOptionLoginContext,toastContext,visibleContext,selectedRowContext,searchTermContext,modalContext,optionModalContext } from '../contexts/VariablesProvider'
-import { loggedContext,nameContext,passwordContext,logContext,enableContext } from "../contexts/SessionProvider";
+import { loadingOptionLoginContext,toastContext,modalContext,optionModalContext } from '../contexts/VariablesProvider'
+import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
-import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
 
 import { useOptionsLogin,useLogin } from "../hooks/OptionsLogin";
 
@@ -40,18 +39,12 @@ import Loading from "./Loading";
 export default function Login(){
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useContext(loadingOptionLoginContext);
-    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+    const [isLoadingOptionLogin] = useContext(loadingOptionLoginContext);
+    const [isTypeUser] = useContext(typeUserContext);
     const [isToast,setIsToast] = useContext(toastContext);
     const [isLog,setIsLog] = useContext(logContext);
-    const [isVisible,setIsVisible] = useContext(visibleContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isModal,setIsModal] = useContext(modalContext);
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
-    const [isNavbar,setIsNavbar] = useContext(navbarContext);
-    const [isEnable,setIsEnable] = useContext(enableContext);
 
     const [isUsers] = useContext(usersContext);
     const [isPermissions] = useContext(permissionsContext);
@@ -85,13 +78,13 @@ export default function Login(){
         setTimeout(() => {
             document.title = "MEALSYNC_Iniciar_Sesión"
         },1000)
-        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
-        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
+        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
+        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
     }, []);
     useEffect(() => {
         document.title = "MEALSYNC_Iniciar_Sesión"
-        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...','Blue');
-        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...','Blue');
+        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
+        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
     },[isLoading]);
 
     useEffect(() => {
@@ -276,7 +269,7 @@ export default function Login(){
             });
 
             setIsToast(true);
-            Alert_Verification(promise,'Verificando credenciales...','Light');
+            Alert_Verification(promise,'Verificando credenciales...');
 
             document.title = "MEALSYNC_Iniciar_Sesión";
         }

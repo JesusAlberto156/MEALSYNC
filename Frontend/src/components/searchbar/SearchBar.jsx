@@ -10,13 +10,17 @@ import { useModal } from '../../hooks/Modal'
 
 import { FcSearch } from "react-icons/fc";
 import { FaShoppingCart } from "react-icons/fa";
-import { FaUserPen } from "react-icons/fa6";
+import { FaUserEdit } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa6";
-import { FaUserXmark } from "react-icons/fa6";
-import { FaUserCheck } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
-import { FaUserMinus } from "react-icons/fa";
-import { FaUserTie } from "react-icons/fa6";
+import { MdAddModerator } from "react-icons/md";
+import { MdRemoveModerator } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { FaUserSecret } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { IoMdAddCircle } from "react-icons/io";
+import { FaUnlock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { FaLockOpen } from "react-icons/fa";
 
 import { Container_Search_Bar,Container_Button_Search_Bar } from "../styled/Containers";
 import { Input_Search_Bar_Menu} from '../styled/Inputs'
@@ -58,55 +62,68 @@ export default function SearchBar (){
                 )}
                 {isSidebar === 'Usuarios' ? (
                     isNavbar === 'General' ? (
-                        <>
-                            <Container_Button_Search_Bar>
-                                <Tooltip title="Crear" placement="top">
-                                    <Button_Green_Search_Bar><FaUserPlus/></Button_Green_Search_Bar>
-                                </Tooltip>
-                                <Tooltip title="Editar" placement="top">
-                                    <Button_Blue_Search_Bar><FaUserPen/></Button_Blue_Search_Bar>
-                                </Tooltip>
-                            </Container_Button_Search_Bar>
-                        </>
+                        isSelectedRow === null ? (
+                            <>
+                                <Container_Button_Search_Bar>
+                                    <Tooltip title="" placement="top">
+                                        <Button_Block_Search_Bar><FaUserPlus/></Button_Block_Search_Bar>
+                                    </Tooltip>
+                                    <Tooltip title="" placement="top">
+                                        <Button_Block_Search_Bar><FaUserEdit/></Button_Block_Search_Bar>
+                                    </Tooltip>
+                                </Container_Button_Search_Bar>
+                            </>    
+                        ):(
+                            <>
+                                <Container_Button_Search_Bar>
+                                    <Tooltip title="Agregar" placement="top">
+                                        <Button_Green_Search_Bar><FaUserPlus/></Button_Green_Search_Bar>
+                                    </Tooltip>
+                                    <Tooltip title="Editar" placement="top">
+                                        <Button_Blue_Search_Bar><FaUserEdit/></Button_Blue_Search_Bar>
+                                    </Tooltip>
+                                </Container_Button_Search_Bar>
+                            </>
+                        )
                     ):(
                         isNavbar === 'Permisos' ? (
                             isPermission.superAdmon ? (
                                 isSelectedRow === null ? (
                                     <>
                                         <Container_Button_Search_Bar>
-                                            <Tooltip title="" placement="top">
-                                                <Button_Block_Search_Bar><FaUserPlus/></Button_Block_Search_Bar>
+                                            <Tooltip title="Agregar" placement="top">
+                                                <Button_Green_Search_Bar onClick={() => modal('Agregar-Permisos')}><MdAddModerator/></Button_Green_Search_Bar>
                                             </Tooltip>
                                             <Tooltip title="" placement="top">
-                                                <Button_Block_Search_Bar><FaUserPen/></Button_Block_Search_Bar>
+                                                <Button_Block_Search_Bar><MdEdit/></Button_Block_Search_Bar>
                                             </Tooltip>
                                             <Tooltip title="" placement="top">
-                                                <Button_Block_Search_Bar><FaUserMinus/></Button_Block_Search_Bar>
+                                                <Button_Block_Search_Bar><MdRemoveModerator/></Button_Block_Search_Bar>
                                             </Tooltip>
                                             <Tooltip title="" placement="top">
-                                                <Button_Block_Search_Bar><FaUserTie/></Button_Block_Search_Bar>
+                                                <Button_Block_Search_Bar><FaUserSecret/></Button_Block_Search_Bar>
                                             </Tooltip>
                                         </Container_Button_Search_Bar>
                                     </>    
                                 ):(
                                     <>
                                         <Container_Button_Search_Bar>
-                                            <Tooltip title="Agregar" placement="top">
-                                                <Button_Green_Search_Bar><FaUserPlus/></Button_Green_Search_Bar>
+                                            <Tooltip title="" placement="top">
+                                                <Button_Block_Search_Bar><MdAddModerator/></Button_Block_Search_Bar>
                                             </Tooltip>
                                             <Tooltip title="Editar" placement="top">
-                                                <Button_Blue_Search_Bar><FaUserPen/></Button_Blue_Search_Bar>
+                                                <Button_Blue_Search_Bar id="boton-permisos-editar" onClick={() => modal('Editar-Permisos')}><MdEdit/></Button_Blue_Search_Bar>
                                             </Tooltip>
                                             <Tooltip title="Eliminar" placement="top">
-                                                <Button_Red_Search_Bar><FaUserMinus/></Button_Red_Search_Bar>
+                                                <Button_Red_Search_Bar id="boton-permisos-eliminar" onClick={() => modal('Eliminar-Permisos')}><MdRemoveModerator/></Button_Red_Search_Bar>
                                             </Tooltip>
                                             {isSelectedRow.superAdmon ? (
                                                 <Tooltip title="Super Administrador" placement="top">
-                                                    <Button_Red_Search_Bar><FaUserTie/></Button_Red_Search_Bar>
+                                                    <Button_Red_Search_Bar id="boton-permisos-super-administrador" onClick={() => modal('Super-Administrador-Permisos')}><FaUserSecret/></Button_Red_Search_Bar>
                                                 </Tooltip>
                                             ):(
                                                 <Tooltip title="Super Administrador" placement="top">
-                                                    <Button_Green_Search_Bar><FaUserTie/></Button_Green_Search_Bar>
+                                                    <Button_Green_Search_Bar id="boton-permisos-super-administrador" onClick={() => modal('Super-Administrador-Permisos')}><FaUserSecret/></Button_Green_Search_Bar>
                                                 </Tooltip>
                                             )}
                                         </Container_Button_Search_Bar>
@@ -116,45 +133,83 @@ export default function SearchBar (){
                                 isSelectedRow === null ? (
                                     <>
                                         <Container_Button_Search_Bar>
+                                            <Tooltip title="Agregar" placement="top">
+                                                <Button_Green_Search_Bar onClick={() => modal('Agregar-Permisos')}><MdAddModerator/></Button_Green_Search_Bar>
+                                            </Tooltip>
                                             <Tooltip title="" placement="top">
-                                                <Button_Block_Search_Bar><FaUserPen/></Button_Block_Search_Bar>
+                                                <Button_Block_Search_Bar><MdEdit/></Button_Block_Search_Bar>
                                             </Tooltip>
                                         </Container_Button_Search_Bar>
                                     </>    
                                 ):(
                                     <>
                                         <Container_Button_Search_Bar>
+                                            <Tooltip title="" placement="top">
+                                                <Button_Block_Search_Bar><MdAddModerator/></Button_Block_Search_Bar>
+                                            </Tooltip>
                                             <Tooltip title="Editar" placement="top">
-                                                <Button_Blue_Search_Bar><FaUserPen/></Button_Blue_Search_Bar>
+                                                <Button_Blue_Search_Bar id="boton-permisos-editar" onClick={() => modal('Editar-Permisos')}><MdEdit/></Button_Blue_Search_Bar>
                                             </Tooltip>
                                         </Container_Button_Search_Bar>
                                     </>
                                 )
                             )
                         ):(
-                            isNavbar === 'Estatus' && isPermission.superAdmon ? (
-                                isSelectedRow === null ? (
-                                    <>
-                                        <Container_Button_Search_Bar>
-                                            <Tooltip title="" placement="top">
-                                                <Button_Block_Search_Bar><FaUser/></Button_Block_Search_Bar>
-                                            </Tooltip>
-                                        </Container_Button_Search_Bar>
-                                    </>
-                                ):(
-                                    isSelectedRow.habilitado ? (
+                            isNavbar === 'Estatus' ? (
+                                isPermission.superAdmon ? (
+                                    isSelectedRow === null ? (
                                         <>
                                             <Container_Button_Search_Bar>
-                                                <Tooltip title="Deshabilitar" placement="top">
-                                                    <Button_Red_Search_Bar onClick={() => modal('Habilitar-Usuario')} id="Deshabilitar"><FaUserXmark/></Button_Red_Search_Bar>
+                                                <Tooltip title="Agregar" placement="top">
+                                                    <Button_Green_Search_Bar onClick={() => modal('Agregar-Estatus')}><IoMdAddCircle/></Button_Green_Search_Bar>
+                                                </Tooltip>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Block_Search_Bar><FaUnlock/></Button_Block_Search_Bar>
+                                                </Tooltip>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Block_Search_Bar><MdDelete/></Button_Block_Search_Bar>
                                                 </Tooltip>
                                             </Container_Button_Search_Bar>
-                                        </>    
+                                        </>
                                     ):(
                                         <>
                                             <Container_Button_Search_Bar>
-                                                <Tooltip title="Habilitar" placement="top">
-                                                    <Button_Green_Search_Bar onClick={() => modal('Habilitar-Usuario')} id="Habilitar"><FaUserCheck/></Button_Green_Search_Bar>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Block_Search_Bar><IoMdAddCircle/></Button_Block_Search_Bar>
+                                                </Tooltip>
+                                                {isSelectedRow.habilitado ? (
+                                                    <>
+                                                        <Tooltip title="Deshabilitar" placement="top">
+                                                            <Button_Red_Search_Bar id="Boton-Estatus-Deshabilitar" onClick={() => modal('Habilitar-Estatus')}><FaLock/></Button_Red_Search_Bar>
+                                                        </Tooltip>
+                                                    </> 
+                                                ):(
+                                                    <>
+                                                        <Tooltip title="Habilitar" placement="top">
+                                                            <Button_Green_Search_Bar id="Boton-Estatus-Habilitar" onClick={() => modal('Habilitar-Estatus')}><FaLockOpen/></Button_Green_Search_Bar>
+                                                        </Tooltip>
+                                                    </>
+                                                )}
+                                                <Tooltip title="Eliminar" placement="top">
+                                                    <Button_Red_Search_Bar id="Boton-Estatus-Eliminar" onClick={() => modal('Eliminar-Estatus')}><MdDelete/></Button_Red_Search_Bar>
+                                                </Tooltip>
+                                            </Container_Button_Search_Bar>
+                                        </>    
+                                    )                                    
+                                ):(
+                                    isSelectedRow === null ? (
+                                        <>
+                                            <Container_Button_Search_Bar>
+                                                <Tooltip title="Agregar" placement="top">
+                                                    <Button_Green_Search_Bar id="Boton-Estatus-Agregar" onClick={() => modal('Agregar-Estatus')}><IoMdAddCircle/></Button_Green_Search_Bar>
+                                                </Tooltip>
+                                            </Container_Button_Search_Bar>
+                                        </>
+                                    ):(
+                                        <>
+                                            <Container_Button_Search_Bar>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Block_Search_Bar><IoMdAddCircle/></Button_Block_Search_Bar>
                                                 </Tooltip>
                                             </Container_Button_Search_Bar>
                                         </>

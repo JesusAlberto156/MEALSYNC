@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import { navbarContext } from "../contexts/ViewsProvider";
 import { searchTermContext } from "../contexts/VariablesProvider";
 

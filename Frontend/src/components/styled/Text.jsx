@@ -42,6 +42,26 @@ export const Title_Sidebar = styled.div`
     }
 `;
 //--------SIDEBAR--------
+//--------NAVBAR--------
+export const Title_Fade_Navbar = styled.div`
+    color: black;
+    font-size: 1.2rem;
+    font-family:Arial, Helvetica, sans-serif;
+    margin-bottom: 25px;
+    font-weight: bold;
+    animation: ${fadeAnimation} 2s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+`;
+//--------NAVBAR--------
 //--------MODAL--------
 export const Title_Fade_Modal = styled.h1`
     text-align: center;

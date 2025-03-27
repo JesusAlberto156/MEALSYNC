@@ -1,9 +1,9 @@
 import { Socket } from './SocketProvider';
 import { Users,User } from './UsersProvider';
 import { Permissions,Permission } from './PermissionsProvider';
-import { StatusAll,StatusUser } from './StatusProvider';
+import { StatusAll,StatusUser,StatusEnable } from './StatusProvider';
 import { TypeUser } from './TypeUserProvider';
-import { Log,Logged,Enable,Name,Password } from './SessionProvider';
+import { Log,Logged,Name,Password } from './SessionProvider';
 import { LoadingOptionLogin,Toast,Visible,SelectedRow,SearchTerm,Modal,OptionModal } from './VariablesProvider';
 import { Navbar,Sidebar } from './ViewsProvider';
 
@@ -30,9 +30,9 @@ export const AppProviders = ({children}) => {
                                                                                 <Users>
                                                                                     <Permissions>
                                                                                         <StatusAll>
-                                                                                            <Enable>
+                                                                                            <StatusEnable>
                                                                                                 {children}
-                                                                                            </Enable>
+                                                                                            </StatusEnable>
                                                                                         </StatusAll>
                                                                                     </Permissions>
                                                                                 </Users>

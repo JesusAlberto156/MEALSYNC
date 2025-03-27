@@ -28,7 +28,7 @@ export default function OutLogin(){
     useEffect(() => {
         if(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico')document.title = "MEALSYNC_Menú_Cerrar_Sesión"
         if(isTypeUser === 'Administrador' || isTypeUser === 'Chef' || isTypeUser === 'Almacen')document.title = "MEALSYNC_Administración_Cerrar_Sesión"
-    },[])
+    },[]);
 
     const logout = useLogout();
 

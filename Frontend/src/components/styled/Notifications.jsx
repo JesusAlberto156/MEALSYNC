@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { toast } from 'sonner';
 import { HiHandRaised } from "react-icons/hi2";
+import { AiFillWarning } from "react-icons/ai";
 
 export const Toast_Styles = styled.div`
     .Blue {
@@ -27,17 +28,27 @@ export const Toast_Styles = styled.div`
     }
 `;
 
-export const Alert_Greeting = (titulo,mensaje,estilo) => {
+export const Alert_Greeting = (titulo,mensaje) => {
     toast(titulo,{
         duration:4000,
         description: mensaje,
-        className: estilo,
+        className: 'Blue',
         icon: <HiHandRaised style={{color:'rgb(255, 253, 208)',fontSize:'20px'}}/>,
     }
     );
 };
 
-export const Alert_Verification = (promesa,Verificacion,estilo) => {
+export const Alert_Warning = (titulo,mensaje) => {
+    toast(titulo,{
+        duration:4000,
+        description: mensaje,
+        className: 'Yellow',
+        icon: <AiFillWarning style={{color:'rgb(0, 0, 0)',fontSize:'20px'}}/>,
+    }
+    );
+};
+
+export const Alert_Verification = (promesa,Verificacion) => {
     toast.promise(promesa,{
         loading: Verificacion,
         success: (msj) => {
@@ -47,14 +58,14 @@ export const Alert_Verification = (promesa,Verificacion,estilo) => {
             return `${msj}`;
         },
         duration:1000,
-        className:estilo,
+        className:'Light',
     });
 };
 
-export const Alert_Error = (titulo,mensaje,estilo) => {
+export const Alert_Error = (titulo,mensaje) => {
     toast.error(titulo,{
         duration:4000,
         description: mensaje,
-        className: estilo,
+        className: 'Red',
     });
 }

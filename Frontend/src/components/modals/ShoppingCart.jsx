@@ -21,6 +21,10 @@ export default function ShoppingCart(){
         setIsOptionModal('');
     }
 
+    useEffect(() => {
+        document.title = "MEALSYNC_Menú_Carro_De_Compras"
+    },[]);
+
     return(
         <>
             <Container_Modal>

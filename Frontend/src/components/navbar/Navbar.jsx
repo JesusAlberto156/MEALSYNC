@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Tooltip } from "@mui/material";
 
 import { sidebarContext } from "../../contexts/ViewsProvider";
+import { navbarContext } from "../../contexts/ViewsProvider";
 
 import { useNavbarViews } from '../../hooks/Navbar'
 
@@ -27,13 +28,15 @@ import { Background_Navbar} from '../styled/Backgrounds';
 import { Container_Navbar } from "../styled/Containers";
 import { Logo_Navbar} from '../styled/Imgs';
 import { Button_Black_Navbar} from '../styled/Buttons';
+import { Title_Fade_Navbar } from "../styled/Text";
 
 export default function Navbar(){
     
     const navbarViews = useNavbarViews();
     
     const [isSidebar] = useContext(sidebarContext);
- 
+    const [isNavbar] = useContext(navbarContext);
+
     return(
         <Container_Navbar>   
             <Logo_Navbar/> 
@@ -178,6 +181,19 @@ export default function Navbar(){
                         <Tooltip title='Estatus' placement="right-start">
                             <Button_Black_Navbar onClick={() => navbarViews('Estatus')}><FaUserClock/></Button_Black_Navbar>
                         </Tooltip>
+                        {isNavbar === 'General' ? (
+                            <Title_Fade_Navbar>Usuarios</Title_Fade_Navbar>
+                        ):(
+                            isNavbar === 'Permisos' ? (
+                                <Title_Fade_Navbar>Permisos</Title_Fade_Navbar>
+                            ):(
+                                isNavbar === 'Estatus' ? (
+                                    <Title_Fade_Navbar>Estatus</Title_Fade_Navbar>
+                                ):(
+                                    <></>
+                                )
+                            )
+                        )}
                     </>
                 ):(
                     <></>

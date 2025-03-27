@@ -3,12 +3,11 @@ import { decryptData } from "../services/Crypto";
 
 export const logContext = createContext(null);
 export const loggedContext = createContext(null);
-export const enableContext = createContext(null);
 export const nameContext = createContext(null);
 export const passwordContext = createContext(null);
 
 import { socketContext } from "./SocketProvider";
-import { userContext,usersContext } from './UsersProvider';
+import { userContext } from './UsersProvider';
 
 export const Log = ({children}) => {
 
@@ -78,53 +77,6 @@ export const Logged = ({ children }) => {
         <loggedContext.Provider value={[isLogged,setIsLogged]}>
             {children}
         </loggedContext.Provider>
-    );
-}
-
-export const Enable = ({ children }) => {
-    
-    const [isUsers] = useContext(usersContext);
-    const [socket] = useContext(socketContext);
-
-    const [isEnable,setIsEnable] = useState([]);
-
-    useEffect(() => {
-        if(isEnable.length !== 0){
-            const enable = isUsers.find(user => user.idusuario === isEnable.idusuario);
-            if(isEnable.habilitado){
-                if(enable){
-                    socket.emit('statusDisable',isEnable.idusuario,enable.usuario);
-
-                    socket.on('statusDisable',(message,user) => {
-                        console.log(message,user);
-                        socket.emit('status');
-                    });
-
-                    return () => {
-                        socket.off('statusDisable');
-                    }
-                }
-            }else if(!isEnable.habilitado){
-                if(enable){
-                    socket.emit('statusEnable',isEnable.idusuario,enable.usuario);
-
-                    socket.on('statusEnable',(message,user) => {
-                        console.log(message,user);              
-                        socket.emit('status');
-                    });
-
-                    return () => {
-                        socket.off('statusEnable');
-                    }
-                }
-            }
-        }
-    },[isEnable]);
-
-    return (
-        <enableContext.Provider value={[isEnable,setIsEnable]}>
-            {children}
-        </enableContext.Provider>
     );
 }
 

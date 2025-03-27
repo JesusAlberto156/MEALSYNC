@@ -7,8 +7,8 @@ import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
 import { toastContext,visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
-import { statusUserContext } from "../contexts/StatusProvider";
-import { loggedContext,enableContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
+import { statusUserContext,statusEnableContext } from "../contexts/StatusProvider";
+import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
 
 import { Alert_Greeting,Toast_Styles,Alert_Verification } from "../components/styled/Notifications";
 import { Background_Menu } from "../components/styled/Backgrounds";
@@ -37,7 +37,7 @@ export default function Menu(){
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
     
     const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [isEnable,setIsEnable] = useContext(enableContext);
+    const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
 
@@ -50,13 +50,9 @@ export default function Menu(){
     const navigate = useNavigate();
 
     useEffect(() => {
-            if(isTypeUser === 'Medico'){
-                document.title = "MEALSYNC_Inicio_Comprobación"
-            }else{
-                document.title = "MEALSYNC_Menú_Inicio"
-            }
-            Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...','Blue');
-            Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`,'Blue');
+        document.title = "MEALSYNC_Menú_Inicio"
+        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
+        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
     },[]);
 
     useEffect(() => {
@@ -85,7 +81,7 @@ export default function Menu(){
                         setIsTypeUser('');
 
                         setIsLogged(false);
-                        setIsEnable([]);
+                        setIsStatusEnable([]);
                         setIsName('');
                         setIsPassword('');
 
@@ -100,11 +96,11 @@ export default function Menu(){
                         },200)
                     },2000)
                 }catch(error){
-                    reject('¡Ocurrio un error inesperado...');
+                    reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'¡Cerrando sesión!...','Light');
+            Alert_Verification(promise,'¡Cerrando sesión!...');
         }
     },[isLog]);
 

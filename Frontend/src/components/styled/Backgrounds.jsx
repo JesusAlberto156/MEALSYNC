@@ -130,7 +130,7 @@ export const Background_Modal_Alert_Medico = styled.div`
     border-radius: 5px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 `;
-export const Background_Modal_User_Enable = styled.div`
+export const Background_Modal_Status = styled.div`
     max-height: 90vh;
     max-width: 90vw;
     overflow-y: auto;

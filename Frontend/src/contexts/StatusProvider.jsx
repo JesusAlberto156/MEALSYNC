@@ -3,10 +3,16 @@ import { decryptData } from "../services/Crypto";
 
 export const statusAllContext = createContext(null);
 export const statusUserContext = createContext(null);
+export const statusAddContext = createContext(null);
+export const statusEnableContext = createContext(null);
+export const statusDeleteContext = createContext(null);
 
 import { socketContext } from "./SocketProvider";
 import { loggedContext,logContext } from "./SessionProvider";
-import { userContext } from "./UsersProvider";
+import { userContext,usersContext } from "./UsersProvider";
+import { toastContext } from "./VariablesProvider";
+
+import { Alert_Verification,Alert_Warning } from "../components/styled/Notifications";
 
 export const StatusAll = ({ children }) => {
 
@@ -42,8 +48,16 @@ export const StatusAll = ({ children }) => {
             const user = isStatusAll.find(user => user.idusuario === isUser.idusuario);
             if(user){
                 if(!user.habilitado){
-                    setIsLog(false);
+                    Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...');
+                    setTimeout(() => {
+                        setIsLog(false);
+                    },1000);
                 }
+            }else if (!user){
+                Alert_Warning('MEALSYNC','¡Ha perdido su estatus por un administrador!...');
+                setTimeout(() => {
+                    setIsLog(false);
+                },1000);
             }
         }
     },[isStatusAll]);
@@ -84,5 +98,159 @@ export const StatusUser = ({ children }) => {
         <statusUserContext.Provider value={[isStatusUser,setIsStatusUser]}>
             {children}
         </statusUserContext.Provider>
+    );
+}
+
+export const StatusAdd = ({ children }) => {
+
+    const [isStatusAdd,setIsStatusAdd] = useState([]);
+
+    
+
+    return (
+        <statusAddContext.Provider value={[isStatusAdd,setIsStatusAdd]}>
+            {children}
+        </statusAddContext.Provider>
+    );
+}
+
+export const StatusEnable = ({ children }) => {
+    
+    const [isUsers] = useContext(usersContext);
+    const [isToast,setIsToast] = useContext(toastContext);
+    const [socket] = useContext(socketContext);
+
+    const [isStatusEnable,setIsStatusEnable] = useState([]);
+
+    useEffect(() => {
+        if(isStatusEnable.length !== 0){
+            const enable = isUsers.find(user => user.idusuario === isStatusEnable.idusuario);
+            if(isStatusEnable.habilitado){
+                if(enable){
+                    const promise = new Promise(async (resolve,reject) => {
+                        try{
+        
+                            setIsToast(true);
+        
+                            setTimeout(() => {
+                                resolve('¡MEALSYNC deshabilito al usuario!...')
+                            },1000);
+        
+                            setTimeout(() => {
+                                setIsToast(false);
+        
+                                socket.emit('statusDisable',isStatusEnable.idusuario,enable.usuario);
+        
+                                socket.on('statusDisable',(message,user) => {
+                                    console.log(message,user);
+                                    socket.emit('status');
+                                });
+        
+                                return () => {
+                                    socket.off('statusDisable');
+                                }
+                            },2000);
+        
+                        }catch(error){
+                            reject('¡Ocurrio un error inesperado!...');
+                        }
+                    });
+        
+                    Alert_Verification(promise,'¡Deshabilitando usuario!...');
+                }
+            }else if(!isStatusEnable.habilitado){
+                if(enable){
+                    const promise = new Promise(async (resolve,reject) => {
+                        try{
+        
+                            setIsToast(true);
+        
+                            setTimeout(() => {
+                                resolve('¡MEALSYNC habilito al usuario!...')
+                            },1000);
+        
+                            setTimeout(() => {
+                                setIsToast(false);
+        
+                                socket.emit('statusEnable',isStatusEnable.idusuario,enable.usuario);
+
+                                socket.on('statusEnable',(message,user) => {
+                                    console.log(message,user);              
+                                    socket.emit('status');
+                                });
+
+                                return () => {
+                                    socket.off('statusEnable');
+                                }
+                            },2000);
+        
+                        }catch(error){
+                            reject('¡Ocurrio un error inesperado!...');
+                        }
+                    });
+        
+                    Alert_Verification(promise,'¡Habilitando usuario!...');
+                }
+            }
+        }
+    },[isStatusEnable]);
+
+    return (
+        <statusEnableContext.Provider value={[isStatusEnable,setIsStatusEnable]}>
+            {children}
+        </statusEnableContext.Provider>
+    );
+}
+
+export const StatusDelete = ({ children }) => {
+
+    const [isUsers] = useContext(usersContext);
+    const [isToast,setIsToast] = useContext(toastContext);
+    const [socket] = useContext(socketContext);
+
+    const [isStatusDelete,setIsStatusDelete] = useState([]);
+
+    useEffect(() => {
+        if(isStatusDelete.length !== 0){
+            const Delete = isUsers.find(user => user.idusuario === isStatusDelete.idusuario);
+            if(Delete){
+                const promise = new Promise(async (resolve,reject) => {
+                    try{
+    
+                        setIsToast(true);
+    
+                        setTimeout(() => {
+                            resolve('¡MEALSYNC elimino el estatus del usuario!...')
+                        },1000);
+    
+                        setTimeout(() => {
+                            setIsToast(false);
+    
+                            socket.emit('statusDelete',isStatusDelete.idusuario,Delete.usuario);
+    
+                            socket.on('statusDelete',(message,user) => {
+                                console.log(message,user);
+                                socket.emit('status');
+                            });
+    
+                            return () => {
+                                socket.off('statusDelete');
+                            }
+                        },2000);
+    
+                    }catch(error){
+                        reject('¡Ocurrio un error inesperado!...');
+                    }
+                });
+    
+                Alert_Verification(promise,'¡Eliminado el estatus usuario!...');
+            }
+        }
+    },[isStatusDelete]);
+
+    return (
+        <statusDeleteContext.Provider value={[isStatusDelete,setIsStatusDelete]}>
+            {children}
+        </statusDeleteContext.Provider>
     );
 }

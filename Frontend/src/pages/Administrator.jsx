@@ -13,7 +13,13 @@ import Sidebar from "../components/sidebar/Sidebar";
 import OutLogin from "../components/modals/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
-import UserEnable from '../components/modals/UserEnable';
+import PermissionsAdd from '../components/modals/permissions/PermissionsAdd'
+import PermissionsEdit from '../components/modals/permissions/PermissionsEdit'
+import PermissionsDelete from '../components/modals/permissions/PermissionsDelete'
+import PermissionsSuperAdministrator from '../components/modals/permissions/PermissionsSuperAdministrator'
+import StatusAdd from '../components/modals/status/StatusAdd';
+import StatusEnable from '../components/modals/status/StatusEnable';
+import StatusDelete from '../components/modals/status/StatusDelete';
 
 export default function Administrator(){
 
@@ -26,8 +32,8 @@ export default function Administrator(){
     
     useEffect(() => {
         document.title = "MEALSYNC_Administración_Inicio"
-        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...','Blue');
-        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`,'Blue');
+        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...');
+        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
     },[]);
 
     return(
@@ -57,9 +63,63 @@ export default function Administrator(){
                         ):(
                             <></>
                         )}
-                        {isOptionModal === 'Habilitar-Usuario' ? (
+                        {isOptionModal === 'Agregar-Permisos' ? (
                             isModal ? (
-                                <UserEnable/>
+                                <PermissionsAdd/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Editar-Permisos' ? (
+                            isModal ? (
+                                <PermissionsEdit/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Eliminar-Permisos' ? (
+                            isModal ? (
+                                <PermissionsDelete/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Super-Administrador-Permisos' ? (
+                            isModal ? (
+                                <PermissionsSuperAdministrator/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Agregar-Estatus' ? (
+                            isModal ? (
+                                <StatusAdd/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Habilitar-Estatus' ? (
+                            isModal ? (
+                                <StatusEnable/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Eliminar-Estatus' ? (
+                            isModal ? (
+                                <StatusDelete/>
                             ):(
                                 <></>
                             )

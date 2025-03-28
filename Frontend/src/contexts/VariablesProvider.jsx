@@ -7,6 +7,8 @@ export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
 export const modalContext = createContext(null);
 export const optionModalContext = createContext(null);
+export const selectContext = createContext(null);
+export const radioContext = createContext(null);
 
 export const LoadingOptionLogin = ({ children }) => {
 
@@ -82,5 +84,27 @@ export const OptionModal = ({children}) => {
         <optionModalContext.Provider value={[isOptionModal,setIsOptionModal]}>
             {children}
         </optionModalContext.Provider>
+    );
+}
+
+export const Select = ({children}) => {
+
+    const [isSelect,setIsSelect] = useState([]);
+
+    return (
+        <selectContext.Provider value={[isSelect,setIsSelect]}>
+            {children}
+        </selectContext.Provider>
+    );
+}
+
+export const Radio = ({children}) => {
+
+    const [isRadio,setIsRadio] = useState('');
+
+    return (
+        <radioContext.Provider value={[isRadio,setIsRadio]}>
+            {children}
+        </radioContext.Provider>
     );
 }

@@ -1,6 +1,13 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { fadeAnimation,Rotate } from './Animations';
 
+export const GlobalStyle = createGlobalStyle`
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+    body {
+        font-family: 'Playfair Display', serif;
+    }
+`;
 //--------LOGIN--------
 export const Title_Fade_Login = styled.div`
     color: black;
@@ -67,36 +74,32 @@ export const Title_Fade_Modal = styled.h1`
     text-align: center;
     position: relative;
     margin-top: 10px;
-    margin-bottom: 30px;
     font-size: 30px;
 
     animation: ${fadeAnimation} 2s infinite;
 
     @media (max-width: 768px) {
         font-size: 25px;
-        margin-bottom: 25px;
         margin-top: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 20px;
-        margin-bottom: 20px;
         margin-top: 6px;
     }
 `;
 export const Text_Modal = styled.p`
     font-size: 22px;
-    text-align: center;
-    margin-bottom: 30px;
-
+    margin-left: 20px;
+    top: 0px;
+    position: relative;
+    height: 5px;
     @media (max-width: 768px) {
         font-size: 18px;
-        margin-bottom: 25px;
     }
 
     @media (max-width: 480px) {
         font-size: 14px;
-        margin-bottom: 20px;
     }
 `;
 //--------MODAL--------

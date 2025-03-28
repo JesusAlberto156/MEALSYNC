@@ -38,167 +38,169 @@ export default function Navbar(){
     const [isNavbar] = useContext(navbarContext);
 
     return(
-        <Container_Navbar>   
-            <Logo_Navbar/> 
-            <Background_Navbar>
-                {isSidebar === 'General' ? (
-                    <>
-                        <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Jugos del día' placement="right-start">
-                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Comida' placement="right-start">
-                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Pasta y Ensaladas' placement="right-start">
-                            <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Snacks' placement="right-start">
-                            <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Postres' placement="right-start">
-                            <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Cafetería' placement="right-start">
-                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
-                        </Tooltip>
-                    </>
-                ):(
-                    <></>
-                )}
-                {isSidebar === 'Colaboradores' ? (
-                    <>
-                        <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Jugos' placement="right-start">
-                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Comida' placement="right-start">
-                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Ensaladas' placement="right-start">
-                            <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Mariscos' placement="right-start">
-                            <Button_Black_Navbar><GiFoodChain/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Snacks' placement="right-start">
-                            <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Frutas' placement="right-start">
-                            <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Cafetería' placement="right-start">
-                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Otros' placement="right-start">
-                            <Button_Black_Navbar><GiKnifeFork/></Button_Black_Navbar>
-                        </Tooltip>
-                    </>
-                ):(
-                    <></>
-                )}
-                {isSidebar === 'Nutriologo' ? (
-                    <>
-                        <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Jugos del día' placement="right-start">
-                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Comida' placement="right-start">
-                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Pasta y Ensaladas' placement="right-start">
-                            <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Snacks' placement="right-start">
-                            <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Postres' placement="right-start">
-                            <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Cafetería' placement="right-start">
-                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Personalizados' placement="right-start">
-                            <Button_Black_Navbar><BiSolidCustomize/></Button_Black_Navbar>
-                        </Tooltip>
-                    </>
-                ):(
-                    <></>
-                )}
-                {isSidebar === 'Medico' ? (
-                    <>
-                        <Tooltip title='Desayuno' placement="right-start">
-                            <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Platillos Fuertes' placement="right-start">
-                            <Button_Black_Navbar><GiHotMeal/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Entrada' placement="right-start">
-                            <Button_Black_Navbar><FaHourglassStart/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Platillos Comida' placement="right-start">
-                            <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Bebidas' placement="right-start">
-                            <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Jugos Naturales' placement="right-start">
-                            <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Bebidas Calientes' placement="right-start">
-                            <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Refrescos' placement="right-start">
-                            <Button_Black_Navbar><SiCocacola/></Button_Black_Navbar>
-                        </Tooltip>
-                    </>
-                ):(
-                    <></>
-                )}
-                {isSidebar === 'Usuarios' ? (
-                    <>
-                        <Tooltip title='General' placement="right-start">
-                            <Button_Black_Navbar onClick={() => navbarViews('General')}><FaUserTag/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Permisos' placement="right-start">
-                            <Button_Black_Navbar onClick={() => navbarViews('Permisos')}><FaUserLock/></Button_Black_Navbar>
-                        </Tooltip>
-                        <Tooltip title='Estatus' placement="right-start">
-                            <Button_Black_Navbar onClick={() => navbarViews('Estatus')}><FaUserClock/></Button_Black_Navbar>
-                        </Tooltip>
-                        {isNavbar === 'General' ? (
-                            <Title_Fade_Navbar>Usuarios</Title_Fade_Navbar>
-                        ):(
-                            isNavbar === 'Permisos' ? (
-                                <Title_Fade_Navbar>Permisos</Title_Fade_Navbar>
+        <>
+            <Container_Navbar> 
+                <Logo_Navbar/> 
+                <Background_Navbar>
+                    {isSidebar === 'General' ? (
+                        <>
+                            <Tooltip title='Bebidas' placement="right-start">
+                                <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Jugos del día' placement="right-start">
+                                <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Desayuno' placement="right-start">
+                                <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Comida' placement="right-start">
+                                <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Pasta y Ensaladas' placement="right-start">
+                                <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Snacks' placement="right-start">
+                                <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Postres' placement="right-start">
+                                <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Cafetería' placement="right-start">
+                                <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
+                            </Tooltip>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {isSidebar === 'Colaboradores' ? (
+                        <>
+                            <Tooltip title='Bebidas' placement="right-start">
+                                <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Jugos' placement="right-start">
+                                <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Desayuno' placement="right-start">
+                                <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Comida' placement="right-start">
+                                <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Ensaladas' placement="right-start">
+                                <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Mariscos' placement="right-start">
+                                <Button_Black_Navbar><GiFoodChain/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Snacks' placement="right-start">
+                                <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Frutas' placement="right-start">
+                                <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Cafetería' placement="right-start">
+                                <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Otros' placement="right-start">
+                                <Button_Black_Navbar><GiKnifeFork/></Button_Black_Navbar>
+                            </Tooltip>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {isSidebar === 'Nutriologo' ? (
+                        <>
+                            <Tooltip title='Bebidas' placement="right-start">
+                                <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Jugos del día' placement="right-start">
+                                <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Desayuno' placement="right-start">
+                                <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Comida' placement="right-start">
+                                <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Pasta y Ensaladas' placement="right-start">
+                                <Button_Black_Navbar><PiBowlFoodFill/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Snacks' placement="right-start">
+                                <Button_Black_Navbar><IoFastFood/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Postres' placement="right-start">
+                                <Button_Black_Navbar><LuDessert/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Cafetería' placement="right-start">
+                                <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Personalizados' placement="right-start">
+                                <Button_Black_Navbar><BiSolidCustomize/></Button_Black_Navbar>
+                            </Tooltip>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {isSidebar === 'Medico' ? (
+                        <>
+                            <Tooltip title='Desayuno' placement="right-start">
+                                <Button_Black_Navbar><MdFreeBreakfast/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Platillos Fuertes' placement="right-start">
+                                <Button_Black_Navbar><GiHotMeal/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Entrada' placement="right-start">
+                                <Button_Black_Navbar><FaHourglassStart/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Platillos Comida' placement="right-start">
+                                <Button_Black_Navbar><GiMeal/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Bebidas' placement="right-start">
+                                <Button_Black_Navbar><RiDrinks2Fill/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Jugos Naturales' placement="right-start">
+                                <Button_Black_Navbar><SiJuce/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Bebidas Calientes' placement="right-start">
+                                <Button_Black_Navbar><GiCoffeeCup/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Refrescos' placement="right-start">
+                                <Button_Black_Navbar><SiCocacola/></Button_Black_Navbar>
+                            </Tooltip>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {isSidebar === 'Usuarios' ? (
+                        <>
+                            <Tooltip title='General' placement="right-start">
+                                <Button_Black_Navbar onClick={() => navbarViews('General')}><FaUserTag/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Permisos' placement="right-start">
+                                <Button_Black_Navbar onClick={() => navbarViews('Permisos')}><FaUserLock/></Button_Black_Navbar>
+                            </Tooltip>
+                            <Tooltip title='Estatus' placement="right-start">
+                                <Button_Black_Navbar onClick={() => navbarViews('Estatus')}><FaUserClock/></Button_Black_Navbar>
+                            </Tooltip>
+                            {isNavbar === 'General' ? (
+                                <Title_Fade_Navbar>USUARIOS</Title_Fade_Navbar>
                             ):(
-                                isNavbar === 'Estatus' ? (
-                                    <Title_Fade_Navbar>Estatus</Title_Fade_Navbar>
+                                isNavbar === 'Permisos' ? (
+                                    <Title_Fade_Navbar>PERMISOS</Title_Fade_Navbar>
                                 ):(
-                                    <></>
+                                    isNavbar === 'Estatus' ? (
+                                        <Title_Fade_Navbar>ESTATUS</Title_Fade_Navbar>
+                                    ):(
+                                        <></>
+                                    )
                                 )
-                            )
-                        )}
-                    </>
-                ):(
-                    <></>
-                )}
-            </Background_Navbar>
-        </Container_Navbar>
+                            )}
+                        </>
+                    ):(
+                        <></>
+                    )}
+                </Background_Navbar>
+            </Container_Navbar>
+        </>
     );
 }

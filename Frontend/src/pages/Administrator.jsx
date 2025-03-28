@@ -14,6 +14,10 @@ import OutLogin from "../components/modals/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
 
+import PermissionsAdd from '../components/modals/permissions/PermissionsAdd';
+import PermissionsEdit from '../components/modals/permissions/PermissionsEdit';
+import PermissionsDelete from '../components/modals/permissions/PermissionsDelete';
+import PermissionsSuperAdministrator from "../components/modals/permissions/PermissionsSuperAdministrator";
 import StatusAdd from "../components/modals/status/StatusAdd";
 import StatusEnable from "../components/modals/status/StatusEnable";
 import StatusDelete from "../components/modals/status/StatusDelete";
@@ -54,6 +58,42 @@ export default function Administrator(){
                         {isOptionModal === 'Cerrar-Sesion' ? (
                             isModal ? (
                                 <OutLogin/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Agregar-Permisos' ?(
+                            isModal ? (
+                                <PermissionsAdd/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Editar-Permisos' ?(
+                            isModal ? (
+                                <PermissionsEdit/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Eliminar-Permisos' ?(
+                            isModal ? (
+                                <PermissionsDelete/>
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {isOptionModal === 'Super-Administrador-Permisos' ?(
+                            isModal ? (
+                                <PermissionsSuperAdministrator/>
                             ):(
                                 <></>
                             )

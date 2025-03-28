@@ -89,7 +89,8 @@ export const Input_Checkbox_Modal = styled.input`
     width: 15px;
     height: 15px;
     cursor: pointer;
-
+    transition: all 0.2s ease;
+    
     &:checked {
         accent-color: rgb(20, 165, 76);
     }

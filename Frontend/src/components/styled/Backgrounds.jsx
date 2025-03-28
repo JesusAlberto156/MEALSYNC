@@ -103,7 +103,7 @@ export const Background_Modal = styled.div`
 `;
 export const Background_Modal_Componets = styled.div`
     max-height: 90vh;
-    max-width: 90vw;
+    width: 40vw;
     overflow-y: auto;
     overflow-x: hidden;
     border: 2px solid white;
@@ -114,10 +114,12 @@ export const Background_Modal_Componets = styled.div`
 
     @media (max-width: 768px) {
         padding: 18px;
+        width: 60vw;
     }
     
     @media (max-width: 480px) {
         padding: 16px;
+        width: 65vw;
     }
 `;
 //--------MODAL--------

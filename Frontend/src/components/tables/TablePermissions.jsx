@@ -26,7 +26,7 @@ export default function TablePermissions(){
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Tabla-Permisos");
-            const elements = document.querySelectorAll('#Boton-Permisos-Cancelar, #boton-permisos-editar, #boton-permisos-eliminar, #boton-permisos-super-administrador, #Estatus-Agregar, #Permisos-Editar, #Permisos-Eliminar, #Permisos-Super-Administrador');
+            const elements = document.querySelectorAll('#Boton-Permisos-Cancelar, #boton-permisos-editar, #boton-permisos-eliminar, #boton-permisos-super-administrador, #Permisos-Editar, #Permisos-Eliminar, #Permisos-Super-Administrador');
 
             if (table && !table.contains(event.target) &&
             ![...elements].some((btn) => btn.contains(event.target))) {

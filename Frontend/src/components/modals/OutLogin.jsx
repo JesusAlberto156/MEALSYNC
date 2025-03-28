@@ -11,7 +11,7 @@ import { ImExit } from "react-icons/im";
 
 import { Background_Modal,Background_Modal_Componets } from "../styled/Backgrounds";
 import { Container_Modal,Container_Button_Modal } from "../styled/Containers";
-import { Title_Fade_Modal,Text_Modal } from "../styled/Text";
+import { Title_Fade_Modal,Text_Modal,GlobalStyle } from "../styled/Text";
 import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../styled/Buttons";
 
 export default function OutLogin(){
@@ -34,11 +34,12 @@ export default function OutLogin(){
 
     return(
         <>
+            <GlobalStyle/>
             <Container_Modal>
                 {isModal ? (
                     <Background_Modal>
                         <Background_Modal_Componets>
-                            <Title_Fade_Modal>¿Estas seguro?</Title_Fade_Modal>
+                            <Title_Fade_Modal>¿ESTAS SEGURO?</Title_Fade_Modal>
                             <Text_Modal>Cerrará la sesión...</Text_Modal>
                             <Container_Button_Modal>
                                 <Tooltip title="Cancelar" placement="top">

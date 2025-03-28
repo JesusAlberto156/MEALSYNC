@@ -91,6 +91,12 @@ export const Container_Button_Modal = styled.div`
     gap: 15px; 
     justify-content: center; 
     align-items: center;
+    border: 2px solid white;
+    border-radius: 30px;
+    max-height: 20vh;
+    max-width: 90vw;
+    padding: 10px;
+    margin-top: 10px;
 
     @media (max-width: 768px) {
         gap: 10px;
@@ -106,6 +112,11 @@ export const Container_Select_Modal = styled.div`
     justify-content: center; 
     align-items: center;
     gap: 15px;
+    border: 2px solid white;
+    border-radius: 30px;
+    max-height: 20vh;
+    max-width: 90vw;
+    padding: 10px;
 
     @media (max-width: 768px) {
         gap: 10px;
@@ -119,7 +130,12 @@ export const Container_Checkbox_Modal = styled.div`
     display: flex;
     justify-content: center; 
     align-items: center;
+    border: 2px solid white;
+    border-radius: 30px;
+    max-height: 20vh;
+    max-width: 90vw;
     gap: 15px;
+    padding: 10px;
 
     @media (max-width: 768px) {
         gap: 10px;

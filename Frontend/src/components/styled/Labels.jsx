@@ -86,17 +86,15 @@ export const Label_Checkbox_Modal = styled.label`
     font-Size: 1.2rem; 
     font-family:Arial, Helvetica, sans-serif;
     gap: 5px;
-    margin-bottom: 20px;
+    
 
     @media (max-width: 768px) {
         font-Size: 1rem; 
         gap: 4px;
-        margin-bottom: 15px;
     }
 
     @media (max-width: 480px) {
         font-Size: 0.8rem; 
         gap: 3px;
-        margin-bottom: 10px;
     }
 `;

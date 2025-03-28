@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import { usersContext } from "../contexts/UsersProvider";
 import { statusAllContext } from '../contexts/StatusProvider';
+import { selectContext,radioContext } from "../contexts/VariablesProvider";
 
 export const useFilteredRecordsHasStatus = () => {
 
@@ -17,9 +18,22 @@ export const useFilteredRecordsHasStatus = () => {
 
 export const useHandleSelectChange = () => {
 
-    const handleSelectChange = (selectedOption) => {
-        console.log(selectedOption);
+    const [isSelect,setIsSelect] = useContext(selectContext);
+
+    const handleSelectChange = (selectOption) => {
+        setIsSelect(selectOption);
     }
 
     return handleSelectChange;
+}
+
+export const useHandleRadioChange = () => {
+
+    const [isRadio,setIsRadio] = useContext(radioContext);
+    
+    const handleRadioChange = (radioOption) => {
+        setIsRadio(radioOption.target.value);
+    }
+
+    return handleRadioChange;
 }

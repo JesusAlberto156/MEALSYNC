@@ -106,14 +106,14 @@ export const Img_Logo_Hospital_Dark = styled.div`
     animation: ${FadeAnimation} 2s infinite;
 
     @media (max-width: 768px) {
-        width: 62px; 
-        height: 62px;
+        width: 55px; 
+        height: 55px;
         margin-left: 15px;
     }
 
     @media (max-width: 480px) {
-        width: 65px; 
-        height: 65px;
+        width: 50px; 
+        height: 50px;
         margin-left: 10px;
     }
 `;
@@ -127,14 +127,14 @@ export const Img_Logo_Hospital_Light = styled.div`
     animation: ${FadeAnimation} 2s infinite;
 
     @media (max-width: 768px) {
-        width: 62px; 
-        height: 62px;
+        width: 55px; 
+        height: 55px;
         margin-left: 15px;
     }
 
     @media (max-width: 480px) {
-        width: 65px; 
-        height: 65px;
+        width: 50px; 
+        height: 50px;
         margin-left: 10px;
     }
 `;

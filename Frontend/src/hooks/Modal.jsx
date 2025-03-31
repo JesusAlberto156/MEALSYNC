@@ -41,11 +41,17 @@ export const useCloseModal = () => {
     // Constantes con el valor de los contextos 
     const [isModal, setIsModal] = useContext(modalContext);
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
+    const [isSelect,setIsSelect] = useContext(selectContext);
+    const [iseRadio,setIsRadio] = useContext(radioContext);
     // Función del hook
     const closeModal = () => {
         setIsModal(false);
         if(isOptionModal === 'Status-Enable'){
             
+        }
+        if(isOptionModal === 'Status-Add'){
+            setIsSelect([]);
+            setIsRadio('');
         }
         setIsOptionModal('');
     }
@@ -76,7 +82,7 @@ export const useAddStatus = () => {
     const [isOptionModal] = useContext(optionModalContext);
     // Función del hook
     const addStatus = () => {
-        if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Add-Status'){
+        if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Status-Add'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setIsToast(true);
@@ -115,7 +121,7 @@ export const useEnableUser = () => {
     // Función del hook
     const enableUser = () => {
         if(isSelectedRow !== null){
-            if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Enable-Status'){
+            if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Status-Enable'){
                 setIsStatusEnable(isSelectedRow);
             }
         }

@@ -42,14 +42,12 @@ import { MdLogin } from "react-icons/md";
 import { Container_Page,Container_Button,Container_Page_Login_Dark,Container_Form_350_Dark,Container_Page_Login_Light,Container_Form_350_Light } from "../components/styled/Containers";
 import { Img_Logo_Verical_Hospital_Dark,Img_Logo_Verical_Hospital_Light } from "../components/styled/Imgs";
 import { Text_Title_Fade_20_Dark,Text_Title_Fade_20_Light } from "../components/styled/Text";
-import { Input_Group_Login,Input_Login } from "../components/styled/Inputs";
 import { Button_Icon_Dark,Button_Icon_Blue_80_Dark,Button_Icon_Blue_50_Dark,Button_Icon_Block_80_Dark,Button_Icon_Green_50_Dark,Button_Icon_Light,Button_Icon_Blue_80_Light,Button_Icon_Blue_50_Light,Button_Icon_Block_80_Light,Button_Icon_Green_50_Light } from "../components/styled/Buttons";
-import { Label_Login,Label_Popup_Login } from "../components/styled/Labels";
 import { Alert_Greeting,Toast_Styles,Alert_Verification } from '../components/styled/Notifications'
 // Componentes personalizados
 import Footer from '../components/footer/Footer';
 import Loading from "./Loading";
-import StatusEnable from "../components/modals/status/StatusEnable";
+import FormLogin from "../components/forms/FormLogin";
 //____________IMPORT/EXPORT____________
 
 // Página para
@@ -307,7 +305,6 @@ export default function Login(){
     // Estructura del componente
     return(
         <Container_Page>
-            <StatusEnable/>
             {isMode ? (
                 <>
                     <Container_Page_Login_Light>
@@ -387,65 +384,7 @@ export default function Login(){
                             )}
                             {isLoadingOptionLogin === 'Login' ? (
                                 <>
-                                    <Input_Group_Login>
-                                        <Label_Login
-                                            isLabelUp={isFocusedName}
-                                            isFocused={isFocusedNameColor}
-                                        >
-                                            Nombre de usuario
-                                        </Label_Login>
-                                        <Input_Login
-                                            value={isName}
-                                            onClick={(e) => {
-                                                setTextName(true);
-                                                setIsFocusedNameColor(true);
-                                                setIsFocusedName(true);
-                                            }}
-                                            onBlur={(e) => {
-                                                setTextName(false);
-                                                setIsFocusedNameColor(false);
-                                                if (e.target.value === ''){
-                                                    setIsFocusedName(false);
-                                                }else{
-                                                    setIsFocusedName(true);
-                                                }
-                                            }}   
-                                            onChange={(e) => setIsName(e.target.value)} 
-                                        />
-                                        {textName && (
-                                            <Label_Popup_Login>Escribe tú nombre de usuario</Label_Popup_Login>
-                                        )}
-                                    </Input_Group_Login>
-                                    <Input_Group_Login>
-                                        <Label_Login 
-                                            isLabelUp={isFocusedPassword}
-                                            isFocused={isFocusedPasswordColor}
-                                        >
-                                            Contraseña
-                                        </Label_Login>
-                                        <Input_Login
-                                            value={isPassword}
-                                            onClick={(e) => {
-                                                setTextPassword(true);
-                                                setIsFocusedPasswordColor(true);
-                                                setIsFocusedPassword(true);
-                                            }}
-                                            onBlur={(e) => {
-                                                setTextPassword(false);
-                                                setIsFocusedPasswordColor(false);
-                                                if (e.target.value === ''){
-                                                    setIsFocusedPassword(false);
-                                                }else{
-                                                    setIsFocusedPassword(true);
-                                                }
-                                            }}   
-                                            onChange={(e) => setIsPassword(e.target.value)} 
-                                            type="password"
-                                        />
-                                        {textPassword && (
-                                            <Label_Popup_Login>Escribe tú Contraseña</Label_Popup_Login>
-                                        )}
-                                    </Input_Group_Login>
+                                    <FormLogin/>
                                     <Container_Button>
                                         {isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? (
                                             <Tooltip title='Atrás' placement="top">
@@ -546,65 +485,7 @@ export default function Login(){
                             )}
                             {isLoadingOptionLogin === 'Login' ? (
                                 <>
-                                    <Input_Group_Login>
-                                        <Label_Login
-                                            isLabelUp={isFocusedName}
-                                            isFocused={isFocusedNameColor}
-                                        >
-                                            Nombre de usuario
-                                        </Label_Login>
-                                        <Input_Login
-                                            value={isName}
-                                            onClick={(e) => {
-                                                setTextName(true);
-                                                setIsFocusedNameColor(true);
-                                                setIsFocusedName(true);
-                                            }}
-                                            onBlur={(e) => {
-                                                setTextName(false);
-                                                setIsFocusedNameColor(false);
-                                                if (e.target.value === ''){
-                                                    setIsFocusedName(false);
-                                                }else{
-                                                    setIsFocusedName(true);
-                                                }
-                                            }}   
-                                            onChange={(e) => setIsName(e.target.value)} 
-                                        />
-                                        {textName && (
-                                            <Label_Popup_Login>Escribe tú nombre de usuario</Label_Popup_Login>
-                                        )}
-                                    </Input_Group_Login>
-                                    <Input_Group_Login>
-                                        <Label_Login 
-                                            isLabelUp={isFocusedPassword}
-                                            isFocused={isFocusedPasswordColor}
-                                        >
-                                            Contraseña
-                                        </Label_Login>
-                                        <Input_Login
-                                            value={isPassword}
-                                            onClick={(e) => {
-                                                setTextPassword(true);
-                                                setIsFocusedPasswordColor(true);
-                                                setIsFocusedPassword(true);
-                                            }}
-                                            onBlur={(e) => {
-                                                setTextPassword(false);
-                                                setIsFocusedPasswordColor(false);
-                                                if (e.target.value === ''){
-                                                    setIsFocusedPassword(false);
-                                                }else{
-                                                    setIsFocusedPassword(true);
-                                                }
-                                            }}   
-                                            onChange={(e) => setIsPassword(e.target.value)} 
-                                            type="password"
-                                        />
-                                        {textPassword && (
-                                            <Label_Popup_Login>Escribe tú Contraseña</Label_Popup_Login>
-                                        )}
-                                    </Input_Group_Login>
+                                    <FormLogin/>
                                     <Container_Button>
                                         {isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? (
                                             <Tooltip title='Atrás' placement="top">

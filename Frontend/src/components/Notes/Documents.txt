@@ -24,6 +24,8 @@ PARA DOCUMENTAR UN HOOK
 // Hook para
 PARA DOCUMENTAR UN MODAL
 // Modal para
+PARA DOCUMENTAR UN FORMULARIO
+// Formulario para
 PARA DOCUMENTAR UN COMPONENTE
 // Componente para
 PARA DOCUMENTAR UNA PÁGINA
@@ -45,41 +47,6 @@ PARA DOCUMENTAR FUNCIONALIDAD COMPONENTE
 PARA DOCUMENTAR RETURN HOOK
 // Retorno de la función del hook
 
-useEffect(() => {
-        if(isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Estatus_Deshabilitar"
-        if(!isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Estatus_Habilitar"
-        if(isSelectedRow !== null){
-            const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
-            if(isUser){
-                setUser(isUser.usuario);
-            }
-        }
-    },[]);
 
 
     {isSelectedRow.habilitado ? <Text_Modal>Se deshabilitará a {user} <Icon_Warning_Modal><FaExclamationCircle /><Icon_Tooltip_Modal>¡Cerrará su sesión de forma forzada!...</Icon_Tooltip_Modal></Icon_Warning_Modal></Text_Modal> : <Text_Modal>Se habilitará a {user}...</Text_Modal>}
-    
-{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}
-                    <Background_Modal>
-                        <Background_Modal_Componets>
-                            <Title_Fade_Modal>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Title_Fade_Modal>
-                            <Container_Button_Modal>
-                                <Tooltip title="Cancelar" placement="top">
-                                    <Button_Icon_Cancel_Modal id="Boton-Estatus-Cancelar" onClick={Cancel}><MdCancel/></Button_Icon_Cancel_Modal>
-                                </Tooltip>
-                                {isSelectedRow.habilitado ? (
-                                    <>
-                                        <Tooltip title="Deshabilitar" placement="top">
-                                            <Button_Icon_Exit_Modal id="Boton-Estatus-Deshabilitar" onClick={() => useEnableUser()}><FaLock/></Button_Icon_Exit_Modal>
-                                        </Tooltip>
-                                    </>
-                                ):(
-                                    <>
-                                        <Tooltip title="Habilitar" placement="top">
-                                            <Button_Icon_Green_Modal id="Boton-Estatus-Habilitar" onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Green_Modal>
-                                        </Tooltip>
-                                    </>
-                                )}
-                            </Container_Button_Modal>
-                        </Background_Modal_Componets>
-                    </Background_Modal>

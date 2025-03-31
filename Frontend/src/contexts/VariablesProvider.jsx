@@ -12,6 +12,7 @@ export const modalContext = createContext(null);
 export const optionModalContext = createContext(null);
 export const selectContext = createContext(null);
 export const radioContext = createContext(null);
+export const comprobationContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto de cambio de modo de las interfaces (Claro/Oscuro)
@@ -122,5 +123,16 @@ export const Radio = ({children}) => {
         <radioContext.Provider value={[isRadio,setIsRadio]}>
             {children}
         </radioContext.Provider>
+    );
+}
+
+export const Comprobation = ({children}) => {
+
+    const [isComprobation,setIsComprobation] = useState(false);
+
+    return (
+        <comprobationContext.Provider value={[isComprobation,setIsComprobation]}>
+            {children}
+        </comprobationContext.Provider>
     );
 }

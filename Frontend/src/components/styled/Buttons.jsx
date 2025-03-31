@@ -290,7 +290,7 @@ export const Button_Icon_Blue_80_Light = styled.button`
 export const Button_Icon_Blue_95_Dark = styled.button`
     width: 95%;
     padding: 6px;
-    font-size: 25px;
+    font-size: 18px;
     border-radius: 50px;
     background-color: rgb(82, 126, 231);
     color: white;
@@ -310,18 +310,18 @@ export const Button_Icon_Blue_95_Dark = styled.button`
 
     @media (max-width: 768px) {
         padding: 4px;
-        font-size: 25px;
+        font-size: 16px;
     }
 
     @media (max-width: 480px) {
         padding: 2px;
-        font-size: 20px;
+        font-size: 14px;
     }
 `;
 export const Button_Icon_Blue_95_Light = styled.button`
     width: 95%;
     padding: 6px;
-    font-size: 25px;
+    font-size: 18px;
     border-radius: 50px;
     background-color: rgb(58,93,174);
     color: white;
@@ -341,12 +341,12 @@ export const Button_Icon_Blue_95_Light = styled.button`
 
     @media (max-width: 768px) {
         padding: 4px;
-        font-size: 25px;
+        font-size: 16px;
     }
 
     @media (max-width: 480px) {
         padding: 2px;
-        font-size: 20px;
+        font-size: 14px;
     }
 `;
 export const Button_Icon_Red_50_Dark = styled.button`
@@ -594,13 +594,14 @@ export const Button_Icon_White_100_Dark = styled.button`
     }
 
     @media (max-width: 768px) {
-        padding: 8px;
-        font-size: 25px;
+        padding: 6px;
+        font-size: 20px;
+        width: 90px;
     }
 
     @media (max-width: 480px) {
-        padding: 12px;
-        font-size: 20px;
+        padding: 7px;
+        font-size: 15px;
         width: 80px;
     }
 `;
@@ -625,13 +626,14 @@ export const Button_Icon_White_100_Light = styled.button`
     }
 
     @media (max-width: 768px) {
-        padding: 8px;
-        font-size: 25px;
+        padding: 6px;
+        font-size: 20px;
+        width: 90px;
     }
 
     @media (max-width: 480px) {
-        padding: 12px;
-        font-size: 20px;
+        padding: 7px;
+        font-size: 15px;
         width: 80px;
     }
 `;

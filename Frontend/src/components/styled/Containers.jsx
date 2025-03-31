@@ -149,9 +149,9 @@ export const Container_Page_Elements = styled.div.withConfig({
   })`
     position: fixed;
     top: 0%;
-    left: ${({ sidebarVisible }) => (sidebarVisible ? "16.2%" : "4%")};
+    left: ${({ sidebarVisible }) => (sidebarVisible ? "21.2%" : "5%")};
     z-index: 9;
-    width: ${({ sidebarVisible }) => (sidebarVisible ? "84%" : "96%")};
+    width: ${({ sidebarVisible }) => (sidebarVisible ? "83%" : "100%")};
     height: 100%;
     max-width: 100%;
     max-height: 100vh;
@@ -162,13 +162,14 @@ export const Container_Page_Elements = styled.div.withConfig({
     margin: 0px auto;
     padding: 20px;
     border-radius: 4px;
-    background-color:rgba(252, 252, 252, 0.39);
+    background-color:transparent;
     text-align: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 20px;
     transition: all 0.3s ease;
+    padding-top: 90px;
 
     &::-webkit-scrollbar {
         display: none;
@@ -176,16 +177,18 @@ export const Container_Page_Elements = styled.div.withConfig({
     
     @media (max-width: 768px) {
         padding: 15px;
+        padding-top: 75px;
         gap: 15px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "27%" : "8%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "73%" : "92%")};
+        left: ${({ sidebarVisible }) => (sidebarVisible ? "32%" : "6%")}; 
+        width: ${({ sidebarVisible }) => (sidebarVisible ? "70%" : "100%")};
     }
 
     @media (max-width: 480px) {
         padding: 10px;
+        padding-top: 60px;
         gap: 10px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "45%" : "9.4%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "55%" : "92%")}; 
+        left: ${({ sidebarVisible }) => (sidebarVisible ? "42%" : "8%")}; 
+        width: ${({ sidebarVisible }) => (sidebarVisible ? "60%" : "98%")}; 
     }
 `;
 //____________PAGE____________
@@ -588,17 +591,20 @@ export const Container_Navbar_Dark = styled.div`
     opacity:0.9;
     padding: 4px;
     gap: 15px;
+    margin-left: 15px;
 
     @media (max-width: 768px) {
-        height: 65px;
+        height: 50px;
         padding: 3px;
-        gap: 10px;    
+        gap: 10px;  
+        margin-left: 10px;  
     }
 
     @media (max-width: 480px) {
-        height: 70px;
+        height: 40px;
         padding: 2px;
         gap: 5px;
+        margin-left: 5px;
     }
 `;
 export const Container_Navbar_Light = styled.div`
@@ -614,17 +620,20 @@ export const Container_Navbar_Light = styled.div`
     opacity:0.9;
     padding: 4px;
     gap: 15px;
+    margin-left: 15px;
 
     @media (max-width: 768px) {
-        height: 65px;
+        height: 50px;
         padding: 3px;
         gap: 10px;    
+        margin-left: 10px;
     }
 
     @media (max-width: 480px) {
-        height: 70px;
+        height: 40px;
         padding: 2px;
         gap: 5px;
+        margin-left: 5px;
     }
 `;
 export const Container_Navbar_Button_Dark = styled.div`
@@ -649,13 +658,13 @@ export const Container_Navbar_Button_Dark = styled.div`
     }
 
     @media (max-width: 768px) {
-        height: 60px;
+        height: 45px;
         padding-left: 20px;
         gap: 6px;
     }
 
     @media (max-width: 480px) {
-        height: 65px;
+        height: 35px;
         padding-left: 15px;
         gap: 5px;
     }
@@ -682,13 +691,13 @@ export const Container_Navbar_Button_Light = styled.div`
     }
 
     @media (max-width: 768px) {
-        height: 60px;
+        height: 45px;
         padding-left: 20px;
         gap: 6px;
     }
 
     @media (max-width: 480px) {
-        height: 65px;
+        height: 35px;
         padding-left: 15px;
         gap: 5px;
     }
@@ -716,54 +725,155 @@ export const Container_Text_20 = styled.div`
 //____________INPUT____________
 export const Container_Input_Border_Dark = styled.div`
     display: flex;
-    gap: 15px; 
+    gap: 20px;
+    flex-direction: column; 
     justify-content: center; 
     align-items: center;
     border: 2px solid white;
-    border-radius: 50px;
-    height: 60px;
-    width: 94%;
-    padding: 10px;
-    margin-top: 0px;
-    margin-bottom: 5px;
+    border-radius: 30px;
+    height: 220px;
+    width: 96%;
+    padding: 5px;
+    padding-bottom: 20px;
+    padding-top: 20px;
 
     @media (max-width: 768px) {
-        gap: 10px;
-        padding: 8px;
-        height: 50px;
+        gap: 15px;
+        padding: 4px;
+        padding-bottom: 15px;
+        padding-top: 15px;
     }
 
     @media (max-width: 480px) {
-        gap: 5px;
-        padding: 6px;
-        height: 40px;
+        gap: 10px;
+        padding: 4px;
+        padding-bottom: 10px;
+        padding-top: 10px;
     }
 `;
 export const Container_Input_Border_Light = styled.div`
     display: flex;
-    gap: 10px;
+    gap: 20px;
     flex-direction: column; 
     justify-content: center; 
     align-items: center;
     border: 2px solid black;
-    border-radius: 50px;
-    height: 200px;
-    width: 94%;
+    border-radius: 30px;
+    height: 220px;
+    width: 96%;
     padding: 5px;
+    padding-bottom: 20px;
+    padding-top: 20px;
 
     @media (max-width: 768px) {
-        gap: 8px;
+        gap: 15px;
         padding: 4px;
+        padding-bottom: 15px;
+        padding-top: 15px;
     }
 
     @media (max-width: 480px) {
-        gap: 6px;
+        gap: 10px;
         padding: 4px;
+        padding-bottom: 10px;
+        padding-top: 10px;
     }
 `;
 //____________INPUT____________
+//____________SELECT____________
+export const Container_Select_Dark = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 15px;
+    border: 2px solid white;
+    border-radius: 50px;
+    max-height: 20vh;
+    max-width: 90vw;
+    padding: 10px;
+    margin-bottom: 10px;
 
+    @media (max-width: 768px) {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
 
+    @media (max-width: 480px) {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+`;
+export const Container_Select_Light = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 15px;
+    border: 2px solid black;
+    border-radius: 50px;
+    max-height: 20vh;
+    max-width: 90vw;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+`;
+//____________SELECT____________
+//____________CHECK____________
+export const Container_Check_Dark = styled.div`
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    border: 2px solid white;
+    border-radius: 50px;
+    max-height: 20vh;
+    max-width: 90vw;
+    gap: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+`;
+export const Container_Check_Light = styled.div`
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 50px;
+    max-height: 20vh;
+    max-width: 90vw;
+    gap: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+`;
+//____________CHECK____________
 export const Background_Modal = styled.div`
     position: fixed;
     top: 0;
@@ -847,45 +957,6 @@ export const Container_Button_Modal = styled.div`
     max-width: 90vw;
     padding: 10px;
     margin-top: 10px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-    }
-`;
-export const Container_Select_Modal = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    gap: 15px;
-    border: 2px solid white;
-    border-radius: 30px;
-    max-height: 20vh;
-    max-width: 90vw;
-    padding: 10px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-    }
-`;
-export const Container_Checkbox_Modal = styled.div`
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    border: 2px solid white;
-    border-radius: 30px;
-    max-height: 20vh;
-    max-width: 90vw;
-    gap: 15px;
-    padding: 10px;
 
     @media (max-width: 768px) {
         gap: 10px;

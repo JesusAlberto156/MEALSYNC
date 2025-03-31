@@ -1,28 +1,28 @@
 import styled from 'styled-components';
 
-//--------LOGIN--------
-export const Input_Group_Login = styled.div`
+//____________GROUP____________
+export const Input_Group_80 = styled.div`
     position: relative;
     height: 80px;
-    line-height: 40px;
+    line-height: 50px;
     outline: none;
 
     @media (max-width: 768px) {
-        height: 70px;
+        
     }
     
     @media (max-width: 480px) {
-        height: 60px;
+        
     }
 `;
-export const Input_Login = styled.input`
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 20%;
-    color: black;
-    font-size: 1.3rem;
-    border-radius: 10px;
+//____________GROUP____________
+//____________TEXT____________
+export const Input_Text_280_Dark = styled.input`
+    width: 280px;
+    height: 15px;
+    color: white;
+    font-size: 20px;
+    border-radius: 15px;
     border: none;
     border-bottom: 2px solid white;
     background: transparent;
@@ -31,24 +31,110 @@ export const Input_Login = styled.input`
     padding-top: 30px;
     cursor: text;
     padding-bottom: 8px;
-    padding-left: 5px;
+    padding-left: 14px;
 
     @media (max-width: 768px) {
-        font-size: 1.2rem;
+        font-size: 18px;
+        width: 250px;
+        border-radius: 12px;
+        padding-left: 12px;
     }
     
     @media (max-width: 480px) {
-        font-size: 1.1rem;
+        font-size: 16px;
+        width: 220px;
+        border-radius: 9px;
+        padding-left: 10px;
     }
 
     &:focus {
-        border-bottom: 2px solid aqua;
-        border-color: rgb(45, 93, 182);
-        color: rgb(22, 139, 6);
+        color:rgb(82, 126, 231);
+        border-color: rgb(82, 126, 231);
         box-shadow: 0 0 8px rgba(60, 124, 167, 0.3);
     }
 `;
-//--------LOGIN--------
+export const Input_Text_280_Light = styled.input`
+    width: 280px;
+    height: 15px;
+    color: black;
+    font-size: 20px;
+    border-radius: 15px;
+    border: none;
+    border-bottom: 2px solid black;
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    padding-top: 30px;
+    cursor: text;
+    padding-bottom: 8px;
+    padding-left: 14px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        width: 250px;
+        border-radius: 12px;
+        padding-left: 12px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 16px;
+        width: 220px;
+        border-radius: 9px;
+        padding-left: 10px;
+    }
+
+    &:focus {
+        color: rgb(58,93,174);
+        border-color: rgb(58,93,174);
+        box-shadow: 0 0 8px rgba(60, 124, 167, 0.3);
+    }
+`;
+//____________TEXT____________
+//____________RADIO____________
+export const Input_Radio_16_Dark = styled.input`
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:checked {
+        accent-color: rgb(60, 188, 109);
+    }
+
+    @media (max-width: 768px) {
+        width: 14px;
+        height: 14px;
+    }
+
+    @media (max-width: 480px) {
+        width: 12px;
+        height: 12px;
+    }
+`;
+export const Input_Radio_16_Light = styled.input`
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:checked {
+        accent-color: rgb(20, 165, 76);
+    }
+
+    @media (max-width: 768px) {
+        width: 14px;
+        height: 14px;
+    }
+
+    @media (max-width: 480px) {
+        width: 12px;
+        height: 12px;
+    }
+`;
+//____________RADIO____________
+//____________CHECK____________
+
+//____________CHECK____________
 //--------SEARCH-BAR MENU--------
 export const Input_Search_Bar_Menu = styled.input`
     padding: 10px;
@@ -65,26 +151,6 @@ export const Input_Search_Bar_Menu = styled.input`
 `;
 //--------SEARCH-BAR MENU--------
 //--------MODAL---------
-export const Input_Radio_Modal = styled.input`
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:checked {
-        accent-color: rgb(20, 165, 76);
-    }
-
-    @media (max-width: 768px) {
-        width: 15px;
-        height: 15px;
-    }
-
-    @media (max-width: 480px) {
-        width: 13px;
-        height: 13px;
-    }
-`;
 export const Input_Checkbox_Modal = styled.input`
     width: 15px;
     height: 15px;

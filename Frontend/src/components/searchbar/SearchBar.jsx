@@ -60,8 +60,8 @@ export default function SearchBar (){
                 ):(
                     <></>
                 )}
-                {isSidebar === 'Usuarios' ? (
-                    isNavbar === 'General' ? (
+                {isSidebar === 'Users' ? (
+                    isNavbar === 'Principal' ? (
                         isSelectedRow === null ? (
                             <>
                                 <Container_Button_Search_Bar>
@@ -86,8 +86,8 @@ export default function SearchBar (){
                             </>
                         )
                     ):(
-                        isNavbar === 'Permisos' ? (
-                            isPermission.superAdmon ? (
+                        isNavbar === 'Permissions' ? (
+                            isPermission.superadministrador ? (
                                 isSelectedRow === null ? (
                                     <>
                                         <Container_Button_Search_Bar>
@@ -155,13 +155,13 @@ export default function SearchBar (){
                                 )
                             )
                         ):(
-                            isNavbar === 'Estatus' ? (
-                                isPermission.superAdmon ? (
+                            isNavbar === 'Status' ? (
+                                isPermission.superadministrador ? (
                                     isSelectedRow === null ? (
                                         <>
                                             <Container_Button_Search_Bar>
                                                 <Tooltip title="Agregar" placement="top">
-                                                    <Button_Green_Search_Bar onClick={() => modal('Agregar-Estatus')}><IoMdAddCircle/></Button_Green_Search_Bar>
+                                                    <Button_Green_Search_Bar onClick={() => modal('Status-Add')}><IoMdAddCircle/></Button_Green_Search_Bar>
                                                 </Tooltip>
                                                 <Tooltip title="" placement="top">
                                                     <Button_Block_Search_Bar><FaUnlock/></Button_Block_Search_Bar>
@@ -180,18 +180,18 @@ export default function SearchBar (){
                                                 {isSelectedRow.habilitado ? (
                                                     <>
                                                         <Tooltip title="Deshabilitar" placement="top">
-                                                            <Button_Red_Search_Bar id="Boton-Estatus-Deshabilitar" onClick={() => modal('Habilitar-Estatus')}><FaLock/></Button_Red_Search_Bar>
+                                                            <Button_Red_Search_Bar id="Button-Status" onClick={() => modal('Status-Enable')}><FaLock/></Button_Red_Search_Bar>
                                                         </Tooltip>
                                                     </> 
                                                 ):(
                                                     <>
                                                         <Tooltip title="Habilitar" placement="top">
-                                                            <Button_Green_Search_Bar id="Boton-Estatus-Habilitar" onClick={() => modal('Habilitar-Estatus')}><FaLockOpen/></Button_Green_Search_Bar>
+                                                            <Button_Green_Search_Bar id="Button-Status" onClick={() => modal('Status-Enable')}><FaLockOpen/></Button_Green_Search_Bar>
                                                         </Tooltip>
                                                     </>
                                                 )}
                                                 <Tooltip title="Eliminar" placement="top">
-                                                    <Button_Red_Search_Bar id="Boton-Estatus-Eliminar" onClick={() => modal('Eliminar-Estatus')}><MdDelete/></Button_Red_Search_Bar>
+                                                    <Button_Red_Search_Bar id="Button-Status" onClick={() => modal('Status-Delete')}><MdDelete/></Button_Red_Search_Bar>
                                                 </Tooltip>
                                             </Container_Button_Search_Bar>
                                         </>    
@@ -201,7 +201,7 @@ export default function SearchBar (){
                                         <>
                                             <Container_Button_Search_Bar>
                                                 <Tooltip title="Agregar" placement="top">
-                                                    <Button_Green_Search_Bar onClick={() => modal('Agregar-Estatus')}><IoMdAddCircle/></Button_Green_Search_Bar>
+                                                    <Button_Green_Search_Bar onClick={() => modal('Status-Add')}><IoMdAddCircle/></Button_Green_Search_Bar>
                                                 </Tooltip>
                                             </Container_Button_Search_Bar>
                                         </>

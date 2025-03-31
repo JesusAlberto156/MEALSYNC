@@ -80,9 +80,9 @@ export const Text_Title_Fade_30_Light = styled.h1`
         font-size: 26px;
     }
 `;
-export const Text_Title_Fade_40_Dark = styled.h1`
+export const Text_Title_Fade_30__Dark = styled.h1`
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     font-family: "Prompt", sans-serif;
     font-weight: 700;
     font-style: italic;
@@ -91,16 +91,16 @@ export const Text_Title_Fade_40_Dark = styled.h1`
     margin-bottom: 0px;
 
     @media (max-width: 768px) {
-        font-size: 35px;
+        font-size: 25px;
     }
 
     @media (max-width: 480px) {
-        font-size: 30px;
+        font-size: 20px;
     }
 `;
-export const Text_Title_Fade_40_Light = styled.h1`
+export const Text_Title_Fade_30__Light = styled.h1`
     color: black;
-    font-size: 40px;
+    font-size: 30px;
     font-family: "Prompt", sans-serif;
     font-weight: 700;
     font-style: italic;
@@ -109,11 +109,11 @@ export const Text_Title_Fade_40_Light = styled.h1`
     margin-bottom: 0px;
     
     @media (max-width: 768px) {
-        font-size: 35px;
+        font-size: 25px;
     }
 
     @media (max-width: 480px) {
-        font-size: 30px;
+        font-size: 20px;
     }
 `;
 export const Text_Title_Fade_50_Dark = styled.h1`

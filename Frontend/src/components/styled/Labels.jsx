@@ -1,100 +1,208 @@
 import styled from 'styled-components';
 
-//--------LOGIN--------
-export const Label_Login = styled.label.withConfig({
+//____________TEXT____________
+export const Label_Text_20_Dark = styled.label.withConfig({
     shouldForwardProp: (prop) => prop !== 'isLabelUp' && prop !== 'isFocused',
 })`
-    z-index: 0;
     position: absolute;
-    top: 14px;
-    left: 7px;
-    font-size: 1.2rem;
-    font-family:Arial, Helvetica, sans-serif;
-    color: #000000;
+    top: 12px;
+    left: 14px;
+    font-size: 20px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color: white;
     background-color: transparent;
     transition: 0.2s ease;
     white-space: nowrap;
 
     ${(props) =>  props.isLabelUp && `
         top: -10px;
-        font-size: 0.9rem;
+        font-size: 14px;
     `}
 
     ${(props) => props.isFocused && `
-        color: rgb(45, 93, 182);
+        color: rgb(82, 126, 231);
     `}
 
     @media (max-width: 768px) {
-        font-size: 1.1rem;
+        font-size: 18px;
         top: 14px;
-        left: 5px;
+        left: 11px;
 
         ${(props) => props.isLabelUp && `
-            top: -8px;
-            font-size: 0.8rem;
+            top: -9px;
+            font-size: 12px;
         `}
 
         ${(props) => props.isFocused && `
-            rgb(45, 93, 182);
+            color: rgb(82, 126, 231);
         `}
     }
     
     @media (max-width: 480px) {
-        font-size: 1rem;
-        top: 12px;
-        left: 3px;
+        font-size: 16px;
+        left: 9px;
 
         ${(props) => props.isLabelUp && `
-            top: -6px;
-            font-size: 0.9rem;
+            top: -7px;
+            font-size: 10px;
         `}
 
         ${(props) => props.isFocused && `
-            color: rgb(45, 93, 182);
+            color: rgb(82, 126, 231);
         `}
     }
 
 `;
-export const Label_Popup_Login = styled.p`
-    color: rgb(9, 55, 73);; 
-    text-Align: left; 
-    font-Size: 0.9rem; 
-    font-family:Arial, Helvetica, sans-serif;
-    left: 7px;
+export const Label_Text_20_Light = styled.label.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isLabelUp' && prop !== 'isFocused',
+})`
     position: absolute;
-    transform: translateY(-25px);
+    top: 12px;
+    left: 14px;
+    font-size: 20px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color: black;
+    background-color: transparent;
+    transition: 0.2s ease;
+    white-space: nowrap;
+
+    ${(props) =>  props.isLabelUp && `
+        top: -10px;
+        font-size: 14px;
+    `}
+
+    ${(props) => props.isFocused && `
+        color: rgb(58,93,174);
+    `}
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        top: 14px;
+        left: 11px;
+
+        ${(props) => props.isLabelUp && `
+            top: -9px;
+            font-size: 12px;
+        `}
+
+        ${(props) => props.isFocused && `
+            color: rgb(58,93,174);
+        `}
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 16px;
+        left: 9px;
+
+        ${(props) => props.isLabelUp && `
+            top: -7px;
+            font-size: 10px;
+        `}
+
+        ${(props) => props.isFocused && `
+            color: rgb(58,93,174);
+        `}
+    }
+
+`;
+//____________TEXT____________
+//____________POPUP____________
+export const Label_Popup_16_Dark = styled.p`
+    color: rgb(147, 82, 231);
+    text-Align: left; 
+    font-Size: 16px; 
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    left: 14px;
+    position: absolute;
+    transform: translateY(-35px);
     transition: transform 0.3s ease;
 
     @media (max-width: 768px) {
-        font-size: 0.9rem;
-        transform: translateY(-25px);
-        left: 5px;
+        font-size: 12PX;
+        transform: translateY(-30px);
+        left: 12px;
     }
 
     @media (max-width: 480px) {
-        font-size: 0.8rem;
+        font-size: 10px;
         transform: translateY(-25px);
-        left: 3px;
+        left: 10px;
     }
 `;
-//--------LOGIN--------
-//--------MODAL--------
-export const Label_Checkbox_Modal = styled.label`
+export const Label_Popup_16_Light = styled.p`
+    color: rgb(137, 58, 174);
+    text-Align: left; 
+    font-Size: 16px; 
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    left: 14px;
+    position: absolute;
+    transform: translateY(-35px);
+    transition: transform 0.3s ease;
+
+    @media (max-width: 768px) {
+        font-size: 12PX;
+        transform: translateY(-30px);
+        left: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 10px;
+        transform: translateY(-25px);
+        left: 10px;
+    }
+`;
+//____________POPUP____________
+//____________CHECK____________
+export const Label_Check_18_Dark = styled.label`
     display: flex;
     align-items: center;
     cursor: pointer;
-    font-Size: 1.2rem; 
-    font-family:Arial, Helvetica, sans-serif;
+    color: white;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-Size: 18px; 
     gap: 5px;
     
 
     @media (max-width: 768px) {
-        font-Size: 1rem; 
+        font-Size: 16px; 
         gap: 4px;
     }
 
     @media (max-width: 480px) {
-        font-Size: 0.8rem; 
+        font-Size: 14px; 
         gap: 3px;
     }
 `;
+export const Label_Check_18_Light = styled.label`
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-Size: 18px; 
+    gap: 5px;
+    
+
+    @media (max-width: 768px) {
+        font-Size: 16px; 
+        gap: 4px;
+    }
+
+    @media (max-width: 480px) {
+        font-Size: 14px; 
+        gap: 3px;
+    }
+`;
+//____________CHECK____________

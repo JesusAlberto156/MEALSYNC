@@ -24,7 +24,7 @@ import { FaUserClock } from "react-icons/fa6";
 import { Container_Navbar_Light,Container_Navbar_Button_Light,Container_Navbar_Dark,Container_Navbar_Button_Dark } from "../styled/Containers";
 import { Img_Logo_Hospital_Light,Img_Logo_Hospital_Dark} from '../styled/Imgs';
 import { Button_Icon_White_100_Light,Button_Icon_White_100_Dark } from '../styled/Buttons';
-import { Text_Title_Fade_40_Light,Text_Title_Fade_40_Dark } from '../styled/Text';
+import { Text_Title_Fade_30__Light,Text_Title_Fade_30__Dark } from '../styled/Text';
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -57,13 +57,13 @@ export default function Navbar(){
                                         <Button_Icon_White_100_Light onClick={() => navbarViews('Status')}><FaUserClock/></Button_Icon_White_100_Light>
                                     </Tooltip>
                                     {isNavbar === 'Principal' ? (
-                                        <Text_Title_Fade_40_Light>USUARIOS</Text_Title_Fade_40_Light>
+                                        <Text_Title_Fade_30__Light>USUARIOS</Text_Title_Fade_30__Light>
                                     ):(
                                         isNavbar === 'Permissions' ? (
-                                            <Text_Title_Fade_40_Light>PERMISOS</Text_Title_Fade_40_Light>
+                                            <Text_Title_Fade_30__Light>PERMISOS</Text_Title_Fade_30__Light>
                                         ):(
                                             isNavbar === 'Status' ? (
-                                                <Text_Title_Fade_40_Light>ESTATUS</Text_Title_Fade_40_Light>
+                                                <Text_Title_Fade_30__Light>ESTATUS</Text_Title_Fade_30__Light>
                                             ):(
                                                 <></>
                                             )
@@ -93,13 +93,13 @@ export default function Navbar(){
                                         <Button_Icon_White_100_Dark onClick={() => navbarViews('Status')}><FaUserClock/></Button_Icon_White_100_Dark>
                                     </Tooltip>
                                     {isNavbar === 'Principal' ? (
-                                        <Text_Title_Fade_40_Dark>USUARIOS</Text_Title_Fade_40_Dark>
+                                        <Text_Title_Fade_30__Dark>USUARIOS</Text_Title_Fade_30__Dark>
                                     ):(
                                         isNavbar === 'Permissions' ? (
-                                            <Text_Title_Fade_40_Dark>PERMISOS</Text_Title_Fade_40_Dark>
+                                            <Text_Title_Fade_30__Dark>PERMISOS</Text_Title_Fade_30__Dark>
                                         ):(
                                             isNavbar === 'Status' ? (
-                                                <Text_Title_Fade_40_Dark>ESTATUS</Text_Title_Fade_40_Dark>
+                                                <Text_Title_Fade_30__Dark>ESTATUS</Text_Title_Fade_30__Dark>
                                             ):(
                                                 <></>
                                             )

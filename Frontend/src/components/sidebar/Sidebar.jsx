@@ -89,7 +89,7 @@ export default function Sidebar() {
             <Container_Icon>
               <Icon_Image_Profile_Light src={profileImage}/>
             </Container_Icon>
-            <Text_Title_Fade_20_Light>{isUser.nombre}Hola</Text_Title_Fade_20_Light>
+            <Text_Title_Fade_20_Light>{isUser.nombre}</Text_Title_Fade_20_Light>
             <Tooltip title='Inicio' placement="right">
               <Button_Icon_Blue_95_Light onClick={() => sidebarHome('Home')}><Text_A_18_Light>Inicio</Text_A_18_Light><BiSolidHomeAlt2/></Button_Icon_Blue_95_Light>
             </Tooltip>
@@ -198,7 +198,7 @@ export default function Sidebar() {
             <Container_Icon>
               <Icon_Image_Profile_Dark src={profileImage}/>
             </Container_Icon>
-            <Text_Title_Fade_20_Dark>{isUser.nombre}Hola</Text_Title_Fade_20_Dark>
+            <Text_Title_Fade_20_Dark>{isUser.nombre}</Text_Title_Fade_20_Dark>
             <Tooltip title='Inicio' placement="right">
               <Button_Icon_Blue_95_Dark onClick={() => sidebarHome('Home')}><Text_A_18_Dark>Inicio</Text_A_18_Dark><BiSolidHomeAlt2/></Button_Icon_Blue_95_Dark>
             </Tooltip>

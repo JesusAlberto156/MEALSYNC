@@ -1,131 +1,233 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { useContext,useEffect } from "react";
-import Select from 'react-select';
+// Componentes de React externos
 import { Tooltip } from "@mui/material";
+import Select from "react-select";
+// Servicios
 
-import { modalContext,optionModalContext } from "../../../contexts/VariablesProvider";
-import { radioContext,selectContext } from "../../../contexts/VariablesProvider";
-
-import { useFilteredRecordsHasStatus,useHandleSelectChange,useHandleRadioChange } from "../../../hooks/Form";
-import { useAddStatus } from "../../../hooks/Modal";
-
+// Contextos
+import { modeContext,modalContext,selectContext,radioContext } from "../../../contexts/VariablesProvider";
+// Hooks personalizados
+import { useCloseModal,useAddStatus } from "../../../hooks/Modal";
+import { useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";
+//__________ICONOS__________
+// Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
+// Icono para realizar la función del modal
 import { IoMdAddCircle } from "react-icons/io";
+//__________ICONOS__________
+// Estilos personalizados
+import { Container_Modal,Container_Form_400_Light,Container_Button_Border_Light,Container_Select_Light,Container_Check_Light,Container_Form_400_Dark,Container_Button_Border_Dark,Container_Select_Dark,Container_Check_Dark } from "../../styled/Containers";
+import { Text_Title_Fade_30_Light,Text_P_20_Light,Text_Title_Fade_30_Dark,Text_P_20_Dark } from "../../styled/Text";
+import { Button_Icon_Blue_50_Light,Button_Icon_Green_50_Light,Button_Icon_Blue_50_Dark,Button_Icon_Green_50_Dark } from "../../styled/Buttons";
+import { Label_Check_18_Light,Label_Check_18_Dark } from "../../styled/Labels";
+import { Input_Radio_16_Light,Input_Radio_16_Dark } from "../../styled/Inputs";
+// Componentes personalizados
 
-import { Background_Modal,Background_Modal_Componets } from "../../styled/Backgrounds";
-import { Container_Modal,Container_Button_Modal,Container_Checkbox_Modal,Container_Select_Modal } from "../../styled/Containers";
-import { Input_Radio_Modal } from "../../styled/Inputs";
-import { Label_Checkbox_Modal } from "../../styled/Labels";
-import { GlobalStyle,Title_Fade_Modal } from "../../styled/Text";
-import { Button_Icon_Cancel_Modal,Button_Icon_Green_Modal } from "../../styled/Buttons";
+//____________IMPORT/EXPORT____________
 
+// Modal para agregar estatus al usuario
 export default function StatusAdd(){
-
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    const [isSelect,setIsSelect] = useContext(selectContext);
-    const [isRadio,setIsRadio] = useContext(radioContext);
-
+    // Constantes con el valor de los contextos 
+    const [isMode] = useContext(modeContext);
+    const [isModal] = useContext(modalContext);
+    const [isSelect] = useContext(selectContext);
+    const [isRadio] = useContext(radioContext);
+    // useEffect con el titulo del modal
+    useEffect(() => {
+        document.title = "MEALSYNC_Menú_Comprobación"
+    },[]);
+    // Constantes con la funcionalidad de los hooks
+    const closeModal = useCloseModal();
     const filteredRecordsHasStatus = useFilteredRecordsHasStatus();
     const handleSelectChange = useHandleSelectChange();
     const handleRadioChange = useHandleRadioChange();
-
-    const Cancel = async () => {
-        setIsModal(false);
-        setIsOptionModal('');
-        setIsSelect([]);
-        setIsRadio('');
-    }
-
-    useEffect(() => {
-        document.title = "MEALSYNC_Administración_Estatus_Agregar"
-    },[]);
-
-    const add = useAdd();
-    
+    const addStatus = useAddStatus();
+    // Estructura del componente
     return(
-        <>  
-            <GlobalStyle/>
+        <>
             <Container_Modal>
                 {isModal ? (
-                    <Background_Modal>
-                        <Background_Modal_Componets>
-                            <Title_Fade_Modal>AGREGAR ESTATUS</Title_Fade_Modal>
-                            <Container_Select_Modal>
-                                <Select
-                                    options={filteredRecordsHasStatus.map((user) => ({
-                                        value: user.idusuario,
-                                        label: user.usuario
-                                    }))}
-                                    styles={{
-                                        control: (provided) => ({
-                                            ...provided,
-                                            width: '350px',
-                                            padding: '8px',
-                                            border: '2px solid white',
-                                            cursor: 'pointer',
-                                            borderRadius: '15px',
-                                            fontSize: '18px',
-                                            '@media (max-width: 768px)':{
-                                                width: '300px',
-                                                padding: '6px',
-                                                fontSize: '16px',
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                width: '200px',
-                                                padding: '4px',
-                                                fontSize: '14px',
-                                            },
-                                        }),
-                                        menu: (provided) => ({
-                                            ...provided,
-                                            overflow: 'hidden',
-                                            borderRadius:'15px',
-                                        }),
-                                        menuList: (provided) => ({
-                                            ...provided,
-                                            maxHeight:150,
-                                            overflowY:'auto',
-                                            scrollbarWidth: 'none',
-                                            '&::-webkit-scrollbar': {
-                                                display:'none',
-                                            },
-                                            '@media (max-width: 768px)':{
-                                                maxHeight:125,
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                maxHeight:100,
-                                            },
-                                        })
-                                    }}
-                                    placeholder='Seleccione uno...'
-                                    value={isSelect}
-                                    onChange={handleSelectChange}
-                                />
-                            </Container_Select_Modal>
-                            <Container_Checkbox_Modal>
-                                {['Habilitado','Deshabilitado'].map((item,index) => (
-                                    <Label_Checkbox_Modal key={index}>
-                                        <Input_Radio_Modal
-                                            type="radio"
-                                            name="group"
-                                            value={item}
-                                            checked={isRadio === item}
-                                            onChange={handleRadioChange}
+                    isMode ? (
+                        <>
+                            <Container_Form_400_Light>
+                                    <Text_Title_Fade_30_Light>AGREGAR STATUS</Text_Title_Fade_30_Light>
+                                    <Text_P_20_Light>Selecciona un usuario...</Text_P_20_Light>
+                                    <Container_Select_Light>
+                                        <Select
+                                            options={filteredRecordsHasStatus.map((user) => ({
+                                                value: user.idusuario,
+                                                label: user.usuario
+                                            }))}
+                                            styles={{
+                                                control: (provided) => ({
+                                                    ...provided,
+                                                    width: '300px',
+                                                    padding: '6px',
+                                                    border: '2px solid black',
+                                                    cursor: 'pointer',
+                                                    borderRadius: '15px',
+                                                    fontFamily: 'Prompt, sans-serif',
+                                                    fontWeight: 300,
+                                                    fontStyle: 'normal',
+                                                    fontSize: '18px',
+                                                    '@media (max-width: 768px)':{
+                                                        width: '250px',
+                                                        padding: '4px',
+                                                        fontSize: '16px',
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        width: '250px',
+                                                        padding: '2px',
+                                                        fontSize: '14px',
+                                                    },
+                                                }),
+                                                menu: (provided) => ({
+                                                    ...provided,
+                                                    overflow: 'hidden',
+                                                    borderRadius:'15px',
+                                                }),
+                                                menuList: (provided) => ({
+                                                    ...provided,
+                                                    maxHeight:150,
+                                                    fontFamily: 'Prompt, sans-serif',
+                                                    fontWeight: 300,
+                                                    fontStyle: 'normal',
+                                                    overflowY:'auto',
+                                                    scrollbarWidth: 'none',
+                                                    '&::-webkit-scrollbar': {
+                                                        display:'none',
+                                                    },
+                                                    '@media (max-width: 768px)':{
+                                                        maxHeight:125,
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        maxHeight:100,
+                                                    },
+                                                })
+                                            }}
+                                            placeholder='Seleccione uno...'
+                                            value={isSelect}
+                                            onChange={handleSelectChange}
                                         />
-                                        {item}
-                                    </Label_Checkbox_Modal>
-                                ))};
-                            </Container_Checkbox_Modal>
-                            <Container_Button_Modal>
-                                <Tooltip title="Cancelar" placement="top">
-                                    <Button_Icon_Cancel_Modal onClick={Cancel}><MdCancel/></Button_Icon_Cancel_Modal>
-                                </Tooltip>
-                                <Tooltip title="Agregar" placement="top">
-                                    <Button_Icon_Green_Modal onClick={() => add()}><IoMdAddCircle/></Button_Icon_Green_Modal>
-                                </Tooltip>
-                            </Container_Button_Modal>
-                        </Background_Modal_Componets>
-                    </Background_Modal>
+                                    </Container_Select_Light>
+                                    <Text_P_20_Light>Selecciona un estado...</Text_P_20_Light>
+                                    <Container_Check_Light>
+                                        {['Habilitado','Deshabilitado'].map((item,index) => (
+                                            <Label_Check_18_Light key={index}>
+                                                <Input_Radio_16_Light
+                                                    type="radio"
+                                                    name="group"
+                                                    value={item}
+                                                    checked={isRadio === item}
+                                                    onChange={handleRadioChange}
+                                                />
+                                                {item}
+                                            </Label_Check_18_Light>
+                                        ))};
+                                    </Container_Check_Light>
+                                    <Text_P_20_Light>Agregar estatus...</Text_P_20_Light>
+                                    <Container_Button_Border_Light>
+                                        <Tooltip title="Cancelar" placement="top">
+                                            <Button_Icon_Blue_50_Light onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Light>
+                                        </Tooltip>
+                                        <Tooltip title="Agregar" placement="top">
+                                            <Button_Icon_Green_50_Light onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Light>
+                                        </Tooltip>
+                                    </Container_Button_Border_Light>
+                            </Container_Form_400_Light>
+                        </>
+                    ):(
+                        <>
+                            <Container_Form_400_Dark>
+                                    <Text_Title_Fade_30_Dark>AGREGAR STATUS</Text_Title_Fade_30_Dark>
+                                    <Text_P_20_Dark>Selecciona un usuario...</Text_P_20_Dark>
+                                    <Container_Select_Dark>
+                                        <Select
+                                            options={filteredRecordsHasStatus.map((user) => ({
+                                                value: user.idusuario,
+                                                label: user.usuario
+                                            }))}
+                                            styles={{
+                                                control: (provided) => ({
+                                                    ...provided,
+                                                    width: '300px',
+                                                    padding: '6px',
+                                                    border: '2px solid black',
+                                                    cursor: 'pointer',
+                                                    borderRadius: '15px',
+                                                    fontFamily: 'Prompt, sans-serif',
+                                                    fontWeight: 300,
+                                                    fontStyle: 'normal',
+                                                    fontSize: '18px',
+                                                    '@media (max-width: 768px)':{
+                                                        width: '250px',
+                                                        padding: '4px',
+                                                        fontSize: '16px',
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        width: '250px',
+                                                        padding: '2px',
+                                                        fontSize: '14px',
+                                                    },
+                                                }),
+                                                menu: (provided) => ({
+                                                    ...provided,
+                                                    overflow: 'hidden',
+                                                    borderRadius:'15px',
+                                                }),
+                                                menuList: (provided) => ({
+                                                    ...provided,
+                                                    maxHeight:150,
+                                                    fontFamily: 'Prompt, sans-serif',
+                                                    fontWeight: 300,
+                                                    fontStyle: 'normal',
+                                                    overflowY:'auto',
+                                                    scrollbarWidth: 'none',
+                                                    '&::-webkit-scrollbar': {
+                                                        display:'none',
+                                                    },
+                                                    '@media (max-width: 768px)':{
+                                                        maxHeight:125,
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        maxHeight:100,
+                                                    },
+                                                })
+                                            }}
+                                            placeholder='Seleccione uno...'
+                                            value={isSelect}
+                                            onChange={handleSelectChange}
+                                        />
+                                    </Container_Select_Dark>
+                                    <Text_P_20_Dark>Selecciona un estado...</Text_P_20_Dark>
+                                    <Container_Check_Dark>
+                                        {['Habilitado','Deshabilitado'].map((item,index) => (
+                                            <Label_Check_18_Dark key={index}>
+                                                <Input_Radio_16_Dark
+                                                    type="radio"
+                                                    name="group"
+                                                    value={item}
+                                                    checked={isRadio === item}
+                                                    onChange={handleRadioChange}
+                                                />
+                                                {item}
+                                            </Label_Check_18_Dark>
+                                        ))};
+                                    </Container_Check_Dark>
+                                    <Text_P_20_Dark>Agregar estatus...</Text_P_20_Dark>
+                                    <Container_Button_Border_Dark>
+                                        <Tooltip title="Cancelar" placement="top">
+                                            <Button_Icon_Blue_50_Dark onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Dark>
+                                        </Tooltip>
+                                        <Tooltip title="Agregar" placement="top">
+                                            <Button_Icon_Green_50_Dark onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Dark>
+                                        </Tooltip>
+                                    </Container_Button_Border_Dark>
+                            </Container_Form_400_Dark>
+                        </>
+                    )
                 ):(
                     <></>
                 )}

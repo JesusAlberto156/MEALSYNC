@@ -9,7 +9,7 @@ import { Tooltip } from "@mui/material";
 
 // Contextos
 import { modeContext } from "../../../contexts/VariablesProvider";
-import { selectedRowContext,modalContext,optionModalContext } from "../../../contexts/VariablesProvider";
+import { selectedRowContext,modalContext,optionModalContext,comprobationContext } from "../../../contexts/VariablesProvider";
 import { nameContext,passwordContext } from "../../../contexts/SessionProvider";
 import { usersContext } from "../../../contexts/UsersProvider";
 // Hooks personalizados
@@ -21,14 +21,13 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaExclamationCircle } from 'react-icons/fa';
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400_Light,Container_Button_Border_Light,Container_Input_Border_Light,Container_Form_400_Dark,Container_Button_Border_Dark,Container_Input_Border_Dark } from "../../styled/Containers";
-import { Text_Title_Fade_30_Light,Text_P_20_Light,Text_Title_Fade_30_Dark,Text_P_20_Dark } from "../../styled/Text";
-import { Button_Icon_Blue_50_Light,Button_Icon_Blue_50_Dark, } from "../../styled/Buttons";
+import { Container_Modal,Container_Form_400_Light,Container_Button_Border_Light,Container_Form_400_Dark,Container_Button_Border_Dark } from "../../styled/Containers";
+import { Text_Title_Fade_30_Light,Text_P_20_Light,Text_Title_Fade_30_Dark,Text_P_20_Dark, Text_Title_Fade_30__Light } from "../../styled/Text";
+import { Button_Icon_Blue_50_Light,Button_Icon_Green_50_Light,Button_Icon_Red_50_Light,Button_Icon_Block_50_Light,Button_Icon_Blue_50_Dark,Button_Icon_Green_50_Dark,Button_Icon_Red_50_Dark,Button_Icon_Block_50_Dark } from "../../styled/Buttons";
 import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
-import { Input_Group_Login,Input_Login } from "../../styled/Inputs";
-import { Label_Login,Label_Popup_Login } from "../../styled/Labels";
-// Componentes personalizados
 
+// Componentes personalizados
+import FormLoginComprobation from "../../forms/FormLoginComprobation";
 //____________IMPORT/EXPORT____________
 
 export default function StatusEnable(){
@@ -40,15 +39,20 @@ export default function StatusEnable(){
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
+    const [isComprobation] = useContext(comprobationContext);
     // Constantes con el valor de useState
-    const [textName,setTextName] = useState(false);
-    const [isFocusedName, setIsFocusedName] = useState(false);
-    const [isFocusedNameColor, setIsFocusedNameColor] = useState(false);
-    const [textPassword,setTextPassword] = useState(false);
-    const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-    const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
     const [user,setUser] = useState('');
 
+    useEffect(() => {
+        if(isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Estatus_Deshabilitar"
+        if(!isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Estatus_Habilitar"
+        if(isSelectedRow !== null){
+            const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
+            if(isUser){
+                setUser(isUser.usuario);
+            }
+        }
+    },[]);
 
     const closeModal = useCloseModal();
     const enableUser = useEnableUser();
@@ -56,89 +60,88 @@ export default function StatusEnable(){
     return(
         <>
             <Container_Modal id="Status-Enable">
-                {!isModal ? (
+                {isModal && isSelectedRow !== null ? (
                     isMode ? (
                         <>
                             <Container_Form_400_Light>
-                                <Text_Title_Fade_30_Light>Hola</Text_Title_Fade_30_Light>
-                                <Text_P_20_Light>Inicia sesión nuevamente...</Text_P_20_Light>
-                                <Container_Input_Border_Light>
-                                    <Input_Group_Login>
-                                        <Label_Login
-                                            isLabelUp={isFocusedName}
-                                            isFocused={isFocusedNameColor}
-                                        >
-                                            Nombre de usuario
-                                        </Label_Login>
-                                        <Input_Login
-                                            value={isName}
-                                            onClick={(e) => {
-                                                setTextName(true);
-                                                setIsFocusedNameColor(true);
-                                                setIsFocusedName(true);
-                                            }}
-                                            onBlur={(e) => {
-                                                setTextName(false);
-                                                setIsFocusedNameColor(false);
-                                                if (e.target.value === ''){
-                                                    setIsFocusedName(false);
-                                                }else{
-                                                    setIsFocusedName(true);
-                                                }
-                                            }}   
-                                            onChange={(e) => setIsName(e.target.value)} 
-                                        />
-                                        {textName && (
-                                            <Label_Popup_Login>Escribe tú nombre de usuario</Label_Popup_Login>
-                                        )}
-                                    </Input_Group_Login>
-                                    <Input_Group_Login>
-                                        <Label_Login 
-                                            isLabelUp={isFocusedPassword}
-                                            isFocused={isFocusedPasswordColor}
-                                        >
-                                            Contraseña
-                                        </Label_Login>
-                                        <Input_Login
-                                            value={isPassword}
-                                            onClick={(e) => {
-                                                setTextPassword(true);
-                                                setIsFocusedPasswordColor(true);
-                                                setIsFocusedPassword(true);
-                                            }}
-                                            onBlur={(e) => {
-                                                setTextPassword(false);
-                                                setIsFocusedPasswordColor(false);
-                                                if (e.target.value === ''){
-                                                    setIsFocusedPassword(false);
-                                                }else{
-                                                    setIsFocusedPassword(true);
-                                                }
-                                            }}   
-                                            onChange={(e) => setIsPassword(e.target.value)} 
-                                            type="password"
-                                        />
-                                        {textPassword && (
-                                            <Label_Popup_Login>Escribe tú Contraseña</Label_Popup_Login>
-                                        )}
-                                    </Input_Group_Login>
-                                </Container_Input_Border_Light>
-                                <Text_P_20_Light>Hola</Text_P_20_Light>
+                                <Text_Title_Fade_30_Light>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Light>
+                                <FormLoginComprobation/>
+                                {isSelectedRow.habilitado ? <Text_P_20_Light>Se deshabilitará a {user} </Text_P_20_Light> : <Text_P_20_Light>Se habilitará a {user}...</Text_P_20_Light>}
                                 <Container_Button_Border_Light>
                                     <Tooltip title="Cancelar" placement="top">
-                                        <Button_Icon_Blue_50_Light id="Boton-Estatus-Cancelar" onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Light>
+                                        <Button_Icon_Blue_50_Light onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Light>
                                     </Tooltip>
+                                    {isSelectedRow.habilitado ? (
+                                        isComprobation ? (
+                                            <>
+                                                <Tooltip title="Deshabilitar" placement="top">
+                                                    <Button_Icon_Red_50_Light onClick={() => useEnableUser()}><FaLock/></Button_Icon_Red_50_Light>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Icon_Block_50_Light onClick={() => useEnableUser()}><FaLock/></Button_Icon_Block_50_Light>
+                                                </Tooltip>
+                                            </>
+                                        )
+                                    ):(
+                                        isComprobation ? (
+                                            <>
+                                                <Tooltip title="Habilitar" placement="top">
+                                                    <Button_Icon_Green_50_Light onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Green_50_Light>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Icon_Block_50_Light onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Block_50_Light>
+                                                </Tooltip>
+                                            </>
+                                        )
+                                    )}
                                 </Container_Button_Border_Light>
                             </Container_Form_400_Light>
                         </>
                     ):(
                         <>
                             <Container_Form_400_Dark>
-                                <Text_Title_Fade_30_Dark>Hola</Text_Title_Fade_30_Dark>
+                                <Text_Title_Fade_30_Dark>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Dark>
+                                <FormLoginComprobation/>
+                                {isSelectedRow.habilitado ? <Text_P_20_Dark>Se deshabilitará a {user} </Text_P_20_Dark> : <Text_P_20_Dark>Se habilitará a {user}...</Text_P_20_Dark>}
                                 <Container_Button_Border_Dark>
                                     <Tooltip title="Cancelar" placement="top">
                                         <Button_Icon_Blue_50_Dark id="Boton-Estatus-Cancelar" onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Dark>
                                     </Tooltip>
+                                    {isSelectedRow.habilitado ? (
+                                        isComprobation ? (
+                                            <>
+                                                <Tooltip title="Deshabilitar" placement="top">
+                                                    <Button_Icon_Red_50_Dark id="Boton-Estatus-Deshabilitar" onClick={() => useEnableUser()}><FaLock/></Button_Icon_Red_50_Dark>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Icon_Block_50_Dark id="Boton-Estatus-Deshabilitar" onClick={() => useEnableUser()}><FaLock/></Button_Icon_Block_50_Dark>
+                                                </Tooltip>
+                                            </>
+                                        )
+                                    ):(
+                                        isComprobation ? (
+                                            <>
+                                                <Tooltip title="Habilitar" placement="top">
+                                                    <Button_Icon_Green_50_Dark id="Boton-Estatus-Habilitar" onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Green_50_Dark>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Icon_Block_50_Dark id="Boton-Estatus-Habilitar" onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Block_50_Dark>
+                                                </Tooltip>
+                                            </>
+                                        )
+                                    )}
                                 </Container_Button_Border_Dark>
                             </Container_Form_400_Dark>
                         </>

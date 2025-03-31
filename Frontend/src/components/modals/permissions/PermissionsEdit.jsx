@@ -8,7 +8,7 @@ import { MdEdit } from "react-icons/md";
 
 import { Background_Modal,Background_Modal_Componets } from "../../styled/Backgrounds";
 import { Container_Modal,Container_Button_Modal,Container_Checkbox_Modal } from "../../styled/Containers";
-import { GlobalStyle,Text_Modal,Title_Fade_Modal } from "../../styled/Text";
+import { GlobalStyle,Title_Fade_Modal } from "../../styled/Text";
 import { Button_Icon_Cancel_Modal,Button_Icon_Exit_Modal } from "../../styled/Buttons";
 import { Input_Checkbox_Modal } from "../../styled/Inputs";
 import { Label_Checkbox_Modal } from "../../styled/Labels";
@@ -38,7 +38,6 @@ export default function PermissionsEdit(){
                         <Background_Modal_Componets>
                             <Title_Fade_Modal>EDITAR PERMISOS</Title_Fade_Modal>
                             
-                            <Text_Modal>Área administrativa...</Text_Modal>
                             <Container_Checkbox_Modal>
                                 <Label_Checkbox_Modal>
                                     <Input_Checkbox_Modal
@@ -62,7 +61,6 @@ export default function PermissionsEdit(){
                                     Almacén
                                 </Label_Checkbox_Modal>
                             </Container_Checkbox_Modal>
-                            <Text_Modal>Área de cocina...</Text_Modal>
                             <Container_Checkbox_Modal>
                                 <Label_Checkbox_Modal>
                                     <Input_Checkbox_Modal

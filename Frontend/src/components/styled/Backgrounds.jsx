@@ -1,21 +1,5 @@
 import styled from 'styled-components';
 
-//--------SIDEBAR--------
-export const Background_Sidebar = styled.div`
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 7%;
-    gap: 10px;
-    opacity: 0.9;
-    background: transparent;
-    display: flex;            
-    justify-content: flex-start;
-    align-items: center;
-    z-index:1000;
-`;
-//--------SIDEBAR--------
 //--------MENU--------
 export const Background_Menu = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'sidebarVisible'
@@ -62,31 +46,6 @@ export const Background_Menu = styled.div.withConfig({
     }
 `;
 //--------MENU--------
-//--------NAVBAR--------
-export const Background_Navbar = styled.div`
-    width: 100%;
-    height: 80%;
-    background: rgb(58,93,174);
-    border-radius: 20px;
-    display: flex;            
-    justify-content: flex-start;
-    align-items: center; 
-    padding: 0 1px; 
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
-
-    @media (max-width: 768px) {
-        height: 70%;
-    }
-
-    @media (max-width: 480px) {
-        height: 60%;
-    }
-`;
-//--------NAVBAR--------
 //--------MODAL--------
 export const Background_Modal = styled.div`
     position: fixed;
@@ -145,79 +104,3 @@ export const Background_Footer = styled.div`
     }
 `;
 //--------FOOTER--------
-//--------ERROR--------
-export const Background_Error = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    position: fixed; 
-    justify-content: center; 
-    align-items: center;   
-    flex-direction: column;
-    gap:10px;      
-    top: 0; 
-    left: 0;
-    background: rgb(100, 15, 15);
-`;
-//--------ERROR--------
-//--------LOADING--------
-export const Background_Loading = styled.div`
-   width: 100%;
-    height: 100%;
-    display: flex;
-    position: fixed; 
-    justify-content: center; 
-    align-items: center;   
-    flex-direction: column;
-    gap:10px;      
-    top: 0; 
-    left: 0; 
-    background: rgb(58,93,174)
-`;
-//--------LOADING--------
-//--------ADMINISTRATION--------
-export const Background_Administration = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'sidebarVisible'
-  })`
-    position: fixed;
-    top: 0%;
-    left: ${({ sidebarVisible }) => (sidebarVisible ? "16.2%" : "4%")};
-    z-index: 9;
-    width: ${({ sidebarVisible }) => (sidebarVisible ? "84%" : "96%")};
-    height: 100%;
-    max-width: 100%;
-    max-height: 100vh;
-    overflow-y: scroll; 
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin: 0px auto;
-    padding: 20px;
-    border-radius: 4px;
-    background-color:rgba(252, 252, 252, 0.39);
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    transition: all 0.3s ease;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        padding: 15px;
-        gap: 15px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "27%" : "8%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "73%" : "92%")};
-    }
-
-    @media (max-width: 480px) {
-        padding: 10px;
-        gap: 10px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "45%" : "9.4%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "55%" : "92%")}; 
-    }
-`;
-//--------ADMINISTRATION--------

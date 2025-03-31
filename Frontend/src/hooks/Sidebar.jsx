@@ -1,28 +1,47 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { useContext } from "react";
+// Componentes de React externos
 
+// Servicios
+
+// Rutas
+
+// Contextos
 import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
 import { visibleContext,searchTermContext } from "../contexts/VariablesProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
+// Hooks personalizados
 
+//__________ICONOS__________
+
+//__________ICONOS__________
+// Estilos personalizados
+
+// Componentes personalizados
+
+//____________IMPORT/EXPORT____________
+
+// Hook para ocultar/mostrar el sidebar
 export const useToggleSidebar = () => {
-
+    // Constantes con el valor de los contextos 
     const [isVisible,setIsVisible] = useContext(visibleContext);
-
+    // Función del hook
     const toggleSidebar = () => {
         setIsVisible(!isVisible);
     };
-
+    // Retorno de la función del hook
     return toggleSidebar;
 };
-
+// Hook para ir a inicio del sidebar
 export const useSidebarHome = () => {
-
+    // Constantes con el valor de los contextos 
     const [isSidebar,setIsSidebar] = useContext(sidebarContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext)
     const [isTypeUser] =  useContext(typeUserContext);
-
+    // Función del hook
     const sidebarHome = (View) => {
-        if(isTypeUser === 'Cocinero' || isTypeUser === 'Medico' || isTypeUser === 'Nutriologo'){
+        if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
             document.title = "MEALSYNC_Menú_Inicio";
         }else{
             document.title = "MEALSYNC_Administración_Inicio";
@@ -30,30 +49,30 @@ export const useSidebarHome = () => {
         setIsSidebar(View);
         setIsSearchTerm('');
     };
-
+    // Retorno de la función del hook
     return sidebarHome;
 };
-
-export const useSidebarOption = () => {
-
+// Hook para ir a una de las opciones del sidebar
+export const useSidebarViews = () => {
+    // Constantes con el valor de los contextos 
     const [isSidebar,setIsSidebar] = useContext(sidebarContext);
     const [isNavbar,setIsNavbar] = useContext(navbarContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext)
-
-    const sidebarOption = (view,navbar) => {
-        if(view === 'General'){document.title = "MEALSYNC_Menú_General";}
-        if(view === 'Colaboradores'){document.title = "MEALSYNC_Menú_Colaboradores";}
-        if(view === 'Nutriologo'){document.title = "MEALSYNC_Menú_Nutriologo";}
-        if(view === 'Medico'){document.title = "MEALSYNC_Menú_Medico";}
-        if(view === 'Usuarios'){document.title = "MEALSYNC_Administración_Usuarios";}
-        if(view === 'Proveedores'){document.title = "MEALSYNC_Administración_Proveedores";}
-        if(view === 'Menus'){document.title = "MEALSYNC_Administración_Menús";}
-        if(view === 'Inventario'){document.title = "MEALSYNC_Administración_Inventario";}
-        if(view === 'Historial'){document.title = "MEALSYNC_Administración_Historial";}
+    // Función del hook
+    const sidebarViews = (view,navbar) => {
+        if(view === 'General')document.title = "MEALSYNC_Menú_General";
+        if(view === 'Collaborators')document.title = "MEALSYNC_Menú_Colaboradores";
+        if(view === 'Nutritionist')document.title = "MEALSYNC_Menú_Nutriólogo";
+        if(view === 'Doctor')document.title = "MEALSYNC_Menú_Medico";
+        if(view === 'Users')document.title = "MEALSYNC_Administración_Usuarios";
+        if(view === 'Suppliers')document.title = "MEALSYNC_Administración_Proveedores";
+        if(view === 'Menus')document.title = "MEALSYNC_Administración_Menús";
+        if(view === 'Inventory')document.title = "MEALSYNC_Administración_Inventario";
+        if(view === 'Record')document.title = "MEALSYNC_Administración_Historial";
         setIsSidebar(view);
         setIsNavbar(navbar);
         setIsSearchTerm('');
     }
-
-    return sidebarOption;
+    // Retorno de la función del hook
+    return sidebarViews;
 };

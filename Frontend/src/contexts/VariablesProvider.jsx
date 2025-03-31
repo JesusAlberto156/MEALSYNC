@@ -1,5 +1,8 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { createContext,useState } from "react"
-
+// Contextos
+export const modeContext = createContext(null);
 export const loadingOptionLoginContext = createContext(null);
 export const toastContext = createContext(null);
 export const visibleContext = createContext(null);
@@ -9,6 +12,19 @@ export const modalContext = createContext(null);
 export const optionModalContext = createContext(null);
 export const selectContext = createContext(null);
 export const radioContext = createContext(null);
+//____________IMPORT/EXPORT____________
+
+// Función Contexto de cambio de modo de las interfaces (Claro/Oscuro)
+export const Mode = ({ children }) => {
+
+    const [isMode,setIsMode] = useState(true);
+
+    return(
+        <modeContext.Provider value={[isMode,setIsMode]}>
+            {children}
+        </modeContext.Provider>
+    );
+}
 
 export const LoadingOptionLogin = ({ children }) => {
 

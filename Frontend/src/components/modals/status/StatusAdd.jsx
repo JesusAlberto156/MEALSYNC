@@ -6,7 +6,7 @@ import { modalContext,optionModalContext } from "../../../contexts/VariablesProv
 import { radioContext,selectContext } from "../../../contexts/VariablesProvider";
 
 import { useFilteredRecordsHasStatus,useHandleSelectChange,useHandleRadioChange } from "../../../hooks/Form";
-import { useAdd } from "../../../hooks/Status";
+import { useAddStatus } from "../../../hooks/Modal";
 
 import { MdCancel } from "react-icons/md";
 import { IoMdAddCircle } from "react-icons/io";
@@ -15,7 +15,7 @@ import { Background_Modal,Background_Modal_Componets } from "../../styled/Backgr
 import { Container_Modal,Container_Button_Modal,Container_Checkbox_Modal,Container_Select_Modal } from "../../styled/Containers";
 import { Input_Radio_Modal } from "../../styled/Inputs";
 import { Label_Checkbox_Modal } from "../../styled/Labels";
-import { GlobalStyle,Title_Fade_Modal,Text_Modal } from "../../styled/Text";
+import { GlobalStyle,Title_Fade_Modal } from "../../styled/Text";
 import { Button_Icon_Cancel_Modal,Button_Icon_Green_Modal } from "../../styled/Buttons";
 
 export default function StatusAdd(){
@@ -50,7 +50,6 @@ export default function StatusAdd(){
                     <Background_Modal>
                         <Background_Modal_Componets>
                             <Title_Fade_Modal>AGREGAR ESTATUS</Title_Fade_Modal>
-                            <Text_Modal>Elegir a un usuario...</Text_Modal>
                             <Container_Select_Modal>
                                 <Select
                                     options={filteredRecordsHasStatus.map((user) => ({
@@ -103,7 +102,6 @@ export default function StatusAdd(){
                                     onChange={handleSelectChange}
                                 />
                             </Container_Select_Modal>
-                            <Text_Modal>Elegir su estado...</Text_Modal>
                             <Container_Checkbox_Modal>
                                 {['Habilitado','Deshabilitado'].map((item,index) => (
                                     <Label_Checkbox_Modal key={index}>

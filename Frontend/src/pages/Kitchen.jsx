@@ -1,7 +1,12 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { useEffect,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+// Componentes de React externos
 import { Toaster } from 'sonner';
+// Servicios
 
+// Contextos
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
 import { toastContext,visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
@@ -9,19 +14,25 @@ import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
 import { statusUserContext,statusEnableContext } from "../contexts/StatusProvider";
 import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
+// Hooks personalizados
 
+//__________ICONOS__________
+
+//__________ICONOS__________
+// Estilos personalizados
 import { Alert_Greeting,Toast_Styles,Alert_Verification } from "../components/styled/Notifications";
 import { Background_Menu } from "../components/styled/Backgrounds";
-
-import OutLogin from "../components/modals/OutLogin";
-import AlertMedico from "../components/modals/AlertMedico";
-import ShoppingCart from "../components/modals/ShoppingCart";
+// Componentes personalizados
+import OutLogin from "../components/modals/General/OutLogin";
+import AlertMedico from "../components/modals/General/AlertDoctor";
+import ShoppingCart from "../components/modals/General/ShoppingCart";
 import Home from '../components/pages/general/Home';
 import OptionsMenu from '../components/pages/menu/OptionsMenu';
 import Sidebar from "../components/sidebar/Sidebar";
 import Footer from "../components/footer/Footer";
+//____________IMPORT/EXPORT____________
 
-export default function Menu(){
+export default function Kitchen(){
     
     const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useContext(loadingOptionLoginContext);
     const [isToast,setIsToast] = useContext(toastContext);

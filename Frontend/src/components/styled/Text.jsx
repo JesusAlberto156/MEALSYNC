@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { fadeAnimation,Rotate } from './Animations';
+import { FadeAnimation } from './Animations';
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
@@ -8,67 +8,288 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Playfair Display', serif;
     }
 `;
-//--------LOGIN--------
-export const Title_Fade_Login = styled.div`
+//____________TITLE____________
+export const Text_Title_Fade_20_Dark = styled.h1`
+    color: white;
+    font-size: 20px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_Title_Fade_20_Light = styled.h1`
     color: black;
-    font-size: 1.2rem;
-    font-family:Arial, Helvetica, sans-serif;
-    margin-bottom: 25px;
-    font-weight: bold;
-    animation: ${fadeAnimation} 2s infinite;
+    font-size: 20px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
 
     @media (max-width: 768px) {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
+        font-size: 18px;
     }
 
     @media (max-width: 480px) {
-        font-size: 1rem;
-        margin-bottom: 15px;
+        font-size: 16px;
     }
 `;
-//--------LOGIN--------
-//--------SIDEBAR--------
-export const Title_Sidebar = styled.div`
+export const Text_Title_Fade_30_Dark = styled.h1`
     color: white;
-    padding-top: 10px;
-    text-align: center;
-    font-size: 1.2rem;
-    font-family:Arial, Helvetica, sans-serif;
-    margin-bottom: 10px;
-    font-weight: bold;
+    font-size: 30px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+    margin-bottom: 30px;
 
     @media (max-width: 768px) {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
+        font-size: 28px;
+        margin-bottom: 25px;
     }
 
     @media (max-width: 480px) {
-        font-size: 1rem;
-        margin-bottom: 15px;
+        font-size: 26px;
+        margin-bottom: 20px;
     }
 `;
-//--------SIDEBAR--------
-//--------NAVBAR--------
-export const Title_Fade_Navbar = styled.div`
+export const Text_Title_Fade_30_Light = styled.h1`
+    color: black;
+    font-size: 30px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Text_Title_Fade_40_Dark = styled.h1`
     color: white;
-    font-size: 2rem;
-    font-family:Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 35px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 30px;
+    }
+`;
+export const Text_Title_Fade_40_Light = styled.h1`
+    color: black;
+    font-size: 40px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 35px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 30px;
+    }
+`;
+export const Text_Title_Fade_50_Dark = styled.h1`
+    color: white;
+    font-size: 50px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 45px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 40px;
+    }
+`;
+export const Text_Title_Fade_50_Light = styled.h1`
+    color: black;
+    font-size: 50px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 45px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 40px;
+    }
+`;
+//____________TITLE____________
+//______________A______________
+export const Text_A_18_Dark = styled.a`
+    color: white;
+    font-size: 18px;
     margin-left: 10px;
-    font-weight: bold;
-    animation: ${fadeAnimation} 2s infinite;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+    transition: background-color 0.3s;
 
     @media (max-width: 768px) {
-        font-size: 1.8rem;
-        margin-left: 8px;
+        font-size: 16px;
+        margin-left: 12px;
     }
 
     @media (max-width: 480px) {
-        font-size: 1.6rem;
-        margin-left: 6px;
+        font-size: 14px;
+        margin-left: 14px;
     }
 `;
-//--------NAVBAR--------
+export const Text_A_18_Light = styled.a`
+    color: black
+    font-size: 18px;
+    margin-left: 10px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+    transition: background-color 0.3s;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        margin-left: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+        margin-left: 14px;
+    }
+`;
+export const Text_A_25_Dark = styled.a`
+    color: white;
+    font-size: 25px;
+    margin-left: 40px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+    transition: background-color 0.3s;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+        margin-left: 25px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+        margin-left: 15px;
+    }
+`;
+export const Text_A_25_Light = styled.a`
+    color: black;
+    font-size: 25px;
+    margin-left: 40px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+    transition: background-color 0.3s;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+        margin-left: 25px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+        margin-left: 15px;
+    }
+`;
+//______________A______________
+//______________P______________
+export const Text_P_20_Dark = styled.p`
+    color: white;
+    font-size: 20px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 30px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        margin-left: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+        margin-left: 26px;
+    }
+`;
+export const Text_P_20_Light = styled.p`
+    color: black;
+    font-size: 20px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 30px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        margin-left: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+        margin-left: 26px;
+    }
+`;
+//______________P______________
+
 //--------MODAL--------
 export const Title_Fade_Modal = styled.h1`
     text-align: center;
@@ -76,7 +297,7 @@ export const Title_Fade_Modal = styled.h1`
     margin-top: 10px;
     font-size: 30px;
 
-    animation: ${fadeAnimation} 2s infinite;
+    animation: ${FadeAnimation} 2s infinite;
 
     @media (max-width: 768px) {
         font-size: 25px;
@@ -86,20 +307,6 @@ export const Title_Fade_Modal = styled.h1`
     @media (max-width: 480px) {
         font-size: 20px;
         margin-top: 6px;
-    }
-`;
-export const Text_Modal = styled.p`
-    font-size: 22px;
-    margin-left: 20px;
-    top: 0px;
-    position: relative;
-    height: 5px;
-    @media (max-width: 768px) {
-        font-size: 18px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
     }
 `;
 //--------MODAL--------
@@ -121,38 +328,6 @@ export const Text_Footer = styled.p`
     }
 `;
 //--------FOOTER--------
-//--------ERROR--------
-export const Title_Fade_Error = styled.div`
-    color: white;
-    font-size: 4rem;
-    font-family:Arial, Helvetica, sans-serif;
-    margin-bottom: 25px;
-    font-weight: bold;
-    animation: ${fadeAnimation} 2s infinite;
-
-    @media (max-width: 768px) {
-        font-size: 3.5rem;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 3rem;
-    }
-`;
-export const Text_Error = styled.div`
-    color: white;
-    font-size: 2rem;
-    font-family:Arial, Helvetica, sans-serif;  
-    font-weight: bold;
-    
-    @media (max-width: 768px) {
-        font-size: 1.5rem;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 1rem;
-    }
-`;
-//--------ERROR--------
 //--------LOADING--------
 export const Title_Fade_Loading = styled.div`
     color: white;
@@ -160,7 +335,7 @@ export const Title_Fade_Loading = styled.div`
     font-family:Arial, Helvetica, sans-serif;
     margin-bottom: 25px;
     font-weight: bold;
-    animation: ${fadeAnimation} 2s infinite;
+    animation: ${FadeAnimation} 2s infinite;
 
     @media (max-width: 768px) {
         font-size: 3.5rem;

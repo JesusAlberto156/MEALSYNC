@@ -6,7 +6,7 @@ import { navbarContext,sidebarContext } from "../../contexts/ViewsProvider";
 import { searchTermContext,selectedRowContext } from "../../contexts/VariablesProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider"; 
 
-import { useModal } from '../../hooks/Modal'
+import { useOpenModal } from '../../hooks/Modal'
 
 import { FcSearch } from "react-icons/fc";
 import { FaShoppingCart } from "react-icons/fa";
@@ -29,7 +29,7 @@ import { Button_Blue_Search_Bar,Button_Green_Search_Bar,Button_Red_Search_Bar,Bu
 
 export default function SearchBar (){
     
-    const modal = useModal();
+    const modal = useOpenModal();
     const [isTypeUser] = useContext(typeUserContext);
     const [isNavbar] = useContext(navbarContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);

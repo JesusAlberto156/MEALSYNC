@@ -9,7 +9,7 @@ export const Rotate = keyframes`
         transform: rotate(360deg);
     }
 `;
-export const fadeAnimation = keyframes`
+export const FadeAnimation = keyframes`
   0% { opacity: 1; }
   50% { opacity: 0; }
   100% { opacity: 1; }

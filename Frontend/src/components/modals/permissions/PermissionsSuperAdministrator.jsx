@@ -10,7 +10,7 @@ import { FaExclamationCircle } from 'react-icons/fa';
 
 import { Background_Modal,Background_Modal_Componets } from "../../styled/Backgrounds";
 import { Container_Modal,Container_Button_Modal } from "../../styled/Containers";
-import { GlobalStyle,Title_Fade_Modal,Text_Modal } from "../../styled/Text";
+import { GlobalStyle,Title_Fade_Modal } from "../../styled/Text";
 import { Button_Icon_Cancel_Modal,Button_Icon_Green_Modal,Button_Icon_Exit_Modal } from "../../styled/Buttons";
 import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
 
@@ -48,7 +48,6 @@ export default function PermissionsSuperAdministrator(){
                         <Background_Modal_Componets>
                             <Title_Fade_Modal>{isSelectedRow.superAdmon ? 'DESHABILITAR':'HABILITAR'}<br/> SUPER ADMINISTRADOR</Title_Fade_Modal>
                             
-                            {isSelectedRow.superAdmon ? <Text_Modal>{user} pierde el permiso <Icon_Warning_Modal><FaExclamationCircle /><Icon_Tooltip_Modal>¡Cerrará su sesión de forma forzada!...</Icon_Tooltip_Modal></Icon_Warning_Modal></Text_Modal> : <Text_Modal>{user} gana el permiso...</Text_Modal>}
                             <Container_Button_Modal>
                                 <Tooltip title="Cancelar" placement="top">
                                     <Button_Icon_Cancel_Modal id="Boton-Permisos-Cancelar" onClick={Cancel}><MdCancel/></Button_Icon_Cancel_Modal>

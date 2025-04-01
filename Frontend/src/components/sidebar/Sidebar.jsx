@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import React, { useState, useEffect,useContext } from "react";
+import { useState, useEffect,useContext } from "react";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Servicios
@@ -13,14 +13,8 @@ import { visibleContext } from "../../contexts/VariablesProvider";
 import { typeUserContext } from "../../contexts/TypeUserProvider";
 import { userContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
-import { useOpenModal } from "../../hooks/Modal";
-import { useToggleSidebar,useSidebarHome,useSidebarViews } from '../../hooks/Sidebar'
+import { useSidebarHome,useSidebarViews } from '../../hooks/Sidebar'
 //__________ICONOS__________
-// Iconos para el toggle
-import { BsToggleOff } from "react-icons/bs";
-import { BsToggleOn } from "react-icons/bs";
-// Icono para el logout
-import { FaSignOutAlt } from "react-icons/fa";
 // Icono para el inicio
 import { BiSolidHomeAlt2 } from "react-icons/bi";
 // Iconos para las opciones del cocinero
@@ -37,10 +31,10 @@ import { MdStorage } from "react-icons/md";
 import { MdWorkHistory } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Button_Light,Container_Sidebar_Light,Container_Button_Dark,Container_Sidebar_Dark,Container_Icon } from "../styled/Containers";
+import { Container_Sidebar_Light,Container_Sidebar_Dark,Container_Icon } from "../styled/Containers";
 import { Icon_Image_Profile_Light,Icon_Image_Profile_Dark } from "../styled/Icons";
 import { Text_Title_Fade_20_Light,Text_A_18_Light,Text_Title_Fade_20_Dark,Text_A_18_Dark } from "../styled/Text";
-import { Button_Icon_Toggle_Light,Button_Icon_Logout_Light,Button_Icon_Blue_95_Light,Button_Icon_Toggle_Dark,Button_Icon_Logout_Dark,Button_Icon_Blue_95_Dark } from '../styled/Buttons';
+import { Button_Icon_Blue_95_Light,Button_Icon_Blue_95_Dark } from '../styled/Buttons';
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -62,8 +56,6 @@ export default function Sidebar() {
     }
   }, [isVisible]);
   // Constantes con la funcionalidad de los hooks
-  const openModal = useOpenModal();
-  const toggleSidebar = useToggleSidebar();
   const sidebarHome = useSidebarHome();
   const sidebarViews = useSidebarViews();
   // Estructura del componente
@@ -71,20 +63,6 @@ export default function Sidebar() {
     <>
       {isMode ? (
         <>
-          <Container_Button_Light>
-            {isVisible ? (
-              <Tooltip title='Ocultar' placement="bottom">
-                <Button_Icon_Toggle_Light onClick={() => toggleSidebar()}><BsToggleOn /></Button_Icon_Toggle_Light>
-              </Tooltip>
-            ):(
-              <Tooltip title='Mostrar' placement="bottom">
-                <Button_Icon_Toggle_Light onClick={() => toggleSidebar()}><BsToggleOff /></Button_Icon_Toggle_Light>
-              </Tooltip>
-            )}  
-            <Tooltip title='Salir' placement="bottom">
-              <Button_Icon_Logout_Light onClick={() => openModal('Out-Login')}><FaSignOutAlt/></Button_Icon_Logout_Light>
-            </Tooltip>
-          </Container_Button_Light>  
           <Container_Sidebar_Light className={isVisible ? 'visible' : 'hidden'}>
             <Container_Icon>
               <Icon_Image_Profile_Light src={profileImage}/>
@@ -179,21 +157,7 @@ export default function Sidebar() {
           </Container_Sidebar_Light>
         </>
       ):(
-        <>
-          <Container_Button_Dark>
-            {isVisible ? (
-              <Tooltip title='Ocultar' placement="bottom">
-                <Button_Icon_Toggle_Dark onClick={() => toggleSidebar()}><BsToggleOn /></Button_Icon_Toggle_Dark>
-              </Tooltip>
-            ):(
-              <Tooltip title='Mostrar' placement="bottom">
-                <Button_Icon_Toggle_Dark onClick={() => toggleSidebar()}><BsToggleOff /></Button_Icon_Toggle_Dark>
-              </Tooltip>
-            )}  
-            <Tooltip title='Salir' placement="bottom">
-              <Button_Icon_Logout_Dark onClick={() => openModal('Out-Login')}><FaSignOutAlt/></Button_Icon_Logout_Dark>
-            </Tooltip>
-          </Container_Button_Dark>  
+        <> 
           <Container_Sidebar_Dark className={isVisible ? 'visible' : 'hidden'}>
             <Container_Icon>
               <Icon_Image_Profile_Dark src={profileImage}/>

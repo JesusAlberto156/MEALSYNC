@@ -24,7 +24,7 @@ export default function TableStatus(){
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Tabla-Estatus");
-            const elements = document.querySelectorAll('#Button-Status, #Status-Enable');
+            const elements = document.querySelectorAll('#Description, #Button-Status, #Status-Enable');
 
             if (table && !table.contains(event.target) &&
             ![...elements].some((btn) => btn.contains(event.target))) {

@@ -2,12 +2,10 @@ import styled from 'styled-components';
 
 //____________ICON____________
 export const Button_Icon_Dark = styled.button`
-    position: absolute;
-    top: 15px;
-    right: 50px;
-    width: 30px;
+    width: 40px;
     padding: 6px;
-    font-size: 30px;
+    font-size: 22px;
+    border-radius: 50px;
     background-color: transparent;
     color: white;
     border: none;
@@ -15,6 +13,8 @@ export const Button_Icon_Dark = styled.button`
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     box-sizing: border-box;
+    margin-left: auto;
+    margin-right: 55px;
     z-index: 2000;
     
     &:hover {
@@ -22,24 +22,24 @@ export const Button_Icon_Dark = styled.button`
     }
 
     @media (max-width: 768px) {
-        padding: 4px;
-        width: 25px;
-        font-size: 25px;
+        width: 30px;
+        font-size: 18px;
+        margin-right: 45px;
+        margin-top: 10px;
     }
 
     @media (max-width: 480px) {
-        padding: 2px;
         width: 20px;
-        font-size: 20px;
+        font-size: 14px;
+        margin-right: 35px;
+        margin-top: 5px;
     }
 `;
 export const Button_Icon_Light = styled.button`
-    position: absolute;
-    top: 15px;
-    right: 50px;
-    width: 30px;
+    width: 40px;
     padding: 6px;
-    font-size: 30px;
+    font-size: 22px;
+    border-radius: 50px;
     background-color: transparent;
     color: black;
     border: none;
@@ -47,6 +47,8 @@ export const Button_Icon_Light = styled.button`
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     box-sizing: border-box;
+    margin-left: auto;
+    margin-right: 55px;
     z-index: 2000;
     
     &:hover {
@@ -54,20 +56,23 @@ export const Button_Icon_Light = styled.button`
     }
 
     @media (max-width: 768px) {
-        padding: 4px;
-        width: 25px;
-        font-size: 25px;
+        width: 30px;
+        font-size: 18px;
+        margin-right: 45px;
+        margin-top: 10px;
     }
 
     @media (max-width: 480px) {
-        padding: 2px;
         width: 20px;
-        font-size: 20px;
+        font-size: 14px;
+        margin-right: 35px;
+        margin-top: 5px;
     }
 `;
 export const Button_Icon_Toggle_Dark = styled.button`   
-    width: 50%;
-    font-size: 30px;
+    width: 70px;
+    padding: 6px;
+    font-size: 20px;
     border-radius: 50px;
     background-color:rgb(82, 126, 231);
     color: white;
@@ -84,16 +89,21 @@ export const Button_Icon_Toggle_Dark = styled.button`
     }
 
     @media (max-width: 768px) {
-        font-size: 20px;
+        padding: 4px;
+        font-size: 15px;
+        width: 50px;
     }
 
     @media (max-width: 480px) {
-        font-size: 12px;
+        padding: 2px;
+        font-size: 10px;
+        width: 30px;
     }
 `;
 export const Button_Icon_Toggle_Light = styled.button`   
-    width: 50%;
-    font-size: 30px;
+    width: 70px;
+    padding: 6px;
+    font-size: 20px;
     border-radius: 50px;
     background-color: rgb(58,93,174);
     color: white;
@@ -110,15 +120,19 @@ export const Button_Icon_Toggle_Light = styled.button`
     }
 
     @media (max-width: 768px) {
-        font-size: 20px;
+        padding: 4px;
+        font-size: 15px;
+        width: 50px;
     }
 
     @media (max-width: 480px) {
-        font-size: 12px;
+        padding: 2px;
+        font-size: 10px;
+        width: 30px;
     }
 `;
 export const Button_Icon_Logout_Dark = styled.button`
-    width: 50%;
+    width: 70px;
     padding: 6px;
     font-size: 20px;
     border-radius: 50px;
@@ -139,15 +153,17 @@ export const Button_Icon_Logout_Dark = styled.button`
     @media (max-width: 768px) {
         padding: 4px;
         font-size: 15px;
+        width: 50px;
     }
 
     @media (max-width: 480px) {
         padding: 2px;
         font-size: 10px;
+        width: 30px;
     }
 `;
 export const Button_Icon_Logout_Light = styled.button`
-    width: 50%;
+    width: 70px;
     padding: 6px;
     font-size: 20px;
     border-radius: 50px;
@@ -168,11 +184,13 @@ export const Button_Icon_Logout_Light = styled.button`
     @media (max-width: 768px) {
         padding: 4px;
         font-size: 15px;
+        width: 50px;
     }
 
     @media (max-width: 480px) {
         padding: 2px;
         font-size: 10px;
+        width: 30px;
     }
 `;
 export const Button_Icon_Blue_50_Dark = styled.button`

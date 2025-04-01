@@ -12,7 +12,7 @@ import { loggedContext,logContext } from "./SessionProvider";
 import { userContext,usersContext } from "./UsersProvider";
 import { toastContext,selectContext,radioContext,modalContext,optionModalContext,selectedRowContext } from "./VariablesProvider";
 
-import { Alert_Verification,Alert_Warning } from "../components/styled/Notifications";
+import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
 
 export const StatusAll = ({ children }) => {
 
@@ -46,7 +46,7 @@ export const StatusAll = ({ children }) => {
     const alertShown = useRef(false);
 
     useEffect(() => {
-        if(isLogged && isUser !== 0 && !alertShown.current){
+        if(isLogged && isStatusAll.length !== 0 && isLog && isUser.length !== 0 && !alertShown.current){
             const user = isStatusAll.find(user => user.idusuario === isUser.idusuario);
             if(user){
                 if(!user.habilitado){
@@ -120,8 +120,6 @@ export const StatusAdd = ({ children }) => {
             if(isSelect.length !== 0 && isRadio !== ''){
                 const promise = new Promise(async (resolve,reject) => {
                     try{
-                        setIsToast(true);
-
                         setTimeout(() => {
                             socket.emit('statusInsert',isSelect.value,isRadio === 'Habilitado' ? 1:0,isSelect.label);
 
@@ -141,16 +139,11 @@ export const StatusAdd = ({ children }) => {
                             return () => {
                                 socket.off('statusInsert');
                             }
-                        },500);
-
+                        },2000);
                     }catch(error){
                         reject('¡Ocurrio un error inesperado!...');
                     }
                 });
-
-                setTimeout(() => {
-                    setIsToast(false);
-                },3000);
 
                 Alert_Verification(promise,'¡Agregando estatus a un usuario!...');
             }
@@ -170,7 +163,6 @@ export const StatusEnable = ({ children }) => {
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
     const [isModal,setIsModal] = useContext(modalContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isToast,setIsToast] = useContext(toastContext);
     const [socket] = useContext(socketContext);
 
     const [isStatusEnable,setIsStatusEnable] = useState([]);
@@ -182,8 +174,6 @@ export const StatusEnable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{
-                            setIsToast(true);
-        
                             setTimeout(() => {
                                 socket.emit('statusDisable',isStatusEnable.idusuario,enable.usuario);
         
@@ -202,25 +192,18 @@ export const StatusEnable = ({ children }) => {
                                 return () => {
                                     socket.off('statusDisable');
                                 }
-                            },500);
-        
+                            },2000);
                         }catch(error){
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });
-        
-                    setTimeout(() => {
-                        setIsToast(false);
-                    },3000);
 
                     Alert_Verification(promise,'¡Deshabilitando usuario!...');
                 }
             }else if(!isStatusEnable.habilitado){
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setIsToast(true);
-        
+                        try{     
                             setTimeout(() => {
                                 socket.emit('statusEnable',isStatusEnable.idusuario,enable.usuario);
 
@@ -245,10 +228,6 @@ export const StatusEnable = ({ children }) => {
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });
-        
-                    setTimeout(() => {
-                        setIsToast(false);
-                    },3000);
 
                     Alert_Verification(promise,'¡Habilitando usuario!...');
                 }

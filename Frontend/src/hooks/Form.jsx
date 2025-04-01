@@ -5,7 +5,7 @@ import { statusAllContext } from '../contexts/StatusProvider';
 import { selectContext,radioContext,comprobationContext } from "../contexts/VariablesProvider";
 import { nameContext,passwordContext } from "../contexts/SessionProvider";
 
-import { Alert_Verification } from "../components/styled/Notifications";
+import { Alert_Verification } from "../components/styled/Alerts";
 
 export const useFilteredRecordsHasStatus = () => {
 
@@ -51,20 +51,22 @@ export const useComprobation = () => {
     const comprobation = async () => {
         const promise = new Promise(async (resolve,reject) => {
             try{
-                if(isUser !== 0){
-                    if(isName === ''){
-                        reject('¡Falta escribir el nombre de usuario!...');
+                setTimeout(() => {
+                    if(isUser.length !== 0){
+                        if(isName === ''){
+                            reject('¡Falta escribir el nombre de usuario!...');
+                        }
+                        if(isPassowrd === ''){
+                            reject('¡Falta escribir la contraseña!...')
+                        }
+                        if(isName === isUser.usuario && isPassowrd === isUser.contrasena){
+                            resolve('¡Bienvenido(a), puede proceder con la acción!...');
+                            setIsComprobation(true);
+                        }else{
+                            reject('¡Nombre de usuario o contraseña incorrectos!...')
+                        }
                     }
-                    if(isPassowrd === ''){
-                        reject('¡Falta escribir la contraseña!...')
-                    }
-                    if(isName === isUser.usuario && isPassowrd === isUser.contrasena){
-                        resolve('¡Bienvenido(a), puede proceder con la acción!...');
-                        setIsComprobation(true);
-                    }else{
-                        reject('¡Nombre de usuario o contraseña incorrectos!...')
-                    }
-                }
+                },1000);
             } catch (error) {
                 reject('¡Ocurrio un error inseperado!...');
             }

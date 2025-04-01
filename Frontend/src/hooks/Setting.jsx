@@ -8,7 +8,7 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { modeContext } from "../contexts/VariablesProvider";
+import { modeContext,visibleContext } from "../contexts/VariablesProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -20,6 +20,17 @@ import { modeContext } from "../contexts/VariablesProvider";
 
 //____________IMPORT/EXPORT____________
 
+// Hook para ocultar/mostrar el sidebar
+export const useToggleSidebar = () => {
+    // Constantes con el valor de los contextos 
+    const [isVisible,setIsVisible] = useContext(visibleContext);
+    // Función del hook
+    const toggleSidebar = () => {
+        setIsVisible(!isVisible);
+    };
+    // Retorno de la función del hook
+    return toggleSidebar;
+};
 // Hook para cambiar de modo claro/oscuro
 export const useChangeMode = () => {
     // Constantes con el valor de los contextos 

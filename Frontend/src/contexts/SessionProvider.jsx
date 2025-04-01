@@ -11,7 +11,27 @@ import { userContext } from './UsersProvider';
 
 export const Log = ({children}) => {
 
-    const [isLog,setIsLog] = useState(null);
+    const [isLog,setIsLog] = useState(() => {
+        const log = sessionStorage.getItem('Log');
+
+        if(log){
+            try{
+                const decryptedData = decryptData(log);
+
+                if(decryptedData){
+                    console.log('Sesión cargada correctamente...');
+                    return true;
+                }else{
+                    console.log('Error al desencriptar datos almacenados...');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return false;
+            }
+        }
+        return false;
+    });
 
     return (
         <logContext.Provider value={[isLog,setIsLog]}>

@@ -17,6 +17,7 @@ import { sidebarContext,navbarContext } from "../../../contexts/ViewsProvider";
 // Estilos personalizados
 
 // Componentes personalizados
+import Setting from "../../setting/Setting";
 import Navbar from "../../navbar/Navbar"
 import SearchBar from '../../searchbar/SearchBar'
 import TableUsers from "../../tables/TableUsers";
@@ -32,6 +33,7 @@ export default function Users(){
     // Estructura del componente
     return(
         <> 
+            <Setting/>
             <Navbar/> 
             <SearchBar/>  
             {isSidebar === 'Users' ? (

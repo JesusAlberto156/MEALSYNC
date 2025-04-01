@@ -8,7 +8,7 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { logContext } from "../contexts/SessionProvider";
+import { logContext,nameContext,passwordContext } from "../contexts/SessionProvider";
 import { statusEnableContext,statusDeleteContext,statusAddContext } from "../contexts/StatusProvider";
 import { selectedRowContext,modalContext,optionModalContext,selectContext,radioContext,toastContext } from "../contexts/VariablesProvider";
 import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
@@ -18,7 +18,7 @@ import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Verification } from "../components/styled/Notifications";
+import { Alert_Verification } from "../components/styled/Alerts";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -41,18 +41,21 @@ export const useCloseModal = () => {
     // Constantes con el valor de los contextos 
     const [isModal, setIsModal] = useContext(modalContext);
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
+    const [isName,setIsName] = useContext(nameContext);
+    const [isPassword,setIsPassword] = useContext(passwordContext);
     const [isSelect,setIsSelect] = useContext(selectContext);
     const [iseRadio,setIsRadio] = useContext(radioContext);
     // Función del hook
     const closeModal = () => {
-        setIsModal(false);
-        if(isOptionModal === 'Status-Enable'){
-            
-        }
         if(isOptionModal === 'Status-Add'){
             setIsSelect([]);
             setIsRadio('');
         }
+        if(isOptionModal === 'Status-Enable'){
+            setIsName('');
+            setIsPassword('');
+        }
+        setIsModal(false);
         setIsOptionModal('');
     }
     // Retorno de la función del hook
@@ -85,8 +88,6 @@ export const useAddStatus = () => {
         if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Status-Add'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
-                    setIsToast(true);
-
                     setTimeout(() => {
                         if(isSelect.length === 0) return reject('¡No ha seleccionado un usuario!...');
                         if(isRadio === '') return reject('¡No ha seleccionado un estado!...');
@@ -94,15 +95,11 @@ export const useAddStatus = () => {
                         resolve('¡Datos verificados!...');
                         
                         setIsStatusAdd(true);
-                    },500);
+                    },1000);
                 }catch(error){
                     reject('¡Ocurrio un error inesperado!...');
                 }
             });
-
-            setTimeout(() => {
-                setIsToast(false);
-            },3000);
 
             Alert_Verification(promise,'¡Verificando datos!...');
         }

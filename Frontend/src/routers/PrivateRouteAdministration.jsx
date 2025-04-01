@@ -28,6 +28,6 @@ export const PrivateRouteAdministration = () => {
     const [isLogged] = useContext(loggedContext);
     const [typeUser] = useContext(typeUserContext);
     // Función del componente
-    if(!isLogged) return <Navigate to={'/Login'}/>;
-    return typeUser==='Administrator' || typeUser==='Chef' || typeUser==='Storekeeper' ? <Outlet/> : <Navigate to={'/Login'}/>;
+    if(!isLogged) return <Navigate to={'/'}/>;
+    return typeUser==='Administrator' || typeUser==='Chef' || typeUser==='Storekeeper' ? <Outlet/> : <Navigate to={'/'}/>;
 }

@@ -59,43 +59,43 @@ export default function StatusEnable(){
 
     return(
         <>
-            <Container_Modal id="Status-Enable">
-                {isModal && isSelectedRow !== null ? (
-                    isMode ? (
+            {isModal && isSelectedRow !== null ? (
+                <Container_Modal id="Status-Enable">
+                    {isMode ? (
                         <>
                             <Container_Form_400_Light>
                                 <Text_Title_Fade_30_Light>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Light>
                                 <FormLoginComprobation/>
                                 {isSelectedRow.habilitado ? <Text_P_20_Light>Se deshabilitará a {user} </Text_P_20_Light> : <Text_P_20_Light>Se habilitará a {user}...</Text_P_20_Light>}
                                 <Container_Button_Border_Light>
-                                    <Tooltip title="Cancelar" placement="top">
+                                    <Tooltip id="Description" title="Cancelar" placement="top">
                                         <Button_Icon_Blue_50_Light onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Light>
                                     </Tooltip>
                                     {isSelectedRow.habilitado ? (
                                         isComprobation ? (
                                             <>
-                                                <Tooltip title="Deshabilitar" placement="top">
+                                                <Tooltip id="Description" title="Deshabilitar" placement="top">
                                                     <Button_Icon_Red_50_Light onClick={() => useEnableUser()}><FaLock/></Button_Icon_Red_50_Light>
                                                 </Tooltip>
                                             </>
                                         ):(
                                             <>
                                                 <Tooltip title="" placement="top">
-                                                    <Button_Icon_Block_50_Light onClick={() => useEnableUser()}><FaLock/></Button_Icon_Block_50_Light>
+                                                    <Button_Icon_Block_50_Light><FaLock/></Button_Icon_Block_50_Light>
                                                 </Tooltip>
                                             </>
                                         )
                                     ):(
                                         isComprobation ? (
                                             <>
-                                                <Tooltip title="Habilitar" placement="top">
+                                                <Tooltip id="Description" title="Habilitar" placement="top">
                                                     <Button_Icon_Green_50_Light onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Green_50_Light>
                                                 </Tooltip>
                                             </>
                                         ):(
                                             <>
                                                 <Tooltip title="" placement="top">
-                                                    <Button_Icon_Block_50_Light onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Block_50_Light>
+                                                    <Button_Icon_Block_50_Light><FaLockOpen/></Button_Icon_Block_50_Light>
                                                 </Tooltip>
                                             </>
                                         )
@@ -110,34 +110,34 @@ export default function StatusEnable(){
                                 <FormLoginComprobation/>
                                 {isSelectedRow.habilitado ? <Text_P_20_Dark>Se deshabilitará a {user} </Text_P_20_Dark> : <Text_P_20_Dark>Se habilitará a {user}...</Text_P_20_Dark>}
                                 <Container_Button_Border_Dark>
-                                    <Tooltip title="Cancelar" placement="top">
-                                        <Button_Icon_Blue_50_Dark id="Boton-Estatus-Cancelar" onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Dark>
+                                    <Tooltip id="Description" title="Cancelar" placement="top">
+                                        <Button_Icon_Blue_50_Dark onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Dark>
                                     </Tooltip>
                                     {isSelectedRow.habilitado ? (
                                         isComprobation ? (
                                             <>
-                                                <Tooltip title="Deshabilitar" placement="top">
-                                                    <Button_Icon_Red_50_Dark id="Boton-Estatus-Deshabilitar" onClick={() => useEnableUser()}><FaLock/></Button_Icon_Red_50_Dark>
+                                                <Tooltip id="Description" title="Deshabilitar" placement="top">
+                                                    <Button_Icon_Red_50_Dark onClick={() => useEnableUser()}><FaLock/></Button_Icon_Red_50_Dark>
                                                 </Tooltip>
                                             </>
                                         ):(
                                             <>
                                                 <Tooltip title="" placement="top">
-                                                    <Button_Icon_Block_50_Dark id="Boton-Estatus-Deshabilitar" onClick={() => useEnableUser()}><FaLock/></Button_Icon_Block_50_Dark>
+                                                    <Button_Icon_Block_50_Dark><FaLock/></Button_Icon_Block_50_Dark>
                                                 </Tooltip>
                                             </>
                                         )
                                     ):(
                                         isComprobation ? (
                                             <>
-                                                <Tooltip title="Habilitar" placement="top">
-                                                    <Button_Icon_Green_50_Dark id="Boton-Estatus-Habilitar" onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Green_50_Dark>
+                                                <Tooltip id="Description" title="Habilitar" placement="top">
+                                                    <Button_Icon_Green_50_Dark  onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Green_50_Dark>
                                                 </Tooltip>
                                             </>
                                         ):(
                                             <>
                                                 <Tooltip title="" placement="top">
-                                                    <Button_Icon_Block_50_Dark id="Boton-Estatus-Habilitar" onClick={() => useEnableUser()}><FaLockOpen/></Button_Icon_Block_50_Dark>
+                                                    <Button_Icon_Block_50_Dark><FaLockOpen/></Button_Icon_Block_50_Dark>
                                                 </Tooltip>
                                             </>
                                         )
@@ -145,11 +145,11 @@ export default function StatusEnable(){
                                 </Container_Button_Border_Dark>
                             </Container_Form_400_Dark>
                         </>
-                    )
-                ):(
-                    <></>
-                )}
-            </Container_Modal>
+                    )}
+                </Container_Modal>
+            ):(
+                <></>
+            )}
         </>
     );
 }

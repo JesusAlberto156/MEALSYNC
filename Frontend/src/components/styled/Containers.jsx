@@ -29,8 +29,10 @@ export const Container_Page_Login_Dark = styled.div`
     max-height: none;
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-Items: center;
+    flex-direction: column;
+    padding-top: 60px;
 `;
 export const Container_Page_Login_Light = styled.div`
     background-image: url(${Background_Login_Light});    
@@ -41,8 +43,10 @@ export const Container_Page_Login_Light = styled.div`
     max-height: none;
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-Items: center;
+    flex-direction: column;
+    padding-top: 60px;
 `;
 export const Container_Page_Menu_Dark = styled.div`
     background-image: url(${Background_Menu_Dark});    
@@ -103,7 +107,7 @@ export const Container_Page_Error_Dark = styled.div`
     gap:10px;      
     top: 0; 
     left: 0;
-    background:rgb(155, 9, 9);
+    background:rgb(125, 27, 27);
 `;
 export const Container_Page_Error_Light = styled.div`
     width: 100%;
@@ -116,7 +120,7 @@ export const Container_Page_Error_Light = styled.div`
     gap:10px;      
     top: 0; 
     left: 0;
-    background: rgb(208, 31, 31);
+    background: rgb(229, 44, 44);
 `;
 export const Container_Page_Loading_Dark = styled.div`
     width: 100%;
@@ -150,7 +154,6 @@ export const Container_Page_Elements = styled.div.withConfig({
     position: fixed;
     top: 0%;
     left: ${({ sidebarVisible }) => (sidebarVisible ? "21.2%" : "5%")};
-    z-index: 9;
     width: ${({ sidebarVisible }) => (sidebarVisible ? "83%" : "100%")};
     height: 100%;
     max-width: 100%;
@@ -167,9 +170,9 @@ export const Container_Page_Elements = styled.div.withConfig({
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+    padding-top: 30px;
     transition: all 0.3s ease;
-    padding-top: 90px;
 
     &::-webkit-scrollbar {
         display: none;
@@ -177,16 +180,16 @@ export const Container_Page_Elements = styled.div.withConfig({
     
     @media (max-width: 768px) {
         padding: 15px;
-        padding-top: 75px;
-        gap: 15px;
+        padding-top: 15px;
+        gap: 10px;
         left: ${({ sidebarVisible }) => (sidebarVisible ? "32%" : "6%")}; 
         width: ${({ sidebarVisible }) => (sidebarVisible ? "70%" : "100%")};
     }
 
     @media (max-width: 480px) {
         padding: 10px;
-        padding-top: 60px;
-        gap: 10px;
+        padding-top: 10px;
+        gap: 5px;
         left: ${({ sidebarVisible }) => (sidebarVisible ? "42%" : "8%")}; 
         width: ${({ sidebarVisible }) => (sidebarVisible ? "60%" : "98%")}; 
     }
@@ -344,68 +347,6 @@ export const Container_Modal = styled.div`
 `;
 //____________MODAL____________
 //____________BUTTOM____________
-export const Container_Button_Dark = styled.div`
-    position: absolute;
-    display: flex;
-    gap: 15px; 
-    justify-content: center; 
-    align-items: center;
-    border: 2px solid white;
-    border-radius: 50px;
-    height: 35px;
-    width: 150px;
-    padding: 10px;
-    margin-top: 10px;
-    margin-left: 270px;
-    z-index: 30;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        padding: 8px;
-        height: 25px;
-        width: 125px;
-        margin-left: 250px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        padding: 6px;
-        height: 15px;
-        width: 100px;
-        margin-left: 210px;
-    }
-`;
-export const Container_Button_Light = styled.div`
-    position: absolute;
-    display: flex;
-    gap: 15px; 
-    justify-content: center; 
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 50px;
-    height: 35px;
-    width: 150px;
-    padding: 10px;
-    margin-top: 10px;
-    margin-left: 270px;
-    z-index: 30;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        padding: 8px;
-        height: 25px;
-        width: 125px;
-        margin-left: 250px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        padding: 6px;
-        height: 15px;
-        width: 100px;
-        margin-left: 210px;
-    }
-`;
 export const Container_Button = styled.div`
     display: flex;
     gap: 15px; 
@@ -478,6 +419,69 @@ export const Container_Button_Border_Light = styled.div`
         padding: 6px;
         height: 40px;
     }
+`;
+export const Container_Setting_Dark = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: 40px;  
+    border-radius: 50px; 
+    border: none;      
+    position: relative; 
+    padding: 4px;
+    gap: 15px;
+    margin-left: 15px;
+    padding-left: 40px;
+
+    @media (max-width: 768px) {
+        height: 50px;
+        padding: 3px;
+        gap: 10px;  
+        margin-left: 10px;
+        padding-left: 30px;  
+    }
+
+    @media (max-width: 480px) {
+        height: 40px;
+        padding: 2px;
+        gap: 5px;
+        margin-left: 5px;
+        padding-left: 20px;
+    }
+`;
+export const Container_Setting_Light = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: 40px;  
+    border-radius: 50px; 
+    border: none;      
+    position: relative; 
+    padding: 4px;
+    gap: 15px;
+    margin-left: 15px;
+    padding-left: 40px;
+
+    @media (max-width: 768px) {
+        height: 50px;
+        padding: 3px;
+        gap: 10px;    
+        margin-left: 10px;
+        padding-left: 30px;
+    }
+
+    @media (max-width: 480px) {
+        height: 40px;
+        padding: 2px;
+        gap: 5px;
+        margin-left: 5px;
+        padding-left: 20px;
+    }
+}
 `;
 //____________BUTTOM____________
 //____________SIDEBAR____________

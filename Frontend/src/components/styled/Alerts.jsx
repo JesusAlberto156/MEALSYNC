@@ -15,9 +15,10 @@ export const Alert_Styles = styled.div`
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        background-color: rgb(37, 70, 147);
+        background-color: rgb(94, 137, 238);
         border-radius: 50px;
         border: 2px solid white;
+        color: white;
     }
 
     .Blue_Light {
@@ -25,9 +26,10 @@ export const Alert_Styles = styled.div`
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        background-color: rgb(94, 137, 238);
+        background-color: rgb(37, 70, 147);
         border-radius: 50px;
         border: 2px solid black;
+        color: white;
     }    
 
     .Yellow_Dark {
@@ -38,6 +40,7 @@ export const Alert_Styles = styled.div`
         background-color: rgb(151, 128, 27);
         border-radius: 50px;
         border: 2px solid white;
+        color: white;
     } 
 
     .Yellow_Light {
@@ -48,6 +51,7 @@ export const Alert_Styles = styled.div`
         background-color: rgb(240, 203, 41);
         border-radius: 50px;
         border: 2px solid black;
+        color: white;
     }  
 
     .Red_Dark {
@@ -55,9 +59,10 @@ export const Alert_Styles = styled.div`
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        background-color: rgb(125, 27, 27);
+        background-color: rgb(229, 44, 44);
         border-radius: 50px;
         border: 2px solid white;
+        color: white;
     }
 
     .Red_Light {
@@ -65,27 +70,21 @@ export const Alert_Styles = styled.div`
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        background-color: rgb(229, 44, 44);
+        background-color: rgb(125, 27, 27);
         border-radius: 50px;
         border: 2px solid black;
+        color: white;
     }
 
-    .Verification_Dark {
+    .Verification {
         font-size: 14px;
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
         border-radius: 50px;
         border: 2px solid white;
-    }
-
-    .Verification_Light {
-        font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        border-radius: 50px;
-        border: 2px solid black;
+        background-color: black;
+        color: white;
     }
 `;
 //____________STYLES____________
@@ -153,7 +152,7 @@ export const Alert_Error_Dark = (titulo,mensaje) => {
         duration:4000,
         description: mensaje,
         className: 'Red_Dark',
-        icon: <BiSolidMessageAltError style={{color:'rgb(229, 44, 44)',fontSize:'20px'}}/>
+        icon: <BiSolidMessageAltError style={{color:'rgb(125, 27, 27)',fontSize:'20px'}}/>
     });
 }
 export const Alert_Error_Light = (titulo,mensaje) => {
@@ -161,7 +160,7 @@ export const Alert_Error_Light = (titulo,mensaje) => {
         duration:4000,
         description: mensaje,
         className: 'Red_Light',
-        icon: <BiSolidMessageAltError style={{color:'rgb(125, 27, 27)',fontSize:'20px'}}/>
+        icon: <BiSolidMessageAltError style={{color:'rgb(229, 44, 44)',fontSize:'20px'}}/>
     });
 }
 export const Alert_Error = (titulo,mensaje) => {
@@ -173,32 +172,6 @@ export const Alert_Error = (titulo,mensaje) => {
 }
 //____________ERROR____________
 //____________VERIICATION____________
-export const Alert_Verification_Dark = (promesa,Verificacion) => {
-    toast.promise(promesa,{
-        loading: Verificacion,
-        success: (msj) => {
-            return `${msj}`;
-        },
-        error: (msj) => {
-            return `${msj}`;
-        },
-        duration:1000,
-        className:'Verification_Dark',
-    });
-};
-export const Alert_Verification_Light = (promesa,Verificacion) => {
-    toast.promise(promesa,{
-        loading: Verificacion,
-        success: (msj) => {
-            return `${msj}`;
-        },
-        error: (msj) => {
-            return `${msj}`;
-        },
-        duration:1000,
-        className:'Verification_Light',
-    });
-};
 export const Alert_Verification = (promesa,Verificacion) => {
     toast.promise(promesa,{
         loading: Verificacion,
@@ -209,7 +182,7 @@ export const Alert_Verification = (promesa,Verificacion) => {
             return `${msj}`;
         },
         duration:1000,
-        className:'Light',
+        className:'Verification',
     });
 };
 //____________VERIICATION____________

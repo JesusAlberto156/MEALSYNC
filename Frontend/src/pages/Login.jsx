@@ -10,7 +10,7 @@ import { encryptData } from "../services/Crypto";
 // Rutas
 
 // Contextos
-import { modeContext,loadingOptionLoginContext,toastContext,modalContext,optionModalContext } from '../contexts/VariablesProvider';
+import { modeContext,loadingOptionLoginContext,modalContext,optionModalContext } from '../contexts/VariablesProvider';
 import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
@@ -18,11 +18,7 @@ import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
 // Hooks personalizados
 import { useOptionsLogin,useLogin } from "../hooks/Login";
-import { useChangeMode } from "../hooks/Mode";
 //__________ICONOS__________
-// Icono para cambiar el modo de la interfaz
-import { IoMdSunny } from "react-icons/io";
-import { FaMoon } from "react-icons/fa";
 // Iconos de la parte principal del login
 import { MdManageAccounts } from "react-icons/md";
 import { GiRiceCooker } from "react-icons/gi";
@@ -42,9 +38,10 @@ import { MdLogin } from "react-icons/md";
 import { Container_Page,Container_Button,Container_Page_Login_Dark,Container_Form_350_Dark,Container_Page_Login_Light,Container_Form_350_Light } from "../components/styled/Containers";
 import { Img_Logo_Verical_Hospital_Dark,Img_Logo_Verical_Hospital_Light } from "../components/styled/Imgs";
 import { Text_Title_Fade_20_Dark,Text_Title_Fade_20_Light } from "../components/styled/Text";
-import { Button_Icon_Dark,Button_Icon_Blue_80_Dark,Button_Icon_Blue_50_Dark,Button_Icon_Block_80_Dark,Button_Icon_Green_50_Dark,Button_Icon_Light,Button_Icon_Blue_80_Light,Button_Icon_Blue_50_Light,Button_Icon_Block_80_Light,Button_Icon_Green_50_Light } from "../components/styled/Buttons";
-import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Styles,Alert_Verification } from '../components/styled/Notifications';
+import { Button_Icon_Blue_80_Dark,Button_Icon_Blue_50_Dark,Button_Icon_Block_80_Dark,Button_Icon_Green_50_Dark,Button_Icon_Blue_80_Light,Button_Icon_Blue_50_Light,Button_Icon_Block_80_Light,Button_Icon_Green_50_Light } from "../components/styled/Buttons";
+import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
+import Setting from "../components/setting/Setting";
 import Footer from '../components/footer/Footer';
 import FormLogin from "../components/forms/FormLogin";
 //____________IMPORT/EXPORT____________
@@ -57,7 +54,6 @@ export default function Login(){
     const [isPassword,setIsPassword] = useContext(passwordContext);
     const [isLoadingOptionLogin] = useContext(loadingOptionLoginContext);
     const [isTypeUser] = useContext(typeUserContext);
-    const [isToast,setIsToast] = useContext(toastContext);
     const [isLog,setIsLog] = useContext(logContext);
     const [isModal,setIsModal] = useContext(modalContext);
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
@@ -85,39 +81,38 @@ export default function Login(){
             document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
                 try{
-                    await delay(1000);
-                    const existsUser = isUsers.find(user => user.usuario === isName);
-                    
-                    if(!existsUser) {
-                        setIsLog(false);
-                        return reject('¡Usuario no encontrado!...');
-                    }
-                    
-                    if(existsUser.contrasena === isPassword){
-                        let existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
-
-                        if(!existsStatus){
+                    setTimeout(() => {
+                        const existsUser = isUsers.find(user => user.usuario === isName);
+                        
+                        if(!existsUser) {
                             setIsLog(false);
-                            return reject('¡Usuario sin estatus!...');
+                            return reject('¡Usuario no encontrado!...');
                         }
-                        if(!existsStatus.habilitado){
-                            setIsLog(false);
-                            return reject('¡Este usuario no se encuentra habilitado!...');
-                        }
-                        if(existsStatus.activo){
-                            setIsLog(false);
-                            return reject('¡Este usuario ya se encuentra activo!...');
-                        }
-            
-                        const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
+                        
+                        if(existsUser.contrasena === isPassword){
+                            let existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
 
-                        if(!existsPermission){ 
-                            setIsLog(false);
-                            return reject('¡Este usuario no cuenta con roles asignados!...')
-                        }  
+                            if(!existsStatus){
+                                setIsLog(false);
+                                return reject('¡Usuario sin estatus!...');
+                            }
+                            if(!existsStatus.habilitado){
+                                setIsLog(false);
+                                return reject('¡Este usuario no se encuentra habilitado!...');
+                            }
+                            if(existsStatus.activo){
+                                setIsLog(false);
+                                return reject('¡Este usuario ya se encuentra activo!...');
+                            }
+                
+                            const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
 
-                        if(existsPermission.superadministrador){
-                            setTimeout(() => {
+                            if(!existsPermission){ 
+                                setIsLog(false);
+                                return reject('¡Este usuario no cuenta con roles asignados!...');
+                            }  
+
+                            if(existsPermission.superadministrador){
                                 const jsonUser = JSON.stringify(existsUser);
                                 const jsonPermission = JSON.stringify(existsPermission);
                 
@@ -137,10 +132,6 @@ export default function Login(){
                                     sessionStorage.setItem('TypeUser',encryptedType);
                 
                                     setTimeout(() => {
-                                        setIsToast(false);
-                                    },1500);
-                
-                                    setTimeout(() => {
                                         setIsUser(JSON.parse(jsonUser));
                                         setIsPermission(JSON.parse(jsonPermission));
                                         
@@ -153,7 +144,7 @@ export default function Login(){
                                             sessionStorage.setItem('Status',encryptedStatus);
                                             setIsStatusUser(JSON.parse(jsonStatus));
                                             setIsLogged(true);
-    
+
                                             if(isTypeUser === 'Doctor'){
                                                 setIsModal(true);
                                                 setIsOptionModal('Alert-Doctor');
@@ -169,39 +160,37 @@ export default function Login(){
                                             setIsLog(false);
                                             return console.log('¡Error al encriptar el estatus de la sesión!...')
                                         }
-                                    },1500);
+                                    },2000);
                                 }else{
                                     setIsLog(false);
                                     return console.log('¡Error al encriptar las credenciales!...')
                                 }
-                            },100)
-                        }
-                        if(isTypeUser === 'Cook' && !existsPermission.cocinero){
-                            setIsLog(false);
-                            return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
-                        }
-                        if(isTypeUser === 'Nutritionist' && !existsPermission.nutriologo){
-                            setIsLog(false);
-                            return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
-                        }
-                        if(isTypeUser === 'Doctor' && !existsPermission.medico){
-                            setIsLog(false);
-                            return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
-                        }
-                        if(isTypeUser === 'Administrator' && !existsPermission.administrador){
-                            setIsLog(false);
-                            return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
-                        }
-                        if(isTypeUser === 'Chef' && !existsPermission.chef){
-                            setIsLog(false);
-                            return reject('¡Este usuario no cuenta con el rol de CHEF!...');
-                        }
-                        if(isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
-                            setIsLog(false);
-                            return reject('¡Este usuario no cuenta con el rol de ALMACENISTA!...');
-                        }
-
-                        setTimeout(() => {
+                            }
+                            if(isTypeUser === 'Cook' && !existsPermission.cocinero){
+                                setIsLog(false);
+                                return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
+                            }
+                            if(isTypeUser === 'Nutritionist' && !existsPermission.nutriologo){
+                                setIsLog(false);
+                                return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
+                            }
+                            if(isTypeUser === 'Doctor' && !existsPermission.medico){
+                                setIsLog(false);
+                                return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
+                            }
+                            if(isTypeUser === 'Administrator' && !existsPermission.administrador){
+                                setIsLog(false);
+                                return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
+                            }
+                            if(isTypeUser === 'Chef' && !existsPermission.chef){
+                                setIsLog(false);
+                                return reject('¡Este usuario no cuenta con el rol de CHEF!...');
+                            }
+                            if(isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
+                                setIsLog(false);
+                                return reject('¡Este usuario no cuenta con el rol de ALMACENISTA!...');
+                            }
+                            
                             const jsonUser = JSON.stringify(existsUser);
                             const jsonPermission = JSON.stringify(existsPermission);
             
@@ -219,10 +208,6 @@ export default function Login(){
                                 sessionStorage.setItem('Logged',encryptedLogged);
                                 sessionStorage.setItem('Log',encryptedLog);
                                 sessionStorage.setItem('TypeUser',encryptedType);
-            
-                                setTimeout(() => {
-                                    setIsToast(false);
-                                },1500);
             
                                 setTimeout(() => {
                                     setIsUser(JSON.parse(jsonUser));
@@ -253,23 +238,22 @@ export default function Login(){
                                         setIsLog(false);
                                         return console.log('¡Error al encriptar el estatus de la sesión!...')
                                     }
-                                },1500);
+                                },2000);
                             }else{
                                 setIsLog(false);
                                 return console.log('¡Error al encriptar las credenciales!...')
                             }
-                        },100)
-                    }else{
-                        setIsLog(false);
-                        return reject('¡Usuario o contraseña incorrectos!...');
-                    }
+                        }else{
+                            setIsLog(false);
+                            return reject('¡Usuario o contraseña incorrectos!...');
+                        }
+                    },1000);
                 }catch(error){
                     setIsLog(false);
                     reject('¡Ocurrio un error inesperado...');
                 }
             });
 
-            setIsToast(true);
             Alert_Verification(promise,'Verificando credenciales...');
 
             document.title = "MEALSYNC_Iniciar_Sesión";
@@ -277,19 +261,15 @@ export default function Login(){
     },[isLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const optionsLogin = useOptionsLogin();
     const login = useLogin();
-    const changeMode = useChangeMode();
     // Estructura del componente
     return(
         <Container_Page>
             {isMode ? (
                 <>
                     <Container_Page_Login_Light>
-                        <Tooltip title='Modo Claro' placement="left">
-                            <Button_Icon_Light onClick={() => changeMode()}><IoMdSunny/></Button_Icon_Light>
-                        </Tooltip>
+                        <Setting/>
                         <Container_Form_350_Light>
                             <Img_Logo_Verical_Hospital_Light/>
                             <Text_Title_Fade_20_Light>Bienvenido(a)</Text_Title_Fade_20_Light>
@@ -382,23 +362,13 @@ export default function Login(){
                             ):(
                                 <></>
                             )}
-                        </Container_Form_350_Light>  
-                        <Alert_Styles>
-                            <Toaster
-                                visibleToasts={3}
-                                richColors
-                                theme='light'
-                                position='top-right'
-                            />
-                        </Alert_Styles>      
+                        </Container_Form_350_Light>    
                     </Container_Page_Login_Light>
                 </>
             ):(
                 <>
                     <Container_Page_Login_Dark>
-                        <Tooltip title='Modo Oscuro' placement="left">
-                            <Button_Icon_Dark onClick={() => changeMode()}><FaMoon/></Button_Icon_Dark>
-                        </Tooltip>
+                        <Setting/>
                         <Container_Form_350_Dark>
                             <Img_Logo_Verical_Hospital_Dark/>
                             <Text_Title_Fade_20_Dark>Bienvenido(a)</Text_Title_Fade_20_Dark>
@@ -422,7 +392,7 @@ export default function Login(){
                                 <>
                                     <Container_Button>
                                         <Tooltip title='Administrador' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Login','Administration')}><FaUserTie/></Button_Icon_Blue_80_Dark>
+                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Login','Administrator')}><FaUserTie/></Button_Icon_Blue_80_Dark>
                                         </Tooltip>    
                                     </Container_Button>
                                     <Container_Button>
@@ -491,19 +461,19 @@ export default function Login(){
                             ):(
                                 <></>
                             )}
-                        </Container_Form_350_Dark>  
-                        <Alert_Styles>
-                            <Toaster
-                                visibleToasts={3}
-                                richColors
-                                theme='dark'
-                                position='top-right'
-                            />
-                        </Alert_Styles>      
+                        </Container_Form_350_Dark>       
                     </Container_Page_Login_Dark>
                 </>
             )}
             <Footer/>
+            <Alert_Styles>
+                <Toaster
+                    visibleToasts={3}
+                    richColors
+                    theme='dark'
+                    position='top-right'
+                />
+            </Alert_Styles>
         </Container_Page>
     );
 };

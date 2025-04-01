@@ -16,7 +16,7 @@ import { modeContext } from '../contexts/VariablesProvider'
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Verification_Light,Alert_Verification_Dark } from "../components/styled/Notifications";
+import { Alert_Verification } from "../components/styled/Alerts";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -42,11 +42,7 @@ export const useErrorReturn = () => {
             }
         });
 
-        if(isMode){
-            Alert_Verification_Light(promise,'Buscando página...');
-        }else{
-            Alert_Verification_Dark(promise,'Buscando página...');
-        }
+        Alert_Verification(promise,'Buscando página...');
     }
     // Retorno de la función del hook
     return errorReturn;

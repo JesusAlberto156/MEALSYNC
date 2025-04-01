@@ -17,7 +17,7 @@ export const Navbar = ({ children }) => {
 
 export const Sidebar = ({ children }) => {
 
-    const [isSidebar,setIsSidebar] = useState('Inicio');
+    const [isSidebar,setIsSidebar] = useState('Home');
 
     return (
         <sidebarContext.Provider value={[isSidebar,setIsSidebar]}>

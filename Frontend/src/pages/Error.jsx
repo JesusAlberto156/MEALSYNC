@@ -11,12 +11,8 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { modeContext } from "../contexts/VariablesProvider";
 // Hooks personalizados
-import { useChangeMode } from "../hooks/Mode";
 import { useErrorReturn } from "../hooks/Error";
 //__________ICONOS__________
-// Icono para cambiar el modo de la interfaz
-import { IoMdSunny } from "react-icons/io";
-import { FaMoon } from "react-icons/fa";
 // Iconos de decoración de la página
 import { IoIosWarning } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
@@ -27,9 +23,9 @@ import { FaHome } from "react-icons/fa";
 import { Container_Page_Error_Light,Container_Page_Error_Dark,Container_Text_20 } from "../components/styled/Containers";
 import { Icon_Settings_50_Light,Icon_Warning_250_Light,Icon_Settings_50_Dark,Icon_Warning_250_Dark } from "../components/styled/Icons";
 import { Text_Title_Fade_50_Light,Text_A_25_Light,Text_Title_Fade_50_Dark,Text_A_25_Dark } from "../components/styled/Text";
-import { Button_Icon_Light,Button_Icon_White_200_Light,Button_Icon_Dark,Button_Icon_White_200_Dark } from "../components/styled/Buttons";
+import { Button_Icon_White_200_Light,Button_Icon_White_200_Dark } from "../components/styled/Buttons";
 import { Img_Logo_Error_Light,Img_Logo_Error_Dark } from "../components/styled/Imgs";
-import { Alert_Error_Light,Alert_Error_Dark,Alert_Styles } from "../components/styled/Notifications";
+import { Alert_Error_Light,Alert_Error_Dark,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -48,7 +44,6 @@ export default function Error(){
         }
     },[])
     // Constantes con la funcionalidad de los hooks
-    const changeMode = useChangeMode();
     const errorReturn = useErrorReturn();
     // Estructura del componente
     return(
@@ -56,9 +51,6 @@ export default function Error(){
             {isMode ? (
                 <>
                     <Container_Page_Error_Light>
-                        <Tooltip title='Modo Claro' placement="left">
-                            <Button_Icon_Light onClick={() => changeMode()}><IoMdSunny/></Button_Icon_Light>
-                        </Tooltip>
                         <Icon_Warning_250_Light><IoIosWarning/></Icon_Warning_250_Light>
                         <Container_Text_20>
                             <Text_Title_Fade_50_Light>Ooops...</Text_Title_Fade_50_Light>
@@ -73,7 +65,7 @@ export default function Error(){
                             <Toaster
                                 visibleToasts={3}
                                 richColors
-                                theme='light'
+                                theme='dark'
                                 position='top-right'
                             />
                         </Alert_Styles>
@@ -82,9 +74,6 @@ export default function Error(){
             ):(
                 <>
                     <Container_Page_Error_Dark>
-                        <Tooltip title='Modo Oscuro' placement="left">
-                            <Button_Icon_Dark onClick={() => changeMode()}><FaMoon/></Button_Icon_Dark>
-                        </Tooltip>
                         <Icon_Warning_250_Dark><IoIosWarning/></Icon_Warning_250_Dark>
                         <Container_Text_20>
                             <Text_Title_Fade_50_Dark>Ooops...</Text_Title_Fade_50_Dark>

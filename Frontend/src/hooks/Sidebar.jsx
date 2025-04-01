@@ -9,7 +9,7 @@ import { useContext } from "react";
 
 // Contextos
 import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
-import { visibleContext,searchTermContext } from "../contexts/VariablesProvider";
+import { searchTermContext } from "../contexts/VariablesProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 // Hooks personalizados
 
@@ -22,17 +22,6 @@ import { typeUserContext } from "../contexts/TypeUserProvider";
 
 //____________IMPORT/EXPORT____________
 
-// Hook para ocultar/mostrar el sidebar
-export const useToggleSidebar = () => {
-    // Constantes con el valor de los contextos 
-    const [isVisible,setIsVisible] = useContext(visibleContext);
-    // Función del hook
-    const toggleSidebar = () => {
-        setIsVisible(!isVisible);
-    };
-    // Retorno de la función del hook
-    return toggleSidebar;
-};
 // Hook para ir a inicio del sidebar
 export const useSidebarHome = () => {
     // Constantes con el valor de los contextos 

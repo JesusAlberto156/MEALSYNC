@@ -106,7 +106,7 @@ export default function FormLoginComprobation(){
                                 <Label_Popup_16_Light>Escribe tú Contraseña</Label_Popup_16_Light>
                             )}
                         </Input_Group_80>
-                        <Tooltip title="Comprobar" placement="top">
+                        <Tooltip id="Description" title="Comprobar" placement="top">
                             <Button_Icon_Blue_80_Light onClick={() => comprobation()}><FaUser/></Button_Icon_Blue_80_Light>
                         </Tooltip>
                     </Container_Input_Border_Light>
@@ -174,7 +174,7 @@ export default function FormLoginComprobation(){
                                 <Label_Popup_16_Dark>Escribe tú Contraseña</Label_Popup_16_Dark>
                             )}
                         </Input_Group_80>
-                        <Tooltip title="Comprobar" placement="top">
+                        <Tooltip id="Description" title="Comprobar" placement="top">
                             <Button_Icon_Blue_80_Dark onClick={() => comprobation()}><FaUser/></Button_Icon_Blue_80_Dark>
                         </Tooltip>
                     </Container_Input_Border_Dark>

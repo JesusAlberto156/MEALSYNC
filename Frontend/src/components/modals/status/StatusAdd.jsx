@@ -8,6 +8,7 @@ import Select from "react-select";
 
 // Contextos
 import { modeContext,modalContext,selectContext,radioContext } from "../../../contexts/VariablesProvider";
+import { statusAddContext } from "../../../contexts/StatusProvider";
 // Hooks personalizados
 import { useCloseModal,useAddStatus } from "../../../hooks/Modal";
 import { useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";
@@ -20,7 +21,7 @@ import { IoMdAddCircle } from "react-icons/io";
 // Estilos personalizados
 import { Container_Modal,Container_Form_400_Light,Container_Button_Border_Light,Container_Select_Light,Container_Check_Light,Container_Form_400_Dark,Container_Button_Border_Dark,Container_Select_Dark,Container_Check_Dark } from "../../styled/Containers";
 import { Text_Title_Fade_30_Light,Text_P_20_Light,Text_Title_Fade_30_Dark,Text_P_20_Dark } from "../../styled/Text";
-import { Button_Icon_Blue_50_Light,Button_Icon_Green_50_Light,Button_Icon_Blue_50_Dark,Button_Icon_Green_50_Dark } from "../../styled/Buttons";
+import { Button_Icon_Blue_50_Light,Button_Icon_Green_50_Light,Button_Icon_Block_50_Light,Button_Icon_Blue_50_Dark,Button_Icon_Green_50_Dark,Button_Icon_Block_50_Dark } from "../../styled/Buttons";
 import { Label_Check_18_Light,Label_Check_18_Dark } from "../../styled/Labels";
 import { Input_Radio_16_Light,Input_Radio_16_Dark } from "../../styled/Inputs";
 // Componentes personalizados
@@ -34,6 +35,7 @@ export default function StatusAdd(){
     const [isModal] = useContext(modalContext);
     const [isSelect] = useContext(selectContext);
     const [isRadio] = useContext(radioContext);
+    const [isStatusAdd] = useContext(statusAddContext);
     // useEffect con el titulo del modal
     useEffect(() => {
         document.title = "MEALSYNC_Menú_Comprobación"
@@ -132,9 +134,19 @@ export default function StatusAdd(){
                                         <Tooltip title="Cancelar" placement="top">
                                             <Button_Icon_Blue_50_Light onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Light>
                                         </Tooltip>
-                                        <Tooltip title="Agregar" placement="top">
-                                            <Button_Icon_Green_50_Light onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Light>
-                                        </Tooltip>
+                                        {isStatusAdd ? (
+                                            <>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Icon_Block_50_Light><IoMdAddCircle/></Button_Icon_Block_50_Light>
+                                                </Tooltip>    
+                                            </>
+                                        ):(
+                                            <>
+                                                <Tooltip title="Agregar" placement="top">
+                                                    <Button_Icon_Green_50_Light onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Light>
+                                                </Tooltip>
+                                            </>
+                                        )}
                                     </Container_Button_Border_Light>
                             </Container_Form_400_Light>
                         </>
@@ -221,9 +233,19 @@ export default function StatusAdd(){
                                         <Tooltip title="Cancelar" placement="top">
                                             <Button_Icon_Blue_50_Dark onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Dark>
                                         </Tooltip>
-                                        <Tooltip title="Agregar" placement="top">
-                                            <Button_Icon_Green_50_Dark onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Dark>
-                                        </Tooltip>
+                                        {isStatusAdd ? (
+                                            <>
+                                                <Tooltip title="" placement="top">
+                                                    <Button_Icon_Block_50_Dark><IoMdAddCircle/></Button_Icon_Block_50_Dark>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <>
+                                                <Tooltip title="Agregar" placement="top">
+                                                    <Button_Icon_Green_50_Dark onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Dark>
+                                                </Tooltip>  
+                                            </>
+                                        )}
                                     </Container_Button_Border_Dark>
                             </Container_Form_400_Dark>
                         </>

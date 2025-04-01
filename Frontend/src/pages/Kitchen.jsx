@@ -20,7 +20,7 @@ import { loggedContext,nameContext,passwordContext,logContext } from "../context
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Greeting,Alert_Styles,Alert_Verification } from "../components/styled/Notifications";
+import { Alert_Greeting,Alert_Styles,Alert_Verification } from "../components/styled/Alerts";
 import { Background_Menu } from "../components/styled/Backgrounds";
 // Componentes personalizados
 import OutLogin from "../components/modals/General/OutLogin";

@@ -28,6 +28,6 @@ export const PrivateRouteKitchen = () => {
     const [isLogged] = useContext(loggedContext);
     const [typeUser] = useContext(typeUserContext);
     // Función del componente
-    if(!isLogged) return <Navigate to={'/Login'}/>;
-    return typeUser==='Cook' || typeUser==='Nutritionist' || typeUser==='Doctor' ? <Outlet/> : <Navigate to={'/Login'}/>;
+    if(!isLogged) return <Navigate to={'/'}/>;
+    return typeUser==='Cook' || typeUser==='Nutritionist' || typeUser==='Doctor' ? <Outlet/> : <Navigate to={'/'}/>;
 }

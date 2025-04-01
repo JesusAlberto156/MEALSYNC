@@ -29,7 +29,7 @@ import { Icon_Settings_50_Light,Icon_Warning_250_Light,Icon_Settings_50_Dark,Ico
 import { Text_Title_Fade_50_Light,Text_A_25_Light,Text_Title_Fade_50_Dark,Text_A_25_Dark } from "../components/styled/Text";
 import { Button_Icon_Light,Button_Icon_White_200_Light,Button_Icon_Dark,Button_Icon_White_200_Dark } from "../components/styled/Buttons";
 import { Img_Logo_Error_Light,Img_Logo_Error_Dark } from "../components/styled/Imgs";
-import { Toast_Styles,Alert_Error } from "../components/styled/Notifications";
+import { Alert_Error_Light,Alert_Error_Dark,Alert_Styles } from "../components/styled/Notifications";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -40,8 +40,12 @@ export default function Error(){
     const [isMode] = useContext(modeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
-        document.title='MEALSYNC_Error'
-        Alert_Error('MEALSYNC','¡Error, página no encontrada!...')
+        document.title='MEALSYNC_Error';
+        if(isMode){
+            Alert_Error_Light('MEALSYNC','¡Error, página no encontrada!...');
+        }else{
+            Alert_Error_Dark('MEALSYNC','¡Error, página no encontrada!...');
+        }
     },[])
     // Constantes con la funcionalidad de los hooks
     const changeMode = useChangeMode();
@@ -65,14 +69,14 @@ export default function Error(){
                             <Button_Icon_White_200_Light onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200_Light>
                         </Tooltip>
                         <Img_Logo_Error_Light/>
-                        <Toast_Styles>
+                        <Alert_Styles>
                             <Toaster
-                            visibleToasts={3}
-                            richColors
-                            theme='light'
-                            position='top-right'
+                                visibleToasts={3}
+                                richColors
+                                theme='light'
+                                position='top-right'
                             />
-                        </Toast_Styles>
+                        </Alert_Styles>
                     </Container_Page_Error_Light>
                 </>
             ):(
@@ -91,14 +95,14 @@ export default function Error(){
                             <Button_Icon_White_200_Dark onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200_Dark>
                         </Tooltip>
                         <Img_Logo_Error_Dark/>
-                        <Toast_Styles>
+                        <Alert_Styles>
                             <Toaster
-                            visibleToasts={3}
-                            richColors
-                            theme='light'
-                            position='top-right'
+                                visibleToasts={3}
+                                richColors
+                                theme='dark'
+                                position='top-right'
                             />
-                        </Toast_Styles>
+                        </Alert_Styles>
                     </Container_Page_Error_Dark>
                 </>
             )}

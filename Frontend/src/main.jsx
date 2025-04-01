@@ -23,6 +23,7 @@ import Login from './pages/Login';
 import Kitchen from './pages/Kitchen';
 import Administration from './pages/Administration';
 import Error from './pages/Error';
+import Loading from './pages/Loading';
 //____________IMPORT/EXPORT____________
 
 import './components/styled/Backgrounds.css'
@@ -30,7 +31,7 @@ import './components/styled/Backgrounds.css'
 const router = createHashRouter([
   {
     path:'/',
-    element:<Login/>
+    element:<Loading/>
   },
   {
     path:'/Login',

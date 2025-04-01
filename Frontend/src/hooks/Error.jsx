@@ -1,5 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 
@@ -8,20 +9,22 @@ import { useNavigate } from "react-router-dom";
 // Rutas
 
 // Contextos
-
+import { modeContext } from '../contexts/VariablesProvider'
 // Hooks personalizados
 
 //__________ICONOS__________
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Verification } from "../components/styled/Notifications";
+import { Alert_Verification_Light,Alert_Verification_Dark } from "../components/styled/Notifications";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
 
 // Hook para regresar a una página permitida
 export const useErrorReturn = () => {
+    // Constantes con el valor de los contextos
+    const [isMode] = useContext(modeContext);
     // Constantes con el valor de los hooks
     const navigate = useNavigate();
     // Función del hook
@@ -39,7 +42,11 @@ export const useErrorReturn = () => {
             }
         });
 
-        Alert_Verification(promise,'Buscando página...');
+        if(isMode){
+            Alert_Verification_Light(promise,'Buscando página...');
+        }else{
+            Alert_Verification_Dark(promise,'Buscando página...');
+        }
     }
     // Retorno de la función del hook
     return errorReturn;

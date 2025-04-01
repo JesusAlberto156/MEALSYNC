@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useEffect,useState,useContext } from "react";
+import { useEffect,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Toaster } from 'sonner';
@@ -10,7 +10,7 @@ import { encryptData } from "../services/Crypto";
 // Rutas
 
 // Contextos
-import { modeContext,loadingOptionLoginContext,toastContext,modalContext,optionModalContext } from '../contexts/VariablesProvider'
+import { modeContext,loadingOptionLoginContext,toastContext,modalContext,optionModalContext } from '../contexts/VariablesProvider';
 import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
@@ -43,10 +43,9 @@ import { Container_Page,Container_Button,Container_Page_Login_Dark,Container_For
 import { Img_Logo_Verical_Hospital_Dark,Img_Logo_Verical_Hospital_Light } from "../components/styled/Imgs";
 import { Text_Title_Fade_20_Dark,Text_Title_Fade_20_Light } from "../components/styled/Text";
 import { Button_Icon_Dark,Button_Icon_Blue_80_Dark,Button_Icon_Blue_50_Dark,Button_Icon_Block_80_Dark,Button_Icon_Green_50_Dark,Button_Icon_Light,Button_Icon_Blue_80_Light,Button_Icon_Blue_50_Light,Button_Icon_Block_80_Light,Button_Icon_Green_50_Light } from "../components/styled/Buttons";
-import { Alert_Greeting,Toast_Styles,Alert_Verification } from '../components/styled/Notifications'
+import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Styles,Alert_Verification } from '../components/styled/Notifications';
 // Componentes personalizados
 import Footer from '../components/footer/Footer';
-import Loading from "./Loading";
 import FormLogin from "../components/forms/FormLogin";
 //____________IMPORT/EXPORT____________
 
@@ -69,35 +68,17 @@ export default function Login(){
     const [isPermission,setIsPermission] = useContext(permissionContext);
     const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
     const [isLogged,setIsLogged] = useContext(loggedContext);
-    // Constantes con el valor de useState
-    const [textName,setTextName] = useState(false);
-    const [isFocusedName, setIsFocusedName] = useState(false);
-    const [isFocusedNameColor, setIsFocusedNameColor] = useState(false);
-    const [textPassword,setTextPassword] = useState(false);
-    const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-    const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
-    const [isLoading,setIsLoading] = useState(false);
-    // useEffect con la página de carga
+    // useEffect con el titulo de la página
     useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(true);
-        },500);
+        document.title = "MEALSYNC_Iniciar_Sesión";
+        if(isMode){
+            Alert_Greeting_Light("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
+            Alert_Greeting_Light("MEALSYNC",'¡Te da la Bienvenida!...');
+        }else{
+            Alert_Greeting_Dark("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
+            Alert_Greeting_Dark("MEALSYNC",'¡Te da la Bienvenida!...');
+        }
     },[]);
-    // useEffect con el titulo de la página
-    useEffect(() => {
-        document.title='MEALSYNC_Cargando'
-        setTimeout(() => {
-            document.title = "MEALSYNC_Iniciar_Sesión"
-        },1000)
-        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
-        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
-    }, []);
-    // useEffect con el titulo de la página
-    useEffect(() => {
-        document.title = "MEALSYNC_Iniciar_Sesión"
-        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
-        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
-    },[isLoading]);
     // useEffect con el inicio de sesión del login
     useEffect(() => {
         if(isLog && !isLogged){
@@ -301,8 +282,6 @@ export default function Login(){
     const login = useLogin();
     const changeMode = useChangeMode();
     // Estructura del componente
-    if(!isLoading) return <Loading/>
-    // Estructura del componente
     return(
         <Container_Page>
             {isMode ? (
@@ -403,7 +382,15 @@ export default function Login(){
                             ):(
                                 <></>
                             )}
-                        </Container_Form_350_Light>        
+                        </Container_Form_350_Light>  
+                        <Alert_Styles>
+                            <Toaster
+                                visibleToasts={3}
+                                richColors
+                                theme='light'
+                                position='top-right'
+                            />
+                        </Alert_Styles>      
                     </Container_Page_Login_Light>
                 </>
             ):(
@@ -504,30 +491,19 @@ export default function Login(){
                             ):(
                                 <></>
                             )}
-                        </Container_Form_350_Dark>        
+                        </Container_Form_350_Dark>  
+                        <Alert_Styles>
+                            <Toaster
+                                visibleToasts={3}
+                                richColors
+                                theme='dark'
+                                position='top-right'
+                            />
+                        </Alert_Styles>      
                     </Container_Page_Login_Dark>
                 </>
             )}
             <Footer/>
-            {isToast ? (
-                <Toast_Styles>
-                    <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='light'
-                    position='top-right'
-                    />
-                </Toast_Styles>
-            ):(
-                <Toast_Styles>
-                    <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='dark'
-                    position='top-right'
-                    />
-                </Toast_Styles>
-            )}
         </Container_Page>
     );
 };

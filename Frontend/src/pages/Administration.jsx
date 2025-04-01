@@ -22,7 +22,7 @@ import { FaMoon } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Page,Container_Page_Elements,Container_Page_Administration_Light,Container_Page_Administration_Dark } from "../components/styled/Containers";
-import { Alert_Greeting,Toast_Styles } from "../components/styled/Notifications";
+import { Alert_Greeting,Alert_Styles } from "../components/styled/Notifications";
 import { Button_Icon_Light,Button_Icon_Dark } from "../components/styled/Buttons";
 // Componentes personalizados
 import Footer from '../components/footer/Footer'
@@ -151,6 +151,14 @@ export default function Administration(){
                         ):(
                             <></>
                         )}
+                        <Alert_Styles>
+                            <Toaster
+                                visibleToasts={3}
+                                richColors
+                                theme='light'
+                                position='top-right'
+                            />
+                        </Alert_Styles>
                     </Container_Page_Administration_Light>
                 </>
             ):(
@@ -243,29 +251,18 @@ export default function Administration(){
                         ):(
                             <></>
                         )}
+                        <Alert_Styles>
+                            <Toaster
+                                visibleToasts={3}
+                                richColors
+                                theme='dark'
+                                position='top-right'
+                            />
+                        </Alert_Styles>
                     </Container_Page_Administration_Dark>
                 </>
             )}
             <Footer/>
-            {isToast ? (
-                <Toast_Styles>
-                    <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='light'
-                    position='top-right'
-                    />
-                </Toast_Styles>
-            ):(
-                <Toast_Styles>
-                    <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='dark'
-                    position='top-right'
-                    />
-                </Toast_Styles>
-            )}
         </Container_Page>
     );
 }

@@ -22,7 +22,7 @@ export const Input_Text_280_Dark = styled.input`
     height: 15px;
     color: white;
     font-size: 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     border: none;
     border-bottom: 2px solid white;
     background: transparent;
@@ -37,14 +37,14 @@ export const Input_Text_280_Dark = styled.input`
         font-size: 18px;
         width: 250px;
         border-radius: 12px;
-        padding-left: 12px;
+        padding-left: 8px;
     }
     
     @media (max-width: 480px) {
         font-size: 16px;
         width: 220px;
         border-radius: 9px;
-        padding-left: 10px;
+        padding-left: 6px;
     }
 
     &:focus {
@@ -58,7 +58,7 @@ export const Input_Text_280_Light = styled.input`
     height: 15px;
     color: black;
     font-size: 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     border: none;
     border-bottom: 2px solid black;
     background: transparent;
@@ -73,14 +73,14 @@ export const Input_Text_280_Light = styled.input`
         font-size: 18px;
         width: 250px;
         border-radius: 12px;
-        padding-left: 12px;
+        padding-left: 8px;
     }
     
     @media (max-width: 480px) {
         font-size: 16px;
         width: 220px;
         border-radius: 9px;
-        padding-left: 10px;
+        padding-left: 6px;
     }
 
     &:focus {

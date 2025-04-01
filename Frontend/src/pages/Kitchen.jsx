@@ -20,7 +20,7 @@ import { loggedContext,nameContext,passwordContext,logContext } from "../context
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Greeting,Toast_Styles,Alert_Verification } from "../components/styled/Notifications";
+import { Alert_Greeting,Alert_Styles,Alert_Verification } from "../components/styled/Notifications";
 import { Background_Menu } from "../components/styled/Backgrounds";
 // Componentes personalizados
 import OutLogin from "../components/modals/General/OutLogin";
@@ -161,23 +161,23 @@ export default function Kitchen(){
             </div>
             <Footer/>
             {isToast ? (
-                <Toast_Styles>
+                <Alert_Styles>
                     <Toaster
                     visibleToasts={3}
                     richColors
                     theme='light'
                     position='top-right'
                     />
-                </Toast_Styles>
+                </Alert_Styles>
             ):(
-                <Toast_Styles>
+                <Alert_Styles>
                     <Toaster
                     visibleToasts={3}
                     richColors
                     theme='dark'
                     position='top-right'
                     />
-                </Toast_Styles>
+                </Alert_Styles>
             )}
         </div>
     );

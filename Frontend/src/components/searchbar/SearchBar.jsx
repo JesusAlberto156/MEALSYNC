@@ -5,6 +5,7 @@ import { typeUserContext } from "../../contexts/TypeUserProvider";
 import { navbarContext,sidebarContext } from "../../contexts/ViewsProvider";
 import { searchTermContext,selectedRowContext } from "../../contexts/VariablesProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider"; 
+import { searchContext } from "../../contexts/RefsProvider";
 
 import { useOpenModal } from '../../hooks/Modal'
 
@@ -22,10 +23,10 @@ import { FaUnlock } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 
-import { Container_Search_Bar,Container_Button_Search_Bar } from "../styled/Containers";
+import { Container_Search_Bar } from "../styled/Containers";
 import { Input_Search_Bar_Menu} from '../styled/Inputs'
 import { Icon_Search_Menu,Icon_Shopping_Cart_Menu } from "../styled/Icons";
-import { Button_Blue_Search_Bar,Button_Green_Search_Bar,Button_Red_Search_Bar,Button_Block_Search_Bar } from "../styled/Buttons";
+import { Button_Icon_Green_45_Light,Button_Icon_Red_45_Light,Button_Icon_Block_45_Light,Button_Blue_Search_Bar,Button_Green_Search_Bar,Button_Red_Search_Bar,Button_Block_Search_Bar } from "../styled/Buttons";
 
 export default function SearchBar (){
     
@@ -36,30 +37,12 @@ export default function SearchBar (){
     const [isSidebar] = useContext(sidebarContext);
     const [isSelectedRow] = useContext(selectedRowContext);
     const [isPermission] = useContext(permissionContext);
+    const isSearch = useContext(searchContext);
 
     return(
         <>
-            <Container_Search_Bar>
-                <Icon_Search_Menu>
-                    <FcSearch/>
-                </Icon_Search_Menu>
-                <Tooltip title="Buscador" placement="right">
-                    <Input_Search_Bar_Menu
-                        type="text"
-                        placeholder="Buscar..."
-                        value={isSearchTerm}
-                        onChange={(e) => setIsSearchTerm(e.target.value)}
-                    />
-                </Tooltip>
-                {isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico' ? (
-                    <>
-                        <Icon_Shopping_Cart_Menu onClick={() => modal('Carro-Compras')}>
-                            <FaShoppingCart/>
-                        </Icon_Shopping_Cart_Menu>
-                    </>
-                ):(
-                    <></>
-                )}
+            <Container_Search_Bar ref={isSearch}>
+                
                 {isSidebar === 'Users' ? (
                     isNavbar === 'Principal' ? (
                         isSelectedRow === null ? (
@@ -159,41 +142,31 @@ export default function SearchBar (){
                                 isPermission.superadministrador ? (
                                     isSelectedRow === null ? (
                                         <>
-                                            <Container_Button_Search_Bar>
-                                                <Tooltip title="Agregar" placement="top">
-                                                    <Button_Green_Search_Bar onClick={() => modal('Status-Add')}><IoMdAddCircle/></Button_Green_Search_Bar>
-                                                </Tooltip>
-                                                <Tooltip title="" placement="top">
-                                                    <Button_Block_Search_Bar><FaUnlock/></Button_Block_Search_Bar>
-                                                </Tooltip>
-                                                <Tooltip title="" placement="top">
-                                                    <Button_Block_Search_Bar><MdDelete/></Button_Block_Search_Bar>
-                                                </Tooltip>
-                                            </Container_Button_Search_Bar>
+                                            <Tooltip title="Agregar" placement="top">
+                                                <Button_Icon_Green_45_Light onClick={() => modal('Status-Add')}><IoMdAddCircle/></Button_Icon_Green_45_Light>
+                                            </Tooltip>
+                                            <Tooltip title="" placement="top">
+                                                <Button_Icon_Block_45_Light><FaUnlock/></Button_Icon_Block_45_Light>
+                                            </Tooltip>
                                         </>
                                     ):(
                                         <>
-                                            <Container_Button_Search_Bar>
-                                                <Tooltip title="" placement="top">
-                                                    <Button_Block_Search_Bar><IoMdAddCircle/></Button_Block_Search_Bar>
-                                                </Tooltip>
-                                                {isSelectedRow.habilitado ? (
-                                                    <>
-                                                        <Tooltip title="Deshabilitar" placement="top">
-                                                            <Button_Red_Search_Bar id="Button-Status" onClick={() => modal('Status-Enable')}><FaLock/></Button_Red_Search_Bar>
-                                                        </Tooltip>
-                                                    </> 
-                                                ):(
-                                                    <>
-                                                        <Tooltip title="Habilitar" placement="top">
-                                                            <Button_Green_Search_Bar id="Button-Status" onClick={() => modal('Status-Enable')}><FaLockOpen/></Button_Green_Search_Bar>
-                                                        </Tooltip>
-                                                    </>
-                                                )}
-                                                <Tooltip title="Eliminar" placement="top">
-                                                    <Button_Red_Search_Bar id="Button-Status" onClick={() => modal('Status-Delete')}><MdDelete/></Button_Red_Search_Bar>
-                                                </Tooltip>
-                                            </Container_Button_Search_Bar>
+                                            <Tooltip title="" placement="top">
+                                                <Button_Icon_Block_45_Light><IoMdAddCircle/></Button_Icon_Block_45_Light>
+                                            </Tooltip>
+                                            {isSelectedRow.habilitado ? (
+                                                <>
+                                                    <Tooltip title="Deshabilitar" placement="top">
+                                                        <Button_Icon_Red_45_Light id="Button-Status" onClick={() => modal('Status-Enable')}><FaLock/></Button_Icon_Red_45_Light>
+                                                    </Tooltip>
+                                                </> 
+                                            ):(
+                                                <>
+                                                    <Tooltip title="Habilitar" placement="top">
+                                                        <Button_Icon_Green_45_Light id="Button-Status" onClick={() => modal('Status-Enable')}><FaLockOpen/></Button_Icon_Green_45_Light>
+                                                    </Tooltip>
+                                                </>
+                                            )}
                                         </>    
                                     )                                    
                                 ):(

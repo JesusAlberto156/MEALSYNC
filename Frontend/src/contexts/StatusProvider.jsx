@@ -8,9 +8,9 @@ export const statusEnableContext = createContext(null);
 export const statusDeleteContext = createContext(null);
 
 import { socketContext } from "./SocketProvider";
-import { loggedContext,logContext } from "./SessionProvider";
+import { loggedContext,logContext,nameContext,passwordContext } from "./SessionProvider";
 import { userContext,usersContext } from "./UsersProvider";
-import { toastContext,selectContext,radioContext,modalContext,optionModalContext,selectedRowContext } from "./VariablesProvider";
+import { selectContext,radioContext,modalContext,optionModalContext,selectedRowContext,comprobationContext,blockContext } from "./VariablesProvider";
 
 import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
 
@@ -109,8 +109,7 @@ export const StatusAdd = ({ children }) => {
     const [isRadio,setIsRadio] = useContext(radioContext);
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
     const [isModal,setIsModal] = useContext(modalContext);
-    const [isToast,setIsToast] = useContext(toastContext);
-
+    const [isBlock,setIsBlock] = useContext(blockContext);
     const [socket] = useContext(socketContext);
 
     const [isStatusAdd,setIsStatusAdd] = useState(false);
@@ -130,17 +129,22 @@ export const StatusAdd = ({ children }) => {
                             
                             resolve('¡MEALSYNC agregó el status al usuario!...')
                             
-                            setIsModal(false);
-                            setIsOptionModal('');
-                            setIsRadio('');
-                            setIsSelect([]);
-                            setIsStatusAdd(false);
+                            setTimeout(() => {
+                                setIsModal(false);
+                                setIsOptionModal('');
+                                setIsRadio('');
+                                setIsSelect([]);
+                                setIsStatusAdd(false);
+                                setIsBlock(false);
+                            },500);
 
                             return () => {
                                 socket.off('statusInsert');
                             }
                         },2000);
                     }catch(error){
+                        setIsBlock(false);
+                        setIsStatusAdd(false);
                         reject('¡Ocurrio un error inesperado!...');
                     }
                 });
@@ -163,6 +167,10 @@ export const StatusEnable = ({ children }) => {
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
     const [isModal,setIsModal] = useContext(modalContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isComprobation,setIsComprobation] = useContext(comprobationContext);
+    const [isName,setIsName] = useContext(nameContext);
+    const [isPassowrd,setIsPassword] = useContext(passwordContext);
+    const [isBlock,setIsBlock] = useContext(blockContext);
     const [socket] = useContext(socketContext);
 
     const [isStatusEnable,setIsStatusEnable] = useState([]);
@@ -174,6 +182,7 @@ export const StatusEnable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{
+                            setIsComprobation(false); 
                             setTimeout(() => {
                                 socket.emit('statusDisable',isStatusEnable.idusuario,enable.usuario);
         
@@ -184,16 +193,22 @@ export const StatusEnable = ({ children }) => {
                                 
                                 resolve('¡MEALSYNC deshabilito al usuario!...')
 
-                                setIsModal(false);
-                                setIsOptionModal('');
-                                setIsStatusEnable([]);
-                                setIsSelectedRow(null);
+                                setTimeout(() => {
+                                    setIsModal(false);
+                                    setIsOptionModal('');
+                                    setIsStatusEnable([]);
+                                    setIsSelectedRow(null);
+                                    setIsName('');
+                                    setIsPassword('');
+                                    setIsBlock(false);
+                                },500);
 
                                 return () => {
                                     socket.off('statusDisable');
                                 }
                             },2000);
                         }catch(error){
+                            setIsComprobation(true);
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });
@@ -203,7 +218,8 @@ export const StatusEnable = ({ children }) => {
             }else if(!isStatusEnable.habilitado){
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
-                        try{     
+                        try{  
+                            setIsComprobation(false);   
                             setTimeout(() => {
                                 socket.emit('statusEnable',isStatusEnable.idusuario,enable.usuario);
 
@@ -213,18 +229,23 @@ export const StatusEnable = ({ children }) => {
                                 });
 
                                 resolve('¡MEALSYNC habilito al usuario!...')
-
-                                setIsModal(false);
-                                setIsOptionModal('');
-                                setIsStatusEnable([]);
-                                setIsSelectedRow(null);
+                                
+                                setTimeout(() => {
+                                    setIsModal(false);
+                                    setIsOptionModal('');
+                                    setIsStatusEnable([]);
+                                    setIsSelectedRow(null);
+                                    setIsName('');
+                                    setIsPassword('');
+                                    setIsBlock(false);
+                                },500);
 
                                 return () => {
                                     socket.off('statusEnable');
                                 }
-                            },500);
-        
+                            },2000);
                         }catch(error){
+                            setIsComprobation(true);
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });
@@ -239,66 +260,5 @@ export const StatusEnable = ({ children }) => {
         <statusEnableContext.Provider value={[isStatusEnable,setIsStatusEnable]}>
             {children}
         </statusEnableContext.Provider>
-    );
-}
-
-export const StatusDelete = ({ children }) => {
-
-    const [isUsers] = useContext(usersContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isToast,setIsToast] = useContext(toastContext);
-    const [socket] = useContext(socketContext);
-
-    const [isStatusDelete,setIsStatusDelete] = useState([]);
-
-    useEffect(() => {
-        if(isStatusDelete.length !== 0){
-            const Delete = isUsers.find(user => user.idusuario === isStatusDelete.idusuario);
-            if(Delete){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-    
-                        setIsToast(true);
-    
-                        setTimeout(() => {
-                            socket.emit('statusDelete',isStatusDelete.idusuario,Delete.usuario);
-    
-                            socket.on('statusDelete',(message,user) => {
-                                console.log(message,user);
-                                socket.emit('status');
-                            });
-                            
-                            resolve('¡MEALSYNC elimino el estatus del usuario!...');
-
-                            setIsModal(false);
-                            setIsOptionModal('');
-                            setIsStatusDelete([]);
-                            setIsSelectedRow(null);
-
-                            return () => {
-                                socket.off('statusDelete');
-                            }
-                        },500);
-    
-                    }catch(error){
-                        reject('¡Ocurrio un error inesperado!...');
-                    }
-                });
-    
-                setTimeout(() => {
-                    setIsToast(false);
-                },3000);
-
-                Alert_Verification(promise,'¡Eliminado el estatus usuario!...');
-            }
-        }
-    },[isStatusDelete]);
-
-    return (
-        <statusDeleteContext.Provider value={[isStatusDelete,setIsStatusDelete]}>
-            {children}
-        </statusDeleteContext.Provider>
     );
 }

@@ -3,6 +3,7 @@ import { Tooltip } from "@mui/material"
 
 import { selectedRowContext } from "../../contexts/VariablesProvider"
 import { usersContext } from "../../contexts/UsersProvider"
+import { searchContext,formContext,statusModalContext } from '../../contexts/RefsProvider'
 
 import { useTableActions } from "../../hooks/Table"
 
@@ -18,28 +19,42 @@ export default function TableStatus(){
 
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
+    const isSearch = useContext(searchContext);
+    const isForm = useContext(formContext);
+    const {modal,form} = useContext(statusModalContext);
 
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = useTableActions();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const table = document.getElementById("Tabla-Estatus");
-            const elements = document.querySelectorAll('#Description, #Button-Status, #Status-Enable');
+            const table = document.getElementById("Table-Status");
+
+            const clickedInsideButton = isForm.current && isForm.current.contains(event.target);
+            const clickedInsideModal = modal.current && modal.current.contains(event.target);
+            const clickedInsideForm = form.current && form.current.contains(event.target);
+            const clickedInsideSearch = isSearch.current && isSearch.current.contains(event.target);
 
             if (table && !table.contains(event.target) &&
-            ![...elements].some((btn) => btn.contains(event.target))) {
+                !clickedInsideButton && 
+                !clickedInsideModal &&
+                !clickedInsideForm &&
+                !clickedInsideSearch
+            ) {
                 setIsSelectedRow(null);
             }
         };
     
         document.addEventListener("click", handleClickOutside);
-        return () => document.removeEventListener("click", handleClickOutside);
-    }, []);
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, [isForm,modal,form]);
 
     return(
         <>
             <Container_Option_Navbar>
-                <Table id="Tabla-Estatus">
+                <Table id="Table-Status">
                     <thead>
                         <Tr>
                             <Th>Nombre de Usuario</Th>

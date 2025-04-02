@@ -155,7 +155,7 @@ export default function Login(){
                                             setIsName('');
                                             setIsPassword('');
 
-                                            navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Menu' : '/Administrator',{ replace: true });
+                                            navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
                                         }else{
                                             setIsLog(false);
                                             return console.log('¡Error al encriptar el estatus de la sesión!...')
@@ -233,7 +233,7 @@ export default function Login(){
                                         setIsName('');
                                         setIsPassword('');
 
-                                        navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Menu' : '/Administrator',{ replace: true });
+                                        navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
                                     }else{
                                         setIsLog(false);
                                         return console.log('¡Error al encriptar el estatus de la sesión!...')

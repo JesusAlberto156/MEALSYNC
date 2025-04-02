@@ -10,7 +10,7 @@ import { useContext } from "react";
 // Contextos
 import { logContext,nameContext,passwordContext } from "../contexts/SessionProvider";
 import { statusEnableContext,statusDeleteContext,statusAddContext } from "../contexts/StatusProvider";
-import { selectedRowContext,modalContext,optionModalContext,selectContext,radioContext,toastContext } from "../contexts/VariablesProvider";
+import { selectedRowContext,modalContext,optionModalContext,selectContext,radioContext,blockContext,comprobationContext } from "../contexts/VariablesProvider";
 import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 
@@ -43,8 +43,11 @@ export const useCloseModal = () => {
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isSelect,setIsSelect] = useContext(selectContext);
     const [iseRadio,setIsRadio] = useContext(radioContext);
+    const [isComprobation,setIsComprobation] = useContext(comprobationContext);
+    const [isBlock,setIsBlock] = useContext(blockContext);
     // Función del hook
     const closeModal = () => {
         if(isOptionModal === 'Status-Add'){
@@ -54,7 +57,11 @@ export const useCloseModal = () => {
         if(isOptionModal === 'Status-Enable'){
             setIsName('');
             setIsPassword('');
+            setIsSelectedRow(null);
+
         }
+        setIsComprobation(false);
+        setIsBlock(false);
         setIsModal(false);
         setIsOptionModal('');
     }
@@ -77,26 +84,30 @@ export const useLogoutModal = () => {
 export const useAddStatus = () => {
     // Constantes con el valor de los contextos 
     const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
-    const [isToast,setIsToast] = useContext(toastContext);
     const [isSelect] = useContext(selectContext);
     const [isRadio] = useContext(radioContext);
     const [isNavbar] = useContext(navbarContext);
     const [isSidebar] = useContext(sidebarContext);
     const [isOptionModal] = useContext(optionModalContext);
+    const [isBlock,setIsBlock] = useContext(blockContext);
     // Función del hook
     const addStatus = () => {
         if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Status-Add'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
+                    setIsBlock(true);
                     setTimeout(() => {
                         if(isSelect.length === 0) return reject('¡No ha seleccionado un usuario!...');
                         if(isRadio === '') return reject('¡No ha seleccionado un estado!...');
 
                         resolve('¡Datos verificados!...');
                         
-                        setIsStatusAdd(true);
-                    },1000);
+                        setTimeout(() => {
+                            setIsStatusAdd(true);
+                        },500)
+                    },2000);
                 }catch(error){
+                    setIsBlock(false);
                     reject('¡Ocurrio un error inesperado!...');
                 }
             });

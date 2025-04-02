@@ -82,7 +82,7 @@ export const Alert_Styles = styled.div`
         font-weight: 300;
         font-style: normal;
         border-radius: 50px;
-        border: 2px solid white;
+        border: 4px solid white;
         background-color: black;
         color: white;
     }

@@ -3,11 +3,12 @@
 import { Socket } from './SocketProvider';
 import { Users,User } from './UsersProvider';
 import { Permissions,Permission } from './PermissionsProvider';
-import { StatusAll,StatusUser,StatusAdd,StatusEnable,StatusDelete } from './StatusProvider';
+import { StatusAll,StatusUser,StatusAdd,StatusEnable } from './StatusProvider';
 import { TypeUser } from './TypeUserProvider';
 import { Log,Logged,Name,Password } from './SessionProvider';
-import { Mode,LoadingOptionLogin,Toast,Visible,SelectedRow,SearchTerm,Modal,OptionModal,Select,Radio,Comprobation } from './VariablesProvider';
+import { Mode,LoadingOptionLogin,Visible,SelectedRow,SearchTerm,Modal,OptionModal,Select,Radio,Comprobation,Block,Enable } from './VariablesProvider';
 import { Navbar,Sidebar } from './ViewsProvider';
+import { Form,Search,StatusModal } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
 // Función general de contextos
@@ -21,47 +22,53 @@ export const AppProviders = ({children}) => {
                             <TypeUser>
                                 <Modal>
                                     <OptionModal>
-                                        <Select>
-                                            <Radio>
-                                                <Comprobation>
-                                                    <Navbar>
-                                                        <Sidebar>
-                                                            <LoadingOptionLogin>
-                                                                <Toast>
-                                                                    <Visible>
-                                                                        <SelectedRow>
-                                                                            <SearchTerm>
-                                                                                <Name>
-                                                                                    <Password>
-                                                                                        <Log>
-                                                                                            <Logged> 
-                                                                                                <Users>
-                                                                                                    <Permissions>
-                                                                                                        <StatusAll>
-                                                                                                            <StatusAdd>
-                                                                                                                <StatusEnable>
-                                                                                                                    <StatusDelete>
-                                                                                                                        {children}
-                                                                                                                    </StatusDelete>
-                                                                                                                </StatusEnable>
-                                                                                                            </StatusAdd>
-                                                                                                        </StatusAll>
-                                                                                                    </Permissions>
-                                                                                                </Users>
-                                                                                            </Logged>
-                                                                                        </Log>
-                                                                                    </Password>
-                                                                                </Name>
-                                                                            </SearchTerm>
-                                                                        </SelectedRow>
-                                                                    </Visible>
-                                                                </Toast>
-                                                            </LoadingOptionLogin>
-                                                        </Sidebar>
-                                                    </Navbar>
-                                                </Comprobation>
-                                            </Radio>
-                                        </Select>
+                                        <Form>
+                                            <Search>
+                                                <StatusModal>
+                                                    <Select>
+                                                        <Radio>
+                                                            <Comprobation>
+                                                                <Block>
+                                                                    <Enable>
+                                                                        <Navbar>
+                                                                            <Sidebar>
+                                                                                <LoadingOptionLogin>
+                                                                                    <Visible>
+                                                                                        <SelectedRow>
+                                                                                            <SearchTerm>
+                                                                                                <Name>
+                                                                                                    <Password>
+                                                                                                        <Log>
+                                                                                                            <Logged> 
+                                                                                                                <Users>
+                                                                                                                    <Permissions>
+                                                                                                                        <StatusAll>
+                                                                                                                            <StatusAdd>
+                                                                                                                                <StatusEnable>
+                                                                                                                                    {children}
+                                                                                                                                </StatusEnable>
+                                                                                                                            </StatusAdd>
+                                                                                                                        </StatusAll>
+                                                                                                                    </Permissions>
+                                                                                                                </Users>
+                                                                                                            </Logged>
+                                                                                                        </Log>
+                                                                                                    </Password>
+                                                                                                </Name>
+                                                                                            </SearchTerm>
+                                                                                        </SelectedRow>
+                                                                                    </Visible>
+                                                                                </LoadingOptionLogin>
+                                                                            </Sidebar>
+                                                                        </Navbar>
+                                                                    </Enable>
+                                                                </Block>
+                                                            </Comprobation>
+                                                        </Radio>
+                                                    </Select>
+                                                </StatusModal>
+                                            </Search>
+                                        </Form>
                                     </OptionModal>
                                 </Modal>
                             </TypeUser>

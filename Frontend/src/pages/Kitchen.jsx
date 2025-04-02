@@ -9,7 +9,7 @@ import { Toaster } from 'sonner';
 // Contextos
 import { typeUserContext } from "../contexts/TypeUserProvider";
 import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
-import { toastContext,visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
+import { visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
 import { statusUserContext,statusEnableContext } from "../contexts/StatusProvider";
@@ -35,7 +35,6 @@ import Footer from "../components/footer/Footer";
 export default function Kitchen(){
     
     const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useContext(loadingOptionLoginContext);
-    const [isToast,setIsToast] = useContext(toastContext);
     const [isVisible,setIsVisible] = useContext(visibleContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
@@ -71,7 +70,6 @@ export default function Kitchen(){
             document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
                 try{
-                    setIsToast(true);
                     
                     setTimeout(() => {
                         resolve('¡MEALSYNC le agradece su estancia!...');
@@ -79,7 +77,6 @@ export default function Kitchen(){
 
                     setTimeout(() => {
                         setIsLoadingOptionLogin('');
-                        setIsToast(false);
                         setIsVisible(true);
                         setIsSelectedRow(null);
                         setIsSearchTerm('');
@@ -160,25 +157,6 @@ export default function Kitchen(){
                 </div>
             </div>
             <Footer/>
-            {isToast ? (
-                <Alert_Styles>
-                    <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='light'
-                    position='top-right'
-                    />
-                </Alert_Styles>
-            ):(
-                <Alert_Styles>
-                    <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='dark'
-                    position='top-right'
-                    />
-                </Alert_Styles>
-            )}
         </div>
     );
 }

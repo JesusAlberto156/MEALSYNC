@@ -367,6 +367,66 @@ export const Button_Icon_Blue_95_Light = styled.button`
         font-size: 14px;
     }
 `;
+export const Button_Icon_Red_45_Dark = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(208, 31, 31);
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(155, 9, 9);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
+        width: 30px;
+    }
+`;
+export const Button_Icon_Red_45_Light = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(155, 9, 9);
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(100, 15, 15);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
+        width: 30px;
+    }
+`;
 export const Button_Icon_Red_50_Dark = styled.button`
     width: 50%;
     padding: 6px;
@@ -477,6 +537,66 @@ export const Button_Icon_Red_80_Light = styled.button`
     @media (max-width: 480px) {
         padding: 2px;
         font-size: 20px;
+    }
+`;
+export const Button_Icon_Green_45_Dark = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(60, 188, 109);
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(20, 165, 76);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
+        width: 30px;
+    }
+`;
+export const Button_Icon_Green_45_Light = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(20, 165, 76);
+    color: white;
+    border: 2px solid black;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(13, 112, 51);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
+        width: 30px;
     }
 `;
 export const Button_Icon_Green_50_Dark = styled.button`
@@ -713,6 +833,58 @@ export const Button_Icon_White_200_Light = styled.button`
         padding: 2px;
         font-size: 20px;
         width: 100px;
+    }
+`;
+export const Button_Icon_Block_45_Dark = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(157, 159, 159);
+    color: white;
+    border: 2px solid black;
+    text-align: center;
+    cursor: not-allowed;
+    pointer-events: none;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
+        width: 30px;
+    }
+`;
+export const Button_Icon_Block_45_Light = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(121, 125, 125);
+    color: white;
+    border: 2px solid black;
+    text-align: center;
+    cursor: not-allowed;
+    pointer-events: none;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
+        width: 30px;
     }
 `;
 export const Button_Icon_Block_50_Dark = styled.button`

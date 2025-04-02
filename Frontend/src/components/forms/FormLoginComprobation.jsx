@@ -8,19 +8,22 @@ import { Tooltip } from "@mui/material";
 // Rutas
 
 // Contextos
-import { modeContext } from "../../contexts/VariablesProvider";
+import { modeContext,blockContext } from "../../contexts/VariablesProvider";
 import { nameContext,passwordContext } from "../../contexts/SessionProvider";
+import { formContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { useComprobation } from "../../hooks/Form";
 //__________ICONOS__________
+// Iconos del boton de comprobar
 import { FaUser } from "react-icons/fa6";
+import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Input_Border_Light,Container_Input_Border_Dark } from "../styled/Containers";
 import { Text_P_20_Light,Text_P_20_Dark } from "../styled/Text";
 import { Input_Group_80,Input_Text_280_Light,Input_Text_280_Dark } from "../styled/Inputs";
 import { Label_Text_20_Light,Label_Popup_16_Light,Label_Text_20_Dark,Label_Popup_16_Dark } from "../styled/Labels";
-import { Button_Icon_Blue_80_Light,Button_Icon_Blue_80_Dark } from "../styled/Buttons";
+import { Button_Icon_Blue_80_Light,Button_Icon_Block_80_Light,Button_Icon_Blue_80_Dark,Button_Icon_Block_80_Dark } from "../styled/Buttons";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -31,6 +34,8 @@ export default function FormLoginComprobation(){
     const [isMode] = useContext(modeContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isBlock] = useContext(blockContext);
+    const isForm = useContext(formContext);
     // Constantes con el valor de useState
     const [textName,setTextName] = useState(false);
     const [isFocusedName, setIsFocusedName] = useState(false);
@@ -38,7 +43,7 @@ export default function FormLoginComprobation(){
     const [textPassword,setTextPassword] = useState(false);
     const [isFocusedPassword, setIsFocusedPassword] = useState(false);
     const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
-
+    // Constantes con la funcionalidad de los hooks
     const comprobation = useComprobation();
     // Estructura del componente
     return(
@@ -46,7 +51,7 @@ export default function FormLoginComprobation(){
             {isMode ? (
                 <>
                     <Text_P_20_Light>Inicia sesión nuevamente...</Text_P_20_Light>
-                    <Container_Input_Border_Light>
+                    <Container_Input_Border_Light ref={isForm}>
                         <Input_Group_80>
                             <Label_Text_20_Light
                                 isLabelUp={isFocusedName}
@@ -105,16 +110,27 @@ export default function FormLoginComprobation(){
                             {textPassword && (
                                 <Label_Popup_16_Light>Escribe tú Contraseña</Label_Popup_16_Light>
                             )}
-                        </Input_Group_80>
-                        <Tooltip id="Description" title="Comprobar" placement="top">
-                            <Button_Icon_Blue_80_Light onClick={() => comprobation()}><FaUser/></Button_Icon_Blue_80_Light>
-                        </Tooltip>
+                        </Input_Group_80>           
+                            {isBlock ? (
+                                <>
+                                    <Button_Icon_Block_80_Light><FaUserCheck/></Button_Icon_Block_80_Light>
+                                </>
+                            ):(
+                                <>
+                                    <Button_Icon_Blue_80_Light onClick={(e) => {
+                                        e.stopPropagation();
+                                        comprobation();
+                                    }}>
+                                        <FaUser/>
+                                    </Button_Icon_Blue_80_Light>
+                                </>
+                            )}
                     </Container_Input_Border_Light>
                 </>  
             ):(
                 <>
                     <Text_P_20_Dark>Inicia sesión nuevamente...</Text_P_20_Dark>
-                    <Container_Input_Border_Dark>
+                    <Container_Input_Border_Dark ref={isForm}>
                         <Input_Group_80>
                             <Label_Text_20_Dark
                                 isLabelUp={isFocusedName}
@@ -174,9 +190,20 @@ export default function FormLoginComprobation(){
                                 <Label_Popup_16_Dark>Escribe tú Contraseña</Label_Popup_16_Dark>
                             )}
                         </Input_Group_80>
-                        <Tooltip id="Description" title="Comprobar" placement="top">
-                            <Button_Icon_Blue_80_Dark onClick={() => comprobation()}><FaUser/></Button_Icon_Blue_80_Dark>
-                        </Tooltip>
+                        {isBlock ? (
+                            <>
+                                <Button_Icon_Block_80_Dark><FaUserCheck/></Button_Icon_Block_80_Dark>
+                            </>
+                        ):(
+                            <>
+                                <Button_Icon_Blue_80_Dark  onClick={(e) => {
+                                        e.stopPropagation();
+                                        comprobation();
+                                }}>
+                                    <FaUser/>
+                                </Button_Icon_Blue_80_Dark> 
+                            </>
+                        )}
                     </Container_Input_Border_Dark>
                 </>
             )}

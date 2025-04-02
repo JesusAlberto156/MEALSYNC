@@ -36,23 +36,7 @@ export default function Users(){
             <Setting/>
             <Navbar/> 
             <SearchBar/>  
-            {isSidebar === 'Users' ? (
-                isNavbar === 'Principal' ? (
-                    <TableUsers/>
-                ):(
-                    isNavbar === 'Permissions' ? (
-                        <TablePermissions/>
-                    ):(
-                        isNavbar === 'Status' ? (
-                            <TableStatus/>
-                        ):(
-                            <></>
-                        )
-                    )
-                )
-            ):(
-                <></>
-            )}
+            
         </>
     )
 }

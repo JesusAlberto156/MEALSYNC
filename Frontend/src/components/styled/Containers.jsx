@@ -707,6 +707,39 @@ export const Container_Navbar_Button_Light = styled.div`
     }
 `;
 //____________NAVBAR____________
+//____________SEARCHBAR____________
+export const Container_Search_Bar = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+    display: flex;            
+    justify-content: flex-end;         
+    background: black;
+    width: 90%;
+    height: 60px;  
+    border-radius: 50px; 
+    border: 4px solid white;      
+    position: relative; 
+    opacity:0.9;
+    padding: 4px;
+    gap: 8px;
+    margin-left: 15px;
+
+    @media (max-width: 768px) {
+        height: 50px;
+        padding: 3px;
+        gap: 6px;  
+        margin-left: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        height: 40px;
+        padding: 2px;
+        gap: 4px;
+        margin-left: 5px;
+    }
+`;
+//____________SEARCHBAR____________
 //____________TEXT____________
 export const Container_Text_20 = styled.div`
     width: 20%;
@@ -906,49 +939,6 @@ export const Container_Menu = styled.div`
     left: 2%;
 `;
 //--------MENU--------
-//--------SEARCH-BAR--------
-export const Container_Search_Bar = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: 4%;  
-    border-radius: 10px;       
-    position: relative; 
-    top: 6%;   
-    left: 1%;
-    display: flex;            
-    justify-content: flex-start;
-    z-index: 1000;
-    @media (max-width: 768px) {
-        height: 8%;
-    }
-
-    @media (max-width: 480px) {
-        height: 10%;
-        top: 4%; 
-    }
-`;
-export const Container_Button_Search_Bar = styled.div`
-    display: flex;
-    width: 50%;
-    gap: 20px; 
-    justify-content: flex-end; 
-    alignItems: center;
-
-
-    @media (max-width: 768px) {
-        width: 65%;
-        gap: 15px;
-    }
-
-    @media (max-width: 480px) {
-        width: 80%;
-        gap: 10px;
-    }
-`;
-//--------SEARCH-BAR--------
 //--------MODAL---------
 export const Container_Button_Modal = styled.div`
     display: flex;
@@ -1004,8 +994,7 @@ export const Container_Option_Navbar = styled.div`
     height: auto;   
     border-radius: 10px;       
     position: relative; 
-    top: 6%;   
-    left: 1%;        
+           
     z-index: 1000;
     @media (max-width: 768px) {
         top: 5%;   

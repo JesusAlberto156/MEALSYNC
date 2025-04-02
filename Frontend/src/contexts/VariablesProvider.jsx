@@ -4,7 +4,6 @@ import { createContext,useState } from "react"
 // Contextos
 export const modeContext = createContext(null);
 export const loadingOptionLoginContext = createContext(null);
-export const toastContext = createContext(null);
 export const visibleContext = createContext(null);
 export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
@@ -13,6 +12,8 @@ export const optionModalContext = createContext(null);
 export const selectContext = createContext(null);
 export const radioContext = createContext(null);
 export const comprobationContext = createContext(null);
+export const blockContext = createContext(null);
+export const enableContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto de cambio de modo de las interfaces (Claro/Oscuro)
@@ -35,17 +36,6 @@ export const LoadingOptionLogin = ({ children }) => {
         <loadingOptionLoginContext.Provider value={[isLoadingOptionLogin,setIsLoadingOptionLogin]}>
             {children}
         </loadingOptionLoginContext.Provider>
-    );
-}
-
-export const Toast = ({ children }) => {
-
-    const [isToast,setIsToast] = useState(false);
-
-    return (
-        <toastContext.Provider value={[isToast,setIsToast]}>
-            {children}
-        </toastContext.Provider>
     );
 }
 
@@ -134,5 +124,27 @@ export const Comprobation = ({children}) => {
         <comprobationContext.Provider value={[isComprobation,setIsComprobation]}>
             {children}
         </comprobationContext.Provider>
+    );
+}
+
+export const Block = ({children}) => {
+
+    const [isBlock,setIsBlock] = useState(false);
+
+    return (
+        <blockContext.Provider value={[isBlock,setIsBlock]}>
+            {children}
+        </blockContext.Provider>
+    );
+}
+
+export const Enable = ({children}) => {
+
+    const [isEnable,setIsEnable] = useState(false);
+
+    return (
+        <enableContext.Provider value={[isEnable,setIsEnable]}>
+            {children}
+        </enableContext.Provider>
     );
 }

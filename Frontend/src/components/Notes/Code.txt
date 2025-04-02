@@ -62,3 +62,47 @@
                 ):(
                     <></>
                 )}
+
+
+
+                <Icon_Search_Menu>
+                    <FcSearch/>
+                </Icon_Search_Menu>
+                <Tooltip title="Buscador" placement="right">
+                    <Input_Search_Bar_Menu
+                        type="text"
+                        placeholder="Buscar..."
+                        value={isSearchTerm}
+                        onChange={(e) => setIsSearchTerm(e.target.value)}
+                    />
+                </Tooltip>
+
+                {isSidebar === 'Users' ? (
+                isNavbar === 'Principal' ? (
+                    <TableUsers/>
+                ):(
+                    isNavbar === 'Permissions' ? (
+                        <TablePermissions/>
+                    ):(
+                        isNavbar === 'Status' ? (
+                            <TableStatus/>
+                        ):(
+                            <></>
+                        )
+                    )
+                )
+            ):(
+                <></>
+            )}
+
+
+            {isTypeUser === 'Cocinero' || isTypeUser === 'Nutriologo' || isTypeUser === 'Medico' ? (
+                    <>
+                        <Icon_Shopping_Cart_Menu onClick={() => modal('Carro-Compras')}>
+                            <FaShoppingCart/>
+                        </Icon_Shopping_Cart_Menu>
+                    </>
+                ):(
+                    <></>
+                )}
+                

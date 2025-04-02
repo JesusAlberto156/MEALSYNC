@@ -7,8 +7,7 @@ import Select from "react-select";
 // Servicios
 
 // Contextos
-import { modeContext,modalContext,selectContext,radioContext } from "../../../contexts/VariablesProvider";
-import { statusAddContext } from "../../../contexts/StatusProvider";
+import { modeContext,modalContext,selectContext,radioContext,blockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { useCloseModal,useAddStatus } from "../../../hooks/Modal";
 import { useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";
@@ -35,10 +34,10 @@ export default function StatusAdd(){
     const [isModal] = useContext(modalContext);
     const [isSelect] = useContext(selectContext);
     const [isRadio] = useContext(radioContext);
-    const [isStatusAdd] = useContext(statusAddContext);
+    const [isBlock] = useContext(blockContext);
     // useEffect con el titulo del modal
     useEffect(() => {
-        document.title = "MEALSYNC_Menú_Comprobación"
+        document.title = "MEALSYNC_Administración_Estatus_Agregar"
     },[]);
     // Constantes con la funcionalidad de los hooks
     const closeModal = useCloseModal();
@@ -134,11 +133,9 @@ export default function StatusAdd(){
                                         <Tooltip title="Cancelar" placement="top">
                                             <Button_Icon_Blue_50_Light onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Light>
                                         </Tooltip>
-                                        {isStatusAdd ? (
+                                        {isBlock ? (
                                             <>
-                                                <Tooltip title="" placement="top">
-                                                    <Button_Icon_Block_50_Light><IoMdAddCircle/></Button_Icon_Block_50_Light>
-                                                </Tooltip>    
+                                                <Button_Icon_Block_50_Light><IoMdAddCircle/></Button_Icon_Block_50_Light>   
                                             </>
                                         ):(
                                             <>
@@ -233,11 +230,9 @@ export default function StatusAdd(){
                                         <Tooltip title="Cancelar" placement="top">
                                             <Button_Icon_Blue_50_Dark onClick={() => closeModal()}><MdCancel/></Button_Icon_Blue_50_Dark>
                                         </Tooltip>
-                                        {isStatusAdd ? (
+                                        {isBlock ? (
                                             <>
-                                                <Tooltip title="" placement="top">
-                                                    <Button_Icon_Block_50_Dark><IoMdAddCircle/></Button_Icon_Block_50_Dark>
-                                                </Tooltip>
+                                                <Button_Icon_Block_50_Dark><IoMdAddCircle/></Button_Icon_Block_50_Dark>
                                             </>
                                         ):(
                                             <>

@@ -42,7 +42,7 @@ const router = createHashRouter([
     element: <PrivateRouteAdministration/>,
     children: [
       {
-        path:'Administrator',
+        path:'Administration',
         element:<Administration/>
       },
     ]
@@ -52,7 +52,7 @@ const router = createHashRouter([
     element: <PrivateRouteKitchen/>,
     children: [
       {
-        path:'Menu',
+        path:'Kitchen',
         element:<Kitchen/>
       },
     ]

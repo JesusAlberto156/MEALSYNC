@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext } from '../contexts/StatusProvider';
-import { selectContext,radioContext,comprobationContext } from "../contexts/VariablesProvider";
+import { selectContext,radioContext,comprobationContext,blockContext } from "../contexts/VariablesProvider";
 import { nameContext,passwordContext } from "../contexts/SessionProvider";
 
 import { Alert_Verification } from "../components/styled/Alerts";
@@ -47,32 +47,38 @@ export const useComprobation = () => {
     const [isPassowrd] = useContext(passwordContext);
     const [isUser] = useContext(userContext);
     const [isComprobation,setIsComprobation] = useContext(comprobationContext);
+    const [isBlock,setIsBlock] = useContext(blockContext);
 
     const comprobation = async () => {
         const promise = new Promise(async (resolve,reject) => {
             try{
+                setIsBlock(true);
                 setTimeout(() => {
                     if(isUser.length !== 0){
                         if(isName === ''){
+                            setIsBlock(false);
                             reject('¡Falta escribir el nombre de usuario!...');
                         }
                         if(isPassowrd === ''){
+                            setIsBlock(false);
                             reject('¡Falta escribir la contraseña!...')
                         }
                         if(isName === isUser.usuario && isPassowrd === isUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsComprobation(true);
                         }else{
-                            reject('¡Nombre de usuario o contraseña incorrectos!...')
+                            setIsBlock(false);
+                            reject('¡Nombre de usuario o contraseña incorrectos!...');
                         }
                     }
                 },1000);
             } catch (error) {
+                setIsBlock(false);
                 reject('¡Ocurrio un error inseperado!...');
             }
         });
 
-        Alert_Verification(promise,'Verificando datos...')
+        Alert_Verification(promise,'Verificando datos...');
     }
 
     return comprobation;

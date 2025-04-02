@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 // Rutas
 
 // Contextos
-import { modeContext } from '../contexts/VariablesProvider'
+import { typeUserContext } from "../contexts/TypeUserProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -24,7 +24,7 @@ import { Alert_Verification } from "../components/styled/Alerts";
 // Hook para regresar a una página permitida
 export const useErrorReturn = () => {
     // Constantes con el valor de los contextos
-    const [isMode] = useContext(modeContext);
+    const [isTypeUser] = useContext(typeUserContext);
     // Constantes con el valor de los hooks
     const navigate = useNavigate();
     // Función del hook
@@ -35,7 +35,11 @@ export const useErrorReturn = () => {
                     resolve('¡Página encontrada!...');
                 },1000);
                 setTimeout(() => {
-                    navigate('/',{replace: true});
+                    if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
+                        navigate('/Kitchen',{replace: true});
+                    }else{
+                        navigate('/Administration',{replace: true});
+                    }
                 },2000);
             } catch (error) {
                 reject('¡Ocurrio un error inseperado!...');

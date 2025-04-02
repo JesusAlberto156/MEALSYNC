@@ -32,11 +32,9 @@ import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
 import PermissionsAdd from '../components/modals/permissions/PermissionsAdd';
 import PermissionsEdit from '../components/modals/permissions/PermissionsEdit';
-import PermissionsDelete from '../components/modals/permissions/PermissionsDelete';
 import PermissionsSuperAdministrator from "../components/modals/permissions/PermissionsSuperAdministrator";
 import StatusAdd from "../components/modals/status/StatusAdd";
 import StatusEnable from "../components/modals/status/StatusEnable";
-import StatusDelete from "../components/modals/status/StatusDelete";
 //____________IMPORT/EXPORT____________
 
 // Página para mostrar el área de administración
@@ -164,15 +162,6 @@ export default function Administration(){
                         ):(
                             <></>
                         )}
-                        {isOptionModal === 'Permissions-Delete' ?(
-                            isModal ? (
-                                <PermissionsDelete/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
                         {isOptionModal === 'Permissions-Super-Administrator' ?(
                             isModal ? (
                                 <PermissionsSuperAdministrator/>
@@ -194,15 +183,6 @@ export default function Administration(){
                         {isOptionModal === 'Status-Enable' ? (
                             isModal ? (
                                 <StatusEnable/>
-                            ):(
-                                <></>
-                            )   
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Status-Delete' ? (
-                            isModal ? (
-                                <StatusDelete/>
                             ):(
                                 <></>
                             )   
@@ -253,15 +233,6 @@ export default function Administration(){
                         ):(
                             <></>
                         )}
-                        {isOptionModal === 'Permissions-Delete' ?(
-                            isModal ? (
-                                <PermissionsDelete/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
                         {isOptionModal === 'Permissions-Super-Administrator' ?(
                             isModal ? (
                                 <PermissionsSuperAdministrator/>
@@ -283,15 +254,6 @@ export default function Administration(){
                         {isOptionModal === 'Status-Enable' ? (
                             isModal ? (
                                 <StatusEnable/>
-                            ):(
-                                <></>
-                            )   
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Status-Delete' ? (
-                            isModal ? (
-                                <StatusDelete/>
                             ):(
                                 <></>
                             )   

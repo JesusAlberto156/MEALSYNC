@@ -15,7 +15,7 @@ import { useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange 
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
-import { IoMdAddCircle } from "react-icons/io";
+import { FcAddRow } from "react-icons/fc";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_400_Light,Container_Button_Border_Light,Container_Select_Light,Container_Check_Light,Container_Form_400_Dark,Container_Button_Border_Dark,Container_Select_Dark,Container_Check_Dark } from "../../styled/Containers";
@@ -135,12 +135,12 @@ export default function StatusAdd(){
                                         </Tooltip>
                                         {isBlock ? (
                                             <>
-                                                <Button_Icon_Block_50_Light><IoMdAddCircle/></Button_Icon_Block_50_Light>   
+                                                <Button_Icon_Block_50_Light><FcAddRow/></Button_Icon_Block_50_Light>   
                                             </>
                                         ):(
                                             <>
                                                 <Tooltip title="Agregar" placement="top">
-                                                    <Button_Icon_Green_50_Light onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Light>
+                                                    <Button_Icon_Green_50_Light onClick={() => addStatus()}><FcAddRow/></Button_Icon_Green_50_Light>
                                                 </Tooltip>
                                             </>
                                         )}
@@ -232,12 +232,12 @@ export default function StatusAdd(){
                                         </Tooltip>
                                         {isBlock ? (
                                             <>
-                                                <Button_Icon_Block_50_Dark><IoMdAddCircle/></Button_Icon_Block_50_Dark>
+                                                <Button_Icon_Block_50_Dark><FcAddRow/></Button_Icon_Block_50_Dark>
                                             </>
                                         ):(
                                             <>
                                                 <Tooltip title="Agregar" placement="top">
-                                                    <Button_Icon_Green_50_Dark onClick={() => addStatus()}><IoMdAddCircle/></Button_Icon_Green_50_Dark>
+                                                    <Button_Icon_Green_50_Dark onClick={() => addStatus()}><FcAddRow/></Button_Icon_Green_50_Dark>
                                                 </Tooltip>  
                                             </>
                                         )}

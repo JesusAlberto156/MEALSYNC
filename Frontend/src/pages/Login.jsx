@@ -10,6 +10,7 @@ import { encryptData } from "../services/Crypto";
 // Rutas
 
 // Contextos
+import { themeModeContext,loginViewContext } from "../contexts/ViewsProvider";
 import { modeContext,loadingOptionLoginContext,modalContext,optionModalContext } from '../contexts/VariablesProvider';
 import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
@@ -17,7 +18,8 @@ import { typeUserContext } from "../contexts/TypeUserProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
 // Hooks personalizados
-import { useOptionsLogin,useLogin } from "../hooks/Login";
+import { useChangeLoginView } from "../hooks/Views";
+import { useLogin } from '../hooks/Login'
 //__________ICONOS__________
 // Iconos de la parte principal del login
 import { MdManageAccounts } from "react-icons/md";
@@ -35,13 +37,13 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { MdLogin } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page,Container_Button,Container_Page_Login_Dark,Container_Form_350_Dark,Container_Page_Login_Light,Container_Form_350_Light } from "../components/styled/Containers";
-import { Img_Logo_Verical_Hospital_Dark,Img_Logo_Verical_Hospital_Light } from "../components/styled/Imgs";
-import { Text_Title_Fade_20_Dark,Text_Title_Fade_20_Light } from "../components/styled/Text";
-import { Button_Icon_Blue_80_Dark,Button_Icon_Blue_50_Dark,Button_Icon_Block_80_Dark,Button_Icon_Green_50_Dark,Button_Icon_Blue_80_Light,Button_Icon_Blue_50_Light,Button_Icon_Block_80_Light,Button_Icon_Green_50_Light } from "../components/styled/Buttons";
+import { Container_Page,Container_Button_Column_300,Container_Button_Row_300,Container_Page_Login,Container_Form_350 } from "../components/styled/Containers";
+import { Img_Logo_Verical_Hospital_250,Img_Logo_Hospital_150 } from "../components/styled/Imgs";
+import { Text_Title_Fade_22 } from "../components/styled/Text";
+import { Button_Icon_Blue_220,Button_Icon_Blue_150,Button_Icon_Green_150 } from "../components/styled/Buttons";
 import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
-import Setting from "../components/setting/Setting";
+import Setting from '../components/navegation/Setting';
 import Footer from '../components/footer/Footer';
 import FormLogin from "../components/forms/FormLogin";
 //____________IMPORT/EXPORT____________
@@ -49,6 +51,8 @@ import FormLogin from "../components/forms/FormLogin";
 // Página para
 export default function Login(){
     // Constantes con el valor de los contextos
+    const [themeMode,setThemeMode] = useContext(themeModeContext);
+    const [currentView,setCurrentView] = useContext(loginViewContext);
     const [isMode] = useContext(modeContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
@@ -261,210 +265,95 @@ export default function Login(){
     },[isLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const optionsLogin = useOptionsLogin();
+    const changeViewLogin = useChangeLoginView();
     const login = useLogin();
     // Estructura del componente
     return(
         <Container_Page>
-            {isMode ? (
-                <>
-                    <Container_Page_Login_Light>
-                        <Setting/>
-                        <Container_Form_350_Light>
-                            <Img_Logo_Verical_Hospital_Light/>
-                            <Text_Title_Fade_20_Light>Bienvenido(a)</Text_Title_Fade_20_Light>
-                            {isLoadingOptionLogin === '' ? (
-                                <>  
-                                    <Container_Button>
-                                        <Tooltip title='Administración' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('Administration','')}><MdManageAccounts/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Cocina' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('Kitchen','')}><GiRiceCooker/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {isLoadingOptionLogin === 'Administration' ? (
-                                <>
-                                    <Container_Button>
-                                        <Tooltip title='Administrador' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('Login','Administrator')}><FaUserTie/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Chef' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('Login','Chef')}><GiChefToque/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Almacenista' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('Login','Storekeeper')}><FaWarehouse/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Atrás' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {isLoadingOptionLogin === 'Kitchen' ? (
-                                <>
-                                    <Container_Button>
-                                        <Tooltip title='Cocinero' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('Login','Cook')}><GiCook/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Nutriólogo' placement="top">
-                                            <Button_Icon_Block_80_Light onClick={() => optionsLogin('Login','Nutritionist')}><IoNutrition/></Button_Icon_Block_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Médico' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('Login','Doctor')}><FaUserDoctor/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Atrás' placement="top">
-                                            <Button_Icon_Blue_80_Light onClick={() => optionsLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_80_Light>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {isLoadingOptionLogin === 'Login' ? (
-                                <>
-                                    <FormLogin/>
-                                    <Container_Button>
-                                        {isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? (
-                                            <Tooltip title='Atrás' placement="top">
-                                                <Button_Icon_Blue_50_Light onClick={() => optionsLogin('Kitchen','')}><IoArrowBackCircle/></Button_Icon_Blue_50_Light>
-                                            </Tooltip>
-                                        ):(
-                                            <Tooltip title='Atrás' placement="top">
-                                                <Button_Icon_Blue_50_Light onClick={() => optionsLogin('Administration','')}><IoArrowBackCircle/></Button_Icon_Blue_50_Light>
-                                            </Tooltip>
-                                        )}
-                                        <Tooltip title='Iniciar sesión' placement="top">
-                                            <Button_Icon_Green_50_Light onClick={() => login()}><MdLogin/></Button_Icon_Green_50_Light>
-                                        </Tooltip>
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                        </Container_Form_350_Light>    
-                    </Container_Page_Login_Light>
-                </>
-            ):(
-                <>
-                    <Container_Page_Login_Dark>
-                        <Setting/>
-                        <Container_Form_350_Dark>
-                            <Img_Logo_Verical_Hospital_Dark/>
-                            <Text_Title_Fade_20_Dark>Bienvenido(a)</Text_Title_Fade_20_Dark>
-                            {isLoadingOptionLogin === '' ? (
-                                <>  
-                                    <Container_Button>
-                                        <Tooltip title='Administración' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Administration','')}><MdManageAccounts/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Cocina' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Kitchen','')}><GiRiceCooker/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {isLoadingOptionLogin === 'Administration' ? (
-                                <>
-                                    <Container_Button>
-                                        <Tooltip title='Administrador' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Login','Administrator')}><FaUserTie/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Chef' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Login','Chef')}><GiChefToque/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Almacenista' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Login','Storekeeper')}><FaWarehouse/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Atrás' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {isLoadingOptionLogin === 'Kitchen' ? (
-                                <>
-                                    <Container_Button>
-                                        <Tooltip title='Cocinero' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Login','Cook')}><GiCook/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Nutriólogo' placement="top">
-                                            <Button_Icon_Block_80_Dark onClick={() => optionsLogin('Login','Nutritionist')}><IoNutrition/></Button_Icon_Block_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Médico' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('Login','Doctor')}><FaUserDoctor/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                    <Container_Button>
-                                        <Tooltip title='Atrás' placement="top">
-                                            <Button_Icon_Blue_80_Dark onClick={() => optionsLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_80_Dark>
-                                        </Tooltip>    
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {isLoadingOptionLogin === 'Login' ? (
-                                <>
-                                    <FormLogin/>
-                                    <Container_Button>
-                                        {isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? (
-                                            <Tooltip title='Atrás' placement="top">
-                                                <Button_Icon_Blue_50_Dark onClick={() => optionsLogin('Kitchen','')}><IoArrowBackCircle/></Button_Icon_Blue_50_Dark>
-                                            </Tooltip>
-                                        ):(
-                                            <Tooltip title='Atrás' placement="top">
-                                                <Button_Icon_Blue_50_Dark onClick={() => optionsLogin('Administration','')}><IoArrowBackCircle/></Button_Icon_Blue_50_Dark>
-                                            </Tooltip>
-                                        )}
-                                        <Tooltip title='Iniciar sesión' placement="top">
-                                            <Button_Icon_Green_50_Dark onClick={() => login()}><MdLogin/></Button_Icon_Green_50_Dark>
-                                        </Tooltip>
-                                    </Container_Button>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                        </Container_Form_350_Dark>       
-                    </Container_Page_Login_Dark>
-                </>
-            )}
+            <Container_Page_Login ThemeMode={themeMode}>
+                <Setting/>
+                <Container_Form_350 ThemeMode={themeMode}>
+                    {currentView === '' ? (
+                        <>  
+                            <Img_Logo_Verical_Hospital_250 ThemeMode={themeMode}/>
+                            <Text_Title_Fade_22 ThemeMode={themeMode}>Bienvenido(a)</Text_Title_Fade_22>
+                            <Container_Button_Column_300>
+                                <Tooltip title='Administración' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Administration','')}><MdManageAccounts/></Button_Icon_Blue_220>
+                                </Tooltip>
+                                <Tooltip title='Cocina' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Kitchen','')}><GiRiceCooker/></Button_Icon_Blue_220>
+                                </Tooltip>
+                            </Container_Button_Column_300>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentView === 'Administration' ? (
+                        <>
+                            <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
+                            <Text_Title_Fade_22 ThemeMode={themeMode}>Escoger usuario</Text_Title_Fade_22>
+                            <Container_Button_Column_300>
+                                <Tooltip title='Administrador' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Administrator')}><FaUserTie/></Button_Icon_Blue_220>
+                                </Tooltip>
+                                <Tooltip title='Chef' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Chef')}><GiChefToque/></Button_Icon_Blue_220>
+                                </Tooltip>    
+                                <Tooltip title='Almacenista' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Storekeeper')}><FaWarehouse/></Button_Icon_Blue_220>
+                                </Tooltip> 
+                                <Tooltip title='Atrás' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_220>
+                                </Tooltip>
+                            </Container_Button_Column_300>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentView === 'Kitchen' ? (
+                        <>
+                            <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
+                            <Text_Title_Fade_22 ThemeMode={themeMode}>Escoger usuario</Text_Title_Fade_22>
+                            <Container_Button_Column_300>
+                                <Tooltip title='Cocinero' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Cook')}><GiCook/></Button_Icon_Blue_220>
+                                </Tooltip>  
+                                <Tooltip title='Nutriólogo' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Nutritionist')}><IoNutrition/></Button_Icon_Blue_220>
+                                </Tooltip> 
+                                <Tooltip title='Médico' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Doctor')}><FaUserDoctor/></Button_Icon_Blue_220>
+                                </Tooltip> 
+                                <Tooltip title='Atrás' placement="top">
+                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_220>
+                                </Tooltip> 
+                            </Container_Button_Column_300>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentView === 'Login' ? (
+                        <>
+                            <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
+                            <Text_Title_Fade_22 ThemeMode={themeMode}>Iniciar sesión</Text_Title_Fade_22>
+                            <FormLogin/>
+                            <Container_Button_Row_300>
+                                <Tooltip title='Atrás' placement="top">
+                                    <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => changeViewLogin(
+                                        isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration',''
+                                    )}><IoArrowBackCircle/></Button_Icon_Blue_150>
+                                </Tooltip>
+                                <Tooltip title='Iniciar sesión' placement="top">
+                                    <Button_Icon_Green_150 ThemeMode={themeMode} onClick={() => login()}><MdLogin/></Button_Icon_Green_150>
+                                </Tooltip>
+                            </Container_Button_Row_300>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                </Container_Form_350>    
+            </Container_Page_Login>
             <Footer/>
             <Alert_Styles>
                 <Toaster

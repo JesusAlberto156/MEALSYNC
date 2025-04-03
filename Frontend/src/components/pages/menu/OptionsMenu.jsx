@@ -1,8 +1,8 @@
 import { Container_Menu } from "../../styled/Containers";
 import { Whitespace_Menu } from '../../styled/Whitespaces'
 
-import SearchBar from "../../searchbar/SearchBar";
-import Navbar from "../../navbar/Navbar";
+import SearchBar from "../../navegation/SearchBar";
+import Navbar from "../../navegation/Navbar";
 
 export default function OptionsMenu(){
 

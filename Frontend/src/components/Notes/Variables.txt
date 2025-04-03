@@ -1,0 +1,8 @@
+
+//____________VIEWS____________
+const [themeMode,setThemeMode] = useContext(themeModeContext);
+const [currentView,setCurrentView] = useContext(loginViewContext);
+const [currentView,setCurrentView] = useContext(navbarViewContext);
+const [currentView,setCurrentView] = useContext(sidebarViewContext);
+const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+//____________VIEWS____________

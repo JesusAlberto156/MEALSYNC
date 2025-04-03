@@ -10,7 +10,7 @@ import { Toaster } from 'sonner';
 
 // Contextos
 import { typeUserContext } from "../contexts/TypeUserProvider";
-import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
+import { sidebarViewContext,navbarViewContext } from "../contexts/ViewsProvider";
 import { modeContext,visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
@@ -26,7 +26,7 @@ import { Container_Page,Container_Page_Elements,Container_Page_Administration_Li
 import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Footer from '../components/footer/Footer'
-import Sidebar from "../components/sidebar/Sidebar";
+import Sidebar from "../components/navegation/Sidebar";
 import OutLogin from "../components/modals/General/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
@@ -47,8 +47,8 @@ export default function Administration(){
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isModal,setIsModal] = useContext(modalContext);
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
-    const [isNavbar,setIsNavbar] = useContext(navbarContext);
+    const [isSidebar,setIsSidebar] = useContext(sidebarViewContext);
+    const [isNavbar,setIsNavbar] = useContext(navbarViewContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
     const [isLogged,setIsLogged] = useContext(loggedContext);
     const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);

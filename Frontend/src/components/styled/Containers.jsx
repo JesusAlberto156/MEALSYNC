@@ -20,8 +20,10 @@ export const Container_Page = styled.div`
         display: none;
     }
 `;
-export const Container_Page_Login_Dark = styled.div`
-    background-image: url(${Background_Login_Dark});    
+export const Container_Page_Login = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Background_Login_Light})` : `url(${Background_Login_Dark})`)};    
     background-Size: cover;
     background-Position: center;
     width: 100vw;
@@ -32,21 +34,8 @@ export const Container_Page_Login_Dark = styled.div`
     justify-content: flex-start;
     align-Items: center;
     flex-direction: column;
-    padding-top: 60px;
-`;
-export const Container_Page_Login_Light = styled.div`
-    background-image: url(${Background_Login_Light});    
-    background-Size: cover;
-    background-Position: center;
-    width: 100vw;
-    height: 100vh;
-    max-height: none;
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-Items: center;
-    flex-direction: column;
-    padding-top: 60px;
+    padding-top: 40px;
+    gap: 40px;
 `;
 export const Container_Page_Menu_Dark = styled.div`
     background-image: url(${Background_Menu_Dark});    
@@ -150,7 +139,7 @@ export const Container_Page_Loading_Light = styled.div`
 `;
 export const Container_Page_Elements = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'sidebarVisible'
-  })`
+})`
     position: fixed;
     top: 0%;
     left: ${({ sidebarVisible }) => (sidebarVisible ? "21.2%" : "5%")};
@@ -196,6 +185,77 @@ export const Container_Page_Elements = styled.div.withConfig({
 `;
 //____________PAGE____________
 //____________FORM____________
+export const Container_Form_350 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    z-index: 40;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 350px;
+    max-height: 80vh;
+    padding: 20px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(204, 203, 198, 0.7)' : 'rgba(41, 41, 40, 0.8)')};
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        width: 300px;
+        padding: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 250px;    
+        padding: 10px;
+    }
+`;
+export const Container_Form_400 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    z-index: 40;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 400px;
+    max-height: 80vh;
+    padding: 20px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(204, 203, 198, 0.7)' : 'rgba(41, 41, 40, 0.8)')};
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        width: 350px;
+        padding: 15px;
+        margin-left: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 300px;    
+        padding: 10px;
+        margin-left: 20px;
+    }
+`;
+
 export const Container_Form_350_Dark = styled.div`
     position: relative;
     z-index: 40;
@@ -347,29 +407,85 @@ export const Container_Modal = styled.div`
 `;
 //____________MODAL____________
 //____________BUTTOM____________
-export const Container_Button = styled.div`
+export const Container_Button_Column_300 = styled.div`
+    position: relative;    
     display: flex;
-    gap: 15px; 
+    flex-direction: column;
     justify-content: center; 
     align-items: center;
-    height: 60px;
-    width: 94%;
+    height: auto;
+    width: 300px;
     padding: 10px;
-    margin-top: 0px;
-    margin-bottom: 5px;
+    gap: 20px;
 
     @media (max-width: 768px) {
-        gap: 10px;
+        width: 250px;
         padding: 8px;
-        height: 50px;
+        gap: 15px;
     }
 
     @media (max-width: 480px) {
-        gap: 5px;
+        width: 200px;
         padding: 6px;
-        height: 40px;
+        gap: 10px;
     }
 `;
+export const Container_Button_Row_300 = styled.div`
+    position: relative;    
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: auto;
+    width: 300px;
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 250px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 200px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
+export const Container_Button_90 = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: 40px;  
+    border-radius: 50px; 
+    border: none;      
+    position: relative; 
+    padding: 4px;
+    gap: 15px;
+    margin-left: 15px;
+    padding-left: 40px;
+
+    @media (max-width: 768px) {
+        height: 50px;
+        padding: 3px;
+        gap: 10px;    
+        margin-left: 10px;
+        padding-left: 30px;
+    }
+
+    @media (max-width: 480px) {
+        height: 40px;
+        padding: 2px;
+        gap: 5px;
+        margin-left: 5px;
+        padding-left: 20px;
+    }
+}
+`;
+
+
 export const Container_Button_Border_Dark = styled.div`
     display: flex;
     gap: 15px; 

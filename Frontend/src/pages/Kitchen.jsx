@@ -8,7 +8,7 @@ import { Toaster } from 'sonner';
 
 // Contextos
 import { typeUserContext } from "../contexts/TypeUserProvider";
-import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
+import { sidebarViewContext,navbarViewContext } from "../contexts/ViewsProvider";
 import { visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
@@ -28,7 +28,7 @@ import AlertMedico from "../components/modals/General/AlertDoctor";
 import ShoppingCart from "../components/modals/General/ShoppingCart";
 import Home from '../components/pages/general/Home';
 import OptionsMenu from '../components/pages/menu/OptionsMenu';
-import Sidebar from "../components/sidebar/Sidebar";
+import Sidebar from "../components/navegation/Sidebar";
 import Footer from "../components/footer/Footer";
 //____________IMPORT/EXPORT____________
 
@@ -41,8 +41,8 @@ export default function Kitchen(){
     const [isModal,setIsModal] = useContext(modalContext);
     const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
 
-    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
-    const [isNavbar,setIsNavbar] = useContext(navbarContext);
+    const [isSidebar,setIsSidebar] = useContext(sidebarViewContext);
+    const [isNavbar,setIsNavbar] = useContext(navbarViewContext);
 
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
     

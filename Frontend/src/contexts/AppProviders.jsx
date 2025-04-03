@@ -7,7 +7,7 @@ import { StatusAll,StatusUser,StatusAdd,StatusEnable } from './StatusProvider';
 import { TypeUser } from './TypeUserProvider';
 import { Log,Logged,Name,Password } from './SessionProvider';
 import { Mode,LoadingOptionLogin,Visible,SelectedRow,SearchTerm,Modal,OptionModal,Select,Radio,Comprobation,Block,Enable } from './VariablesProvider';
-import { Navbar,Sidebar } from './ViewsProvider';
+import { Theme_Mode,Login_View,Navbar_View,Sidebar_View,Sidebar_Visible } from './ViewsProvider';
 import { Form,Search,StatusModal } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
@@ -15,9 +15,13 @@ import { Form,Search,StatusModal } from './RefsProvider';
 export const AppProviders = ({children}) => {
     return(
         <Socket>
-            <Mode>
-                <User>
-                    <Permission>
+            <Theme_Mode>
+                <Login_View>
+                    <Navbar_View>
+                        <Sidebar_View>
+                            <Sidebar_Visible>
+                            <User>
+                            <Permission>
                         <StatusUser>
                             <TypeUser>
                                 <Modal>
@@ -30,8 +34,6 @@ export const AppProviders = ({children}) => {
                                                             <Comprobation>
                                                                 <Block>
                                                                     <Enable>
-                                                                        <Navbar>
-                                                                            <Sidebar>
                                                                                 <LoadingOptionLogin>
                                                                                     <Visible>
                                                                                         <SelectedRow>
@@ -45,7 +47,10 @@ export const AppProviders = ({children}) => {
                                                                                                                         <StatusAll>
                                                                                                                             <StatusAdd>
                                                                                                                                 <StatusEnable>
+                                                                                                                                    <Mode>
                                                                                                                                     {children}
+                                                                                                                                    </Mode>
+                                                                                                                                    
                                                                                                                                 </StatusEnable>
                                                                                                                             </StatusAdd>
                                                                                                                         </StatusAll>
@@ -59,8 +64,6 @@ export const AppProviders = ({children}) => {
                                                                                         </SelectedRow>
                                                                                     </Visible>
                                                                                 </LoadingOptionLogin>
-                                                                            </Sidebar>
-                                                                        </Navbar>
                                                                     </Enable>
                                                                 </Block>
                                                             </Comprobation>
@@ -75,7 +78,11 @@ export const AppProviders = ({children}) => {
                         </StatusUser>
                     </Permission>
                 </User>
-            </Mode>
+                            </Sidebar_Visible>
+                        </Sidebar_View>
+                    </Navbar_View>
+                </Login_View>
+            </Theme_Mode>
         </Socket>
     );
 }

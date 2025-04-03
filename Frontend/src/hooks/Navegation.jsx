@@ -8,7 +8,7 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { sidebarContext,navbarContext } from "../contexts/ViewsProvider";
+import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
 import { searchTermContext } from "../contexts/VariablesProvider";
 import { typeUserContext } from "../contexts/TypeUserProvider";
 // Hooks personalizados
@@ -22,6 +22,21 @@ import { typeUserContext } from "../contexts/TypeUserProvider";
 
 //____________IMPORT/EXPORT____________
 
+//____________SIDEBAR____________
+// Hook para cambiar las vistas
+export const useChangeViewNavbar = () => {
+    // Constantes con el valor de los contextos 
+    const [isNavbar,setIsNavbar] = useContext(navbarContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+    // Función del hook
+    const changeViewNavbar = (View) => {
+        setIsNavbar(View);
+        setIsSearchTerm('');
+    };
+    // Retorno de la función del hook
+    return navbarViews;
+}
+//____________SIDEBAR____________
 // Hook para ir a inicio del sidebar
 export const useSidebarHome = () => {
     // Constantes con el valor de los contextos 

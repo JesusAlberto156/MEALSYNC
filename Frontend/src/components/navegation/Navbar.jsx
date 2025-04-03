@@ -8,12 +8,9 @@ import { Tooltip } from "@mui/material";
 // Rutas
 
 // Contextos
-import { sidebarContext } from "../../contexts/ViewsProvider";
-import { navbarContext } from "../../contexts/ViewsProvider";
-import { modeContext } from "../../contexts/VariablesProvider";
-import { useNavbarViews } from '../../hooks/Navbar'
+import { themeModeContext,navbarViewContext,sidebarViewContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
-
+import { useChangeNavbarView } from "../../hooks/Views";
 //__________ICONOS__________
 // Iconos para la opcion de usuarios del navbar
 import { FaUserTag } from "react-icons/fa6";
@@ -32,37 +29,37 @@ import { Text_Title_Fade_30__Light,Text_Title_Fade_30__Dark } from '../styled/Te
 // Componente para navegar entre las paginas en la parte superior 
 export default function Navbar(){
     // Constantes con el valor de los contextos 
-    const [isMode] = useContext(modeContext);
-    const [isSidebar] = useContext(sidebarContext);
-    const [isNavbar] = useContext(navbarContext);
+    const [themeMode] = useContext(themeModeContext);
+    const [currentNView] = useContext(navbarViewContext);
+    const [currentSView] = useContext(sidebarViewContext);
     // Constantes con la funcionalidad de los hooks
-    const navbarViews = useNavbarViews();
+    const changeNavbarView = useChangeNavbarView();
     // Estructura del componente
     return(
         <>
-            {isMode ? (
+            {themeMode ? (
                 <>
                     <Container_Navbar_Light> 
                         <Img_Logo_Hospital_Light/> 
                         <Container_Navbar_Button_Light>
-                            {isSidebar === 'Users' ? (
+                            {currentSView === 'Users' ? (
                                 <>
                                     <Tooltip title='Principal' placement="right-start">
-                                        <Button_Icon_White_100_Light onClick={() => navbarViews('Principal')}><FaUserTag/></Button_Icon_White_100_Light>
+                                        <Button_Icon_White_100_Light onClick={() => changeNavbarView('Principal')}><FaUserTag/></Button_Icon_White_100_Light>
                                     </Tooltip>
                                     <Tooltip title='Permisos' placement="right-start">
-                                        <Button_Icon_White_100_Light onClick={() => navbarViews('Permissions')}><FaUserLock/></Button_Icon_White_100_Light>
+                                        <Button_Icon_White_100_Light onClick={() => changeNavbarView('Permissions')}><FaUserLock/></Button_Icon_White_100_Light>
                                     </Tooltip>
                                     <Tooltip title='Estatus' placement="right-start">
-                                        <Button_Icon_White_100_Light onClick={() => navbarViews('Status')}><FaUserClock/></Button_Icon_White_100_Light>
+                                        <Button_Icon_White_100_Light onClick={() => changeNavbarView('Status')}><FaUserClock/></Button_Icon_White_100_Light>
                                     </Tooltip>
-                                    {isNavbar === 'Principal' ? (
+                                    {currentNView === 'Principal' ? (
                                         <Text_Title_Fade_30__Light>USUARIOS</Text_Title_Fade_30__Light>
                                     ):(
-                                        isNavbar === 'Permissions' ? (
+                                        currentNView === 'Permissions' ? (
                                             <Text_Title_Fade_30__Light>PERMISOS</Text_Title_Fade_30__Light>
                                         ):(
-                                            isNavbar === 'Status' ? (
+                                            currentNView === 'Status' ? (
                                                 <Text_Title_Fade_30__Light>ESTATUS</Text_Title_Fade_30__Light>
                                             ):(
                                                 <></>

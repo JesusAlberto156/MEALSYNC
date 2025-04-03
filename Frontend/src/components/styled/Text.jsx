@@ -26,9 +26,12 @@ export const Text_Title_Fade_20_Dark = styled.h1`
         font-size: 16px;
     }
 `;
-export const Text_Title_Fade_20_Light = styled.h1`
-    color: black;
-    font-size: 20px;
+
+export const Text_Title_Fade_22 = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 22px;
     font-family: "Prompt", sans-serif;
     font-weight: 700;
     font-style: italic;
@@ -36,11 +39,31 @@ export const Text_Title_Fade_20_Light = styled.h1`
     margin-top: 0px;
 
     @media (max-width: 768px) {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     @media (max-width: 480px) {
-        font-size: 16px;
+        font-size: 18px;
+    }
+`;
+
+export const Text_Title_Fade_20_Light = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 22px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    animation: ${FadeAnimation} 2s infinite;
+    margin-top: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
     }
 `;
 export const Text_Title_Fade_30_Dark = styled.h1`

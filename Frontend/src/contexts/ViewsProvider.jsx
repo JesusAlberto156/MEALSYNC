@@ -1,27 +1,66 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { createContext, useState } from "react"
+// Contextos
+export const themeModeContext = createContext(null);
+export const loginViewContext = createContext(null);
+export const navbarViewContext = createContext(null);
+export const sidebarViewContext = createContext(null);
+export const sidebarVisibleContext = createContext(null);
+//____________IMPORT/EXPORT____________
 
-export const navbarContext = createContext(null);
-export const sidebarContext = createContext(null);
-export const optionSidebarContext = createContext(null);
-
-export const Navbar = ({ children }) => {
-
-    const [isNavbar,setIsNavbar] = useState('');
-
-    return (
-        <navbarContext.Provider value={[isNavbar,setIsNavbar]}>
+// Función Contexto para controlar el modo de la página (Claro/Oscuro)
+export const Theme_Mode = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [themeMode,setThemeMode] = useState(true);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <themeModeContext.Provider value={[themeMode,setThemeMode]}>
             {children}
-        </navbarContext.Provider>
+        </themeModeContext.Provider>
     );
 }
-
-export const Sidebar = ({ children }) => {
-
-    const [isSidebar,setIsSidebar] = useState('Home');
-
+// Función contexto para controlar la vista del login
+export const Login_View = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [currentView,setCurrentView] = useState('');
+    // Return para darle valor al contexto y heredarlo
     return (
-        <sidebarContext.Provider value={[isSidebar,setIsSidebar]}>
+        <loginViewContext.Provider value={[currentView,setCurrentView]}>
             {children}
-        </sidebarContext.Provider>
+        </loginViewContext.Provider>
+    );
+}
+// Función contexto para controlar la vista del navbar
+export const Navbar_View = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [currentView,setCurrentView] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <navbarViewContext.Provider value={[currentView,setCurrentView]}>
+            {children}
+        </navbarViewContext.Provider>
+    );
+}
+// Función contexto para controlar la vista del sidebar
+export const Sidebar_View = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [currentView,setCurrentView] = useState('Home');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <sidebarViewContext.Provider value={[currentView,setCurrentView]}>
+            {children}
+        </sidebarViewContext.Provider>
+    );
+}
+// Función contexto para controlar la visibilidad del sidebar
+export const Sidebar_Visible = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSidebarVisible,setIsSidebarVisible] = useState(true);
+    // UseState para controlar el valor del contexto
+    return (
+        <sidebarVisibleContext.Provider value={[isSidebarVisible,setIsSidebarVisible]}>
+            {children}
+        </sidebarVisibleContext.Provider>
     );
 }

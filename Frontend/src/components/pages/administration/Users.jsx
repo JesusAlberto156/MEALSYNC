@@ -8,7 +8,7 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { sidebarContext,navbarContext } from "../../../contexts/ViewsProvider";
+import { sidebarViewContext,navbarViewContext } from "../../../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -17,9 +17,9 @@ import { sidebarContext,navbarContext } from "../../../contexts/ViewsProvider";
 // Estilos personalizados
 
 // Componentes personalizados
-import Setting from "../../setting/Setting";
-import Navbar from "../../navbar/Navbar"
-import SearchBar from '../../searchbar/SearchBar'
+import Setting from "../../navegation/Setting";
+import Navbar from "../../navegation/Navbar"
+import SearchBar from '../../navegation/SearchBar'
 import TableUsers from "../../tables/TableUsers";
 import TablePermissions from "../../tables/TablePermissions";
 import TableStatus from '../../tables/TableStatus';
@@ -28,8 +28,8 @@ import TableStatus from '../../tables/TableStatus';
 // Componente para mostrar la seccion de usuarios en administración
 export default function Users(){
     // Constantes con el valor de los contextos 
-    const [isSidebar] = useContext(sidebarContext);
-    const [isNavbar] = useContext(navbarContext);
+    const [isSidebar] = useContext(sidebarViewContext);
+    const [isNavbar] = useContext(navbarViewContext);
     // Estructura del componente
     return(
         <> 

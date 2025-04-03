@@ -13,7 +13,7 @@ import { visibleContext } from "../../contexts/VariablesProvider";
 import { typeUserContext } from "../../contexts/TypeUserProvider";
 import { userContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
-import { useSidebarHome,useSidebarViews } from '../../hooks/Sidebar'
+import { useChangeNavbarView,useChangeSidebarView } from "../../hooks/Views";
 //__________ICONOS__________
 // Icono para el inicio
 import { BiSolidHomeAlt2 } from "react-icons/bi";
@@ -56,8 +56,8 @@ export default function Sidebar() {
     }
   }, [isVisible]);
   // Constantes con la funcionalidad de los hooks
-  const sidebarHome = useSidebarHome();
-  const sidebarViews = useSidebarViews();
+  const changeNavbarView = useChangeNavbarView();
+  const changeSidebarView = useChangeSidebarView();
   // Estructura del componente
   return (
     <>
@@ -69,18 +69,18 @@ export default function Sidebar() {
             </Container_Icon>
             <Text_Title_Fade_20_Light>{isUser.nombre}</Text_Title_Fade_20_Light>
             <Tooltip title='Inicio' placement="right">
-              <Button_Icon_Blue_95_Light onClick={() => sidebarHome('Home')}><Text_A_18_Light>Inicio</Text_A_18_Light><BiSolidHomeAlt2/></Button_Icon_Blue_95_Light>
+              <Button_Icon_Blue_95_Light onClick={() => changeSidebarView('Home')}><Text_A_18_Light>Inicio</Text_A_18_Light><BiSolidHomeAlt2/></Button_Icon_Blue_95_Light>
             </Tooltip>
             {isTypeUser === 'Cook' ? (
               <>
                 <Tooltip title='General' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('General','')}><Text_A_18_Light>General</Text_A_18_Light><FaHospitalUser/></Button_Icon_Blue_95_Light>
+                  <Button_Icon_Blue_95_Light onClick={() => {changeSidebarView('General')}}><Text_A_18_Light>General</Text_A_18_Light><FaHospitalUser/></Button_Icon_Blue_95_Light>
                 </Tooltip>
                 <Tooltip title='Colaboradores' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Collaborators','')}><Text_A_18_Light>Colaboradores</Text_A_18_Light><FaUserFriends/></Button_Icon_Blue_95_Light>
+                  <Button_Icon_Blue_95_Light onClick={() => {changeSidebarView('Collaborators')}}><Text_A_18_Light>Colaboradores</Text_A_18_Light><FaUserFriends/></Button_Icon_Blue_95_Light>
                 </Tooltip>
                 <Tooltip title='Nutriólogo' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Nutritionist','')}><Text_A_18_Light>Nutriólogo</Text_A_18_Light><IoNutrition/></Button_Icon_Blue_95_Light>
+                  <Button_Icon_Blue_95_Light onClick={() => changeSidebarView('Nutritionist')}><Text_A_18_Light>Nutriólogo</Text_A_18_Light><IoNutrition/></Button_Icon_Blue_95_Light>
                 </Tooltip>
               </>
             ):(
@@ -103,7 +103,7 @@ export default function Sidebar() {
             {isTypeUser === 'Administrator' ? (
               <>
                 <Tooltip title='Usuarios' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Users','Principal')}><Text_A_18_Light>General</Text_A_18_Light><FaUserGroup/></Button_Icon_Blue_95_Light>
+                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Users','Principal')}><Text_A_18_Light>Usuarios</Text_A_18_Light><FaUserGroup/></Button_Icon_Blue_95_Light>
                 </Tooltip>
                 <Tooltip title='Proveedores' placement="right">
                   <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Light>Proveedores</Text_A_18_Light><FaUserTie/></Button_Icon_Blue_95_Light>
@@ -198,7 +198,7 @@ export default function Sidebar() {
             {isTypeUser === 'Administrator' ? (
               <>
                 <Tooltip title='Usuarios' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Users','Principal')}><Text_A_18_Dark>General</Text_A_18_Dark><FaUserGroup/></Button_Icon_Blue_95_Dark>
+                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Users','Principal')}><Text_A_18_Dark>Usuarios</Text_A_18_Dark><FaUserGroup/></Button_Icon_Blue_95_Dark>
                 </Tooltip>
                 <Tooltip title='Proveedores' placement="right">
                   <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Dark>Proveedores</Text_A_18_Dark><FaUserTie/></Button_Icon_Blue_95_Dark>

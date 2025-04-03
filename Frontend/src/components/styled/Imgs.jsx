@@ -8,8 +8,10 @@ import Logo_Error_Light from '../imgs/Error-Light.webp'
 import { FadeAnimation } from './Animations';
 
 //____________LOGO____________
-export const Img_Logo_Verical_Hospital_Dark = styled.div`
-    background-image: url(${Logo_Vertical_Hospital_Dark});
+export const Img_Logo_Verical_Hospital_250 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'sidebarVisible'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Vertical_Hospital_Light})` : `url(${Logo_Vertical_Hospital_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
     width: 250px;
@@ -28,26 +30,36 @@ export const Img_Logo_Verical_Hospital_Dark = styled.div`
         height: 150px;    
     }
 `;
-export const Img_Logo_Verical_Hospital_Light = styled.div`
-    background-image: url(${Logo_Vertical_Hospital_Light});
+export const Img_Logo_Hospital_150 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'sidebarVisible'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Hospital_Light})` : `url(${Logo_Hospital_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
-    width: 250px;
-    height: 250px;
-    margin: 0 auto;
-    margin-bottom: 0px;
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
     flex-shrink: 0;
     
     @media (max-width: 768px) {
-        width: 200px;
-        height: 200px;    
+        width: 120px;
+        height: 120px;  
+        padding: 8px;
+        margin-left: 15px;
+        margin-bottom: 15px;
     }
 
     @media (max-width: 480px) {
-        width: 150px;
-        height: 150px;    
+        width: 90px;
+        height: 90px;  
+        padding: 6px;
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
 `;
+
 export const Img_Logo_Error_Dark = styled.div`
     background-image: url(${Logo_Error_Dark});
     background-size: contain;

@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext,useEffect,useState } from "react";
 // Componentes de React externos
-import { Tooltip } from "@mui/material";
+
 // Servicios
 
 // Rutas
@@ -16,6 +16,7 @@ import { statusModalContext } from "../../../contexts/RefsProvider";
 import { useCloseModal,useEnableUser } from "../../../hooks/Modal";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
+import { FaUnlock } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 import { FaExclamationCircle } from 'react-icons/fa';
@@ -84,7 +85,7 @@ export default function StatusEnable(){
                                             </>
                                         ):(
                                             <>
-                                                <Button_Icon_Block_50_Light><FaLock/></Button_Icon_Block_50_Light>
+                                                <Button_Icon_Block_50_Light><FaUnlock/></Button_Icon_Block_50_Light>
                                             </>
                                         )
                                     ):(
@@ -99,7 +100,7 @@ export default function StatusEnable(){
                                             </>
                                         ):(
                                             <>
-                                                <Button_Icon_Block_50_Light><FaLockOpen/></Button_Icon_Block_50_Light>
+                                                <Button_Icon_Block_50_Light><FaUnlock/></Button_Icon_Block_50_Light>
                                             </>
                                         )
                                     )}
@@ -131,7 +132,7 @@ export default function StatusEnable(){
                                             </>
                                         ):(
                                             <>
-                                                <Button_Icon_Block_50_Dark><FaLock/></Button_Icon_Block_50_Dark>
+                                                <Button_Icon_Block_50_Dark><FaUnlock/></Button_Icon_Block_50_Dark>
                                             </>
                                         )
                                     ):(
@@ -146,7 +147,7 @@ export default function StatusEnable(){
                                             </>
                                         ):(
                                             <>
-                                                <Button_Icon_Block_50_Dark><FaLockOpen/></Button_Icon_Block_50_Dark>
+                                                <Button_Icon_Block_50_Dark><FaUnlock/></Button_Icon_Block_50_Dark>
                                             </>
                                         )
                                     )}

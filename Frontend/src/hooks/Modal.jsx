@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { logContext,nameContext,passwordContext } from "../contexts/SessionProvider";
 import { statusEnableContext,statusDeleteContext,statusAddContext } from "../contexts/StatusProvider";
 import { selectedRowContext,modalContext,optionModalContext,selectContext,radioContext,blockContext,comprobationContext } from "../contexts/VariablesProvider";
-import { navbarContext,sidebarContext } from "../contexts/ViewsProvider";
+import { navbarViewContext,sidebarViewContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -86,8 +86,8 @@ export const useAddStatus = () => {
     const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
     const [isSelect] = useContext(selectContext);
     const [isRadio] = useContext(radioContext);
-    const [isNavbar] = useContext(navbarContext);
-    const [isSidebar] = useContext(sidebarContext);
+    const [isNavbar] = useContext(navbarViewContext);
+    const [isSidebar] = useContext(sidebarViewContext);
     const [isOptionModal] = useContext(optionModalContext);
     const [isBlock,setIsBlock] = useContext(blockContext);
     // Función del hook
@@ -124,8 +124,8 @@ export const useEnableUser = () => {
     const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
     const [isOptionModal] = useContext(optionModalContext);
     const [isSelectedRow] = useContext(selectedRowContext);
-    const [isNavbar] = useContext(navbarContext);
-    const [isSidebar] = useContext(sidebarContext);
+    const [isNavbar] = useContext(navbarViewContext);
+    const [isSidebar] = useContext(sidebarViewContext);
     // Función del hook
     const enableUser = () => {
         if(isSelectedRow !== null){
@@ -144,8 +144,8 @@ export const useDeleteStatus = () => {
     const [isModal,setIsModal] = useContext(modalContext);
     const [isOptionModal] = useContext(optionModalContext);
     const [isSelectedRow] = useContext(selectedRowContext);
-    const [isNavbar] = useContext(navbarContext);
-    const [isSidebar] = useContext(sidebarContext);
+    const [isNavbar] = useContext(navbarViewContext);
+    const [isSidebar] = useContext(sidebarViewContext);
     // Función del hook
     const deleteStatus = () => {
         if(isSelectedRow !== null){

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 //____________ICON____________
+// Modo oscuro
 export const Button_Icon_Dark = styled.button`
     width: 40px;
     padding: 6px;
@@ -35,13 +36,16 @@ export const Button_Icon_Dark = styled.button`
         margin-top: 5px;
     }
 `;
-export const Button_Icon_Light = styled.button`
+// Modo claro/Oscuro
+export const Button_Icon_Theme_40 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: 40px;
     padding: 6px;
     font-size: 22px;
     border-radius: 50px;
     background-color: transparent;
-    color: black;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
     border: none;
     text-align: center;
     cursor: pointer;
@@ -69,6 +73,7 @@ export const Button_Icon_Light = styled.button`
         margin-top: 5px;
     }
 `;
+// Ocultar/Mostrar Sidebar
 export const Button_Icon_Toggle_Dark = styled.button`   
     width: 70px;
     padding: 6px;
@@ -131,6 +136,7 @@ export const Button_Icon_Toggle_Light = styled.button`
         width: 30px;
     }
 `;
+// Cerrar sesión
 export const Button_Icon_Logout_Dark = styled.button`
     width: 70px;
     padding: 6px;
@@ -190,6 +196,165 @@ export const Button_Icon_Logout_Light = styled.button`
     @media (max-width: 480px) {
         padding: 2px;
         font-size: 10px;
+        width: 30px;
+    }
+`;
+// Color Azul
+export const Button_Icon_Blue_220 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 220px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 190px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 160px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+export const Button_Icon_Blue_150 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 150px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 120px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 90px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+// Color Verde
+export const Button_Icon_Green_150 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 150px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 120px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 90px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+
+export const Button_Icon_Blue_45_Dark = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(82, 126, 231);
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(58,93,174);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
+        width: 30px;
+    }
+`;
+export const Button_Icon_Blue_45_Light = styled.button`
+    width: 45px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color:rgb(58,93,174);
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-sizing: border-box;
+    
+    &:hover {
+        background-color:rgb(12, 54, 109);
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 20px;
+        width: 40px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        font-size: 15px;
         width: 30px;
     }
 `;
@@ -367,6 +532,7 @@ export const Button_Icon_Blue_95_Light = styled.button`
         font-size: 14px;
     }
 `;
+// Color Rojo
 export const Button_Icon_Red_45_Dark = styled.button`
     width: 45px;
     padding: 4px;
@@ -539,6 +705,7 @@ export const Button_Icon_Red_80_Light = styled.button`
         font-size: 20px;
     }
 `;
+// Color Verde
 export const Button_Icon_Green_45_Dark = styled.button`
     width: 45px;
     padding: 4px;
@@ -711,6 +878,7 @@ export const Button_Icon_Green_80_Light = styled.button`
         font-size: 20px;
     }
 `;
+// Color Blanco
 export const Button_Icon_White_100_Dark = styled.button`
     width: 100px;
     padding: 4px;
@@ -835,6 +1003,7 @@ export const Button_Icon_White_200_Light = styled.button`
         width: 100px;
     }
 `;
+// Bloqueados
 export const Button_Icon_Block_45_Dark = styled.button`
     width: 45px;
     padding: 4px;
@@ -1289,158 +1458,6 @@ export const Button_Icon_Block_Modal = styled.button`
     } 
 `;
 //--------MODAL--------
-//--------SEARCH BAR--------
-export const Button_Blue_Search_Bar = styled.button`
-    width: 10%;
-    padding: 4px;
-    background-color: rgb(58,93,174);
-    color: white;
-    border-radius: 10px;
-    font-size: 20px;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(12, 54, 109);
-        transform: translateY(-2px);
-        transform: scale(1.2);
-    }
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-        width:20%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        width:40%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-`;
-export const Button_Block_Search_Bar = styled.button`
-    width: 10%;
-    padding: 4px;
-    background-color: rgb(84,88,89);
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.5;
-    color: white;
-    border-radius: 10px;
-    font-size: 20px;
-    text-align: center;
-    border: none;
-    transform: none;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        transform: translateY(-2px);
-        transform: scale(1.2);
-    }
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-        width:20%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        width:40%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-`;
-export const Button_Green_Search_Bar = styled.button`
-    width: 10%;
-    padding: 4px;
-    background-color: rgb(20, 165, 76);
-    color: white;
-    border-radius: 10px;
-    font-size: 20px;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(13, 112, 51);
-        transform: translateY(-2px);
-        transform: scale(1.2);
-    }
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-        width:20%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        width:40%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-`;
-export const Button_Red_Search_Bar = styled.button`
-    width: 10%;
-    padding: 4px;
-    background-color: rgb(155, 9, 9);
-    color: white;
-    border-radius: 10px;
-    font-size: 20px;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(87, 7, 7);
-        transform: translateY(-2px);
-        transform: scale(1.2);
-    }
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-        width:20%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        width:40%;
-
-        &:hover {
-            transform: translateY(-2px);
-        }
-    }
-`;
-//--------SEARCH BAR--------
 //--------PAGINATION--------
 export const Button_Block_Pagination = styled.button`
     width: 14%;

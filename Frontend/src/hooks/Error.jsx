@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 // Rutas
 
 // Contextos
-import { typeUserContext } from "../contexts/TypeUserProvider";
+import { typeUserContext } from "../contexts/VariablesProvider";
 // Hooks personalizados
 
 //__________ICONOS__________

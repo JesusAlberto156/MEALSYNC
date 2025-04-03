@@ -26,8 +26,6 @@ import Error from './pages/Error';
 import Loading from './pages/Loading';
 //____________IMPORT/EXPORT____________
 
-import './components/styled/Backgrounds.css'
-
 const router = createHashRouter([
   {
     path:'/',

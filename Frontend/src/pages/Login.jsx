@@ -10,16 +10,16 @@ import { encryptData } from "../services/Crypto";
 // Rutas
 
 // Contextos
-import { themeModeContext,loginViewContext } from "../contexts/ViewsProvider";
-import { modeContext,loadingOptionLoginContext,modalContext,optionModalContext } from '../contexts/VariablesProvider';
-import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
+import { themeModeContext,loginViewContext,modalViewContext } from "../contexts/ViewsProvider";
+import { nameContext,passwordContext } from "../contexts/FormsProvider";
+import { typeUserContext } from '../contexts/VariablesProvider';
+import { loggedContext,logContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
-import { typeUserContext } from "../contexts/TypeUserProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext,statusUserContext } from "../contexts/StatusProvider";
 // Hooks personalizados
 import { useChangeLoginView } from "../hooks/Views";
-import { useLogin } from '../hooks/Login'
+import { useChangeLog } from "../hooks/Form";
 //__________ICONOS__________
 // Iconos de la parte principal del login
 import { MdManageAccounts } from "react-icons/md";
@@ -45,22 +45,19 @@ import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Style
 // Componentes personalizados
 import Setting from '../components/navegation/Setting';
 import Footer from '../components/footer/Footer';
-import FormLogin from "../components/forms/FormLogin";
+import FormLogin from "../components/forms/Login";
 //____________IMPORT/EXPORT____________
 
 // Página para
 export default function Login(){
     // Constantes con el valor de los contextos
-    const [themeMode,setThemeMode] = useContext(themeModeContext);
-    const [currentView,setCurrentView] = useContext(loginViewContext);
-    const [isMode] = useContext(modeContext);
+    const [themeMode] = useContext(themeModeContext);
+    const [currentLView] = useContext(loginViewContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isLoadingOptionLogin] = useContext(loadingOptionLoginContext);
     const [isTypeUser] = useContext(typeUserContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
     const [isLog,setIsLog] = useContext(logContext);
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
     const [isUsers] = useContext(usersContext);
     const [isPermissions] = useContext(permissionsContext);
     const [isStatusAll] = useContext(statusAllContext);
@@ -71,7 +68,7 @@ export default function Login(){
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Iniciar_Sesión";
-        if(isMode){
+        if(themeMode){
             Alert_Greeting_Light("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
             Alert_Greeting_Light("MEALSYNC",'¡Te da la Bienvenida!...');
         }else{
@@ -150,8 +147,7 @@ export default function Login(){
                                             setIsLogged(true);
 
                                             if(isTypeUser === 'Doctor'){
-                                                setIsModal(true);
-                                                setIsOptionModal('Alert-Doctor');
+                                                setCurrentMView('Alert-Doctor');
                                             }
                                             
                                             console.log('¡Credenciales encriptadas correctamente!...');
@@ -228,8 +224,7 @@ export default function Login(){
                                         setIsLogged(true);
 
                                         if(isTypeUser === 'Doctor'){
-                                            setIsModal(true);
-                                            setIsOptionModal('Alert-Doctor');
+                                            setCurrentMView('Alert-Doctor')
                                         }
                                         
                                         console.log('¡Credenciales encriptadas correctamente!...');
@@ -266,14 +261,14 @@ export default function Login(){
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const changeViewLogin = useChangeLoginView();
-    const login = useLogin();
+    const changeLog = useChangeLog();
     // Estructura del componente
     return(
         <Container_Page>
             <Container_Page_Login ThemeMode={themeMode}>
                 <Setting/>
                 <Container_Form_350 ThemeMode={themeMode}>
-                    {currentView === '' ? (
+                    {currentLView === '' ? (
                         <>  
                             <Img_Logo_Verical_Hospital_250 ThemeMode={themeMode}/>
                             <Text_Title_Fade_22 ThemeMode={themeMode}>Bienvenido(a)</Text_Title_Fade_22>
@@ -289,7 +284,7 @@ export default function Login(){
                     ):(
                         <></>
                     )}
-                    {currentView === 'Administration' ? (
+                    {currentLView === 'Administration' ? (
                         <>
                             <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
                             <Text_Title_Fade_22 ThemeMode={themeMode}>Escoger usuario</Text_Title_Fade_22>
@@ -311,7 +306,7 @@ export default function Login(){
                     ):(
                         <></>
                     )}
-                    {currentView === 'Kitchen' ? (
+                    {currentLView === 'Kitchen' ? (
                         <>
                             <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
                             <Text_Title_Fade_22 ThemeMode={themeMode}>Escoger usuario</Text_Title_Fade_22>
@@ -333,7 +328,7 @@ export default function Login(){
                     ):(
                         <></>
                     )}
-                    {currentView === 'Login' ? (
+                    {currentLView === 'Login' ? (
                         <>
                             <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
                             <Text_Title_Fade_22 ThemeMode={themeMode}>Iniciar sesión</Text_Title_Fade_22>
@@ -345,7 +340,7 @@ export default function Login(){
                                     )}><IoArrowBackCircle/></Button_Icon_Blue_150>
                                 </Tooltip>
                                 <Tooltip title='Iniciar sesión' placement="top">
-                                    <Button_Icon_Green_150 ThemeMode={themeMode} onClick={() => login()}><MdLogin/></Button_Icon_Green_150>
+                                    <Button_Icon_Green_150 ThemeMode={themeMode} onClick={() => changeLog()}><MdLogin/></Button_Icon_Green_150>
                                 </Tooltip>
                             </Container_Button_Row_300>
                         </>

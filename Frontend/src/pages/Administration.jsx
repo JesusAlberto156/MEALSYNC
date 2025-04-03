@@ -9,20 +9,20 @@ import { Toaster } from 'sonner';
 // Rutas
 
 // Contextos
-import { typeUserContext } from "../contexts/TypeUserProvider";
-import { sidebarViewContext,navbarViewContext } from "../contexts/ViewsProvider";
-import { modeContext,visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
+import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
+import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
+import { modeContext,typeUserContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
-import { statusUserContext,statusEnableContext } from "../contexts/StatusProvider";
-import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
+import { statusUserContext } from "../contexts/StatusProvider";
+import { loggedContext,logContext } from "../contexts/SessionProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page,Container_Page_Elements,Container_Page_Administration_Light,Container_Page_Administration_Dark } from "../components/styled/Containers";
+import { Container_Page,Container_Page_Administration,Container_Page_Elements } from "../components/styled/Containers";
 import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Footer from '../components/footer/Footer'
@@ -40,20 +40,22 @@ import StatusEnable from "../components/modals/status/StatusEnable";
 // Página para mostrar el área de administración
 export default function Administration(){
     // Constantes con el valor de los contextos
-    const [isMode] = useContext(modeContext);
-    const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useContext(loadingOptionLoginContext);
-    const [isVisible,setIsVisible] = useContext(visibleContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    const [isSidebar,setIsSidebar] = useContext(sidebarViewContext);
-    const [isNavbar,setIsNavbar] = useContext(navbarViewContext);
-    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
-    const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
+    const [themeMode] = useContext(themeModeContext);
+    const [currentLView,setCurrentLView] = useContext(loginViewContext);
+    const [currentNView,setCurrentNView] = useContext(navbarViewContext);
+    const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
+    const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isSelect,setIsSelect] = useContext(selectContext);
+    const [iseRadio,setIsRadio] = useContext(radioContext);
+
+    const [isMode] = useContext(modeContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+    const [isLogged,setIsLogged] = useContext(loggedContext);
     const [isUser,setIsUser] = useContext(userContext);
     const [isPermission,setIsPermission] = useContext(permissionContext);
     const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
@@ -80,22 +82,21 @@ export default function Administration(){
                     },1000);
 
                     setTimeout(() => {
-                        setIsLoadingOptionLogin('');
-                        setIsVisible(true);
-                        setIsSelectedRow(null);
-                        setIsSearchTerm('');
-                        setIsModal(false);
-                        setIsOptionModal('');
+                        setCurrentLView('');
+                        setCurrentNView('');
+                        setCurrentSView('Home');
+                        setIsSidebarVisible(true);
+                        setCurrentMView('');
                         
-                        setIsSidebar('Inicio');
-                        setIsNavbar('');
-                        
-                        setIsTypeUser('');
-
-                        setIsLogged(false);
-                        setIsStatusEnable([]);
                         setIsName('');
                         setIsPassword('');
+                        setIsSelect([]);
+                        setIsSelect('');
+
+                        setIsTypeUser('');
+                        setIsSearchTerm('');
+
+                        setIsLogged(false);
 
                         setIsPermission([]);
                         setIsStatusUser([]);
@@ -120,149 +121,50 @@ export default function Administration(){
     return(
         <Container_Page>
             <Sidebar/>
-            {isMode ? (
-                <>
-                    <Container_Page_Administration_Light>
-                        <Container_Page_Elements sidebarVisible={isVisible}>
-                            {isSidebar === 'Home' ? (
-                                <Home/>
-                            ):(
-                                <></>
-                            )}
-                            {isSidebar === 'Users' ? (
-                                <Users/>
-                            ):(
-                                <></>
-                            )}
-                        </Container_Page_Elements>
-                        {isOptionModal === 'Out-Login' ? (
-                            isModal ? (
-                                <OutLogin/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Permissions-Add' ?(
-                            isModal ? (
-                                <PermissionsAdd/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Permissions-Edit' ?(
-                            isModal ? (
-                                <PermissionsEdit/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Permissions-Super-Administrator' ?(
-                            isModal ? (
-                                <PermissionsSuperAdministrator/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Status-Add' ? (
-                            isModal ? (
-                                <StatusAdd/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Status-Enable' ? (
-                            isModal ? (
-                                <StatusEnable/>
-                            ):(
-                                <></>
-                            )   
-                        ):(
-                            <></>
-                        )}
-                    </Container_Page_Administration_Light>
-                </>
-            ):(
-                <>
-                    <Container_Page_Administration_Dark>
-                        <Container_Page_Elements sidebarVisible={isVisible}>
-                            {isSidebar === 'Home' ? (
-                                <Home/>
-                            ):(
-                                <></>
-                            )}
-                            {isSidebar === 'Users' ? (
-                                <Users/>
-                            ):(
-                                <></>
-                            )}
-                        </Container_Page_Elements>
-                        {isOptionModal === 'Out-Login' ? (
-                            isModal ? (
-                                <OutLogin/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Permissions-Add' ?(
-                            isModal ? (
-                                <PermissionsAdd/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Permissions-Edit' ?(
-                            isModal ? (
-                                <PermissionsEdit/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Permissions-Super-Administrator' ?(
-                            isModal ? (
-                                <PermissionsSuperAdministrator/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Status-Add' ? (
-                            isModal ? (
-                                <StatusAdd/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Status-Enable' ? (
-                            isModal ? (
-                                <StatusEnable/>
-                            ):(
-                                <></>
-                            )   
-                        ):(
-                            <></>
-                        )}
-                    </Container_Page_Administration_Dark>
-                </>
-            )}
+            <Container_Page_Administration ThemeMode={themeMode}>
+                <Container_Page_Elements sidebarVisible={isSidebarVisible}>
+                    {currentSView === 'Home' ? (
+                        <Home/>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Users' ? (
+                        <Users/>
+                    ):(
+                        <></>
+                    )}
+                </Container_Page_Elements>
+                {currentMView === 'Out-Login' ? (
+                    <OutLogin/>
+                ):(
+                    <></>
+                )}
+                {currentMView === 'Permissions-Add' ?(
+                    <PermissionsAdd/>
+                ):(
+                    <></>
+                )}
+                {currentMView === 'Permissions-Edit' ?(
+                    <PermissionsEdit/>
+                ):(
+                    <></>
+                )}
+                {currentMView === 'Permissions-Super-Administrator' ?(
+                    <PermissionsSuperAdministrator/>
+                ):(
+                    <></>
+                )}
+                {currentMView === 'Status-Add' ? (
+                    <StatusAdd/>
+                ):(
+                    <></>
+                )}
+                {currentMView === 'Status-Enable' ? (
+                    <StatusEnable/> 
+                ):(
+                    <></>
+                )}
+            </Container_Page_Administration>
             <Alert_Styles>
                 <Toaster
                     visibleToasts={3}

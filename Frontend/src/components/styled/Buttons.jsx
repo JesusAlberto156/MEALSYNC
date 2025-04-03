@@ -1,41 +1,6 @@
 import styled from 'styled-components';
 
 //____________ICON____________
-// Modo oscuro
-export const Button_Icon_Dark = styled.button`
-    width: 40px;
-    padding: 6px;
-    font-size: 22px;
-    border-radius: 50px;
-    background-color: transparent;
-    color: white;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: 55px;
-    z-index: 2000;
-    
-    &:hover {
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 30px;
-        font-size: 18px;
-        margin-right: 45px;
-        margin-top: 10px;
-    }
-
-    @media (max-width: 480px) {
-        width: 20px;
-        font-size: 14px;
-        margin-right: 35px;
-        margin-top: 5px;
-    }
-`;
 // Modo claro/Oscuro
 export const Button_Icon_Theme_40 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -74,53 +39,24 @@ export const Button_Icon_Theme_40 = styled.button.withConfig({
     }
 `;
 // Ocultar/Mostrar Sidebar
-export const Button_Icon_Toggle_Dark = styled.button`   
+export const Button_Icon_Toggle = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: 70px;
     padding: 6px;
     font-size: 20px;
     border-radius: 50px;
-    background-color:rgb(82, 126, 231);
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
     color: white;
-    border: 2px solid white;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     box-sizing: border-box;
-    z-index: 30;
+    z-index: 40;
 
     &:hover {
-        background-color: rgb(58,93,174);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        padding: 4px;
-        font-size: 15px;
-        width: 50px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 10px;
-        width: 30px;
-    }
-`;
-export const Button_Icon_Toggle_Light = styled.button`   
-    width: 70px;
-    padding: 6px;
-    font-size: 20px;
-    border-radius: 50px;
-    background-color: rgb(58,93,174);
-    color: white;
-    border: 2px solid black;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    z-index: 30;
-
-    &:hover {
-        background-color: rgb(12, 54, 109);
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
         transform: scale(1.1);
     }
 
@@ -137,53 +73,24 @@ export const Button_Icon_Toggle_Light = styled.button`
     }
 `;
 // Cerrar sesión
-export const Button_Icon_Logout_Dark = styled.button`
+export const Button_Icon_Logout = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: 70px;
     padding: 6px;
     font-size: 20px;
     border-radius: 50px;
-    background-color: rgb(82, 126, 231);
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
     color: white;
-    border: 2px solid white;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     box-sizing: border-box;
-    z-index: 30;
+    z-index: 40;
 
     &:hover {
-        background-color: rgb(208, 31, 31);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        padding: 4px;
-        font-size: 15px;
-        width: 50px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 10px;
-        width: 30px;
-    }
-`;
-export const Button_Icon_Logout_Light = styled.button`
-    width: 70px;
-    padding: 6px;
-    font-size: 20px;
-    border-radius: 50px;
-    background-color: rgb(58,93,174);
-    color: white;
-    border: 2px solid black;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    z-index: 30;
-
-    &:hover {
-        background-color: rgb(155, 9, 9);
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
         transform: scale(1.1);
     }
 
@@ -264,6 +171,40 @@ export const Button_Icon_Blue_150 = styled.button.withConfig({
         font-size: 20px;
     }
 `;
+export const Button_Icon_Blue_210 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 210px;
+    padding: 6px;
+    font-size: 18px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 180px;
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;    
+        padding: 4px;
+        font-size: 14px;
+    }
+`;
 // Color Verde
 export const Button_Icon_Green_150 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -297,6 +238,40 @@ export const Button_Icon_Green_150 = styled.button.withConfig({
         font-size: 20px;
     }
 `;
+// Color Rojo
+export const Button_Icon_Red_150 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 150px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 120px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 90px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+
 
 export const Button_Icon_Blue_45_Dark = styled.button`
     width: 45px;
@@ -468,68 +443,6 @@ export const Button_Icon_Blue_80_Light = styled.button`
     @media (max-width: 480px) {
         padding: 2px;
         font-size: 20px;
-    }
-`;
-export const Button_Icon_Blue_95_Dark = styled.button`
-    width: 95%;
-    padding: 6px;
-    font-size: 18px;
-    border-radius: 50px;
-    background-color: rgb(82, 126, 231);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &:hover {
-        background-color: rgb(58,93,174);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        padding: 4px;
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 14px;
-    }
-`;
-export const Button_Icon_Blue_95_Light = styled.button`
-    width: 95%;
-    padding: 6px;
-    font-size: 18px;
-    border-radius: 50px;
-    background-color: rgb(58,93,174);
-    color: white;
-    border: 2px solid black;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    &:hover {
-        background-color: rgb(12, 54, 109);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        padding: 4px;
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 14px;
     }
 `;
 // Color Rojo

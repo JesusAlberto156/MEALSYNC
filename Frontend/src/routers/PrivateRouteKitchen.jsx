@@ -10,7 +10,7 @@ import { useContext } from "react";
 
 // Contextos
 import { loggedContext } from "../contexts/SessionProvider";
-import { typeUserContext } from "../contexts/TypeUserProvider";
+import { typeUserContext } from "../contexts/VariablesProvider";
 // Hooks personalizados
 
 //__________ICONOS__________

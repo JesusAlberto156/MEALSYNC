@@ -7,13 +7,13 @@ import { Toaster } from 'sonner';
 // Servicios
 
 // Contextos
-import { typeUserContext } from "../contexts/TypeUserProvider";
+import { nameContext,passwordContext } from "../contexts/FormsProvider";
 import { sidebarViewContext,navbarViewContext } from "../contexts/ViewsProvider";
-import { visibleContext,modalContext,optionModalContext,selectedRowContext,loadingOptionLoginContext,searchTermContext } from "../contexts/VariablesProvider";
+import { typeUserContext,modalContext,optionModalContext,selectedRowContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
 import { statusUserContext,statusEnableContext } from "../contexts/StatusProvider";
-import { loggedContext,nameContext,passwordContext,logContext } from "../contexts/SessionProvider";
+import { loggedContext,logContext } from "../contexts/SessionProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -34,8 +34,6 @@ import Footer from "../components/footer/Footer";
 
 export default function Kitchen(){
     
-    const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useContext(loadingOptionLoginContext);
-    const [isVisible,setIsVisible] = useContext(visibleContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isModal,setIsModal] = useContext(modalContext);

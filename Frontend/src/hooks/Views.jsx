@@ -8,10 +8,9 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext } from "../contexts/ViewsProvider";
-import { searchTermContext } from "../contexts/VariablesProvider";
-import { typeUserContext } from "../contexts/TypeUserProvider";
-import { nameContext,passwordContext } from "../contexts/SessionProvider";
+import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
+import { typeUserContext,searchTermContext } from "../contexts/VariablesProvider";
+import { nameContext,passwordContext } from "../contexts/FormsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -94,3 +93,25 @@ export const useChangeSidebarView = () => {
     // Retorno de la función del hook
     return changeSidebarView;
 };
+// Hook para cambiar el sidebar (Ocultar/Mostrar)
+export const useToggleSidebar = () => {
+    // Constantes con el valor de los contextos 
+    const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+    // Función del hook
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
+    // Retorno de la función del hook
+    return toggleSidebar;
+};
+// Hook para cambiar el modal
+export const useChangeModalView = () => {
+    // Constantes con el valor de los contextos 
+    const [currentView,setCurrentView] = useContext(modalViewContext);
+    // Función del hook
+    const changeModalView = (View) => {
+        setCurrentView(View);
+    }
+    // Retorno de la función del hook
+    return changeModalView;
+}

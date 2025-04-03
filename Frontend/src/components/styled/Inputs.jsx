@@ -17,6 +17,44 @@ export const Input_Group_80 = styled.div`
 `;
 //____________GROUP____________
 //____________TEXT____________
+export const Input_Text_220 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 220px;
+    height: 15px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 20px;
+    border-radius: 8px;
+    border: none;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    padding-top: 30px;
+    cursor: text;
+    padding-bottom: 8px;
+    padding-left: 14px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        width: 190px;
+        border-radius: 6px;
+        padding-left: 8px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 16px;
+        width: 160px;
+        border-radius: 4px;
+        padding-left: 6px;
+    }
+
+    &:focus {
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(60, 124, 167, 0.3)' : 'rgba(213, 220, 224, 0.3)')};
+    }
+`;
 export const Input_Text_280_Dark = styled.input`
     width: 280px;
     height: 15px;
@@ -54,11 +92,11 @@ export const Input_Text_280_Dark = styled.input`
     }
 `;
 export const Input_Text_280_Light = styled.input`
-    width: 280px;
+    width: 220px;
     height: 15px;
-    color: black;
+    color: white;
     font-size: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     border-bottom: 2px solid black;
     background: transparent;
@@ -71,22 +109,20 @@ export const Input_Text_280_Light = styled.input`
 
     @media (max-width: 768px) {
         font-size: 18px;
-        width: 250px;
-        border-radius: 12px;
+        width: 190px;
+        border-radius: 6px;
         padding-left: 8px;
     }
     
     @media (max-width: 480px) {
         font-size: 16px;
-        width: 220px;
-        border-radius: 9px;
+        width: 160px;
+        border-radius: 4px;
         padding-left: 6px;
     }
 
     &:focus {
-        color: rgb(58,93,174);
-        border-color: rgb(58,93,174);
-        box-shadow: 0 0 8px rgba(60, 124, 167, 0.3);
+        
     }
 `;
 //____________TEXT____________

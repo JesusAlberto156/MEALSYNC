@@ -9,7 +9,7 @@ import { FadeAnimation } from './Animations';
 
 //____________LOGO____________
 export const Img_Logo_Verical_Hospital_250 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'sidebarVisible'
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`
     background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Vertical_Hospital_Light})` : `url(${Logo_Vertical_Hospital_Dark})`)};
     background-size: contain;
@@ -31,7 +31,7 @@ export const Img_Logo_Verical_Hospital_250 = styled.div.withConfig({
     }
 `;
 export const Img_Logo_Hospital_150 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'sidebarVisible'
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`
     background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Hospital_Light})` : `url(${Logo_Hospital_Dark})`)};
     background-size: contain;

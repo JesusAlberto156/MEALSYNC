@@ -7,6 +7,7 @@ export const loginViewContext = createContext(null);
 export const navbarViewContext = createContext(null);
 export const sidebarViewContext = createContext(null);
 export const sidebarVisibleContext = createContext(null);
+export const modalViewContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el modo de la página (Claro/Oscuro)
@@ -62,5 +63,16 @@ export const Sidebar_Visible = ({ children }) => {
         <sidebarVisibleContext.Provider value={[isSidebarVisible,setIsSidebarVisible]}>
             {children}
         </sidebarVisibleContext.Provider>
+    );
+}
+// Función contexto para controlar la visibilidad del modal
+export const Modal_View = ({children}) => {
+
+    const [currentView,setCurrentView] = useState('');
+
+    return (
+        <modalViewContext.Provider value={[currentView,setCurrentView]}>
+            {children}
+        </modalViewContext.Provider>
     );
 }

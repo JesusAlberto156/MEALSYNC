@@ -8,9 +8,8 @@ import { Tooltip } from "@mui/material";
 // Rutas
 
 // Contextos
-import { typeUserContext } from "../../contexts/TypeUserProvider";
 import { navbarViewContext,sidebarViewContext } from "../../contexts/ViewsProvider";
-import { searchTermContext,selectedRowContext } from "../../contexts/VariablesProvider";
+import { typeUserContext,searchTermContext,selectedRowContext } from "../../contexts/VariablesProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider"; 
 import { searchContext } from "../../contexts/RefsProvider";
 // Hooks personalizados

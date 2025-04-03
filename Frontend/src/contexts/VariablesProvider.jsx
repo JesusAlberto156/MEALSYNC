@@ -1,150 +1,93 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { createContext,useState } from "react"
+// Servicios
+import { decryptData } from "../services/Crypto";
 // Contextos
 export const modeContext = createContext(null);
-export const loadingOptionLoginContext = createContext(null);
-export const visibleContext = createContext(null);
+export const typeUserContext = createContext(null);
 export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
 export const modalContext = createContext(null);
 export const optionModalContext = createContext(null);
-export const selectContext = createContext(null);
-export const radioContext = createContext(null);
 export const comprobationContext = createContext(null);
 export const blockContext = createContext(null);
 export const enableContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Función Contexto de cambio de modo de las interfaces (Claro/Oscuro)
-export const Mode = ({ children }) => {
+// Función Contexto para controlar el tipo de usuario que es
+export const Type_User = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTypeUser,setIsTypeUser] = useState(() => {
+        const StoredData = sessionStorage.getItem('TypeUser');
 
-    const [isMode,setIsMode] = useState(true);
+        if(StoredData){
+            try{
+                const decryptedData = decryptData(StoredData);
 
-    return(
-        <modeContext.Provider value={[isMode,setIsMode]}>
-            {children}
-        </modeContext.Provider>
-    );
-}
-
-export const LoadingOptionLogin = ({ children }) => {
-
-    const [isLoadingOptionLogin,setIsLoadingOptionLogin] = useState('');
-
+                if(decryptedData){
+                    console.log('Tipo de usuario cargado correctamente...');
+                    return decryptedData;
+                }else{
+                    console.log('Error al desencriptar el tipo de usuario...');
+                    return '';
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return '';
+            }
+        }else{
+            return '';
+        }
+    });
+    // Return para darle valor al contexto y heredarlo
     return (
-        <loadingOptionLoginContext.Provider value={[isLoadingOptionLogin,setIsLoadingOptionLogin]}>
+        <typeUserContext.Provider value={[isTypeUser,setIsTypeUser]}>
             {children}
-        </loadingOptionLoginContext.Provider>
+        </typeUserContext.Provider>
     );
 }
-
-export const Visible = ({ children }) => {
-
-    const [isVisible,setIsVisible] = useState(true);
-
-    return (
-        <visibleContext.Provider value={[isVisible,setIsVisible]}>
-            {children}
-        </visibleContext.Provider>
-    );
-}
-
-export const SelectedRow = ({ children }) => {
-
+// Función Contexto para controlar el renglon seleccionado de una tabla
+export const Selected_Row = ({ children }) => {
+    // UseState para controlar el valor del contexto
     const [isSelectedRow,setIsSelectedRow] = useState(null);
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <selectedRowContext.Provider value={[isSelectedRow,setIsSelectedRow]}>
             {children}
         </selectedRowContext.Provider>
     );
 }
-
-export const SearchTerm = ({ children }) => {
-
+// Función Contexto para controlar el buscador
+export const Search_Term = ({ children }) => {
+    // UseState para controlar el valor del contexto
     const [isSearchTerm,setIsSearchTerm] = useState('');
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <searchTermContext.Provider value={[isSearchTerm,setIsSearchTerm]}>
             {children}
         </searchTermContext.Provider>
     );
 }
-
-export const Modal = ({children}) => {
-
-    const [isModal,setIsModal] = useState(false);
-
-    return (
-        <modalContext.Provider value={[isModal,setIsModal]}>
-            {children}
-        </modalContext.Provider>
-    );
-}
-
-export const OptionModal = ({children}) => {
-
-    const [isOptionModal,setIsOptionModal] = useState('');
-
-    return (
-        <optionModalContext.Provider value={[isOptionModal,setIsOptionModal]}>
-            {children}
-        </optionModalContext.Provider>
-    );
-}
-
-export const Select = ({children}) => {
-
-    const [isSelect,setIsSelect] = useState([]);
-
-    return (
-        <selectContext.Provider value={[isSelect,setIsSelect]}>
-            {children}
-        </selectContext.Provider>
-    );
-}
-
-export const Radio = ({children}) => {
-
-    const [isRadio,setIsRadio] = useState('');
-
-    return (
-        <radioContext.Provider value={[isRadio,setIsRadio]}>
-            {children}
-        </radioContext.Provider>
-    );
-}
-
-export const Comprobation = ({children}) => {
-
+// Función Contexto para controlar la comprobación de inicio de sesión
+export const Form_Comprobation = ({children}) => {
+    // UseState para controlar el valor del contexto
     const [isComprobation,setIsComprobation] = useState(false);
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <comprobationContext.Provider value={[isComprobation,setIsComprobation]}>
             {children}
         </comprobationContext.Provider>
     );
 }
-
-export const Block = ({children}) => {
-
+// Función Contexto para controlar el bloqueo de acciones
+export const Action_Block = ({children}) => {
+    // UseState para controlar el valor del contexto
     const [isBlock,setIsBlock] = useState(false);
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <blockContext.Provider value={[isBlock,setIsBlock]}>
             {children}
         </blockContext.Provider>
-    );
-}
-
-export const Enable = ({children}) => {
-
-    const [isEnable,setIsEnable] = useState(false);
-
-    return (
-        <enableContext.Provider value={[isEnable,setIsEnable]}>
-            {children}
-        </enableContext.Provider>
     );
 }

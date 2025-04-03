@@ -6,7 +6,7 @@ export const socketContext = createContext(null);
 
 export const Socket = ({ children }) => {
 
-    const socket = io('http://localhost:3500/');
+    const socket = io('http://localhost:3600/');
 
     return (
         <socketContext.Provider value={[socket]}>

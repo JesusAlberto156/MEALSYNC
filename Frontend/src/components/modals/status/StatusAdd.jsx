@@ -7,7 +7,8 @@ import Select from "react-select";
 // Servicios
 
 // Contextos
-import { modeContext,modalContext,selectContext,radioContext,blockContext } from "../../../contexts/VariablesProvider";
+import { selectContext,radioContext } from "../../../contexts/FormsProvider";
+import { modeContext,modalContext,blockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { useCloseModal,useAddStatus } from "../../../hooks/Modal";
 import { useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";

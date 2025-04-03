@@ -8,9 +8,8 @@ import { Tooltip } from "@mui/material";
 // Rutas
 
 // Contextos
-import { modeContext } from "../../contexts/VariablesProvider";
-import { visibleContext } from "../../contexts/VariablesProvider";
-import { typeUserContext } from "../../contexts/TypeUserProvider";
+import { themeModeContext,sidebarVisibleContext } from "../../contexts/ViewsProvider";
+import { typeUserContext } from "../../contexts/VariablesProvider";
 import { userContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
 import { useChangeNavbarView,useChangeSidebarView } from "../../hooks/Views";
@@ -31,10 +30,10 @@ import { MdStorage } from "react-icons/md";
 import { MdWorkHistory } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Sidebar_Light,Container_Sidebar_Dark,Container_Icon } from "../styled/Containers";
-import { Icon_Image_Profile_Light,Icon_Image_Profile_Dark } from "../styled/Icons";
-import { Text_Title_Fade_20_Light,Text_A_18_Light,Text_Title_Fade_20_Dark,Text_A_18_Dark } from "../styled/Text";
-import { Button_Icon_Blue_95_Light,Button_Icon_Blue_95_Dark } from '../styled/Buttons';
+import { Container_Sidebar_Light,Container_Icon } from "../styled/Containers";
+import { Icon_Image_Profile_Light } from "../styled/Icons";
+import { Text_Title_Fade_20,Text_A_18 } from "../styled/Text";
+import { Button_Icon_Blue_210 } from '../styled/Buttons';
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -42,216 +41,195 @@ import { Button_Icon_Blue_95_Light,Button_Icon_Blue_95_Dark } from '../styled/Bu
 // Componente para navegar entre las paginas en el lateral
 export default function Sidebar() {
   // Constantes con el valor de los contextos 
-  const [isMode] = useContext(modeContext);
-  const [isVisible] = useContext(visibleContext);
+  const [themeMode] = useContext(themeModeContext);
+  const [isSidebarVisible] = useContext(sidebarVisibleContext);
   const [isTypeUser] = useContext(typeUserContext);
   const [isUser] = useContext(userContext);
 
   const [profileImage, setProfileImage] = useState("https://img.freepik.com/vector-premium/icono-contacto-perfil-icono-avatar_1199668-1320.jpg?w=740");
-  // useEffect con el estado del sidebar
-  useEffect(() => {
-    const content = document.getElementById("content");
-    if (content) {
-      content.className = isVisible ? "with-sidebar" : "no-sidebar";
-    }
-  }, [isVisible]);
   // Constantes con la funcionalidad de los hooks
   const changeNavbarView = useChangeNavbarView();
   const changeSidebarView = useChangeSidebarView();
   // Estructura del componente
   return (
     <>
-      {isMode ? (
-        <>
-          <Container_Sidebar_Light className={isVisible ? 'visible' : 'hidden'}>
-            <Container_Icon>
-              <Icon_Image_Profile_Light src={profileImage}/>
-            </Container_Icon>
-            <Text_Title_Fade_20_Light>{isUser.nombre}</Text_Title_Fade_20_Light>
-            <Tooltip title='Inicio' placement="right">
-              <Button_Icon_Blue_95_Light onClick={() => changeSidebarView('Home')}><Text_A_18_Light>Inicio</Text_A_18_Light><BiSolidHomeAlt2/></Button_Icon_Blue_95_Light>
+      <Container_Sidebar_Light ThemeMode={themeMode} className={isSidebarVisible ? 'visible' : 'hidden'}>
+        <Container_Icon>
+          <Icon_Image_Profile_Light src={profileImage}/>
+        </Container_Icon>
+        <Text_Title_Fade_20 ThemeMode={themeMode}>{isUser.nombre}</Text_Title_Fade_20>
+        <Tooltip title='Inicio' placement="right">
+          <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                  changeSidebarView('General')
+                  changeNavbarView('')
+          }}>
+            <Text_A_18>Inicio</Text_A_18><BiSolidHomeAlt2/>
+          </Button_Icon_Blue_210>
+        </Tooltip>
+        {isTypeUser === 'Cook' ? (
+          <>
+            <Tooltip title='General' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('General')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>General</Text_A_18><FaHospitalUser/>
+              </Button_Icon_Blue_210>
             </Tooltip>
-            {isTypeUser === 'Cook' ? (
-              <>
-                <Tooltip title='General' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => {changeSidebarView('General')}}><Text_A_18_Light>General</Text_A_18_Light><FaHospitalUser/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Colaboradores' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => {changeSidebarView('Collaborators')}}><Text_A_18_Light>Colaboradores</Text_A_18_Light><FaUserFriends/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Nutriólogo' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => changeSidebarView('Nutritionist')}><Text_A_18_Light>Nutriólogo</Text_A_18_Light><IoNutrition/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Nutritionist' ? (
-              <></>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Doctor' ? (
-              <>
-                <Tooltip title='General' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Doctor','')}><Text_A_18_Light>General</Text_A_18_Light><FaUserDoctor/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Administrator' ? (
-              <>
-                <Tooltip title='Usuarios' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Users','Principal')}><Text_A_18_Light>Usuarios</Text_A_18_Light><FaUserGroup/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Proveedores' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Light>Proveedores</Text_A_18_Light><FaUserTie/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Menús' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Menus','')}><Text_A_18_Light>Menús</Text_A_18_Light><BiSolidFoodMenu/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Inventario' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Inventory','')}><Text_A_18_Light>Inventario</Text_A_18_Light><MdStorage/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Historial' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Record','')}><Text_A_18_Light>Historial</Text_A_18_Light><MdWorkHistory/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Chef' ? (
-              <>
-                <Tooltip title='Proveedores' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Light>Proveedores</Text_A_18_Light><FaUserTie/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Menús' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Menus','')}><Text_A_18_Light>Menús</Text_A_18_Light><BiSolidFoodMenu/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Inventario' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Inventory','')}><Text_A_18_Light>Inventario</Text_A_18_Light><MdStorage/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Historial' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Record','')}><Text_A_18_Light>Historial</Text_A_18_Light><MdWorkHistory/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Storekeeper' ? (
-              <>
-                <Tooltip title='Proveedores' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Light>Proveedores</Text_A_18_Light><FaUserTie/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Inventario' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Inventory','')}><Text_A_18_Light>Inventario</Text_A_18_Light><MdStorage/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-                <Tooltip title='Historial' placement="right">
-                  <Button_Icon_Blue_95_Light onClick={() => sidebarViews('Record','')}><Text_A_18_Light>Historial</Text_A_18_Light><MdWorkHistory/></Button_Icon_Blue_95_Light>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-          </Container_Sidebar_Light>
-        </>
-      ):(
-        <> 
-          <Container_Sidebar_Dark className={isVisible ? 'visible' : 'hidden'}>
-            <Container_Icon>
-              <Icon_Image_Profile_Dark src={profileImage}/>
-            </Container_Icon>
-            <Text_Title_Fade_20_Dark>{isUser.nombre}</Text_Title_Fade_20_Dark>
-            <Tooltip title='Inicio' placement="right">
-              <Button_Icon_Blue_95_Dark onClick={() => sidebarHome('Home')}><Text_A_18_Dark>Inicio</Text_A_18_Dark><BiSolidHomeAlt2/></Button_Icon_Blue_95_Dark>
+            <Tooltip title='Colaboradores' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Collaborators')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Colaboradores</Text_A_18><FaUserFriends/>
+              </Button_Icon_Blue_210>
             </Tooltip>
-            {isTypeUser === 'Cook' ? (
-              <>
-                <Tooltip title='General' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('General','')}><Text_A_18_Dark>General</Text_A_18_Dark><FaHospitalUser/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Colaboradores' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Collaborators','')}><Text_A_18_Dark>Colaboradores</Text_A_18_Dark><FaUserFriends/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Nutriólogo' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Nutritionist','')}><Text_A_18_Dark>Nutriólogo</Text_A_18_Dark><IoNutrition/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Nutritionist' ? (
-              <></>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Doctor' ? (
-              <>
-                <Tooltip title='General' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Doctor','')}><Text_A_18_Dark>General</Text_A_18_Dark><FaUserDoctor/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Administrator' ? (
-              <>
-                <Tooltip title='Usuarios' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Users','Principal')}><Text_A_18_Dark>Usuarios</Text_A_18_Dark><FaUserGroup/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Proveedores' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Dark>Proveedores</Text_A_18_Dark><FaUserTie/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Menús' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Menus','')}><Text_A_18_Dark>Menús</Text_A_18_Dark><BiSolidFoodMenu/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Inventario' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Inventory','')}><Text_A_18_Dark>Inventario</Text_A_18_Dark><MdStorage/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Historial' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Record','')}><Text_A_18_Dark>Historial</Text_A_18_Dark><MdWorkHistory/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Chef' ? (
-              <>
-                <Tooltip title='Proveedores' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Dark>Proveedores</Text_A_18_Dark><FaUserTie/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Menús' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Menus','')}><Text_A_18_Dark>Menús</Text_A_18_Dark><BiSolidFoodMenu/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Inventario' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Inventory','')}><Text_A_18_Dark>Inventario</Text_A_18_Dark><MdStorage/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Historial' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Record','')}><Text_A_18_Dark>Historial</Text_A_18_Dark><MdWorkHistory/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-            {isTypeUser === 'Storekeeper' ? (
-              <>
-                <Tooltip title='Proveedores' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Suppliers','')}><Text_A_18_Dark>Proveedores</Text_A_18_Dark><FaUserTie/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Inventario' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Inventory','')}><Text_A_18_Dark>Inventario</Text_A_18_Dark><MdStorage/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-                <Tooltip title='Historial' placement="right">
-                  <Button_Icon_Blue_95_Dark onClick={() => sidebarViews('Record','')}><Text_A_18_Dark>Historial</Text_A_18_Dark><MdWorkHistory/></Button_Icon_Blue_95_Dark>
-                </Tooltip>
-              </>
-            ):(
-              <></>
-            )}
-          </Container_Sidebar_Dark>
-        </>
-      )}  
+            <Tooltip title='Nutriólogo' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Nutritionist')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Nutriólogo</Text_A_18><IoNutrition/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+          </>
+        ):(
+          <></>
+        )}
+        {isTypeUser === 'Nutritionist' ? (
+          <></>
+        ):(
+          <></>
+        )}
+        {isTypeUser === 'Doctor' ? (
+          <>
+            <Tooltip title='General' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Doctor')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>General</Text_A_18><FaUserDoctor/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+          </>
+        ):(
+          <></>
+        )}
+        {isTypeUser === 'Administrator' ? (
+          <>
+            <Tooltip title='Usuarios' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Users')
+                changeNavbarView('Principal')
+              }}>
+                <Text_A_18>Usuarios</Text_A_18><FaUserGroup/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Proveedores' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Suppliers')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Menús' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Menus')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Inventario' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Inventory')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Inventario</Text_A_18><MdStorage/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Historial' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Record')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+          </>
+        ):(
+          <></>
+        )}
+        {isTypeUser === 'Chef' ? (
+          <>
+            <Tooltip title='Proveedores' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Suppliers')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Menús' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Menus')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Inventario' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Inventory')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Inventario</Text_A_18><MdStorage/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Historial' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Record')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+          </>
+        ):(
+          <></>
+        )}
+        {isTypeUser === 'Storekeeper' ? (
+          <>
+            <Tooltip title='Proveedores' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Suppliers')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Inventario' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Inventory')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Inventario</Text_A_18><MdStorage/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Historial' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Record')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+          </>
+        ):(
+          <></>
+        )}
+      </Container_Sidebar_Light>
     </>
   );
 }

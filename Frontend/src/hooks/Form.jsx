@@ -1,11 +1,25 @@
 import { useContext } from "react";
 
+import { logContext } from "../contexts/SessionProvider";
+
+import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext } from '../contexts/StatusProvider';
-import { selectContext,radioContext,comprobationContext,blockContext } from "../contexts/VariablesProvider";
-import { nameContext,passwordContext } from "../contexts/SessionProvider";
+import { comprobationContext,blockContext } from "../contexts/VariablesProvider";
 
 import { Alert_Verification } from "../components/styled/Alerts";
+
+// Hook para empezar el inicio de sesión en el formulario de login
+export const useChangeLog = () => {
+    // Constantes con el valor de los contextos 
+    const [isLog,setIsLog] = useContext(logContext);
+    // Función del hook
+    const changeLog = () => {
+        setIsLog(!isLog);
+    }
+    // Retorno de la función del hook
+    return changeLog;
+}
 
 export const useFilteredRecordsHasStatus = () => {
 

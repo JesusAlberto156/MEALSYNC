@@ -28,7 +28,7 @@ import { Button_Icon_Blue_50_Light,Button_Icon_Green_50_Light,Button_Icon_Red_50
 import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
 
 // Componentes personalizados
-import FormLoginComprobation from "../../forms/FormLoginComprobation";
+import FormComprobation from "../../forms/Comprobation";
 //____________IMPORT/EXPORT____________
 
 export default function StatusEnable(){
@@ -64,7 +64,7 @@ export default function StatusEnable(){
                         <>
                             <Container_Form_400_Light ref={form}>
                                 <Text_Title_Fade_30_Light>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Light>
-                                <FormLoginComprobation/>
+                                <FormComprobation/>
                                 {isSelectedRow.habilitado ? <Text_P_20_Light>Se deshabilitará a {user} </Text_P_20_Light> : <Text_P_20_Light>Se habilitará a {user}...</Text_P_20_Light>}
                                 <Container_Button_Border_Light>
                                         <Button_Icon_Blue_50_Light onClick={(e) => {
@@ -111,7 +111,7 @@ export default function StatusEnable(){
                         <>
                             <Container_Form_400_Dark ref={form}>
                                 <Text_Title_Fade_30_Dark>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Dark>
-                                <FormLoginComprobation/>
+                                <FormComprobation/>
                                 {isSelectedRow.habilitado ? <Text_P_20_Dark>Se deshabilitará a {user} </Text_P_20_Dark> : <Text_P_20_Dark>Se habilitará a {user}...</Text_P_20_Dark>}
                                 <Container_Button_Border_Dark>
                                     <Button_Icon_Blue_50_Dark onClick={(e) => {

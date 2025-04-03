@@ -37,8 +37,10 @@ export const Container_Page_Login = styled.div.withConfig({
     padding-top: 40px;
     gap: 40px;
 `;
-export const Container_Page_Menu_Dark = styled.div`
-    background-image: url(${Background_Menu_Dark});    
+export const Container_Page_Menu = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Background_Menu_Light})` : `url(${Background_Menu_Dark})`)};  
     background-Size: cover;
     background-Position: center;
     width: 100vw;
@@ -49,32 +51,10 @@ export const Container_Page_Menu_Dark = styled.div`
     justify-content: center;
     align-Items: center;
 `;
-export const Container_Page_Menu_Light = styled.div`
-    background-image: url(${Background_Menu_Light});    
-    background-Size: cover;
-    background-Position: center;
-    width: 100vw;
-    height: 100vh;
-    max-height: none;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-Items: center;
-`;
-export const Container_Page_Administration_Dark = styled.div`
-    background-image: url(${Background_Administration_Dark});    
-    background-Size: cover;
-    background-Position: center;
-    width: 100vw;
-    height: 100vh;
-    max-height: none;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-Items: center;
-`;
-export const Container_Page_Administration_Light = styled.div`
-    background-image: url(${Background_Administration_Light});    
+export const Container_Page_Administration = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Background_Administration_Light})` : `url(${Background_Administration_Dark})`)};  
     background-Size: cover;
     background-Position: center;
     width: 100vw;
@@ -407,6 +387,59 @@ export const Container_Modal = styled.div`
 `;
 //____________MODAL____________
 //____________BUTTOM____________
+export const Container_Button_Border_Column_350 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: auto;
+    width: 350px;
+    border-radius: 30px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 300px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 250px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
+export const Container_Button_Border_Row_350 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: auto;
+    width: 350px;
+    border-radius: 30px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 300px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 250px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
 export const Container_Button_Column_300 = styled.div`
     position: relative;    
     display: flex;
@@ -452,6 +485,11 @@ export const Container_Button_Row_300 = styled.div`
         gap: 10px;
     }
 `;
+
+
+
+
+
 export const Container_Button_90 = styled.div`
     display: flex;
     justify-content: space-between;
@@ -484,8 +522,6 @@ export const Container_Button_90 = styled.div`
     }
 }
 `;
-
-
 export const Container_Button_Border_Dark = styled.div`
     display: flex;
     gap: 15px; 
@@ -512,17 +548,17 @@ export const Container_Button_Border_Dark = styled.div`
     }
 `;
 export const Container_Button_Border_Light = styled.div`
+    position: relative;    
     display: flex;
-    gap: 15px; 
+    flex-direction: column;
     justify-content: center; 
     align-items: center;
+    height: auto;
+    width: 300px;
+    padding: 10px;
+    gap: 20px;
     border: 2px solid black;
     border-radius: 50px;
-    height: 60px;
-    width: 94%;
-    padding: 10px;
-    margin-top: 0px;
-    margin-bottom: 5px;
 
     @media (max-width: 768px) {
         gap: 10px;
@@ -642,12 +678,14 @@ export const Container_Sidebar_Dark = styled.div`
     }
 }
 `;
-export const Container_Sidebar_Light = styled.div`
+export const Container_Sidebar_Light = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: 260px;
     padding: 5px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.8)')};
     height: 100vh;
-    border: 4px solid black;
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
     box-sizing: border-box;
     position: fixed;
     top: 0;
@@ -660,7 +698,7 @@ export const Container_Sidebar_Light = styled.div`
     justify-content: flex-start;
     align-items: center;
     gap: 14px;
-    z-index: 30;
+    z-index: 40;
 
     &.visible {
         transform: translateX(0);
@@ -876,6 +914,37 @@ export const Container_Text_20 = styled.div`
 `;
 //____________TEXT____________
 //____________INPUT____________
+export const Container_Input_Border_250 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: auto;
+    width: 250px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border-radius: 30px;
+    padding: 20px;
+    margin-bottom: 20px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 220px;
+        padding: 16px;
+        margin-bottom: 15px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 190px;
+        padding: 16px;
+        margin-bottom: 10px;
+        gap: 15px;
+    }
+`;
+
 export const Container_Input_Border_Dark = styled.div`
     display: flex;
     gap: 20px;
@@ -904,32 +973,35 @@ export const Container_Input_Border_Dark = styled.div`
         padding-top: 10px;
     }
 `;
-export const Container_Input_Border_Light = styled.div`
+
+export const Container_Input_Border_Light = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
     display: flex;
-    gap: 20px;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: center; 
     align-items: center;
-    border: 2px solid black;
-    border-radius: 30px;
-    height: 220px;
-    width: 96%;
-    padding: 5px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    height: auto;
+    width: 280px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border-radius: 50px;
+    padding: 10px;
+    margin-bottom: 20px;
+    gap: 20px;
 
     @media (max-width: 768px) {
+        width: 250px;
+        padding: 16px;
+        margin-bottom: 15px;
         gap: 15px;
-        padding: 4px;
-        padding-bottom: 15px;
-        padding-top: 15px;
     }
 
     @media (max-width: 480px) {
-        gap: 10px;
-        padding: 4px;
-        padding-bottom: 10px;
-        padding-top: 10px;
+        width: 250px;
+        padding: 16px;
+        margin-bottom: 10px;
+        gap: 15px;
     }
 `;
 //____________INPUT____________

@@ -8,13 +8,15 @@ export const statusEnableContext = createContext(null);
 export const statusDeleteContext = createContext(null);
 
 import { socketContext } from "./SocketProvider";
-import { loggedContext,logContext,nameContext,passwordContext } from "./SessionProvider";
+import { loggedContext,logContext } from "./SessionProvider";
+import { modalViewContext } from "./ViewsProvider";
+import { nameContext,passwordContext,selectContext,radioContext } from "./FormsProvider";
 import { userContext,usersContext } from "./UsersProvider";
-import { selectContext,radioContext,modalContext,optionModalContext,selectedRowContext,comprobationContext,blockContext } from "./VariablesProvider";
+import { selectedRowContext,comprobationContext,blockContext } from "./VariablesProvider";
 
 import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
 
-export const StatusAll = ({ children }) => {
+export const Status_All = ({ children }) => {
 
     const [socket] = useContext(socketContext);
     const [isLogged] = useContext(loggedContext); 
@@ -71,7 +73,7 @@ export const StatusAll = ({ children }) => {
     );
 }
 
-export const StatusUser = ({ children }) => {
+export const Status_User = ({ children }) => {
 
     const [isStatusUser,setIsStatusUser] = useState(() => {
         const StoredData = sessionStorage.getItem('Status');
@@ -103,12 +105,11 @@ export const StatusUser = ({ children }) => {
     );
 }
 
-export const StatusAdd = ({ children }) => {
+export const Status_Add = ({ children }) => {
 
     const [isSelect,setIsSelect] = useContext(selectContext);
     const [isRadio,setIsRadio] = useContext(radioContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    const [isModal,setIsModal] = useContext(modalContext);
+    const [currentView,setCurrentView] = useContext(modalViewContext);
     const [isBlock,setIsBlock] = useContext(blockContext);
     const [socket] = useContext(socketContext);
 
@@ -130,8 +131,7 @@ export const StatusAdd = ({ children }) => {
                             resolve('¡MEALSYNC agregó el status al usuario!...')
                             
                             setTimeout(() => {
-                                setIsModal(false);
-                                setIsOptionModal('');
+                                setCurrentView('');
                                 setIsRadio('');
                                 setIsSelect([]);
                                 setIsStatusAdd(false);
@@ -161,11 +161,10 @@ export const StatusAdd = ({ children }) => {
     );
 }
 
-export const StatusEnable = ({ children }) => {
+export const Status_Enable = ({ children }) => {
     
     const [isUsers] = useContext(usersContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    const [isModal,setIsModal] = useContext(modalContext);
+    const [currentView,setCurrentView] = useContext(modalViewContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isComprobation,setIsComprobation] = useContext(comprobationContext);
     const [isName,setIsName] = useContext(nameContext);
@@ -194,8 +193,7 @@ export const StatusEnable = ({ children }) => {
                                 resolve('¡MEALSYNC deshabilito al usuario!...')
 
                                 setTimeout(() => {
-                                    setIsModal(false);
-                                    setIsOptionModal('');
+                                    setCurrentView('');
                                     setIsStatusEnable([]);
                                     setIsSelectedRow(null);
                                     setIsName('');
@@ -231,8 +229,7 @@ export const StatusEnable = ({ children }) => {
                                 resolve('¡MEALSYNC habilito al usuario!...')
                                 
                                 setTimeout(() => {
-                                    setIsModal(false);
-                                    setIsOptionModal('');
+                                    setCurrentView('');
                                     setIsStatusEnable([]);
                                     setIsSelectedRow(null);
                                     setIsName('');

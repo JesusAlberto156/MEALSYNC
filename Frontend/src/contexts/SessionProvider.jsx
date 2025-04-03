@@ -3,8 +3,6 @@ import { decryptData } from "../services/Crypto";
 
 export const logContext = createContext(null);
 export const loggedContext = createContext(null);
-export const nameContext = createContext(null);
-export const passwordContext = createContext(null);
 
 import { socketContext } from "./SocketProvider";
 import { userContext } from './UsersProvider';
@@ -97,27 +95,5 @@ export const Logged = ({ children }) => {
         <loggedContext.Provider value={[isLogged,setIsLogged]}>
             {children}
         </loggedContext.Provider>
-    );
-}
-
-export const Name = ({ children }) => {
-
-    const [isName,setIsName] = useState('');
-
-    return (
-        <nameContext.Provider value={[isName,setIsName]}>
-            {children}
-        </nameContext.Provider>
-    );
-}
-
-export const Password = ({ children }) => {
-
-    const [isPassword,setIsPassword] = useState('');
-
-    return (
-        <passwordContext.Provider value={[isPassword,setIsPassword]}>
-            {children}
-        </passwordContext.Provider>
     );
 }

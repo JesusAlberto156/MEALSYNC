@@ -1,0 +1,16 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
+
+// Contextos
+
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
+
+// Hook para
+
+// Constantes con el valor de los contextos 
+
+// Función del hook
+
+// Retorno de la función del hook

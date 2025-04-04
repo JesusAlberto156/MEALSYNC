@@ -7,8 +7,6 @@ import { Toaster } from 'sonner';
 import { Tooltip } from "@mui/material";
 // Servicios
 import { encryptData } from "../services/Crypto";
-// Rutas
-
 // Contextos
 import { themeModeContext,loginViewContext,modalViewContext } from "../contexts/ViewsProvider";
 import { nameContext,passwordContext } from "../contexts/FormsProvider";
@@ -40,7 +38,7 @@ import { MdLogin } from "react-icons/md";
 import { Container_Page,Container_Button_Column_300,Container_Button_Row_300,Container_Page_Login,Container_Form_350 } from "../components/styled/Containers";
 import { Img_Logo_Verical_Hospital_250,Img_Logo_Hospital_150 } from "../components/styled/Imgs";
 import { Text_Title_Fade_22 } from "../components/styled/Text";
-import { Button_Icon_Blue_220,Button_Icon_Blue_150,Button_Icon_Green_150 } from "../components/styled/Buttons";
+import { Button_Icon_Blue_220,Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../components/styled/Buttons";
 import { Alert_Greeting,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
 import Setting from '../components/navegation/Setting';
@@ -63,7 +61,7 @@ export default function Login(){
     const [isUser,setIsUser] = useContext(userContext);
     const [isTypeUser] = useContext(typeUserContext);
     const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
-    const [themeMode] = useState(false);
+    const [themeMode] = useContext(themeModeContext);
     const [currentLView] = useContext(loginViewContext);
     const [currentMView,setCurrentMView] = useContext(modalViewContext);
     // useEffect con el titulo de la página
@@ -100,8 +98,6 @@ export default function Login(){
                                 const encryptedPermission = encryptData(jsonPermission);
                 
                                 if( encryptedUser && encryptedPermission){
-                                    setIsLogged(true);
-                
                                     setTimeout(() => {
                                         existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
                                     
@@ -128,6 +124,8 @@ export default function Login(){
                                             setTimeout(() => {
                                                 setIsName('');
                                                 setIsPassword('');
+                                                setIsLog(false);
+                                                setIsLogged(true);
                                                 setIsActiveBlock(false);
                                                 navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
                                             },2000);
@@ -162,8 +160,6 @@ export default function Login(){
                             const encryptedPermission = encryptData(jsonPermission);
             
                             if( encryptedUser && encryptedPermission){
-                                setIsLogged(true);
-            
                                 setTimeout(() => {
                                     existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
                                 
@@ -190,6 +186,8 @@ export default function Login(){
                                         setTimeout(() => {
                                             setIsName('');
                                             setIsPassword('');
+                                            setIsLog(false);
+                                            setIsLogged(true);
                                             setIsActiveBlock(false);
                                             navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
                                         },2000);
@@ -303,9 +301,17 @@ export default function Login(){
                                         isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration',''
                                     )}><IoArrowBackCircle/></Button_Icon_Blue_150>
                                 </Tooltip>
-                                <Tooltip title='Iniciar sesión' placement="top">
-                                    <Button_Icon_Green_150 ThemeMode={themeMode} onClick={() => changeLog()}><MdLogin/></Button_Icon_Green_150>
-                                </Tooltip>
+                                {isActiveBlock ? (
+                                    <>
+                                        <Button_Icon_Block_150 ThemeMode={themeMode}><MdLogin/></Button_Icon_Block_150>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Iniciar sesión' placement="top">
+                                            <Button_Icon_Green_150 ThemeMode={themeMode} onClick={() => changeLog()}><MdLogin/></Button_Icon_Green_150>
+                                        </Tooltip>
+                                    </>
+                                )}
                             </Container_Button_Row_300>
                         </>
                     ):(

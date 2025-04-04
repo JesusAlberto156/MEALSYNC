@@ -1,6 +1,51 @@
 import styled from 'styled-components';
 import { Rotate } from './Animations';
 
+//____________SEARCH____________
+export const Icon_Search = styled.div`
+    font-size: 25px;
+    margin-left: 10px;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+        margin-left: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+        margin-left: 6px;
+    }
+`;
+//____________SEARCH____________
+//____________TABLE____________
+export const Icon_Table_Green = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 16px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Icon_Table_Red = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 16px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
 //____________IMAGE____________
 export const Icon_Image_Profile_Dark = styled.img`
     width: 80px; 
@@ -130,18 +175,6 @@ export const Icon_Warning_250_Light = styled.div`
 `;
 //____________ICON____________
 //--------SEARCH-BAR MENU--------
-export const Icon_Search_Menu = styled.div`
-    font-size: 20px;
-    margin-left: 8%;
-
-    @media (max-width: 768px) {
-        margin-left: 18%;
-    }
-
-    @media (max-width: 480px) {
-        margin-left: 10%;
-    }
-`;
 export const Icon_Shopping_Cart_Menu = styled.button`
     border: none;
     background-color: transparent;

@@ -3,10 +3,6 @@
 import { useState, useEffect,useContext } from "react";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
-// Servicios
-
-// Rutas
-
 // Contextos
 import { themeModeContext,sidebarVisibleContext } from "../../contexts/ViewsProvider";
 import { typeUserContext } from "../../contexts/VariablesProvider";
@@ -30,7 +26,7 @@ import { MdStorage } from "react-icons/md";
 import { MdWorkHistory } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Sidebar_Light,Container_Icon } from "../styled/Containers";
+import { Container_Sidebar,Container_Icon } from "../styled/Containers";
 import { Icon_Image_Profile_Light } from "../styled/Icons";
 import { Text_Title_Fade_20,Text_A_18 } from "../styled/Text";
 import { Button_Icon_Blue_210 } from '../styled/Buttons';
@@ -53,7 +49,7 @@ export default function Sidebar() {
   // Estructura del componente
   return (
     <>
-      <Container_Sidebar_Light ThemeMode={themeMode} className={isSidebarVisible ? 'visible' : 'hidden'}>
+      <Container_Sidebar ThemeMode={themeMode} className={isSidebarVisible ? 'visible' : 'hidden'}>
         <Container_Icon>
           <Icon_Image_Profile_Light src={profileImage}/>
         </Container_Icon>
@@ -229,7 +225,7 @@ export default function Sidebar() {
         ):(
           <></>
         )}
-      </Container_Sidebar_Light>
+      </Container_Sidebar>
     </>
   );
 }

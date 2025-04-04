@@ -59,7 +59,29 @@ export const Img_Logo_Hospital_150 = styled.div.withConfig({
         margin-bottom: 10px;
     }
 `;
+export const Img_Logo_Hospital_60 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Hospital_Light})` : `url(${Logo_Hospital_Dark})`)};
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 60px; 
+    height: 60px;
+    margin-left: 20px;
+    animation: ${FadeAnimation} 2s infinite;
 
+    @media (max-width: 768px) {
+        width: 55px; 
+        height: 55px;
+        margin-left: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 50px; 
+        height: 50px;
+        margin-left: 10px;
+    }
+`;
 export const Img_Logo_Error_Dark = styled.div`
     background-image: url(${Logo_Error_Dark});
     background-size: contain;
@@ -108,46 +130,5 @@ export const Img_Logo_Error_Light = styled.div`
         left: 5%;
     }
 `;
-export const Img_Logo_Hospital_Dark = styled.div`
-    background-image: url(${Logo_Hospital_Dark});
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 60px; 
-    height: 60px;
-    margin-left: 20px;
-    animation: ${FadeAnimation} 2s infinite;
 
-    @media (max-width: 768px) {
-        width: 55px; 
-        height: 55px;
-        margin-left: 15px;
-    }
-
-    @media (max-width: 480px) {
-        width: 50px; 
-        height: 50px;
-        margin-left: 10px;
-    }
-`;
-export const Img_Logo_Hospital_Light = styled.div`
-    background-image: url(${Logo_Hospital_Light});
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 60px; 
-    height: 60px;
-    margin-left: 20px;
-    animation: ${FadeAnimation} 2s infinite;
-
-    @media (max-width: 768px) {
-        width: 55px; 
-        height: 55px;
-        margin-left: 15px;
-    }
-
-    @media (max-width: 480px) {
-        width: 50px; 
-        height: 50px;
-        margin-left: 10px;
-    }
-`;
 //____________LOGO____________

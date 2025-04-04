@@ -1,16 +1,10 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext } from "react";
-// Componentes de React externos
-
-// Servicios
-
-// Rutas
-
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
-import { typeUserContext,searchTermContext } from "../contexts/VariablesProvider";
-import { nameContext,passwordContext } from "../contexts/FormsProvider";
+import { typeUserContext,searchTermContext,selectedRowContext,actionBlockContext } from "../contexts/VariablesProvider";
+import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -36,13 +30,13 @@ export const useChangeThemeMode = () => {
 // Hook para cambiar la vista del login
 export const useChangeLoginView = () => {
     // Constantes con el valor de los contextos 
-    const [currentView,setCurrentView] = useContext(loginViewContext);
+    const [currentLView,setCurrentLView] = useContext(loginViewContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
     // Función del hook
     const changeLoginView = (option,type) => {
-        setCurrentView(option);
+        setCurrentLView(option);
         if(option === 'Administration' || option === 'Kitchen'){
             setIsName('');
             setIsPassword('');
@@ -56,11 +50,11 @@ export const useChangeLoginView = () => {
 // Hook para cambiar la vista del navbar
 export const useChangeNavbarView = () => {
     // Constantes con el valor de los contextos 
-    const [currentView,setCurrentView] = useContext(navbarViewContext);
+    const [currentNView,setCurrentNView] = useContext(navbarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     // Función del hook
     const changeNavbarView = (View) => {
-        setCurrentView(View);
+        setCurrentNView(View);
         setIsSearchTerm('');
     };
     // Retorno de la función del hook
@@ -69,7 +63,7 @@ export const useChangeNavbarView = () => {
 // Hook para cambiar la vista del sidebar
 export const useChangeSidebarView = () => {
     // Constantes con el valor de los contextos 
-    const [currentView,setCurrentView] = useContext(sidebarViewContext);
+    const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext)
     const [isTypeUser] =  useContext(typeUserContext);
     // Función del hook
@@ -87,7 +81,7 @@ export const useChangeSidebarView = () => {
         if(View === 'Menus')document.title = "MEALSYNC_Administración_Menús";
         if(View === 'Inventory')document.title = "MEALSYNC_Administración_Inventario";
         if(View === 'Record')document.title = "MEALSYNC_Administración_Historial";
-        setCurrentView(View);
+        setCurrentSView(View);
         setIsSearchTerm('');
     };
     // Retorno de la función del hook
@@ -107,10 +101,27 @@ export const useToggleSidebar = () => {
 // Hook para cambiar el modal
 export const useChangeModalView = () => {
     // Constantes con el valor de los contextos 
-    const [currentView,setCurrentView] = useContext(modalViewContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const [isSelect,setIsSelect] = useContext(selectContext);
+    const [isRadio,setIsRadio] = useContext(radioContext);
+    const [isName,setIsName] = useContext(nameContext);
+    const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
     // Función del hook
     const changeModalView = (View) => {
-        setCurrentView(View);
+        if(currentMView === 'Status-Add'){
+            setIsSelect([]);
+            setIsRadio('');
+            setIsActiveBlock(false);
+        }
+        if(currentMView === 'Status-Enable'){
+            setIsName('');
+            setIsPassword('');
+            setIsSelectedRow(null);
+
+        }
+        setCurrentMView(View);
     }
     // Retorno de la función del hook
     return changeModalView;

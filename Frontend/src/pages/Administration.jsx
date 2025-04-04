@@ -30,6 +30,9 @@ import Sidebar from "../components/navegation/Sidebar";
 import OutLogin from "../components/modals/General/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
+import PermissionsAdd from "../components/modals/permissions/PermissionsAdd";
+import PermissionsEdit from "../components/modals/permissions/PermissionsEdit";
+import PermissionsSuperAdministrator from "../components/modals/permissions/PermissionsSuperAdministrator";
 import StatusAdd from "../components/modals/status/StatusAdd";
 import StatusEnable from "../components/modals/status/StatusEnable";
 //____________IMPORT/EXPORT____________
@@ -69,7 +72,7 @@ export default function Administration(){
     },[]);
     // useEffect con el cerrado de sesión de administración
     useEffect(() => {
-        if(!isLog && isLogged){
+        if(isLog && isLogged){
             document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
                 try{                   
@@ -132,6 +135,22 @@ export default function Administration(){
                 </Container_Page_Elements>
                 {currentMView === 'Out-Login' ? (
                     <OutLogin/>
+                ):(
+                    <></>
+                )}
+                
+                {currentMView === 'Permissions-Add' ? (
+                    <PermissionsAdd/>
+                ):(
+                    <></>
+                )}
+                {currentMView === 'Permissions-Edit' ? (
+                    <PermissionsEdit/>
+                ):(
+                    <></>
+                )}
+                {currentMView === 'Permissions-Super-Admistrator' ? (
+                    <PermissionsSuperAdministrator/>
                 ):(
                     <></>
                 )}

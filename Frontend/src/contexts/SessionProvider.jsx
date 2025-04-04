@@ -36,14 +36,9 @@ export const Logged = ({ children }) => {
 
         if(logged){
             try{
-                const decryptedData = decryptData(logged);
-
-                if(decryptedData){
+                if(logged === 'true'){
                     console.log('¡Inicio de sesión cargado correctamente!...');
                     return true;
-                }else{
-                    console.log('¡Error al desencriptar datos del sessionStorage!...');
-                    return false;
                 }
             } catch (error) {
                 console.error('Error procesando datos de sessionStorage:',error);

@@ -75,13 +75,14 @@ export const Text_Title_Fade_30 = styled.h1.withConfig({
     font-style: italic;
     animation: ${FadeAnimation} 2s infinite;
     margin-top: 0px;
+    margin-bottom: 0px;
 
     @media (max-width: 768px) {
-        font-size: 28px;
+        font-size: 25px;
     }
 
     @media (max-width: 480px) {
-        font-size: 26px;
+        font-size: 20px;
     }
 `;
 
@@ -324,42 +325,43 @@ export const Text_P_Left_20 = styled.p.withConfig({
     width: 250px;
     margin-top: 0px;
     margin-bottom: 0px;
-    margin-left: 10px;
+    margin-left: 30px;
+    margin-right: auto;
 
     @media (max-width: 768px) {
         width: 200px;
         font-size: 16px;
-        margin-left: 8px;
+        margin-left: 25px;
     }
 
     @media (max-width: 480px) {
         width: 150px;
         font-size: 14px;
-        margin-left: 0px;
+        margin-left: 20px;
     }
 `;
 //______________P______________
-
-//--------MODAL--------
-export const Title_Fade_Modal = styled.h1`
-    text-align: center;
-    position: relative;
-    margin-top: 10px;
-    font-size: 30px;
-
-    animation: ${FadeAnimation} 2s infinite;
+//______________SPAN____________
+export const Text_Span_16 = styled.span.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};    
+    font-size: 16px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
 
     @media (max-width: 768px) {
-        font-size: 25px;
-        margin-top: 8px;
+        font-size: 13px;
     }
 
     @media (max-width: 480px) {
-        font-size: 20px;
-        margin-top: 6px;
+        font-size: 10px;
     }
 `;
-//--------MODAL--------
+//______________SPAN____________
+
+
 //--------FOOTER--------
 export const Text_Footer = styled.p`
     font-Size: 1.1rem; 
@@ -396,16 +398,3 @@ export const Title_Fade_Loading = styled.div`
     }
 `;
 //--------LOADING--------
-//--------PAGINATION--------
-export const Text_Pagination = styled.span`
-    font-size: 16px;
-
-    @media (max-width: 768px) {
-        font-size: 12px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 10px;
-    }
-`;
-//--------PAGINATION--------

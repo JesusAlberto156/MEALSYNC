@@ -134,12 +134,12 @@ export const Status_Add = ({ children }) => {
                                 setIsSelect([]);
                                 setIsStatusAdd(false);
                                 setIsActiveBlock(false);
-                            },500);
+                            },1000);
 
                             return () => {
                                 socket.off('statusInsert');
                             }
-                        },2000);
+                        },1000);
                     }catch(error){
                         setIsActiveBlock(false);
                         setIsStatusAdd(false);

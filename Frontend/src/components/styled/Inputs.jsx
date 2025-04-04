@@ -127,34 +127,16 @@ export const Input_Text_280_Light = styled.input`
 `;
 //____________TEXT____________
 //____________RADIO____________
-export const Input_Radio_16_Dark = styled.input`
+export const Input_Radio_16 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: 16px;
     height: 16px;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:checked {
-        accent-color: rgb(60, 188, 109);
-    }
-
-    @media (max-width: 768px) {
-        width: 14px;
-        height: 14px;
-    }
-
-    @media (max-width: 480px) {
-        width: 12px;
-        height: 12px;
-    }
-`;
-export const Input_Radio_16_Light = styled.input`
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:checked {
-        accent-color: rgb(20, 165, 76);
+        accent-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
     }
 
     @media (max-width: 768px) {
@@ -169,32 +151,16 @@ export const Input_Radio_16_Light = styled.input`
 `;
 //____________RADIO____________
 //____________CHECK____________
-
-//____________CHECK____________
-//--------SEARCH-BAR MENU--------
-export const Input_Search_Bar_Menu = styled.input`
-    padding: 10px;
-    font-size: 18px;
-    border: none;
-    background: transparent;
-    border-bottom: 2px solid #000;
-    border-radius: 6px;
-    width: 250px;
-
-    @media (max-width: 480px) {
-        width: 200px;
-    }
-`;
-//--------SEARCH-BAR MENU--------
-//--------MODAL---------
-export const Input_Checkbox_Modal = styled.input`
-    width: 15px;
-    height: 15px;
+export const Input_Checkbox_16 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 16px;
+    height: 16px;
     cursor: pointer;
     transition: all 0.2s ease;
     
     &:checked {
-        accent-color: rgb(20, 165, 76);
+        accent-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
     }
 
     @media (max-width: 768px) {
@@ -203,8 +169,35 @@ export const Input_Checkbox_Modal = styled.input`
     }
 
     @media (max-width: 480px) {
-        width: 13px;
-        height: 13px;
+        width: 12px;
+        height: 12px;
     }
 `;
-//--------MODAL---------
+//____________CHECK____________
+//____________SEARCH____________
+export const Input_Search = styled.input`
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid white;
+    color: white;
+    border-radius: 6px;
+    width: 250px;
+    margin-right: auto;
+
+    &::placeholder {
+        color: white; 
+    }
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        width: 175px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 10px;
+        width: 100px;
+    }
+`;
+//____________SEARCH____________

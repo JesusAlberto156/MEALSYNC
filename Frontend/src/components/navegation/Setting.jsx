@@ -3,10 +3,6 @@
 import { useContext } from "react";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
-// Servicios
-
-// Rutas
-
 // Contextos
 import { themeModeContext,sidebarVisibleContext } from "../../contexts/ViewsProvider";
 import { loggedContext } from "../../contexts/SessionProvider";

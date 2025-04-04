@@ -3,8 +3,6 @@
 
 // Componentes de React externos
 
-// Servicios
-
 // Contextos
 
 // Hooks personalizados
@@ -14,18 +12,12 @@
 //__________ICONOS__________
 // Estilos personalizados
 
-// Componentes personalizados
-
 //____________IMPORT/EXPORT____________
 
-// Página para
+// Estructura del componente
 
 // Constantes con el valor de los contextos
 
-// useEffect con el titulo de la página
-
-// useEffect con
+// useEffect con el titulo del 
 
 // Constantes con la funcionalidad de los hooks
-
-// Estructura del componente

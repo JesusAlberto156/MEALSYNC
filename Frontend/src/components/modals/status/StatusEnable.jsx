@@ -12,7 +12,8 @@ import { selectedRowContext,formComprobationContext } from "../../../contexts/Va
 import { usersContext } from "../../../contexts/UsersProvider";
 import { statusModalContext } from "../../../contexts/RefsProvider";
 // Hooks personalizados
-import { useCloseModal,useEnableUser } from "../../../hooks/Modal";
+import { useEnableUser } from "../../../hooks/Modal";
+import { useChangeModalView } from "../../../hooks/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 import { FaUnlock } from "react-icons/fa";
@@ -50,7 +51,7 @@ export default function StatusEnable(){
         }
     },[]);
     // Constantes con la funcionalidad de los hooks
-    const closeModal = useCloseModal();
+    const closeModal = useChangeModalView();
     const enableUser = useEnableUser();
     // Estructura del componente
     return(

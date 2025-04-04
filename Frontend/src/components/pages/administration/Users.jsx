@@ -28,15 +28,29 @@ import TableStatus from '../../tables/TableStatus';
 // Componente para mostrar la seccion de usuarios en administración
 export default function Users(){
     // Constantes con el valor de los contextos 
-    const [isSidebar] = useContext(sidebarViewContext);
-    const [isNavbar] = useContext(navbarViewContext);
+    const [currentNView] = useContext(navbarViewContext);
+    const [currentSView] = useContext(sidebarViewContext);
     // Estructura del componente
     return(
         <> 
             <Setting/>
             <Navbar/> 
             <SearchBar/>  
-            
+            {currentSView === 'Users' && currentNView === 'Principal' ? (
+                <TableUsers/>
+            ):(
+                <></>
+            )}
+            {currentSView === 'Users' && currentNView === 'Permissions' ? (
+                <TablePermissions/>
+            ):(
+                <></>
+            )}
+            {currentSView === 'Users' && currentNView === 'Status' ? (
+                <TableStatus/>
+            ):(
+                <></>
+            )}
         </>
     )
 }

@@ -23,15 +23,8 @@ export const Type_User = ({ children }) => {
 
         if(StoredData){
             try{
-                const decryptedData = decryptData(StoredData);
-
-                if(decryptedData){
-                    console.log('¡Tipo de usuario cargado correctamente!...');
-                    return decryptedData;
-                }else{
-                    console.log('¡Error al desencriptar datos del sessionStorage!...');
-                    return '';
-                }
+                console.log('¡Tipo de usuario cargado correctamente!...');
+                return StoredData;
             } catch (error) {
                 console.error('Error procesando datos de sessionStorage:',error);
                 return '';

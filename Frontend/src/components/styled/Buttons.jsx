@@ -139,38 +139,6 @@ export const Button_Icon_Blue_220 = styled.button.withConfig({
         font-size: 20px;
     }
 `;
-export const Button_Icon_Blue_150 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 150px;
-    padding: 6px;
-    font-size: 30px;
-    border-radius: 50px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    color: white;
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    
-    &:hover {
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 120px;
-        padding: 5px;
-        font-size: 25px;
-    }
-
-    @media (max-width: 480px) {
-        width: 90px;    
-        padding: 4px;
-        font-size: 20px;
-    }
-`;
 export const Button_Icon_Blue_210 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -205,7 +173,135 @@ export const Button_Icon_Blue_210 = styled.button.withConfig({
         font-size: 14px;
     }
 `;
+export const Button_Icon_Blue_170 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 170px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 140px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 110px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+export const Button_Icon_Blue_150 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 150px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 120px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 90px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+export const Button_Icon_Blue_45 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 45px;
+    padding: 5px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 40px;
+        padding: 4px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 35px;    
+        padding: 3px;
+        font-size: 20px;
+    }
+`;
 // Color Verde
+export const Button_Icon_Green_170 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 170px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 140px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 110px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
 export const Button_Icon_Green_150 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -238,7 +334,71 @@ export const Button_Icon_Green_150 = styled.button.withConfig({
         font-size: 20px;
     }
 `;
+export const Button_Icon_Green_45 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 45px;
+    padding: 5px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 40px;
+        padding: 4px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 35px;    
+        padding: 3px;
+        font-size: 20px;
+    }
+`;
 // Color Rojo
+export const Button_Icon_Red_170 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 170px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 140px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 110px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
 export const Button_Icon_Red_150 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -268,6 +428,155 @@ export const Button_Icon_Red_150 = styled.button.withConfig({
     @media (max-width: 480px) {
         width: 90px;    
         padding: 4px;
+        font-size: 20px;
+    }
+`;
+export const Button_Icon_Red_45 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 45px;
+    padding: 5px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 40px;
+        padding: 4px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 35px;    
+        padding: 3px;
+        font-size: 20px;
+    }
+`;
+// Color Blanco
+export const Button_Icon_White_100 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 100px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+        border: ${({ ThemeMode }) => (ThemeMode ? '2px solid white' : '2px solid black')};
+        color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 80px;
+        padding: 3px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 60px;    
+        padding: 2px;
+        font-size: 20px;
+    }
+`;
+// Bloqueado
+export const Button_Icon_Block_170 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 170px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(121, 125, 125)' : 'rgb(157, 159, 159)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: not-allowed;
+    pointer-events: none;
+    transition: background-color 0.3s, transform 0.3s;
+
+    @media (max-width: 768px) {
+        width: 140px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 110px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+export const Button_Icon_Block_150 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 150px;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 50px;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(121, 125, 125)' : 'rgb(157, 159, 159)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: not-allowed;
+    pointer-events: none;
+    transition: background-color 0.3s, transform 0.3s;
+
+    @media (max-width: 768px) {
+        width: 120px;
+        padding: 5px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 90px;    
+        padding: 4px;
+        font-size: 20px;
+    }
+`;
+export const Button_Icon_Block_45 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 45px;
+    padding: 5px;
+    font-size: 30px;
+    border-radius: 15px;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(121, 125, 125)' : 'rgb(157, 159, 159)')};
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: not-allowed;
+    pointer-events: none;
+    transition: background-color 0.3s, transform 0.3s;
+
+    @media (max-width: 768px) {
+        width: 40px;
+        padding: 4px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 35px;    
+        padding: 3px;
         font-size: 20px;
     }
 `;
@@ -1066,374 +1375,6 @@ export const Button_Icon_Block_80_Light = styled.button`
     }
 `;
 //____________ICON____________
-
-export const Button_Icon_Exit = styled.button`
-    width: 200px;
-    padding: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    background-color: rgb(155, 9, 9);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(100, 15, 15);
-        transform: translateY(-2px);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 160px;
-        padding: 8px;
-        font-size: 25px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-
-    @media (max-width: 480px) {
-        width: 120px;
-        padding: 6px;
-        font-size: 20px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    } 
-`;
-export const Button_Icon_Green = styled.button`
-    width: 200px;
-    padding: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    background-color: rgb(20, 165, 76);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(13, 112, 51);
-        transform: translateY(-2px);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 160px;
-        padding: 8px;
-        font-size: 25px;
-        border-radius: 30px;
-        
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-
-    @media (max-width: 480px) {
-        width: 120px;
-        padding: 6px;
-        font-size: 20px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    } 
-`;
-export const Button_Icon_Block = styled.button`
-    width: 200px;
-    padding: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    background-color: rgb(84,88,89);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: not-allowed;
-    pointer-events: none;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        transform: translateY(-2px);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 160px;
-        padding: 8px;
-        font-size: 25px;
-        border-radius: 30px;
-        
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-
-    @media (max-width: 480px) {
-        width: 120px;
-        padding: 6px;
-        font-size: 20px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    } 
-`;
-
-//--------MODAL--------
-export const Button_Icon_Cancel_Modal = styled.button`
-    width: 200px;
-    padding: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    background-color: rgb(58,93,174);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(12, 54, 109);
-        transform: translateY(-2px);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 160px;
-        padding: 8px;
-        font-size: 25px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-
-    @media (max-width: 480px) {
-        width: 120px;
-        padding: 6px;
-        font-size: 20px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-`;
-export const Button_Icon_Exit_Modal = styled.button`
-    width: 200px;
-    padding: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    background-color: rgb(155, 9, 9);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(100, 15, 15);
-        transform: translateY(-2px);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 160px;
-        padding: 8px;
-        font-size: 25px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-
-    @media (max-width: 480px) {
-        width: 120px;
-        padding: 6px;
-        font-size: 20px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    } 
-`;
-export const Button_Icon_Green_Modal = styled.button`
-    width: 200px;
-    padding: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    background-color: rgb(20, 165, 76);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(13, 112, 51);
-        transform: translateY(-2px);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 160px;
-        padding: 8px;
-        font-size: 25px;
-        border-radius: 30px;
-        
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-
-    @media (max-width: 480px) {
-        width: 120px;
-        padding: 6px;
-        font-size: 20px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    } 
-`;
-export const Button_Icon_Block_Modal = styled.button`
-    width: 200px;
-    padding: 10px;
-    font-size: 30px;
-    border-radius: 30px;
-    background-color: rgb(84,88,89);
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: not-allowed;
-    pointer-events: none;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        transform: translateY(-2px);
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 160px;
-        padding: 8px;
-        font-size: 25px;
-        border-radius: 30px;
-        
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    }
-
-    @media (max-width: 480px) {
-        width: 120px;
-        padding: 6px;
-        font-size: 20px;
-        border-radius: 30px;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
-    } 
-`;
-//--------MODAL--------
-//--------PAGINATION--------
-export const Button_Block_Pagination = styled.button`
-    width: 14%;
-    padding: 6px;
-    color: white;
-    border: 2px solid white;
-    border-radius: 15px;
-    font-size: 20px;
-    text-align: center;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.7;
-    background-color: rgb(84,88,89);
-    transform: none;
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 8px;
-    }
-`;
-export const Button_Blue_Pagination = styled.button`
-    width: 14%;
-    padding: 6px;
-    background-color: rgb(58,93,174);
-    color: white;
-    border: 2px solid white;
-    border-radius: 15px;
-    font-size: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color:rgb(12, 54, 109);
-        transform: translateY(-2px);
-        transform: scale(1.2);
-    }
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-        
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.3);
-        }
-    }
-
-    @media (max-width: 480px) {
-        font-size: 8px;
-        
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.3);
-        }
-    }
-`;
-//--------PAGINATION--------
 
 export const Link = styled.button`
     width: 25%;

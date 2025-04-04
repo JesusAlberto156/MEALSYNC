@@ -50,7 +50,7 @@ export default function OutLogin(){
                         <Text_P_Left_20 ThemeMode={themeMode}>Cerrará la sesión...</Text_P_Left_20>
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
                             <Tooltip title="Cancelar" placement="top">
-                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => chanheModalView()}><MdCancel/></Button_Icon_Blue_150>
+                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => chanheModalView('')}><MdCancel/></Button_Icon_Blue_150>
                             </Tooltip>
                             <Tooltip title="Cerrar sesión" placement="top">
                                 <Button_Icon_Red_150 ThemeMode={themeMode} onClick={() => changeLog()}><ImExit/></Button_Icon_Red_150>

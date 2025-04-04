@@ -2,24 +2,9 @@
 // Hooks de React
 import { Outlet,Navigate } from "react-router-dom";
 import { useContext } from "react";
-// Componentes de React externos
-
-// Servicios
-
-// Rutas
-
 // Contextos
 import { loggedContext } from "../contexts/SessionProvider";
 import { typeUserContext } from "../contexts/VariablesProvider";
-// Hooks personalizados
-
-//__________ICONOS__________
-
-//__________ICONOS__________
-// Estilos personalizados
-
-// Componentes personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Componente para proteger las rutas de la pagina

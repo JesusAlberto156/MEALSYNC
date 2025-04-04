@@ -1,11 +1,17 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { createContext, useState } from "react"
+// Servicios
+
 // Contextos
 export const nameContext = createContext(null);
 export const passwordContext = createContext(null);
 export const selectContext = createContext(null);
 export const radioContext = createContext(null);
+// Contextos personalizados
+
+// Estilos personalizados
+
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el valor en el campo de nombre de usuario en el formulario

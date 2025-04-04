@@ -4,32 +4,32 @@ import { createContext,useState } from "react"
 // Servicios
 import { decryptData } from "../services/Crypto";
 // Contextos
-export const modeContext = createContext(null);
 export const typeUserContext = createContext(null);
 export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
-export const modalContext = createContext(null);
-export const optionModalContext = createContext(null);
-export const comprobationContext = createContext(null);
-export const blockContext = createContext(null);
-export const enableContext = createContext(null);
+export const formComprobationContext = createContext(null);
+export const actionBlockContext = createContext(null);
+// Contextos personalizados
+
+// Estilos personalizados
+
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el tipo de usuario que es
 export const Type_User = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTypeUser,setIsTypeUser] = useState(() => {
-        const StoredData = sessionStorage.getItem('TypeUser');
+        const StoredData = sessionStorage.getItem('Type-User');
 
         if(StoredData){
             try{
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('Tipo de usuario cargado correctamente...');
+                    console.log('¡Tipo de usuario cargado correctamente!...');
                     return decryptedData;
                 }else{
-                    console.log('Error al desencriptar el tipo de usuario...');
+                    console.log('¡Error al desencriptar datos del sessionStorage!...');
                     return '';
                 }
             } catch (error) {
@@ -72,22 +72,22 @@ export const Search_Term = ({ children }) => {
 // Función Contexto para controlar la comprobación de inicio de sesión
 export const Form_Comprobation = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isComprobation,setIsComprobation] = useState(false);
+    const [isFormComprobation,setIsFormComprobation] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
-        <comprobationContext.Provider value={[isComprobation,setIsComprobation]}>
+        <formComprobationContext.Provider value={[isFormComprobation,isFormComprobation]}>
             {children}
-        </comprobationContext.Provider>
+        </formComprobationContext.Provider>
     );
 }
 // Función Contexto para controlar el bloqueo de acciones
 export const Action_Block = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isBlock,setIsBlock] = useState(false);
+    const [isActiveBlock,setIsActiveBlock] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
-        <blockContext.Provider value={[isBlock,setIsBlock]}>
+        <actionBlockContext.Provider value={[isActiveBlock,setIsActiveBlock]}>
             {children}
-        </blockContext.Provider>
+        </actionBlockContext.Provider>
     );
 }

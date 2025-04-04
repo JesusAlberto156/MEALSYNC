@@ -9,7 +9,7 @@ import { Toaster } from 'sonner';
 // Rutas
 
 // Contextos
-import { modeContext } from "../contexts/VariablesProvider";
+
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -28,11 +28,11 @@ import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Styles } from '../compon
 // Página para cargar otra página
 const Loading = () => {
     // Constantes con el valor de los contextos 
-    const [isMode] = useContext(modeContext);
+
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";
-        if(isMode){
+        if(true){
             Alert_Greeting_Light("MEALSYNC",'¡Cargando!...');
         }else{
             Alert_Greeting_Dark("MEALSYNC",'¡Cargando!...');
@@ -46,8 +46,6 @@ const Loading = () => {
     // Estructura del componente
     return(
         <>
-            {isMode ? (
-                <>
                     <Container_Page_Loading_Light>
                         <Container_Text_20>
                             <Text_Title_Fade_50_Light>Cargando...</Text_Title_Fade_50_Light>
@@ -62,25 +60,6 @@ const Loading = () => {
                             />
                         </Alert_Styles> 
                     </Container_Page_Loading_Light>
-                </>
-            ):(
-                <>
-                    <Container_Page_Loading_Dark>
-                        <Container_Text_20>
-                            <Text_Title_Fade_50_Dark>Cargando...</Text_Title_Fade_50_Dark>
-                            <Icon_Settings_50_Dark><IoSettings/></Icon_Settings_50_Dark>
-                        </Container_Text_20>
-                        <Alert_Styles>
-                            <Toaster
-                                visibleToasts={3}
-                                richColors
-                                theme='dark'
-                                position='top-right'
-                            />
-                        </Alert_Styles> 
-                    </Container_Page_Loading_Dark>
-                </>
-            )}
         </>
     );
 }

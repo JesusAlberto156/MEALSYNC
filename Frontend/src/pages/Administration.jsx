@@ -11,7 +11,7 @@ import { Toaster } from 'sonner';
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
 import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
-import { modeContext,typeUserContext,searchTermContext } from "../contexts/VariablesProvider";
+import { typeUserContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
 import { statusUserContext } from "../contexts/StatusProvider";
@@ -30,9 +30,6 @@ import Sidebar from "../components/navegation/Sidebar";
 import OutLogin from "../components/modals/General/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
-import PermissionsAdd from '../components/modals/permissions/PermissionsAdd';
-import PermissionsEdit from '../components/modals/permissions/PermissionsEdit';
-import PermissionsSuperAdministrator from "../components/modals/permissions/PermissionsSuperAdministrator";
 import StatusAdd from "../components/modals/status/StatusAdd";
 import StatusEnable from "../components/modals/status/StatusEnable";
 //____________IMPORT/EXPORT____________
@@ -52,7 +49,6 @@ export default function Administration(){
     const [isSelect,setIsSelect] = useContext(selectContext);
     const [iseRadio,setIsRadio] = useContext(radioContext);
 
-    const [isMode] = useContext(modeContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
     const [isLogged,setIsLogged] = useContext(loggedContext);
@@ -63,7 +59,7 @@ export default function Administration(){
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Administración_Inicio"
-        if(isMode){
+        if(themeMode){
             Alert_Greeting_Light("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...');
             Alert_Greeting_Light('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
         }else{
@@ -136,21 +132,6 @@ export default function Administration(){
                 </Container_Page_Elements>
                 {currentMView === 'Out-Login' ? (
                     <OutLogin/>
-                ):(
-                    <></>
-                )}
-                {currentMView === 'Permissions-Add' ?(
-                    <PermissionsAdd/>
-                ):(
-                    <></>
-                )}
-                {currentMView === 'Permissions-Edit' ?(
-                    <PermissionsEdit/>
-                ):(
-                    <></>
-                )}
-                {currentMView === 'Permissions-Super-Administrator' ?(
-                    <PermissionsSuperAdministrator/>
                 ):(
                     <></>
                 )}

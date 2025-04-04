@@ -1,6 +1,8 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { createContext, useState } from "react"
+// Servicios
+
 // Contextos
 export const themeModeContext = createContext(null);
 export const loginViewContext = createContext(null);
@@ -8,6 +10,10 @@ export const navbarViewContext = createContext(null);
 export const sidebarViewContext = createContext(null);
 export const sidebarVisibleContext = createContext(null);
 export const modalViewContext = createContext(null);
+// Contextos personalizados
+
+// Estilos personalizados
+
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el modo de la página (Claro/Oscuro)

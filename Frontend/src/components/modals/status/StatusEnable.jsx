@@ -8,8 +8,7 @@ import { useContext,useEffect,useState } from "react";
 // Rutas
 
 // Contextos
-import { modeContext } from "../../../contexts/VariablesProvider";
-import { selectedRowContext,modalContext,comprobationContext } from "../../../contexts/VariablesProvider";
+import { selectedRowContext,formComprobationContext } from "../../../contexts/VariablesProvider";
 import { usersContext } from "../../../contexts/UsersProvider";
 import { statusModalContext } from "../../../contexts/RefsProvider";
 // Hooks personalizados
@@ -33,11 +32,9 @@ import FormComprobation from "../../forms/Comprobation";
 
 export default function StatusEnable(){
     // Constantes con el valor de los contextos
-    const [isMode] = useContext(modeContext);
-    const [isModal] = useContext(modalContext);
     const [isSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
-    const [isComprobation] = useContext(comprobationContext);
+    const [isComprobation] = useContext(formComprobationContext);
     const {modal,form} = useContext(statusModalContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
@@ -58,10 +55,8 @@ export default function StatusEnable(){
     // Estructura del componente
     return(
         <>
-            {isModal && isSelectedRow !== null ? (
+            {isSelectedRow !== null ? (
                 <Container_Modal ref={modal}>
-                    {isMode ? (
-                        <>
                             <Container_Form_400_Light ref={form}>
                                 <Text_Title_Fade_30_Light>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Light>
                                 <FormComprobation/>
@@ -106,59 +101,9 @@ export default function StatusEnable(){
                                     )}
                                 </Container_Button_Border_Light>
                             </Container_Form_400_Light>
-                        </>
-                    ):(
-                        <>
-                            <Container_Form_400_Dark ref={form}>
-                                <Text_Title_Fade_30_Dark>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Dark>
-                                <FormComprobation/>
-                                {isSelectedRow.habilitado ? <Text_P_20_Dark>Se deshabilitará a {user} </Text_P_20_Dark> : <Text_P_20_Dark>Se habilitará a {user}...</Text_P_20_Dark>}
-                                <Container_Button_Border_Dark>
-                                    <Button_Icon_Blue_50_Dark onClick={(e) => {
-                                            e.stopPropagation();
-                                            closeModal();
-                                    }}>
-                                        <MdCancel/>
-                                    </Button_Icon_Blue_50_Dark>
-                                    {isSelectedRow.habilitado ? (
-                                        isComprobation ? (
-                                            <>
-                                                <Button_Icon_Red_50_Dark onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    enableUser();
-                                                }}>
-                                                    <FaLock/>
-                                                </Button_Icon_Red_50_Dark>
-                                            </>
-                                        ):(
-                                            <>
-                                                <Button_Icon_Block_50_Dark><FaUnlock/></Button_Icon_Block_50_Dark>
-                                            </>
-                                        )
-                                    ):(
-                                        isComprobation ? (
-                                            <>
-                                                <Button_Icon_Green_50_Dark  onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    enableUser();
-                                                }}>
-                                                    <FaLockOpen/>
-                                                </Button_Icon_Green_50_Dark>
-                                            </>
-                                        ):(
-                                            <>
-                                                <Button_Icon_Block_50_Dark><FaUnlock/></Button_Icon_Block_50_Dark>
-                                            </>
-                                        )
-                                    )}
-                                </Container_Button_Border_Dark>
-                            </Container_Form_400_Dark>
-                        </>
-                    )}
+
                 </Container_Modal>
-            ):(
-                <></>
-            )}
+            ):(<></>)}
         </>
     );
 }

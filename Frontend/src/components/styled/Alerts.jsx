@@ -9,28 +9,17 @@ import { AiFillWarning } from "react-icons/ai";
 import { BiSolidMessageAltError } from "react-icons/bi";
 // ESTILOS PERSONALIZADOS DE ALERTAS
 //____________STYLES____________
-export const Alert_Styles = styled.div`
-    .Blue_Dark {
+export const Alert_Styles = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    .Blue {
         font-size: 14px;
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        background-color: rgb(94, 137, 238);
-        border-radius: 50px;
-        border: 2px solid white;
-        color: white;
-    }
-
-    .Blue_Light {
-        font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        background-color: rgb(37, 70, 147);
-        border-radius: 50px;
-        border: 2px solid black;
-        color: white;
-    }    
+        border-radius: 40px;
+        border: rgb(94, 137, 238);
+    }   
 
     .Yellow_Dark {
         font-size: 14px;
@@ -90,11 +79,10 @@ export const Alert_Styles = styled.div`
 //____________STYLES____________
 //____________GREETING____________
 export const Alert_Greeting = (titulo,mensaje) => {
-    toast(titulo,{
+    toast.info(titulo,{
         duration:4000,
         description: mensaje,
-        className: 'Blue_Dark',
-        icon: <HiHandRaised style={{color:'rgb(255, 253, 208)',fontSize:'20px'}}/>,
+        className: 'Blue',
     }
     );
 };
@@ -102,7 +90,7 @@ export const Alert_Greeting_Dark = (titulo,mensaje) => {
     toast(titulo,{
         duration:4000,
         description: mensaje,
-        className: 'Blue_Dark',
+        className: 'Blue',
         icon: <HiHandRaised style={{color:'rgb(247, 215, 155)',fontSize:'20px'}}/>,
     }
     );
@@ -111,7 +99,7 @@ export const Alert_Greeting_Light = (titulo,mensaje) => {
     toast(titulo,{
         duration:4000,
         description: mensaje,
-        className: 'Blue_Light',
+        className: 'Blue',
         icon: <HiHandRaised style={{color:'rgb(252, 212, 137)',fontSize:'20px'}}/>,
     }
     );

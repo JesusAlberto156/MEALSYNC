@@ -9,7 +9,7 @@ import { Toaster } from 'sonner';
 // Contextos
 import { nameContext,passwordContext } from "../contexts/FormsProvider";
 import { sidebarViewContext,navbarViewContext } from "../contexts/ViewsProvider";
-import { typeUserContext,modalContext,optionModalContext,selectedRowContext,searchTermContext } from "../contexts/VariablesProvider";
+import { typeUserContext,selectedRowContext,searchTermContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
 import { statusUserContext,statusEnableContext } from "../contexts/StatusProvider";
@@ -36,8 +36,6 @@ export default function Kitchen(){
     
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
 
     const [isSidebar,setIsSidebar] = useContext(sidebarViewContext);
     const [isNavbar,setIsNavbar] = useContext(navbarViewContext);
@@ -78,8 +76,6 @@ export default function Kitchen(){
                         setIsVisible(true);
                         setIsSelectedRow(null);
                         setIsSearchTerm('');
-                        setIsModal(false);
-                        setIsOptionModal('');
                         
                         setIsSidebar('Inicio');
                         setIsNavbar('');
@@ -123,34 +119,7 @@ export default function Kitchen(){
                                 <OptionsMenu/>
                             )}
                         </Background_Menu>
-                        {isOptionModal === 'Alerta-Medica' ? (
-                            isModal ? (
-                                <AlertMedico/>
-                            ):(
-                                <></>
-                            )
-                            
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Cerrar-Sesion' ? (
-                            isModal ? (
-                                <OutLogin/>
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
-                        {isOptionModal === 'Carro-Compras' ? (
-                            isModal ? (
-                                <ShoppingCart/>    
-                            ):(
-                                <></>
-                            )
-                        ):(
-                            <></>
-                        )}
+                        
                     </div>
                 </div>
             </div>

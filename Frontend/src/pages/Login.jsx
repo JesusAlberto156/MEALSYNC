@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useEffect,useContext } from "react";
+import { useEffect,useContext,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Toaster } from 'sonner';
@@ -12,7 +12,7 @@ import { encryptData } from "../services/Crypto";
 // Contextos
 import { themeModeContext,loginViewContext,modalViewContext } from "../contexts/ViewsProvider";
 import { nameContext,passwordContext } from "../contexts/FormsProvider";
-import { typeUserContext } from '../contexts/VariablesProvider';
+import { typeUserContext,actionBlockContext } from '../contexts/VariablesProvider';
 import { loggedContext,logContext } from "../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../contexts/PermissionsProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
@@ -41,40 +41,36 @@ import { Container_Page,Container_Button_Column_300,Container_Button_Row_300,Con
 import { Img_Logo_Verical_Hospital_250,Img_Logo_Hospital_150 } from "../components/styled/Imgs";
 import { Text_Title_Fade_22 } from "../components/styled/Text";
 import { Button_Icon_Blue_220,Button_Icon_Blue_150,Button_Icon_Green_150 } from "../components/styled/Buttons";
-import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
+import { Alert_Greeting,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
 import Setting from '../components/navegation/Setting';
 import Footer from '../components/footer/Footer';
 import FormLogin from "../components/forms/Login";
 //____________IMPORT/EXPORT____________
 
-// Página para
+// Página para iniciar sesión
 export default function Login(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [currentLView] = useContext(loginViewContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isTypeUser] = useContext(typeUserContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
-    const [isLog,setIsLog] = useContext(logContext);
-    const [isUsers] = useContext(usersContext);
     const [isPermissions] = useContext(permissionsContext);
-    const [isStatusAll] = useContext(statusAllContext);
-    const [isUser,setIsUser] = useContext(userContext);
     const [isPermission,setIsPermission] = useContext(permissionContext);
-    const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
+    const [isLog,setIsLog] = useContext(logContext);
     const [isLogged,setIsLogged] = useContext(loggedContext);
+    const [isStatusAll] = useContext(statusAllContext);
+    const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
+    const [isUsers] = useContext(usersContext);
+    const [isUser,setIsUser] = useContext(userContext);
+    const [isTypeUser] = useContext(typeUserContext);
+    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
+    const [themeMode] = useState(false);
+    const [currentLView] = useContext(loginViewContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Iniciar_Sesión";
-        if(themeMode){
-            Alert_Greeting_Light("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
-            Alert_Greeting_Light("MEALSYNC",'¡Te da la Bienvenida!...');
-        }else{
-            Alert_Greeting_Dark("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
-            Alert_Greeting_Dark("MEALSYNC",'¡Te da la Bienvenida!...');
-        }
+        Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
+        Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
     },[]);
     // useEffect con el inicio de sesión del login
     useEffect(() => {
@@ -82,36 +78,19 @@ export default function Login(){
             document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
                 try{
+                    setIsActiveBlock(true);
                     setTimeout(() => {
                         const existsUser = isUsers.find(user => user.usuario === isName);
                         
-                        if(!existsUser) {
-                            setIsLog(false);
-                            return reject('¡Usuario no encontrado!...');
-                        }
-                        
-                        if(existsUser.contrasena === isPassword){
+                        if(existsUser && existsUser.contrasena === isPassword){
                             let existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
-
-                            if(!existsStatus){
-                                setIsLog(false);
-                                return reject('¡Usuario sin estatus!...');
-                            }
-                            if(!existsStatus.habilitado){
-                                setIsLog(false);
-                                return reject('¡Este usuario no se encuentra habilitado!...');
-                            }
-                            if(existsStatus.activo){
-                                setIsLog(false);
-                                return reject('¡Este usuario ya se encuentra activo!...');
-                            }
-                
                             const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
 
-                            if(!existsPermission){ 
+                            if(!existsStatus || !existsStatus.habilitado || existsStatus.activo || !existsPermission){
                                 setIsLog(false);
-                                return reject('¡Este usuario no cuenta con roles asignados!...');
-                            }  
+                                setIsActiveBlock(false);
+                                reject('¡No es posible utilizar este usuario!...');
+                            }
 
                             if(existsPermission.superadministrador){
                                 const jsonUser = JSON.stringify(existsUser);
@@ -119,76 +98,61 @@ export default function Login(){
                 
                                 const encryptedUser = encryptData(jsonUser);
                                 const encryptedPermission = encryptData(jsonPermission);
-                                const encryptedLogged = encryptData('true');
-                                const encryptedLog = encryptData('true');
-                                const encryptedType = encryptData(isTypeUser);
                 
-                                if( encryptedUser && encryptedPermission && encryptedLogged && encryptedLog && encryptedType){
-                                    resolve('¡SESIÓN INICIADA!...');
-                
-                                    sessionStorage.setItem('User',encryptedUser);
-                                    sessionStorage.setItem('Permission',encryptedPermission);
-                                    sessionStorage.setItem('Logged',encryptedLogged);
-                                    sessionStorage.setItem('Log',encryptedLog);
-                                    sessionStorage.setItem('TypeUser',encryptedType);
+                                if( encryptedUser && encryptedPermission){
+                                    setIsLogged(true);
                 
                                     setTimeout(() => {
-                                        setIsUser(JSON.parse(jsonUser));
-                                        setIsPermission(JSON.parse(jsonPermission));
-                                        
                                         existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
-                                        
+                                    
                                         const jsonStatus = JSON.stringify(existsStatus);
                                         const encryptedStatus = encryptData(jsonStatus);
                 
                                         if(encryptedStatus){
+                                            sessionStorage.setItem('User',encryptedUser);
+                                            sessionStorage.setItem('Permission',encryptedPermission);
                                             sessionStorage.setItem('Status',encryptedStatus);
+                                            sessionStorage.setItem('Logged',true);
+                                            sessionStorage.setItem('Type-User',isTypeUser);
+                                            
+                                            setIsUser(JSON.parse(jsonUser));
+                                            setIsPermission(JSON.parse(jsonPermission));
                                             setIsStatusUser(JSON.parse(jsonStatus));
-                                            setIsLogged(true);
 
                                             if(isTypeUser === 'Doctor'){
                                                 setCurrentMView('Alert-Doctor');
                                             }
                                             
-                                            console.log('¡Credenciales encriptadas correctamente!...');
+                                            resolve('¡SESIÓN INICIADA!...');
 
-                                            setIsName('');
-                                            setIsPassword('');
-
-                                            navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
+                                            setTimeout(() => {
+                                                setIsName('');
+                                                setIsPassword('');
+                                                setIsActiveBlock(false);
+                                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
+                                            },2000);
                                         }else{
                                             setIsLog(false);
-                                            return console.log('¡Error al encriptar el estatus de la sesión!...')
+                                            setIsActiveBlock(false);
+                                            reject('¡Error al encriptar las credenciales!...');
                                         }
-                                    },2000);
+                                    },500);
                                 }else{
                                     setIsLog(false);
-                                    return console.log('¡Error al encriptar las credenciales!...')
+                                    setIsActiveBlock(false);
+                                    reject('¡Error al encriptar las credenciales!...')
                                 }
                             }
-                            if(isTypeUser === 'Cook' && !existsPermission.cocinero){
+
+                            if(isTypeUser === 'Cook' && !existsPermission.cocinero || 
+                               isTypeUser === 'Nutritionist' && !existsPermission.nutriologo ||
+                               isTypeUser === 'Doctor' && !existsPermission.medico ||
+                               isTypeUser === 'Administrator' && !existsPermission.administrador ||
+                               isTypeUser === 'Chef' && !existsPermission.chef ||
+                               isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
                                 setIsLog(false);
-                                return reject('¡Este usuario no cuenta con el rol de COCINERO!...');
-                            }
-                            if(isTypeUser === 'Nutritionist' && !existsPermission.nutriologo){
-                                setIsLog(false);
-                                return reject('¡Este usuario no cuenta con el rol de NUTRIÓLOGO!...');
-                            }
-                            if(isTypeUser === 'Doctor' && !existsPermission.medico){
-                                setIsLog(false);
-                                return reject('¡Este usuario no cuenta con el rol de MÉDICO!...');
-                            }
-                            if(isTypeUser === 'Administrator' && !existsPermission.administrador){
-                                setIsLog(false);
-                                return reject('¡Este usuario no cuenta con el rol de ADMINISTRADOR!...');
-                            }
-                            if(isTypeUser === 'Chef' && !existsPermission.chef){
-                                setIsLog(false);
-                                return reject('¡Este usuario no cuenta con el rol de CHEF!...');
-                            }
-                            if(isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
-                                setIsLog(false);
-                                return reject('¡Este usuario no cuenta con el rol de ALMACENISTA!...');
+                                setIsActiveBlock(false);
+                                return reject('¡Tu usuario no cuenta con los permisos necesarios para este acceder!...');
                             }
                             
                             const jsonUser = JSON.stringify(existsUser);
@@ -196,64 +160,64 @@ export default function Login(){
             
                             const encryptedUser = encryptData(jsonUser);
                             const encryptedPermission = encryptData(jsonPermission);
-                            const encryptedLogged = encryptData('true');
-                            const encryptedLog = encryptData('true');
-                            const encryptedType = encryptData(isTypeUser);
             
-                            if( encryptedUser && encryptedPermission && encryptedLogged && encryptedLog && encryptedType){
-                                resolve('¡SESIÓN INICIADA!...');
-            
-                                sessionStorage.setItem('User',encryptedUser);
-                                sessionStorage.setItem('Permission',encryptedPermission);
-                                sessionStorage.setItem('Logged',encryptedLogged);
-                                sessionStorage.setItem('Log',encryptedLog);
-                                sessionStorage.setItem('TypeUser',encryptedType);
+                            if( encryptedUser && encryptedPermission){
+                                setIsLogged(true);
             
                                 setTimeout(() => {
-                                    setIsUser(JSON.parse(jsonUser));
-                                    setIsPermission(JSON.parse(jsonPermission));
-                                    
                                     existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
-                                    
+                                
                                     const jsonStatus = JSON.stringify(existsStatus);
                                     const encryptedStatus = encryptData(jsonStatus);
             
                                     if(encryptedStatus){
+                                        sessionStorage.setItem('User',encryptedUser);
+                                        sessionStorage.setItem('Permission',encryptedPermission);
                                         sessionStorage.setItem('Status',encryptedStatus);
+                                        sessionStorage.setItem('Logged',true);
+                                        sessionStorage.setItem('Type-User',isTypeUser);
+                                        
+                                        setIsUser(JSON.parse(jsonUser));
+                                        setIsPermission(JSON.parse(jsonPermission));
                                         setIsStatusUser(JSON.parse(jsonStatus));
-                                        setIsLogged(true);
 
                                         if(isTypeUser === 'Doctor'){
-                                            setCurrentMView('Alert-Doctor')
+                                            setCurrentMView('Alert-Doctor');
                                         }
                                         
-                                        console.log('¡Credenciales encriptadas correctamente!...');
+                                        resolve('¡SESIÓN INICIADA!...');
 
-                                        setIsName('');
-                                        setIsPassword('');
-
-                                        navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
+                                        setTimeout(() => {
+                                            setIsName('');
+                                            setIsPassword('');
+                                            setIsActiveBlock(false);
+                                            navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
+                                        },2000);
                                     }else{
                                         setIsLog(false);
-                                        return console.log('¡Error al encriptar el estatus de la sesión!...')
+                                        setIsActiveBlock(false);
+                                        reject('¡Error al encriptar las credenciales!...');
                                     }
-                                },2000);
+                                },500);
                             }else{
                                 setIsLog(false);
-                                return console.log('¡Error al encriptar las credenciales!...')
+                                setIsActiveBlock(false);
+                                reject('¡Error al encriptar las credenciales!...')
                             }
                         }else{
                             setIsLog(false);
-                            return reject('¡Usuario o contraseña incorrectos!...');
+                            setIsActiveBlock(false);
+                            reject('¡Usuario o contraseña incorrectos!...');
                         }
                     },1000);
                 }catch(error){
                     setIsLog(false);
-                    reject('¡Ocurrio un error inesperado...');
+                    setIsActiveBlock(false);
+                    reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'Verificando credenciales...');
+            Alert_Verification(promise,'¡Verificando credenciales!...');
 
             document.title = "MEALSYNC_Iniciar_Sesión";
         }
@@ -350,11 +314,10 @@ export default function Login(){
                 </Container_Form_350>    
             </Container_Page_Login>
             <Footer/>
-            <Alert_Styles>
+            <Alert_Styles ThemeMode={themeMode}>
                 <Toaster
                     visibleToasts={3}
                     richColors
-                    theme='dark'
                     position='top-right'
                 />
             </Alert_Styles>

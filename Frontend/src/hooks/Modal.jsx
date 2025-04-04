@@ -10,9 +10,9 @@ import { useContext } from "react";
 // Contextos
 import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
 import { logContext } from "../contexts/SessionProvider";
-import { statusEnableContext,statusDeleteContext,statusAddContext } from "../contexts/StatusProvider";
-import { selectedRowContext,modalContext,optionModalContext,blockContext,comprobationContext } from "../contexts/VariablesProvider";
-import { navbarViewContext,sidebarViewContext } from "../contexts/ViewsProvider";
+import { statusEnableContext,statusAddContext } from "../contexts/StatusProvider";
+import { selectedRowContext,actionBlockContext,formComprobationContext } from "../contexts/VariablesProvider";
+import { navbarViewContext,sidebarViewContext,modalViewContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -24,38 +24,24 @@ import { Alert_Verification } from "../components/styled/Alerts";
 
 //____________IMPORT/EXPORT____________
 
-// Hook para abrir el modal
-export const useOpenModal = () => {
-    // Constantes con el valor de los contextos 
-    const [isModal, setIsModal] = useContext(modalContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
-    // Función del hook
-    const openModal = (option) => {
-        setIsModal(true);
-        setIsOptionModal(option);
-    }
-    // Retorno de la función del hook
-    return openModal;
-}
 // Hook para cerrar el modal
 export const useCloseModal = () => {
     // Constantes con el valor de los contextos 
-    const [isModal, setIsModal] = useContext(modalContext);
-    const [isOptionModal,setIsOptionModal] = useContext(optionModalContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isSelect,setIsSelect] = useContext(selectContext);
     const [iseRadio,setIsRadio] = useContext(radioContext);
-    const [isComprobation,setIsComprobation] = useContext(comprobationContext);
-    const [isBlock,setIsBlock] = useContext(blockContext);
+    const [isComprobation,setIsComprobation] = useContext(formComprobationContext);
+    const [isBlock,setIsBlock] = useContext(actionBlockContext);
     // Función del hook
     const closeModal = () => {
-        if(isOptionModal === 'Status-Add'){
+        if(currentMView === 'Status-Add'){
             setIsSelect([]);
             setIsRadio('');
         }
-        if(isOptionModal === 'Status-Enable'){
+        if(currentMView === 'Status-Enable'){
             setIsName('');
             setIsPassword('');
             setIsSelectedRow(null);
@@ -89,8 +75,8 @@ export const useAddStatus = () => {
     const [isRadio] = useContext(radioContext);
     const [isNavbar] = useContext(navbarViewContext);
     const [isSidebar] = useContext(sidebarViewContext);
-    const [isOptionModal] = useContext(optionModalContext);
-    const [isBlock,setIsBlock] = useContext(blockContext);
+    const [isOptionModal] = useContext(actionBlockContext);
+    const [isBlock,setIsBlock] = useContext(formComprobationContext);
     // Función del hook
     const addStatus = () => {
         if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Status-Add'){
@@ -137,24 +123,4 @@ export const useEnableUser = () => {
     }
     // Retorno de la función del hook
     return enableUser;
-}
-// Hook para eliminar un estatus a un usuario desde el modal
-export const useDeleteStatus = () => {
-    // Constantes con el valor de los contextos 
-    const [isStatusDelete,setIsStatusDelete] = useContext(statusDeleteContext);
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isOptionModal] = useContext(optionModalContext);
-    const [isSelectedRow] = useContext(selectedRowContext);
-    const [isNavbar] = useContext(navbarViewContext);
-    const [isSidebar] = useContext(sidebarViewContext);
-    // Función del hook
-    const deleteStatus = () => {
-        if(isSelectedRow !== null){
-            if(isNavbar === 'Status' && isSidebar === 'Users' && isOptionModal === 'Delete-Status'){
-                setIsStatusDelete(isSelectedRow);
-            }
-        }
-    }
-    // Retorno de la función del hook
-    return deleteStatus;
 }

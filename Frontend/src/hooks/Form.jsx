@@ -5,7 +5,7 @@ import { logContext } from "../contexts/SessionProvider";
 import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { statusAllContext } from '../contexts/StatusProvider';
-import { comprobationContext,blockContext } from "../contexts/VariablesProvider";
+import { formComprobationContext,actionBlockContext } from "../contexts/VariablesProvider";
 
 import { Alert_Verification } from "../components/styled/Alerts";
 
@@ -60,8 +60,8 @@ export const useComprobation = () => {
     const [isName] = useContext(nameContext);
     const [isPassowrd] = useContext(passwordContext);
     const [isUser] = useContext(userContext);
-    const [isComprobation,setIsComprobation] = useContext(comprobationContext);
-    const [isBlock,setIsBlock] = useContext(blockContext);
+    const [isComprobation,setIsComprobation] = useContext(formComprobationContext);
+    const [isBlock,setIsBlock] = useContext(actionBlockContext);
 
     const comprobation = async () => {
         const promise = new Promise(async (resolve,reject) => {

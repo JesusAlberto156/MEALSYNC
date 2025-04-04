@@ -13,7 +13,7 @@ import { typeUserContext,searchTermContext,selectedRowContext } from "../../cont
 import { permissionContext } from "../../contexts/PermissionsProvider"; 
 import { searchContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
-import { useOpenModal } from '../../hooks/Modal'
+import { useChangeModalView } from "../../hooks/Views";
 //__________ICONOS__________
 
 // Iconos para la sección de permisos
@@ -43,7 +43,7 @@ export default function SearchBar (){
     const [isPermission] = useContext(permissionContext);
     const isSearch = useContext(searchContext);
     // Constantes con la funcionalidad de los hooks
-    const openModal = useOpenModal();
+    const openModal = useChangeModalView();
     // Estructura del componente
     return(
         <>

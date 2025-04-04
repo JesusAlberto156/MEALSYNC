@@ -9,7 +9,7 @@ import { Tooltip } from "@mui/material";
 // Rutas
 
 // Contextos
-import { modeContext } from "../contexts/VariablesProvider";
+
 // Hooks personalizados
 import { useErrorReturn } from "../hooks/Error";
 //__________ICONOS__________
@@ -33,11 +33,10 @@ import { Alert_Error_Light,Alert_Error_Dark,Alert_Styles } from "../components/s
 // Página para captar los errores ocasionados por una mala ruta escrita
 export default function Error(){
     // Constantes con el valor de los contextos 
-    const [isMode] = useContext(modeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title='MEALSYNC_Error';
-        if(isMode){
+        if(true){
             Alert_Error_Light('MEALSYNC','¡Error, página no encontrada!...');
         }else{
             Alert_Error_Dark('MEALSYNC','¡Error, página no encontrada!...');
@@ -48,8 +47,6 @@ export default function Error(){
     // Estructura del componente
     return(
         <>
-            {isMode ? (
-                <>
                     <Container_Page_Error_Light>
                         <Icon_Warning_250_Light><IoIosWarning/></Icon_Warning_250_Light>
                         <Container_Text_20>
@@ -70,31 +67,6 @@ export default function Error(){
                             />
                         </Alert_Styles>
                     </Container_Page_Error_Light>
-                </>
-            ):(
-                <>
-                    <Container_Page_Error_Dark>
-                        <Icon_Warning_250_Dark><IoIosWarning/></Icon_Warning_250_Dark>
-                        <Container_Text_20>
-                            <Text_Title_Fade_50_Dark>Ooops...</Text_Title_Fade_50_Dark>
-                            <Icon_Settings_50_Dark><IoSettings/></Icon_Settings_50_Dark>
-                        </Container_Text_20>
-                        <Text_A_25_Dark>Página no encotrada...</Text_A_25_Dark>
-                        <Tooltip title='Regresar' placement="top">
-                            <Button_Icon_White_200_Dark onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200_Dark>
-                        </Tooltip>
-                        <Img_Logo_Error_Dark/>
-                        <Alert_Styles>
-                            <Toaster
-                                visibleToasts={3}
-                                richColors
-                                theme='dark'
-                                position='top-right'
-                            />
-                        </Alert_Styles>
-                    </Container_Page_Error_Dark>
-                </>
-            )}
         </>
     );
 }

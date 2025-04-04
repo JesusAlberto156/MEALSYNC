@@ -1,0 +1,70 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
+
+// Servicios
+
+// Contextos
+
+// Contextos personalizados
+
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
+
+// Función contexto para controlar
+
+// constantes con contextos perzonalizados
+
+// UseState para controlar el valor del contexto
+
+// UseEffect para obtener los datos desde la base de datos
+
+// UseEffect para verificar que los datos existan
+
+// Return para darle valor al contexto y heredarlo
+
+//____________FORM____________
+const [isName,setIsName] = useContext(nameContext);
+const [isPassword,setIsPassword] = useContext(passwordContext);
+const [isSelect,setIsSelect] = useContext(selectContext);
+const [isRadio,setIsRadio] = useContext(radioContext);
+//____________FORM____________
+//____________PERMISSIONS____________
+const [isPermissions,setIsPermissions] = useContext(permissionsContext);
+const [isPermission,setIsPermission] = useContext(permissionContext);
+//____________PERMISSIONS____________
+//____________REFS____________
+
+//____________REFS____________
+//____________SESSION____________
+const [isLog,setIsLog] = useContext(logContext);
+const [isLogged,setIsLogged] = useContext(loggedContext);
+//____________SESSION____________
+//____________SOCKET____________
+const [socket] = useContext(socketContext);
+//____________SOCKET____________
+//____________STATUS____________
+const [isStatusAll,setIsStatusAll] = useContext(statusAllContext);
+const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
+const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
+const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
+//____________STATUS____________
+//____________USERS____________
+const [isUsers,setIsUsers] = useContext(usersContext);
+const [isUser,setIsUser] = useContext(userContext);
+//____________USERS____________
+//____________VARIABLES____________
+const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
+const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
+//____________VARIABLES____________
+//____________VIEWS____________
+const [themeMode,setThemeMode] = useContext(themeModeContext);
+const [currentLView,setCurrentLView] = useContext(loginViewContext);
+const [currentNView,setCurrentNView] = useContext(navbarViewContext);
+const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
+const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+const [currentMView,setCurrentMView] = useContext(modalViewContext);
+//____________VIEWS____________

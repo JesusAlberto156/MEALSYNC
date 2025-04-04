@@ -1,30 +1,35 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { createContext, useContext, useState, useEffect, useRef } from "react"
+// Servicios
 import { decryptData } from "../services/Crypto";
-
+// Contextos
 export const statusAllContext = createContext(null);
 export const statusUserContext = createContext(null);
 export const statusAddContext = createContext(null);
 export const statusEnableContext = createContext(null);
-export const statusDeleteContext = createContext(null);
-
+// Contextos personalizados
 import { socketContext } from "./SocketProvider";
 import { loggedContext,logContext } from "./SessionProvider";
 import { modalViewContext } from "./ViewsProvider";
 import { nameContext,passwordContext,selectContext,radioContext } from "./FormsProvider";
 import { userContext,usersContext } from "./UsersProvider";
-import { selectedRowContext,comprobationContext,blockContext } from "./VariablesProvider";
-
+import { selectedRowContext,formComprobationContext,actionBlockContext } from "./VariablesProvider";
+// Estilos personalizados
 import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
+//____________IMPORT/EXPORT____________
 
+// Función contexto para controlar los datos de la base de datos del estatus de los usuarios
 export const Status_All = ({ children }) => {
-
-    const [socket] = useContext(socketContext);
+    // constantes con contextos perzonalizados
     const [isLogged] = useContext(loggedContext); 
     const [isLog,setIsLog] = useContext(logContext);   
     const [isUser] = useContext(userContext);
-
+    const [socket] = useContext(socketContext);
+    const alertShown = useRef(false);
+    // UseState para controlar el valor del contexto
     const [isStatusAll,setIsStatusAll] = useState([]);
-
+    // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
         socket.emit('status');
 
@@ -32,10 +37,10 @@ export const Status_All = ({ children }) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
-                console.log('Estatus de usuarios obtenidos....')
+                console.log('¡Estatus de usuarios obtenidos!....')
                 setIsStatusAll(parsedData);
             }else{
-                console.log('Error al desencriptar estatus...');
+                console.log('¡Error al desencriptar los estatus!...');
                 setIsStatusAll([]);
             }
         });
@@ -44,37 +49,30 @@ export const Status_All = ({ children }) => {
             socket.off('status');
         }
     },[]);
-
-    const alertShown = useRef(false);
-
+    // UseEffect para verificar que los datos existan
     useEffect(() => {
-        if(isLogged && isStatusAll.length !== 0 && isLog && isUser.length !== 0 && !alertShown.current){
+        if(isLogged && isStatusAll.length !== 0 && isUser.length !== 0 && !alertShown.current){
             const user = isStatusAll.find(user => user.idusuario === isUser.idusuario);
             if(user){
                 if(!user.habilitado){
                     Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...');
                     setTimeout(() => {
-                        setIsLog(false);
+                        setIsLog(true);
                     },3000);
                 }
-            }else if (!user){
-                Alert_Warning('MEALSYNC','¡Ha perdido su estatus por un administrador!...');
-                setTimeout(() => {
-                    setIsLog(false);
-                },3000);
             }
         }
     },[isStatusAll]);
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <statusAllContext.Provider value={[isStatusAll,setIsStatusAll]}>
             {children}
         </statusAllContext.Provider>
     );
 }
-
+// Función contexto para controlar los datos del estatus del usuario activo
 export const Status_User = ({ children }) => {
-
+    // UseState para controlar el valor del contexto
     const [isStatusUser,setIsStatusUser] = useState(() => {
         const StoredData = sessionStorage.getItem('Status');
 
@@ -83,10 +81,10 @@ export const Status_User = ({ children }) => {
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('Estatus de la sesión cargados correctamente...');
+                    console.log('¡Datos de usuario cargados correctamente!...');
                     return JSON.parse(decryptedData);
                 }else{
-                    console.log('Error al desencriptar el estatus de la sesión...');
+                    console.log('¡Error al desencriptar datos del sessionStorage!...');
                     return [];
                 }
             } catch (error) {
@@ -97,24 +95,24 @@ export const Status_User = ({ children }) => {
             return [];
         }
     });
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <statusUserContext.Provider value={[isStatusUser,setIsStatusUser]}>
             {children}
         </statusUserContext.Provider>
     );
 }
-
+// Función contexto para controlar los datos agregados de los estatus de un usuario
 export const Status_Add = ({ children }) => {
-
+    // constantes con contextos perzonalizados
     const [isSelect,setIsSelect] = useContext(selectContext);
     const [isRadio,setIsRadio] = useContext(radioContext);
-    const [currentView,setCurrentView] = useContext(modalViewContext);
-    const [isBlock,setIsBlock] = useContext(blockContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
     const [socket] = useContext(socketContext);
-
+    // UseState para controlar el valor del contexto
     const [isStatusAdd,setIsStatusAdd] = useState(false);
-
+    // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isStatusAdd){
             if(isSelect.length !== 0 && isRadio !== ''){
@@ -131,11 +129,11 @@ export const Status_Add = ({ children }) => {
                             resolve('¡MEALSYNC agregó el status al usuario!...')
                             
                             setTimeout(() => {
-                                setCurrentView('');
+                                setCurrentMView('');
                                 setIsRadio('');
                                 setIsSelect([]);
                                 setIsStatusAdd(false);
-                                setIsBlock(false);
+                                setIsActiveBlock(false);
                             },500);
 
                             return () => {
@@ -143,7 +141,7 @@ export const Status_Add = ({ children }) => {
                             }
                         },2000);
                     }catch(error){
-                        setIsBlock(false);
+                        setIsActiveBlock(false);
                         setIsStatusAdd(false);
                         reject('¡Ocurrio un error inesperado!...');
                     }
@@ -153,27 +151,27 @@ export const Status_Add = ({ children }) => {
             }
         }
     },[isStatusAdd])
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <statusAddContext.Provider value={[isStatusAdd,setIsStatusAdd]}>
             {children}
         </statusAddContext.Provider>
     );
 }
-
+// Función contexto para controlar los usuarios habilitados/deshabilitados 
 export const Status_Enable = ({ children }) => {
-    
+    // constantes con contextos perzonalizados
     const [isUsers] = useContext(usersContext);
-    const [currentView,setCurrentView] = useContext(modalViewContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isComprobation,setIsComprobation] = useContext(comprobationContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassowrd,setIsPassword] = useContext(passwordContext);
-    const [isBlock,setIsBlock] = useContext(blockContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
+    const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
+    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
     const [socket] = useContext(socketContext);
-
+    // UseState para controlar el valor del contexto
     const [isStatusEnable,setIsStatusEnable] = useState([]);
-
+    // UseEffect para actualizar datos a la base de datos
     useEffect(() => {
         if(isStatusEnable.length !== 0){
             const enable = isUsers.find(user => user.idusuario === isStatusEnable.idusuario);
@@ -181,7 +179,7 @@ export const Status_Enable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{
-                            setIsComprobation(false); 
+                            setIsFormComprobation(false); 
                             setTimeout(() => {
                                 socket.emit('statusDisable',isStatusEnable.idusuario,enable.usuario);
         
@@ -193,12 +191,12 @@ export const Status_Enable = ({ children }) => {
                                 resolve('¡MEALSYNC deshabilito al usuario!...')
 
                                 setTimeout(() => {
-                                    setCurrentView('');
+                                    setCurrentMView('');
                                     setIsStatusEnable([]);
                                     setIsSelectedRow(null);
                                     setIsName('');
                                     setIsPassword('');
-                                    setIsBlock(false);
+                                    setIsActiveBlock(false);
                                 },500);
 
                                 return () => {
@@ -206,7 +204,7 @@ export const Status_Enable = ({ children }) => {
                                 }
                             },2000);
                         }catch(error){
-                            setIsComprobation(true);
+                            setIsFormComprobation(true);
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });
@@ -217,7 +215,7 @@ export const Status_Enable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{  
-                            setIsComprobation(false);   
+                            setIsFormComprobation(false);   
                             setTimeout(() => {
                                 socket.emit('statusEnable',isStatusEnable.idusuario,enable.usuario);
 
@@ -229,12 +227,12 @@ export const Status_Enable = ({ children }) => {
                                 resolve('¡MEALSYNC habilito al usuario!...')
                                 
                                 setTimeout(() => {
-                                    setCurrentView('');
+                                    setCurrentMView('');
                                     setIsStatusEnable([]);
                                     setIsSelectedRow(null);
                                     setIsName('');
                                     setIsPassword('');
-                                    setIsBlock(false);
+                                    setIsActiveBlock(false);
                                 },500);
 
                                 return () => {
@@ -242,7 +240,7 @@ export const Status_Enable = ({ children }) => {
                                 }
                             },2000);
                         }catch(error){
-                            setIsComprobation(true);
+                            setIsFormComprobation(true);
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });
@@ -252,7 +250,7 @@ export const Status_Enable = ({ children }) => {
             }
         }
     },[isStatusEnable]);
-
+    // Return para darle valor al contexto y heredarlo
     return (
         <statusEnableContext.Provider value={[isStatusEnable,setIsStatusEnable]}>
             {children}

@@ -1,7 +1,16 @@
-import { getPermissionsAllService,updatePermissionsAllService,updatePermissionsSuperAdmonService } from "../services/permissions.service.js";
+import { insertPermissionsService,getPermissionsAllService,updatePermissionsAllService,updatePermissionsSuperAdmonService } from "../services/permissions.service.js";
 import { io } from "../../index.js";
 
 export const permissions = (socket) => {
+    socket.on('permissionsInsert',async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
+        try{
+            await insertPermissionsService(id,administrador,chef,almacenista,cocinero,nutriologo,medico);
+            io.emit('statusInsert','Se inserto los permisos a ',user);
+        }catch(error){
+            console.error('Error al insertar: ',error);
+            return error;
+        }
+    });
     socket.on('permissions', async () => {
         try{
             const result = await getPermissionsAllService();
@@ -12,9 +21,9 @@ export const permissions = (socket) => {
             return error;
         }
     });
-    socket.on('permissionsUpdateAll', async (id,user,administrador,chef,almacen,cocinero,nutriologo,medico) => {
+    socket.on('permissionsUpdateAll', async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
         try{
-            await updatePermissionsAllService(id,administrador,chef,almacen,cocinero,nutriologo,medico);
+            await updatePermissionsAllService(id,administrador,chef,almacenista,cocinero,nutriologo,medico);
             io.emit('permissionsUpdateAll','Se actualizarón los permisos a ',user);
         }catch(error){
             console.error('Error al actualizar: ',error);

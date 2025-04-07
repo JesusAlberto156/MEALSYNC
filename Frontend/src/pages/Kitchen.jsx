@@ -3,16 +3,16 @@
 import { useEffect,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
-import { Toaster } from 'sonner';
+
 // Servicios
 
 // Contextos
-import { nameContext,passwordContext } from "../contexts/FormsProvider";
-import { sidebarViewContext,navbarViewContext } from "../contexts/ViewsProvider";
-import { typeUserContext,selectedRowContext,searchTermContext } from "../contexts/VariablesProvider";
+import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
+import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
+import { typeUserContext,searchTermContext,actionBlockContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
-import { statusUserContext,statusEnableContext } from "../contexts/StatusProvider";
+import { statusUserContext } from "../contexts/StatusProvider";
 import { loggedContext,logContext } from "../contexts/SessionProvider";
 // Hooks personalizados
 
@@ -20,107 +20,108 @@ import { loggedContext,logContext } from "../contexts/SessionProvider";
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Greeting,Alert_Styles,Alert_Verification } from "../components/styled/Alerts";
-import { Background_Menu } from "../components/styled/Backgrounds";
+import { Container_Page,Container_Page_Kitchen,Container_Page_Elements } from "../components/styled/Containers";
+import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Home from '../components/pages/general/Home';
-import OptionsMenu from '../components/pages/menu/OptionsMenu';
-import Sidebar from "../components/navegation/Sidebar";
+import Menu from '../components/pages/menu/Menu';
+import Side_Bar from '../components/navegation/Sidebar'
 import Footer from "../components/footer/Footer";
 //____________IMPORT/EXPORT____________
 
 export default function Kitchen(){
+    // Constantes con el valor de los contextos
+    const [themeMode] = useContext(themeModeContext);
+    const [currentLView,setCurrentLView] = useContext(loginViewContext);
+    const [currentNView,setCurrentNView] = useContext(navbarViewContext);
+    const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
+    const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
     
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-
-    const [isSidebar,setIsSidebar] = useContext(sidebarViewContext);
-    const [isNavbar,setIsNavbar] = useContext(navbarViewContext);
-
-    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
-    
-    const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isSelect,setIsSelect] = useContext(selectContext);
+    const [iseRadio,setIsRadio] = useContext(radioContext);
 
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isLogged,setIsLogged] = useContext(loggedContext);
     const [isUser,setIsUser] = useContext(userContext);
     const [isPermission,setIsPermission] = useContext(permissionContext);
     const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
-
     const [isLog,setIsLog] = useContext(logContext);
-
-    const navigate = useNavigate();
-
+     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Menú_Inicio"
-        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
-        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
+        Alert_Greeting_Light("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
+        Alert_Greeting_Dark('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
     },[]);
-
+    // useEffect con el cerrado de sesión de kitchen
     useEffect(() => {
-        if(!isLog && isLogged){
+        if(isLog && isLogged){
             document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
-                try{
-                    
+                try{       
+                    setIsActionBlock(true);         
                     setTimeout(() => {
                         resolve('¡MEALSYNC le agradece su estancia!...');
                     },1000);
 
                     setTimeout(() => {
-                        setIsLoadingOptionLogin('');
-                        setIsVisible(true);
-                        setIsSelectedRow(null);
-                        setIsSearchTerm('');
+                        setCurrentLView('');
+                        setCurrentNView('');
+                        setCurrentSView('Home');
+                        setIsSidebarVisible(true);
+                        setCurrentMView('');
                         
-                        setIsSidebar('Inicio');
-                        setIsNavbar('');
-                        
-                        setIsTypeUser('');
-
-                        setIsLogged(false);
-                        setIsStatusEnable([]);
                         setIsName('');
                         setIsPassword('');
+                        setIsSelect([]);
+                        setIsSelect('');
+
+                        setIsTypeUser('');
+                        setIsSearchTerm('');
+
+                        setIsLogged(false);
 
                         setIsPermission([]);
                         setIsStatusUser([]);
 
                         setTimeout(() => {
                             setIsUser([]);
-                            setIsLog(null);
+                            setIsLog(false);
                             sessionStorage.clear();
+                            setIsActionBlock(false);
                             navigate("/",{replace: true});
-                        },200)
+                        },500)
                     },2000)
                 }catch(error){
+                    setIsLog(false);
+                    setIsActionBlock(false);
                     reject('¡Ocurrio un error inesperado!...');
                 }
             });
-
+            
             Alert_Verification(promise,'¡Cerrando sesión!...');
         }
     },[isLog]);
-
+    // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
+    // Estructura del componente
     return(
-        <div className="app-container">
-            <div className="background-menu">
-                <Sidebar/>
-                <div id="content">
-                    <div id="main-content">
-                        <Background_Menu sidebarVisible={isVisible}>
-                            {isSidebar === 'Inicio' ? (
-                                <Home/>
-                            ):(
-                                <OptionsMenu/>
-                            )}
-                        </Background_Menu>
-                        
-                    </div>
-                </div>
-            </div>
+        <Container_Page>
+            <Side_Bar/>
+            <Container_Page_Kitchen>
+                <Container_Page_Elements sidebarVisible={isSidebarVisible}>
+                    {isSidebarVisible === 'Inicio' ? (
+                        <Home/>
+                    ):(
+                        <Menu/>
+                    )}
+                </Container_Page_Elements>
+            </Container_Page_Kitchen>
             <Footer/>
-        </div>
+        </Container_Page>
     );
 }

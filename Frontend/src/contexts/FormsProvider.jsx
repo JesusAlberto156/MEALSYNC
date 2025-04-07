@@ -8,6 +8,7 @@ export const nameContext = createContext(null);
 export const passwordContext = createContext(null);
 export const selectContext = createContext(null);
 export const radioContext = createContext(null);
+export const checkboxContext = createContext(null);
 // Contextos personalizados
 
 // Estilos personalizados
@@ -56,5 +57,16 @@ export const Radio = ({children}) => {
         <radioContext.Provider value={[isRadio,setIsRadio]}>
             {children}
         </radioContext.Provider>
+    );
+}
+// Función contexto para controlar el valor en el campo de un checkbox en el formulario
+export const Checkbox = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isCheckbox,setIsCheckbox] = useState([]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <checkboxContext.Provider value={[isCheckbox,setIsCheckbox]}>
+            {children}
+        </checkboxContext.Provider>
     );
 }

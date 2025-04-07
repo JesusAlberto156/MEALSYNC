@@ -68,7 +68,7 @@ export const Form_Comprobation = ({children}) => {
     const [isFormComprobation,setIsFormComprobation] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
-        <formComprobationContext.Provider value={[isFormComprobation,isFormComprobation]}>
+        <formComprobationContext.Provider value={[isFormComprobation,setIsFormComprobation]}>
             {children}
         </formComprobationContext.Provider>
     );

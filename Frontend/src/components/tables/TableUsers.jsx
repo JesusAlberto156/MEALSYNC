@@ -2,7 +2,7 @@ import { useContext,useEffect } from "react"
 import { Tooltip } from "@mui/material"
 
 import { selectedRowContext } from "../../contexts/VariablesProvider"
-
+import { themeModeContext } from "../../contexts/ViewsProvider"
 import { useTableActions } from "../../hooks/Table"
 
 import { GrNext,GrPrevious } from "react-icons/gr";
@@ -16,6 +16,7 @@ import { Text_Span_16 } from "../styled/Text";
 
 export default function TableUsers(){
 
+    const [themeMode] = useContext(themeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     
     const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = useTableActions();
@@ -34,14 +35,14 @@ export default function TableUsers(){
 
     return(
         <>
-            <Table id="Tabla-Usuarios">
+            <Table ThemeMode={themeMode} id="Tabla-Usuarios">
                 <thead>
                     <Tr>
-                        <Th>ID Usuario</Th>
-                        <Th>Nombre</Th>
-                        <Th>Nombre Corto</Th>
-                        <Th>Usuario</Th>
-                        <Th>Contraseña</Th>
+                        <Th ThemeMode={themeMode}>ID Usuario</Th>
+                        <Th ThemeMode={themeMode}>Nombre</Th>
+                        <Th ThemeMode={themeMode}>Nombre Corto</Th>
+                        <Th ThemeMode={themeMode}>Usuario</Th>
+                        <Th ThemeMode={themeMode}>Contraseña</Th>
                     </Tr>
                 </thead>
                 <tbody>
@@ -55,11 +56,11 @@ export default function TableUsers(){
                                 transition: 'background-color 0.5s ease',
                             }}
                         >
-                            <Td>{user.idusuario}</Td>
-                            <Td>{user.nombre}</Td>
-                            <Td>{user.nombrecorto}</Td>
-                            <Td>{user.usuario}</Td>
-                            <Td>{user.contrasena}</Td>
+                            <Td ThemeMode={themeMode}>{user.idusuario}</Td>
+                            <Td ThemeMode={themeMode}>{user.nombre}</Td>
+                            <Td ThemeMode={themeMode}>{user.nombrecorto}</Td>
+                            <Td ThemeMode={themeMode}>{user.usuario}</Td>
+                            <Td ThemeMode={themeMode}>{user.contrasena}</Td>
                         </Tr>
                     ))}
 
@@ -67,18 +68,18 @@ export default function TableUsers(){
             </Table>
             <Container_Pagination>
                 {currentPage === 1 ? (
-                    <Button_Icon_Block_150><GrPrevious/></Button_Icon_Block_150>
+                    <Button_Icon_Block_150 ThemeMode={themeMode}><GrPrevious/></Button_Icon_Block_150>
                 ):(
                     <Tooltip title='Anterior página' placement="top">
-                        <Button_Icon_Blue_150 onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
+                        <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )}
                 <Text_Span_16>Página {currentPage} de {totalPagesUsers}</Text_Span_16>
                 {currentPage === totalPagesUsers || totalPagesUsers === 0 ? (
-                    <Button_Icon_Block_150><GrNext/></Button_Icon_Block_150>
+                    <Button_Icon_Block_150 ThemeMode={themeMode}><GrNext/></Button_Icon_Block_150>
                 ):(
                     <Tooltip title='Siguiente página' placement="top">
-                        <Button_Icon_Blue_150 onClick={nextPageUsers}><GrNext/></Button_Icon_Blue_150>
+                        <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={nextPageUsers}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )} 
             </Container_Pagination>

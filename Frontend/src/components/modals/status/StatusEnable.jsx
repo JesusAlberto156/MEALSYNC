@@ -8,11 +8,12 @@ import { useContext,useEffect,useState } from "react";
 // Rutas
 
 // Contextos
-import { selectedRowContext,formComprobationContext } from "../../../contexts/VariablesProvider";
+import { themeModeContext } from "../../../contexts/ViewsProvider";
+import { selectedRowContext,actionBlockContext } from "../../../contexts/VariablesProvider";
 import { usersContext } from "../../../contexts/UsersProvider";
-import { statusModalContext } from "../../../contexts/RefsProvider";
+import { refFormContext } from "../../../contexts/RefsProvider";
 // Hooks personalizados
-import { useEnableUser } from "../../../hooks/Modal";
+import { useChangeStatusEnable } from "../../../hooks/Form";
 import { useChangeModalView } from "../../../hooks/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
@@ -22,21 +23,22 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaExclamationCircle } from 'react-icons/fa';
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Button_Border_Light } from "../../styled/Containers";
-import { Text_Title_Fade_30,Text_P_Left_20 } from "../../styled/Text";
-import { Button_Icon_Blue_50_Light,Button_Icon_Green_50_Light,Button_Icon_Red_50_Light,Button_Icon_Block_50_Light,Button_Icon_Blue_50_Dark,Button_Icon_Green_50_Dark,Button_Icon_Red_50_Dark,Button_Icon_Block_50_Dark } from "../../styled/Buttons";
+import { Container_Modal,Container_Form_400,Container_Button_Border_Row_350 } from "../../styled/Containers";
+import { Text_Title_Fade_30,Text_P_Left_16 } from "../../styled/Text";
+import { Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Red_150,Button_Icon_Block_150 } from "../../styled/Buttons";
 import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
 
 // Componentes personalizados
-import FormComprobation from "../../forms/Comprobation";
+import Form_Verification from "../../forms/Verification";
 //____________IMPORT/EXPORT____________
 
 export default function Status_Enable(){
     // Constantes con el valor de los contextos
+    const [themeMode] = useContext(themeModeContext);
     const [isSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
-    const [isComprobation] = useContext(formComprobationContext);
-    const {modal,form} = useContext(statusModalContext);
+    const [isActionBlock] = useContext(actionBlockContext);
+    const {Modal,Form,Button} = useContext(refFormContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
     // useEffect con el titulo del modal
@@ -51,58 +53,57 @@ export default function Status_Enable(){
         }
     },[]);
     // Constantes con la funcionalidad de los hooks
-    const closeModal = useChangeModalView();
-    const enableUser = useEnableUser();
+    const changeModalView = useChangeModalView();
+    const changeStatusEnable = useChangeStatusEnable();
     // Estructura del componente
     return(
         <>
             {isSelectedRow !== null ? (
-                <Container_Modal ref={modal}>
-                            <Container_Form_400 ref={form}>
-                                <Text_Title_Fade_30>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30>
-                                <FormComprobation/>
-                                {isSelectedRow.habilitado ? <Text_P_Left_20>Se deshabilitará a {user} </Text_P_Left_20> : <Text_P_Left_20>Se habilitará a {user}...</Text_P_Left_20>}
-                                <Container_Button_Border_Light>
-                                        <Button_Icon_Blue_50_Light onClick={(e) => {
+                <Container_Modal ThemeMode={themeMode} ref={Modal}>
+                    <Container_Form_400 ThemeMode={themeMode} ref={Form}>
+                        <Text_Title_Fade_30 ThemeMode={themeMode}>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30>
+                        <Form_Verification/>
+                        {isSelectedRow.habilitado ? <Text_P_Left_16 ThemeMode={themeMode}>Se deshabilitará a {user} </Text_P_Left_16> : <Text_P_Left_16 ThemeMode={themeMode}>Se habilitará a {user}...</Text_P_Left_16>}
+                        <Container_Button_Border_Row_350 ThemeMode={themeMode}>
+                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={(e) => {
+                                    e.stopPropagation();
+                                    changeModalView();
+                                }}>
+                                        <MdCancel/>
+                                </Button_Icon_Blue_150>
+                            {isSelectedRow.habilitado ? (
+                                isActionBlock ? (
+                                    <>
+                                        <Button_Icon_Red_150 ThemeMode={themeMode} onClick={(e) => {
                                             e.stopPropagation();
-                                            closeModal();
+                                            changeStatusEnable();
                                         }}>
-                                                <MdCancel/>
-                                        </Button_Icon_Blue_50_Light>
-                                    {isSelectedRow.habilitado ? (
-                                        isComprobation ? (
-                                            <>
-                                                <Button_Icon_Red_50_Light onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    enableUser();
-                                                }}>
-                                                    <FaLock/>
-                                                </Button_Icon_Red_50_Light>
-                                            </>
-                                        ):(
-                                            <>
-                                                <Button_Icon_Block_50_Light><FaUnlock/></Button_Icon_Block_50_Light>
-                                            </>
-                                        )
-                                    ):(
-                                        isComprobation ? (
-                                            <>
-                                                <Button_Icon_Green_50_Light onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    enableUser();
-                                                }}>
-                                                    <FaLockOpen/>
-                                                </Button_Icon_Green_50_Light>
-                                            </>
-                                        ):(
-                                            <>
-                                                <Button_Icon_Block_50_Light><FaUnlock/></Button_Icon_Block_50_Light>
-                                            </>
-                                        )
-                                    )}
-                                </Container_Button_Border_Light>
-                            </Container_Form_400>
-
+                                            <FaLock/>
+                                        </Button_Icon_Red_150>
+                                    </>
+                                ):(
+                                    <>
+                                        <Button_Icon_Block_150 ThemeMode={themeMode}><FaUnlock/></Button_Icon_Block_150>
+                                    </>
+                                )
+                            ):(
+                                isActionBlock ? (
+                                    <>
+                                        <Button_Icon_Green_150 ThemeMode={themeMode} onClick={(e) => {
+                                            e.stopPropagation();
+                                            changeStatusEnable();
+                                        }}>
+                                            <FaLockOpen/>
+                                        </Button_Icon_Green_150>
+                                    </>
+                                ):(
+                                    <>
+                                        <Button_Icon_Block_150 ThemeMode={themeMode}><FaUnlock/></Button_Icon_Block_150>
+                                    </>
+                                )
+                            )}
+                        </Container_Button_Border_Row_350>
+                    </Container_Form_400>
                 </Container_Modal>
             ):(<></>)}
         </>

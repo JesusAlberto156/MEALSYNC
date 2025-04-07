@@ -28,13 +28,14 @@ const [isName,setIsName] = useContext(nameContext);
 const [isPassword,setIsPassword] = useContext(passwordContext);
 const [isSelect,setIsSelect] = useContext(selectContext);
 const [isRadio,setIsRadio] = useContext(radioContext);
+const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
 //____________FORM____________
 //____________PERMISSIONS____________
 const [isPermissions,setIsPermissions] = useContext(permissionsContext);
 const [isPermission,setIsPermission] = useContext(permissionContext);
 //____________PERMISSIONS____________
 //____________REFS____________
-const {Input,Keyboard} = useContext(refFormContext);
+const {Modal,Form,Button} = useContext(refFormContext);
 //____________REFS____________
 //____________SESSION____________
 const [isLog,setIsLog] = useContext(logContext);

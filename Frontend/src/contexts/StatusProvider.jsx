@@ -167,7 +167,7 @@ export const Status_Enable = ({ children }) => {
     const [isPassowrd,setIsPassword] = useContext(passwordContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
-    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [socket] = useContext(socketContext);
     // UseState para controlar el valor del contexto
     const [isStatusEnable,setIsStatusEnable] = useState([]);
@@ -179,7 +179,7 @@ export const Status_Enable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{
-                            setIsFormComprobation(false); 
+                            setIsActionBlock(false); 
                             setTimeout(() => {
                                 socket.emit('statusDisable',isStatusEnable.idusuario,enable.usuario);
         
@@ -196,7 +196,7 @@ export const Status_Enable = ({ children }) => {
                                     setIsSelectedRow(null);
                                     setIsName('');
                                     setIsPassword('');
-                                    setIsActiveBlock(false);
+                                    setIsFormComprobation(false);
                                 },500);
 
                                 return () => {
@@ -204,7 +204,7 @@ export const Status_Enable = ({ children }) => {
                                 }
                             },2000);
                         }catch(error){
-                            setIsFormComprobation(true);
+                            setIsActionBlock(true);
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });
@@ -215,7 +215,7 @@ export const Status_Enable = ({ children }) => {
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
                         try{  
-                            setIsFormComprobation(false);   
+                            setIsActionBlock(false);   
                             setTimeout(() => {
                                 socket.emit('statusEnable',isStatusEnable.idusuario,enable.usuario);
 
@@ -232,7 +232,8 @@ export const Status_Enable = ({ children }) => {
                                     setIsSelectedRow(null);
                                     setIsName('');
                                     setIsPassword('');
-                                    setIsActiveBlock(false);
+                                    setIsActionBlock(false);
+                                    setIsFormComprobation(false);
                                 },500);
 
                                 return () => {
@@ -240,7 +241,7 @@ export const Status_Enable = ({ children }) => {
                                 }
                             },2000);
                         }catch(error){
-                            setIsFormComprobation(true);
+                            setIsActionBlock(true);
                             reject('¡Ocurrio un error inesperado!...');
                         }
                     });

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Toaster } from 'sonner';
 import { Tooltip } from "@mui/material";
-import KioskBoard from "kioskboard";
 // Servicios
 import { encryptData } from "../services/Crypto";
 // Contextos
@@ -88,7 +87,7 @@ export default function Login(){
                             if(!existsStatus || !existsStatus.habilitado || existsStatus.activo || !existsPermission){
                                 setIsLog(false);
                                 setIsActionBlock(false);
-                                reject('¡No es posible utilizar este usuario!...');
+                                return reject('¡No es posible utilizar este usuario!...');
                             }
 
                             if(existsPermission.superadministrador){
@@ -133,13 +132,13 @@ export default function Login(){
                                         }else{
                                             setIsLog(false);
                                             setIsActionBlock(false);
-                                            reject('¡Error al encriptar las credenciales!...');
+                                            return reject('¡Error al encriptar las credenciales!...');
                                         }
                                     },500);
                                 }else{
                                     setIsLog(false);
                                     setIsActionBlock(false);
-                                    reject('¡Error al encriptar las credenciales!...')
+                                    return reject('¡Error al encriptar las credenciales!...');
                                 }
                             }
 
@@ -195,24 +194,24 @@ export default function Login(){
                                     }else{
                                         setIsLog(false);
                                         setIsActionBlock(false);
-                                        reject('¡Error al encriptar las credenciales!...');
+                                        return reject('¡Error al encriptar las credenciales!...');
                                     }
                                 },500);
                             }else{
                                 setIsLog(false);
                                 setIsActionBlock(false);
-                                reject('¡Error al encriptar las credenciales!...')
+                                return reject('¡Error al encriptar las credenciales!...')
                             }
                         }else{
                             setIsLog(false);
                             setIsActionBlock(false);
-                            reject('¡Usuario o contraseña incorrectos!...');
+                            return reject('¡Usuario o contraseña incorrectos!...');
                         }
                     },1000);
                 }catch(error){
                     setIsLog(false);
                     setIsActionBlock(false);
-                    reject('¡Ocurrio un error inesperado!...');
+                    return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
@@ -302,7 +301,7 @@ export default function Login(){
                                         isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration',''
                                     )}><IoArrowBackCircle/></Button_Icon_Blue_150>
                                 </Tooltip>
-                                {isActiveBlock ? (
+                                {isActionBlock ? (
                                     <>
                                         <Button_Icon_Block_150 ThemeMode={themeMode}><MdLogin/></Button_Icon_Block_150>
                                     </>

@@ -20,11 +20,11 @@ import { IoSettings } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page_Error,Container_100_Right,Container_Text_20 } from "../components/styled/Containers";
+import { Container_Page_Error,Container_100_Right,Container_100_Left,Container_Text_20 } from "../components/styled/Containers";
 import { Icon_Gray_Rotate_50,Icon_Yellow_250 } from "../components/styled/Icons";
 import { Text_Title_Fade_50,Text_A_25 } from "../components/styled/Text";
 import { Button_Icon_White_200 } from "../components/styled/Buttons";
-import { Img_Logo_Error_Light } from "../components/styled/Imgs";
+import { Img_Logo_Error } from "../components/styled/Imgs";
 import { Alert_Error_Light,Alert_Error_Dark,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Setting_Bar from "../components/navegation/SettingBar";
@@ -61,7 +61,9 @@ export default function Error(){
                 <Tooltip title='Regresar' placement="top">
                     <Button_Icon_White_200 ThemeMode={themeMode} onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200>
                 </Tooltip>
-                <Img_Logo_Error_Light/>
+                <Container_100_Left>
+                    <Img_Logo_Error ThemeMode={themeMode}/>
+                </Container_100_Left>
                 <Alert_Styles>
                     <Toaster
                         visibleToasts={3}

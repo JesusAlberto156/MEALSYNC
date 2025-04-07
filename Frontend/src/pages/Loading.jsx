@@ -9,7 +9,7 @@ import { Toaster } from 'sonner';
 // Rutas
 
 // Contextos
-
+import { themeModeContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -17,9 +17,9 @@ import { Toaster } from 'sonner';
 import { IoSettings } from "react-icons/io5";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page_Loading_Light,Container_Page_Loading_Dark,Container_Text_20 } from "../components/styled/Containers";
+import { Container_Page_Loading,Container_Text_20 } from "../components/styled/Containers";
 import { Text_Title_Fade_50 } from "../components/styled/Text";
-import { Icon_Settings_50_Light,Icon_Settings_50_Dark } from "../components/styled/Icons";
+import { Icon_Gray_Rotate_50 } from "../components/styled/Icons";
 import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
 
@@ -28,7 +28,7 @@ import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Styles } from '../compon
 // Página para cargar otra página
 const Loading = () => {
     // Constantes con el valor de los contextos 
-
+    const [themeMode] = useContext(themeModeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";
@@ -46,10 +46,10 @@ const Loading = () => {
     // Estructura del componente
     return(
         <>
-                    <Container_Page_Loading_Light>
+                    <Container_Page_Loading ThemeMode={themeMode}>
                         <Container_Text_20>
-                            <Text_Title_Fade_50>Cargando...</Text_Title_Fade_50>
-                            <Icon_Settings_50_Light><IoSettings/></Icon_Settings_50_Light>
+                            <Text_Title_Fade_50 ThemeMode={themeMode}>Cargando...</Text_Title_Fade_50>
+                            <Icon_Gray_Rotate_50 ThemeMode={themeMode}><IoSettings/></Icon_Gray_Rotate_50>
                         </Container_Text_20>
                         <Alert_Styles>
                             <Toaster
@@ -59,7 +59,7 @@ const Loading = () => {
                                 position='top-right'
                             />
                         </Alert_Styles> 
-                    </Container_Page_Loading_Light>
+                    </Container_Page_Loading>
         </>
     );
 }

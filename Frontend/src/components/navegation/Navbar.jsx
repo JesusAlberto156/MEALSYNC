@@ -14,7 +14,7 @@ import { FaUserLock } from "react-icons/fa6";
 import { FaUserClock } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Navbar,Container_Navbar_Button } from "../styled/Containers";
+import { Container_Nav_Bar,Container_Nav_Bar_Button } from "../styled/Containers";
 import { Img_Logo_Hospital_60 } from '../styled/Imgs';
 import { Button_Icon_White_100 } from '../styled/Buttons';
 import { Text_Title_Fade_30 } from '../styled/Text';
@@ -33,9 +33,9 @@ export default function Nav_Bar(){
     // Estructura del componente
     return(
         <>
-            <Container_Navbar ThemeMode={themeMode}> 
+            <Container_Nav_Bar ThemeMode={themeMode}> 
                 <Img_Logo_Hospital_60 ThemeMode={themeMode}/> 
-                <Container_Navbar_Button ThemeMode={themeMode}>
+                <Container_Nav_Bar_Button ThemeMode={themeMode}>
                     {currentSView === 'Users' ? (
                         <>
                             <Tooltip title='Principal' placement="top">
@@ -67,8 +67,8 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
-                </Container_Navbar_Button>
-            </Container_Navbar>  
+                </Container_Nav_Bar_Button>
+            </Container_Nav_Bar>  
         </>
     );
 }

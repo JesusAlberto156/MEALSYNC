@@ -49,7 +49,7 @@ export const Container_Page_Login = styled.div.withConfig({
     padding-top: 40px;
     gap: 40px;
 `;
-export const Container_Page_Menu = styled.div.withConfig({
+export const Container_Page_Kitchen = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Background_Menu_Light})` : `url(${Background_Menu_Dark})`)};  
@@ -92,7 +92,9 @@ export const Container_Page_Error = styled.div.withConfig({
     left: 0;
     background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(229, 44, 44);' : 'rgb(125, 27, 27)')};
 `;
-export const Container_Page_Loading_Dark = styled.div`
+export const Container_Page_Loading = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: 100%;
     height: 100%;
     display: flex;
@@ -103,20 +105,7 @@ export const Container_Page_Loading_Dark = styled.div`
     gap:10px;      
     top: 0; 
     left: 0;
-    background:rgb(58,93,174);
-`;
-export const Container_Page_Loading_Light = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    position: fixed; 
-    justify-content: center; 
-    align-items: center;   
-    flex-direction: column;
-    gap:10px;      
-    top: 0; 
-    left: 0;
-    background: rgb(82, 126, 231);
+    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231);' : 'rgb(58,93,174)')};
 `;
 export const Container_Page_Elements = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'sidebarVisible'
@@ -500,123 +489,9 @@ export const Container_Button_Row_300 = styled.div`
         gap: 10px;
     }
 `;
-
-export const Container_Button_Border_Dark = styled.div`
-    display: flex;
-    gap: 15px; 
-    justify-content: center; 
-    align-items: center;
-    border: 2px solid white;
-    border-radius: 50px;
-    height: 60px;
-    width: 94%;
-    padding: 10px;
-    margin-top: 0px;
-    margin-bottom: 5px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        padding: 8px;
-        height: 50px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        padding: 6px;
-        height: 40px;
-    }
-`;
-export const Container_Button_Border_Light = styled.div`
-    position: relative;    
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    height: auto;
-    width: 300px;
-    padding: 10px;
-    gap: 20px;
-    border: 2px solid black;
-    border-radius: 50px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        padding: 8px;
-        height: 50px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        padding: 6px;
-        height: 40px;
-    }
-`;
-export const Container_Setting_Dark = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: 40px;  
-    border-radius: 50px; 
-    border: none;      
-    position: relative; 
-    padding: 4px;
-    gap: 15px;
-    margin-left: 15px;
-    padding-left: 40px;
-
-    @media (max-width: 768px) {
-        height: 50px;
-        padding: 3px;
-        gap: 10px;  
-        margin-left: 10px;
-        padding-left: 30px;  
-    }
-
-    @media (max-width: 480px) {
-        height: 40px;
-        padding: 2px;
-        gap: 5px;
-        margin-left: 5px;
-        padding-left: 20px;
-    }
-`;
-export const Container_Setting_Light = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: 40px;  
-    border-radius: 50px; 
-    border: none;      
-    position: relative; 
-    padding: 4px;
-    gap: 15px;
-    margin-left: 15px;
-    padding-left: 40px;
-
-    @media (max-width: 768px) {
-        height: 50px;
-        padding: 3px;
-        gap: 10px;    
-        margin-left: 10px;
-        padding-left: 30px;
-    }
-
-    @media (max-width: 480px) {
-        height: 40px;
-        padding: 2px;
-        gap: 5px;
-        margin-left: 5px;
-        padding-left: 20px;
-    }
-}
-`;
 //____________BUTTOM____________
 //____________SIDEBAR____________
-export const Container_Sidebar = styled.div.withConfig({
+export const Container_Side_Bar = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 260px;
@@ -674,7 +549,7 @@ export const Container_Icon = styled.div`
 `;
 //____________SIDEBAR____________
 //____________NAVBAR____________
-export const Container_Navbar = styled.div.withConfig({
+export const Container_Nav_Bar = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     display: flex;
@@ -705,7 +580,7 @@ export const Container_Navbar = styled.div.withConfig({
         margin-left: 5px;
     }
 `;
-export const Container_Navbar_Button = styled.div.withConfig({
+export const Container_Nav_Bar_Button = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 90%;
@@ -742,7 +617,7 @@ export const Container_Navbar_Button = styled.div.withConfig({
 `;
 //____________NAVBAR____________
 //____________SEARCHBAR____________
-export const Container_Searchbar = styled.div`  
+export const Container_Search_Bar = styled.div`  
     display: flex;            
     align-items: center;
     justify-content: flex-end;         
@@ -820,161 +695,7 @@ export const Container_Input_Border_250 = styled.div.withConfig({
         gap: 15px;
     }
 `;
-
-export const Container_Input_Border_Dark = styled.div`
-    display: flex;
-    gap: 20px;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center;
-    border: 2px solid white;
-    border-radius: 30px;
-    height: 220px;
-    width: 96%;
-    padding: 5px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-
-    @media (max-width: 768px) {
-        gap: 15px;
-        padding: 4px;
-        padding-bottom: 15px;
-        padding-top: 15px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 10px;
-        padding: 4px;
-        padding-bottom: 10px;
-        padding-top: 10px;
-    }
-`;
-
-export const Container_Input_Border_Light = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    position: relative;    
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    height: auto;
-    width: 280px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    border-radius: 50px;
-    padding: 10px;
-    margin-bottom: 20px;
-    gap: 20px;
-
-    @media (max-width: 768px) {
-        width: 250px;
-        padding: 16px;
-        margin-bottom: 15px;
-        gap: 15px;
-    }
-
-    @media (max-width: 480px) {
-        width: 250px;
-        padding: 16px;
-        margin-bottom: 10px;
-        gap: 15px;
-    }
-`;
 //____________INPUT____________
-//____________SELECT____________
-export const Container_Select_Dark = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    gap: 15px;
-    border: 2px solid white;
-    border-radius: 50px;
-    max-height: 20vh;
-    max-width: 90vw;
-    padding: 10px;
-    margin-bottom: 10px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        margin-bottom: 10px;
-    }
-`;
-export const Container_Select_Light = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    gap: 15px;
-    border: 2px solid black;
-    border-radius: 50px;
-    max-height: 20vh;
-    max-width: 90vw;
-    padding: 10px;
-    margin-bottom: 10px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        margin-bottom: 10px;
-    }
-`;
-//____________SELECT____________
-//____________CHECK____________
-export const Container_Check_Dark = styled.div`
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    border: 2px solid white;
-    border-radius: 50px;
-    max-height: 20vh;
-    max-width: 90vw;
-    gap: 15px;
-    padding: 10px;
-    margin-bottom: 10px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        margin-bottom: 10px;
-    }
-`;
-export const Container_Check_Light = styled.div`
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 50px;
-    max-height: 20vh;
-    max-width: 90vw;
-    gap: 15px;
-    padding: 10px;
-    margin-bottom: 10px;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        margin-bottom: 10px;
-    }
-`;
-//____________CHECK____________
 //____________PAGINATION____________
 export const Container_Pagination = styled.div`
     display: flex;
@@ -987,34 +708,7 @@ export const Container_Pagination = styled.div`
 //____________PAGINATION____________
 
 
-export const Background_Modal = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    overflow-y: auto;
-`;
-//--------MENU--------
-export const Container_Menu = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: 100%;  
-    border-radius: 10px;       
-    position: relative; 
-    top: 0%;   
-    left: 2%;
-`;
-//--------MENU--------
+
 //--------FOOTER--------
 export const Container_Button_Footer = styled.div`
     margin-left: 35%;

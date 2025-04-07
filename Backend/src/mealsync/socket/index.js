@@ -2,6 +2,7 @@ import { users } from './users.js';
 import { permissions} from './permissions.js';
 import { status } from './status.js';
 import { io } from '../../index.js';
+import { updateStatusLogoutService } from '../services/status.service.js';
 
 export const socketEvents = () => {
   io.on('connection', (socket) => {
@@ -12,7 +13,7 @@ export const socketEvents = () => {
     status(socket);
 
     socket.on('disconnect', () => {
-      console.log(`Cliente desconectado: ${socket.id}`);
+        console.log(`Cliente desconectado: ${socket.id}`);
     });
   });
 };

@@ -7,7 +7,7 @@ import { Tooltip } from "@mui/material";
 import { themeModeContext,navbarViewContext,sidebarViewContext } from "../../contexts/ViewsProvider";
 import { typeUserContext,searchTermContext,selectedRowContext } from "../../contexts/VariablesProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider"; 
-import { searchContext } from "../../contexts/RefsProvider";
+import { refFormContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { useChangeModalView } from "../../hooks/Views";
 //__________ICONOS__________
@@ -27,7 +27,7 @@ import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Searchbar } from "../styled/Containers";
+import { Container_Search_Bar } from "../styled/Containers";
 import { Button_Icon_Green_45,Button_Icon_Blue_45,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
 import { Icon_25,Icon_Button_25 } from "../styled/Icons";
 import { Input_Search } from "../styled/Inputs";
@@ -45,13 +45,13 @@ export default function Search_Bar (){
     const [isTypeUser] = useContext(typeUserContext);
     const [isSelectedRow] = useContext(selectedRowContext);
     const [isPermission] = useContext(permissionContext);
-    const isSearch = useContext(searchContext);
+    const {Modal,Form,Button} = useContext(refFormContext);
     // Constantes con la funcionalidad de los hooks
     const changeModalView = useChangeModalView();
     // Estructura del componente
     return(
         <>
-            <Container_Searchbar ref={isSearch}>
+            <Container_Search_Bar>
                 <Icon_25><FcSearch/></Icon_25>
                 <Input_Search
                     type="text"
@@ -60,6 +60,8 @@ export default function Search_Bar (){
                     onChange={(e) => setIsSearchTerm(e.target.value)}
                 />
                 <Icon_Button_25><FaShoppingCart/></Icon_Button_25>
+
+                
                 {currentSView === 'Users' && currentNView === 'Permissions' ? (
                     isPermission.superadministrador ? (
                         isSelectedRow === null ? (
@@ -74,18 +76,18 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
-                                    <Button_Icon_Blue_45 ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Edit')}><AiFillEdit/></Button_Icon_Blue_45>
+                                    <Button_Icon_Blue_45 ref={Button} ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Edit')}><AiFillEdit/></Button_Icon_Blue_45>
                                 </Tooltip>
                                 {isSelectedRow.superadministrador ? (
                                     <>
                                         <Tooltip title="Deshabilitar" placement="top">
-                                            <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Super-Administrator')}><MdAdminPanelSettings/></Button_Icon_Red_45>
+                                            <Button_Icon_Red_45 ref={Button} ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Super-Administrator')}><MdAdminPanelSettings/></Button_Icon_Red_45>
                                         </Tooltip>
                                     </> 
                                 ):(
                                     <>
                                         <Tooltip title="Habilitar" placement="top">
-                                            <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Super-Administrator')}><MdAdminPanelSettings/></Button_Icon_Green_45>
+                                            <Button_Icon_Green_45 ref={Button} ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Super-Administrator')}><MdAdminPanelSettings/></Button_Icon_Green_45>
                                         </Tooltip>
                                     </>
                                 )}
@@ -103,7 +105,7 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
-                                    <Button_Icon_Blue_45 ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Edit')}><AiFillEdit/></Button_Icon_Blue_45>
+                                    <Button_Icon_Blue_45 ref={Button} ThemeMode={themeMode} onClick={() => changeModalView('Permissions-Edit')}><AiFillEdit/></Button_Icon_Blue_45>
                                 </Tooltip>
                             </>
                         )
@@ -126,13 +128,13 @@ export default function Search_Bar (){
                                 {isSelectedRow.habilitado ? (
                                     <>
                                         <Tooltip title="Deshabilitar" placement="top">
-                                            <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => changeModalView('Status-Enable')}><FaLock/></Button_Icon_Red_45>
+                                            <Button_Icon_Red_45 ref={Button} ThemeMode={themeMode} onClick={() => changeModalView('Status-Enable')}><FaLock/></Button_Icon_Red_45>
                                         </Tooltip>
                                     </> 
                                 ):(
                                     <>
                                         <Tooltip title="Habilitar" placement="top">
-                                            <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => changeModalView('Status-Enable')}><FaLockOpen/></Button_Icon_Green_45>
+                                            <Button_Icon_Green_45 ref={Button} ThemeMode={themeMode} onClick={() => changeModalView('Status-Enable')}><FaLockOpen/></Button_Icon_Green_45>
                                         </Tooltip>
                                     </>
                                 )}
@@ -154,7 +156,7 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-            </Container_Searchbar> 
+            </Container_Search_Bar> 
         </>
     );
 }

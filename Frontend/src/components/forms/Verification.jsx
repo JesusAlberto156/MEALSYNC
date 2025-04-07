@@ -10,33 +10,31 @@ import { useContext,useState } from "react";
 // Contextos
 import { themeModeContext } from "../../contexts/ViewsProvider";
 import { nameContext,passwordContext } from "../../contexts/FormsProvider";
-import { formContext } from "../../contexts/RefsProvider";
+import { formComprobationContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
-
+import { useSessionVerification } from "../../hooks/Form";
 //__________ICONOS__________
 // Iconos del boton de comprobar
 import { FaUser } from "react-icons/fa6";
 import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Input_Border_250,Container_Button_Row_300 } from "../styled/Containers";
+import { Container_Button_Border_Column_350,Container_Button_Row_300 } from "../styled/Containers";
 import { Text_P_Left_20 } from "../styled/Text";
 import { Input_Group_80,Input_Text_220 } from "../styled/Inputs";
 import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
-import { Button_Icon_Blue_150 } from "../styled/Buttons";
-import { Button_Icon_Blue_80_Light,Button_Icon_Block_80_Light,Button_Icon_Blue_80_Dark,Button_Icon_Block_80_Dark } from "../styled/Buttons";
+import { Button_Icon_Blue_220,Button_Icon_Block_220 } from "../styled/Buttons";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
-export default function Form_Comprobation(){
+export default function Form_Verification(){
     // Constantes con el valor de los contextos
-    const [themeMode,setThemeMode] = useContext(themeModeContext);
+    const [themeMode] = useContext(themeModeContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isBlock] = useContext(blockContext);
-    const isForm = useContext(formContext);
+    const [isFormComprobation] = useContext(formComprobationContext);
     // Constantes con el valor de useState
     const [textName,setTextName] = useState(false);
     const [isFocusedName, setIsFocusedName] = useState(false);
@@ -45,12 +43,12 @@ export default function Form_Comprobation(){
     const [isFocusedPassword, setIsFocusedPassword] = useState(false);
     const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
     // Constantes con la funcionalidad de los hooks
-    const comprobation = useComprobation();
+    const sessionVerification = useSessionVerification();
     // Estructura del componente
     return(
         <> 
             <Text_P_Left_20 ThemeMode={themeMode}>Ingresa tus datos...</Text_P_Left_20>
-            <Container_Input_Border_250 ThemeMode={themeMode}>
+            <Container_Button_Border_Column_350 ThemeMode={themeMode}>
                 <Input_Group_80>
                     <Label_Text_20
                         ThemeMode={themeMode}
@@ -61,6 +59,7 @@ export default function Form_Comprobation(){
                     </Label_Text_20>
                     <Input_Text_220 
                         ThemeMode={themeMode}
+                        type="text"
                         value={isName}
                         onClick={(e) => {
                             setTextName(true);
@@ -92,6 +91,7 @@ export default function Form_Comprobation(){
                     </Label_Text_20>
                     <Input_Text_220 
                         ThemeMode={themeMode}
+                        type='password'
                         value={isPassword}
                         onClick={(e) => {
                             setTextPassword(true);
@@ -108,30 +108,28 @@ export default function Form_Comprobation(){
                             }
                         }}   
                         onChange={(e) => setIsPassword(e.target.value)} 
-                        type="password"
                     />
                     {textPassword && (
                         <Label_Popup_14 ThemeMode={themeMode}>Escribe tú Contraseña</Label_Popup_14>
                     )}
                 </Input_Group_80>
                 <Container_Button_Row_300>
-                {isBlock ? (
-                    <>
-                        <Button_Icon_Block_80_Light><FaUserCheck/></Button_Icon_Block_80_Light>
-                    </>
-                ):(
-                    <>
-                        <Button_Icon_Blue_80_Light onClick={(e) => {
-                            e.stopPropagation();
-                            comprobation();
-                        }}>
-                            <FaUser/>
-                        </Button_Icon_Blue_80_Light>
-                    </>
-                )}
-                    <Button_Icon_Blue_150><FaUser/></Button_Icon_Blue_150>
+                    {isFormComprobation ? (
+                        <>
+                            <Button_Icon_Block_220 ThemeMode={themeMode}><FaUserCheck/></Button_Icon_Block_220>
+                        </>
+                    ):(
+                        <>
+                            <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={(e) => {
+                                e.stopPropagation();
+                                sessionVerification();
+                            }}>
+                                <FaUser/>
+                            </Button_Icon_Blue_220>
+                        </>
+                    )}
                 </Container_Button_Row_300>
-            </Container_Input_Border_250>
+            </Container_Button_Border_Column_350>
         </>  
     );
 }

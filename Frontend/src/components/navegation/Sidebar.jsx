@@ -26,7 +26,7 @@ import { MdStorage } from "react-icons/md";
 import { MdWorkHistory } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Sidebar,Container_Icon } from "../styled/Containers";
+import { Container_Side_Bar,Container_Icon } from "../styled/Containers";
 import { Icon_Image_Profile_Light } from "../styled/Icons";
 import { Text_Title_Fade_20,Text_A_18 } from "../styled/Text";
 import { Button_Icon_Blue_210 } from '../styled/Buttons';
@@ -49,7 +49,7 @@ export default function Side_Bar() {
   // Estructura del componente
   return (
     <>
-      <Container_Sidebar ThemeMode={themeMode} className={isSidebarVisible ? 'visible' : 'hidden'}>
+      <Container_Side_Bar ThemeMode={themeMode} className={isSidebarVisible ? 'visible' : 'hidden'}>
         <Container_Icon>
           <Icon_Image_Profile_Light src={profileImage}/>
         </Container_Icon>
@@ -225,7 +225,7 @@ export default function Side_Bar() {
         ):(
           <></>
         )}
-      </Container_Sidebar>
+      </Container_Side_Bar>
     </>
   );
 }

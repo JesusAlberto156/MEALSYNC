@@ -1,4 +1,4 @@
-import { insertStatusService,getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService,deleteStatusIdService } from "../services/status.service.js";
+import { insertStatusService,getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService } from "../services/status.service.js";
 import { io } from "../../index.js";
 
 export const status = (socket) => {
@@ -54,15 +54,6 @@ export const status = (socket) => {
             io.emit('statusDisable','Se deshabilito a ',user);
         }catch(error){
             console.error('Error al actualizar: ',error);
-            return error;
-        }
-    });
-    socket.on('statusDelete', async (id,user) => {
-        try{
-            await deleteStatusIdService(id);
-            io.emit('statusDelete','Se elimino el estatus a ',user);
-        }catch(error){
-            console.error('Error al eliminar: ',error);
             return error;
         }
     });

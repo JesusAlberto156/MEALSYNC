@@ -114,24 +114,5 @@ const updateStatusDisableService = async (id) => {
     }
 }
 // UPDATE STATUS DISABLE
-// DELETE STATUS ID
-const deleteStatusIdService = async (id) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('id',sql.Int,id)
-            .query('DELETE FROM estatus WHERE idusuario = @id');
 
-        if(result.rowsAffected[0]>0){
-            return 'Estatus eliminado...'
-        }else{
-            return 'Eliminación del estatus del usuario no realizada...'
-        }
-    }catch(error){
-        console.error('Error al eliminar el estatus: ',error.message);
-        throw error;
-    }
-}
-// DELETE STATUS ID
-
-export { insertStatusService,getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService,deleteStatusIdService };
+export { insertStatusService,getStatusAllService,updateStatusLoginService,updateStatusLogoutService,updateStatusEnableService,updateStatusDisableService };

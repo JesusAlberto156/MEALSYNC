@@ -26,7 +26,7 @@ import { Container_Page,Container_Page_Administration,Container_Page_Elements } 
 import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Footer from '../components/footer/Footer'
-import Side_Bar from "../components/navegation/SideBar";
+import Side_Bar from "../components/navegation/Sidebar";
 import Out_Login from "../components/modals/General/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";

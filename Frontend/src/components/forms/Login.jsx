@@ -52,6 +52,7 @@ export default function Form_Login(){
                     </Label_Text_20>
                     <Input_Text_220 
                         ThemeMode={themeMode}
+                        type="text"
                         value={isName}
                         onClick={(e) => {
                             setTextName(true);
@@ -83,6 +84,7 @@ export default function Form_Login(){
                     </Label_Text_20>
                     <Input_Text_220 
                         ThemeMode={themeMode}
+                        type="password"
                         value={isPassword}
                         onClick={(e) => {
                             setTextPassword(true);

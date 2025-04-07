@@ -73,6 +73,20 @@ export const Logged = ({ children }) => {
             }
         }
     },[isLogged]);
+    // UseEffect para cerrar sesion cuando cierres la pestaña 
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            if(isLogged && isUser.length !== 0){
+                socket.emit('statusLogout',isUser.idusuario,isUser.usuario);
+            }
+        }
+
+        window.addEventListener('beforeunload',handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload',handleBeforeUnload);
+        }
+    },[]);
     // Return para darle valor al contexto y heredarlo
     return (
         <loggedContext.Provider value={[isLogged,setIsLogged]}>

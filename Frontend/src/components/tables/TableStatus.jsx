@@ -6,7 +6,7 @@ import { Tooltip } from "@mui/material"
 // Contextos
 import { selectedRowContext } from "../../contexts/VariablesProvider"
 import { usersContext } from "../../contexts/UsersProvider"
-import { searchContext,formContext,statusModalContext } from '../../contexts/RefsProvider'
+import { refFormContext } from '../../contexts/RefsProvider'
 import { themeModeContext } from "../../contexts/ViewsProvider"
 // Hooks personalizados
 import { useTableActions } from "../../hooks/Table"
@@ -31,24 +31,20 @@ export default function TableStatus(){
     const [themeMode] = useContext(themeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
-    const isSearch = useContext(searchContext);
-    const isForm = useContext(formContext);
-    const {modal,form} = useContext(statusModalContext);
+    const {Modal,Form,Button} = useContext(refFormContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Status");
 
-            const clickedInsideButton = isForm.current && isForm.current.contains(event.target);
-            const clickedInsideModal = modal.current && modal.current.contains(event.target);
-            const clickedInsideForm = form.current && form.current.contains(event.target);
-            const clickedInsideSearch = isSearch.current && isSearch.current.contains(event.target);
+            const clickedInsideModal = Modal.current && Modal.current.contains(event.target);
+            const clickedInsideForm = Form.current && Form.current.contains(event.target);
+            const clickedInsideButton = Button.current && Button.current.contains(event.target);
 
             if (table && !table.contains(event.target) &&
                 !clickedInsideButton && 
                 !clickedInsideModal &&
-                !clickedInsideForm &&
-                !clickedInsideSearch
+                !clickedInsideForm
             ) {
                 setIsSelectedRow(null);
             }
@@ -59,7 +55,7 @@ export default function TableStatus(){
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    }, [isForm,modal,form]);
+    }, [Modal,Form,Button]);
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = useTableActions();
     // Estructura del componente

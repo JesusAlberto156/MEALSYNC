@@ -1,6 +1,6 @@
 import { keyframes } from 'styled-components';
 
-//--------ANIMATION--------
+//____________ANIMATION____________
 export const Rotate = keyframes`
     from {
         transform: rotate(0deg);
@@ -9,9 +9,9 @@ export const Rotate = keyframes`
         transform: rotate(360deg);
     }
 `;
-export const FadeAnimation = keyframes`
+export const Fade_Animation = keyframes`
   0% { opacity: 1; }
   50% { opacity: 0; }
   100% { opacity: 1; }
 `;
-//--------ANIMATION--------
+//____________ANIMATION____________

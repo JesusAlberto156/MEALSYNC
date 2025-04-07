@@ -5,7 +5,7 @@ import Logo_Hospital_Dark from '../imgs/Logo-Hospital-Dark.png';
 import Logo_Hospital_Light from '../imgs/Logo-Hospital-Light.png';
 import Logo_Error_Dark from '../imgs/Error-Dark.png'
 import Logo_Error_Light from '../imgs/Error-Light.webp'
-import { FadeAnimation } from './Animations';
+import { Fade_Animation } from './Animations';
 
 //____________LOGO____________
 export const Img_Logo_Verical_Hospital_250 = styled.div.withConfig({
@@ -68,7 +68,7 @@ export const Img_Logo_Hospital_60 = styled.div.withConfig({
     width: 60px; 
     height: 60px;
     margin-left: 20px;
-    animation: ${FadeAnimation} 2s infinite;
+    animation: ${Fade_Animation} 2s infinite;
 
     @media (max-width: 768px) {
         width: 55px; 
@@ -82,8 +82,10 @@ export const Img_Logo_Hospital_60 = styled.div.withConfig({
         margin-left: 10px;
     }
 `;
-export const Img_Logo_Error_Dark = styled.div`
-    background-image: url(${Logo_Error_Dark});
+export const Img_Logo_Error = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Error_Light})` : `url(${Logo_Error_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
     width: 30%; 
@@ -106,29 +108,4 @@ export const Img_Logo_Error_Dark = styled.div`
         left: 5%;
     }
 `;
-export const Img_Logo_Error_Light = styled.div`
-    background-image: url(${Logo_Error_Light});
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 30%; 
-    height: 30%;
-    position: fixed;
-    top: 65%;
-    left: 10%;
-
-    @media (max-width: 768px) {
-        width: 40%; 
-        height: 40%;
-        top: 68%;
-        left: 8%;
-    }
-
-    @media (max-width: 480px) {
-        width: 50%; 
-        height: 50%;
-        top: 75%;
-        left: 5%;
-    }
-`;
-
 //____________LOGO____________

@@ -26,7 +26,7 @@ import { Input_Radio_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar estatus al usuario
-export default function StatusAdd(){
+export default function Status_Add(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
     const [isSelect] = useContext(selectContext);
@@ -34,7 +34,7 @@ export default function StatusAdd(){
     const [isActiveBlock] = useContext(actionBlockContext);
     // useEffect con el titulo del modal
     useEffect(() => {
-        document.title = "MEALSYNC_Administración_Estatus_Agregar"
+        document.title = "MEALSYNC_Administración_Usuarios_Estatus_Agregar"
     },[]);
     // Constantes con la funcionalidad de los hooks
     const changeModalView = useChangeModalView();

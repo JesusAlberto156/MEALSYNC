@@ -11,7 +11,7 @@ import { Toaster } from 'sonner';
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
 import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
-import { typeUserContext,searchTermContext } from "../contexts/VariablesProvider";
+import { typeUserContext,searchTermContext,actionBlockContext } from "../contexts/VariablesProvider";
 import { userContext } from "../contexts/UsersProvider";
 import { permissionContext } from "../contexts/PermissionsProvider";
 import { statusUserContext } from "../contexts/StatusProvider";
@@ -26,15 +26,15 @@ import { Container_Page,Container_Page_Administration,Container_Page_Elements } 
 import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Footer from '../components/footer/Footer'
-import Sidebar from "../components/navegation/Sidebar";
-import OutLogin from "../components/modals/General/OutLogin";
+import Side_Bar from "../components/navegation/SideBar";
+import Out_Login from "../components/modals/General/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
-import PermissionsAdd from "../components/modals/permissions/PermissionsAdd";
-import PermissionsEdit from "../components/modals/permissions/PermissionsEdit";
-import PermissionsSuperAdministrator from "../components/modals/permissions/PermissionsSuperAdministrator";
-import StatusAdd from "../components/modals/status/StatusAdd";
-import StatusEnable from "../components/modals/status/StatusEnable";
+import Permissions_Add from "../components/modals/permissions/PermissionsAdd";
+import Permissions_Edit from "../components/modals/permissions/PermissionsEdit";
+import Permissions_Super_Administrator from "../components/modals/permissions/PermissionsSuperAdministrator";
+import Status_Add from "../components/modals/status/StatusAdd";
+import Status_Enable from "../components/modals/status/StatusEnable";
 //____________IMPORT/EXPORT____________
 
 // Página para mostrar el área de administración
@@ -54,11 +54,12 @@ export default function Administration(){
 
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [isLogged,setIsLogged] = useContext(loggedContext);
     const [isUser,setIsUser] = useContext(userContext);
     const [isPermission,setIsPermission] = useContext(permissionContext);
     const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
-    const [isLog] = useContext(logContext);
+    const [isLog,setIsLog] = useContext(logContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Administración_Inicio"
@@ -75,7 +76,8 @@ export default function Administration(){
         if(isLog && isLogged){
             document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
-                try{                   
+                try{       
+                    setIsActionBlock(true);         
                     setTimeout(() => {
                         resolve('¡MEALSYNC le agradece su estancia!...');
                     },1000);
@@ -102,11 +104,15 @@ export default function Administration(){
 
                         setTimeout(() => {
                             setIsUser([]);
+                            setIsLog(false);
                             sessionStorage.clear();
+                            setIsActionBlock(false);
                             navigate("/",{replace: true});
                         },500)
                     },2000)
                 }catch(error){
+                    setIsLog(false);
+                    setIsActionBlock(false);
                     reject('¡Ocurrio un error inesperado!...');
                 }
             });
@@ -119,7 +125,7 @@ export default function Administration(){
     // Estructura del componente
     return(
         <Container_Page>
-            <Sidebar/>
+            <Side_Bar/>
             <Container_Page_Administration ThemeMode={themeMode}>
                 <Container_Page_Elements sidebarVisible={isSidebarVisible}>
                     {currentSView === 'Home' ? (
@@ -134,33 +140,33 @@ export default function Administration(){
                     )}
                 </Container_Page_Elements>
                 {currentMView === 'Out-Login' ? (
-                    <OutLogin/>
+                    <Out_Login/>
                 ):(
                     <></>
                 )}
                 
                 {currentMView === 'Permissions-Add' ? (
-                    <PermissionsAdd/>
+                    <Permissions_Add/>
                 ):(
                     <></>
                 )}
                 {currentMView === 'Permissions-Edit' ? (
-                    <PermissionsEdit/>
+                    <Permissions_Edit/>
                 ):(
                     <></>
                 )}
                 {currentMView === 'Permissions-Super-Admistrator' ? (
-                    <PermissionsSuperAdministrator/>
+                    <Permissions_Super_Administrator/>
                 ):(
                     <></>
                 )}
                 {currentMView === 'Status-Add' ? (
-                    <StatusAdd/>
+                    <Status_Add/>
                 ):(
                     <></>
                 )}
                 {currentMView === 'Status-Enable' ? (
-                    <StatusEnable/> 
+                    <Status_Enable/> 
                 ):(
                     <></>
                 )}

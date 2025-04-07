@@ -9,7 +9,7 @@ import { Tooltip } from "@mui/material";
 // Rutas
 
 // Contextos
-
+import { themeModeContext } from '../contexts/ViewsProvider';
 // Hooks personalizados
 import { useErrorReturn } from "../hooks/Error";
 //__________ICONOS__________
@@ -20,19 +20,20 @@ import { IoSettings } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page_Error_Light,Container_Page_Error_Dark,Container_Text_20 } from "../components/styled/Containers";
-import { Icon_Settings_50_Light,Icon_Warning_250_Light,Icon_Settings_50_Dark,Icon_Warning_250_Dark } from "../components/styled/Icons";
-import { Text_Title_Fade_50_Light,Text_A_25_Light,Text_Title_Fade_50_Dark,Text_A_25_Dark } from "../components/styled/Text";
-import { Button_Icon_White_200_Light,Button_Icon_White_200_Dark } from "../components/styled/Buttons";
-import { Img_Logo_Error_Light,Img_Logo_Error_Dark } from "../components/styled/Imgs";
+import { Container_Page_Error,Container_100_Right,Container_Text_20 } from "../components/styled/Containers";
+import { Icon_Gray_Rotate_50,Icon_Yellow_250 } from "../components/styled/Icons";
+import { Text_Title_Fade_50,Text_A_25 } from "../components/styled/Text";
+import { Button_Icon_White_200 } from "../components/styled/Buttons";
+import { Img_Logo_Error_Light } from "../components/styled/Imgs";
 import { Alert_Error_Light,Alert_Error_Dark,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
-
+import Setting_Bar from "../components/navegation/SettingBar";
 //____________IMPORT/EXPORT____________
 
 // Página para captar los errores ocasionados por una mala ruta escrita
 export default function Error(){
     // Constantes con el valor de los contextos 
+    const [themeMode] = useContext(themeModeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title='MEALSYNC_Error';
@@ -47,26 +48,29 @@ export default function Error(){
     // Estructura del componente
     return(
         <>
-                    <Container_Page_Error_Light>
-                        <Icon_Warning_250_Light><IoIosWarning/></Icon_Warning_250_Light>
-                        <Container_Text_20>
-                            <Text_Title_Fade_50_Light>Ooops...</Text_Title_Fade_50_Light>
-                            <Icon_Settings_50_Light><IoSettings/></Icon_Settings_50_Light>
-                        </Container_Text_20>
-                        <Text_A_25_Light>Página no encotrada...</Text_A_25_Light>
-                        <Tooltip title='Regresar' placement="top">
-                            <Button_Icon_White_200_Light onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200_Light>
-                        </Tooltip>
-                        <Img_Logo_Error_Light/>
-                        <Alert_Styles>
-                            <Toaster
-                                visibleToasts={3}
-                                richColors
-                                theme='dark'
-                                position='top-right'
-                            />
-                        </Alert_Styles>
-                    </Container_Page_Error_Light>
+            <Container_Page_Error ThemeMode={themeMode}>
+                <Setting_Bar/>
+                <Container_100_Right>
+                    <Icon_Yellow_250 ThemeMode={themeMode}><IoIosWarning/></Icon_Yellow_250>
+                </Container_100_Right>
+                <Container_Text_20>
+                    <Text_Title_Fade_50 ThemeMode={themeMode}>Ooops...</Text_Title_Fade_50>
+                    <Icon_Gray_Rotate_50 ThemeMode={themeMode}><IoSettings/></Icon_Gray_Rotate_50>
+                </Container_Text_20>
+                <Text_A_25 ThemeMode={themeMode}>Página no encotrada...</Text_A_25>
+                <Tooltip title='Regresar' placement="top">
+                    <Button_Icon_White_200 ThemeMode={themeMode} onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200>
+                </Tooltip>
+                <Img_Logo_Error_Light/>
+                <Alert_Styles>
+                    <Toaster
+                        visibleToasts={3}
+                        richColors
+                        theme='dark'
+                        position='top-right'
+                    />
+                </Alert_Styles>
+            </Container_Page_Error>
         </>
     );
 }

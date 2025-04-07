@@ -23,7 +23,7 @@ import { Text_Title_Fade_30 } from '../styled/Text';
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre las paginas en la parte superior 
-export default function Navbar(){
+export default function Nav_Bar(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
     const [currentNView] = useContext(navbarViewContext);

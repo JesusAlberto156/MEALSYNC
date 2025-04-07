@@ -3,7 +3,7 @@
 import { createContext, useState,useEffect,useContext } from "react"
 
 // Servicios
-import { decryptData } from "../services/Crypto";
+
 // Contextos
 export const logContext = createContext(null);
 export const loggedContext = createContext(null);

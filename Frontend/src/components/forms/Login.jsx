@@ -25,9 +25,9 @@ import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
-export default function FormLogin(){
+export default function Form_Login(){
     // Constantes con el valor de los contextos
-    const [themeMode,setThemeMode] = useContext(themeModeContext);
+    const [themeMode] = useContext(themeModeContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
     // Constantes con el valor de useState
@@ -57,7 +57,7 @@ export default function FormLogin(){
                             setTextName(true);
                             setIsFocusedNameColor(true);
                             setIsFocusedName(true);
-                        }}
+                        }} 
                         onBlur={(e) => {
                             setTextName(false);
                             setIsFocusedNameColor(false);
@@ -66,7 +66,7 @@ export default function FormLogin(){
                             }else{
                                 setIsFocusedName(true);
                             }
-                        }}   
+                        }}
                         onChange={(e) => setIsName(e.target.value)} 
                     />
                     {textName && (
@@ -86,9 +86,9 @@ export default function FormLogin(){
                         value={isPassword}
                         onClick={(e) => {
                             setTextPassword(true);
-                            setIsFocusedPasswordColor(true);
                             setIsFocusedPassword(true);
-                        }}
+                            setIsFocusedPasswordColor(true);
+                        }} 
                         onBlur={(e) => {
                             setTextPassword(false);
                             setIsFocusedPasswordColor(false);
@@ -97,9 +97,8 @@ export default function FormLogin(){
                             }else{
                                 setIsFocusedPassword(true);
                             }
-                        }}   
-                        onChange={(e) => setIsPassword(e.target.value)} 
-                        type="password"
+                        }}
+                        onChange={(e) => setIsPassword(e.target.value)}
                     />
                     {textPassword && (
                         <Label_Popup_14 ThemeMode={themeMode}>Escribe tú Contraseña</Label_Popup_14>

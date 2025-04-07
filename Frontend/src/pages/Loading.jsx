@@ -18,7 +18,7 @@ import { IoSettings } from "react-icons/io5";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Page_Loading_Light,Container_Page_Loading_Dark,Container_Text_20 } from "../components/styled/Containers";
-import { Text_Title_Fade_50_Light,Text_Title_Fade_50_Dark } from "../components/styled/Text";
+import { Text_Title_Fade_50 } from "../components/styled/Text";
 import { Icon_Settings_50_Light,Icon_Settings_50_Dark } from "../components/styled/Icons";
 import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
@@ -48,7 +48,7 @@ const Loading = () => {
         <>
                     <Container_Page_Loading_Light>
                         <Container_Text_20>
-                            <Text_Title_Fade_50_Light>Cargando...</Text_Title_Fade_50_Light>
+                            <Text_Title_Fade_50>Cargando...</Text_Title_Fade_50>
                             <Icon_Settings_50_Light><IoSettings/></Icon_Settings_50_Light>
                         </Container_Text_20>
                         <Alert_Styles>

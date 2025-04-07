@@ -21,7 +21,7 @@ import { Container_Pagination } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
 import { Text_Span_16 } from "../styled/Text";
-import { Icon_Table_Green,Icon_Table_Red } from "../styled/Icons"
+import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los permisos de usuarios

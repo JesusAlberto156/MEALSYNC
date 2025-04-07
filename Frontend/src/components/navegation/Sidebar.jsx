@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useState, useEffect,useContext } from "react";
+import { useState,useContext } from "react";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
@@ -35,7 +35,7 @@ import { Button_Icon_Blue_210 } from '../styled/Buttons';
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre las paginas en el lateral
-export default function Sidebar() {
+export default function Side_Bar() {
   // Constantes con el valor de los contextos 
   const [themeMode] = useContext(themeModeContext);
   const [isSidebarVisible] = useContext(sidebarVisibleContext);

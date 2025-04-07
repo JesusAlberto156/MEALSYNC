@@ -1,4 +1,15 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import styled from 'styled-components';
+//__________ICONOS__________
+
+//__________ICONOS__________
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
+
+
+// ESTILOS PERSONALIZADOS PARA LOS INPUTS
 
 //____________GROUP____________
 export const Input_Group_80 = styled.div`
@@ -53,76 +64,6 @@ export const Input_Text_220 = styled.input.withConfig({
         color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
         border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
         box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(60, 124, 167, 0.3)' : 'rgba(213, 220, 224, 0.3)')};
-    }
-`;
-export const Input_Text_280_Dark = styled.input`
-    width: 280px;
-    height: 15px;
-    color: white;
-    font-size: 20px;
-    border-radius: 10px;
-    border: none;
-    border-bottom: 2px solid white;
-    background: transparent;
-    transition: 0.1s ease;
-    outline: none;
-    padding-top: 30px;
-    cursor: text;
-    padding-bottom: 8px;
-    padding-left: 14px;
-
-    @media (max-width: 768px) {
-        font-size: 18px;
-        width: 250px;
-        border-radius: 12px;
-        padding-left: 8px;
-    }
-    
-    @media (max-width: 480px) {
-        font-size: 16px;
-        width: 220px;
-        border-radius: 9px;
-        padding-left: 6px;
-    }
-
-    &:focus {
-        color:rgb(82, 126, 231);
-        border-color: rgb(82, 126, 231);
-        box-shadow: 0 0 8px rgba(60, 124, 167, 0.3);
-    }
-`;
-export const Input_Text_280_Light = styled.input`
-    width: 220px;
-    height: 15px;
-    color: white;
-    font-size: 20px;
-    border-radius: 8px;
-    border: none;
-    border-bottom: 2px solid black;
-    background: transparent;
-    transition: 0.1s ease;
-    outline: none;
-    padding-top: 30px;
-    cursor: text;
-    padding-bottom: 8px;
-    padding-left: 14px;
-
-    @media (max-width: 768px) {
-        font-size: 18px;
-        width: 190px;
-        border-radius: 6px;
-        padding-left: 8px;
-    }
-    
-    @media (max-width: 480px) {
-        font-size: 16px;
-        width: 160px;
-        border-radius: 4px;
-        padding-left: 6px;
-    }
-
-    &:focus {
-        
     }
 `;
 //____________TEXT____________

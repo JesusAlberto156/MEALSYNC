@@ -7,10 +7,12 @@ import { useTableActions } from "../../hooks/Table"
 
 import { GrNext,GrPrevious } from "react-icons/gr";
 
-import { Container_Option_Navbar,Container_Table_Pagination } from "../styled/Containers"
+// Estilos personalizados
+import { Container_Pagination } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
-import { Button_Block_Pagination,Button_Blue_Pagination } from "../styled/Buttons"
-import { Text_Pagination } from "../styled/Text";
+import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
+import { Text_Span_16 } from "../styled/Text";
+//____________IMPORT/EXPORT____________
 
 export default function TableUsers(){
 
@@ -32,56 +34,54 @@ export default function TableUsers(){
 
     return(
         <>
-            <Container_Option_Navbar>
-                <Table id="Tabla-Usuarios">
-                    <thead>
-                        <Tr>
-                            <Th>ID Usuario</Th>
-                            <Th>Nombre</Th>
-                            <Th>Nombre Corto</Th>
-                            <Th>Usuario</Th>
-                            <Th>Contraseña</Th>
+            <Table id="Tabla-Usuarios">
+                <thead>
+                    <Tr>
+                        <Th>ID Usuario</Th>
+                        <Th>Nombre</Th>
+                        <Th>Nombre Corto</Th>
+                        <Th>Usuario</Th>
+                        <Th>Contraseña</Th>
+                    </Tr>
+                </thead>
+                <tbody>
+                    {currentRecordsUsers.map((user) => (
+                        <Tr 
+                            key={user.idusuario}
+                            onClick={() => handleRowClick(user)}
+                            style={{
+                                backgroundColor: isSelectedRow === user ? '#e0f7fa' : 'transparent',
+                                cursor: 'pointer',
+                                transition: 'background-color 0.5s ease',
+                            }}
+                        >
+                            <Td>{user.idusuario}</Td>
+                            <Td>{user.nombre}</Td>
+                            <Td>{user.nombrecorto}</Td>
+                            <Td>{user.usuario}</Td>
+                            <Td>{user.contrasena}</Td>
                         </Tr>
-                    </thead>
-                    <tbody>
-                        {currentRecordsUsers.map((user) => (
-                            <Tr 
-                                key={user.idusuario}
-                                onClick={() => handleRowClick(user)}
-                                style={{
-                                    backgroundColor: isSelectedRow === user ? '#e0f7fa' : 'transparent',
-                                    cursor: 'pointer',
-                                    transition: 'background-color 0.5s ease',
-                                }}
-                            >
-                                <Td>{user.idusuario}</Td>
-                                <Td>{user.nombre}</Td>
-                                <Td>{user.nombrecorto}</Td>
-                                <Td>{user.usuario}</Td>
-                                <Td>{user.contrasena}</Td>
-                            </Tr>
-                        ))}
+                    ))}
 
-                    </tbody>
-                </Table>
-                <Container_Table_Pagination>
-                    {currentPage === 1 ? (
-                        <Button_Block_Pagination><GrPrevious/></Button_Block_Pagination>
-                    ):(
-                        <Tooltip title='Anterior página' placement="top">
-                            <Button_Blue_Pagination onClick={prevPage}><GrNext/></Button_Blue_Pagination>
-                        </Tooltip>
-                    )}
-                    <Text_Pagination>Página {currentPage} de {totalPagesUsers}</Text_Pagination>
-                    {currentPage === totalPagesUsers || totalPagesUsers === 0 ? (
-                        <Button_Block_Pagination><GrNext/></Button_Block_Pagination>
-                    ):(
-                        <Tooltip title='Siguiente página' placement="top">
-                            <Button_Blue_Pagination onClick={nextPageUsers}><GrNext/></Button_Blue_Pagination>
-                        </Tooltip>
-                    )} 
-                </Container_Table_Pagination>
-            </Container_Option_Navbar>
+                </tbody>
+            </Table>
+            <Container_Pagination>
+                {currentPage === 1 ? (
+                    <Button_Icon_Block_150><GrPrevious/></Button_Icon_Block_150>
+                ):(
+                    <Tooltip title='Anterior página' placement="top">
+                        <Button_Icon_Blue_150 onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
+                    </Tooltip>
+                )}
+                <Text_Span_16>Página {currentPage} de {totalPagesUsers}</Text_Span_16>
+                {currentPage === totalPagesUsers || totalPagesUsers === 0 ? (
+                    <Button_Icon_Block_150><GrNext/></Button_Icon_Block_150>
+                ):(
+                    <Tooltip title='Siguiente página' placement="top">
+                        <Button_Icon_Blue_150 onClick={nextPageUsers}><GrNext/></Button_Icon_Blue_150>
+                    </Tooltip>
+                )} 
+            </Container_Pagination>
         </>
     );
 }

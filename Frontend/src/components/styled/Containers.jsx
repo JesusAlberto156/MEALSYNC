@@ -1,10 +1,22 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import styled from 'styled-components';
-import Background_Login_Dark from '../imgs/Background-Administration-Dark.jpeg'
+//__________ICONOS/IMAGENES__________
+// Imagenes de fondo para login
+import Background_Login_Dark from '../imgs/Background-Administration-Dark.jpeg';
 import Background_Login_Light from '../imgs/Background-Administration-Light.jpg';
+// Imagenes de fondo para cocina
 import Background_Menu_Dark from '../imgs/Background-Menu-Dark.jpg';
 import Background_Menu_Light from '../imgs/Background-Menu-Light.jpg';
+// Imagenes de fondo para administración
 import Background_Administration_Dark from '../imgs/Background-Administration-Dark.jpeg';
 import Background_Administration_Light from '../imgs/Background-Administration-Light.jpg'
+//__________ICONOS/IMAGENES__________
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
+
+// ESTILOS PERSONALIZADOS PARA LOS CONTENEDORES
 
 //____________PAGE____________
 export const Container_Page = styled.div`
@@ -65,7 +77,9 @@ export const Container_Page_Administration = styled.div.withConfig({
     justify-content: center;
     align-Items: center;
 `;
-export const Container_Page_Error_Dark = styled.div`
+export const Container_Page_Error = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: 100%;
     height: 100%;
     display: flex;
@@ -76,20 +90,7 @@ export const Container_Page_Error_Dark = styled.div`
     gap:10px;      
     top: 0; 
     left: 0;
-    background:rgb(125, 27, 27);
-`;
-export const Container_Page_Error_Light = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    position: fixed; 
-    justify-content: center; 
-    align-items: center;   
-    flex-direction: column;
-    gap:10px;      
-    top: 0; 
-    left: 0;
-    background: rgb(229, 44, 44);
+    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(229, 44, 44);' : 'rgb(125, 27, 27)')};
 `;
 export const Container_Page_Loading_Dark = styled.div`
     width: 100%;
@@ -165,6 +166,38 @@ export const Container_Page_Elements = styled.div.withConfig({
 `;
 //____________PAGE____________
 //____________FORM____________
+export const Container_Form_80 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    z-index: 4000;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 80%;
+    max-height: auto;
+    padding: 20px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(204, 203, 198, 0.7)' : 'rgba(41, 41, 40, 0.8)')};
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        padding: 15px;
+    }
+
+    @media (max-width: 480px) {    
+        padding: 10px;
+    }
+`;
 export const Container_Form_450 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -271,142 +304,62 @@ export const Container_Form_350 = styled.div.withConfig({
         padding: 10px;
     }
 `;
-
-export const Container_Form_350_Dark = styled.div`
-    position: relative;
-    z-index: 40;
-    width: 350px;
-    max-height: 72vh;
-    margin: 30px auto;
-    padding: 10px;
-    border-radius: 50px;
-    border: 4px solid white;
-    background-color:rgba(41, 41, 40, 0.8);
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin-top: 15px;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        width: 300px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        width: 250px;    
-        padding: 6px;
-    }
-`;
-export const Container_Form_350_Light = styled.div`
-    position: relative;
-    z-index: 40;
-    width: 350px;
-    max-height: 72vh;
-    margin: 30px auto;
-    padding: 10px;
-    border-radius: 50px;
-    border: 4px solid black;
-    background-color:rgba(204, 203, 198, 0.7);
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin-top: 15px;
-    
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        width: 300px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        width: 250px;    
-        padding: 6px;
-    }
-`;
-export const Container_Form_400_Dark = styled.div`
-    position: relative;
-    z-index: 40;
-    width: 400px;
-    max-height: 72vh;
-    margin-left: 30px;
-    padding: 10px;
-    border-radius: 50px;
-    border: 4px solid white;
-    background-color:rgba(41, 41, 40, 0.8);
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        width: 350px;
-        padding: 8px;
-        margin-left: 25px;
-    }
-
-    @media (max-width: 480px) {
-        width: 300px;    
-        padding: 6px;
-        margin-left: 20px;
-    }
-`;
-export const Container_Form_400_Light = styled.div`
-    position: relative;
-    z-index: 40;
-    width: 400px;
-    max-height: 72vh;
-    margin-left: 30px;
-    padding: 10px;
-    border-radius: 50px;
-    border: 4px solid black;
-    background-color:rgba(204, 203, 198, 0.7);
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        width: 350px;
-        padding: 8px;
-        margin-left: 25px;
-    }
-
-    @media (max-width: 480px) {
-        width: 300px;    
-        padding: 6px;
-        margin-left: 20px;
-    }
-`;
 //____________FORM____________
+
+//____________Contenedor completo sin bordes ____________
+export const Container_100_Right = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    border: none;      
+    position: relative; 
+    padding: 20px;
+    padding-right: 200px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        padding: 15px;
+        padding-right: 175px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+        padding-right: 150px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_100_Left = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    border: none;      
+    position: relative; 
+    padding: 20px;
+    padding-left: 200px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        padding: 15px;
+        padding-left: 175px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+        padding-left: 150px;
+        gap: 5px;
+    }
+}
+`;
+//____________Contenedor completo sin bordes ____________
 //____________MODAL____________
 export const Container_Modal = styled.div`
     position: fixed;
@@ -548,42 +501,6 @@ export const Container_Button_Row_300 = styled.div`
     }
 `;
 
-
-
-
-
-export const Container_Button_90 = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: 40px;  
-    border-radius: 50px; 
-    border: none;      
-    position: relative; 
-    padding: 4px;
-    gap: 15px;
-    margin-left: 15px;
-    padding-left: 40px;
-
-    @media (max-width: 768px) {
-        height: 50px;
-        padding: 3px;
-        gap: 10px;    
-        margin-left: 10px;
-        padding-left: 30px;
-    }
-
-    @media (max-width: 480px) {
-        height: 40px;
-        padding: 2px;
-        gap: 5px;
-        margin-left: 5px;
-        padding-left: 20px;
-    }
-}
-`;
 export const Container_Button_Border_Dark = styled.div`
     display: flex;
     gap: 15px; 

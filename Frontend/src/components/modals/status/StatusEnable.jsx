@@ -22,8 +22,8 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaExclamationCircle } from 'react-icons/fa';
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400_Light,Container_Button_Border_Light,Container_Form_400_Dark,Container_Button_Border_Dark } from "../../styled/Containers";
-import { Text_Title_Fade_30_Light,Text_P_20_Light,Text_Title_Fade_30_Dark,Text_P_20_Dark } from "../../styled/Text";
+import { Container_Modal,Container_Form_400,Container_Button_Border_Light } from "../../styled/Containers";
+import { Text_Title_Fade_30,Text_P_Left_20 } from "../../styled/Text";
 import { Button_Icon_Blue_50_Light,Button_Icon_Green_50_Light,Button_Icon_Red_50_Light,Button_Icon_Block_50_Light,Button_Icon_Blue_50_Dark,Button_Icon_Green_50_Dark,Button_Icon_Red_50_Dark,Button_Icon_Block_50_Dark } from "../../styled/Buttons";
 import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
 
@@ -31,7 +31,7 @@ import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
 import FormComprobation from "../../forms/Comprobation";
 //____________IMPORT/EXPORT____________
 
-export default function StatusEnable(){
+export default function Status_Enable(){
     // Constantes con el valor de los contextos
     const [isSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
@@ -41,8 +41,8 @@ export default function StatusEnable(){
     const [user,setUser] = useState('');
     // useEffect con el titulo del modal
     useEffect(() => {
-        if(isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Estatus_Deshabilitar"
-        if(!isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Estatus_Habilitar"
+        if(isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Usuarios_Estatus_Deshabilitar"
+        if(!isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Usuarios_Estatus_Habilitar"
         if(isSelectedRow !== null){
             const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
             if(isUser){
@@ -58,10 +58,10 @@ export default function StatusEnable(){
         <>
             {isSelectedRow !== null ? (
                 <Container_Modal ref={modal}>
-                            <Container_Form_400_Light ref={form}>
-                                <Text_Title_Fade_30_Light>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30_Light>
+                            <Container_Form_400 ref={form}>
+                                <Text_Title_Fade_30>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30>
                                 <FormComprobation/>
-                                {isSelectedRow.habilitado ? <Text_P_20_Light>Se deshabilitará a {user} </Text_P_20_Light> : <Text_P_20_Light>Se habilitará a {user}...</Text_P_20_Light>}
+                                {isSelectedRow.habilitado ? <Text_P_Left_20>Se deshabilitará a {user} </Text_P_Left_20> : <Text_P_Left_20>Se habilitará a {user}...</Text_P_Left_20>}
                                 <Container_Button_Border_Light>
                                         <Button_Icon_Blue_50_Light onClick={(e) => {
                                             e.stopPropagation();
@@ -101,7 +101,7 @@ export default function StatusEnable(){
                                         )
                                     )}
                                 </Container_Button_Border_Light>
-                            </Container_Form_400_Light>
+                            </Container_Form_400>
 
                 </Container_Modal>
             ):(<></>)}

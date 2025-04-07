@@ -30,7 +30,7 @@ import { Button_Icon_Blue_80_Light,Button_Icon_Block_80_Light,Button_Icon_Blue_8
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
-export default function FormComprobation(){
+export default function Form_Comprobation(){
     // Constantes con el valor de los contextos
     const [themeMode,setThemeMode] = useContext(themeModeContext);
     const [isName,setIsName] = useContext(nameContext);

@@ -22,7 +22,7 @@ import { Container_Pagination } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
 import { Text_Span_16 } from "../styled/Text";
-import { Icon_Table_Green,Icon_Table_Red } from "../styled/Icons"
+import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los estatus de usuarios
@@ -86,8 +86,8 @@ export default function TableStatus(){
                                 }}
                             >
                                 <Td ThemeMode={themeMode}>{user.nombre}</Td>
-                                <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Table_Green ThemeMode={themeMode}><FaUserLock/></Icon_Table_Green> : <Icon_Table_Red ThemeMode={themeMode}><FaUserLock/></Icon_Table_Red>}</Td>
-                                <Td ThemeMode={themeMode}>{status.activo ? <Icon_Table_Green ThemeMode={themeMode}><FaUserClock/></Icon_Table_Green>: <Icon_Table_Red ThemeMode={themeMode}><FaUserClock/></Icon_Table_Red>}</Td>
+                                <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_16 ThemeMode={themeMode}><FaUserLock/></Icon_Green_16> : <Icon_Red_16 ThemeMode={themeMode}><FaUserLock/></Icon_Red_16>}</Td>
+                                <Td ThemeMode={themeMode}>{status.activo ? <Icon_Green_16 ThemeMode={themeMode}><FaUserClock/></Icon_Green_16>: <Icon_Red_16 ThemeMode={themeMode}><FaUserClock/></Icon_Red_16>}</Td>
                             </Tr>
                         ))
                     ))}

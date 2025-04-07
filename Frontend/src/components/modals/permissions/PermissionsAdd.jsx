@@ -26,14 +26,14 @@ import { Input_Checkbox_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar permisos a los usuarios
-export default function PermissionsAdd(){
+export default function Permissions_Add(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(themeModeContext);
-    const [isActiveBlock] = useContext(actionBlockContext);
+    const [isActionBlock] = useContext(actionBlockContext);
     const [isSelect] = useContext(selectContext);
     // useEffect con el titulo del modal
     useEffect(() => {
-        document.title = "MEALSYNC_Administración_Permisos_Agregar"
+        document.title = "MEALSYNC_Administración_Usuarios_Permisos_Agregar"
     },[]);
     // Constantes con la funcionalidad de los hooks
     const changeModalView = useChangeModalView();
@@ -151,7 +151,7 @@ export default function PermissionsAdd(){
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => changeModalView()}><MdCancel/></Button_Icon_Blue_170>
                         </Tooltip>
-                        {isActiveBlock ? (
+                        {isActionBlock ? (
                             <>
                                 <Button_Icon_Block_170 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_170>
                             </>

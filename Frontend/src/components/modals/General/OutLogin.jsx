@@ -7,7 +7,7 @@ import { Tooltip } from "@mui/material";
 
 // Contextos
 import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { typeUserContext } from "../../../contexts/VariablesProvider";
+import { typeUserContext,actionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { useChangeModalView } from "../../../hooks/Views";
 import { useChangeLog } from "../../../hooks/Form";
@@ -20,16 +20,17 @@ import { ImExit } from "react-icons/im";
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Button_Border_Row_350 } from "../../styled/Containers";
 import { Text_Title_Fade_30,Text_P_Left_20 } from "../../styled/Text";
-import { Button_Icon_Blue_150,Button_Icon_Red_150 } from "../../styled/Buttons";
+import { Button_Icon_Blue_150,Button_Icon_Red_150,Button_Icon_Block_150 } from "../../styled/Buttons";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
 
 // Modal para cerrar sesión
-export default function OutLogin(){
+export default function Out_Login(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
     const [isTypeUser] = useContext(typeUserContext);
+    const [isActionBlock] = useContext(actionBlockContext);
     // useEffect con el titulo del modal
     useEffect(() => {
         if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
@@ -52,9 +53,17 @@ export default function OutLogin(){
                             <Tooltip title="Cancelar" placement="top">
                                 <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => chanheModalView('')}><MdCancel/></Button_Icon_Blue_150>
                             </Tooltip>
-                            <Tooltip title="Cerrar sesión" placement="top">
-                                <Button_Icon_Red_150 ThemeMode={themeMode} onClick={() => changeLog()}><ImExit/></Button_Icon_Red_150>
-                            </Tooltip>
+                            {isActionBlock ? (
+                                <>
+                                    <Button_Icon_Block_150 ThemeMode={themeMode}><ImExit/></Button_Icon_Block_150>
+                                </> 
+                            ):(
+                                <>
+                                    <Tooltip title="Cerrar sesión" placement="top">
+                                        <Button_Icon_Red_150 ThemeMode={themeMode} onClick={() => changeLog()}><ImExit/></Button_Icon_Red_150>
+                                    </Tooltip>  
+                                </>
+                            )}
                         </Container_Button_Border_Row_350>
                 </Container_Form_400>
             </Container_Modal>

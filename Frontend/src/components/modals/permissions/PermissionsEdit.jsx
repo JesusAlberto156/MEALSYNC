@@ -20,13 +20,13 @@ import { Button_Icon_Blue_150,Button_Icon_Red_150,Button_Icon_Block_150 } from "
 //____________IMPORT/EXPORT____________
 
 // Modal para editar permisos a los usuarios
-export default function PermissionsEdit(){
+export default function Permissions_Edit(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(themeModeContext);
-    const [isActiveBlock] = useContext(actionBlockContext);
+    const [isActionBlock] = useContext(actionBlockContext);
     // useEffect con el titulo del modal
     useEffect(() => {
-        document.title = "MEALSYNC_Administración_Permisos_Editar"
+        document.title = "MEALSYNC_Administración_Usuarios_Permisos_Editar"
     },[]);
     // Constantes con la funcionalidad de los hooks
     const changeModalView = useChangeModalView();
@@ -40,7 +40,7 @@ export default function PermissionsEdit(){
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Red_150 ThemeMode={themeMode} onClick={() => changeModalView()}><MdCancel/></Button_Icon_Red_150>
                         </Tooltip>
-                        {isActiveBlock ? (
+                        {isActionBlock ? (
                             <>
                                 <Button_Icon_Block_150 ThemeMode={themeMode}><AiFillEdit/></Button_Icon_Block_150>
                             </>

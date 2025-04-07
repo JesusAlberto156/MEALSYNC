@@ -23,9 +23,6 @@ import { loggedContext,logContext } from "../contexts/SessionProvider";
 import { Alert_Greeting,Alert_Styles,Alert_Verification } from "../components/styled/Alerts";
 import { Background_Menu } from "../components/styled/Backgrounds";
 // Componentes personalizados
-import OutLogin from "../components/modals/General/OutLogin";
-import AlertMedico from "../components/modals/General/AlertDoctor";
-import ShoppingCart from "../components/modals/General/ShoppingCart";
 import Home from '../components/pages/general/Home';
 import OptionsMenu from '../components/pages/menu/OptionsMenu';
 import Sidebar from "../components/navegation/Sidebar";

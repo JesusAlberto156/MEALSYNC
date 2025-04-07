@@ -17,9 +17,9 @@ import { sidebarViewContext,navbarViewContext } from "../../../contexts/ViewsPro
 // Estilos personalizados
 
 // Componentes personalizados
-import Setting from "../../navegation/Setting";
-import Navbar from "../../navegation/Navbar"
-import SearchBar from '../../navegation/SearchBar'
+import Setting_Bar from "../../navegation/SettingBar";
+import Nav_Bar from "../../navegation/NavBar"
+import Search_Bar from '../../navegation/SearchBar'
 import TableUsers from "../../tables/TableUsers";
 import TablePermissions from "../../tables/TablePermissions";
 import TableStatus from '../../tables/TableStatus';
@@ -33,9 +33,9 @@ export default function Users(){
     // Estructura del componente
     return(
         <> 
-            <Setting/>
-            <Navbar/> 
-            <SearchBar/>  
+            <Setting_Bar/>
+            <Nav_Bar/> 
+            <Search_Bar/>  
             {currentSView === 'Users' && currentNView === 'Principal' ? (
                 <TableUsers/>
             ):(

@@ -8,6 +8,7 @@ import { Users,User } from './UsersProvider';
 import { Permissions,Permission } from './PermissionsProvider';
 import { Status_All,Status_User,Status_Add,Status_Enable } from './StatusProvider';
 import { Log,Logged } from './SessionProvider';
+import { Ref_Form } from './RefsProvider';
 
 import { Form,Search,StatusModal } from './RefsProvider';
 //____________IMPORT/EXPORT____________
@@ -36,23 +37,25 @@ export const AppProviders = ({children}) => {
                                                                                 <Status_User>
                                                                                     <Log>
                                                                                         <Logged>
-                                                                                            <Search>
-                                                                                                <Form>
-                                                                                                    <StatusModal>
-                                                                                                        <Users>
-                                                                                                            <Permissions>
-                                                                                                                <Status_All>
-                                                                                                                    <Status_Add>
-                                                                                                                        <Status_Enable>
-                                                                                                                            {children}
-                                                                                                                        </Status_Enable>
-                                                                                                                    </Status_Add>
-                                                                                                                </Status_All>
-                                                                                                            </Permissions>
-                                                                                                        </Users>
-                                                                                                    </StatusModal>
-                                                                                                </Form>
-                                                                                            </Search>
+                                                                                            <Ref_Form>
+                                                                                                <Search>
+                                                                                                    <Form>
+                                                                                                        <StatusModal>
+                                                                                                            <Users>
+                                                                                                                <Permissions>
+                                                                                                                    <Status_All>
+                                                                                                                        <Status_Add>
+                                                                                                                            <Status_Enable>
+                                                                                                                                {children}
+                                                                                                                            </Status_Enable>
+                                                                                                                        </Status_Add>
+                                                                                                                    </Status_All>
+                                                                                                                </Permissions>
+                                                                                                            </Users>
+                                                                                                        </StatusModal>
+                                                                                                    </Form>
+                                                                                                </Search>
+                                                                                            </Ref_Form>
                                                                                         </Logged>
                                                                                     </Log>
                                                                                 </Status_User>

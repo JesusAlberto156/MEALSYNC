@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Toaster } from 'sonner';
 import { Tooltip } from "@mui/material";
+import KioskBoard from "kioskboard";
 // Servicios
 import { encryptData } from "../services/Crypto";
 // Contextos
@@ -41,9 +42,9 @@ import { Text_Title_Fade_22 } from "../components/styled/Text";
 import { Button_Icon_Blue_220,Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../components/styled/Buttons";
 import { Alert_Greeting,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
-import Setting from '../components/navegation/Setting';
 import Footer from '../components/footer/Footer';
-import FormLogin from "../components/forms/Login";
+import Form_Login from "../components/forms/Login";
+import Setting_Bar from "../components/navegation/SettingBar";
 //____________IMPORT/EXPORT____________
 
 // Página para iniciar sesión
@@ -60,7 +61,7 @@ export default function Login(){
     const [isUsers] = useContext(usersContext);
     const [isUser,setIsUser] = useContext(userContext);
     const [isTypeUser] = useContext(typeUserContext);
-    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [themeMode] = useContext(themeModeContext);
     const [currentLView] = useContext(loginViewContext);
     const [currentMView,setCurrentMView] = useContext(modalViewContext);
@@ -76,7 +77,7 @@ export default function Login(){
             document.title = "Cargando...";
             const promise = new Promise(async (resolve,reject) => {
                 try{
-                    setIsActiveBlock(true);
+                    setIsActionBlock(true);
                     setTimeout(() => {
                         const existsUser = isUsers.find(user => user.usuario === isName);
                         
@@ -86,7 +87,7 @@ export default function Login(){
 
                             if(!existsStatus || !existsStatus.habilitado || existsStatus.activo || !existsPermission){
                                 setIsLog(false);
-                                setIsActiveBlock(false);
+                                setIsActionBlock(false);
                                 reject('¡No es posible utilizar este usuario!...');
                             }
 
@@ -126,18 +127,18 @@ export default function Login(){
                                                 setIsPassword('');
                                                 setIsLog(false);
                                                 setIsLogged(true);
-                                                setIsActiveBlock(false);
+                                                setIsActionBlock(false);
                                                 navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
                                             },2000);
                                         }else{
                                             setIsLog(false);
-                                            setIsActiveBlock(false);
+                                            setIsActionBlock(false);
                                             reject('¡Error al encriptar las credenciales!...');
                                         }
                                     },500);
                                 }else{
                                     setIsLog(false);
-                                    setIsActiveBlock(false);
+                                    setIsActionBlock(false);
                                     reject('¡Error al encriptar las credenciales!...')
                                 }
                             }
@@ -149,8 +150,8 @@ export default function Login(){
                                isTypeUser === 'Chef' && !existsPermission.chef ||
                                isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
                                 setIsLog(false);
-                                setIsActiveBlock(false);
-                                return reject('¡Tu usuario no cuenta con los permisos necesarios para este acceder!...');
+                                setIsActionBlock(false);
+                                return reject('¡Tu usuario no cuenta con los permisos necesarios para acceder!...');
                             }
                             
                             const jsonUser = JSON.stringify(existsUser);
@@ -188,29 +189,29 @@ export default function Login(){
                                             setIsPassword('');
                                             setIsLog(false);
                                             setIsLogged(true);
-                                            setIsActiveBlock(false);
+                                            setIsActionBlock(false);
                                             navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
                                         },2000);
                                     }else{
                                         setIsLog(false);
-                                        setIsActiveBlock(false);
+                                        setIsActionBlock(false);
                                         reject('¡Error al encriptar las credenciales!...');
                                     }
                                 },500);
                             }else{
                                 setIsLog(false);
-                                setIsActiveBlock(false);
+                                setIsActionBlock(false);
                                 reject('¡Error al encriptar las credenciales!...')
                             }
                         }else{
                             setIsLog(false);
-                            setIsActiveBlock(false);
+                            setIsActionBlock(false);
                             reject('¡Usuario o contraseña incorrectos!...');
                         }
                     },1000);
                 }catch(error){
                     setIsLog(false);
-                    setIsActiveBlock(false);
+                    setIsActionBlock(false);
                     reject('¡Ocurrio un error inesperado!...');
                 }
             });
@@ -228,7 +229,7 @@ export default function Login(){
     return(
         <Container_Page>
             <Container_Page_Login ThemeMode={themeMode}>
-                <Setting/>
+                <Setting_Bar/>
                 <Container_Form_350 ThemeMode={themeMode}>
                     {currentLView === '' ? (
                         <>  
@@ -294,7 +295,7 @@ export default function Login(){
                         <>
                             <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
                             <Text_Title_Fade_22 ThemeMode={themeMode}>Iniciar sesión</Text_Title_Fade_22>
-                            <FormLogin/>
+                            <Form_Login/>
                             <Container_Button_Row_300>
                                 <Tooltip title='Atrás' placement="top">
                                     <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => changeViewLogin(

@@ -117,6 +117,19 @@ export const useHandleRadioChange = () => {
     return handleRadioChange;
 }
 
+export const usehandleKeyChangeKeyboard = () => {
+
+    const [isName,setIsName] = useContext(nameContext);
+
+    const handleKeyChangeKeyboard = (key) => {
+        setIsName(isName+key);
+        console.log(isName);
+    }
+
+    return handleKeyChangeKeyboard;
+}
+
+
 export const useComprobation = () => {
 
     const [isName] = useContext(nameContext);

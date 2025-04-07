@@ -1,43 +1,6 @@
 import styled from 'styled-components';
 
 //____________ICON____________
-// Modo claro/Oscuro
-export const Button_Icon_Theme_40 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 40px;
-    padding: 6px;
-    font-size: 22px;
-    border-radius: 50px;
-    background-color: transparent;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: 55px;
-    z-index: 2000;
-    
-    &:hover {
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 30px;
-        font-size: 18px;
-        margin-right: 45px;
-        margin-top: 10px;
-    }
-
-    @media (max-width: 480px) {
-        width: 20px;
-        font-size: 14px;
-        margin-right: 35px;
-        margin-top: 5px;
-    }
-`;
 // Ocultar/Mostrar Sidebar
 export const Button_Icon_Toggle = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -464,6 +427,40 @@ export const Button_Icon_Red_45 = styled.button.withConfig({
     }
 `;
 // Color Blanco
+export const Button_Icon_White_200 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 200px;
+    padding: 4px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+        border: ${({ ThemeMode }) => (ThemeMode ? '2px solid white' : '2px solid black')};
+        color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 170px;
+        padding: 3px;
+        font-size: 25px;
+    }
+
+    @media (max-width: 480px) {
+        width: 140px;    
+        padding: 2px;
+        font-size: 20px;
+    }
+`;
 export const Button_Icon_White_100 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -1163,66 +1160,6 @@ export const Button_Icon_White_100_Light = styled.button`
         padding: 7px;
         font-size: 15px;
         width: 80px;
-    }
-`;
-export const Button_Icon_White_200_Dark = styled.button`
-    width: 200px;
-    padding: 6px;
-    font-size: 30px;
-    border-radius: 50px;
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color: black;
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        padding: 4px;
-        font-size: 25px;
-        width: 150px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 20px;
-        width: 100px;
-    }
-`;
-export const Button_Icon_White_200_Light = styled.button`
-    width: 200px;
-    padding: 6px;
-    font-size: 30px;
-    border-radius: 50px;
-    background-color: transparent;
-    color: black;
-    border: 2px solid black;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-sizing: border-box;
-    
-    &:hover {
-        background-color: white;
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        padding: 4px;
-        font-size: 25px;
-        width: 150px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 2px;
-        font-size: 20px;
-        width: 100px;
     }
 `;
 // Bloqueados

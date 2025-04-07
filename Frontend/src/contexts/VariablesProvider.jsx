@@ -2,7 +2,7 @@
 // Hooks de React
 import { createContext,useState } from "react"
 // Servicios
-import { decryptData } from "../services/Crypto";
+
 // Contextos
 export const typeUserContext = createContext(null);
 export const selectedRowContext = createContext(null);

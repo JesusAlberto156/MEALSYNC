@@ -13,6 +13,7 @@ import { useChangeModalView } from "../../hooks/Views";
 //__________ICONOS__________
 // Icono para la el buscador
 import { FcSearch } from "react-icons/fc";
+import { FaShoppingCart } from "react-icons/fa";
 // Iconos para la seccion de usuarios
 
 // Iconos para la sección de permisos
@@ -28,14 +29,14 @@ import { FaLockOpen } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Searchbar } from "../styled/Containers";
 import { Button_Icon_Green_45,Button_Icon_Blue_45,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
-import { Icon_Search } from "../styled/Icons";
+import { Icon_25,Icon_Button_25 } from "../styled/Icons";
 import { Input_Search } from "../styled/Inputs";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
 
 // Componente para buscar elementos o acciones en las tablas
-export default function SearchBar (){
+export default function Search_Bar (){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(themeModeContext);
     const [currentNView] = useContext(navbarViewContext);
@@ -51,16 +52,14 @@ export default function SearchBar (){
     return(
         <>
             <Container_Searchbar ref={isSearch}>
-                <Icon_Search>
-                    <FcSearch/>
-                </Icon_Search>
+                <Icon_25><FcSearch/></Icon_25>
                 <Input_Search
                     type="text"
                     placeholder="Buscar..."
                     value={isSearchTerm}
                     onChange={(e) => setIsSearchTerm(e.target.value)}
                 />
-                
+                <Icon_Button_25><FaShoppingCart/></Icon_Button_25>
                 {currentSView === 'Users' && currentNView === 'Permissions' ? (
                     isPermission.superadministrador ? (
                         isSelectedRow === null ? (

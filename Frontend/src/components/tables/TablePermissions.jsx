@@ -5,14 +5,16 @@ import { useContext,useEffect } from "react"
 import { Tooltip } from "@mui/material"
 // Contextos
 import { selectedRowContext } from "../../contexts/VariablesProvider"
+import { refFormPermissionsContext,refButtonPermissionsContext } from "../../contexts/RefsProvider"
 import { usersContext } from "../../contexts/UsersProvider"
 import { permissionContext } from "../../contexts/PermissionsProvider"
 import { themeModeContext } from "../../contexts/ViewsProvider"
+import { checkboxContext } from "../../contexts/FormsProvider"
 // Hooks personalizados
 import { useTableActions } from "../../hooks/Table"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
-import { FaCheck } from "react-icons/fa"
+import { FaShieldAlt } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -31,33 +33,52 @@ export default function TablePermissions(){
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isPermission] = useContext(permissionContext);
     const [isUsers] = useContext(usersContext);
+    const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
+    const {Modal,Form} = useContext(refFormPermissionsContext);
+    const {Button_Edit_P,Button_Super_P} = useContext(refButtonPermissionsContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const table = document.getElementById("Tabla-Permisos");
-            const elements = document.querySelectorAll('#Boton-Permisos-Cancelar, #boton-permisos-editar, #boton-permisos-eliminar, #boton-permisos-super-administrador, #Permisos-Editar, #Permisos-Eliminar, #Permisos-Super-Administrador');
+            const table = document.getElementById("Table-Permissions");
+
+            const clickedInsideModal = Modal.current && Modal.current.contains(event.target);
+            const clickedInsideForm = Form.current && Form.current.contains(event.target);
+            const clickedInsideButtonE = Button_Edit_P.current && Button_Edit_P.current.contains(event.target);
+            const clickedInsideButtonS = Button_Super_P.current && Button_Super_P.current.contains(event.target);
 
             if (table && !table.contains(event.target) &&
-            ![...elements].some((btn) => btn.contains(event.target))) {
+                !clickedInsideButtonE &&
+                !clickedInsideButtonS && 
+                !clickedInsideModal &&
+                !clickedInsideForm
+            ) {
                 setIsSelectedRow(null);
             }
         };
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    }, []);
+    }, [Modal,Form,Button_Edit_P,Button_Super_P]);
+    // UseEffect que pasa el valor a un check con la selección de la tabla
+    useEffect(() => {
+        if(isSelectedRow !== null){
+            setIsCheckbox(isSelectedRow);
+        }else{
+            setIsCheckbox([]);
+        }
+    },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = useTableActions();
     // Estructura del componente
     return(
         <>
-            <Table ThemeMode={themeMode} id="Tabla-Permisos">
+            <Table id="Table-Permissions">
                 <thead>
                     <Tr>
                         <Th ThemeMode={themeMode}>Nombre de Usuario</Th>
                         <Th ThemeMode={themeMode}>Administrador</Th>
                         <Th ThemeMode={themeMode}>Chef</Th>
-                        <Th ThemeMode={themeMode}>Almacén</Th>
+                        <Th ThemeMode={themeMode}>Almacenista</Th>
                         <Th ThemeMode={themeMode}>Cocinero</Th>
                         <Th ThemeMode={themeMode}>Nutriologo</Th>
                         <Th ThemeMode={themeMode}>Medico</Th>
@@ -81,14 +102,14 @@ export default function TablePermissions(){
                                 }}
                             >
                                 <Td ThemeMode={themeMode}>{user.nombre}</Td>
-                                <Td ThemeMode={themeMode}>{permission.administrador ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                <Td ThemeMode={themeMode}>{permission.chef ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                <Td ThemeMode={themeMode}>{permission.almacen ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                <Td ThemeMode={themeMode}>{permission.cocinero ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                <Td ThemeMode={themeMode}>{permission.nutriologo ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
-                                <Td ThemeMode={themeMode}>{permission.medico ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                <Td ThemeMode={themeMode}>{permission.administrador ? <Icon_Green_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Green_16>:<Icon_Red_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Red_16>}</Td>
+                                <Td ThemeMode={themeMode}>{permission.chef ? <Icon_Green_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Green_16>:<Icon_Red_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Red_16>}</Td>
+                                <Td ThemeMode={themeMode}>{permission.almacenista ? <Icon_Green_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Green_16>:<Icon_Red_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Red_16>}</Td>
+                                <Td ThemeMode={themeMode}>{permission.cocinero ? <Icon_Green_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Green_16>:<Icon_Red_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Red_16>}</Td>
+                                <Td ThemeMode={themeMode}>{permission.nutriologo ? <Icon_Green_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Green_16>:<Icon_Red_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Red_16>}</Td>
+                                <Td ThemeMode={themeMode}>{permission.medico ? <Icon_Green_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Green_16>:<Icon_Red_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Red_16>}</Td>
                                 {isPermission.superadministrador ? (
-                                    <Td ThemeMode={themeMode}>{permission.superadministrador ? <FaCheck style={{color:'rgb(20, 165, 76)'}}/>:(<FaCheck style={{color:'rgb(155, 9, 9)'}}/>)}</Td>
+                                    <Td ThemeMode={themeMode}>{permission.superadministrador ? <Icon_Green_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Green_16>:<Icon_Red_16 ThemeMode={themeMode}><FaShieldAlt/></Icon_Red_16>}</Td>
                                 ):(
                                     <></>
                                 )}

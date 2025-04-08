@@ -35,7 +35,7 @@ export default function TableUsers(){
 
     return(
         <>
-            <Table ThemeMode={themeMode} id="Tabla-Usuarios">
+            <Table id="Tabla-Usuarios">
                 <thead>
                     <Tr>
                         <Th ThemeMode={themeMode}>ID Usuario</Th>
@@ -51,7 +51,7 @@ export default function TableUsers(){
                             key={user.idusuario}
                             onClick={() => handleRowClick(user)}
                             style={{
-                                backgroundColor: isSelectedRow === user ? '#e0f7fa' : 'transparent',
+                                backgroundColor:  isSelectedRow === user ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
                                 cursor: 'pointer',
                                 transition: 'background-color 0.5s ease',
                             }}
@@ -74,7 +74,7 @@ export default function TableUsers(){
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )}
-                <Text_Span_16>Página {currentPage} de {totalPagesUsers}</Text_Span_16>
+                <Text_Span_16 ThemeMode={themeMode}>Página {currentPage} de {totalPagesUsers}</Text_Span_16>
                 {currentPage === totalPagesUsers || totalPagesUsers === 0 ? (
                     <Button_Icon_Block_150 ThemeMode={themeMode}><GrNext/></Button_Icon_Block_150>
                 ):(

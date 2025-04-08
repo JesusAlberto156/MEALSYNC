@@ -134,12 +134,12 @@ export const Status_Add = ({ children }) => {
                                 setIsSelect([]);
                                 setIsStatusAdd(false);
                                 setIsActiveBlock(false);
-                            },1000);
+                            },500);
 
                             return () => {
                                 socket.off('statusInsert');
                             }
-                        },1000);
+                        },2000);
                     }catch(error){
                         setIsActiveBlock(false);
                         setIsStatusAdd(false);
@@ -178,8 +178,7 @@ export const Status_Enable = ({ children }) => {
             if(isStatusEnable.habilitado){
                 if(enable){
                     const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setIsActionBlock(false); 
+                        try{ 
                             setTimeout(() => {
                                 socket.emit('statusDisable',isStatusEnable.idusuario,enable.usuario);
         

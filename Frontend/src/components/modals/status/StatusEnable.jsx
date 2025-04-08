@@ -11,7 +11,7 @@ import { useContext,useEffect,useState } from "react";
 import { themeModeContext } from "../../../contexts/ViewsProvider";
 import { selectedRowContext,actionBlockContext } from "../../../contexts/VariablesProvider";
 import { usersContext } from "../../../contexts/UsersProvider";
-import { refFormContext } from "../../../contexts/RefsProvider";
+import { refFormStatusContext } from "../../../contexts/RefsProvider";
 // Hooks personalizados
 import { useChangeStatusEnable } from "../../../hooks/Form";
 import { useChangeModalView } from "../../../hooks/Views";
@@ -38,7 +38,7 @@ export default function Status_Enable(){
     const [isSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
     const [isActionBlock] = useContext(actionBlockContext);
-    const {Modal,Form,Button} = useContext(refFormContext);
+    const {Modal,Form} = useContext(refFormStatusContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
     // useEffect con el titulo del modal
@@ -67,7 +67,7 @@ export default function Status_Enable(){
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
                                 <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={(e) => {
                                     e.stopPropagation();
-                                    changeModalView();
+                                    changeModalView('');
                                 }}>
                                         <MdCancel/>
                                 </Button_Icon_Blue_150>

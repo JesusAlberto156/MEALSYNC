@@ -10,7 +10,7 @@ import { actionBlockContext } from "../../../contexts/VariablesProvider";
 import { selectContext,checkboxContext } from "../../../contexts/FormsProvider";
 // Hooks personalizados
 import { useChangeModalView } from "../../../hooks/Views";
-import { useHandleSelectChange,useFilteredRecordsHasPermissions,useHandleCheckboxChange } from "../../../hooks/Form";
+import { useChangePermissionsAdd,useHandleSelectChange,useFilteredRecordsHasPermissions,useHandleCheckboxChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -37,6 +37,7 @@ export default function Permissions_Add(){
         document.title = "MEALSYNC_Administración_Usuarios_Permisos_Agregar"
     },[]);
     // Constantes con la funcionalidad de los hooks
+    const changePermissionsAdd = useChangePermissionsAdd();
     const changeModalView = useChangeModalView();
     const handleSelectChange = useHandleSelectChange();
     const handleCheckboxChange = useHandleCheckboxChange();
@@ -163,7 +164,7 @@ export default function Permissions_Add(){
                     <Text_P_Left_20 ThemeMode={themeMode}>Agregar permisos</Text_P_Left_20>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Tooltip title='Cancelar' placement="top">
-                            <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => changeModalView()}><MdCancel/></Button_Icon_Blue_170>
+                            <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => changeModalView('')}><MdCancel/></Button_Icon_Blue_170>
                         </Tooltip>
                         {isActionBlock ? (
                             <>
@@ -172,7 +173,7 @@ export default function Permissions_Add(){
                         ):(
                             <>
                                 <Tooltip title='Agregar' placement="top">
-                                    <Button_Icon_Green_170 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Green_170>
+                                    <Button_Icon_Green_170 ThemeMode={themeMode} onClick={() => changePermissionsAdd()}><MdAddModerator/></Button_Icon_Green_170>
                                 </Tooltip>
                             </>
                         )}

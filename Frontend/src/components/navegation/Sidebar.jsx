@@ -56,7 +56,7 @@ export default function Side_Bar() {
         <Text_Title_Fade_20 ThemeMode={themeMode}>{isUser.nombre}</Text_Title_Fade_20>
         <Tooltip title='Inicio' placement="right">
           <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                  changeSidebarView('General')
+                  changeSidebarView('Home')
                   changeNavbarView('')
           }}>
             <Text_A_18>Inicio</Text_A_18><BiSolidHomeAlt2/>

@@ -5,10 +5,10 @@ import { Theme_Mode,Login_View,Navbar_View,Sidebar_View,Sidebar_Visible,Modal_Vi
 import { Name,Password,Select,Radio,Checkbox } from './FormsProvider';
 import { Type_User,Selected_Row,Search_Term,Form_Comprobation,Action_Block } from './VariablesProvider';
 import { Users,User } from './UsersProvider';
-import { Permissions,Permission } from './PermissionsProvider';
+import { Permissions,Permission,Permissions_Add,Permissions_Edit } from './PermissionsProvider';
 import { Status_All,Status_User,Status_Add,Status_Enable } from './StatusProvider';
 import { Log,Logged } from './SessionProvider';
-import { Ref_Form } from './RefsProvider';
+import { Ref_Form_Permissions,Ref_Button_Permissions,Ref_Form_Status,Ref_Button_Status } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
 // Función general de contextos
@@ -36,19 +36,29 @@ export const AppProviders = ({children}) => {
                                                                                     <Status_User>
                                                                                         <Log>
                                                                                             <Logged>
-                                                                                                <Ref_Form>
-                                                                                                    <Users>
-                                                                                                        <Permissions>
-                                                                                                            <Status_All>
-                                                                                                                <Status_Add>
-                                                                                                                    <Status_Enable>
-                                                                                                                        {children}
-                                                                                                                    </Status_Enable>
-                                                                                                                </Status_Add>
-                                                                                                            </Status_All>
-                                                                                                        </Permissions>
-                                                                                                    </Users>
-                                                                                                </Ref_Form>
+                                                                                                <Ref_Form_Permissions>
+                                                                                                    <Ref_Button_Permissions>
+                                                                                                        <Ref_Form_Status>
+                                                                                                            <Ref_Button_Status>
+                                                                                                                <Users>
+                                                                                                                    <Permissions>
+                                                                                                                        <Status_All>
+                                                                                                                            <Permissions_Add>
+                                                                                                                                <Permissions_Edit>
+                                                                                                                                    <Status_Add>
+                                                                                                                                        <Status_Enable>
+                                                                                                                                            {children}
+                                                                                                                                        </Status_Enable>
+                                                                                                                                    </Status_Add>
+                                                                                                                                </Permissions_Edit>
+                                                                                                                            </Permissions_Add>
+                                                                                                                        </Status_All>
+                                                                                                                    </Permissions>
+                                                                                                                </Users>
+                                                                                                            </Ref_Button_Status>
+                                                                                                        </Ref_Form_Status>
+                                                                                                    </Ref_Button_Permissions>
+                                                                                                </Ref_Form_Permissions>
                                                                                             </Logged>
                                                                                         </Log>
                                                                                     </Status_User>

@@ -5,7 +5,7 @@ export const permissions = (socket) => {
     socket.on('permissionsInsert',async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
         try{
             await insertPermissionsService(id,administrador,chef,almacenista,cocinero,nutriologo,medico);
-            io.emit('statusInsert','Se inserto los permisos a ',user);
+            io.emit('permissionsInsert','Se inserto los permisos a ',user);
         }catch(error){
             console.error('Error al insertar: ',error);
             return error;

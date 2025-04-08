@@ -8,14 +8,14 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { sidebarViewContext,navbarViewContext } from "../../../contexts/ViewsProvider";
+import { sidebarViewContext,navbarViewContext,themeModeContext } from "../../../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
 
 //__________ICONOS__________
 // Estilos personalizados
-
+import { Img_Logo_Horizontal_Hospital_450 } from "../../styled/Imgs";
 // Componentes personalizados
 import Setting_Bar from "../../navegation/SettingBar";
 import Nav_Bar from "../../navegation/NavBar"
@@ -28,6 +28,7 @@ import TableStatus from '../../tables/TableStatus';
 // Componente para mostrar la seccion de usuarios en administración
 export default function Users(){
     // Constantes con el valor de los contextos 
+    const [themeMode] = useContext(themeModeContext);
     const [currentNView] = useContext(navbarViewContext);
     const [currentSView] = useContext(sidebarViewContext);
     // Estructura del componente
@@ -51,6 +52,7 @@ export default function Users(){
             ):(
                 <></>
             )}
+            <Img_Logo_Horizontal_Hospital_450 ThemeMode={themeMode}/>
         </>
     )
 }

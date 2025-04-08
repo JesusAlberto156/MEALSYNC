@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { logContext } from "../contexts/SessionProvider";
 import { nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
-import { permissionsContext } from "../contexts/PermissionsProvider";
+import { permissionsContext,permissionsAddContext,permissionsEditContext } from "../contexts/PermissionsProvider";
 import { statusAllContext,statusAddContext,statusEnableContext } from '../contexts/StatusProvider';
 import { formComprobationContext,actionBlockContext,selectedRowContext } from "../contexts/VariablesProvider";
 import { navbarViewContext,sidebarViewContext,modalViewContext } from "../contexts/ViewsProvider";
@@ -24,50 +24,67 @@ export const useChangeLog = () => {
     // Retorno de la función del hook
     return changeLog;
 }
-// Hook para agregar un estatus a un usuario desde el modal
-export const useChangePermissionAdd = () => {
+// Hook para agregar los permisos a un usuario desde el modal
+export const useChangePermissionsAdd = () => {
     // Constantes con el valor de los contextos 
-    
+    const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
+    const [currentNView] = useContext(navbarViewContext);
+    const [currentSView] = useContext(sidebarViewContext);
+    const [currentMView] = useContext(modalViewContext);
+    const [isSelect] = useContext(selectContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    // Función del hook
+    const changePermissionsAdd = () => {
+        if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Add'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isSelect.length === 0){
+                            setIsActionBlock(false);
+                            return reject('¡No ha seleccionado un usuario!...')
+                        };
+
+                        resolve('¡Usuario seleccionado!...');
+                        
+                        setTimeout(() => {
+                            setIsPermissionsAdd(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando usuario!...');
+        }
+    }
+    // Retorno de la función del hook
+    return changePermissionsAdd;
+}
+// Hook para editar los permisos a un usuario desde el modal
+export const useChangePermissionsEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
     const [isSelectedRow] = useContext(selectedRowContext);
     const [currentNView] = useContext(navbarViewContext);
     const [currentSView] = useContext(sidebarViewContext);
     const [currentMView] = useContext(modalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     // Función del hook
-    const changePermissionAdd = () => {
-        if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Permissions-Add'){
-            const promise = new Promise(async (resolve,reject) => {
-                try{
-                    setIsActiveBlock(true);
-                    setTimeout(() => {
-                        if(isSelect.length === 0){
-                            setIsActiveBlock(false);
-                            reject('¡No ha seleccionado un usuario!...')
-                            return
-                        };
-                        if(isRadio === ''){
-                            setIsActiveBlock(false);
-                            reject('¡No ha seleccionado un estado!...')
-                            return
-                        };
-
-                        resolve('¡Campos verificados!...');
-                        
-                        setTimeout(() => {
-                            setIsStatusAdd(true);
-                        },500)
-                    },1000);
-                }catch(error){
-                    setIsActiveBlock(false);
-                    reject('¡Ocurrio un error inesperado!...');
-                }
-            });
-
-            Alert_Verification(promise,'¡Verificando campos!...');
+    const changePermissionsEdit = () => {
+        if(isSelectedRow !== null){
+            if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Edit'){
+                setIsActionBlock(true);
+                setIsPermissionsEdit(true);
+            }
         }
     }
     // Retorno de la función del hook
-    return changePermissionAdd;
+    return changePermissionsEdit;
 }
+
 // Hook para agregar un estatus a un usuario desde el modal
 export const useChangeStatusSAdd = () => {
     // Constantes con el valor de los contextos 
@@ -77,23 +94,21 @@ export const useChangeStatusSAdd = () => {
     const [currentNView] = useContext(navbarViewContext);
     const [currentSView] = useContext(sidebarViewContext);
     const [currentMView] = useContext(modalViewContext);
-    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     // Función del hook
     const changeStatusSAdd = () => {
         if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Add'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
-                    setIsActiveBlock(true);
+                    setIsActionBlock(true);
                     setTimeout(() => {
                         if(isSelect.length === 0){
-                            setIsActiveBlock(false);
-                            reject('¡No ha seleccionado un usuario!...')
-                            return
+                            setIsActionBlock(false);
+                            return reject('¡No ha seleccionado un usuario!...')
                         };
                         if(isRadio === ''){
-                            setIsActiveBlock(false);
-                            reject('¡No ha seleccionado un estado!...')
-                            return
+                            setIsActionBlock(false);
+                            return reject('¡No ha seleccionado un estado!...')
                         };
 
                         resolve('¡Campos verificados!...');
@@ -103,8 +118,8 @@ export const useChangeStatusSAdd = () => {
                         },500)
                     },1000);
                 }catch(error){
-                    setIsActiveBlock(false);
-                    reject('¡Ocurrio un error inesperado!...');
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
@@ -118,6 +133,7 @@ export const useChangeStatusSAdd = () => {
 export const useChangeStatusEnable = () => {
     // Constantes con el valor de los contextos 
     const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [isSelectedRow] = useContext(selectedRowContext);
     const [currentNView] = useContext(navbarViewContext);
     const [currentSView] = useContext(sidebarViewContext);
@@ -127,6 +143,7 @@ export const useChangeStatusEnable = () => {
         if(isSelectedRow !== null){
             if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Enable'){
                 setIsStatusEnable(isSelectedRow);
+                setIsActionBlock(false);
             }
         }
     }
@@ -201,6 +218,7 @@ export const useHandleCheckboxChange = () => {
                 return [...prevState, newCheckboxValue];
             }
         });
+        console.log(isCheckbox);
     }
     // Retorno de la función del hook
     return handleCheckboxChange;
@@ -222,24 +240,24 @@ export const useSessionVerification = () => {
                     if(isUser.length !== 0){
                         if(isName === ''){
                             setIsFormComprobation(false);
-                            reject('¡Falta escribir el nombre de usuario!...');
+                            return reject('¡Falta escribir el nombre de usuario!...');
                         }
                         if(isPassowrd === ''){
                             setIsFormComprobation(false);
-                            reject('¡Falta escribir la contraseña!...')
+                            return reject('¡Falta escribir la contraseña!...')
                         }
                         if(isName === isUser.usuario && isPassowrd === isUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsActionBlock(true);
                         }else{
                             setIsFormComprobation(false);
-                            reject('¡Nombre de usuario o contraseña incorrectos!...');
+                            return reject('¡Nombre de usuario o contraseña incorrectos!...');
                         }
                     }
                 },1000);
             } catch (error) {
                 setIsFormComprobation(false);
-                reject('¡Ocurrio un error inseperado!...');
+                return reject('¡Ocurrio un error inseperado!...');
             }
         });
 

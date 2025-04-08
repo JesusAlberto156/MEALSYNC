@@ -125,7 +125,7 @@ export default function Status_Add(){
                         <Text_P_Left_20 ThemeMode={themeMode}>Agregar estatus...</Text_P_Left_20>
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
                             <Tooltip title="Cancelar" placement="top">
-                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => changeModalView()}><MdCancel/></Button_Icon_Blue_150>
+                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => changeModalView('')}><MdCancel/></Button_Icon_Blue_150>
                             </Tooltip>
                             {isActiveBlock ? (
                                 <>

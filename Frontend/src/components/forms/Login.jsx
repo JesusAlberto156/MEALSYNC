@@ -16,7 +16,7 @@ import { nameContext,passwordContext } from "../../contexts/FormsProvider";
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Input_Border_250 } from "../styled/Containers";
+import { Container_Button_Border_Column_250 } from "../styled/Containers";
 import { Text_P_Left_20 } from "../styled/Text";
 import { Input_Group_80,Input_Text_220 } from "../styled/Inputs";
 import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
@@ -41,7 +41,7 @@ export default function Form_Login(){
     return(
         <> 
             <Text_P_Left_20 ThemeMode={themeMode}>Ingresa tus datos...</Text_P_Left_20>
-            <Container_Input_Border_250 ThemeMode={themeMode}>
+            <Container_Button_Border_Column_250 ThemeMode={themeMode}>
                 <Input_Group_80>
                     <Label_Text_20
                         ThemeMode={themeMode}
@@ -106,7 +106,7 @@ export default function Form_Login(){
                         <Label_Popup_14 ThemeMode={themeMode}>Escribe tú Contraseña</Label_Popup_14>
                     )}
                 </Input_Group_80>
-            </Container_Input_Border_250>
+            </Container_Button_Border_Column_250>
         </>  
     );
 }

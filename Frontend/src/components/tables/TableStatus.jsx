@@ -6,7 +6,7 @@ import { Tooltip } from "@mui/material"
 // Contextos
 import { selectedRowContext } from "../../contexts/VariablesProvider"
 import { usersContext } from "../../contexts/UsersProvider"
-import { refFormContext } from '../../contexts/RefsProvider'
+import { refFormStatusContext,refButtonStatusContext } from '../../contexts/RefsProvider'
 import { themeModeContext } from "../../contexts/ViewsProvider"
 // Hooks personalizados
 import { useTableActions } from "../../hooks/Table"
@@ -31,7 +31,8 @@ export default function TableStatus(){
     const [themeMode] = useContext(themeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isUsers] = useContext(usersContext);
-    const {Modal,Form,Button} = useContext(refFormContext);
+    const {Modal,Form} = useContext(refFormStatusContext);
+    const isButtonS = useContext(refButtonStatusContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -39,7 +40,7 @@ export default function TableStatus(){
 
             const clickedInsideModal = Modal.current && Modal.current.contains(event.target);
             const clickedInsideForm = Form.current && Form.current.contains(event.target);
-            const clickedInsideButton = Button.current && Button.current.contains(event.target);
+            const clickedInsideButton = isButtonS.current && isButtonS.current.contains(event.target);
 
             if (table && !table.contains(event.target) &&
                 !clickedInsideButton && 
@@ -55,13 +56,13 @@ export default function TableStatus(){
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    }, [Modal,Form,Button]);
+    }, [Modal,Form,isButtonS]);
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = useTableActions();
     // Estructura del componente
     return(
         <>
-            <Table ThemeMode={themeMode} id="Table-Status">
+            <Table id="Table-Status">
                 <thead>
                     <Tr>
                         <Th ThemeMode={themeMode}>Nombre de Usuario</Th>

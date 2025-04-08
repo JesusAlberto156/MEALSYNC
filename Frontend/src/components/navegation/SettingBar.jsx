@@ -22,7 +22,7 @@ import { BsToggleOn } from "react-icons/bs";
 import { FaSignOutAlt } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_100_Right } from "../styled/Containers";
+import { Container_90_Right } from "../styled/Containers";
 import { Button_Icon_Toggle,Button_Icon_Logout } from "../styled/Buttons";
 import { Icon_Button_25 } from "../styled/Icons";
 // Componentes personalizados
@@ -42,7 +42,7 @@ export default function Setting_Bar(){
     // Estructura del componente
     return(
         <>
-            <Container_100_Right>
+            <Container_90_Right>
                 {isLogged ? (
                     <>
                         <Tooltip title={isSidebarVisible ? 'Ocultar' : 'Mostrar'} placement="bottom">
@@ -65,7 +65,7 @@ export default function Setting_Bar(){
                         {themeMode ? <IoMdSunny/> : <FaMoon/>}
                     </Icon_Button_25>
                 </Tooltip>
-            </Container_100_Right>
+            </Container_90_Right>
         </>
     );
 }

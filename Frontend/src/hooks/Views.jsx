@@ -3,8 +3,10 @@
 import { useContext } from "react";
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
-import { typeUserContext,searchTermContext,selectedRowContext,actionBlockContext } from "../contexts/VariablesProvider";
-import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
+import { typeUserContext,searchTermContext,selectedRowContext,actionBlockContext,formComprobationContext } from "../contexts/VariablesProvider";
+import { nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
+import { statusAddContext,statusEnableContext } from "../contexts/StatusProvider";
+import { permissionsAddContext,permissionsEditContext } from "../contexts/PermissionsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -107,19 +109,40 @@ export const useChangeModalView = () => {
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
+    const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
+    const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
+    const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
+    const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
+    const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
     // Función del hook
     const changeModalView = (View) => {
+        if(currentMView === 'Permissions-Add'){
+            setIsPermissionsAdd(false);
+            setIsSelect([]);
+            setIsCheckbox([]);
+            setIsActionBlock(false);
+        }
+        if(currentMView === 'Permissions-Edit'){
+            setIsCheckbox([]);
+            setIsActionBlock(false);
+            setIsPermissionsEdit(false);
+            setIsSelectedRow(null);
+        }
         if(currentMView === 'Status-Add'){
             setIsSelect([]);
             setIsRadio('');
-            setIsActiveBlock(false);
+            setIsActionBlock(false);
+            setIsStatusAdd(false);
         }
         if(currentMView === 'Status-Enable'){
             setIsName('');
             setIsPassword('');
             setIsSelectedRow(null);
-
+            setIsActionBlock(false);
+            setIsFormComprobation(false);
+            setIsStatusEnable([]);
         }
         setCurrentMView(View);
     }

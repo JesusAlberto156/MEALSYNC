@@ -21,7 +21,7 @@ import { FaUserCheck } from "react-icons/fa6";
 // Estilos personalizados
 import { Container_Button_Border_Column_350,Container_Button_Row_300 } from "../styled/Containers";
 import { Text_P_Left_20 } from "../styled/Text";
-import { Input_Group_80,Input_Text_220 } from "../styled/Inputs";
+import { Input_Group_80,Input_Text_260 } from "../styled/Inputs";
 import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
 import { Button_Icon_Blue_220,Button_Icon_Block_220 } from "../styled/Buttons";
 // Componentes personalizados
@@ -57,7 +57,7 @@ export default function Form_Verification(){
                     >
                         Nombre de usuario
                     </Label_Text_20>
-                    <Input_Text_220 
+                    <Input_Text_260 
                         ThemeMode={themeMode}
                         type="text"
                         value={isName}
@@ -89,7 +89,7 @@ export default function Form_Verification(){
                     >
                         Contraseña
                     </Label_Text_20>
-                    <Input_Text_220 
+                    <Input_Text_260 
                         ThemeMode={themeMode}
                         type='password'
                         value={isPassword}

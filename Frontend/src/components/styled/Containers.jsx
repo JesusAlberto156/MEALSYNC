@@ -294,7 +294,6 @@ export const Container_Form_350 = styled.div.withConfig({
     }
 `;
 //____________FORM____________
-
 //____________Contenedor completo sin bordes ____________
 export const Container_100_Right = styled.div`
     display: flex;
@@ -302,6 +301,32 @@ export const Container_100_Right = styled.div`
     align-items: center;           
     background: transparent;
     width: 100%;
+    height: auto;  
+    border: none;      
+    position: relative; 
+    padding: 20px;
+    padding-right: 200px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        padding: 15px;
+        padding-right: 175px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+        padding-right: 150px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_90_Right = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
     height: auto;  
     border: none;      
     position: relative; 
@@ -348,6 +373,32 @@ export const Container_100_Left = styled.div`
     }
 }
 `;
+export const Container_90_Left = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;  
+    border: none;      
+    position: relative; 
+    padding: 20px;
+    padding-left: 200px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        padding: 15px;
+        padding-left: 175px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+        padding-left: 150px;
+        gap: 5px;
+    }
+}
+`;
 //____________Contenedor completo sin bordes ____________
 //____________MODAL____________
 export const Container_Modal = styled.div`
@@ -365,6 +416,33 @@ export const Container_Modal = styled.div`
 `;
 //____________MODAL____________
 //____________BUTTOM____________
+export const Container_Button_Border_Column_400 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: auto;
+    width: 400px;
+    border-radius: 30px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 350px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 300px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
 export const Container_Button_Border_Column_350 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -388,6 +466,60 @@ export const Container_Button_Border_Column_350 = styled.div.withConfig({
 
     @media (max-width: 480px) {
         width: 250px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
+export const Container_Button_Border_Column_300 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: auto;
+    width: 300px;
+    border-radius: 30px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 250px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 200px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
+export const Container_Button_Border_Column_250 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: auto;
+    width: 250px;
+    border-radius: 30px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 200px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;
         padding: 6px;
         gap: 10px;
     }
@@ -440,6 +572,58 @@ export const Container_Button_Border_Row_350 = styled.div.withConfig({
 
     @media (max-width: 480px) {
         width: 250px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
+export const Container_Button_Border_Row_300 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: auto;
+    width: 300px;
+    border-radius: 30px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 250px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 200px;
+        padding: 6px;
+        gap: 10px;
+    }
+`;
+export const Container_Button_Border_Row_250 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;    
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: auto;
+    width: 250px;
+    border-radius: 30px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    padding: 10px;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+        width: 200px;
+        padding: 8px;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;
         padding: 6px;
         gap: 10px;
     }
@@ -664,38 +848,6 @@ export const Container_Text_20 = styled.div`
     }
 `;
 //____________TEXT____________
-//____________INPUT____________
-export const Container_Input_Border_250 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    position: relative;    
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    height: auto;
-    width: 250px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    border-radius: 30px;
-    padding: 20px;
-    margin-bottom: 20px;
-    gap: 20px;
-
-    @media (max-width: 768px) {
-        width: 220px;
-        padding: 16px;
-        margin-bottom: 15px;
-        gap: 15px;
-    }
-
-    @media (max-width: 480px) {
-        width: 190px;
-        padding: 16px;
-        margin-bottom: 10px;
-        gap: 15px;
-    }
-`;
-//____________INPUT____________
 //____________PAGINATION____________
 export const Container_Pagination = styled.div`
     display: flex;
@@ -706,8 +858,6 @@ export const Container_Pagination = styled.div`
     width: 100%;
 `;
 //____________PAGINATION____________
-
-
 
 //--------FOOTER--------
 export const Container_Button_Footer = styled.div`

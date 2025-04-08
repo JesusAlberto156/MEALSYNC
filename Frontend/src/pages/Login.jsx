@@ -38,7 +38,7 @@ import { MdLogin } from "react-icons/md";
 import { Container_Page,Container_Button_Column_300,Container_Button_Row_300,Container_Page_Login,Container_Form_350 } from "../components/styled/Containers";
 import { Img_Logo_Verical_Hospital_250,Img_Logo_Hospital_150 } from "../components/styled/Imgs";
 import { Text_Title_Fade_22 } from "../components/styled/Text";
-import { Button_Icon_Blue_220,Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../components/styled/Buttons";
+import { Button_Icon_Blue_220,Button_Icon_Block_220,Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../components/styled/Buttons";
 import { Alert_Greeting,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
 import Footer from '../components/footer/Footer';
@@ -276,9 +276,7 @@ export default function Login(){
                                 <Tooltip title='Cocinero' placement="top">
                                     <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Cook')}><GiCook/></Button_Icon_Blue_220>
                                 </Tooltip>  
-                                <Tooltip title='Nutriólogo' placement="top">
-                                    <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Nutritionist')}><IoNutrition/></Button_Icon_Blue_220>
-                                </Tooltip> 
+                                <Button_Icon_Block_220 ThemeMode={themeMode}><IoNutrition/></Button_Icon_Block_220>
                                 <Tooltip title='Médico' placement="top">
                                     <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Doctor')}><FaUserDoctor/></Button_Icon_Blue_220>
                                 </Tooltip> 

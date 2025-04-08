@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Logo_Horizontal_Hospital_Light from '../imgs/Logo-Horizontal-Hospital-Light.png'
+import Logo_Horizontal_Hospital_Dark from '../imgs/Logo-Horizontal-Hospital-Light.png'
 import Logo_Vertical_Hospital_Dark from '../imgs/Logo-Vertical-Hospital-Dark.png'
 import Logo_Vertical_Hospital_Light from '../imgs/Logo-Vertical-Hospital-Light.png'
 import Logo_Hospital_Dark from '../imgs/Logo-Hospital-Dark.png';
@@ -8,6 +10,28 @@ import Logo_Error_Light from '../imgs/Error-Light.webp'
 import { Fade_Animation } from './Animations';
 
 //____________LOGO____________
+export const Img_Logo_Horizontal_Hospital_450 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Horizontal_Hospital_Light})` : `url(${Logo_Horizontal_Hospital_Dark})`)};
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 450px;
+    height: 300px;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    flex-shrink: 0;
+    
+    @media (max-width: 768px) {
+        width: 350px;
+        height: 250px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 250px;
+        height: 200px;    
+    }
+`;
 export const Img_Logo_Verical_Hospital_250 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`

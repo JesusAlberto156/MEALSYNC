@@ -33,9 +33,14 @@ const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
 //____________PERMISSIONS____________
 const [isPermissions,setIsPermissions] = useContext(permissionsContext);
 const [isPermission,setIsPermission] = useContext(permissionContext);
+const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
+const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
 //____________PERMISSIONS____________
 //____________REFS____________
-const {Modal,Form,Button} = useContext(refFormContext);
+const {Modal,Form} = useContext(refFormPermissionsContext);
+const {Button_Edit_P,Button_Super_P} = useContext(refButtonPermissionsContext);
+const {Modal,Form} = useContext(refFormStatusContext);
+const isButtonS = useContext(refButtonStatusContext);
 //____________REFS____________
 //____________SESSION____________
 const [isLog,setIsLog] = useContext(logContext);

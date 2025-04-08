@@ -31,7 +31,7 @@ export const useTableActions = () => {
         return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
 
-    const recordsPerPage = 10;
+    const recordsPerPage = 8;
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;

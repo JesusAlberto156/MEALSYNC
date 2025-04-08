@@ -69,13 +69,13 @@ const updatePermissionsAllService = async (id,administrador,chef,almacenista,coc
 }
 // UPDATE PERMISSIONS ALL
 // UPDATE PERMISSIONS SUPERADMON
-const updatePermissionsSuperAdmonService = async (id,superAdmon) => {
+const updatePermissionsSuperAdmonService = async (id,superadministrador) => {
   try{
       const pool = await conexionDB();
       const result = await pool.request()
           .input('id',sql.Int,id)
-          .input('superAdmon',sql.Bit,superAdmon)
-          .query('UPDATE permisos SET superAdmon = @superAdmon WHERE idusuario = @id');
+          .input('superadministrador',sql.Bit,superadministrador)
+          .query('UPDATE permisos SET superadministrador = @superadministrador WHERE idusuario = @id');
 
       if(result.rowsAffected[0]>0){
           return 'Permiso actualizado...'

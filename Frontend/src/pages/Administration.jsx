@@ -155,7 +155,7 @@ export default function Administration(){
                 ):(
                     <></>
                 )}
-                {currentMView === 'Permissions-Super-Admistrator' ? (
+                {currentMView === 'Permissions-Super-Administrator' ? (
                     <Permissions_Super_Administrator/>
                 ):(
                     <></>

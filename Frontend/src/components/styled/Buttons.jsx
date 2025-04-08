@@ -50,6 +50,7 @@ export const Button_Icon_Logout = styled.button.withConfig({
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     box-sizing: border-box;
+    margin-right: auto;
     z-index: 40;
 
     &:hover {

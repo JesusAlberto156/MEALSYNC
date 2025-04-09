@@ -3,9 +3,9 @@
 import { Socket } from './SocketProvider';
 import { Theme_Mode,Login_View,Navbar_View,Sidebar_View,Sidebar_Visible,Modal_View } from './ViewsProvider';
 import { Name,Password,Select,Radio,Checkbox } from './FormsProvider';
-import { Type_User,Selected_Row,Search_Term,Form_Comprobation,Action_Block } from './VariablesProvider';
+import { Type_User,Selected_Row,Search_Term,Form_Verification,Action_Block } from './VariablesProvider';
 import { Users,User } from './UsersProvider';
-import { Permissions,Permission,Permissions_Add,Permissions_Edit } from './PermissionsProvider';
+import { Permissions,Permission,Permissions_Add,Permissions_Edit,Permissions_Enable } from './PermissionsProvider';
 import { Status_All,Status_User,Status_Add,Status_Enable } from './StatusProvider';
 import { Log,Logged } from './SessionProvider';
 import { Ref_Form_Permissions,Ref_Button_Permissions,Ref_Form_Status,Ref_Button_Status } from './RefsProvider';
@@ -29,7 +29,7 @@ export const AppProviders = ({children}) => {
                                                         <Type_User>
                                                             <Selected_Row>
                                                                 <Search_Term>
-                                                                    <Form_Comprobation>
+                                                                    <Form_Verification>
                                                                         <Action_Block>
                                                                             <User>
                                                                                 <Permission>
@@ -45,11 +45,13 @@ export const AppProviders = ({children}) => {
                                                                                                                         <Status_All>
                                                                                                                             <Permissions_Add>
                                                                                                                                 <Permissions_Edit>
-                                                                                                                                    <Status_Add>
-                                                                                                                                        <Status_Enable>
-                                                                                                                                            {children}
-                                                                                                                                        </Status_Enable>
-                                                                                                                                    </Status_Add>
+                                                                                                                                    <Permissions_Enable>
+                                                                                                                                        <Status_Add>
+                                                                                                                                            <Status_Enable>
+                                                                                                                                                {children}
+                                                                                                                                            </Status_Enable>
+                                                                                                                                        </Status_Add>
+                                                                                                                                    </Permissions_Enable>
                                                                                                                                 </Permissions_Edit>
                                                                                                                             </Permissions_Add>
                                                                                                                         </Status_All>
@@ -65,7 +67,7 @@ export const AppProviders = ({children}) => {
                                                                                 </Permission>
                                                                             </User>
                                                                         </Action_Block>
-                                                                    </Form_Comprobation>
+                                                                    </Form_Verification>
                                                                 </Search_Term>
                                                             </Selected_Row>
                                                         </Type_User>

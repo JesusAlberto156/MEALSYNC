@@ -7,7 +7,7 @@ import { createContext,useState } from "react"
 export const typeUserContext = createContext(null);
 export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
-export const formComprobationContext = createContext(null);
+export const formVerificationContext = createContext(null);
 export const actionBlockContext = createContext(null);
 // Contextos personalizados
 
@@ -62,15 +62,15 @@ export const Search_Term = ({ children }) => {
         </searchTermContext.Provider>
     );
 }
-// Función Contexto para controlar la comprobación de inicio de sesión
-export const Form_Comprobation = ({children}) => {
+// Función Contexto para controlar la verificación de inicio de sesión
+export const Form_Verification = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isFormComprobation,setIsFormComprobation] = useState(false);
+    const [isFormVerification,setIsFormVerification] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
-        <formComprobationContext.Provider value={[isFormComprobation,setIsFormComprobation]}>
+        <formVerificationContext.Provider value={[isFormVerification,setIsFormVerification]}>
             {children}
-        </formComprobationContext.Provider>
+        </formVerificationContext.Provider>
     );
 }
 // Función Contexto para controlar el bloqueo de acciones

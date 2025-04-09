@@ -3,10 +3,10 @@
 import { useContext } from "react";
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
-import { typeUserContext,searchTermContext,selectedRowContext,actionBlockContext,formComprobationContext } from "../contexts/VariablesProvider";
+import { typeUserContext,searchTermContext,selectedRowContext,actionBlockContext,formVerificationContext } from "../contexts/VariablesProvider";
 import { nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
 import { statusAddContext,statusEnableContext } from "../contexts/StatusProvider";
-import { permissionsAddContext,permissionsEditContext } from "../contexts/PermissionsProvider";
+import { permissionsAddContext,permissionsEditContext,permissionsEnableContext } from "../contexts/PermissionsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -110,12 +110,13 @@ export const useChangeModalView = () => {
     const [isPassword,setIsPassword] = useContext(passwordContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
-    const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
+    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
     const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
     const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
     const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
     const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
+    const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
     // Función del hook
     const changeModalView = (View) => {
         if(currentMView === 'Permissions-Add'){
@@ -130,6 +131,14 @@ export const useChangeModalView = () => {
             setIsPermissionsEdit(false);
             setIsSelectedRow(null);
         }
+        if(currentMView === 'Permissions-Super-Administrator'){
+            setIsActionBlock(false);
+            setIsPermissionsEnable([]);
+            setIsSelectedRow(null);
+            setIsName('');
+            setIsPassword('');
+            setIsFormVerification(false);
+        }
         if(currentMView === 'Status-Add'){
             setIsSelect([]);
             setIsRadio('');
@@ -141,7 +150,7 @@ export const useChangeModalView = () => {
             setIsPassword('');
             setIsSelectedRow(null);
             setIsActionBlock(false);
-            setIsFormComprobation(false);
+            setIsFormVerification(false);
             setIsStatusEnable([]);
         }
         setCurrentMView(View);

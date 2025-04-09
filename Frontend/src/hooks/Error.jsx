@@ -42,7 +42,7 @@ export const useErrorReturn = () => {
                     }
                 },2000);
             } catch (error) {
-                reject('¡Ocurrio un error inseperado!...');
+                return reject('¡Ocurrio un error inseperado!...');
             }
         });
 

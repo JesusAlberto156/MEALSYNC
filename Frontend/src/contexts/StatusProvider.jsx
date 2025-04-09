@@ -11,10 +11,10 @@ export const statusEnableContext = createContext(null);
 // Contextos personalizados
 import { socketContext } from "./SocketProvider";
 import { loggedContext,logContext } from "./SessionProvider";
-import { modalViewContext } from "./ViewsProvider";
+import { modalViewContext,themeModeContext } from "./ViewsProvider";
 import { nameContext,passwordContext,selectContext,radioContext } from "./FormsProvider";
 import { userContext,usersContext } from "./UsersProvider";
-import { selectedRowContext,formComprobationContext,actionBlockContext } from "./VariablesProvider";
+import { selectedRowContext,formVerificationContext,actionBlockContext } from "./VariablesProvider";
 // Estilos personalizados
 import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -25,6 +25,7 @@ export const Status_All = ({ children }) => {
     const [isLogged] = useContext(loggedContext); 
     const [isLog,setIsLog] = useContext(logContext);   
     const [isUser] = useContext(userContext);
+    const [themeMode] = useContext(themeModeContext);
     const [socket] = useContext(socketContext);
     const alertShown = useRef(false);
     // UseState para controlar el valor del contexto
@@ -55,7 +56,8 @@ export const Status_All = ({ children }) => {
             const user = isStatusAll.find(user => user.idusuario === isUser.idusuario);
             if(user){
                 if(!user.habilitado){
-                    Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...');
+                    alertShown.current = true;
+                    Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...',themeMode);
                     setTimeout(() => {
                         setIsLog(true);
                     },3000);
@@ -166,7 +168,7 @@ export const Status_Enable = ({ children }) => {
     const [isName,setIsName] = useContext(nameContext);
     const [isPassowrd,setIsPassword] = useContext(passwordContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
+    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [socket] = useContext(socketContext);
     // UseState para controlar el valor del contexto
@@ -195,7 +197,7 @@ export const Status_Enable = ({ children }) => {
                                     setIsSelectedRow(null);
                                     setIsName('');
                                     setIsPassword('');
-                                    setIsFormComprobation(false);
+                                    setIsFormVerification(false);
                                 },500);
 
                                 return () => {
@@ -232,7 +234,7 @@ export const Status_Enable = ({ children }) => {
                                     setIsName('');
                                     setIsPassword('');
                                     setIsActionBlock(false);
-                                    setIsFormComprobation(false);
+                                    setIsFormVerification(false);
                                 },500);
 
                                 return () => {

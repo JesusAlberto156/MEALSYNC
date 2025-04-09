@@ -60,7 +60,7 @@ export default function TableUsers(){
                             <Td ThemeMode={themeMode}>{user.nombre}</Td>
                             <Td ThemeMode={themeMode}>{user.nombrecorto}</Td>
                             <Td ThemeMode={themeMode}>{user.usuario}</Td>
-                            <Td ThemeMode={themeMode}>{user.contrasena}</Td>
+                            <Td ThemeMode={themeMode}>{'•'.repeat(user.contrasena.length)}</Td>
                         </Tr>
                     ))}
 

@@ -5,9 +5,9 @@ import { useContext } from "react";
 import { logContext } from "../contexts/SessionProvider";
 import { nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
 import { usersContext,userContext } from "../contexts/UsersProvider";
-import { permissionsContext,permissionsAddContext,permissionsEditContext } from "../contexts/PermissionsProvider";
+import { permissionsContext,permissionsAddContext,permissionsEditContext,permissionsEnableContext } from "../contexts/PermissionsProvider";
 import { statusAllContext,statusAddContext,statusEnableContext } from '../contexts/StatusProvider';
-import { formComprobationContext,actionBlockContext,selectedRowContext } from "../contexts/VariablesProvider";
+import { formVerificationContext,actionBlockContext,selectedRowContext } from "../contexts/VariablesProvider";
 import { navbarViewContext,sidebarViewContext,modalViewContext } from "../contexts/ViewsProvider";
 // Estilos personalizados
 import { Alert_Verification } from "../components/styled/Alerts";
@@ -84,7 +84,27 @@ export const useChangePermissionsEdit = () => {
     // Retorno de la función del hook
     return changePermissionsEdit;
 }
-
+// Hook para habilitar/deshabilitar el permiso de superadminitrador a un usuario desde el modal
+export const useChangePermissionsEnable = () => {
+    // Constantes con el valor de los contextos 
+    const [isSelectedRow] = useContext(selectedRowContext);
+    const [currentNView] = useContext(navbarViewContext);
+    const [currentSView] = useContext(sidebarViewContext);
+    const [currentMView] = useContext(modalViewContext);
+    const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    // Función del hook
+    const changePermissionsEnable = () => {
+        if(isSelectedRow !== null){
+            if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Super-Administrator'){
+                setIsPermissionsEnable(isSelectedRow);
+                setIsActionBlock(false);
+            }
+        }
+    }
+    // Retorno de la función del hook
+    return changePermissionsEnable;
+}
 // Hook para agregar un estatus a un usuario desde el modal
 export const useChangeStatusSAdd = () => {
     // Constantes con el valor de los contextos 
@@ -229,34 +249,34 @@ export const useSessionVerification = () => {
     const [isName] = useContext(nameContext);
     const [isPassowrd] = useContext(passwordContext);
     const [isUser] = useContext(userContext);
-    const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
+    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     // Función del hook
     const sessionVerification = async () => {
         const promise = new Promise(async (resolve,reject) => {
             try{
-                setIsFormComprobation(true);
+                setIsFormVerification(true);
                 setTimeout(() => {
                     if(isUser.length !== 0){
                         if(isName === ''){
-                            setIsFormComprobation(false);
+                            setIsFormVerification(false);
                             return reject('¡Falta escribir el nombre de usuario!...');
                         }
                         if(isPassowrd === ''){
-                            setIsFormComprobation(false);
+                            setIsFormVerification(false);
                             return reject('¡Falta escribir la contraseña!...')
                         }
                         if(isName === isUser.usuario && isPassowrd === isUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsActionBlock(true);
                         }else{
-                            setIsFormComprobation(false);
+                            setIsFormVerification(false);
                             return reject('¡Nombre de usuario o contraseña incorrectos!...');
                         }
                     }
                 },1000);
             } catch (error) {
-                setIsFormComprobation(false);
+                setIsFormVerification(false);
                 return reject('¡Ocurrio un error inseperado!...');
             }
         });

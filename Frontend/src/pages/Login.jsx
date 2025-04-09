@@ -39,7 +39,7 @@ import { Container_Page,Container_Button_Column_300,Container_Button_Row_300,Con
 import { Img_Logo_Verical_Hospital_250,Img_Logo_Hospital_150 } from "../components/styled/Imgs";
 import { Text_Title_Fade_22 } from "../components/styled/Text";
 import { Button_Icon_Blue_220,Button_Icon_Block_220,Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../components/styled/Buttons";
-import { Alert_Greeting,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
+import { Alert_Greeting,Alert_Verification,Alert_Styles } from '../components/styled/Alerts';
 // Componentes personalizados
 import Footer from '../components/footer/Footer';
 import Form_Login from "../components/forms/Login";
@@ -140,67 +140,67 @@ export default function Login(){
                                     setIsActionBlock(false);
                                     return reject('¡Error al encriptar las credenciales!...');
                                 }
-                            }
-
-                            if(isTypeUser === 'Cook' && !existsPermission.cocinero || 
-                               isTypeUser === 'Nutritionist' && !existsPermission.nutriologo ||
-                               isTypeUser === 'Doctor' && !existsPermission.medico ||
-                               isTypeUser === 'Administrator' && !existsPermission.administrador ||
-                               isTypeUser === 'Chef' && !existsPermission.chef ||
-                               isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
-                                setIsLog(false);
-                                setIsActionBlock(false);
-                                return reject('¡Tu usuario no cuenta con los permisos necesarios para acceder!...');
-                            }
-                            
-                            const jsonUser = JSON.stringify(existsUser);
-                            const jsonPermission = JSON.stringify(existsPermission);
-            
-                            const encryptedUser = encryptData(jsonUser);
-                            const encryptedPermission = encryptData(jsonPermission);
-            
-                            if( encryptedUser && encryptedPermission){
-                                setTimeout(() => {
-                                    existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
-                                
-                                    const jsonStatus = JSON.stringify(existsStatus);
-                                    const encryptedStatus = encryptData(jsonStatus);
-            
-                                    if(encryptedStatus){
-                                        sessionStorage.setItem('User',encryptedUser);
-                                        sessionStorage.setItem('Permission',encryptedPermission);
-                                        sessionStorage.setItem('Status',encryptedStatus);
-                                        sessionStorage.setItem('Logged',true);
-                                        sessionStorage.setItem('Type-User',isTypeUser);
-                                        
-                                        setIsUser(JSON.parse(jsonUser));
-                                        setIsPermission(JSON.parse(jsonPermission));
-                                        setIsStatusUser(JSON.parse(jsonStatus));
-
-                                        if(isTypeUser === 'Doctor'){
-                                            setCurrentMView('Alert-Doctor');
-                                        }
-                                        
-                                        resolve('¡SESIÓN INICIADA!...');
-
-                                        setTimeout(() => {
-                                            setIsName('');
-                                            setIsPassword('');
-                                            setIsLog(false);
-                                            setIsLogged(true);
-                                            setIsActionBlock(false);
-                                            navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
-                                        },2000);
-                                    }else{
-                                        setIsLog(false);
-                                        setIsActionBlock(false);
-                                        return reject('¡Error al encriptar las credenciales!...');
-                                    }
-                                },500);
                             }else{
-                                setIsLog(false);
-                                setIsActionBlock(false);
-                                return reject('¡Error al encriptar las credenciales!...')
+                                if(isTypeUser === 'Cook' && !existsPermission.cocinero || 
+                                    isTypeUser === 'Nutritionist' && !existsPermission.nutriologo ||
+                                    isTypeUser === 'Doctor' && !existsPermission.medico ||
+                                    isTypeUser === 'Administrator' && !existsPermission.administrador ||
+                                    isTypeUser === 'Chef' && !existsPermission.chef ||
+                                    isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
+                                    setIsLog(false);
+                                    setIsActionBlock(false);
+                                    return reject('¡Tu usuario no cuenta con los permisos necesarios para acceder!...');
+                                }
+                                
+                                const jsonUser = JSON.stringify(existsUser);
+                                const jsonPermission = JSON.stringify(existsPermission);
+                
+                                const encryptedUser = encryptData(jsonUser);
+                                const encryptedPermission = encryptData(jsonPermission);
+                
+                                if( encryptedUser && encryptedPermission){
+                                    setTimeout(() => {
+                                        existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
+                                    
+                                        const jsonStatus = JSON.stringify(existsStatus);
+                                        const encryptedStatus = encryptData(jsonStatus);
+                
+                                        if(encryptedStatus){
+                                            sessionStorage.setItem('User',encryptedUser);
+                                            sessionStorage.setItem('Permission',encryptedPermission);
+                                            sessionStorage.setItem('Status',encryptedStatus);
+                                            sessionStorage.setItem('Logged',true);
+                                            sessionStorage.setItem('Type-User',isTypeUser);
+                                            
+                                            setIsUser(JSON.parse(jsonUser));
+                                            setIsPermission(JSON.parse(jsonPermission));
+                                            setIsStatusUser(JSON.parse(jsonStatus));
+
+                                            if(isTypeUser === 'Doctor'){
+                                                setCurrentMView('Alert-Doctor');
+                                            }
+                                            
+                                            resolve('¡SESIÓN INICIADA!...');
+
+                                            setTimeout(() => {
+                                                setIsName('');
+                                                setIsPassword('');
+                                                setIsLog(false);
+                                                setIsLogged(true);
+                                                setIsActionBlock(false);
+                                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
+                                            },2000);
+                                        }else{
+                                            setIsLog(false);
+                                            setIsActionBlock(false);
+                                            return reject('¡Error al encriptar las credenciales!...');
+                                        }
+                                    },500);
+                                }else{
+                                    setIsLog(false);
+                                    setIsActionBlock(false);
+                                    return reject('¡Error al encriptar las credenciales!...')
+                                }
                             }
                         }else{
                             setIsLog(false);
@@ -322,6 +322,7 @@ export default function Login(){
                 <Toaster
                     visibleToasts={3}
                     richColors
+                    theme='dark'
                     position='top-right'
                 />
             </Alert_Styles>

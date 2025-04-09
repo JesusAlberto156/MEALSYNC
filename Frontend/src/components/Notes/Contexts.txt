@@ -35,6 +35,7 @@ const [isPermissions,setIsPermissions] = useContext(permissionsContext);
 const [isPermission,setIsPermission] = useContext(permissionContext);
 const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
 const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
+const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
 //____________PERMISSIONS____________
 //____________REFS____________
 const {Modal,Form} = useContext(refFormPermissionsContext);
@@ -63,7 +64,7 @@ const [isUser,setIsUser] = useContext(userContext);
 const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
 const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
 const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-const [isFormComprobation,setIsFormComprobation] = useContext(formComprobationContext);
+const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
 const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
 //____________VARIABLES____________
 //____________VIEWS____________

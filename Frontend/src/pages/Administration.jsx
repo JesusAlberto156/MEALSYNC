@@ -23,13 +23,17 @@ import { loggedContext,logContext } from "../contexts/SessionProvider";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Page,Container_Page_Administration,Container_Page_Elements } from "../components/styled/Containers";
-import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
+import { Alert_Greeting,Alert_Verification,Alert_Styles, Alert_Error, Alert_Warning } from "../components/styled/Alerts";
 // Componentes personalizados
 import Footer from '../components/footer/Footer'
 import Side_Bar from "../components/navegation/Sidebar";
 import Out_Login from "../components/modals/General/OutLogin";
 import Home from "../components/pages/general/Home";
 import Users from "../components/pages/administration/Users";
+import Suppliers from '../components/pages/administration/Suppliers';
+import Inventory from '../components/pages/administration/Inventory';
+import Menus from '../components/pages/administration/Menus';
+import Record from '../components/pages/administration/Record';
 import Permissions_Add from "../components/modals/permissions/PermissionsAdd";
 import Permissions_Edit from "../components/modals/permissions/PermissionsEdit";
 import Permissions_Super_Administrator from "../components/modals/permissions/PermissionsSuperAdministrator";
@@ -49,8 +53,6 @@ export default function Administration(){
     
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isSelect,setIsSelect] = useContext(selectContext);
-    const [iseRadio,setIsRadio] = useContext(radioContext);
 
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
@@ -63,13 +65,8 @@ export default function Administration(){
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Administración_Inicio"
-        if(themeMode){
-            Alert_Greeting_Light("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...');
-            Alert_Greeting_Light('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
-        }else{
-            Alert_Greeting_Dark("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...');
-            Alert_Greeting_Dark('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
-        }
+        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...');
+        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
     },[]);
     // useEffect con el cerrado de sesión de administración
     useEffect(() => {
@@ -91,8 +88,6 @@ export default function Administration(){
                         
                         setIsName('');
                         setIsPassword('');
-                        setIsSelect([]);
-                        setIsSelect('');
 
                         setIsTypeUser('');
                         setIsSearchTerm('');
@@ -138,6 +133,26 @@ export default function Administration(){
                     ):(
                         <></>
                     )}
+                    {currentSView === 'Suppliers' ? (
+                        <Suppliers/>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Inventory' ? (
+                        <Inventory/>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Menus' ? (
+                        <Menus/>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Record' ? (
+                        <Record/>
+                    ):(
+                        <></>
+                    )}
                 </Container_Page_Elements>
                 {currentMView === 'Out-Login' ? (
                     <Out_Login/>
@@ -171,7 +186,7 @@ export default function Administration(){
                     <></>
                 )}
             </Container_Page_Administration>
-            <Alert_Styles>
+            <Alert_Styles ThemeMode={themeMode}>
                 <Toaster
                     visibleToasts={3}
                     richColors

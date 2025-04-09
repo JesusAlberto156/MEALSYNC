@@ -129,20 +129,20 @@ export default function Side_Bar() {
                 <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
-            <Tooltip title='Menús' placement="right">
-              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Menus')
-                changeNavbarView('')
-              }}>
-                <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
-              </Button_Icon_Blue_210>
-            </Tooltip>
             <Tooltip title='Inventario' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
                 changeSidebarView('Inventory')
                 changeNavbarView('')
               }}>
                 <Text_A_18>Inventario</Text_A_18><MdStorage/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Menús' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Menus')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Historial' placement="right">
@@ -167,20 +167,20 @@ export default function Side_Bar() {
                 <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
-            <Tooltip title='Menús' placement="right">
-              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Menus')
-                changeNavbarView('')
-              }}>
-                <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
-              </Button_Icon_Blue_210>
-            </Tooltip>
             <Tooltip title='Inventario' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
                 changeSidebarView('Inventory')
                 changeNavbarView('')
               }}>
                 <Text_A_18>Inventario</Text_A_18><MdStorage/>
+              </Button_Icon_Blue_210>
+            </Tooltip>
+            <Tooltip title='Menús' placement="right">
+              <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
+                changeSidebarView('Menus')
+                changeNavbarView('')
+              }}>
+                <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Historial' placement="right">

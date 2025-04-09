@@ -18,144 +18,70 @@ export const Alert_Styles = styled.div.withConfig({
         font-weight: 300;
         font-style: normal;
         border-radius: 40px;
-        border: rgb(94, 137, 238);
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
     }   
 
-    .Yellow_Dark {
+    .Red {
         font-size: 14px;
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        background-color: rgb(151, 128, 27);
-        border-radius: 50px;
-        border: 2px solid white;
-        color: white;
+        border-radius: 40px;
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(125, 27, 27)' : 'rgb(229, 44, 44)')};
+        border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
     } 
 
-    .Yellow_Light {
+    .Yellow {
         font-size: 14px;
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        background-color: rgb(240, 203, 41);
-        border-radius: 50px;
-        border: 2px solid black;
-        color: white;
-    }  
-
-    .Red_Dark {
-        font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        background-color: rgb(229, 44, 44);
-        border-radius: 50px;
-        border: 2px solid white;
-        color: white;
-    }
-
-    .Red_Light {
-        font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        background-color: rgb(125, 27, 27);
-        border-radius: 50px;
-        border: 2px solid black;
-        color: white;
-    }
+        border-radius: 40px;
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(122, 104, 21)' : 'rgb(182, 154, 31)')};
+        border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
+    } 
 
     .Verification {
         font-size: 14px;
         font-family: "Prompt", sans-serif;
         font-weight: 300;
         font-style: normal;
-        border-radius: 50px;
-        border: 4px solid white;
+        border-radius: 40px;
+        border: 3px solid white;
         background-color: black;
-        color: white;
     }
 `;
 //____________STYLES____________
 //____________GREETING____________
 export const Alert_Greeting = (titulo,mensaje) => {
-    toast.info(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Blue',
-    }
-    );
-};
-export const Alert_Greeting_Dark = (titulo,mensaje) => {
     toast(titulo,{
         duration:4000,
         description: mensaje,
         className: 'Blue',
-        icon: <HiHandRaised style={{color:'rgb(247, 215, 155)',fontSize:'20px'}}/>,
-    }
-    );
-};
-export const Alert_Greeting_Light = (titulo,mensaje) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Blue',
-        icon: <HiHandRaised style={{color:'rgb(252, 212, 137)',fontSize:'20px'}}/>,
+        icon: <HiHandRaised style={{color:'rgb(247, 215, 155)',fontSize:'20px'}}/>
     }
     );
 };
 //____________GREETING____________
 //____________WARNING____________
-export const Alert_Warning = (titulo,mensaje) => {
+export const Alert_Warning = (titulo,mensaje,themeMode) => {
     toast(titulo,{
         duration:4000,
         description: mensaje,
         className: 'Yellow',
-        icon: <AiFillWarning style={{color:'rgb(0, 0, 0)',fontSize:'20px'}}/>,
-    }
-    );
-};
-export const Alert_Warning_Dark = (titulo,mensaje) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Yellow_Dark',
-        icon: <AiFillWarning style={{color:'rgb(240, 203, 41)',fontSize:'20px'}}/>,
-    }
-    );
-};
-export const Alert_Warning_Light = (titulo,mensaje) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Yellow_Light',
-        icon: <AiFillWarning style={{color:'rgb(151, 128, 27)',fontSize:'20px'}}/>,
+        icon: themeMode ? <AiFillWarning style={{color:'rgb(182, 154, 31)',fontSize:'20px'}}/> : <AiFillWarning style={{color:'rgb(122, 104, 21)',fontSize:'20px'}}/>,
     }
     );
 };
 //____________WARNING____________
 //____________ERROR____________
-export const Alert_Error_Dark = (titulo,mensaje) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Red_Dark',
-        icon: <BiSolidMessageAltError style={{color:'rgb(125, 27, 27)',fontSize:'20px'}}/>
-    });
-}
-export const Alert_Error_Light = (titulo,mensaje) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Red_Light',
-        icon: <BiSolidMessageAltError style={{color:'rgb(229, 44, 44)',fontSize:'20px'}}/>
-    });
-}
-export const Alert_Error = (titulo,mensaje) => {
+export const Alert_Error = (titulo,mensaje,themeMode) => {
     toast(titulo,{
         duration:4000,
         description: mensaje,
         className: 'Red',
+        icon: themeMode ? <BiSolidMessageAltError style={{color:'rgb(229, 44, 44)',fontSize:'20px'}}/> : <BiSolidMessageAltError style={{color:'rgb(125, 27, 27)',fontSize:'20px'}}/>,
     });
 }
 //____________ERROR____________

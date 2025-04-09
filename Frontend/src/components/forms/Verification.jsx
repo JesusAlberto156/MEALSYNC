@@ -10,7 +10,7 @@ import { useContext,useState } from "react";
 // Contextos
 import { themeModeContext } from "../../contexts/ViewsProvider";
 import { nameContext,passwordContext } from "../../contexts/FormsProvider";
-import { formComprobationContext } from "../../contexts/VariablesProvider";
+import { formVerificationContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { useSessionVerification } from "../../hooks/Form";
 //__________ICONOS__________
@@ -34,7 +34,7 @@ export default function Form_Verification(){
     const [themeMode] = useContext(themeModeContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isFormComprobation] = useContext(formComprobationContext);
+    const [isFormVerification] = useContext(formVerificationContext);
     // Constantes con el valor de useState
     const [textName,setTextName] = useState(false);
     const [isFocusedName, setIsFocusedName] = useState(false);
@@ -114,7 +114,7 @@ export default function Form_Verification(){
                     )}
                 </Input_Group_80>
                 <Container_Button_Row_300>
-                    {isFormComprobation ? (
+                    {isFormVerification ? (
                         <>
                             <Button_Icon_Block_220 ThemeMode={themeMode}><FaUserCheck/></Button_Icon_Block_220>
                         </>

@@ -21,7 +21,7 @@ import { loggedContext,logContext } from "../contexts/SessionProvider";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Page,Container_Page_Kitchen,Container_Page_Elements } from "../components/styled/Containers";
-import { Alert_Greeting_Light,Alert_Greeting_Dark,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
+import { Alert_Greeting,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Home from '../components/pages/general/Home';
 import Menu from '../components/pages/menu/Menu';
@@ -40,8 +40,6 @@ export default function Kitchen(){
     
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isSelect,setIsSelect] = useContext(selectContext);
-    const [iseRadio,setIsRadio] = useContext(radioContext);
 
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
@@ -54,10 +52,10 @@ export default function Kitchen(){
      // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Menú_Inicio"
-        Alert_Greeting_Light("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
-        Alert_Greeting_Dark('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
+        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
+        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
     },[]);
-    // useEffect con el cerrado de sesión de kitchen
+    // useEffect con el cerrado de sesión de cocina
     useEffect(() => {
         if(isLog && isLogged){
             document.title = "Cargando...";
@@ -77,8 +75,6 @@ export default function Kitchen(){
                         
                         setIsName('');
                         setIsPassword('');
-                        setIsSelect([]);
-                        setIsSelect('');
 
                         setIsTypeUser('');
                         setIsSearchTerm('');
@@ -121,6 +117,14 @@ export default function Kitchen(){
                     )}
                 </Container_Page_Elements>
             </Container_Page_Kitchen>
+            <Alert_Styles ThemeMode={themeMode}>
+                <Toaster
+                    visibleToasts={3}
+                    richColors
+                    theme='dark'
+                    position='top-right'
+                />
+            </Alert_Styles>
             <Footer/>
         </Container_Page>
     );

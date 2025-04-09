@@ -11,11 +11,14 @@ import { refButtonPermissionsContext,refButtonStatusContext } from "../../contex
 // Hooks personalizados
 import { useChangeModalView } from "../../hooks/Views";
 //__________ICONOS__________
-// Icono para la el buscador
+// Icono para la seccion del buscador
 import { FcSearch } from "react-icons/fc";
 import { FaShoppingCart } from "react-icons/fa";
 // Iconos para la seccion de usuarios
-
+import { FaUserPlus } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
+import { FaUserMinus } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 // Iconos para la sección de permisos
 import { MdAddModerator } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
@@ -69,7 +72,45 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-                
+                {currentSView === 'Users' && currentNView === 'Principal' ? (
+                    isPermission.superadministrador ? (
+                        isSelectedRow === null ? (
+                            <>
+                                <Tooltip title='Agregar' placement="top">
+                                    <Button_Icon_Green_45 ThemeMode={themeMode}><FaUserPlus/></Button_Icon_Green_45>
+                                </Tooltip>
+                                <Button_Icon_Block_45 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Block_45>
+                                <Button_Icon_Block_45 ThemeMode={themeMode}><FaUserMinus/></Button_Icon_Block_45>
+                                <Button_Icon_Block_45 ThemeMode={themeMode}><FaEye/></Button_Icon_Block_45>
+                            </>
+                        ):(
+                            <>
+                                <Button_Icon_Block_45><FaUserPlus/></Button_Icon_Block_45>
+                                <Tooltip title='Editar' placement="top">
+                                    <Button_Icon_Blue_45 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Blue_45>
+                                </Tooltip>
+                                <Tooltip title='Eliminar' placement="top">
+                                    <Button_Icon_Red_45 ThemeMode={themeMode}><FaUserMinus/></Button_Icon_Red_45>
+                                </Tooltip>
+                                <Tooltip title='Ver' placement="top">
+                                    <Button_Icon_Green_45 ThemeMode={themeMode}><FaEye/></Button_Icon_Green_45>
+                                </Tooltip>
+                            </>
+                        )
+                    ):(
+                        isSelectedRow === null ? (
+                            <>
+                            
+                            </>
+                        ):(
+                            <>
+                            
+                            </>
+                        )
+                    )
+                ):(
+                    <></>
+                )}
                 {currentSView === 'Users' && currentNView === 'Permissions' ? (
                     isPermission.superadministrador ? (
                         isSelectedRow === null ? (

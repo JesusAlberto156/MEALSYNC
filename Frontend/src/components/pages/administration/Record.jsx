@@ -20,15 +20,15 @@ import { themeModeContext } from "../../../contexts/ViewsProvider";
 import Setting_Bar from "../../navegation/SettingBar";
 //____________IMPORT/EXPORT____________
 
-// Componente para mostrar la seccion de inicio en administración/cocina
-export default function Home(){
+// Componente para mostrar la seccion de historial en administración
+export default function Record(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
     // Estructura del componente
     return(
         <> 
             <Setting_Bar/>
-            <h1>Modulo de Inicio</h1>          
+            <h1>Modulo de Historial</h1>          
         </>
     )
 }

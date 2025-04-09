@@ -25,7 +25,7 @@ import { Icon_Gray_Rotate_50,Icon_Yellow_250 } from "../components/styled/Icons"
 import { Text_Title_Fade_50,Text_A_25 } from "../components/styled/Text";
 import { Button_Icon_White_200 } from "../components/styled/Buttons";
 import { Img_Logo_Error } from "../components/styled/Imgs";
-import { Alert_Error_Light,Alert_Error_Dark,Alert_Styles } from "../components/styled/Alerts";
+import { Alert_Error,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
 import Setting_Bar from "../components/navegation/SettingBar";
 //____________IMPORT/EXPORT____________
@@ -37,11 +37,7 @@ export default function Error(){
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title='MEALSYNC_Error';
-        if(true){
-            Alert_Error_Light('MEALSYNC','¡Error, página no encontrada!...');
-        }else{
-            Alert_Error_Dark('MEALSYNC','¡Error, página no encontrada!...');
-        }
+        Alert_Error('MEALSYNC','¡Error, página no encontrada!...',themeMode);
     },[])
     // Constantes con la funcionalidad de los hooks
     const errorReturn = useErrorReturn();
@@ -64,7 +60,7 @@ export default function Error(){
                 <Container_100_Left>
                     <Img_Logo_Error ThemeMode={themeMode}/>
                 </Container_100_Left>
-                <Alert_Styles>
+                <Alert_Styles ThemeMode={themeMode}>
                     <Toaster
                         visibleToasts={3}
                         richColors

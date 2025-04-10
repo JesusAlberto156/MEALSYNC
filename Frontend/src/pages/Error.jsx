@@ -27,7 +27,7 @@ import { Button_Icon_White_200 } from "../components/styled/Buttons";
 import { Img_Logo_Error } from "../components/styled/Imgs";
 import { Alert_Error,Alert_Styles } from "../components/styled/Alerts";
 // Componentes personalizados
-import Setting_Bar from "../components/navegation/SettingBar";
+
 //____________IMPORT/EXPORT____________
 
 // Página para captar los errores ocasionados por una mala ruta escrita
@@ -45,7 +45,6 @@ export default function Error(){
     return(
         <>
             <Container_Page_Error ThemeMode={themeMode}>
-                <Setting_Bar/>
                 <Container_100_Right>
                     <Icon_Yellow_250 ThemeMode={themeMode}><IoIosWarning/></Icon_Yellow_250>
                 </Container_100_Right>

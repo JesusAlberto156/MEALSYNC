@@ -1,0 +1,140 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
+import { useEffect,useContext } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+// Componentes de React externos
+
+// Servicios
+
+// Rutas
+
+// Contextos
+import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../../contexts/ViewsProvider";
+import { nameContext,passwordContext } from "../../contexts/FormsProvider";
+import { typeUserContext,searchTermContext,actionBlockContext } from "../../contexts/VariablesProvider";
+import { userContext } from "../../contexts/UsersProvider";
+import { permissionContext } from "../../contexts/PermissionsProvider";
+import { statusUserContext } from "../../contexts/StatusProvider";
+import { loggedContext,logContext } from "../../contexts/SessionProvider";
+// Hooks personalizados
+
+//__________ICONOS__________
+
+//__________ICONOS__________
+// Estilos personalizados
+import { Container_Page_Elements } from "../../components/styled/Containers";
+import { Alert_Verification } from "../../components/styled/Alerts";
+// Componentes personalizados
+import Setting_Bar from "../../components/navegation/SettingBar";
+import Permissions_Add from "../../components/modals/permissions/PermissionsAdd";
+import Permissions_Edit from "../../components/modals/permissions/PermissionsEdit";
+import Permissions_Super_Administrator from "../../components/modals/permissions/PermissionsSuperAdministrator";
+import Status_Add from "../../components/modals/status/StatusAdd";
+import Status_Enable from "../../components/modals/status/StatusEnable";
+//____________IMPORT/EXPORT____________
+
+// Página para mostrar el área de administración
+export default function Index_Administration(){
+    // Constantes con el valor de los contextos
+    const [themeMode] = useContext(themeModeContext);
+    const [currentLView,setCurrentLView] = useContext(loginViewContext);
+    const [currentNView,setCurrentNView] = useContext(navbarViewContext);
+    const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
+    const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    
+    const [isName,setIsName] = useContext(nameContext);
+    const [isPassword,setIsPassword] = useContext(passwordContext);
+
+    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isLogged,setIsLogged] = useContext(loggedContext);
+    const [isUser,setIsUser] = useContext(userContext);
+    const [isPermission,setIsPermission] = useContext(permissionContext);
+    const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
+    const [isLog,setIsLog] = useContext(logContext);
+    // useEffect con el cerrado de sesión de administración
+    useEffect(() => {
+        if(isLog && isLogged){
+            document.title = "Cargando...";
+            const promise = new Promise(async (resolve,reject) => {
+                try{       
+                    setIsActionBlock(true);         
+                    setTimeout(() => {
+                        resolve('¡MEALSYNC le agradece su estancia!...');
+                    },1000);
+
+                    setTimeout(() => {
+                        setCurrentLView('');
+                        setCurrentNView('');
+                        setCurrentSView('Home');
+                        setIsSidebarVisible(true);
+                        setCurrentMView('');
+                        
+                        setIsName('');
+                        setIsPassword('');
+
+                        setIsTypeUser('');
+                        setIsSearchTerm('');
+
+                        setIsLogged(false);
+
+                        setIsPermission([]);
+                        setIsStatusUser([]);
+
+                        setTimeout(() => {
+                            setIsUser([]);
+                            setIsLog(false);
+                            sessionStorage.clear();
+                            setIsActionBlock(false);
+                            navigate("/",{replace: true});
+                        },500)
+                    },2000)
+                }catch(error){
+                    setIsLog(false);
+                    setIsActionBlock(false);
+                    reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+            
+            Alert_Verification(promise,'¡Cerrando sesión!...');
+        }
+    },[isLog]);
+    // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
+    // Estructura del componente
+    return(
+        <>
+            <Container_Page_Elements sidebarVisible={isSidebarVisible}>
+                <Setting_Bar/>
+                <Outlet/>
+            </Container_Page_Elements>
+            {currentMView === 'Permissions-Add' ? (
+                <Permissions_Add/>
+            ):(
+                <></>
+            )}
+            {currentMView === 'Permissions-Edit' ? (
+                <Permissions_Edit/>
+            ):(
+                <></>
+            )}
+            {currentMView === 'Permissions-Super-Administrator' ? (
+                <Permissions_Super_Administrator/>
+            ):(
+                <></>
+            )}
+            {currentMView === 'Status-Add' ? (
+                <Status_Add/>
+            ):(
+                <></>
+            )}
+            {currentMView === 'Status-Enable' ? (
+                <Status_Enable/> 
+            ):(
+                <></>
+            )}
+        </>
+    );
+}

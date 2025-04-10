@@ -1,7 +1,10 @@
 //____________IMPORT/EXPORT____________
-// Hooks de React
+// Componentes de React externos
 import styled from 'styled-components';
-//__________ICONOS/IMAGENES__________
+//__________ICONOS__________
+
+//__________ICONOS__________
+//__________IMAGE__________
 // Imagenes de fondo para login
 import Background_Login_Dark from '../imgs/Background-Administration-Dark.jpeg';
 import Background_Login_Light from '../imgs/Background-Administration-Light.jpg';
@@ -11,12 +14,10 @@ import Background_Menu_Light from '../imgs/Background-Menu-Light.jpg';
 // Imagenes de fondo para administración
 import Background_Administration_Dark from '../imgs/Background-Administration-Dark.jpeg';
 import Background_Administration_Light from '../imgs/Background-Administration-Light.jpg'
-//__________ICONOS/IMAGENES__________
+//__________IMAGE__________
 // Estilos personalizados
 
 //____________IMPORT/EXPORT____________
-
-// ESTILOS PERSONALIZADOS PARA LOS CONTENEDORES
 
 //____________PAGE____________
 export const Container_Page = styled.div`
@@ -32,10 +33,21 @@ export const Container_Page = styled.div`
         display: none;
     }
 `;
-export const Container_Page_Login = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+export const Container_Page_Background = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode' && prop !== 'TypeUser' && prop !== 'Logged',
 })`
-    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Background_Login_Light})` : `url(${Background_Login_Dark})`)};    
+    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Administrator' || TypeUser === 'Chef' || TypeUser === 'Storekeeper') && Logged ? 
+        `background-image: url(${ ThemeMode ? Background_Administration_Light : Background_Administration_Dark});` : 
+        ''
+    }
+    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Cook' || TypeUser === 'Nutritionist' || TypeUser === 'Doctor') && Logged ?
+        `background-image: url(${ ThemeMode ? Background_Menu_Light : Background_Menu_Dark});`:
+        ''
+    }
+    ${({ Logged,ThemeMode }) => (!Logged) ?
+        `background-image: url(${ ThemeMode ? Background_Login_Light : Background_Login_Dark});`:
+        ''
+    }
     background-Size: cover;
     background-Position: center;
     width: 100vw;
@@ -43,39 +55,11 @@ export const Container_Page_Login = styled.div.withConfig({
     max-height: none;
     position: relative;
     display: flex;
-    justify-content: flex-start;
+    justify-content: ${({ Logged }) => (Logged ? 'center' : 'flex-start')};
     align-Items: center;
-    flex-direction: column;
-    padding-top: 40px;
-    gap: 40px;
-`;
-export const Container_Page_Kitchen = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Background_Menu_Light})` : `url(${Background_Menu_Dark})`)};  
-    background-Size: cover;
-    background-Position: center;
-    width: 100vw;
-    height: 100vh;
-    max-height: none;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-Items: center;
-`;
-export const Container_Page_Administration = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Background_Administration_Light})` : `url(${Background_Administration_Dark})`)};  
-    background-Size: cover;
-    background-Position: center;
-    width: 100vw;
-    height: 100vh;
-    max-height: none;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-Items: center;
+    ${({ Logged }) => (!Logged ? 'flex-direction: column;' : '')}
+    ${({ Logged }) => (!Logged ? 'padding-top: 40px;' : '')}
+    ${({ Logged }) => (!Logged ? 'gap: 40px;' : '')}
 `;
 export const Container_Page_Error = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -90,7 +74,18 @@ export const Container_Page_Error = styled.div.withConfig({
     gap:10px;      
     top: 0; 
     left: 0;
+    padding-top: 40px;
     background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(229, 44, 44);' : 'rgb(125, 27, 27)')};
+
+    @media (max-width: 768px) {
+        padding-top: 0px;
+        gap:15px;
+    }
+
+    @media (max-width: 480px) {    
+        padding-top: 0px;
+        gap:20px;
+    }
 `;
 export const Container_Page_Loading = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -294,7 +289,59 @@ export const Container_Form_350 = styled.div.withConfig({
     }
 `;
 //____________FORM____________
-//____________Contenedor completo sin bordes ____________
+//________________________
+export const Container_100_Center = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    border: none;      
+    position: relative; 
+    padding: 20px;
+    padding-top: 200px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        padding: 15px;
+        padding-top: 175px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+        padding-top: 150px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_90_Center = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 90%;
+    height: auto;  
+    border: none;      
+    position: relative; 
+    padding: 20px;
+    padding-top: 200px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        padding: 15px;
+        padding-top: 175px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+        padding-top: 150px;
+        gap: 5px;
+    }
+}
+`;
 export const Container_100_Right = styled.div`
     display: flex;
     justify-content: flex-end;
@@ -304,18 +351,18 @@ export const Container_100_Right = styled.div`
     height: auto;  
     border: none;      
     position: relative; 
-    padding: 20px;
+    padding: 10px;
     padding-right: 200px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        padding: 15px;
+        padding: 8px;
         padding-right: 175px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        padding: 10px;
+        padding: 6px;
         padding-right: 150px;
         gap: 5px;
     }
@@ -330,18 +377,18 @@ export const Container_90_Right = styled.div`
     height: auto;  
     border: none;      
     position: relative; 
-    padding: 20px;
+    padding: 10px;
     padding-right: 200px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        padding: 15px;
+        padding: 8px;
         padding-right: 175px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        padding: 10px;
+        padding: 6px;
         padding-right: 150px;
         gap: 5px;
     }
@@ -356,18 +403,18 @@ export const Container_100_Left = styled.div`
     height: auto;  
     border: none;      
     position: relative; 
-    padding: 20px;
+    padding: 10px;
     padding-left: 200px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        padding: 15px;
+        padding: 8px;
         padding-left: 175px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        padding: 10px;
+        padding: 6px;
         padding-left: 150px;
         gap: 5px;
     }
@@ -382,24 +429,24 @@ export const Container_90_Left = styled.div`
     height: auto;  
     border: none;      
     position: relative; 
-    padding: 20px;
+    padding: 10px;
     padding-left: 200px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        padding: 15px;
+        padding: 8px;
         padding-left: 175px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        padding: 10px;
+        padding: 6px;
         padding-left: 150px;
         gap: 5px;
     }
 }
 `;
-//____________Contenedor completo sin bordes ____________
+//________________________
 //____________MODAL____________
 export const Container_Modal = styled.div`
     position: fixed;
@@ -674,7 +721,22 @@ export const Container_Button_Row_300 = styled.div`
     }
 `;
 //____________BUTTOM____________
-//____________SIDEBAR____________
+//____________ICON____________
+export const Container_Icon_60 = styled.div`
+    text-align: center;
+    margin-top: 60px;
+
+    @media (max-width: 768px) {
+        margin-top: 50px;
+    }
+
+    @media (max-width: 480px) {
+        margin-top: 40px;
+    }
+}
+`;
+//____________ICON____________
+//____________NAVEGATION____________
 export const Container_Side_Bar = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -718,21 +780,6 @@ export const Container_Side_Bar = styled.div.withConfig({
     }
 }
 `;
-export const Container_Icon = styled.div`
-    text-align: center;
-    margin-top: 60px;
-
-    @media (max-width: 768px) {
-        margin-top: 50px;
-    }
-
-    @media (max-width: 480px) {
-        margin-top: 40px;
-    }
-}
-`;
-//____________SIDEBAR____________
-//____________NAVBAR____________
 export const Container_Nav_Bar = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -799,8 +846,6 @@ export const Container_Nav_Bar_Button = styled.div.withConfig({
         gap: 5px;
     }
 `;
-//____________NAVBAR____________
-//____________SEARCHBAR____________
 export const Container_Search_Bar = styled.div`  
     display: flex;            
     align-items: center;
@@ -828,7 +873,7 @@ export const Container_Search_Bar = styled.div`
         margin-left: 5px;
     }
 `;
-//____________SEARCHBAR____________
+//____________NAVEGATION____________
 //____________TEXT____________
 export const Container_Text_20 = styled.div`
     width: 20%;
@@ -848,16 +893,6 @@ export const Container_Text_20 = styled.div`
     }
 `;
 //____________TEXT____________
-//____________PAGINATION____________
-export const Container_Pagination = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-    width: 100%;
-`;
-//____________PAGINATION____________
 
 //--------FOOTER--------
 export const Container_Button_Footer = styled.div`

@@ -1,35 +1,32 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useEffect,useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 // Componentes de React externos
 
 // Servicios
 
 // Contextos
-import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
-import { nameContext,passwordContext,selectContext,radioContext } from "../contexts/FormsProvider";
-import { typeUserContext,searchTermContext,actionBlockContext } from "../contexts/VariablesProvider";
-import { userContext } from "../contexts/UsersProvider";
-import { permissionContext } from "../contexts/PermissionsProvider";
-import { statusUserContext } from "../contexts/StatusProvider";
-import { loggedContext,logContext } from "../contexts/SessionProvider";
+import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../../contexts/ViewsProvider";
+import { nameContext,passwordContext } from "../../contexts/FormsProvider";
+import { typeUserContext,searchTermContext,actionBlockContext } from "../../contexts/VariablesProvider";
+import { userContext } from "../../contexts/UsersProvider";
+import { permissionContext } from "../../contexts/PermissionsProvider";
+import { statusUserContext } from "../../contexts/StatusProvider";
+import { loggedContext,logContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page,Container_Page_Kitchen,Container_Page_Elements } from "../components/styled/Containers";
-import { Alert_Greeting,Alert_Verification,Alert_Styles } from "../components/styled/Alerts";
+import { Container_Page_Elements } from "../../components/styled/Containers";
+import { Alert_Verification } from "../../components/styled/Alerts";
 // Componentes personalizados
-import Home from '../components/pages/general/Home';
-import Menu from '../components/pages/menu/Menu';
-import Side_Bar from '../components/navegation/Sidebar'
-import Footer from "../components/footer/Footer";
+import Setting_Bar from "../../components/navegation/SettingBar";
 //____________IMPORT/EXPORT____________
 
-export default function Kitchen(){
+export default function Index_Kitchen(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(themeModeContext);
     const [currentLView,setCurrentLView] = useContext(loginViewContext);
@@ -49,12 +46,6 @@ export default function Kitchen(){
     const [isPermission,setIsPermission] = useContext(permissionContext);
     const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
     const [isLog,setIsLog] = useContext(logContext);
-     // useEffect con el titulo de la página
-    useEffect(() => {
-        document.title = "MEALSYNC_Menú_Inicio"
-        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
-        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
-    },[]);
     // useEffect con el cerrado de sesión de cocina
     useEffect(() => {
         if(isLog && isLogged){
@@ -106,26 +97,11 @@ export default function Kitchen(){
     const navigate = useNavigate();
     // Estructura del componente
     return(
-        <Container_Page>
-            <Side_Bar/>
-            <Container_Page_Kitchen>
-                <Container_Page_Elements sidebarVisible={isSidebarVisible}>
-                    {isSidebarVisible === 'Inicio' ? (
-                        <Home/>
-                    ):(
-                        <Menu/>
-                    )}
-                </Container_Page_Elements>
-            </Container_Page_Kitchen>
-            <Alert_Styles ThemeMode={themeMode}>
-                <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='dark'
-                    position='top-right'
-                />
-            </Alert_Styles>
-            <Footer/>
-        </Container_Page>
+        <>
+            <Container_Page_Elements sidebarVisible={isSidebarVisible}>
+                <Setting_Bar/>
+                <Outlet/>
+            </Container_Page_Elements>
+        </>
     );
 }

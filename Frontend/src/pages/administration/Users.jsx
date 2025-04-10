@@ -8,21 +8,20 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { sidebarViewContext,navbarViewContext,themeModeContext } from "../../../contexts/ViewsProvider";
+import { sidebarViewContext,navbarViewContext,themeModeContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Img_Logo_Horizontal_Hospital_450 } from "../../styled/Imgs";
+import { Img_Logo_Horizontal_Hospital_450 } from "../../components/styled/Imgs";
 // Componentes personalizados
-import Setting_Bar from "../../navegation/SettingBar";
-import Nav_Bar from "../../navegation/NavBar"
-import Search_Bar from '../../navegation/SearchBar'
-import TableUsers from "../../tables/TableUsers";
-import TablePermissions from "../../tables/TablePermissions";
-import TableStatus from '../../tables/TableStatus';
+import Nav_Bar from "../../components/navegation/NavBar"
+import Search_Bar from '../../components/navegation/SearchBar'
+import TableUsers from "../../components/tables/TableUsers";
+import TablePermissions from "../../components/tables/TablePermissions";
+import TableStatus from '../../components/tables/TableStatus';
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de usuarios en administración
@@ -34,7 +33,6 @@ export default function Users(){
     // Estructura del componente
     return(
         <> 
-            <Setting_Bar/>
             <Nav_Bar/> 
             <Search_Bar/>  
             {currentSView === 'Users' && currentNView === 'Principal' ? (

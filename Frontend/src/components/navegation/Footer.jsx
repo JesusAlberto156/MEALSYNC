@@ -1,8 +1,29 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
+
+// Componentes de React externos
+
+// Rutas
+
+// Contextos
+
+// Hooks personalizados
+
+//__________ICONOS__________
+
+//__________ICONOS__________
+// Estilos personalizados
+
+// Componentes personalizados
+
+//____________IMPORT/EXPORT____________
 import { Background_Footer } from "../styled/Backgrounds";
 import { Text_Footer } from "../styled/Text";
 import { Link } from "../styled/Buttons";
 import { Container_Button_Footer } from "../styled/Containers";
 
+
+// Componente para navegar entre paginas en la parte inferior
 export default function Footer(){
   return (
     <>

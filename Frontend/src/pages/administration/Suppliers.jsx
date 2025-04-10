@@ -8,7 +8,7 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
+import { themeModeContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -17,7 +17,6 @@ import { themeModeContext } from "../../../contexts/ViewsProvider";
 // Estilos personalizados
 
 // Componentes personalizados
-import Setting_Bar from "../../navegation/SettingBar";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de proveedores en administración
@@ -27,7 +26,6 @@ export default function Suppliers(){
     // Estructura del componente
     return(
         <> 
-            <Setting_Bar/>
             <h1>Modulo de Proveedores</h1>          
         </>
     )

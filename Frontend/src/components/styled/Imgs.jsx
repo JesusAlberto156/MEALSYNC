@@ -1,4 +1,10 @@
+//____________IMPORT/EXPORT____________
+// Componentes de React externos
 import styled from 'styled-components';
+//__________ICONOS__________
+
+//__________ICONOS__________
+//__________IMAGE__________
 import Logo_Horizontal_Hospital_Light from '../imgs/Logo-Horizontal-Hospital-Light.png'
 import Logo_Horizontal_Hospital_Dark from '../imgs/Logo-Horizontal-Hospital-Light.png'
 import Logo_Vertical_Hospital_Dark from '../imgs/Logo-Vertical-Hospital-Dark.png'
@@ -7,7 +13,10 @@ import Logo_Hospital_Dark from '../imgs/Logo-Hospital-Dark.png';
 import Logo_Hospital_Light from '../imgs/Logo-Hospital-Light.png';
 import Logo_Error_Dark from '../imgs/Error-Dark.png'
 import Logo_Error_Light from '../imgs/Error-Light.webp'
+//__________IMAGE__________
+// Estilos personalizados
 import { Fade_Animation } from './Animations';
+//____________IMPORT/EXPORT____________
 
 //____________LOGO____________
 export const Img_Logo_Horizontal_Hospital_450 = styled.div.withConfig({

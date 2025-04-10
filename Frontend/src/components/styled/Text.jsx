@@ -1,5 +1,15 @@
+//____________IMPORT/EXPORT____________
+// Componentes de React externos
 import styled from 'styled-components';
+//__________ICONOS__________
+
+//__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
+// Estilos personalizados
 import { Fade_Animation } from './Animations';
+//____________IMPORT/EXPORT____________
 
 //____________TITLE____________
 export const Text_Title_Fade_50 = styled.h1.withConfig({

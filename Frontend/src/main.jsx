@@ -7,8 +7,8 @@ import { createHashRouter, RouterProvider } from 'react-router-dom'
 // Servicios
 
 // Rutas
-import { PrivateRouteAdministration } from './routers/PrivateRouteAdministration';
-import { PrivateRouteKitchen } from './routers/PrivateRouteKitchen';
+import { PrivateRouteAdministration } from './routers/Administration';
+import { PrivateRouteKitchen } from './routers/Kitchen';
 // Contextos
 import { AppProviders } from './contexts/AppProviders';
 // Hooks personalizados
@@ -19,9 +19,16 @@ import { AppProviders } from './contexts/AppProviders';
 // Estilos personalizados
 
 // Componentes personalizados
-import Login from './pages/Login';
-import Kitchen from './pages/Kitchen';
-import Administration from './pages/Administration';
+import Index_Main from './pages/Indexs/Main';
+import Login from './pages/general/Login';
+import Home from './pages/general/Home';
+import Index_Administration from './pages/Indexs/Administration';
+import Users from './pages/administration/Users';
+import Suppliers from './pages/administration/Suppliers';
+import Inventory from './pages/administration/Inventory';
+import Menus from './pages/administration/Menus';
+import Record from './pages/administration/Record';
+import Index_Kitchen from './pages/Indexs/Kitchen';
 import Error from './pages/Error';
 import Loading from './pages/Loading';
 //____________IMPORT/EXPORT____________
@@ -32,27 +39,67 @@ const router = createHashRouter([
     element:<Loading/>
   },
   {
-    path:'/Login',
-    element:<Login/>
-  },
-  {
     path:'/',
-    element: <PrivateRouteAdministration/>,
+    element: <Index_Main/>,
     children: [
       {
-        path:'Administration',
-        element:<Administration/>
+        path: 'Login',
+        element: <Login/>
       },
-    ]
-  },
-  {
-    path:'/',
-    element: <PrivateRouteKitchen/>,
-    children: [
       {
-        path:'Kitchen',
-        element:<Kitchen/>
+        path: '/',
+        element: <PrivateRouteAdministration/>,
+        children: [
+          {
+            path: 'Administration',
+            element: <Index_Administration/>,
+            children: [
+              {
+                index: true,
+                path: 'Home',
+                element: <Home/>
+              },
+              {
+                path: 'Users',
+                element: <Users/>
+              },
+              {
+                path: 'Suppliers',
+                element: <Suppliers/>
+              },
+              {
+                path: 'Inventory',
+                element: <Inventory/>
+              },
+              {
+                path: 'Menus',
+                element: <Menus/>
+              },
+              {
+                path: 'Record',
+                element: <Record/>
+              }
+            ]
+          },
+        ]
       },
+      {
+        path: '/',
+        element: <PrivateRouteKitchen/>,
+        children: [
+          {
+            path: 'Kitchen',
+            element: <Index_Kitchen/>,
+            children: [
+              {
+                index: true,
+                path: 'Home',
+                element: <Home/>
+              },
+            ]
+          },
+        ]
+      }
     ]
   },
   {

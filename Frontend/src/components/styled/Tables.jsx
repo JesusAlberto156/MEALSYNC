@@ -1,4 +1,15 @@
+//____________IMPORT/EXPORT____________
+// Componentes de React externos
 import styled from 'styled-components';
+//__________ICONOS__________
+
+//__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
 
 export const Table = styled.table`
     border-collapse: collapse;
@@ -56,6 +67,5 @@ export const Td = styled.td.withConfig({
         padding: 4px; 
     }
 `;
-
 export const Tr = styled.tr`
 `;

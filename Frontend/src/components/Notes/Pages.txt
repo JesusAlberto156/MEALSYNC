@@ -29,3 +29,17 @@
 // Constantes con la funcionalidad de los hooks
 
 // Estructura del componente
+
+
+//____________IMPORT/EXPORT____________
+// Componentes de React externos
+
+//__________ICONOS__________
+
+//__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________

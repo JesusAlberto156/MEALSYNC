@@ -1,15 +1,15 @@
 //____________IMPORT/EXPORT____________
-// Hooks de React
+// Componentes de React externos
 import styled from 'styled-components';
 //__________ICONOS__________
 
 //__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
 // Estilos personalizados
 
 //____________IMPORT/EXPORT____________
-
-
-// ESTILOS PERSONALIZADOS PARA LOS INPUTS
 
 //____________GROUP____________
 export const Input_Group_80 = styled.div`

@@ -1,4 +1,15 @@
+//____________IMPORT/EXPORT____________
+// Componentes de React externos
 import styled from 'styled-components';
+//__________ICONOS__________
+
+//__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
 
 //____________ICON____________
 // Ocultar/Mostrar Sidebar
@@ -606,7 +617,7 @@ export const Button_Icon_Block_45 = styled.button.withConfig({
     }
 `;
 //____________ICON____________
-
+//____________LINK____________
 export const Link = styled.button`
     width: 25%;
     padding: 2px;
@@ -646,3 +657,4 @@ export const Link = styled.button`
         }
     }
 `;
+//____________LINK____________

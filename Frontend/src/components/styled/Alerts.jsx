@@ -1,13 +1,22 @@
+//____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
 import { toast } from 'sonner';
+//__________ICONOS__________
 // Icono para la alerta de saludo
 import { HiHandRaised } from "react-icons/hi2";
 // Icono para la alerta de advertencia
 import { AiFillWarning } from "react-icons/ai";
 // Icono para la alerta de error
 import { BiSolidMessageAltError } from "react-icons/bi";
-// ESTILOS PERSONALIZADOS DE ALERTAS
+//__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
+
 //____________STYLES____________
 export const Alert_Styles = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',

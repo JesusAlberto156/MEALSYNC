@@ -1,14 +1,15 @@
 //____________IMPORT/EXPORT____________
-// Hooks de React
+// Componentes de React externos
 import styled from 'styled-components';
-//__________ICONOS/IMAGENES__________
+//__________ICONOS__________
 
-//__________ICONOS/IMAGENES__________
+//__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
 // Estilos personalizados
-import { Rotate } from './Animations';
+import { Rotate_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
-
-// ESTILOS PERSONALIZADOS PARA LOS ICONOS
 
 // Sin color
 export const Icon_25 = styled.div`
@@ -77,7 +78,7 @@ export const Icon_Gray_Rotate_50 = styled.div.withConfig({
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(92, 93, 94)' : 'rgb(164, 166, 168)')};
     text-align: center;
     box-sizing: border-box;
-    animation: ${Rotate} 1s linear infinite;
+    animation: ${Rotate_Animation} 1s linear infinite;
     transform-origin: center center;
 
     @media (max-width: 768px) {

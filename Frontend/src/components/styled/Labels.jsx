@@ -1,4 +1,15 @@
+//____________IMPORT/EXPORT____________
+// Componentes de React externos
 import styled from 'styled-components';
+//__________ICONOS__________
+
+//__________ICONOS__________
+//__________IMAGE__________
+
+//__________IMAGE__________
+// Estilos personalizados
+
+//____________IMPORT/EXPORT____________
 
 //____________TEXT____________
 export const Label_Text_20 = styled.label.withConfig({

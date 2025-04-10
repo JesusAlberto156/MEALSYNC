@@ -26,7 +26,7 @@ import { MdStorage } from "react-icons/md";
 import { MdWorkHistory } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Side_Bar,Container_Icon } from "../styled/Containers";
+import { Container_Side_Bar,Container_Icon_60 } from "../styled/Containers";
 import { Icon_Image_Profile_Light } from "../styled/Icons";
 import { Text_Title_Fade_20,Text_A_18 } from "../styled/Text";
 import { Button_Icon_Blue_210 } from '../styled/Buttons';
@@ -50,9 +50,9 @@ export default function Side_Bar() {
   return (
     <>
       <Container_Side_Bar ThemeMode={themeMode} className={isSidebarVisible ? 'visible' : 'hidden'}>
-        <Container_Icon>
+        <Container_Icon_60>
           <Icon_Image_Profile_Light src={profileImage}/>
-        </Container_Icon>
+        </Container_Icon_60>
         <Text_Title_Fade_20 ThemeMode={themeMode}>{isUser.nombre}</Text_Title_Fade_20>
         <Tooltip title='Inicio' placement="right">
           <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {

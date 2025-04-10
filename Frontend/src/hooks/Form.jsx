@@ -7,7 +7,7 @@ import { nameContext,passwordContext,selectContext,radioContext,checkboxContext 
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { permissionsContext,permissionsAddContext,permissionsEditContext,permissionsEnableContext } from "../contexts/PermissionsProvider";
 import { statusAllContext,statusAddContext,statusEnableContext } from '../contexts/StatusProvider';
-import { formVerificationContext,actionBlockContext,selectedRowContext } from "../contexts/VariablesProvider";
+import { formVerificationContext,actionBlockContext,selectedRowContext,viewPasswordContext } from "../contexts/VariablesProvider";
 import { navbarViewContext,sidebarViewContext,modalViewContext } from "../contexts/ViewsProvider";
 // Estilos personalizados
 import { Alert_Verification } from "../components/styled/Alerts";
@@ -23,6 +23,64 @@ export const useChangeLog = () => {
     }
     // Retorno de la función del hook
     return changeLog;
+}
+
+// Hook para cambiar la vista de las contraseñas de los usuarios
+export const useChangeViewPassword = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(navbarViewContext);
+    const [currentSView] = useContext(sidebarViewContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isViewPassword,setIsViewPassword] = useContext(viewPasswordContext);
+    const [isName,setIsName] = useContext(nameContext);
+    const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
+    // Función del hook
+    const changeViewPassword = () => {
+        if(currentNView === 'Principal' && currentSView === 'Users' && currentMView === 'Users-View'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(false);
+                    setTimeout(() => {
+                        resolve('¡Puedes ver las contraseñas!...');
+                        setTimeout(() => {
+                            setIsViewPassword(true);
+                            setIsName('');
+                            setIsPassword('');
+                            setIsFormVerification(false);
+                            setCurrentMView('');
+                        },500);
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(true);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            })
+            
+            Alert_Verification(promise,'¡Mostrando contraseñas!...');
+        }else{
+            const promise = new Promise(async (resolve,reject) => {
+                if(isViewPassword){
+                    try{
+                        setTimeout(() => {
+                            resolve('¡Se ocultaron las contraseñas!...');
+                            setTimeout(() => {
+                                setIsViewPassword(false);
+                            },500);
+                        },1000);
+                    }catch(error){
+                        return reject('¡Ocurrio un error inesperado!...');
+                    }
+                }
+            })
+            if(isViewPassword){
+                Alert_Verification(promise,'¡Ocultando contraseñas!...');
+            }
+        }
+    }
+    // Retorno de la función del hook
+    return changeViewPassword;
 }
 // Hook para agregar los permisos a un usuario desde el modal
 export const useChangePermissionsAdd = () => {
@@ -238,7 +296,6 @@ export const useHandleCheckboxChange = () => {
                 return [...prevState, newCheckboxValue];
             }
         });
-        console.log(isCheckbox);
     }
     // Retorno de la función del hook
     return handleCheckboxChange;

@@ -1,6 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
@@ -32,11 +33,8 @@ export default function Status_Add(){
     const [isSelect] = useContext(selectContext);
     const [isRadio] = useContext(radioContext);
     const [isActiveBlock] = useContext(actionBlockContext);
-    // useEffect con el titulo del modal
-    useEffect(() => {
-        document.title = "MEALSYNC_Administración_Usuarios_Estatus_Agregar"
-    },[]);
     // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
     const changeModalView = useChangeModalView();
     const filteredRecordsHasStatus = useFilteredRecordsHasStatus();
     const handleSelectChange = useHandleSelectChange();
@@ -124,8 +122,13 @@ export default function Status_Add(){
                         </Container_Button_Border_Row_350>
                         <Text_P_Left_20 ThemeMode={themeMode}>Agregar estatus...</Text_P_Left_20>
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
-                            <Tooltip title="Cancelar" placement="top">
-                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => changeModalView('')}><MdCancel/></Button_Icon_Blue_150>
+                            <Tooltip title='Cancelar' placement="top">
+                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => {
+                                    changeModalView('')
+                                    navigate('/Administration/Users/Status',{ replace: true });    
+                                }}>
+                                    <MdCancel/>
+                                </Button_Icon_Blue_150>
                             </Tooltip>
                             {isActiveBlock ? (
                                 <>

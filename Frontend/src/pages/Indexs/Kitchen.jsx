@@ -3,7 +3,7 @@
 import { useEffect,useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 // Componentes de React externos
-
+import { Toaster } from "sonner";
 // Servicios
 
 // Contextos
@@ -21,7 +21,7 @@ import { loggedContext,logContext } from "../../contexts/SessionProvider";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";
-import { Alert_Verification } from "../../components/styled/Alerts";
+import { Alert_Verification,Alert_Styles } from "../../components/styled/Alerts";
 // Componentes personalizados
 import Setting_Bar from "../../components/navegation/SettingBar";
 //____________IMPORT/EXPORT____________
@@ -60,7 +60,7 @@ export default function Index_Kitchen(){
                     setTimeout(() => {
                         setCurrentLView('');
                         setCurrentNView('');
-                        setCurrentSView('Home');
+                        setCurrentSView('');
                         setIsSidebarVisible(true);
                         setCurrentMView('');
                         
@@ -102,6 +102,15 @@ export default function Index_Kitchen(){
                 <Setting_Bar/>
                 <Outlet/>
             </Container_Page_Elements>
+
+            <Alert_Styles ThemeMode={themeMode}>
+                <Toaster
+                    visibleToasts={3}
+                    richColors
+                    theme='dark'
+                    position='top-right'
+                />
+            </Alert_Styles> 
         </>
     );
 }

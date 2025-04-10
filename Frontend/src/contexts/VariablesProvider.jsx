@@ -9,6 +9,7 @@ export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
 export const formVerificationContext = createContext(null);
 export const actionBlockContext = createContext(null);
+export const viewPasswordContext = createContext(null);
 // Contextos personalizados
 
 // Estilos personalizados
@@ -82,5 +83,16 @@ export const Action_Block = ({children}) => {
         <actionBlockContext.Provider value={[isActiveBlock,setIsActiveBlock]}>
             {children}
         </actionBlockContext.Provider>
+    );
+}
+// Función Contexto para controlar la vista de las contraseñas de los usuarios
+export const View_Password = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isViewPassword,setIsViewPassword] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <viewPasswordContext.Provider value={[isViewPassword,setIsViewPassword]}>
+            {children}
+        </viewPasswordContext.Provider>
     );
 }

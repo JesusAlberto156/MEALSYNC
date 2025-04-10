@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 // Componentes de React externos
 
 // Servicios
@@ -24,6 +24,10 @@ import { themeModeContext } from "../../contexts/ViewsProvider";
 export default function Inventory(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
+    // useEffect con el titulo de la página
+    useEffect(() => {
+        document.title = 'MEALSYNC_Administración'
+    },[]);
     // Estructura del componente
     return(
         <> 

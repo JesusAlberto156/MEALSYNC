@@ -52,7 +52,7 @@ export const Navbar_View = ({ children }) => {
 // Función contexto para controlar la vista del sidebar
 export const Sidebar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [currentView,setCurrentView] = useState('Home');
+    const [currentView,setCurrentView] = useState('');
     // Return para darle valor al contexto y heredarlo
     return (
         <sidebarViewContext.Provider value={[currentView,setCurrentView]}>

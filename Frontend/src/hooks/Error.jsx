@@ -36,9 +36,9 @@ export const useErrorReturn = () => {
                 },1000);
                 setTimeout(() => {
                     if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
-                        navigate('/Kitchen',{replace: true});
+                        navigate('/Kitchen/Home',{replace: true});
                     }else{
-                        navigate('/Administration',{replace: true});
+                        navigate('/Administration/Home',{replace: true});
                     }
                 },2000);
             } catch (error) {

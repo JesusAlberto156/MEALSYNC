@@ -1,14 +1,14 @@
 
 
-import SearchBar from "../../components/navegation/SearchBar";
-import Navbar from "../../components/navegation/Navbar";
+import Search_Bar from "../../components/navegation/SearchBar";
+import Nav_Bar from "../../components/navegation/NavBar";
 
 export default function Menu(){
 
     return(
         <>
-            <Navbar/>
-            <SearchBar/>        
+            <Nav_Bar/>
+            <Search_Bar/>        
         </>
     )
 }

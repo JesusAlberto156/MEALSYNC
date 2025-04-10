@@ -618,43 +618,34 @@ export const Button_Icon_Block_45 = styled.button.withConfig({
 `;
 //____________ICON____________
 //____________LINK____________
-export const Link = styled.button`
-    width: 25%;
+export const Button_Link_150 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 150px;
     padding: 2px;
+    font-size: 16px;
     background-color: transparent;
-    color:rgb(58,93,174);
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
     border: none;
-    font-size: 15px;
-    font-family:Arial, Helvetica, sans-serif;
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
     
     &:hover {
-        color:rgb(160, 198, 236);
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
         transform: translateY(-2px);
         text-decoration: underline;
         transform: scale(1.2);
     }
 
     @media (max-width: 768px) {
-        font-size: 12px;
-        width: 40%;
-        
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
+        width: 120px;
+        font-size: 14px;
     }
 
     @media (max-width: 480px) {
+        width: 90px;
         font-size: 12px;
-        width: 60%;
-
-        &:hover {
-            transform: translateY(-2px);
-            transform: scale(1.1);
-        }
     }
 `;
 //____________LINK____________

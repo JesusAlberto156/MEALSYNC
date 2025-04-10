@@ -1,6 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext,useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 
 // Servicios
@@ -41,10 +42,8 @@ export default function Status_Enable(){
     const {Modal,Form} = useContext(refFormStatusContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
-    // useEffect con el titulo del modal
+    // useEffect con el usuario
     useEffect(() => {
-        if(isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Usuarios_Estatus_Deshabilitar"
-        if(!isSelectedRow.habilitado)document.title = "MEALSYNC_Administración_Usuarios_Estatus_Habilitar"
         if(isSelectedRow !== null){
             const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
             if(isUser){
@@ -53,6 +52,7 @@ export default function Status_Enable(){
         }
     },[]);
     // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
     const changeModalView = useChangeModalView();
     const changeStatusEnable = useChangeStatusEnable();
     // Estructura del componente
@@ -65,12 +65,13 @@ export default function Status_Enable(){
                         <Form_Verification/>
                         {isSelectedRow.habilitado ? <Text_P_Left_16 ThemeMode={themeMode}>Se deshabilitará a {user} </Text_P_Left_16> : <Text_P_Left_16 ThemeMode={themeMode}>Se habilitará a {user}...</Text_P_Left_16>}
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
-                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={(e) => {
-                                    e.stopPropagation();
-                                    changeModalView('');
-                                }}>
-                                        <MdCancel/>
-                                </Button_Icon_Blue_150>
+                            <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={(e) => {
+                                e.stopPropagation();
+                                changeModalView('')
+                                navigate('/Administration/Users/Status',{ replace: true });    
+                            }}>
+                                <MdCancel/>
+                            </Button_Icon_Blue_150>
                             {isSelectedRow.habilitado ? (
                                 isActionBlock ? (
                                     <>

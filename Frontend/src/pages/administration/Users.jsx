@@ -1,6 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 // Componentes de React externos
 
 // Servicios
@@ -8,7 +9,7 @@ import { useContext } from "react";
 // Rutas
 
 // Contextos
-import { sidebarViewContext,navbarViewContext,themeModeContext } from "../../contexts/ViewsProvider";
+import { themeModeContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -19,37 +20,23 @@ import { Img_Logo_Horizontal_Hospital_450 } from "../../components/styled/Imgs";
 // Componentes personalizados
 import Nav_Bar from "../../components/navegation/NavBar"
 import Search_Bar from '../../components/navegation/SearchBar'
-import TableUsers from "../../components/tables/TableUsers";
-import TablePermissions from "../../components/tables/TablePermissions";
-import TableStatus from '../../components/tables/TableStatus';
+
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de usuarios en administración
 export default function Users(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
+    // useEffect con el titulo de la página
+    useEffect(() => {
+        document.title = 'MEALSYNC_Administración'
+    },[]);
     // Estructura del componente
     return(
         <> 
             <Nav_Bar/> 
             <Search_Bar/>  
-            {currentSView === 'Users' && currentNView === 'Principal' ? (
-                <TableUsers/>
-            ):(
-                <></>
-            )}
-            {currentSView === 'Users' && currentNView === 'Permissions' ? (
-                <TablePermissions/>
-            ):(
-                <></>
-            )}
-            {currentSView === 'Users' && currentNView === 'Status' ? (
-                <TableStatus/>
-            ):(
-                <></>
-            )}
+            <Outlet/>
             <Img_Logo_Horizontal_Hospital_450 ThemeMode={themeMode}/>
         </>
     )

@@ -68,23 +68,21 @@ export const Container_Page_Error = styled.div.withConfig({
     height: 100%;
     display: flex;
     position: fixed; 
-    justify-content: center; 
+    justify-content: flex-start; 
     align-items: center;   
     flex-direction: column;
     gap:10px;      
     top: 0; 
     left: 0;
-    padding-top: 40px;
+    padding-top: 80px;
     background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(229, 44, 44);' : 'rgb(125, 27, 27)')};
 
     @media (max-width: 768px) {
-        padding-top: 0px;
-        gap:15px;
+        gap:8px;
     }
 
     @media (max-width: 480px) {    
-        padding-top: 0px;
-        gap:20px;
+        gap:6px;
     }
 `;
 export const Container_Page_Loading = styled.div.withConfig({
@@ -300,18 +298,15 @@ export const Container_100_Center = styled.div`
     border: none;      
     position: relative; 
     padding: 20px;
-    padding-top: 200px;
     gap: 15px;
 
     @media (max-width: 768px) {
         padding: 15px;
-        padding-top: 175px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
         padding: 10px;
-        padding-top: 150px;
         gap: 5px;
     }
 }
@@ -326,18 +321,15 @@ export const Container_90_Center = styled.div`
     border: none;      
     position: relative; 
     padding: 20px;
-    padding-top: 200px;
     gap: 15px;
 
     @media (max-width: 768px) {
         padding: 15px;
-        padding-top: 175px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
         padding: 10px;
-        padding-top: 150px;
         gap: 5px;
     }
 }
@@ -873,6 +865,31 @@ export const Container_Search_Bar = styled.div`
         margin-left: 5px;
     }
 `;
+export const Container_Footer = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`  
+display: flex;  
+flex-direction: column;          
+align-items: center;
+justify-content: flex-start;         
+background: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.9)')};
+border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+width: 100%;
+height: auto;       
+position: relative; 
+padding: 20px;
+gap: 10px;
+
+@media (max-width: 768px) {
+    padding: 15px;
+    gap: 8px;   
+}
+
+@media (max-width: 480px) {
+    padding: 10px;
+    gap: 6px;
+}
+`;
 //____________NAVEGATION____________
 //____________TEXT____________
 export const Container_Text_20 = styled.div`
@@ -893,26 +910,3 @@ export const Container_Text_20 = styled.div`
     }
 `;
 //____________TEXT____________
-
-//--------FOOTER--------
-export const Container_Button_Footer = styled.div`
-    margin-left: 35%;
-    width: 30%;
-    display: flex;
-    gap: 20px; 
-    justify-content: center; 
-    align-items: center;
-
-    @media (max-width: 768px) {
-        gap: 10px;
-        margin-left: 25%;
-        width: 50%;
-    }
-
-    @media (max-width: 480px) {
-        gap: 5px;
-        margin-left: 20%;
-        width: 60%;
-    }
-`;
-//--------FOOTER--------

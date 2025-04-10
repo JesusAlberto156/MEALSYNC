@@ -17,7 +17,7 @@ import { typeUserContext } from "../../contexts/VariablesProvider";
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Styles } from "../../components/styled/Alerts";
+import { Alert_Styles,Alert_Greeting } from "../../components/styled/Alerts";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -30,28 +30,20 @@ export default function Home(){
     const [isTypeUser] = useContext(typeUserContext);
     // useEffect con el titulo de la página
     useEffect(() => {
-        document.title = "MEALSYNC_Administración_Inicio"
-        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...');
-        Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
-    },[]);
-     // useEffect con el titulo de la página
-     useEffect(() => {
-        document.title = "MEALSYNC_Menú_Inicio"
-        Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
+        if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
+            document.title = "MEALSYNC_Cocina"
+            Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de menú!...');
+        }
+        if(isTypeUser==='Administrator' || isTypeUser==='Chef' || isTypeUser==='Storekeeper'){
+            document.title = "MEALSYNC_Administración"
+            Alert_Greeting("MEALSYNC",'¡Le ofrece las siguientes opciones de administración!...');
+        }
         Alert_Greeting('Bienvenido(a)',`¡${isUser.nombrecorto}!...`);
     },[]);
     // Estructura del componente
     return(
         <> 
-            <h1>Modulo de Inicio</h1>     
-            <Alert_Styles ThemeMode={themeMode}>
-                <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='dark'
-                    position='top-right'
-                />
-            </Alert_Styles>      
+            <h1>Modulo de Inicio</h1>      
         </>
     )
 }

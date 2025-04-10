@@ -24,6 +24,16 @@ import Login from './pages/general/Login';
 import Home from './pages/general/Home';
 import Index_Administration from './pages/Indexs/Administration';
 import Users from './pages/administration/Users';
+import TableUsers from './components/tables/TableUsers';
+import Users_Add from './components/modals/users/UsersAdd';
+import Users_View from './components/modals/users/UsersView';
+import TablePermissions from './components/tables/TablePermissions';
+import Permissions_Add from './components/modals/permissions/PermissionsAdd';
+import Permissions_Edit from './components/modals/permissions/PermissionsEdit';
+import Permissions_Super_Administrator from './components/modals/permissions/PermissionsSuperAdministrator';
+import TableStatus from './components/tables/TableStatus';
+import Status_Add from './components/modals/status/StatusAdd';
+import Status_Enable from './components/modals/status/StatusEnable';
 import Suppliers from './pages/administration/Suppliers';
 import Inventory from './pages/administration/Inventory';
 import Menus from './pages/administration/Menus';
@@ -43,10 +53,6 @@ const router = createHashRouter([
     element: <Index_Main/>,
     children: [
       {
-        path: 'Login',
-        element: <Login/>
-      },
-      {
         path: '/',
         element: <PrivateRouteAdministration/>,
         children: [
@@ -55,13 +61,61 @@ const router = createHashRouter([
             element: <Index_Administration/>,
             children: [
               {
-                index: true,
                 path: 'Home',
                 element: <Home/>
               },
               {
                 path: 'Users',
-                element: <Users/>
+                element: <Users/>,
+                children: [
+                  {
+                    path: 'Principal',
+                    element: <TableUsers/>,
+                    children: [
+                      {
+                        path: 'Add',
+                        element: <Users_Add/>
+                      },
+
+                      {
+                        path: 'View',
+                        element: <Users_View/>
+                      },
+                    ]
+                  },
+                  {
+                    path: 'Permissions',
+                    element: <TablePermissions/>,
+                    children: [
+                      {
+                        path: 'Add',
+                        element: <Permissions_Add/>
+                      },
+                      {
+                        path: 'Edit',
+                        element: <Permissions_Edit/>
+                      },
+                      {
+                        path: 'Enable',
+                        element: <Permissions_Super_Administrator/>
+                      },
+                    ]
+                  },
+                  {
+                    path: 'Status',
+                    element: <TableStatus/>,
+                    children: [
+                      {
+                        path: 'Add',
+                        element: <Status_Add/>
+                      },
+                      {
+                        path: 'Enable',
+                        element: <Status_Enable/>
+                      },
+                    ]
+                  },
+                ]
               },
               {
                 path: 'Suppliers',
@@ -92,14 +146,17 @@ const router = createHashRouter([
             element: <Index_Kitchen/>,
             children: [
               {
-                index: true,
                 path: 'Home',
                 element: <Home/>
               },
             ]
           },
         ]
-      }
+      },
+      {
+        path: 'Login',
+        element: <Login/>
+      },
     ]
   },
   {

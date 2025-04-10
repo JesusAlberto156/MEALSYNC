@@ -6,6 +6,9 @@ import { decryptData } from "../services/Crypto";
 // Contextos
 export const usersContext = createContext(null);
 export const userContext = createContext(null);
+export const userAddContext = createContext(null);
+export const userEditContext = createContext(null);
+export const userDeleteContext = createContext(null);
 // Contextos personalizados
 import { socketContext } from "./SocketProvider";
 // Estilos personalizados
@@ -76,5 +79,50 @@ export const User = ({ children }) => {
         <userContext.Provider value={[isUser,setIsUser]}>
             {children}
         </userContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de un usuario
+export const User_Add = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(socketContext);
+    // UseState para controlar el valor del contexto
+    const [isUserAdd,setIsUserAdd] = useState(false);
+    // UseEffect para agregar datos a la base de datos
+    
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <userAddContext.Provider value={[isUserAdd,setIsUserAdd]}>
+            {children}
+        </userAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de un usuario
+export const User_Edit = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(socketContext);
+    // UseState para controlar el valor del contexto
+    const [isUserEdit,setIsUserEdit] = useState(false);
+    // UseEffect para editar datos a la base de datos
+    
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <userEditContext.Provider value={[isUserEdit,setIsUserEdit]}>
+            {children}
+        </userEditContext.Provider>
+    );
+}
+// Función contexto para controlar los datos eliminados de un usuario
+export const User_Delete = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(socketContext);
+    // UseState para controlar el valor del contexto
+    const [isUserDelete,setIsUserDelete] = useState(false);
+    // UseEffect para eliminar datos a la base de datos
+    
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <userDeleteContext.Provider value={[isUserDelete,setIsUserDelete]}>
+            {children}
+        </userDeleteContext.Provider>
     );
 }

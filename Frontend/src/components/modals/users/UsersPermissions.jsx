@@ -8,10 +8,10 @@ import Select from "react-select";
 // Contextos
 import { themeModeContext } from "../../../contexts/ViewsProvider";
 import { actionBlockContext } from "../../../contexts/VariablesProvider";
-import { selectContext,checkboxContext } from "../../../contexts/FormsProvider";
+import { checkboxContext,radioUsersContext } from "../../../contexts/FormsProvider";
 // Hooks personalizados
 import { useChangeModalView } from "../../../hooks/Views";
-import { useChangePermissionsAdd,useHandleSelectChange,useFilteredRecordsHasPermissions,useHandleCheckboxChange } from "../../../hooks/Form";
+import { useHandleCheckboxChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -26,85 +26,24 @@ import { Label_Check_18 } from "../../styled/Labels";
 import { Input_Checkbox_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
-// Modal para agregar permisos a los usuarios
-export default function Permissions_Add(){
+
+// Modal para ver la contraseña de usuarios
+export default function Users_Permissions(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(themeModeContext);
-    const [isActionBlock] = useContext(actionBlockContext);
-    const [isSelect] = useContext(selectContext);
     const [isCheckbox] = useContext(checkboxContext);
+    const [isRadioUsers,setIsRadioUsers] = useContext(radioUsersContext);
+    const [isActionBlock] = useContext(actionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changePermissionsAdd = useChangePermissionsAdd();
-    const changeModalView = useChangeModalView();
-    const handleSelectChange = useHandleSelectChange();
     const handleCheckboxChange = useHandleCheckboxChange();
-    const filteredRecordsHasPermissions = useFilteredRecordsHasPermissions();
+    const changeModalView = useChangeModalView();
     // Estructura del componente
     return(
         <>
             <Container_Modal>
-                <Container_Form_450 ThemeMode={themeMode}>
-                    <Text_Title_Fade_30 ThemeMode={themeMode}>AGREGAR PERMISOS</Text_Title_Fade_30>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Selecciona un usuario...</Text_P_Left_20>
-                    <Container_Button_Border_Row_400 ThemeMode={themeMode}>
-                        <Select
-                            options={filteredRecordsHasPermissions.map((user) => ({
-                                value: user.idusuario,
-                                label: user.usuario
-                            }))}
-                            styles={{
-                                control: (provided) => ({
-                                    ...provided,
-                                    width: '350px',
-                                    padding: '6px',
-                                    border: '2px solid black',
-                                    cursor: 'pointer',
-                                    borderRadius: '15px',
-                                    fontFamily: 'Prompt, sans-serif',
-                                    fontWeight: 300,
-                                    fontStyle: 'normal',
-                                    fontSize: '18px',
-                                    '@media (max-width: 768px)':{
-                                        width: '300px',
-                                        padding: '4px',
-                                        fontSize: '16px',
-                                    },
-                                    '@media (max-width: 480px)':{
-                                        width: '250px',
-                                        padding: '2px',
-                                        fontSize: '14px',
-                                    },
-                                }),
-                                menu: (provided) => ({
-                                    ...provided,
-                                    overflow: 'hidden',
-                                    borderRadius:'15px',
-                                }),
-                                menuList: (provided) => ({
-                                    ...provided,
-                                    maxHeight:175,
-                                    fontFamily: 'Prompt, sans-serif',
-                                    fontWeight: 300,
-                                    fontStyle: 'normal',
-                                    overflowY:'auto',
-                                    scrollbarWidth: 'none',
-                                    '&::-webkit-scrollbar': {
-                                        display:'none',
-                                    },
-                                    '@media (max-width: 768px)':{
-                                        maxHeight:150,
-                                    },
-                                    '@media (max-width: 480px)':{
-                                        maxHeight:125,
-                                    },
-                                })
-                            }}
-                            placeholder='Seleccione uno...'
-                            value={isSelect}
-                            onChange={handleSelectChange}
-                        />
-                    </Container_Button_Border_Row_400>
+                <Container_Form_450 ThemeMode={themeMode} >
+                    <Text_Title_Fade_30 ThemeMode={themeMode}>PERMISOS</Text_Title_Fade_30>
                     <Text_P_Left_20 ThemeMode={themeMode}>Área de administración...</Text_P_Left_20>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Label_Check_18 ThemeMode={themeMode}>
@@ -163,8 +102,7 @@ export default function Permissions_Add(){
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => {
-                                changeModalView('')
-                                navigate('/Administration/Users/Permissions',{ replace: true });    
+                                setIsRadioUsers(prev => ({ ...prev, tipo: 'Default' }))   
                             }}>
                                 <MdCancel/>
                             </Button_Icon_Blue_170>

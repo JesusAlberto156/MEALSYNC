@@ -28,6 +28,7 @@ const [isName,setIsName] = useContext(nameContext);
 const [isPassword,setIsPassword] = useContext(passwordContext);
 const [isSelect,setIsSelect] = useContext(selectContext);
 const [isRadio,setIsRadio] = useContext(radioContext);
+const [isRadioUsers,setIsRadioUsers] = useContext(radioUsersContext);
 const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
 //____________FORM____________
 //____________PERMISSIONS____________
@@ -38,6 +39,8 @@ const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditConte
 const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
 //____________PERMISSIONS____________
 //____________REFS____________
+const {Modal,Form} = useContext(refFormUsersContext);
+const {Button_Edit_U,Button_Delete_U} = useContext(refButtonUsersContext);
 const {Modal,Form} = useContext(refFormPermissionsContext);
 const {Button_Edit_P,Button_Super_P} = useContext(refButtonPermissionsContext);
 const {Modal,Form} = useContext(refFormStatusContext);
@@ -66,6 +69,7 @@ const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
 const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
 const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
 const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+const [isViewPassword,setIsViewPassword] = useContext(viewPasswordContext);
 //____________VARIABLES____________
 //____________VIEWS____________
 const [themeMode,setThemeMode] = useContext(themeModeContext);

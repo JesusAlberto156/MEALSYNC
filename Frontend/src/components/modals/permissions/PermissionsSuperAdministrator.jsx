@@ -1,8 +1,9 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext,useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
 // Componentes de React externos
-import { Tooltip } from "@mui/material";
+
 // Contextos
 import { themeModeContext } from "../../../contexts/ViewsProvider";
 import { usersContext } from "../../../contexts/UsersProvider";
@@ -35,9 +36,8 @@ export default function Permissions_Super_Administrator(){
         const {Modal,Form} = useContext(refFormPermissionsContext);
         // Constantes con el valor de useState
         const [user,setUser] = useState('');
-        // useEffect con el titulo del modal
+        // useEffect con el usuario
         useEffect(() => {
-            document.title = "MEALSYNC_Administración_Usuarios_Permisos_Super-Administrador"
             if(isSelectedRow !== null){
                 const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
                 if(isUser){
@@ -46,6 +46,7 @@ export default function Permissions_Super_Administrator(){
             }
         },[]);
         // Constantes con la funcionalidad de los hooks
+        const navigate = useNavigate();
         const changeModalView = useChangeModalView();
         const changePermissionsEnable = useChangePermissionsEnable();
         // Estructura del componente
@@ -62,6 +63,7 @@ export default function Permissions_Super_Administrator(){
                                 <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={(e) => {
                                     e.stopPropagation();
                                     changeModalView('');
+                                    navigate('/Administration/Users/Permissions',{ replace: true });    
                                 }}>
                                     <MdCancel/>
                                 </Button_Icon_Blue_150>

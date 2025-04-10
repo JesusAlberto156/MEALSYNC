@@ -67,22 +67,8 @@ export const useChangeSidebarView = () => {
     // Constantes con el valor de los contextos 
     const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext)
-    const [isTypeUser] =  useContext(typeUserContext);
     // Función del hook
     const changeSidebarView = (View) => {
-        if(View === 'Home'){
-            if(isTypeUser === 'Administrator' || isTypeUser === 'Chef' || isTypeUser === 'Storekeeper') document.title = "MEALSYNC_Administración_Inicio";
-            if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor') document.title = "MEALSYNC_Menú_Inicio";
-        }
-        if(View === 'General')document.title = "MEALSYNC_Menú_General";
-        if(View === 'Collaborators')document.title = "MEALSYNC_Menú_Colaboradores";
-        if(View === 'Nutritionist')document.title = "MEALSYNC_Menú_Nutriólogo";
-        if(View === 'Doctor')document.title = "MEALSYNC_Menú_Medico";
-        if(View === 'Users')document.title = "MEALSYNC_Administración_Usuarios";
-        if(View === 'Suppliers')document.title = "MEALSYNC_Administración_Proveedores";
-        if(View === 'Menus')document.title = "MEALSYNC_Administración_Menús";
-        if(View === 'Inventory')document.title = "MEALSYNC_Administración_Inventario";
-        if(View === 'Record')document.title = "MEALSYNC_Administración_Historial";
         setCurrentSView(View);
         setIsSearchTerm('');
     };
@@ -119,6 +105,13 @@ export const useChangeModalView = () => {
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
     // Función del hook
     const changeModalView = (View) => {
+
+        if(currentMView === 'Users-View'){
+            setIsActionBlock(false);
+            setIsName('');
+            setIsPassword('');
+            setIsFormVerification(false);
+        }
         if(currentMView === 'Permissions-Add'){
             setIsPermissionsAdd(false);
             setIsSelect([]);

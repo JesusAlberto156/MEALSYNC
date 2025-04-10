@@ -10,6 +10,7 @@ import { Toaster } from 'sonner';
 
 // Contextos
 import { themeModeContext } from "../contexts/ViewsProvider";
+import { typeUserContext } from "../contexts/VariablesProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -29,12 +30,21 @@ import { Alert_Greeting,Alert_Styles } from '../components/styled/Alerts';
 export default function Loading(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
+    const [isTypeUser] = useContext(typeUserContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";
         Alert_Greeting("MEALSYNC",'¡Cargando!...');
         setTimeout(() => {
-            navigate('/Login',{ replace: true });                            
+            if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
+                navigate('/Kitchen/Home',{replace: true});
+            }
+            if(isTypeUser==='Administrator' || isTypeUser==='Chef' || isTypeUser==='Storekeeper'){
+                navigate('/Administration/Home',{replace: true});
+            }
+            if(isTypeUser === ''){
+                navigate('/Login',{replace: true});
+            }                       
         },500);
     },[]);
     // Constantes con la funcionalidad de los hooks

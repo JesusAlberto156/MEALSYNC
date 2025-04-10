@@ -11,8 +11,8 @@ import { typeUserContext } from "../contexts/VariablesProvider";
 export const PrivateRouteAdministration = () => {
     // Constantes con el valor de los contextos 
     const [isLogged] = useContext(loggedContext);
-    const [typeUser] = useContext(typeUserContext);
+    const [isTypeUser] = useContext(typeUserContext);
     // Función del componente
     if(!isLogged) return <Navigate to={'/'}/>;
-    return typeUser==='Administrator' || typeUser==='Chef' || typeUser==='Storekeeper' ? <Outlet/> : <Navigate to={'/'}/>;
+    return isTypeUser==='Administrator' || isTypeUser==='Chef' || isTypeUser==='Storekeeper' ? <Outlet/> : <Navigate to={'/'}/>;
 }

@@ -41,7 +41,7 @@ export const Input_Text_260 = styled.input.withConfig({
     background: transparent;
     transition: 0.1s ease;
     outline: none;
-    padding-top: 30px;
+    padding-top: 10px;
     cursor: text;
     padding-bottom: 8px;
     padding-left: 14px;

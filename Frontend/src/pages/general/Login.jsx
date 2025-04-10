@@ -64,7 +64,7 @@ export default function Login(){
     const [currentMView,setCurrentMView] = useContext(modalViewContext);
     // useEffect con el titulo de la página
     useEffect(() => {
-        document.title = "MEALSYNC_Iniciar_Sesión";
+        document.title = "MEALSYNC";
         Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
         Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
     },[]);
@@ -125,7 +125,7 @@ export default function Login(){
                                                 setIsLog(false);
                                                 setIsLogged(true);
                                                 setIsActionBlock(false);
-                                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
+                                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
                                             },2000);
                                         }else{
                                             setIsLog(false);
@@ -186,7 +186,7 @@ export default function Login(){
                                                 setIsLog(false);
                                                 setIsLogged(true);
                                                 setIsActionBlock(false);
-                                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen' : '/Administration',{ replace: true });
+                                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
                                             },2000);
                                         }else{
                                             setIsLog(false);

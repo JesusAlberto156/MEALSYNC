@@ -1,6 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useState,useContext } from "react";
+import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
@@ -46,6 +47,7 @@ export default function Side_Bar() {
   // Constantes con la funcionalidad de los hooks
   const changeNavbarView = useChangeNavbarView();
   const changeSidebarView = useChangeSidebarView();
+  const navigate = useNavigate();
   // Estructura del componente
   return (
     <>
@@ -58,6 +60,7 @@ export default function Side_Bar() {
           <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
                   changeSidebarView('Home')
                   changeNavbarView('')
+                  navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
           }}>
             <Text_A_18>Inicio</Text_A_18><BiSolidHomeAlt2/>
           </Button_Icon_Blue_210>
@@ -115,40 +118,45 @@ export default function Side_Bar() {
           <>
             <Tooltip title='Usuarios' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Users')
-                changeNavbarView('Principal')
+                changeSidebarView('Users');
+                changeNavbarView('Principal');
+                navigate('/Administration/Users/Principal',{ replace: true });
               }}>
                 <Text_A_18>Usuarios</Text_A_18><FaUserGroup/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Proveedores' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Suppliers')
-                changeNavbarView('')
+                changeSidebarView('Suppliers');
+                changeNavbarView('');
+                navigate('/Administration/Suppliers',{ replace: true });
               }}>
                 <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Inventario' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Inventory')
-                changeNavbarView('')
+                changeSidebarView('Inventory');
+                changeNavbarView('');
+                navigate('/Administration/Inventory',{ replace: true });
               }}>
                 <Text_A_18>Inventario</Text_A_18><MdStorage/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Menús' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Menus')
-                changeNavbarView('')
+                changeSidebarView('Menus');
+                changeNavbarView('');
+                navigate('/Administration/Menus',{ replace: true });
               }}>
                 <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Historial' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Record')
-                changeNavbarView('')
+                changeSidebarView('Record');
+                changeNavbarView('');
+                navigate('/Administration/Record',{ replace: true });
               }}>
                 <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
               </Button_Icon_Blue_210>
@@ -161,32 +169,36 @@ export default function Side_Bar() {
           <>
             <Tooltip title='Proveedores' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Suppliers')
-                changeNavbarView('')
+                changeSidebarView('Suppliers');
+                changeNavbarView('');
+                navigate('/Administration/Suppliers',{ replace: true });
               }}>
                 <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Inventario' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Inventory')
-                changeNavbarView('')
+                changeSidebarView('Inventory');
+                changeNavbarView('');
+                navigate('/Administration/Inventory',{ replace: true });
               }}>
                 <Text_A_18>Inventario</Text_A_18><MdStorage/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Menús' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Menus')
-                changeNavbarView('')
+                changeSidebarView('Menus');
+                changeNavbarView('');
+                navigate('/Administration/Menus',{ replace: true });
               }}>
                 <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Historial' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Record')
-                changeNavbarView('')
+                changeSidebarView('Record');
+                changeNavbarView('');
+                navigate('/Administration/Record',{ replace: true });
               }}>
                 <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
               </Button_Icon_Blue_210>
@@ -199,24 +211,27 @@ export default function Side_Bar() {
           <>
             <Tooltip title='Proveedores' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Suppliers')
-                changeNavbarView('')
+                changeSidebarView('Suppliers');
+                changeNavbarView('');
+                navigate('/Administration/Suppliers',{ replace: true });
               }}>
                 <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Inventario' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Inventory')
-                changeNavbarView('')
+                changeSidebarView('Inventory');
+                changeNavbarView('');
+                navigate('/Administration/Inventory',{ replace: true });
               }}>
                 <Text_A_18>Inventario</Text_A_18><MdStorage/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Historial' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
-                changeSidebarView('Record')
-                changeNavbarView('')
+                changeSidebarView('Record');
+                changeNavbarView('');
+                navigate('/Administration/Record',{ replace: true });
               }}>
                 <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
               </Button_Icon_Blue_210>

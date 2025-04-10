@@ -1,8 +1,9 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 // Componentes de React externos
-import { Tooltip } from "@mui/material";
+
 // Contextos
 import { themeModeContext } from "../../../contexts/ViewsProvider";
 import { checkboxContext } from "../../../contexts/FormsProvider";
@@ -33,11 +34,8 @@ export default function Permissions_Edit(){
     const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
     const [isActionBlock] = useContext(actionBlockContext);
     const {Modal,Form} = useContext(refFormPermissionsContext);
-    // useEffect con el titulo del modal
-    useEffect(() => {
-        document.title = "MEALSYNC_Administración_Usuarios_Permisos_Editar"
-    },[]);
     // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
     const changeModalView = useChangeModalView();
     const changePermissionsEdit = useChangePermissionsEdit();
     // Estructura del componente
@@ -134,12 +132,13 @@ export default function Permissions_Edit(){
                             </Container_Button_Border_Row_400>
                             <Text_P_Left_20 ThemeMode={themeMode}>Editar permisos</Text_P_Left_20>
                             <Container_Button_Border_Row_400 ThemeMode={themeMode}>
-                                <Button_Icon_Red_170 ThemeMode={themeMode} onClick={(e) => {
+                                <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={(e) => {
                                     e.stopPropagation();
                                     changeModalView('');
+                                    navigate('/Administration/Users/Permissions',{ replace: true });    
                                 }}>
                                     <MdCancel/>
-                                </Button_Icon_Red_170>
+                                </Button_Icon_Blue_170>
                                 {isActionBlock ? (
                                     <>
                                         <Button_Icon_Block_170 ThemeMode={themeMode}><AiFillEdit/></Button_Icon_Block_170>

@@ -19,7 +19,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_100_Center } from "../styled/Containers"
+import { Container_90_Center } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
 import { Text_Span_16 } from "../styled/Text";
@@ -118,7 +118,7 @@ export default function TablePermissions(){
                     ))}
                 </tbody>
             </Table>
-            <Container_100_Center>
+            <Container_90_Center>
                 {currentPage === 1 ? (
                     <Button_Icon_Block_150 ThemeMode={themeMode}><GrPrevious/></Button_Icon_Block_150>
                 ):(
@@ -134,7 +134,7 @@ export default function TablePermissions(){
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={nextPagePermissions}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )} 
-            </Container_100_Center>
+            </Container_90_Center>
         </>
     );
 }

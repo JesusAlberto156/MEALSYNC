@@ -2,11 +2,41 @@
 // Hooks de React
 import { createContext,useRef } from "react"
 // Contextos
+export const refFormUsersContext = createContext(null);
+export const refButtonUsersContext = createContext(null);
 export const refFormPermissionsContext = createContext(null);
 export const refButtonPermissionsContext = createContext(null);
 export const refFormStatusContext = createContext(null);
 export const refButtonStatusContext = createContext(null);
 //____________IMPORT/EXPORT____________
+
+export const Ref_Form_Users = ({ children }) => {
+
+    const isForm = {
+        Modal: useRef(null),
+        Form: useRef(null),
+    };
+
+    return(
+        <refFormUsersContext.Provider value={isForm}>
+            {children}
+        </refFormUsersContext.Provider>
+    );
+}
+
+export const Ref_Button_Users = ({ children }) => {
+
+    const isButtons = {
+        Button_Edit_U: useRef(null),
+        Button_Delete_U: useRef(null),
+    };
+
+    return(
+        <refButtonUsersContext.Provider value={isButtons}>
+            {children}
+        </refButtonUsersContext.Provider>
+    );
+}
 
 export const Ref_Form_Permissions = ({ children }) => {
 

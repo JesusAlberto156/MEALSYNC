@@ -92,7 +92,7 @@ export const Text_Title_Fade_20 = styled.h1.withConfig({
 `;
 //____________TITLE____________
 //______________A______________
-export const Text_A_25 = styled.h1.withConfig({
+export const Text_A_25 = styled.a.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
@@ -138,6 +138,28 @@ export const Text_A_18 = styled.a`
     @media (max-width: 480px) {
         font-size: 14px;
         margin-left: 14px;
+    }
+`;
+export const Text_A_16 = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 16px;
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    transition: background-color 0.3s;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
     }
 `;
 //______________A______________
@@ -216,23 +238,3 @@ export const Text_Span_16 = styled.span.withConfig({
     }
 `;
 //______________SPAN____________
-
-
-//--------FOOTER--------
-export const Text_Footer = styled.p`
-    font-Size: 1.1rem; 
-    font-family:Arial, Helvetica, sans-serif;
-    transition: transform 0.3s ease;
-    margin-top: 30px;
-
-    @media (max-width: 768px) {
-        margin-top: 15px;
-        font-size: 1rem;
-    }
-
-    @media (max-width: 480px) {
-        margin-top: 10px;
-        font-size: 0.9rem;
-    }
-`;
-//--------FOOTER--------

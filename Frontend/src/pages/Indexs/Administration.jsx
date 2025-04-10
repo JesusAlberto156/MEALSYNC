@@ -3,14 +3,14 @@
 import { useEffect,useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 // Componentes de React externos
-
+import { Toaster } from "sonner";
 // Servicios
 
 // Rutas
 
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../../contexts/ViewsProvider";
-import { nameContext,passwordContext } from "../../contexts/FormsProvider";
+import { nameContext,passwordContext,radioUsersContext } from "../../contexts/FormsProvider";
 import { typeUserContext,searchTermContext,actionBlockContext } from "../../contexts/VariablesProvider";
 import { userContext } from "../../contexts/UsersProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider";
@@ -23,9 +23,13 @@ import { loggedContext,logContext } from "../../contexts/SessionProvider";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";
-import { Alert_Verification } from "../../components/styled/Alerts";
+import { Alert_Verification,Alert_Styles } from "../../components/styled/Alerts";
 // Componentes personalizados
 import Setting_Bar from "../../components/navegation/SettingBar";
+import Users_Add from "../../components/modals/users/UsersAdd";
+import Users_Permissions from "../../components/modals/users/UsersPermissions";
+
+import Users_View from "../../components/modals/users/UsersView";
 import Permissions_Add from "../../components/modals/permissions/PermissionsAdd";
 import Permissions_Edit from "../../components/modals/permissions/PermissionsEdit";
 import Permissions_Super_Administrator from "../../components/modals/permissions/PermissionsSuperAdministrator";
@@ -54,6 +58,7 @@ export default function Index_Administration(){
     const [isPermission,setIsPermission] = useContext(permissionContext);
     const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
     const [isLog,setIsLog] = useContext(logContext);
+    const [isRadioUsers] = useContext(radioUsersContext);
     // useEffect con el cerrado de sesión de administración
     useEffect(() => {
         if(isLog && isLogged){
@@ -68,7 +73,7 @@ export default function Index_Administration(){
                     setTimeout(() => {
                         setCurrentLView('');
                         setCurrentNView('');
-                        setCurrentSView('Home');
+                        setCurrentSView('');
                         setIsSidebarVisible(true);
                         setCurrentMView('');
                         
@@ -110,6 +115,21 @@ export default function Index_Administration(){
                 <Setting_Bar/>
                 <Outlet/>
             </Container_Page_Elements>
+            {currentMView === 'Users-Add' ? (
+                <Users_Add/>
+            ):(
+                <></>
+            )}
+            {isRadioUsers.tipo === 'Personalizado' ? (
+                <Users_Permissions/>
+            ):(
+                <></>
+            )}
+            {currentMView === 'Users-View' ? (
+                <Users_View/>
+            ):(
+                <></>
+            )}
             {currentMView === 'Permissions-Add' ? (
                 <Permissions_Add/>
             ):(
@@ -135,6 +155,14 @@ export default function Index_Administration(){
             ):(
                 <></>
             )}
+            <Alert_Styles ThemeMode={themeMode}>
+                <Toaster
+                    visibleToasts={3}
+                    richColors
+                    theme='dark'
+                    position='top-right'
+                />
+            </Alert_Styles> 
         </>
     );
 }

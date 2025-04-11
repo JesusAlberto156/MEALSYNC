@@ -4,7 +4,7 @@ import { useContext } from "react";
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../contexts/ViewsProvider";
 import { typeUserContext,searchTermContext,selectedRowContext,actionBlockContext,formVerificationContext } from "../contexts/VariablesProvider";
-import { nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
+import { formTextContext,nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
 import { statusAddContext,statusEnableContext } from "../contexts/StatusProvider";
 import { permissionsAddContext,permissionsEditContext,permissionsEnableContext } from "../contexts/PermissionsProvider";
 // Hooks personalizados
@@ -34,14 +34,16 @@ export const useChangeLoginView = () => {
     // Constantes con el valor de los contextos 
     const [currentLView,setCurrentLView] = useContext(loginViewContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
-    const [isName,setIsName] = useContext(nameContext);
-    const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isFormText,setIsFormText] = useContext(formTextContext);
     // Función del hook
     const changeLoginView = (option,type) => {
         setCurrentLView(option);
         if(option === 'Administration' || option === 'Kitchen'){
-            setIsName('');
-            setIsPassword('');
+            setIsFormText(prev => ({
+                ...prev,             
+                user: '',      
+                password: '',       
+            }));
             setIsTypeUser('');
         }
         if(option === 'Login') setIsTypeUser(type);

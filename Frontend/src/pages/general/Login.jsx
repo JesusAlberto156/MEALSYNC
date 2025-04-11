@@ -9,7 +9,7 @@ import { Tooltip } from "@mui/material";
 import { encryptData } from "../../services/Crypto";
 // Contextos
 import { themeModeContext,loginViewContext,modalViewContext } from "../../contexts/ViewsProvider";
-import { nameContext,passwordContext } from "../../contexts/FormsProvider";
+import { formTextContext,nameContext,passwordContext } from "../../contexts/FormsProvider";
 import { typeUserContext,actionBlockContext } from '../../contexts/VariablesProvider';
 import { loggedContext,logContext } from "../../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../../contexts/PermissionsProvider";
@@ -35,7 +35,7 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { MdLogin } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Button_Column_300,Container_Button_Row_300,Container_Form_350 } from "../../components/styled/Containers";
+import { Container_Button_Column_300,Container_Button_Row_300,Container_Form_350,Container_Column_90_Center,Container_Row_90_Center } from "../../components/styled/Containers";
 import { Img_Logo_Verical_Hospital_250,Img_Logo_Hospital_150 } from "../../components/styled/Imgs";
 import { Text_Title_Fade_22 } from "../../components/styled/Text";
 import { Button_Icon_Blue_220,Button_Icon_Block_220,Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../../components/styled/Buttons";
@@ -47,6 +47,7 @@ import Form_Login from "../../components/forms/Login";
 // Página para iniciar sesión
 export default function Login(){
     // Constantes con el valor de los contextos
+    const [isFormText,setIsFormText] = useContext(formTextContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
     const [isPermissions] = useContext(permissionsContext);
@@ -76,9 +77,9 @@ export default function Login(){
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        const existsUser = isUsers.find(user => user.usuario === isName);
+                        const existsUser = isUsers.find(user => user.usuario === isFormText.user);
                         
-                        if(existsUser && existsUser.contrasena === isPassword){
+                        if(existsUser && existsUser.contrasena === isFormText.password){
                             let existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
                             const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
 
@@ -120,8 +121,11 @@ export default function Login(){
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setTimeout(() => {
-                                                setIsName('');
-                                                setIsPassword('');
+                                                setIsFormText(prev => ({
+                                                    ...prev,             
+                                                    user: '',      
+                                                    password: '',       
+                                                }));
                                                 setIsLog(false);
                                                 setIsLogged(true);
                                                 setIsActionBlock(false);
@@ -181,8 +185,11 @@ export default function Login(){
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setTimeout(() => {
-                                                setIsName('');
-                                                setIsPassword('');
+                                                setIsFormText(prev => ({
+                                                    ...prev,             
+                                                    user: '',      
+                                                    password: '',       
+                                                }));
                                                 setIsLog(false);
                                                 setIsLogged(true);
                                                 setIsActionBlock(false);
@@ -230,14 +237,14 @@ export default function Login(){
                     <>  
                         <Img_Logo_Verical_Hospital_250 ThemeMode={themeMode}/>
                         <Text_Title_Fade_22 ThemeMode={themeMode}>Bienvenido(a)</Text_Title_Fade_22>
-                        <Container_Button_Column_300>
+                        <Container_Column_90_Center>
                             <Tooltip title='Administración' placement="top">
                                 <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Administration','')}><MdManageAccounts/></Button_Icon_Blue_220>
                             </Tooltip>
                             <Tooltip title='Cocina' placement="top">
                                 <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Kitchen','')}><GiRiceCooker/></Button_Icon_Blue_220>
                             </Tooltip>
-                        </Container_Button_Column_300>
+                        </Container_Column_90_Center>
                     </>
                 ):(
                     <></>
@@ -287,9 +294,11 @@ export default function Login(){
                 {currentLView === 'Login' ? (
                     <>
                         <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
-                        <Text_Title_Fade_22 ThemeMode={themeMode}>Iniciar sesión</Text_Title_Fade_22>
+                        <Container_Row_90_Center>
+                            <Text_Title_Fade_22 ThemeMode={themeMode}>INICIAR SESIÓN</Text_Title_Fade_22>
+                        </Container_Row_90_Center>
                         <Form_Login/>
-                        <Container_Button_Row_300>
+                        <Container_Row_90_Center>
                             <Tooltip title='Atrás' placement="top">
                                 <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => changeViewLogin(
                                     isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration',''
@@ -306,7 +315,7 @@ export default function Login(){
                                     </Tooltip>
                                 </>
                             )}
-                        </Container_Button_Row_300>
+                        </Container_Row_90_Center>
                     </>
                 ):(
                     <></>

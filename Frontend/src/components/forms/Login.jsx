@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useState } from "react";
+import { useContext } from "react";
 // Componentes de React externos
 
 // Servicios
@@ -9,104 +9,60 @@ import { useContext,useState } from "react";
 
 // Contextos
 import { themeModeContext } from "../../contexts/ViewsProvider";
-import { nameContext,passwordContext } from "../../contexts/FormsProvider";
+import { formTextContext } from "../../contexts/FormsProvider";
+import { refKeyboardContext } from '../../contexts/RefsProvider';
 // Hooks personalizados
 
 //__________ICONOS__________
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Button_Border_Column_250 } from "../styled/Containers";
-import { Text_P_Left_20 } from "../styled/Text";
-import { Input_Group_80,Input_Text_220 } from "../styled/Inputs";
-import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
+import { Container_Row_100_Left,Container_Row_90_Left,Container_Column_Border_90_Center } from "../styled/Containers";
+import { Text_P_16 } from "../styled/Text";
+import { Input_Text_65,Input_Text_55 } from "../styled/Inputs";
 // Componentes personalizados
-
+import App from './Keyboard.jsx'
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
 export default function Form_Login(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(themeModeContext);
-    const [isName,setIsName] = useContext(nameContext);
-    const [isPassword,setIsPassword] = useContext(passwordContext);
-    // Constantes con el valor de useState
-    const [textName,setTextName] = useState(false);
-    const [isFocusedName, setIsFocusedName] = useState(false);
-    const [isFocusedNameColor, setIsFocusedNameColor] = useState(false);
-    const [textPassword,setTextPassword] = useState(false);
-    const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-    const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
+    const [isFormText,setIsFormText] = useContext(formTextContext);
+    const {user,password} = useContext(refKeyboardContext);
     // Estructura del componente
     return(
         <> 
-            <Text_P_Left_20 ThemeMode={themeMode}>Ingresa tus datos...</Text_P_Left_20>
-            <Container_Button_Border_Column_250 ThemeMode={themeMode}>
-                <Input_Group_80>
-                    <Label_Text_20
-                        ThemeMode={themeMode}
-                        isLabelUp={isFocusedName}
-                        isFocused={isFocusedNameColor}
-                    >
-                        Nombre de usuario
-                    </Label_Text_20>
-                    <Input_Text_220 
-                        ThemeMode={themeMode}
+            <Container_Row_90_Left>
+                <Text_P_16 ThemeMode={themeMode}>Ingresa tus datos...</Text_P_16>
+            </Container_Row_90_Left>
+            <Container_Column_Border_90_Center ThemeMode={themeMode}>
+                <Container_Row_100_Left>
+                    <Text_P_16 ThemeMode={themeMode}>Usuario:</Text_P_16>
+                    <Input_Text_65 ThemeMode={themeMode}
+                        id="user"
+                        ref={user}
+                        placeholder="Ingresar usuario..."
                         type="text"
-                        value={isName}
-                        onClick={(e) => {
-                            setTextName(true);
-                            setIsFocusedNameColor(true);
-                            setIsFocusedName(true);
-                        }} 
-                        onBlur={(e) => {
-                            setTextName(false);
-                            setIsFocusedNameColor(false);
-                            if (e.target.value === ''){
-                                setIsFocusedName(false);
-                            }else{
-                                setIsFocusedName(true);
-                            }
-                        }}
-                        onChange={(e) => setIsName(e.target.value)} 
+                        data-kioskboard-type="keyboard"
+                        value={isFormText.user}
+                        onChange={(e) => setIsFormText(prev => ({...prev, user: e.target.value}))}
                     />
-                    {textName && (
-                        <Label_Popup_14 ThemeMode={themeMode}>Escribe tú nombre de usuario</Label_Popup_14>
-                    )}
-                </Input_Group_80>
-                <Input_Group_80>
-                    <Label_Text_20 
-                        ThemeMode={themeMode}
-                        isLabelUp={isFocusedPassword}
-                        isFocused={isFocusedPasswordColor}
-                    >
-                        Contraseña
-                    </Label_Text_20>
-                    <Input_Text_220 
-                        ThemeMode={themeMode}
+                </Container_Row_100_Left>
+                <Container_Row_100_Left>
+                    <Text_P_16 ThemeMode={themeMode}>Contraseña:</Text_P_16>
+                    <Input_Text_55 ThemeMode={themeMode}
+                        id="password"
+                        ref={password}
+                        placeholder="Ingresar contraseña..."
                         type="password"
-                        value={isPassword}
-                        onClick={(e) => {
-                            setTextPassword(true);
-                            setIsFocusedPassword(true);
-                            setIsFocusedPasswordColor(true);
-                        }} 
-                        onBlur={(e) => {
-                            setTextPassword(false);
-                            setIsFocusedPasswordColor(false);
-                            if (e.target.value === ''){
-                                setIsFocusedPassword(false);
-                            }else{
-                                setIsFocusedPassword(true);
-                            }
-                        }}
-                        onChange={(e) => setIsPassword(e.target.value)}
+                        data-kioskboard-type="keyboard"
+                        value={isFormText.password}
+                        onChange={(e) => setIsFormText(prev => ({...prev, password: e.target.value}))}
                     />
-                    {textPassword && (
-                        <Label_Popup_14 ThemeMode={themeMode}>Escribe tú Contraseña</Label_Popup_14>
-                    )}
-                </Input_Group_80>
-            </Container_Button_Border_Column_250>
+                </Container_Row_100_Left>
+            </Container_Column_Border_90_Center>
+            <App/>
         </>  
     );
 }

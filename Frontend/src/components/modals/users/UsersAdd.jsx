@@ -21,7 +21,7 @@ import { FaUserPlus } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400,Container_Button_Border_Column_400,Container_Button_Row_300,Container_100_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Green_170,Button_Icon_Block_170 } from "../../styled/Buttons";
-import { Text_Title_Fade_30,Text_P_Left_16,Text_P_Left_20,Text_A_16 } from "../../styled/Text";
+import { Text_Title_Fade_30,Text_P_Left_16,Text_P_Left_20,Text_A_Center_16 } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
 import { Input_Text_260,Input_Radio_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
@@ -63,7 +63,7 @@ export default function Users_Add(){
                             <Input_Text_260 ThemeMode={themeMode}/>
                         </Container_Button_Row_300>
                     </Container_Button_Border_Column_400>
-                    <Text_A_16 ThemeMode={themeMode}>Permisos...</Text_A_16>
+                    <Text_A_Center_16 ThemeMode={themeMode}>Permisos...</Text_A_Center_16>
                     <Container_100_Center>
                         {['Default','Personalizado'].map((item,index) => (
                             <Label_Check_18 ThemeMode={themeMode} key={index}>
@@ -77,7 +77,7 @@ export default function Users_Add(){
                             </Label_Check_18>
                         ))};
                     </Container_100_Center>
-                    <Text_A_16 ThemeMode={themeMode}>Estatus...</Text_A_16>
+                    <Text_A_Center_16 ThemeMode={themeMode}>Estatus...</Text_A_Center_16>
                     <Container_100_Center>
                         {['Habilitado','Deshabilitado'].map((item,index) => (
                             <Label_Check_18 ThemeMode={themeMode} key={index}>

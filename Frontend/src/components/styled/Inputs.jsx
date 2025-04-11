@@ -28,6 +28,73 @@ export const Input_Group_80 = styled.div`
 `;
 //____________GROUP____________
 //____________TEXT____________
+export const Input_Text_65 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 65%;
+    height: auto;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        width: 61%;
+        border-radius: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 14px;
+        width: 57%;
+        border-radius: 4px;
+    }
+
+    &:focus {
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(60, 124, 167, 0.3)' : 'rgba(213, 220, 224, 0.3)')};
+    }
+`;
+export const Input_Text_55 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 55%;
+    height: auto;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        width: 51%;
+        border-radius: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 14px;
+        width: 47%;
+        border-radius: 4px;
+    }
+
+    &:focus {
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(60, 124, 167, 0.3)' : 'rgba(213, 220, 224, 0.3)')};
+    }
+`;
+
 export const Input_Text_260 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`

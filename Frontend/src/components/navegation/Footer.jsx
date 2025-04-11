@@ -12,7 +12,7 @@ import { themeModeContext } from "../../contexts/ViewsProvider";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Footer,Container_100_Center } from "../styled/Containers";
-import { Text_A_16 } from "../styled/Text";
+import { Text_A_Center_16 } from "../styled/Text";
 import { Button_Link_150 } from "../styled/Buttons";
 // Componentes personalizados
 
@@ -26,7 +26,7 @@ export default function Footer(){
   return (
     <>
       <Container_Footer ThemeMode={themeMode}>
-        <Text_A_16 ThemeMode={themeMode}>© {new Date().getFullYear()} - MEALSYNC Hospital Puerta de Hierro Tepic. Todos los derechos reservados.</Text_A_16>
+        <Text_A_Center_16 ThemeMode={themeMode}>© {new Date().getFullYear()} - MEALSYNC Hospital Puerta de Hierro Tepic. Todos los derechos reservados.</Text_A_Center_16>
           <Container_100_Center>
             <Button_Link_150 ThemeMode={themeMode}>Acerca de</Button_Link_150>
             <Button_Link_150 ThemeMode={themeMode}>Contacto</Button_Link_150>

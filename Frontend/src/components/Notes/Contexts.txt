@@ -24,6 +24,7 @@
 // Return para darle valor al contexto y heredarlo
 
 //____________FORM____________
+const [isFormText,setIsFormText] = useContext(formTextContext);
 const [isName,setIsName] = useContext(nameContext);
 const [isPassword,setIsPassword] = useContext(passwordContext);
 const [isSelect,setIsSelect] = useContext(selectContext);
@@ -39,6 +40,7 @@ const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditConte
 const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
 //____________PERMISSIONS____________
 //____________REFS____________
+const {user,password} = useContext(refKeyboardContext);
 const {Modal,Form} = useContext(refFormUsersContext);
 const {Button_Edit_U,Button_Delete_U} = useContext(refButtonUsersContext);
 const {Modal,Form} = useContext(refFormPermissionsContext);

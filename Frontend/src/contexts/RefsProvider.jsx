@@ -2,6 +2,7 @@
 // Hooks de React
 import { createContext,useRef } from "react"
 // Contextos
+export const refKeyboardContext = createContext(null);
 export const refFormUsersContext = createContext(null);
 export const refButtonUsersContext = createContext(null);
 export const refFormPermissionsContext = createContext(null);
@@ -10,6 +11,19 @@ export const refFormStatusContext = createContext(null);
 export const refButtonStatusContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
+export const Ref_Keyboard = ({ children }) => {
+
+    const isKeyboard = {
+        user: useRef(null),
+        password: useRef(null),
+    };
+
+    return(
+        <refKeyboardContext.Provider value={isKeyboard}>
+            {children}
+        </refKeyboardContext.Provider>
+    );
+}
 export const Ref_Form_Users = ({ children }) => {
 
     const isForm = {

@@ -22,7 +22,7 @@ import { FaHome } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Page_Error,Container_100_Right,Container_100_Left,Container_Text_20 } from "../components/styled/Containers";
 import { Icon_Gray_Rotate_50,Icon_Yellow_250 } from "../components/styled/Icons";
-import { Text_Title_Fade_50,Text_A_25 } from "../components/styled/Text";
+import { Text_Title_Fade_50,Text_A_Left_25 } from "../components/styled/Text";
 import { Button_Icon_White_200 } from "../components/styled/Buttons";
 import { Img_Logo_Error } from "../components/styled/Imgs";
 import { Alert_Error,Alert_Styles } from "../components/styled/Alerts";
@@ -52,7 +52,7 @@ export default function Error(){
                     <Text_Title_Fade_50 ThemeMode={themeMode}>Ooops...</Text_Title_Fade_50>
                     <Icon_Gray_Rotate_50 ThemeMode={themeMode}><IoSettings/></Icon_Gray_Rotate_50>
                 </Container_Text_20>
-                <Text_A_25 ThemeMode={themeMode}>Página no encotrada...</Text_A_25>
+                <Text_A_Left_25 ThemeMode={themeMode}>Página no encotrada...</Text_A_Left_25>
                 <Tooltip title='Regresar' placement="top">
                     <Button_Icon_White_200 ThemeMode={themeMode} onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200>
                 </Tooltip>

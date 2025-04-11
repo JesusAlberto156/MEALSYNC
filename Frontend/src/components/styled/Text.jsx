@@ -92,7 +92,7 @@ export const Text_Title_Fade_20 = styled.h1.withConfig({
 `;
 //____________TITLE____________
 //______________A______________
-export const Text_A_25 = styled.a.withConfig({
+export const Text_A_Left_25 = styled.a.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
@@ -117,7 +117,7 @@ export const Text_A_25 = styled.a.withConfig({
         margin-left: 15px;
     }
 `;
-export const Text_A_18 = styled.a`
+export const Text_A_Left_18 = styled.a`
     color: white;
     font-size: 18px;
     margin-left: 10px;
@@ -140,7 +140,7 @@ export const Text_A_18 = styled.a`
         margin-left: 14px;
     }
 `;
-export const Text_A_16 = styled.a.withConfig({
+export const Text_A_Center_16 = styled.a.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
@@ -164,6 +164,83 @@ export const Text_A_16 = styled.a.withConfig({
 `;
 //______________A______________
 //______________P______________
+export const Text_P_24 = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_P_20 = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_P_16 = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_P_12 = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: "Prompt", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+
 export const Text_P_Left_20 = styled.p.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`

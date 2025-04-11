@@ -6,8 +6,8 @@ import styled from 'styled-components';
 //__________ICONOS__________
 //__________IMAGE__________
 // Imagenes de fondo para login
-import Background_Login_Dark from '../imgs/Background-Administration-Dark.jpeg';
-import Background_Login_Light from '../imgs/Background-Administration-Light.jpg';
+import Background_Login_Dark from '../imgs/Background-Login-Dark.jpeg';
+import Background_Login_Light from '../imgs/Background-Login-Light.jpg';
 // Imagenes de fondo para cocina
 import Background_Menu_Dark from '../imgs/Background-Menu-Dark.jpg';
 import Background_Menu_Light from '../imgs/Background-Menu-Light.jpg';
@@ -287,7 +287,450 @@ export const Container_Form_350 = styled.div.withConfig({
     }
 `;
 //____________FORM____________
-//________________________
+//____________ROW____________
+// Center
+export const Container_Row_100_Center = styled.div`
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    padding: 20px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 96%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 92%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Row_90_Center = styled.div`
+    position: relative;     
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 90%;
+    height: auto;  
+    padding: 20px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Row_Border_90_Center = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;     
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 90%;
+    height: auto;  
+    padding: 20px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border-radius: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Row_Border_80_Center = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative;     
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 80%;
+    height: auto;  
+    padding: 20px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border-radius: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 76%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 72%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+// Right
+export const Container_Row_100_Right = styled.div`
+    position: relative;     
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 96%;
+        padding: 8px;
+        padding-right: 38px;
+        gap: 10px;     
+    }
+
+    @media (max-width: 480px) {
+        width: 92%;
+        padding: 6px;
+        padding-right: 36px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Row_90_Right = styled.div`
+    position: relative;     
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 8px;
+        padding-right: 38px;
+        gap: 10px;     
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 6px;
+        padding-right: 36px;
+        gap: 5px;
+    }
+}
+`;
+// Left
+export const Container_Row_100_Left = styled.div`
+    position: relative;     
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 96%;
+        padding: 8px;
+        padding-left: 38px;
+        gap: 10px;     
+    }
+
+    @media (max-width: 480px) {
+        width: 92%;
+        padding: 6px;
+        padding-left: 36px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Row_90_Left = styled.div`
+    position: relative; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;       
+    padding: 10px;
+    padding-left: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 8px;
+        padding-left: 38px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 6px;
+        padding-left: 36px;
+        gap: 5px;
+    }
+}
+`;
+//____________ROW____________
+//____________COLUMN____________
+// Center
+export const Container_Column_100_Center = styled.div`
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    padding: 20px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 96%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 92%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_90_Center = styled.div`
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 90%;
+    height: auto;  
+    padding: 20px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_Border_90_Center = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 90%;
+    height: auto;  
+    padding: 20px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border-radius: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_Border_80_Center = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 80%;
+    height: auto;  
+    padding: 20px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border-radius: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 76%;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 72%;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+// Right
+export const Container_Column_100_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 96%;
+        padding: 8px;
+        padding-right: 38px;
+        gap: 10px;     
+    }
+
+    @media (max-width: 480px) {
+        width: 92%;
+        padding: 6px;
+        padding-right: 36px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_90_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 8px;
+        padding-right: 38px;
+        gap: 10px;     
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 6px;
+        padding-right: 36px;
+        gap: 5px;
+    }
+}
+`;
+// Left
+export const Container_Column_100_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 96%;
+        padding: 8px;
+        padding-left: 38px;
+        gap: 10px;     
+    }
+
+    @media (max-width: 480px) {
+        width: 92%;
+        padding: 6px;
+        padding-left: 36px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_90_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 86%;
+        padding: 8px;
+        padding-left: 38px;
+        gap: 10px;     
+    }
+
+    @media (max-width: 480px) {
+        width: 82%;
+        padding: 6px;
+        padding-left: 36px;
+        gap: 5px;
+    }
+}
+`;
+//____________COLUMN____________
+
+
 export const Container_100_Center = styled.div`
     display: flex;
     justify-content: center;

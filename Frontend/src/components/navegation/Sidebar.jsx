@@ -29,7 +29,7 @@ import { MdWorkHistory } from "react-icons/md";
 // Estilos personalizados
 import { Container_Side_Bar,Container_Icon_60 } from "../styled/Containers";
 import { Icon_Image_Profile_Light } from "../styled/Icons";
-import { Text_Title_Fade_20,Text_A_18 } from "../styled/Text";
+import { Text_Title_Fade_20,Text_A_Left_18 } from "../styled/Text";
 import { Button_Icon_Blue_210 } from '../styled/Buttons';
 // Componentes personalizados
 
@@ -62,7 +62,7 @@ export default function Side_Bar() {
                   changeNavbarView('')
                   navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
           }}>
-            <Text_A_18>Inicio</Text_A_18><BiSolidHomeAlt2/>
+            <Text_A_Left_18>Inicio</Text_A_Left_18><BiSolidHomeAlt2/>
           </Button_Icon_Blue_210>
         </Tooltip>
         {isTypeUser === 'Cook' ? (
@@ -72,7 +72,7 @@ export default function Side_Bar() {
                 changeSidebarView('General')
                 changeNavbarView('')
               }}>
-                <Text_A_18>General</Text_A_18><FaHospitalUser/>
+                <Text_A_Left_18>General</Text_A_Left_18><FaHospitalUser/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Colaboradores' placement="right">
@@ -80,7 +80,7 @@ export default function Side_Bar() {
                 changeSidebarView('Collaborators')
                 changeNavbarView('')
               }}>
-                <Text_A_18>Colaboradores</Text_A_18><FaUserFriends/>
+                <Text_A_Left_18>Colaboradores</Text_A_Left_18><FaUserFriends/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Nutriólogo' placement="right">
@@ -88,7 +88,7 @@ export default function Side_Bar() {
                 changeSidebarView('Nutritionist')
                 changeNavbarView('')
               }}>
-                <Text_A_18>Nutriólogo</Text_A_18><IoNutrition/>
+                <Text_A_Left_18>Nutriólogo</Text_A_Left_18><IoNutrition/>
               </Button_Icon_Blue_210>
             </Tooltip>
           </>
@@ -107,7 +107,7 @@ export default function Side_Bar() {
                 changeSidebarView('Doctor')
                 changeNavbarView('')
               }}>
-                <Text_A_18>General</Text_A_18><FaUserDoctor/>
+                <Text_A_Left_18>General</Text_A_Left_18><FaUserDoctor/>
               </Button_Icon_Blue_210>
             </Tooltip>
           </>
@@ -122,7 +122,7 @@ export default function Side_Bar() {
                 changeNavbarView('Principal');
                 navigate('/Administration/Users/Principal',{ replace: true });
               }}>
-                <Text_A_18>Usuarios</Text_A_18><FaUserGroup/>
+                <Text_A_Left_18>Usuarios</Text_A_Left_18><FaUserGroup/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Proveedores' placement="right">
@@ -131,7 +131,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Suppliers',{ replace: true });
               }}>
-                <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
+                <Text_A_Left_18>Proveedores</Text_A_Left_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Inventario' placement="right">
@@ -140,7 +140,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Inventory',{ replace: true });
               }}>
-                <Text_A_18>Inventario</Text_A_18><MdStorage/>
+                <Text_A_Left_18>Inventario</Text_A_Left_18><MdStorage/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Menús' placement="right">
@@ -149,7 +149,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Menus',{ replace: true });
               }}>
-                <Text_A_18>Menús</Text_A_18><BiSolidFoodMenu/>
+                <Text_A_Left_18>Menús</Text_A_Left_18><BiSolidFoodMenu/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Historial' placement="right">
@@ -158,7 +158,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Record',{ replace: true });
               }}>
-                <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
+                <Text_A_Left_18>Historial</Text_A_Left_18><MdWorkHistory/>
               </Button_Icon_Blue_210>
             </Tooltip>
           </>
@@ -173,7 +173,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Suppliers',{ replace: true });
               }}>
-                <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
+                <Text_A_Left_18>Proveedores</Text_A_Left_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Inventario' placement="right">
@@ -215,7 +215,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Suppliers',{ replace: true });
               }}>
-                <Text_A_18>Proveedores</Text_A_18><FaUserTie/>
+                <Text_A_Left_18>Proveedores</Text_A_Left_18><FaUserTie/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Inventario' placement="right">
@@ -224,7 +224,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Inventory',{ replace: true });
               }}>
-                <Text_A_18>Inventario</Text_A_18><MdStorage/>
+                <Text_A_Left_18>Inventario</Text_A_Left_18><MdStorage/>
               </Button_Icon_Blue_210>
             </Tooltip>
             <Tooltip title='Historial' placement="right">
@@ -233,7 +233,7 @@ export default function Side_Bar() {
                 changeNavbarView('');
                 navigate('/Administration/Record',{ replace: true });
               }}>
-                <Text_A_18>Historial</Text_A_18><MdWorkHistory/>
+                <Text_A_Left_18>Historial</Text_A_Left_18><MdWorkHistory/>
               </Button_Icon_Blue_210>
             </Tooltip>
           </>

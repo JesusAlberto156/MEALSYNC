@@ -69,6 +69,9 @@ export default function Login(){
         Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
         Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
     },[]);
+    useEffect(() => {
+        console.log(isFormText);
+    },[isFormText])
     // useEffect con el inicio de sesión del login
     useEffect(() => {
         if(isLog && !isLogged){

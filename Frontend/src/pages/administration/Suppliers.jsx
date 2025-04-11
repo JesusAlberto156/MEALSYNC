@@ -17,6 +17,9 @@ import { themeModeContext } from "../../contexts/ViewsProvider";
 // Estilos personalizados
 
 // Componentes personalizados
+import Nav_Bar from "../../components/navegation/NavBar";
+import Search_Bar from '../../components/navegation/SearchBar';
+import { Outlet } from "react-router-dom";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de proveedores en administración
@@ -30,7 +33,9 @@ export default function Suppliers(){
     // Estructura del componente
     return(
         <> 
-            <h1>Modulo de Proveedores</h1>          
+            <Nav_Bar/>     
+            <Search_Bar/>    
+            <Outlet/> 
         </>
     )
 }

@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext,useEffect } from "react";
 // Componentes de React externos
-import { Toaster } from "sonner";
+
 // Servicios
 
 // Rutas
@@ -17,9 +17,12 @@ import { typeUserContext } from "../../contexts/VariablesProvider";
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Alert_Styles,Alert_Greeting } from "../../components/styled/Alerts";
+import { Container_Row_90_Left,Container_Row_90_Center } from "../../components/styled/Containers";
+import { Img_Logo_Hospital_60 } from "../../components/styled/Imgs";
+import { Text_Title_Fade_50 } from "../../components/styled/Text";
+import { Alert_Greeting } from "../../components/styled/Alerts";
 // Componentes personalizados
-
+import User_Activity_Chart from "../../components/charts/UserActivity";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de inicio en administración/cocina
@@ -43,7 +46,15 @@ export default function Home(){
     // Estructura del componente
     return(
         <> 
-            <h1>Modulo de Inicio</h1>      
+            <Container_Row_90_Left>
+                <Img_Logo_Hospital_60/>
+                <Container_Row_90_Center>
+                    <Text_Title_Fade_50>BIENVENIDO(A) A MEALSYNC</Text_Title_Fade_50>
+                </Container_Row_90_Center>
+            </Container_Row_90_Left>
+            <Container_Row_90_Left>
+                <User_Activity_Chart/>
+            </Container_Row_90_Left>    
         </>
     )
 }

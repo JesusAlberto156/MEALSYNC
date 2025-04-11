@@ -60,6 +60,29 @@ export const Container_Page_Background = styled.div.withConfig({
     ${({ Logged }) => (!Logged ? 'flex-direction: column;' : '')}
     ${({ Logged }) => (!Logged ? 'padding-top: 40px;' : '')}
     ${({ Logged }) => (!Logged ? 'gap: 40px;' : '')}
+
+    &.bg-pan-bl {
+        -webkit-animation: bg-pan-bl 8s infinite both alternate;
+        animation: bg-pan-bl 8s infinite both alternate;
+        background-size: 200% 200%;
+    }
+
+    @-webkit-keyframes bg-pan-bl {
+        0% {
+            background-position: 100% 0%;
+        }
+        100% {
+            background-position: 0% 100%;
+        }
+    }
+    @keyframes bg-pan-bl {
+        0% {
+            background-position: 100% 0%;
+        }
+        100% {
+            background-position: 0% 100%;
+        }
+    }
 `;
 export const Container_Page_Error = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',

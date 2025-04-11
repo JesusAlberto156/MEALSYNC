@@ -128,8 +128,8 @@ export default function Side_Bar() {
             <Tooltip title='Proveedores' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
                 changeSidebarView('Suppliers');
-                changeNavbarView('');
-                navigate('/Administration/Suppliers',{ replace: true });
+                changeNavbarView('Suppliers');
+                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
               }}>
                 <Text_A_Left_18>Proveedores</Text_A_Left_18><FaUserTie/>
               </Button_Icon_Blue_210>
@@ -137,8 +137,8 @@ export default function Side_Bar() {
             <Tooltip title='Inventario' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
                 changeSidebarView('Inventory');
-                changeNavbarView('');
-                navigate('/Administration/Inventory',{ replace: true });
+                changeNavbarView('Inventory');
+                navigate('/Administration/Inventory/Inventory',{ replace: true });
               }}>
                 <Text_A_Left_18>Inventario</Text_A_Left_18><MdStorage/>
               </Button_Icon_Blue_210>
@@ -155,8 +155,8 @@ export default function Side_Bar() {
             <Tooltip title='Historial' placement="right">
               <Button_Icon_Blue_210 ThemeMode={themeMode} onClick={() => {
                 changeSidebarView('Record');
-                changeNavbarView('');
-                navigate('/Administration/Record',{ replace: true });
+                changeNavbarView('Inventory');
+                navigate('/Administration/Record/General',{ replace: true });
               }}>
                 <Text_A_Left_18>Historial</Text_A_Left_18><MdWorkHistory/>
               </Button_Icon_Blue_210>

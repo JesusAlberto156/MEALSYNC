@@ -35,9 +35,16 @@ import TableStatus from './components/tables/TableStatus';
 import Status_Add from './components/modals/status/StatusAdd';
 import Status_Enable from './components/modals/status/StatusEnable';
 import Suppliers from './pages/administration/Suppliers';
+import Table_Suppliers from './components/tables/Suppliers';
+import Table_Observations from './components/tables/Observations';
 import Inventory from './pages/administration/Inventory';
+import Table_Inventory from './components/tables/Inventory';
+import Table_Ingredients from './components/tables/Ingredients';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
+import Table_Record_Invetory from './components/tables/RecordInventory';
+import Table_Record_Suppliers from './components/tables/RecordSuppliers';
+import Table_General from './components/tables/General';
 import Index_Kitchen from './pages/Indexs/Kitchen';
 import Error from './pages/Error';
 import Loading from './pages/Loading';
@@ -119,11 +126,31 @@ const router = createHashRouter([
               },
               {
                 path: 'Suppliers',
-                element: <Suppliers/>
+                element: <Suppliers/>,
+                children: [
+                  {
+                    path: 'Suppliers',
+                    element: <Table_Suppliers/>
+                  },
+                  {
+                    path: 'Observations',
+                    element: <Table_Observations/>
+                  }
+                ]
               },
               {
                 path: 'Inventory',
-                element: <Inventory/>
+                element: <Inventory/>,
+                children: [
+                  {
+                    path: 'Inventory',
+                    element: <Table_Inventory/>,
+                  },
+                  {
+                    path: 'Ingredients',
+                    element: <Table_Ingredients/>,
+                  },
+                ]
               },
               {
                 path: 'Menus',
@@ -131,7 +158,21 @@ const router = createHashRouter([
               },
               {
                 path: 'Record',
-                element: <Record/>
+                element: <Record/>,
+                children: [
+                  {
+                    path: 'General',
+                    element: <Table_General/>
+                  },
+                  {
+                    path: 'Inventory',
+                    element: <Table_Record_Invetory/>
+                  },
+                  {
+                    path: 'Suppliers',
+                    element: <Table_Record_Suppliers/>
+                  },
+                ]
               }
             ]
           },

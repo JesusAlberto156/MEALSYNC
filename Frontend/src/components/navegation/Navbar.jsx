@@ -13,6 +13,14 @@ import { useChangeNavbarView } from "../../hooks/Views";
 import { FaUserTag } from "react-icons/fa6";
 import { FaUserLock } from "react-icons/fa6";
 import { FaUserClock } from "react-icons/fa6";
+// Iconos para la opcion de proveedores del navbar
+import { FaUserTie } from "react-icons/fa6";
+import { MdSpeakerNotes } from "react-icons/md";
+// Iconos para la sección de inventario del navbar
+import { FaWarehouse } from "react-icons/fa";
+import { MdFastfood } from "react-icons/md";
+
+import { RiRecordMailFill } from "react-icons/ri";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Nav_Bar,Container_Nav_Bar_Button } from "../styled/Containers";
@@ -82,6 +90,120 @@ export default function Nav_Bar(){
                                 <></>
                             )}
                         </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Suppliers' ? (
+                        <>
+                        <Tooltip title='Proveedores' placement="top">
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                changeNavbarView('Suppliers');
+                                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                            }}>
+                                <FaUserTie/>
+                            </Button_Icon_White_100>
+                        </Tooltip>
+                        <Tooltip title='Observaciones' placement="top">
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                changeNavbarView('Observations')
+                                navigate('/Administration/Suppliers/Observations',{ replace: true });
+                            }}>
+                                <MdSpeakerNotes/>
+                            </Button_Icon_White_100>
+                        </Tooltip>
+                        {currentNView === 'Suppliers' ? (
+                            <Text_Title_Fade_30 ThemeMode={themeMode}>PROVEEDORES</Text_Title_Fade_30>
+                        ):(
+                            <></>
+                            
+                        )}
+                        {currentNView === 'Observations' ? (
+                            <Text_Title_Fade_30 ThemeMode={themeMode}>OBSERVACIONES</Text_Title_Fade_30>
+                        ):(
+                            <></>
+                        )}
+                    </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Inventory' ? (
+                        <>
+                        <Tooltip title='Inventario' placement="top">
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                changeNavbarView('Inventory');
+                                navigate('/Administration/Inventory/Inventory',{ replace: true });
+                            }}>
+                                <FaWarehouse/>
+                            </Button_Icon_White_100>
+                        </Tooltip>
+                        <Tooltip title='Insumos' placement="top">
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                changeNavbarView('Ingredients')
+                                navigate('/Administration/Inventory/Ingredients',{ replace: true });
+                            }}>
+                                <MdFastfood/>
+                            </Button_Icon_White_100>
+                        </Tooltip>
+                        {currentNView === 'Inventory' ? (
+                            <Text_Title_Fade_30 ThemeMode={themeMode}>INVENTARIO</Text_Title_Fade_30>
+                        ):(
+                            <></>
+                            
+                        )}
+                        {currentNView === 'Ingredients' ? (
+                            <Text_Title_Fade_30 ThemeMode={themeMode}>INSUMOS</Text_Title_Fade_30>
+                        ):(
+                            <></>
+                        )}
+                    </>
+                    ):(
+                        <></>
+                    )}
+
+                    {currentSView === 'Record' ? (
+                        <>
+                        <Tooltip title='General' placement="top">
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                changeNavbarView('General');
+                                navigate('/Administration/Record/General',{ replace: true });
+                            }}>
+                                <RiRecordMailFill/>
+                            </Button_Icon_White_100>
+                        </Tooltip>
+                        <Tooltip title='Inventario' placement="top">
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                changeNavbarView('Inventory');
+                                navigate('/Administration/Record/Inventory',{ replace: true });
+                            }}>
+                                <FaWarehouse/>
+                            </Button_Icon_White_100>
+                        </Tooltip>
+                        <Tooltip title='Proveedores' placement="top">
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                changeNavbarView('Suppliers')
+                                navigate('/Administration/Record/Suppliers',{ replace: true });
+                            }}>
+                                <FaUserTie/>
+                            </Button_Icon_White_100>
+                        </Tooltip>
+                        {currentNView === 'General' ? (
+                            <Text_Title_Fade_30 ThemeMode={themeMode}>GENERAL</Text_Title_Fade_30>
+                        ):(
+                            <></>
+                            
+                        )}
+                        {currentNView === 'Inventory' ? (
+                            <Text_Title_Fade_30 ThemeMode={themeMode}>INVENTARIO</Text_Title_Fade_30>
+                        ):(
+                            <></>
+                            
+                        )}
+                        {currentNView === 'Ingredients' ? (
+                            <Text_Title_Fade_30 ThemeMode={themeMode}>PROVEEDORES</Text_Title_Fade_30>
+                        ):(
+                            <></>
+                        )}
+                    </>
                     ):(
                         <></>
                     )}

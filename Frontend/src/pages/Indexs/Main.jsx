@@ -38,7 +38,7 @@ export default function Index_Main(){
                 {isLogged ? (
                     <>
                         <Side_Bar/>
-                        <Container_Page_Background ThemeMode={themeMode} TypeUser={isTypeUser} Logged={isLogged}>
+                        <Container_Page_Background className='bg-pan-bl' ThemeMode={themeMode} TypeUser={isTypeUser} Logged={isLogged}>
                             <Outlet/>
                             {currentMView === 'Out-Login' ? (
                                 <Out_Login/>
@@ -49,7 +49,7 @@ export default function Index_Main(){
                     </>
                 ):(
                     <>
-                        <Container_Page_Background ThemeMode={themeMode} TypeUser={isTypeUser} Logged={isLogged}>
+                        <Container_Page_Background className='bg-pan-bl' ThemeMode={themeMode} TypeUser={isTypeUser} Logged={isLogged}>
                             <Setting_Bar/>
                             <Outlet/>
                         </Container_Page_Background> 

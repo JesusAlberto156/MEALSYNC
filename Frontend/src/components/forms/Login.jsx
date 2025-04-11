@@ -21,7 +21,7 @@ import { Container_Row_100_Left,Container_Row_90_Left,Container_Column_Border_90
 import { Text_P_16 } from "../styled/Text";
 import { Input_Text_65,Input_Text_55 } from "../styled/Inputs";
 // Componentes personalizados
-import App from './Keyboard.jsx'
+
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
@@ -44,7 +44,6 @@ export default function Form_Login(){
                         ref={user}
                         placeholder="Ingresar usuario..."
                         type="text"
-                        data-kioskboard-type="keyboard"
                         value={isFormText.user}
                         onChange={(e) => setIsFormText(prev => ({...prev, user: e.target.value}))}
                     />
@@ -56,13 +55,11 @@ export default function Form_Login(){
                         ref={password}
                         placeholder="Ingresar contraseña..."
                         type="password"
-                        data-kioskboard-type="keyboard"
                         value={isFormText.password}
                         onChange={(e) => setIsFormText(prev => ({...prev, password: e.target.value}))}
                     />
                 </Container_Row_100_Left>
             </Container_Column_Border_90_Center>
-            <App/>
         </>  
     );
 }

@@ -1,16 +1,12 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
-//__________ICONOS__________
-
-//__________ICONOS__________
 //__________IMAGE__________
 // Imagenes de fondo para login
-import Background_Login_Dark from '../imgs/Background-Login-Dark.jpeg';
-import Background_Login_Light from '../imgs/Background-Login-Light.jpg';
+import Background_Login from '../imgs/Background-Login.jpg';
 // Imagenes de fondo para cocina
-import Background_Menu_Dark from '../imgs/Background-Menu-Dark.jpg';
-import Background_Menu_Light from '../imgs/Background-Menu-Light.jpg';
+import Background_Kitchen_Dark from '../imgs/Background-Kitchen-Dark.jpg';
+import Background_Kitchen_Light from '../imgs/Background-Kitchen-Light.jpg';
 // Imagenes de fondo para administración
 import Background_Administration_Dark from '../imgs/Background-Administration-Dark.jpeg';
 import Background_Administration_Light from '../imgs/Background-Administration-Light.jpg'
@@ -33,21 +29,10 @@ export const Container_Page = styled.div`
         display: none;
     }
 `;
-export const Container_Page_Background = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode' && prop !== 'TypeUser' && prop !== 'Logged',
+export const Container_Page_Login = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Administrator' || TypeUser === 'Chef' || TypeUser === 'Storekeeper') && Logged ? 
-        `background-image: url(${ ThemeMode ? Background_Administration_Light : Background_Administration_Dark});` : 
-        ''
-    }
-    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Cook' || TypeUser === 'Nutritionist' || TypeUser === 'Doctor') && Logged ?
-        `background-image: url(${ ThemeMode ? Background_Menu_Light : Background_Menu_Dark});`:
-        ''
-    }
-    ${({ Logged,ThemeMode }) => (!Logged) ?
-        `background-image: url(${ ThemeMode ? Background_Login_Light : Background_Login_Dark});`:
-        ''
-    }
+    background-image: url(${(Background_Login)});
     background-Size: cover;
     background-Position: center;
     width: 100vw;
@@ -55,16 +40,16 @@ export const Container_Page_Background = styled.div.withConfig({
     max-height: none;
     position: relative;
     display: flex;
-    justify-content: ${({ Logged }) => (Logged ? 'center' : 'flex-start')};
+    justify-content: flex-start;
     align-Items: center;
-    ${({ Logged }) => (!Logged ? 'flex-direction: column;' : '')}
-    ${({ Logged }) => (!Logged ? 'padding-top: 40px;' : '')}
-    ${({ Logged }) => (!Logged ? 'gap: 40px;' : '')}
+    flex-direction: column;
+    padding-top: 40px;
+    gap: 40px; 
 
     &.bg-pan-bl {
-        -webkit-animation: bg-pan-bl 8s infinite both alternate;
-        animation: bg-pan-bl 8s infinite both alternate;
-        background-size: 200% 200%;
+        -webkit-animation: bg-pan-bl 4s infinite both alternate;
+        animation: bg-pan-bl 4s infinite both alternate;
+        background-size: 125% 125%;
     }
 
     @-webkit-keyframes bg-pan-bl {
@@ -82,6 +67,95 @@ export const Container_Page_Background = styled.div.withConfig({
         100% {
             background-position: 0% 100%;
         }
+    }
+`;
+export const Container_Page_Logged = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode' && prop !== 'TypeUser' && prop !== 'Logged',
+})`
+    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Administrator' || TypeUser === 'Chef' || TypeUser === 'Storekeeper') && Logged ? 
+        `background-image: url(${ ThemeMode ? Background_Administration_Light : Background_Administration_Dark});` : 
+        ''
+    }
+    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Cook' || TypeUser === 'Nutritionist' || TypeUser === 'Doctor') && Logged ?
+        `background-image: url(${ ThemeMode ? Background_Kitchen_Light : Background_Kitchen_Dark});`:
+        ''
+    }
+    background-Size: cover;
+    background-Position: center;
+    width: 100vw;
+    height: 100vh;
+    max-height: none;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-Items: center;
+
+    &.bg-pan-bl {
+        -webkit-animation: bg-pan-bl 4s infinite both alternate;
+        animation: bg-pan-bl 4s infinite both alternate;
+        background-size: 125% 125%;
+    }
+
+    @-webkit-keyframes bg-pan-bl {
+        0% {
+            background-position: 100% 0%;
+        }
+        100% {
+            background-position: 0% 100%;
+        }
+    }
+    @keyframes bg-pan-bl {
+        0% {
+            background-position: 100% 0%;
+        }
+        100% {
+            background-position: 0% 100%;
+        }
+    }
+`;
+export const Container_Page_Elements = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'sidebarVisible'
+})`
+    position: fixed;
+    top: 0%;
+    left: ${({ sidebarVisible }) => (sidebarVisible ? "20%" : "2%")};
+    width: ${({ sidebarVisible }) => (sidebarVisible ? "80%" : "100%")};
+    height: 100%;
+    max-width: ${({ sidebarVisible }) => (sidebarVisible ? "80vw" : "95vw")}; 
+    max-height: 100vh;
+    margin: 0px;
+    gap: 15px;
+    padding: 10px;
+    padding-top: 30px;
+    padding-bottom: 100px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-Items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    transition: all ${({ sidebarVisible }) => (sidebarVisible ? "0.3s" : "3.0s")} ease;
+    overflow-y: hidden; 
+    overflow-x: auto;
+    
+    @media (max-width: 768px) {
+        padding: 8px;
+        padding-top: 25px;
+        padding-bottom: 80px;
+        gap: 10px;
+        left: ${({ sidebarVisible }) => (sidebarVisible ? "32%" : "2%")}; 
+        width: ${({ sidebarVisible }) => (sidebarVisible ? "100%" : "100%")}; 
+        max-width: ${({ sidebarVisible }) => (sidebarVisible ? "65vw" : "95vw")}; 
+    }
+
+    @media (max-width: 480px) {
+        padding: 6px;
+        padding-top: 20px;
+        padding-bottom: 60px;
+        gap: 5px;
+        left: ${({ sidebarVisible }) => (sidebarVisible ? "42%" : "2%")}; 
+        width: ${({ sidebarVisible }) => (sidebarVisible ? "100%" : "100%")}; 
+        max-width: ${({ sidebarVisible }) => (sidebarVisible ? "55vw" : "95vw")}; 
     }
 `;
 export const Container_Page_Error = styled.div.withConfig({
@@ -123,52 +197,6 @@ export const Container_Page_Loading = styled.div.withConfig({
     left: 0;
     background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231);' : 'rgb(58,93,174)')};
 `;
-export const Container_Page_Elements = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'sidebarVisible'
-})`
-    position: fixed;
-    top: 0%;
-    left: ${({ sidebarVisible }) => (sidebarVisible ? "21.2%" : "5%")};
-    width: ${({ sidebarVisible }) => (sidebarVisible ? "83%" : "100%")};
-    height: 100%;
-    max-width: 100%;
-    max-height: 100vh;
-    overflow-y: scroll; 
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin: 0px auto;
-    padding: 20px;
-    border-radius: 4px;
-    background-color:transparent;
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding-top: 30px;
-    transition: all 0.3s ease;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        padding: 15px;
-        padding-top: 15px;
-        gap: 10px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "32%" : "6%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "70%" : "100%")};
-    }
-
-    @media (max-width: 480px) {
-        padding: 10px;
-        padding-top: 10px;
-        gap: 5px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "42%" : "8%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "60%" : "98%")}; 
-    }
-`;
 //____________PAGE____________
 //____________FORM____________
 export const Container_Form_80 = styled.div.withConfig({
@@ -203,6 +231,47 @@ export const Container_Form_80 = styled.div.withConfig({
         padding: 10px;
     }
 `;
+export const Container_Form_500 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    z-index: 40;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 500px;
+    max-height: 80vh;
+    padding: 20px;
+    padding-top: 10px;
+    gap: 14px;
+    margin-right: 40px;
+    border-radius: 50px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        width: 450px;
+        padding: 18px;
+        padding-top: 8px;
+        gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+        width: 400px;    
+        padding: 16px;
+        padding-top: 6px;
+        gap: 10px;
+    }
+`;
 export const Container_Form_450 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -216,9 +285,12 @@ export const Container_Form_450 = styled.div.withConfig({
     width: 450px;
     max-height: 80vh;
     padding: 20px;
+    padding-top: 10px;
+    gap: 14px;
+    margin-right: 40px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(204, 203, 198, 0.7)' : 'rgba(41, 41, 40, 0.8)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -229,14 +301,16 @@ export const Container_Form_450 = styled.div.withConfig({
     
     @media (max-width: 768px) {
         width: 400px;
-        padding: 15px;
-        margin-left: 25px;
+        padding: 18px;
+        padding-top: 8px;
+        gap: 12px;
     }
 
     @media (max-width: 480px) {
         width: 350px;    
-        padding: 10px;
-        margin-left: 20px;
+        padding: 16px;
+        padding-top: 6px;
+        gap: 10px;
     }
 `;
 export const Container_Form_400 = styled.div.withConfig({
@@ -252,9 +326,12 @@ export const Container_Form_400 = styled.div.withConfig({
     width: 400px;
     max-height: 80vh;
     padding: 20px;
+    padding-top: 10px;
+    gap: 14px;
+    margin-right: 40px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(204, 203, 198, 0.7)' : 'rgba(41, 41, 40, 0.8)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -265,14 +342,16 @@ export const Container_Form_400 = styled.div.withConfig({
     
     @media (max-width: 768px) {
         width: 350px;
-        padding: 15px;
-        margin-left: 25px;
+        padding: 18px;
+        padding-top: 8px;
+        gap: 12px;
     }
 
     @media (max-width: 480px) {
         width: 300px;    
-        padding: 10px;
-        margin-left: 20px;
+        padding: 16px;
+        padding-top: 6px;
+        gap: 10px;
     }
 `;
 export const Container_Form_350 = styled.div.withConfig({
@@ -288,9 +367,12 @@ export const Container_Form_350 = styled.div.withConfig({
     width: 350px;
     max-height: 80vh;
     padding: 20px;
+    padding-top: 10px;
+    gap: 14px;
+    margin-right: 40px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(204, 203, 198, 0.7)' : 'rgba(41, 41, 40, 0.8)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -301,17 +383,21 @@ export const Container_Form_350 = styled.div.withConfig({
     
     @media (max-width: 768px) {
         width: 300px;
-        padding: 15px;
+        padding: 18px;
+        padding-top: 8px;
+        gap: 12px;
     }
 
     @media (max-width: 480px) {
         width: 250px;    
-        padding: 10px;
+        padding: 16px;
+        padding-top: 6px;
+        gap: 10px;
     }
 `;
 //____________FORM____________
 //____________ROW____________
-// Center
+//-------- CENTER --------
 export const Container_Row_100_Center = styled.div`
     position: relative; 
     display: flex;
@@ -322,22 +408,23 @@ export const Container_Row_100_Center = styled.div`
     height: auto;  
     padding: 20px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 96%;
+        border-radius: 35px;
         padding: 15px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 92%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
 }
 `;
 export const Container_Row_90_Center = styled.div`
-    position: relative;     
+    position: relative; 
     display: flex;
     justify-content: center;
     align-items: center;          
@@ -346,20 +433,47 @@ export const Container_Row_90_Center = styled.div`
     height: auto;  
     padding: 20px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 15px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
 }
 `;
+export const Container_Row_80_Center = styled.div`
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 80%;
+    height: auto;  
+    padding: 20px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+//-------- Border
 export const Container_Row_Border_90_Center = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -371,22 +485,21 @@ export const Container_Row_Border_90_Center = styled.div.withConfig({
     width: 90%;
     height: auto;  
     padding: 20px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
     border-radius: 40px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 15px;
-        gap: 10px;    
+        gap: 10px;   
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
-}
 `;
 export const Container_Row_Border_80_Center = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -399,102 +512,162 @@ export const Container_Row_Border_80_Center = styled.div.withConfig({
     width: 80%;
     height: auto;  
     padding: 20px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
     border-radius: 40px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        width: 76%;
+        border-radius: 35px;
         padding: 15px;
-        gap: 10px;    
+        gap: 10px;   
     }
 
     @media (max-width: 480px) {
-        width: 72%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
-}
 `;
-// Right
-export const Container_Row_100_Right = styled.div`
+export const Container_Row_Border_70_Center = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     position: relative;     
+    display: flex;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 70%;
+    height: auto;  
+    padding: 20px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
+    border-radius: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 15px;
+        gap: 10px;   
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 10px;
+        gap: 5px;
+    }
+`;
+//-------- Border
+//-------- CENTER --------
+//-------- RIGHT --------
+export const Container_Row_100_Right = styled.div`
+    position: relative; 
     display: flex;
     justify-content: flex-end;
     align-items: center;           
     background: transparent;
     width: 100%;
-    height: auto;      
+    height: auto;       
     padding: 10px;
-    padding-right: 40px;
+    padding-right: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 96%;
+        border-radius: 35px;
         padding: 8px;
-        padding-right: 38px;
-        gap: 10px;     
+        padding-right: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 92%;
+        border-radius: 30px;
         padding: 6px;
-        padding-right: 36px;
+        padding-right: 20px;
         gap: 5px;
     }
 }
 `;
 export const Container_Row_90_Right = styled.div`
-    position: relative;     
+    position: relative; 
     display: flex;
     justify-content: flex-end;
     align-items: center;           
     background: transparent;
     width: 90%;
-    height: auto;      
+    height: auto;       
     padding: 10px;
-    padding-right: 40px;
+    padding-right: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 8px;
-        padding-right: 38px;
-        gap: 10px;     
+        padding-right: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 6px;
-        padding-right: 36px;
+        padding-right: 20px;
         gap: 5px;
     }
 }
 `;
-// Left
+export const Container_Row_80_Right = styled.div`
+    position: relative; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;       
+    padding: 10px;
+    padding-right: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+        gap: 5px;
+    }
+}
+`;
+//-------- RIGHT --------
+//-------- LEFT --------
 export const Container_Row_100_Left = styled.div`
-    position: relative;     
+    position: relative; 
     display: flex;
     justify-content: flex-start;
     align-items: center;           
     background: transparent;
     width: 100%;
-    height: auto;      
+    height: auto;       
     padding: 10px;
-    padding-left: 40px;
+    padding-left: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 96%;
+        border-radius: 35px;
         padding: 8px;
-        padding-left: 38px;
-        gap: 10px;     
+        padding-left: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 92%;
+        border-radius: 30px;
         padding: 6px;
-        padding-left: 36px;
+        padding-left: 20px;
         gap: 5px;
     }
 }
@@ -508,27 +681,57 @@ export const Container_Row_90_Left = styled.div`
     width: 90%;
     height: auto;       
     padding: 10px;
-    padding-left: 40px;
+    padding-left: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 8px;
-        padding-left: 38px;
+        padding-left: 25px;
         gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 6px;
-        padding-left: 36px;
+        padding-left: 20px;
         gap: 5px;
     }
 }
 `;
+export const Container_Row_80_Left = styled.div`
+    position: relative; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;       
+    padding: 10px;
+    padding-left: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+        gap: 5px;
+    }
+}
+`;
+//-------- LEFT --------
 //____________ROW____________
 //____________COLUMN____________
-// Center
+//-------- CENTER --------
 export const Container_Column_100_Center = styled.div`
     position: relative; 
     display: flex;
@@ -540,15 +743,16 @@ export const Container_Column_100_Center = styled.div`
     height: auto;  
     padding: 20px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 96%;
+        border-radius: 35px;
         padding: 15px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 92%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
@@ -565,20 +769,48 @@ export const Container_Column_90_Center = styled.div`
     height: auto;  
     padding: 20px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 15px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
 }
 `;
+export const Container_Column_80_Center = styled.div`
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 80%;
+    height: auto;  
+    padding: 20px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 10px;
+        gap: 5px;
+    }
+}
+`;
+//-------- Border
 export const Container_Column_Border_90_Center = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -591,22 +823,21 @@ export const Container_Column_Border_90_Center = styled.div.withConfig({
     width: 90%;
     height: auto;  
     padding: 20px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
     border-radius: 40px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 15px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
-}
 `;
 export const Container_Column_Border_80_Center = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -620,24 +851,125 @@ export const Container_Column_Border_80_Center = styled.div.withConfig({
     width: 80%;
     height: auto;  
     padding: 20px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
     border-radius: 40px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        width: 76%;
+        border-radius: 35px;
         padding: 15px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 72%;
+        border-radius: 30px;
         padding: 10px;
         gap: 5px;
     }
-}
 `;
-// Right
+export const Container_Column_Border_70_Center = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;          
+    background: transparent;
+    width: 70%;
+    height: auto;  
+    padding: 20px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
+    border-radius: 40px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 15px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 10px;
+        gap: 5px;
+    }
+`;
+//-------- Border
+//-------- White
+export const Container_Column_White_Height_100_Center = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 260px;
+    height: 100vh;
+    padding: 10px;
+    gap: 15px;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
+    box-sizing: border-box;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    transition: transform 0.3s ease;
+    z-index: 40;
+
+    @media (max-width: 768px) {
+        width: 230px;
+        padding: 8px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 200px;
+        padding: 6px;
+        gap: 5px;
+    }
+
+    &.hidden {
+        transform: translateX(-95%);
+    }
+
+    &.visible {
+        transform: translateX(0);
+    }
+`;
+//-------- White
+//-------- Black
+export const Container_Column_Black_Width_100_Center = styled.div`
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;          
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 4px solid white;
+    width: 100%;
+    height: auto;  
+    padding: 20px;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+        width: 96%;
+        padding: 18px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 92%;
+        padding: 16px;
+        gap: 5px;
+    }
+`;
+//-------- Black
+//-------- CENTER --------
+//-------- RIGHT --------
 export const Container_Column_100_Right = styled.div`
     position: relative;     
     display: flex;
@@ -648,20 +980,21 @@ export const Container_Column_100_Right = styled.div`
     width: 100%;
     height: auto;      
     padding: 10px;
-    padding-right: 40px;
+    padding-right: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 96%;
+        border-radius: 35px;
         padding: 8px;
-        padding-right: 38px;
-        gap: 10px;     
+        padding-right: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 92%;
+        border-radius: 30px;
         padding: 6px;
-        padding-right: 36px;
+        padding-right: 20px;
         gap: 5px;
     }
 }
@@ -676,25 +1009,56 @@ export const Container_Column_90_Right = styled.div`
     width: 90%;
     height: auto;      
     padding: 10px;
-    padding-right: 40px;
+    padding-right: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 8px;
-        padding-right: 38px;
-        gap: 10px;     
+        padding-right: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 6px;
-        padding-right: 36px;
+        padding-right: 20px;
         gap: 5px;
     }
 }
 `;
-// Left
+export const Container_Column_80_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+        gap: 5px;
+    }
+}
+`;
+//-------- RIGHT --------
+//-------- LEFT --------
 export const Container_Column_100_Left = styled.div`
     position: relative;     
     display: flex;
@@ -705,20 +1069,21 @@ export const Container_Column_100_Left = styled.div`
     width: 100%;
     height: auto;      
     padding: 10px;
-    padding-left: 40px;
+    padding-left: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 96%;
+        border-radius: 35px;
         padding: 8px;
-        padding-left: 38px;
-        gap: 10px;     
+        padding-left: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 92%;
+        border-radius: 30px;
         padding: 6px;
-        padding-left: 36px;
+        padding-left: 20px;
         gap: 5px;
     }
 }
@@ -733,24 +1098,55 @@ export const Container_Column_90_Left = styled.div`
     width: 90%;
     height: auto;      
     padding: 10px;
-    padding-left: 40px;
+    padding-left: 30px;
     gap: 15px;
+    border-radius: 40px;
 
     @media (max-width: 768px) {
-        width: 86%;
+        border-radius: 35px;
         padding: 8px;
-        padding-left: 38px;
-        gap: 10px;     
+        padding-left: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
-        width: 82%;
+        border-radius: 30px;
         padding: 6px;
-        padding-left: 36px;
+        padding-left: 20px;
         gap: 5px;
     }
 }
 `;
+export const Container_Column_80_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+        gap: 5px;
+    }
+}
+`;
+//-------- LEFT --------
 //____________COLUMN____________
 
 
@@ -1195,49 +1591,6 @@ export const Container_Icon_60 = styled.div`
 `;
 //____________ICON____________
 //____________NAVEGATION____________
-export const Container_Side_Bar = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 260px;
-    padding: 5px;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.8)')};
-    height: 100vh;
-    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: transform 0.3s ease;
-    overflow-y: auto;
-    scrollbar-width: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 14px;
-    z-index: 40;
-
-    &.visible {
-        transform: translateX(0);
-    }
-
-    &.hidden {
-        transform: translateX(-78%);
-    }
-
-    @media (max-width: 768px) {
-        gap: 12px;
-        padding: 4px;
-        width: 240px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 10px;
-        padding: 3px;
-        width: 200px;
-    }
-}
-`;
 export const Container_Nav_Bar = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -1330,31 +1683,6 @@ export const Container_Search_Bar = styled.div`
         gap: 4px;
         margin-left: 5px;
     }
-`;
-export const Container_Footer = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`  
-display: flex;  
-flex-direction: column;          
-align-items: center;
-justify-content: flex-start;         
-background: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.9)')};
-border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-width: 100%;
-height: auto;       
-position: relative; 
-padding: 20px;
-gap: 10px;
-
-@media (max-width: 768px) {
-    padding: 15px;
-    gap: 8px;   
-}
-
-@media (max-width: 480px) {
-    padding: 10px;
-    gap: 6px;
-}
 `;
 //____________NAVEGATION____________
 //____________TEXT____________

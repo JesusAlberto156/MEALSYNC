@@ -14,7 +14,7 @@ import { loggedContext,logContext } from "./SessionProvider";
 import { modalViewContext,themeModeContext } from "./ViewsProvider";
 import { nameContext,passwordContext,selectContext,radioContext } from "./FormsProvider";
 import { userContext,usersContext } from "./UsersProvider";
-import { selectedRowContext,formVerificationContext,actionBlockContext } from "./VariablesProvider";
+import { selectedRowContext,verificationBlockContext,actionBlockContext } from "./VariablesProvider";
 // Estilos personalizados
 import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -109,7 +109,7 @@ export const Status_Add = ({ children }) => {
     // constantes con contextos perzonalizados
     const [isSelect,setIsSelect] = useContext(selectContext);
     const [isRadio,setIsRadio] = useContext(radioContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const { currentMView,setCurrentMView,isModal,setIsModal } = useContext(modalViewContext);
     const [isActiveBlock,setIsActiveBlock] = useContext(actionBlockContext);
     const [socket] = useContext(socketContext);
     // UseState para controlar el valor del contexto
@@ -164,11 +164,11 @@ export const Status_Add = ({ children }) => {
 export const Status_Enable = ({ children }) => {
     // constantes con contextos perzonalizados
     const [isUsers] = useContext(usersContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const { currentMView,setCurrentMView,isModal,setIsModal } = useContext(modalViewContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassowrd,setIsPassword] = useContext(passwordContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
+    const [isFormVerification,setIsFormVerification] = useContext(verificationBlockContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [socket] = useContext(socketContext);
     // UseState para controlar el valor del contexto

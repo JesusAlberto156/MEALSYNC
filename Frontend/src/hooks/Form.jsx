@@ -7,24 +7,23 @@ import { nameContext,passwordContext,selectContext,radioContext,checkboxContext 
 import { usersContext,userContext } from "../contexts/UsersProvider";
 import { permissionsContext,permissionsAddContext,permissionsEditContext,permissionsEnableContext } from "../contexts/PermissionsProvider";
 import { statusAllContext,statusAddContext,statusEnableContext } from '../contexts/StatusProvider';
-import { formVerificationContext,actionBlockContext,selectedRowContext,viewPasswordContext } from "../contexts/VariablesProvider";
+import { verificationBlockContext,actionBlockContext,selectedRowContext,viewPasswordContext } from "../contexts/VariablesProvider";
 import { navbarViewContext,sidebarViewContext,modalViewContext } from "../contexts/ViewsProvider";
 // Estilos personalizados
 import { Alert_Verification } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Hook para empezar el inicio de sesión en el formulario de login o cerrar sesión
-export const useChangeLog = () => {
+export const HandleChangeLog = () => {
     // Constantes con el valor de los contextos 
     const [isLog,setIsLog] = useContext(logContext);
     // Función del hook
-    const changeLog = () => {
+    const handleChangeLog = () => {
         setIsLog(!isLog);
     }
     // Retorno de la función del hook
-    return changeLog;
+    return handleChangeLog;
 }
-
 // Hook para cambiar la vista de las contraseñas de los usuarios
 export const useChangeViewPassword = () => {
     // Constantes con el valor de los contextos 
@@ -35,7 +34,7 @@ export const useChangeViewPassword = () => {
     const [isViewPassword,setIsViewPassword] = useContext(viewPasswordContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
+    const [isFormVerification,setIsFormVerification] = useContext(verificationBlockContext);
     // Función del hook
     const changeViewPassword = () => {
         if(currentNView === 'Principal' && currentSView === 'Users' && currentMView === 'Users-View'){
@@ -306,7 +305,7 @@ export const useSessionVerification = () => {
     const [isName] = useContext(nameContext);
     const [isPassowrd] = useContext(passwordContext);
     const [isUser] = useContext(userContext);
-    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
+    const [isFormVerification,setIsFormVerification] = useContext(verificationBlockContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     // Función del hook
     const sessionVerification = async () => {

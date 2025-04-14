@@ -1,17 +1,16 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { themeModeContext,sidebarVisibleContext } from "../../contexts/ViewsProvider";
+import { themeModeContext,sidebarContext } from "../../contexts/ViewsProvider";
 import { loggedContext } from "../../contexts/SessionProvider";
+import { typeUserContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
-import { useChangeThemeMode,useToggleSidebar,useChangeModalView } from "../../hooks/Views";
+import { ToggleThemeMode,ToggleSidebar,HandleChangeModal } from "../../hooks/Views";
 //__________ICONOS__________
-// Icono para el teclado
-import { MdKeyboard } from "react-icons/md";
-import { MdKeyboardHide } from "react-icons/md";
 // Icono para cambiar el modo de la interfaz
 import { IoMdSunny } from "react-icons/io";
 import { FaMoon } from "react-icons/fa";
@@ -22,50 +21,52 @@ import { BsToggleOn } from "react-icons/bs";
 import { FaSignOutAlt } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_90_Right } from "../styled/Containers";
-import { Button_Icon_Toggle,Button_Icon_Logout } from "../styled/Buttons";
-import { Icon_Button_25 } from "../styled/Icons";
-// Componentes personalizados
-
+import { Container_Row_90_Right } from "../styled/Containers";
+import { Button_Icon_Blue_60,Button_Icon_Red_60 } from "../styled/Buttons";
+import { Icon_Button_Black_26,Icon_18 } from "../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Componente para la configuración visual de la página o cerrar sesión
 export default function Setting_Bar(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(themeModeContext);
-    const [isSidebarVisible] = useContext(sidebarVisibleContext);
+    const [isSidebar] = useContext(sidebarContext);
     const [isLogged] = useContext(loggedContext);
+    const [isTypeUser] = useContext(typeUserContext);
     // Constantes con la funcionalidad de los hooks
-    const changeThemeMode = useChangeThemeMode();
-    const toggleSidebar = useToggleSidebar();
-    const changeModalView = useChangeModalView();
+    const navigate = useNavigate();
+    const toggleThemeMode = ToggleThemeMode();
+    const toggleSidebar = ToggleSidebar();
+    const handleChangeModal = HandleChangeModal();
     // Estructura del componente
     return(
         <>
-            <Container_90_Right>
+            <Container_Row_90_Right>
                 {isLogged ? (
-                    <>
-                        <Tooltip title={isSidebarVisible ? 'Ocultar' : 'Mostrar'} placement="bottom">
-                            <Button_Icon_Toggle ThemeMode={themeMode} onClick={() => toggleSidebar()}>{isSidebarVisible ? <BsToggleOn /> : <BsToggleOff/>}</Button_Icon_Toggle>
+                    <>  
+                        <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
+                            <Button_Icon_Blue_60 ThemeMode={themeMode} onClick={() => toggleSidebar()}>
+                                {isSidebar ? <Icon_18><BsToggleOn/></Icon_18> : <Icon_18><BsToggleOff/></Icon_18>}
+                            </Button_Icon_Blue_60>
                         </Tooltip>
                         <Tooltip title='Salir' placement="bottom">
-                            <Button_Icon_Logout ThemeMode={themeMode} onClick={() => changeModalView('Out-Login')}><FaSignOutAlt/></Button_Icon_Logout>
+                            <Button_Icon_Red_60 ThemeMode={themeMode} onClick={() => {
+                                handleChangeModal('Out-Login');
+                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
+                            }}>
+                                <Icon_18><FaSignOutAlt/></Icon_18>
+                            </Button_Icon_Red_60>
                         </Tooltip>
                     </>
                 ):(
                     <></>
                 )}
-                <Tooltip title={false ? 'Cerrar Teclado' : 'Abrir Teclado'} placement="left">
-                    <Icon_Button_25 ThemeMode={themeMode}>
-                        {false ? <MdKeyboardHide/> : <MdKeyboard/>}
-                    </Icon_Button_25>
-                </Tooltip>
                 <Tooltip title={themeMode ? 'Modo Claro' : 'Modo Oscuro'} placement="left">
-                    <Icon_Button_25 ThemeMode={themeMode} onClick={() => changeThemeMode()}>
+                    <Icon_Button_Black_26 ThemeMode={themeMode} onClick={() => toggleThemeMode()}>
                         {themeMode ? <IoMdSunny/> : <FaMoon/>}
-                    </Icon_Button_25>
+                    </Icon_Button_Black_26>
                 </Tooltip>
-            </Container_90_Right>
+            </Container_Row_90_Right>
         </>
     );
 }

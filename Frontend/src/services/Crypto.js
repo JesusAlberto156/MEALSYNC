@@ -8,7 +8,6 @@ export const encryptData = (data) => {
 
 export const decryptData = (encryptedData) => {
     try {
-
         if (!SECRET_KEY) throw new Error("SECRET_KEY no está definido");
 
         const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);

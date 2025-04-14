@@ -1,34 +1,28 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { Children, createContext, useState } from "react"
-// Servicios
-
+import { createContext,useState } from "react"
 // Contextos
-export const formTextContext = createContext(null);
+export const textFieldsContext = createContext(null);
 export const nameContext = createContext(null);
 export const passwordContext = createContext(null);
 export const selectContext = createContext(null);
 export const radioContext = createContext(null);
 export const radioUsersContext = createContext(null);
 export const checkboxContext = createContext(null);
-// Contextos personalizados
-
-// Estilos personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar los campos de registro de un formulario
-export const Form_Text = ({ children }) => {
+export const Text_Fields = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isFormText,setIsFormText] = useState({
+    const [isTextFields,setIsTextFields] = useState({
         user: '',
         password: '',
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <formTextContext.Provider value={[isFormText,setIsFormText]}> 
+        <textFieldsContext.Provider value={[isTextFields,setIsTextFields]}> 
             {children}
-        </formTextContext.Provider>
+        </textFieldsContext.Provider>
     );
 }
 // Función Contexto para controlar el valor en el campo de nombre de usuario en el formulario

@@ -1,17 +1,12 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { createContext, useState,useEffect,useContext } from "react"
-
-// Servicios
-
+import { createContext,useState,useEffect,useContext } from "react"
 // Contextos
 export const logContext = createContext(null);
 export const loggedContext = createContext(null);
 // Contextos personalizados
 import { socketContext } from "./SocketProvider";
 import { userContext } from './UsersProvider';
-// Estilos personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlarel el inicio de sesión en la página
@@ -73,20 +68,6 @@ export const Logged = ({ children }) => {
             }
         }
     },[isLogged]);
-    // UseEffect para cerrar sesion cuando cierres la pestaña 
-    useEffect(() => {
-        const handleBeforeUnload = () => {
-            if(isLogged && isUser.length !== 0){
-                socket.emit('statusLogout',isUser.idusuario,isUser.usuario);
-            }
-        }
-
-        window.addEventListener('beforeunload',handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener('beforeunload',handleBeforeUnload);
-        }
-    },[]);
     // Return para darle valor al contexto y heredarlo
     return (
         <loggedContext.Provider value={[isLogged,setIsLogged]}>

@@ -17,11 +17,12 @@ import { AppProviders } from './contexts/AppProviders';
 
 //__________ICONOS__________
 // Estilos personalizados
-
+import '../src/components/styled/Animations.css'
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
 import Login from './pages/general/Login';
 import Home from './pages/general/Home';
+import Out_Login from './components/modals/General/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
 import Users from './pages/administration/Users';
 import TableUsers from './components/tables/TableUsers';
@@ -76,7 +77,7 @@ const router = createHashRouter([
                 element: <Users/>,
                 children: [
                   {
-                    path: 'Principal',
+                    path: 'Users',
                     element: <TableUsers/>,
                     children: [
                       {
@@ -176,6 +177,10 @@ const router = createHashRouter([
               }
             ]
           },
+          {
+            path: 'Administration/Out_Login',
+            element: <Out_Login/>
+          },
         ]
       },
       {
@@ -191,6 +196,10 @@ const router = createHashRouter([
                 element: <Home/>
               },
             ]
+          },
+          {
+            path: 'Kitchen/Out_Login',
+            element: <Out_Login/>
           },
         ]
       },

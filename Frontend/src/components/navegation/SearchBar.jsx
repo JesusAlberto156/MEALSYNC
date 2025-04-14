@@ -34,8 +34,8 @@ import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Search_Bar } from "../styled/Containers";
-import { Button_Icon_Green_45,Button_Icon_Blue_45,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
-import { Icon_25,Icon_Button_25 } from "../styled/Icons";
+import { Button_Icon_Green_45,Button_Icon_Blue_60,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
+import { Icon_25,Icon_Button_Black_30 } from "../styled/Icons";
 import { Input_Search } from "../styled/Inputs";
 // Componentes personalizados
 
@@ -73,7 +73,7 @@ export default function Search_Bar (){
                 {isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? (
                     <>
                         <Tooltip title='Pedidos' placement="top">
-                            <Icon_Button_25 ThemeMode={themeMode}><FaShoppingCart/></Icon_Button_25>
+                            <Icon_Button_Black_30 ThemeMode={themeMode}><FaShoppingCart/></Icon_Button_Black_30>
                         </Tooltip>  
                     </>
                 ):(
@@ -116,7 +116,7 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45><FaUserPlus/></Button_Icon_Block_45>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_45 ThemeMode={themeMode} ref={Button_Edit_U}><FaUserEdit/></Button_Icon_Blue_45>
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode} ref={Button_Edit_U}><FaUserEdit/></Button_Icon_Blue_60>
                                 </Tooltip>
                                 <Tooltip title='Eliminar' placement="top">
                                     <Button_Icon_Red_45 ThemeMode={themeMode} ref={Button_Delete_U}><FaUserMinus/></Button_Icon_Red_45>
@@ -159,7 +159,7 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45><FaUserPlus/></Button_Icon_Block_45>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_45 ThemeMode={themeMode} ref={Button_Edit_U}><FaUserEdit/></Button_Icon_Blue_45>
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode} ref={Button_Edit_U}><FaUserEdit/></Button_Icon_Blue_60>
                                 </Tooltip>
                                 <Button_Icon_Block_45><FaEye/></Button_Icon_Block_45>
                             </>
@@ -187,12 +187,12 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
-                                    <Button_Icon_Blue_45 ref={Button_Edit_P} ThemeMode={themeMode} onClick={() => {
+                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} onClick={() => {
                                         changeModalView('Permissions-Edit')
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });
                                     }}>
                                         <AiFillEdit/>
-                                    </Button_Icon_Blue_45>
+                                    </Button_Icon_Blue_60>
                                 </Tooltip>
                                 {isSelectedRow.superadministrador ? (
                                     <>
@@ -236,12 +236,12 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
-                                    <Button_Icon_Blue_45 ref={Button_Edit_P} ThemeMode={themeMode} onClick={() => {
+                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} onClick={() => {
                                         changeModalView('Permissions-Edit')
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });
                                     }}>
                                         <AiFillEdit/>
-                                    </Button_Icon_Blue_45>
+                                    </Button_Icon_Blue_60>
                                 </Tooltip>
                             </>
                         )

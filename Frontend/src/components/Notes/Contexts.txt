@@ -24,7 +24,7 @@
 // Return para darle valor al contexto y heredarlo
 
 //____________FORM____________
-const [isFormText,setIsFormText] = useContext(formTextContext);
+const [isTextFields,setIsTextFields] = useContext(textFieldsContext);
 const [isName,setIsName] = useContext(nameContext);
 const [isPassword,setIsPassword] = useContext(passwordContext);
 const [isSelect,setIsSelect] = useContext(selectContext);
@@ -69,7 +69,8 @@ const [isUser,setIsUser] = useContext(userContext);
 const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
 const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
 const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
+const [isVerificationBlock,setIsVerificationBlock] = useContext(verificationBlockContext);
+const [isAnimation,setIsAnimation] = useContext(animationContext);
 const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
 const [isViewPassword,setIsViewPassword] = useContext(viewPasswordContext);
 //____________VARIABLES____________
@@ -78,6 +79,7 @@ const [themeMode,setThemeMode] = useContext(themeModeContext);
 const [currentLView,setCurrentLView] = useContext(loginViewContext);
 const [currentNView,setCurrentNView] = useContext(navbarViewContext);
 const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
-const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+const [isSidebar,setIsSidebar] = useContext(sidebarContext);
 const [currentMView,setCurrentMView] = useContext(modalViewContext);
+const [isModal,setIsModal] = useContext(modalContext);
 //____________VIEWS____________

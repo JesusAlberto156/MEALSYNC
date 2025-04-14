@@ -1,9 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
-//__________ICONOS__________
-
-//__________ICONOS__________
 //__________IMAGE__________
 import Logo_Horizontal_Hospital_Light from '../imgs/Logo-Horizontal-Hospital-Light.png'
 import Logo_Horizontal_Hospital_Dark from '../imgs/Logo-Horizontal-Hospital-Light.png'
@@ -41,55 +38,106 @@ export const Img_Logo_Horizontal_Hospital_450 = styled.div.withConfig({
         height: 200px;    
     }
 `;
-export const Img_Logo_Verical_Hospital_250 = styled.div.withConfig({
+export const Img_Logo_Verical_Hospital_240 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`
     background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Vertical_Hospital_Light})` : `url(${Logo_Vertical_Hospital_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
-    width: 250px;
-    height: 250px;
-    margin: 0 auto;
-    margin-bottom: 0px;
+    width: 240px;
+    height: 240px;
     flex-shrink: 0;
     
     @media (max-width: 768px) {
-        width: 200px;
-        height: 200px;    
+        width: 230px;
+        height: 230px; 
     }
 
     @media (max-width: 480px) {
-        width: 150px;
-        height: 150px;    
+        width: 220px;
+        height: 220px;  
     }
 `;
-export const Img_Logo_Hospital_150 = styled.div.withConfig({
+export const Img_Logo_Verical_Hospital_200 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Vertical_Hospital_Light})` : `url(${Logo_Vertical_Hospital_Dark})`)};
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+    
+    @media (max-width: 768px) {
+        width: 190px;
+        height: 190px; 
+    }
+
+    @media (max-width: 480px) {
+        width: 180px;
+        height: 180px;  
+    }
+`;
+export const Img_Logo_Verical_Hospital_160 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Vertical_Hospital_Light})` : `url(${Logo_Vertical_Hospital_Dark})`)};
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+    
+    @media (max-width: 768px) {
+        width: 150px;
+        height: 150px; 
+    }
+
+    @media (max-width: 480px) {
+        width: 140px;
+        height: 140px;  
+    }
+`;
+export const Img_Logo_Hospital_140 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`
     background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Hospital_Light})` : `url(${Logo_Hospital_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
-    width: 150px;
-    height: 150px;
-    padding: 10px;
+    width: 140px;
+    height: 140px;
     margin-left: 20px;
-    margin-bottom: 20px;
     flex-shrink: 0;
     
     @media (max-width: 768px) {
-        width: 120px;
-        height: 120px;  
-        padding: 8px;
-        margin-left: 15px;
-        margin-bottom: 15px;
+        width: 130px;
+        height: 130px; 
     }
 
     @media (max-width: 480px) {
+        width: 120px;
+        height: 120px;  
+    }
+`;
+export const Img_Logo_Hospital_100 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode'
+})`
+    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Hospital_Light})` : `url(${Logo_Hospital_Dark})`)};
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+    flex-shrink: 0;
+    
+    @media (max-width: 768px) {
         width: 90px;
-        height: 90px;  
-        padding: 6px;
-        margin-left: 10px;
-        margin-bottom: 10px;
+        height: 90px; 
+    }
+
+    @media (max-width: 480px) {
+        width: 80px;
+        height: 80px;  
     }
 `;
 export const Img_Logo_Hospital_60 = styled.div.withConfig({

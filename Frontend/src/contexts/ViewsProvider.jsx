@@ -1,19 +1,14 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { createContext, useState } from "react"
-// Servicios
-
+import { createContext,useState } from "react"
 // Contextos
 export const themeModeContext = createContext(null);
 export const loginViewContext = createContext(null);
 export const navbarViewContext = createContext(null);
 export const sidebarViewContext = createContext(null);
-export const sidebarVisibleContext = createContext(null);
+export const sidebarContext = createContext(null);
 export const modalViewContext = createContext(null);
-// Contextos personalizados
-
-// Estilos personalizados
-
+export const modalContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el modo de la página (Claro/Oscuro)
@@ -61,24 +56,35 @@ export const Sidebar_View = ({ children }) => {
     );
 }
 // Función contexto para controlar la visibilidad del sidebar
-export const Sidebar_Visible = ({ children }) => {
+export const Sidebar = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isSidebarVisible,setIsSidebarVisible] = useState(true);
+    const [isSidebar,setIsSidebar] = useState(true);
     // UseState para controlar el valor del contexto
     return (
-        <sidebarVisibleContext.Provider value={[isSidebarVisible,setIsSidebarVisible]}>
+        <sidebarContext.Provider value={[isSidebar,setIsSidebar]}>
             {children}
-        </sidebarVisibleContext.Provider>
+        </sidebarContext.Provider>
     );
 }
-// Función contexto para controlar la visibilidad del modal
+// Función contexto para controlar el modal
 export const Modal_View = ({children}) => {
-
+    // UseState para controlar el valor del contexto
     const [currentView,setCurrentView] = useState('');
-
+    // UseState para controlar el valor del contexto
     return (
         <modalViewContext.Provider value={[currentView,setCurrentView]}>
             {children}
         </modalViewContext.Provider>
+    );
+}
+// Función contexto para controlar la visibilidad del modal
+export const Modal = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isModal,setIsModal] = useState(false);
+    // UseState para controlar el valor del contexto
+    return (
+        <modalContext.Provider value={[isModal,setIsModal]}>
+            {children}
+        </modalContext.Provider>
     );
 }

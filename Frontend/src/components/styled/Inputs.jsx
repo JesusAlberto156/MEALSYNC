@@ -1,14 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
-//__________ICONOS__________
-
-//__________ICONOS__________
-//__________IMAGE__________
-
-//__________IMAGE__________
-// Estilos personalizados
-
 //____________IMPORT/EXPORT____________
 
 //____________GROUP____________
@@ -28,16 +20,17 @@ export const Input_Group_80 = styled.div`
 `;
 //____________GROUP____________
 //____________TEXT____________
-export const Input_Text_65 = styled.input.withConfig({
+export const Input_Text_70 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    width: 65%;
+    width: 70%;
     height: auto;
     color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    font-size: 18px;
+    font-size: 20px;
+    padding: 8px;
     border: none;
-    border-radius: 8px;
-    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    border-radius: 10px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
     background: transparent;
     transition: 0.1s ease;
     outline: none;
@@ -45,20 +38,83 @@ export const Input_Text_65 = styled.input.withConfig({
 
     @media (max-width: 768px) {
         font-size: 16px;
-        width: 61%;
-        border-radius: 6px;
+        padding: 6px;
     }
     
     @media (max-width: 480px) {
-        font-size: 14px;
-        width: 57%;
-        border-radius: 4px;
+        font-size: 12px;
+        padding: 4px;
     }
 
     &:focus {
         color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
         border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(60, 124, 167, 0.3)' : 'rgba(213, 220, 224, 0.3)')};
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)')};
+    }
+`;
+export const Input_Text_60 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 60%;
+    height: auto;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 20px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    &:focus {
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)')};
+    }
+`;
+
+export const Input_Text_65 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 70%;
+    height: auto;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 20px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    &:focus {
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)')};
     }
 `;
 export const Input_Text_55 = styled.input.withConfig({

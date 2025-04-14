@@ -1,17 +1,463 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
-//__________ICONOS__________
-
-//__________ICONOS__________
-//__________IMAGE__________
-
-//__________IMAGE__________
 // Estilos personalizados
 import { Rotate_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
-// Sin color
+//____________BUTTON____________
+//---------- Black
+export const Icon_Button_Black_30 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Button_Black_26 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Button_Black_22 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Button_Black_18 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Black
+//____________BUTTON____________
+//____________COLOR____________
+//---------- Sin color
+export const Icon_30 = styled.div`
+    font-size: 30px;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_26 = styled.div`
+    font-size: 26px;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_22 = styled.div`
+    font-size: 22px;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_18 = styled.div`
+    font-size: 18px;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Sin color
+//---------- White
+export const Icon_White_30 = styled.div`
+    font-size: 30px;
+    color: white;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_White_26 = styled.div`
+    font-size: 26px;
+    color: white;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_White_22 = styled.div`
+    font-size: 22px;
+    color: white;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_White_18 = styled.div`
+    font-size: 18px;
+    color: white;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- White
+//---------- Black
+export const Icon_Black_30 = styled.div`
+    font-size: 30px;
+    color: black;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Black_26 = styled.div`
+    font-size: 26px;
+    color: black;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Black_22 = styled.div`
+    font-size: 22px;
+    color: black;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Black_18 = styled.div`
+    font-size: 18px;
+    color: black;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Black
+//---------- White/Black
+export const Icon_White_Black_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_White_Black_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_White_Black_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_White_Black_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- White/Black
+//---------- Black/White
+export const Icon_Black_White_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Black_White_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Black_White_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Black_White_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Black/White
+//---------- Green
+export const Icon_Green_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Green_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Green_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Green_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Green
+//---------- Red
+export const Icon_Red_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Red_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Red_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Red_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Red
+//____________COLOR____________
+
 export const Icon_25 = styled.div`
     font-size: 25px;
 
@@ -94,23 +540,7 @@ export const Icon_Gray_Rotate_50 = styled.div.withConfig({
     }
 `;
 // Funcionalidad de botón
-export const Icon_Button_25 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 25px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
 
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 15px;
-    }
-`;
 //____________IMAGE____________
 export const Icon_Image_Profile_Dark = styled.img`
     width: 80px; 
@@ -137,6 +567,7 @@ export const Icon_Image_Profile_Light = styled.img`
     object-fit: contain;
     border: 4px solid black;
     background-color: transparent;
+    margin-top: 0px;
 
     @media (max-width: 768px) {
         width: 70px; 

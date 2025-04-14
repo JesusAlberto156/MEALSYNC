@@ -7,7 +7,7 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { themeModeContext,navbarViewContext,sidebarViewContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
-import { useChangeNavbarView } from "../../hooks/Views";
+import { HandleChangeNavbar } from "../../hooks/Views";
 //__________ICONOS__________
 // Iconos para la opcion de usuarios del navbar
 import { FaUserTag } from "react-icons/fa6";
@@ -39,7 +39,7 @@ export default function Nav_Bar(){
     const [currentNView] = useContext(navbarViewContext);
     const [currentSView] = useContext(sidebarViewContext);
     // Constantes con la funcionalidad de los hooks
-    const changeNavbarView = useChangeNavbarView();
+    const changeNavbarView = HandleChangeNavbar();
     const navigate = useNavigate();
     // Estructura del componente
     return(

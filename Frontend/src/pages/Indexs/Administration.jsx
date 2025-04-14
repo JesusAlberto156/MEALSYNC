@@ -4,23 +4,14 @@ import { useEffect,useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Toaster } from "sonner";
-// Servicios
-
-// Rutas
-
 // Contextos
-import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarVisibleContext,modalViewContext } from "../../contexts/ViewsProvider";
+import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarContext,modalViewContext } from "../../contexts/ViewsProvider";
 import { nameContext,passwordContext,radioUsersContext } from "../../contexts/FormsProvider";
 import { typeUserContext,searchTermContext,actionBlockContext } from "../../contexts/VariablesProvider";
 import { userContext } from "../../contexts/UsersProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider";
 import { statusUserContext } from "../../contexts/StatusProvider";
 import { loggedContext,logContext } from "../../contexts/SessionProvider";
-// Hooks personalizados
-
-//__________ICONOS__________
-
-//__________ICONOS__________
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";
 import { Alert_Verification,Alert_Styles } from "../../components/styled/Alerts";
@@ -44,7 +35,7 @@ export default function Index_Administration(){
     const [currentLView,setCurrentLView] = useContext(loginViewContext);
     const [currentNView,setCurrentNView] = useContext(navbarViewContext);
     const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
-    const [isSidebarVisible,setIsSidebarVisible] = useContext(sidebarVisibleContext);
+    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
     const [currentMView,setCurrentMView] = useContext(modalViewContext);
     
     const [isName,setIsName] = useContext(nameContext);
@@ -74,7 +65,7 @@ export default function Index_Administration(){
                         setCurrentLView('');
                         setCurrentNView('');
                         setCurrentSView('');
-                        setIsSidebarVisible(true);
+                        setIsSidebar(true);
                         setCurrentMView('');
                         
                         setIsName('');
@@ -111,7 +102,7 @@ export default function Index_Administration(){
     // Estructura del componente
     return(
         <>
-            <Container_Page_Elements sidebarVisible={isSidebarVisible}>
+            <Container_Page_Elements sidebarVisible={isSidebar}>
                 <Setting_Bar/>
                 <Outlet/>
             </Container_Page_Elements>

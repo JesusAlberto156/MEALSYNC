@@ -1,19 +1,14 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { createContext,useState } from "react"
-// Servicios
-
 // Contextos
 export const typeUserContext = createContext(null);
 export const selectedRowContext = createContext(null);
 export const searchTermContext = createContext(null);
-export const formVerificationContext = createContext(null);
+export const verificationBlockContext = createContext(null);
+export const animationContext = createContext(null);
 export const actionBlockContext = createContext(null);
 export const viewPasswordContext = createContext(null);
-// Contextos personalizados
-
-// Estilos personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el tipo de usuario que es
@@ -64,14 +59,25 @@ export const Search_Term = ({ children }) => {
     );
 }
 // Función Contexto para controlar la verificación de inicio de sesión
-export const Form_Verification = ({children}) => {
+export const Verification_Block = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isFormVerification,setIsFormVerification] = useState(false);
+    const [isVerificationBlock,setIsVerificationBlock] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
-        <formVerificationContext.Provider value={[isFormVerification,setIsFormVerification]}>
+        <verificationBlockContext.Provider value={[isVerificationBlock,setIsVerificationBlock]}>
             {children}
-        </formVerificationContext.Provider>
+        </verificationBlockContext.Provider>
+    );
+}
+// Función Contexto para controlar las animaciones de los objetos
+export const Animation = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isAnimation,setIsAnimation] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <animationContext.Provider value={[isAnimation,setIsAnimation]}>
+            {children}
+        </animationContext.Provider>
     );
 }
 // Función Contexto para controlar el bloqueo de acciones

@@ -1,38 +1,29 @@
 //____________IMPORT/EXPORT____________
-// Hooks de React
-import { useContext } from "react";
-// Componentes de React externos
-
-// Contextos
-import { themeModeContext } from "../../contexts/ViewsProvider";
-// Hooks personalizados
-
-//__________ICONOS__________
-
-//__________ICONOS__________
 // Estilos personalizados
-import { Container_Footer,Container_100_Center } from "../styled/Containers";
-import { Text_A_Center_16 } from "../styled/Text";
-import { Button_Link_150 } from "../styled/Buttons";
-// Componentes personalizados
-
+import { Container_Row_90_Center,Container_Column_Black_Width_100_Center } from "../styled/Containers";
+import { Text_Span_16 } from "../styled/Text";
+import { Button_Link_Blue } from "../styled/Buttons";
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre paginas en la parte inferior
 export default function Footer(){
-  // Constantes con el valor de los contextos
-  const [themeMode] = useContext(themeModeContext);
   // Estructura del componente
   return (
     <>
-      <Container_Footer ThemeMode={themeMode}>
-        <Text_A_Center_16 ThemeMode={themeMode}>© {new Date().getFullYear()} - MEALSYNC Hospital Puerta de Hierro Tepic. Todos los derechos reservados.</Text_A_Center_16>
-          <Container_100_Center>
-            <Button_Link_150 ThemeMode={themeMode}>Acerca de</Button_Link_150>
-            <Button_Link_150 ThemeMode={themeMode}>Contacto</Button_Link_150>
-            <Button_Link_150 ThemeMode={themeMode}>Privacidad</Button_Link_150>
-          </Container_100_Center>
-      </Container_Footer>
+      <Container_Column_Black_Width_100_Center className="scale-shadow-in-dark">
+        <Text_Span_16>© {new Date().getFullYear()} - MEALSYNC Hospital Puerta de Hierro Tepic. Todos los derechos reservados.</Text_Span_16>
+          <Container_Row_90_Center>
+            <Button_Link_Blue>
+              <Text_Span_16>Acerca de</Text_Span_16>
+            </Button_Link_Blue>
+            <Button_Link_Blue>
+              <Text_Span_16>Contacto</Text_Span_16>
+            </Button_Link_Blue>
+            <Button_Link_Blue>
+              <Text_Span_16>Privacidad</Text_Span_16>
+            </Button_Link_Blue>
+          </Container_Row_90_Center>
+      </Container_Column_Black_Width_100_Center>
     </>
   );
 }

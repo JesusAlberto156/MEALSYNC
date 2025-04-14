@@ -9,15 +9,15 @@ import { Tooltip } from "@mui/material";
 import { encryptData } from "../../services/Crypto";
 // Contextos
 import { themeModeContext,loginViewContext,modalViewContext } from "../../contexts/ViewsProvider";
-import { formTextContext,nameContext,passwordContext } from "../../contexts/FormsProvider";
-import { typeUserContext,actionBlockContext } from '../../contexts/VariablesProvider';
+import { textFieldsContext } from "../../contexts/FormsProvider";
+import { typeUserContext,animationContext,actionBlockContext } from '../../contexts/VariablesProvider';
 import { loggedContext,logContext } from "../../contexts/SessionProvider";
 import { permissionContext,permissionsContext } from "../../contexts/PermissionsProvider";
 import { usersContext,userContext } from "../../contexts/UsersProvider";
 import { statusAllContext,statusUserContext } from "../../contexts/StatusProvider";
 // Hooks personalizados
-import { useChangeLoginView } from "../../hooks/Views";
-import { useChangeLog } from "../../hooks/Form";
+import { HandleChangeLogin } from "../../hooks/Views";
+import { HandleChangeLog } from "../../hooks/Form";
 //__________ICONOS__________
 // Iconos de la parte principal del login
 import { MdManageAccounts } from "react-icons/md";
@@ -35,10 +35,11 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { MdLogin } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Button_Column_300,Container_Button_Row_300,Container_Form_350,Container_Column_90_Center,Container_Row_90_Center } from "../../components/styled/Containers";
-import { Img_Logo_Verical_Hospital_250,Img_Logo_Hospital_150 } from "../../components/styled/Imgs";
-import { Text_Title_Fade_22 } from "../../components/styled/Text";
-import { Button_Icon_Blue_220,Button_Icon_Block_220,Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../../components/styled/Buttons";
+import { Container_Form_400,Container_Column_90_Center,Container_Row_90_Center } from "../../components/styled/Containers";
+import { Icon_White_26 } from "../../components/styled/Icons";
+import { Img_Logo_Verical_Hospital_240,Img_Logo_Hospital_140,Img_Logo_Hospital_100 } from "../../components/styled/Imgs";
+import { Text_Title_25,Text_Title_20 } from "../../components/styled/Text";
+import { Button_Icon_Blue_140,Button_Icon_Blue_220,Button_Icon_Green_140 } from "../../components/styled/Buttons";
 import { Alert_Greeting,Alert_Verification,Alert_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
 import Form_Login from "../../components/forms/Login";
@@ -47,9 +48,8 @@ import Form_Login from "../../components/forms/Login";
 // Página para iniciar sesión
 export default function Login(){
     // Constantes con el valor de los contextos
-    const [isFormText,setIsFormText] = useContext(formTextContext);
-    const [isName,setIsName] = useContext(nameContext);
-    const [isPassword,setIsPassword] = useContext(passwordContext);
+    const [isFormText,setIsFormText] = useContext(textFieldsContext);
+    const [isAnimation,setIsAnimation] = useContext(animationContext);
     const [isPermissions] = useContext(permissionsContext);
     const [isPermission,setIsPermission] = useContext(permissionContext);
     const [isLog,setIsLog] = useContext(logContext);
@@ -69,9 +69,6 @@ export default function Login(){
         Alert_Greeting("MEALSYNC",'¡Inicia sesión para acceder a la pagina principal!...');
         Alert_Greeting("MEALSYNC",'¡Te da la Bienvenida!...');
     },[]);
-    useEffect(() => {
-        console.log(isFormText);
-    },[isFormText])
     // useEffect con el inicio de sesión del login
     useEffect(() => {
         if(isLog && !isLogged){
@@ -230,22 +227,30 @@ export default function Login(){
     },[isLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeViewLogin = useChangeLoginView();
-    const changeLog = useChangeLog();
+    const handleChangeLogin = HandleChangeLogin();
+    const handleChangeLog = HandleChangeLog();
     // Estructura del componente
     return(
         <>
-            <Container_Form_350 ThemeMode={themeMode}>
+            <Container_Form_400 ThemeMode={themeMode} className={isLogged ? 'roll-out-left' : themeMode ? 'roll-in-left-shadow-pop-light' : 'roll-in-left-shadow-pop-dark'}>
                 {currentLView === '' ? (
                     <>  
-                        <Img_Logo_Verical_Hospital_250 ThemeMode={themeMode}/>
-                        <Text_Title_Fade_22 ThemeMode={themeMode}>Bienvenido(a)</Text_Title_Fade_22>
-                        <Container_Column_90_Center>
+                        <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode} className={isAnimation ? 'roll-out-image-left' : 'roll-in-image-left'}/>
+                        <Container_Row_90_Center>
+                            <Text_Title_25 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>BIENVENIDO(A)</Text_Title_25>
+                        </Container_Row_90_Center>
+                        <Container_Column_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
                             <Tooltip title='Administración' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Administration','')}><MdManageAccounts/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
+                                    onClick={() => handleChangeLogin('Administration','')}>
+                                    <Icon_White_26><MdManageAccounts/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip>
                             <Tooltip title='Cocina' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Kitchen','')}><GiRiceCooker/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
+                                    onClick={() => handleChangeLogin('Kitchen','')}>
+                                    <Icon_White_26><GiRiceCooker/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip>
                         </Container_Column_90_Center>
                     </>
@@ -254,76 +259,102 @@ export default function Login(){
                 )}
                 {currentLView === 'Administration' ? (
                     <>
-                        <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
-                        <Text_Title_Fade_22 ThemeMode={themeMode}>Escoger usuario</Text_Title_Fade_22>
-                        <Container_Button_Column_300>
+                        <Img_Logo_Hospital_140 ThemeMode={themeMode} className={isAnimation ? 'roll-in-image-left' : 'roll-out-image-left'}/>
+                        <Container_Row_90_Center>
+                            <Text_Title_20 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>SELECCIÓN DE USUARIO</Text_Title_20>
+                        </Container_Row_90_Center>
+                        <Container_Column_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
                             <Tooltip title='Administrador' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Administrator')}><FaUserTie/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('Login','Administrator')}>
+                                    <Icon_White_26><FaUserTie/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip>
                             <Tooltip title='Chef' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Chef')}><GiChefToque/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('Login','Chef')}>
+                                    <Icon_White_26><GiChefToque/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip>    
                             <Tooltip title='Almacenista' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Storekeeper')}><FaWarehouse/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('Login','Storekeeper')}>
+                                    <Icon_White_26><FaWarehouse/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip> 
                             <Tooltip title='Atrás' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('','')}>
+                                    <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip>
-                        </Container_Button_Column_300>
+                        </Container_Column_90_Center>
                     </>
                 ):(
                     <></>
                 )}
                 {currentLView === 'Kitchen' ? (
                     <>
-                        <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
-                        <Text_Title_Fade_22 ThemeMode={themeMode}>Escoger usuario</Text_Title_Fade_22>
-                        <Container_Button_Column_300>
+                        <Img_Logo_Hospital_140 ThemeMode={themeMode} className={isAnimation ? 'roll-in-image-left' : 'roll-out-image-left'}/>
+                        <Container_Row_90_Center>
+                            <Text_Title_20 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>SELECCIÓN DE USUARIO</Text_Title_20>
+                        </Container_Row_90_Center>
+                        <Container_Column_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
                             <Tooltip title='Cocinero' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Cook')}><GiCook/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('Login','Cook')}>
+                                    <Icon_White_26><GiCook/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip>  
-                            <Button_Icon_Block_220 ThemeMode={themeMode}><IoNutrition/></Button_Icon_Block_220>
+                            <Tooltip title='Nutriólogo' placement="top">
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('Login','Nutritionist')}>
+                                    <Icon_White_26><IoNutrition/></Icon_White_26>
+                                </Button_Icon_Blue_220>
+                            </Tooltip> 
                             <Tooltip title='Médico' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('Login','Doctor')}><FaUserDoctor/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('Login','Doctor')}>
+                                    <Icon_White_26><FaUserDoctor/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip> 
                             <Tooltip title='Atrás' placement="top">
-                                <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={() => changeViewLogin('','')}><IoArrowBackCircle/></Button_Icon_Blue_220>
+                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                    onClick={() => handleChangeLogin('','')}> 
+                                    <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
+                                </Button_Icon_Blue_220>
                             </Tooltip> 
-                        </Container_Button_Column_300>
+                        </Container_Column_90_Center>
                     </>
                 ):(
                     <></>
                 )}
                 {currentLView === 'Login' ? (
                     <>
-                        <Img_Logo_Hospital_150 ThemeMode={themeMode}/>
+                        <Img_Logo_Hospital_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-image-left' : 'roll-in-image-left'}/>
                         <Container_Row_90_Center>
-                            <Text_Title_Fade_22 ThemeMode={themeMode}>INICIAR SESIÓN</Text_Title_Fade_22>
+                            <Text_Title_25 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>INICIAR SESIÓN</Text_Title_25>
                         </Container_Row_90_Center>
                         <Form_Login/>
-                        <Container_Row_90_Center>
+                        <Container_Row_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
                             <Tooltip title='Atrás' placement="top">
-                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => changeViewLogin(
-                                    isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration',''
-                                )}><IoArrowBackCircle/></Button_Icon_Blue_150>
+                                <Button_Icon_Blue_140 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
+                                    onClick={() => handleChangeLogin(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration','')}>
+                                    <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
+                                </Button_Icon_Blue_140>
                             </Tooltip>
-                            {isActionBlock ? (
-                                <>
-                                    <Button_Icon_Block_150 ThemeMode={themeMode}><MdLogin/></Button_Icon_Block_150>
-                                </>
-                            ):(
-                                <>
-                                    <Tooltip title='Iniciar sesión' placement="top">
-                                        <Button_Icon_Green_150 ThemeMode={themeMode} onClick={() => changeLog()}><MdLogin/></Button_Icon_Green_150>
-                                    </Tooltip>
-                                </>
-                            )}
+                            <Tooltip title='Iniciar sesión' placement="top">
+                                <Button_Icon_Green_140 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-left' : 'roll-in-left'}
+                                    onClick={() => handleChangeLog()}>
+                                    <Icon_White_26><MdLogin/></Icon_White_26>
+                                </Button_Icon_Green_140>
+                            </Tooltip>
                         </Container_Row_90_Center>
                     </>
                 ):(
                     <></>
                 )}
-            </Container_Form_350>  
+            </Container_Form_400>  
             <Alert_Styles ThemeMode={themeMode}>
                 <Toaster
                     visibleToasts={3}

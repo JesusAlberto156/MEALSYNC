@@ -1,16 +1,16 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext } from "react";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Servicios
 
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { typeUserContext,actionBlockContext } from "../../../contexts/VariablesProvider";
+import { themeModeContext,modalViewContext,modalContext } from "../../../contexts/ViewsProvider";
+import { actionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { useChangeModalView } from "../../../hooks/Views";
-import { useChangeLog } from "../../../hooks/Form";
+import { HandleChangeModal } from "../../../hooks/Views";
+import { HandleChangeLog } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -18,9 +18,10 @@ import { MdCancel } from "react-icons/md";
 import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Button_Border_Row_350 } from "../../styled/Containers";
-import { Text_Title_Fade_30,Text_P_Left_20 } from "../../styled/Text";
+import { Container_Modal,Container_Form_400,Container_Row_90_Left,Container_Row_Border_90_Center } from "../../styled/Containers";
+import { Text_Title_30, Text_P_16 } from "../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Red_150,Button_Icon_Block_150 } from "../../styled/Buttons";
+import { Icon_26 } from "../../styled/Icons";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -29,44 +30,51 @@ import { Button_Icon_Blue_150,Button_Icon_Red_150,Button_Icon_Block_150 } from "
 export default function Out_Login(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(themeModeContext);
-    const [isTypeUser] = useContext(typeUserContext);
     const [isActionBlock] = useContext(actionBlockContext);
-    // useEffect con el titulo del modal
-    useEffect(() => {
-        if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
-            document.title = "MEALSYNC_Menú_Cerrar_Sesión";
-        }else{
-            document.title = "MEALSYNC_Administración_Cerrar_Sesión";
-        }
-    },[]);
+    const [currentMView] = useContext(modalViewContext);
+    const [isModal] = useContext(modalContext);
     // Constantes con la funcionalidad de los hooks
-    const chanheModalView = useChangeModalView();
-    const changeLog = useChangeLog();
+    const handleChangeModal = HandleChangeModal();
+    const changeLog = HandleChangeLog();
     // Estructura del componente
     return(
         <>
-            <Container_Modal>
-                <Container_Form_400 ThemeMode={themeMode}>
-                        <Text_Title_Fade_30 ThemeMode={themeMode}>¿ESTAS SEGURO?</Text_Title_Fade_30>
-                        <Text_P_Left_20 ThemeMode={themeMode}>Cerrará la sesión...</Text_P_Left_20>
-                        <Container_Button_Border_Row_350 ThemeMode={themeMode}>
-                            <Tooltip title="Cancelar" placement="top">
-                                <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => chanheModalView('')}><MdCancel/></Button_Icon_Blue_150>
-                            </Tooltip>
-                            {isActionBlock ? (
-                                <>
-                                    <Button_Icon_Block_150 ThemeMode={themeMode}><ImExit/></Button_Icon_Block_150>
-                                </> 
-                            ):(
-                                <>
-                                    <Tooltip title="Cerrar sesión" placement="top">
-                                        <Button_Icon_Red_150 ThemeMode={themeMode} onClick={() => changeLog()}><ImExit/></Button_Icon_Red_150>
-                                    </Tooltip>  
-                                </>
-                            )}
-                        </Container_Button_Border_Row_350>
-                </Container_Form_400>
-            </Container_Modal>
+            {isModal ? (
+                <>
+                    <Container_Modal>
+                        <Container_Form_400 className={currentMView === 'Out-Login' ? themeMode ? 'roll-in-left-shadow-pop-light' : 'roll-in-left-shadow-pop-dark' : 'roll-out-left'} ThemeMode={themeMode}>
+                                <Text_Title_30 className={themeMode ? 'text-pop-light' : 'text-pop-dark'} ThemeMode={themeMode}>¿ESTAS SEGURO?</Text_Title_30>
+                                <Container_Row_90_Left>
+                                    <Text_P_16 ThemeMode={themeMode}>Cerrará la sesión...</Text_P_16>
+                                </Container_Row_90_Left>
+                                <Container_Row_Border_90_Center className={themeMode ? 'shadow-out-infinite-light' : 'shadow-out-infinite-dark'} ThemeMode={themeMode}>
+                                    <Tooltip title="Cancelar" placement="top">
+                                        <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => handleChangeModal('')}>
+                                            <Icon_26><MdCancel/></Icon_26>
+                                        </Button_Icon_Blue_150>
+                                    </Tooltip>
+                                    {isActionBlock ? (
+                                        <>
+                                            <Button_Icon_Block_150 ThemeMode={themeMode}>
+                                                <Icon_26><MdCancel/></Icon_26>
+                                            </Button_Icon_Block_150>
+                                        </> 
+                                    ):(
+                                        <>
+                                            <Tooltip title="Cerrar sesión" placement="top">
+                                                <Button_Icon_Red_150 ThemeMode={themeMode} onClick={() => changeLog()}>
+                                                    <Icon_26><ImExit/></Icon_26>
+                                                </Button_Icon_Red_150>
+                                            </Tooltip>  
+                                        </>
+                                    )}
+                                </Container_Row_Border_90_Center>
+                        </Container_Form_400>
+                    </Container_Modal>  
+                </>
+            ):(
+                <></>
+            )}
         </>
     );
 }

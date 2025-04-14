@@ -6,7 +6,7 @@ import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
 import { selectContext,checkboxContext,nameContext,passwordContext } from "./FormsProvider";
 import { modalViewContext,themeModeContext } from "./ViewsProvider";
-import { actionBlockContext,selectedRowContext,formVerificationContext,typeUserContext } from "./VariablesProvider";
+import { actionBlockContext,selectedRowContext,verificationBlockContext,typeUserContext } from "./VariablesProvider";
 import { usersContext,userContext } from "./UsersProvider";
 import { logContext,loggedContext } from "./SessionProvider";
 import { socketContext } from "./SocketProvider";
@@ -137,7 +137,7 @@ export const Permission = ({ children }) => {
 export const Permissions_Add = ({ children }) => {
     // constantes con contextos perzonalizados
     const [isSelect,setIsSelect] = useContext(selectContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const { currentMView,setCurrentMView,isModal,setIsModal } = useContext(modalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
     const [socket] = useContext(socketContext);
@@ -213,7 +213,7 @@ export const Permissions_Edit = ({ children }) => {
     const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const { currentMView,setCurrentMView,isModal,setIsModal } = useContext(modalViewContext);
     const [isUsers] = useContext(usersContext);
     const [socket] = useContext(socketContext);
     // UseState para controlar el valor del contexto
@@ -272,10 +272,10 @@ export const Permissions_Enable = ({ children }) => {
     const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const { currentMView,setCurrentMView,isModal,setIsModal } = useContext(modalViewContext);
     const [isName,setIsName] = useContext(nameContext);
     const [isPassowrd,setIsPassword] = useContext(passwordContext);
-    const [isFormVerification,setIsFormVerification] = useContext(formVerificationContext);
+    const [isFormVerification,setIsFormVerification] = useContext(verificationBlockContext);
     const [isUsers] = useContext(usersContext);
     const [socket] = useContext(socketContext);
     // UseState para controlar el valor del contexto

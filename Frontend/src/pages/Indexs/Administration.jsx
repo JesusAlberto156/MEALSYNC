@@ -3,18 +3,22 @@
 import { useEffect,useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 // Componentes de React externos
-import { Toaster } from "sonner";
+
 // Contextos
 import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarContext,modalViewContext } from "../../contexts/ViewsProvider";
-import { nameContext,passwordContext,radioUsersContext } from "../../contexts/FormsProvider";
+import { radioUsersContext } from "../../contexts/FormsProvider";
 import { typeUserContext,searchTermContext,actionBlockContext } from "../../contexts/VariablesProvider";
 import { userContext } from "../../contexts/UsersProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider";
 import { statusUserContext } from "../../contexts/StatusProvider";
 import { loggedContext,logContext } from "../../contexts/SessionProvider";
+//__________IMAGES____________
+import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
+import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
+//__________IMAGES____________
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";
-import { Alert_Verification,Alert_Styles } from "../../components/styled/Alerts";
+import { Alert_Greeting } from "../../components/styled/Alerts";
 // Componentes personalizados
 import Setting_Bar from "../../components/navegation/SettingBar";
 import Users_Add from "../../components/modals/users/UsersAdd";
@@ -37,10 +41,6 @@ export default function Index_Administration(){
     const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
     const [isSidebar,setIsSidebar] = useContext(sidebarContext);
     const [currentMView,setCurrentMView] = useContext(modalViewContext);
-    
-    const [isName,setIsName] = useContext(nameContext);
-    const [isPassword,setIsPassword] = useContext(passwordContext);
-
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
     const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
     const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
@@ -50,53 +50,20 @@ export default function Index_Administration(){
     const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
     const [isLog,setIsLog] = useContext(logContext);
     const [isRadioUsers] = useContext(radioUsersContext);
-    // useEffect con el cerrado de sesión de administración
+    // useEffect con el titulo de la página
     useEffect(() => {
-        if(isLog && isLogged){
-            document.title = "Cargando...";
-            const promise = new Promise(async (resolve,reject) => {
-                try{       
-                    setIsActionBlock(true);         
-                    setTimeout(() => {
-                        resolve('¡MEALSYNC le agradece su estancia!...');
-                    },1000);
-
-                    setTimeout(() => {
-                        setCurrentLView('');
-                        setCurrentNView('');
-                        setCurrentSView('');
-                        setIsSidebar(true);
-                        setCurrentMView('');
-                        
-                        setIsName('');
-                        setIsPassword('');
-
-                        setIsTypeUser('');
-                        setIsSearchTerm('');
-
-                        setIsLogged(false);
-
-                        setIsPermission([]);
-                        setIsStatusUser([]);
-
-                        setTimeout(() => {
-                            setIsUser([]);
-                            setIsLog(false);
-                            sessionStorage.clear();
-                            setIsActionBlock(false);
-                            navigate("/",{replace: true});
-                        },500)
-                    },2000)
-                }catch(error){
-                    setIsLog(false);
-                    setIsActionBlock(false);
-                    reject('¡Ocurrio un error inesperado!...');
-                }
-            });
+        document.title = 'MEALSYNC_Administración';
+        const showAlerts = async () => {
+            const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
+            const Color = themeMode ? '#3a5dae' : '#527ee7';
             
-            Alert_Verification(promise,'¡Cerrando sesión!...');
+            await Alert_Greeting('MEALSYNC',`¡Bienvenido(a)! ${isUser.nombre}`,themeMode,Image,Color);
+
+            await Alert_Greeting('MEALSYNC','¡Le ofrece las siguientes funcionaidades!',themeMode,Image,Color);
         }
-    },[isLog]);
+
+        showAlerts();
+    },[]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     // Estructura del componente
@@ -146,14 +113,6 @@ export default function Index_Administration(){
             ):(
                 <></>
             )}
-            <Alert_Styles ThemeMode={themeMode}>
-                <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='dark'
-                    position='top-right'
-                />
-            </Alert_Styles> 
         </>
     );
 }

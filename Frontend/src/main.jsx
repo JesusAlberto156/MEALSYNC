@@ -18,12 +18,16 @@ import { AppProviders } from './contexts/AppProviders';
 //__________ICONOS__________
 // Estilos personalizados
 import '../src/components/styled/Animations.css'
+import '../src/components/styled/Alerts.css'
+import 'animate.css';
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
+import Error from './pages/Error';
+import Loading from './pages/Loading';
 import Login from './pages/general/Login';
-import Home from './pages/general/Home';
 import Out_Login from './components/modals/General/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
+import Home_Administration from './pages/administration/Home';
 import Users from './pages/administration/Users';
 import TableUsers from './components/tables/TableUsers';
 import Users_Add from './components/modals/users/UsersAdd';
@@ -47,14 +51,17 @@ import Table_Record_Invetory from './components/tables/RecordInventory';
 import Table_Record_Suppliers from './components/tables/RecordSuppliers';
 import Table_General from './components/tables/General';
 import Index_Kitchen from './pages/Indexs/Kitchen';
-import Error from './pages/Error';
-import Loading from './pages/Loading';
+import Home_Kitchen from './pages/kitchen/Home';
 //____________IMPORT/EXPORT____________
 
 const router = createHashRouter([
   {
     path:'/',
     element:<Loading/>
+  },
+  {
+    path: '/Login',
+    element: <Login/>
   },
   {
     path:'/',
@@ -70,7 +77,7 @@ const router = createHashRouter([
             children: [
               {
                 path: 'Home',
-                element: <Home/>
+                element: <Home_Administration/>
               },
               {
                 path: 'Users',
@@ -193,7 +200,7 @@ const router = createHashRouter([
             children: [
               {
                 path: 'Home',
-                element: <Home/>
+                element: <Home_Kitchen/>
               },
             ]
           },
@@ -202,10 +209,6 @@ const router = createHashRouter([
             element: <Out_Login/>
           },
         ]
-      },
-      {
-        path: 'Login',
-        element: <Login/>
       },
     ]
   },

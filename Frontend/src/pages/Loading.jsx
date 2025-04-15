@@ -11,12 +11,14 @@ import { Toaster } from 'sonner';
 // Contextos
 import { themeModeContext } from "../contexts/ViewsProvider";
 import { typeUserContext } from "../contexts/VariablesProvider";
-// Hooks personalizados
-
 //__________ICONOS__________
 // Icono de carga
 import { IoSettings } from "react-icons/io5";
 //__________ICONOS__________
+//__________IMAGES____________
+import Logo_Hospital_Light from '../components/imgs/Logo-Hospital-Light.png';
+import Logo_Hospital_Dark from '../components/imgs/Logo-Hospital-Dark.png';
+//__________IMAGES____________
 // Estilos personalizados
 import { Container_Page_Loading,Container_Text_20 } from "../components/styled/Containers";
 import { Text_Title_Fade_50 } from "../components/styled/Text";
@@ -34,7 +36,12 @@ export default function Loading(){
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";
-        Alert_Greeting("MEALSYNC",'¡Cargando!...');
+
+        const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
+        const Color = themeMode ? '#3a5dae' : '#527ee7';
+
+        Alert_Greeting("MEALSYNC",'¡Cargando!...',themeMode,Image,Color);
+
         setTimeout(() => {
             if(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor'){
                 navigate('/Kitchen/Home',{replace: true});
@@ -45,7 +52,7 @@ export default function Loading(){
             if(isTypeUser === ''){
                 navigate('/Login',{replace: true});
             }                       
-        },500);
+        },1000);
     },[]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();

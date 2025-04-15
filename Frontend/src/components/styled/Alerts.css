@@ -1,0 +1,78 @@
+.greeting-light-theme {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.greeting-dark-theme {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: rgb(255, 255, 255);
+    font-family: "Prompt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.greeting-title-light {
+    color: rgb(58,93,174);
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+.greeting-title-dark {
+    color: rgb(82, 126, 231);
+    font-family: "Prompt", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+
+@media (max-width: 768px) {
+    .greeting-light-theme {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .greeting-dark-theme {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .greeting-title-light {
+        font-size: 25px;
+    }
+    .greeting-title-dark {
+        font-size: 25px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .greeting-light-theme {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .greeting-dark-theme {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .greeting-title-light {
+        font-size: 20px;
+    }
+    .greeting-title-dark {
+        font-size: 20px;
+    }
+
+}

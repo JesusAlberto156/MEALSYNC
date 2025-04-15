@@ -1,10 +1,9 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 import { toast } from 'sonner';
 //__________ICONOS__________
-// Icono para la alerta de saludo
-import { HiHandRaised } from "react-icons/hi2";
 // Icono para la alerta de advertencia
 import { AiFillWarning } from "react-icons/ai";
 // Icono para la alerta de error
@@ -58,19 +57,44 @@ export const Alert_Styles = styled.div.withConfig({
         font-style: normal;
         border-radius: 40px;
         border: 3px solid white;
-        background-color: black;
     }
 `;
 //____________STYLES____________
 //____________GREETING____________
-export const Alert_Greeting = (titulo,mensaje) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Blue',
-        icon: <HiHandRaised style={{color:'rgb(247, 215, 155)',fontSize:'20px'}}/>
-    }
-    );
+export const Alert_Greeting = (Title,Message,ThemeMode,Image,Color) => {
+    return Swal.fire({
+        title: Title,
+        text: Message,
+        showConfirmButton: false,
+        confirmButtonColor: Color,
+        confirmButtonText: 'Aceptar',
+        width: '400px',
+        heightAuto: true,
+        timer: 2000,
+        backdrop: false,
+        customClass: {
+            popup: ThemeMode ? 'greeting-light-theme' : 'greeting-dark-theme',
+            title: ThemeMode ? 'greeting-title-light' : 'greeting-title-dark',
+        },
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        imageUrl: Image,
+        imageWidth: 60,
+        imageHeight: 70,
+        position: 'top-end',
+    });
 };
 //____________GREETING____________
 //____________WARNING____________

@@ -4,7 +4,7 @@ dotenv.config();
 
 export default {
     HOST: process.env.HOST || 'NO ENCONTRO VAR ENTORNO',
-    PORT: process.env.PORT || 3500,
+    PORT: process.env.PORT || 3600,
     API_URL: process.env.API_URL || '/Mealsync',
     SERVER: process.env.SERVER || 'localhost',
     DATABASE: process.env.DATABASE || 'myDataBase',

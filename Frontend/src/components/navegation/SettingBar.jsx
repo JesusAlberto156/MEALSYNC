@@ -23,7 +23,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Row_90_Right } from "../styled/Containers";
 import { Button_Icon_Blue_60,Button_Icon_Red_60 } from "../styled/Buttons";
-import { Icon_Button_Black_26,Icon_18 } from "../styled/Icons";
+import { Icon_Button_Black_26,Icon_White_18 } from "../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Componente para la configuración visual de la página o cerrar sesión
@@ -46,7 +46,7 @@ export default function Setting_Bar(){
                     <>  
                         <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
                             <Button_Icon_Blue_60 ThemeMode={themeMode} onClick={() => toggleSidebar()}>
-                                {isSidebar ? <Icon_18><BsToggleOn/></Icon_18> : <Icon_18><BsToggleOff/></Icon_18>}
+                                {isSidebar ? <Icon_White_18><BsToggleOn/></Icon_White_18> : <Icon_White_18><BsToggleOff/></Icon_White_18>}
                             </Button_Icon_Blue_60>
                         </Tooltip>
                         <Tooltip title='Salir' placement="bottom">
@@ -54,7 +54,7 @@ export default function Setting_Bar(){
                                 handleChangeModal('Out-Login');
                                 navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
                             }}>
-                                <Icon_18><FaSignOutAlt/></Icon_18>
+                                <Icon_White_18><FaSignOutAlt/></Icon_White_18>
                             </Button_Icon_Red_60>
                         </Tooltip>
                     </>

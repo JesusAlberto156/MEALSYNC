@@ -13,6 +13,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.2.1",
+    "animate.css": "^4.1.1",
     "crypto-js": "^4.2.0",
     "kioskboard": "^2.3.0",
     "react": "^18.3.1",
@@ -23,7 +24,8 @@
     "socket.io-client": "^4.8.1",
     "sonner": "^2.0.1",
     "styled": "^1.0.0",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "sweetalert2": "^11.18.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

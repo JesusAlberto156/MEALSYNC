@@ -4,14 +4,18 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
+import Select from "react-select";
 // Contextos
 import { themeModeContext,navbarViewContext,sidebarViewContext } from "../../contexts/ViewsProvider";
+import { suppliersContext } from "../../contexts/SuppliersProvider";
 import { typeUserContext,searchTermContext,selectedRowContext,viewPasswordContext } from "../../contexts/VariablesProvider";
 import { permissionContext } from "../../contexts/PermissionsProvider"; 
 import { refButtonUsersContext,refButtonPermissionsContext,refButtonStatusContext } from "../../contexts/RefsProvider";
+import { selectContext } from "../../contexts/FormsProvider";
 // Hooks personalizados
 import { useChangeModalView } from "../../hooks/Views";
 import { useChangeViewPassword } from "../../hooks/Form";
+import { useHandleSelectChange } from "../../hooks/Form";
 //__________ICONOS__________
 // Icono para la seccion del buscador
 import { FcSearch } from "react-icons/fc";
@@ -23,7 +27,7 @@ import { FaUserMinus } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { IoIosEyeOff } from "react-icons/io";
 // Iconos para la sección de permisos
-import { MdAddModerator } from "react-icons/md";
+import { MdAddModerator, MdDelete, MdEdit } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
 import { MdAdminPanelSettings } from "react-icons/md";
 // Iconos para la sección de estatus
@@ -31,11 +35,13 @@ import { FcAddRow } from "react-icons/fc";
 import { FaUnlock } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
+// Icon para la seccion de proveedores
+import { FaPlus } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Search_Bar } from "../styled/Containers";
-import { Button_Icon_Green_45,Button_Icon_Blue_60,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
-import { Icon_25,Icon_Button_Black_30 } from "../styled/Icons";
+import { Button_Icon_Green_45,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
+import { Icon_25,Icon_Button_Black_30, Icon_White_18 } from "../styled/Icons";
 import { Input_Search } from "../styled/Inputs";
 // Componentes personalizados
 
@@ -55,10 +61,13 @@ export default function Search_Bar (){
     const {Button_Edit_U,Button_Delete_U} = useContext(refButtonUsersContext);
     const {Button_Edit_P,Button_Super_P} = useContext(refButtonPermissionsContext);
     const isButtonS = useContext(refButtonStatusContext);
+    const [isSuppliers,setIsSuppliers] = useContext(suppliersContext);
+    const [isSelect,setIsSelect] = useContext(selectContext);
     // Constantes con la funcionalidad de los hooks
     const changeModalView = useChangeModalView();
     const changeViewPassword = useChangeViewPassword();
     const navigate = useNavigate();
+    const handleSelectChange = useHandleSelectChange();
     // Estructura del componente
     return(
         <>
@@ -309,6 +318,98 @@ export default function Search_Bar (){
                             </>
                         )
                     )
+                ):(
+                    <></>
+                )}
+                {currentSView === 'Suppliers' && currentNView === 'Suppliers' ? (
+                    <>
+                        <Tooltip title='Agregar' placement="top">
+                            <Button_Icon_Green_60 ThemeMode={themeMode}>
+                                <Icon_White_18>
+                                    <FaPlus/>
+                                </Icon_White_18>
+                            </Button_Icon_Green_60>
+                        </Tooltip>
+                        <Select
+                            options={isSuppliers.map((supplier) => ({
+                                value: supplier.idproveedor,
+                                label: supplier.nombre
+                            }))}
+                            styles={{
+                                control: (provided) => ({
+                                    ...provided,
+                                    width: '300px',
+                                    padding: '6px',
+                                    border: '2px solid black',
+                                    cursor: 'pointer',
+                                    borderRadius: '15px',
+                                    fontFamily: 'Prompt, sans-serif',
+                                    fontWeight: 300,
+                                    fontStyle: 'normal',
+                                    fontSize: '16px',
+                                    '@media (max-width: 768px)':{
+                                        width: '250px',
+                                        padding: '4px',
+                                        fontSize: '14px',
+                                    },
+                                    '@media (max-width: 480px)':{
+                                        width: '100px',
+                                        padding: '2px',
+                                        fontSize: '8px',
+                                    },
+                                }),
+                                menu: (provided) => ({
+                                    ...provided,
+                                    zIndex: 9999,
+                                    overflow: 'hidden',
+                                    borderRadius:'15px',
+                                    position: 'relative',
+                                }),
+                                menuList: (provided) => ({
+                                    ...provided,
+                                    maxHeight:175,
+                                    fontFamily: 'Prompt, sans-serif',
+                                    fontWeight: 300,
+                                    fontStyle: 'normal',
+                                    overflowY:'auto',
+                                    scrollbarWidth: 'none',
+                                    '&::-webkit-scrollbar': {
+                                        display:'none',
+                                    },
+                                    '@media (max-width: 768px)':{
+                                        maxHeight:150,
+                                    },
+                                    '@media (max-width: 480px)':{
+                                        maxHeight:125,
+                                    },
+                                })
+                            }}
+                            placeholder='Seleccione uno...'
+                            value={isSelect}
+                            onChange={handleSelectChange}
+                        />
+                        <Tooltip title='Ver' placement="top">
+                            <Button_Icon_Green_60 ThemeMode={themeMode}>
+                                <Icon_White_18>
+                                    <FaEye/>
+                                </Icon_White_18>
+                            </Button_Icon_Green_60>
+                        </Tooltip>
+                        <Tooltip title='Editar' placement="top">
+                            <Button_Icon_Blue_60 ThemeMode={themeMode}>
+                                <Icon_White_18>
+                                    <MdEdit/>
+                                </Icon_White_18>
+                            </Button_Icon_Blue_60>
+                        </Tooltip>
+                        <Tooltip title='Eliminar' placement="top">
+                            <Button_Icon_Red_60 ThemeMode={themeMode}>
+                                <Icon_White_18>
+                                    <MdDelete/>
+                                </Icon_White_18>
+                            </Button_Icon_Red_60>
+                        </Tooltip>
+                    </>
                 ):(
                     <></>
                 )}

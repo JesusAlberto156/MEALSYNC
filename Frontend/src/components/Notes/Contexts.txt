@@ -83,3 +83,7 @@ const [isSidebar,setIsSidebar] = useContext(sidebarContext);
 const [currentMView,setCurrentMView] = useContext(modalViewContext);
 const [isModal,setIsModal] = useContext(modalContext);
 //____________VIEWS____________
+//____________SUPPLIERS____________
+const [isSuppliers,setIsSuppliers] = useContext(suppliersContext);
+const [isObservations,setIsObservations] = useContext(observationsContext);
+//____________SUPPLIERS____________

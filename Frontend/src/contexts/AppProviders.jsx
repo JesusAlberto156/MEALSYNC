@@ -1,6 +1,8 @@
 //____________IMPORT/EXPORT____________
 // Importación de funciones contexto
 import { Socket } from './SocketProvider';
+
+import { Suppliers,Observations } from './SuppliersProvider';
 import { Theme_Mode,Login_View,Navbar_View,Sidebar_View,Sidebar,Modal_View,Modal } from './ViewsProvider';
 import { Text_Fields,Name,Password,Select,Radio,Radio_Users,Checkbox } from './FormsProvider';
 import { Type_User,Selected_Row,Search_Term,Verification_Block,Animation,Action_Block,View_Password } from './VariablesProvider';
@@ -51,23 +53,27 @@ export const AppProviders = ({children}) => {
                                                                                                                                                 <Users>
                                                                                                                                                     <Permissions>
                                                                                                                                                         <Status_All>
-                                                                                                                                                            <User_Add>
-                                                                                                                                                                <User_Edit>
-                                                                                                                                                                    <User_Delete>
-                                                                                                                                                                        <Permissions_Add>
-                                                                                                                                                                            <Permissions_Edit>
-                                                                                                                                                                                <Permissions_Enable>
-                                                                                                                                                                                    <Status_Add>
-                                                                                                                                                                                        <Status_Enable>
-                                                                                                                                                                                            {children}
-                                                                                                                                                                                        </Status_Enable>
-                                                                                                                                                                                    </Status_Add>
-                                                                                                                                                                                </Permissions_Enable>
-                                                                                                                                                                            </Permissions_Edit>
-                                                                                                                                                                        </Permissions_Add>
-                                                                                                                                                                    </User_Delete>
-                                                                                                                                                                </User_Edit>
-                                                                                                                                                            </User_Add>
+                                                                                                                                                            <Suppliers>
+                                                                                                                                                                <Observations>
+                                                                                                                                                                    <User_Add>
+                                                                                                                                                                        <User_Edit>
+                                                                                                                                                                            <User_Delete>
+                                                                                                                                                                                <Permissions_Add>
+                                                                                                                                                                                    <Permissions_Edit>
+                                                                                                                                                                                        <Permissions_Enable>
+                                                                                                                                                                                            <Status_Add>
+                                                                                                                                                                                                <Status_Enable>
+                                                                                                                                                                                                    {children}
+                                                                                                                                                                                                </Status_Enable>
+                                                                                                                                                                                            </Status_Add>
+                                                                                                                                                                                        </Permissions_Enable>
+                                                                                                                                                                                    </Permissions_Edit>
+                                                                                                                                                                                </Permissions_Add>
+                                                                                                                                                                            </User_Delete>
+                                                                                                                                                                        </User_Edit>
+                                                                                                                                                                    </User_Add>
+                                                                                                                                                                </Observations>
+                                                                                                                                                            </Suppliers>
                                                                                                                                                         </Status_All>
                                                                                                                                                     </Permissions>
                                                                                                                                                 </Users>

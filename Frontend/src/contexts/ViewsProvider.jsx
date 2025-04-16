@@ -58,7 +58,7 @@ export const Sidebar_View = ({ children }) => {
 // Función contexto para controlar la visibilidad del sidebar
 export const Sidebar = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isSidebar,setIsSidebar] = useState(true);
+    const [isSidebar,setIsSidebar] = useState(false);
     // UseState para controlar el valor del contexto
     return (
         <sidebarContext.Provider value={[isSidebar,setIsSidebar]}>

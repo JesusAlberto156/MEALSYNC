@@ -40,6 +40,7 @@ import TableStatus from './components/tables/TableStatus';
 import Status_Add from './components/modals/status/StatusAdd';
 import Status_Enable from './components/modals/status/StatusEnable';
 import Suppliers from './pages/administration/Suppliers';
+import Suppliers_Chart from './components/charts/Suppliers';
 import Table_Suppliers from './components/tables/Suppliers';
 import Table_Observations from './components/tables/Observations';
 import Inventory from './pages/administration/Inventory';
@@ -138,7 +139,7 @@ const router = createHashRouter([
                 children: [
                   {
                     path: 'Suppliers',
-                    element: <Table_Suppliers/>
+                    element: <Suppliers_Chart/>
                   },
                   {
                     path: 'Observations',

@@ -54,7 +54,7 @@ export const Text_Title_30 = styled.h1.withConfig({
     font-size: 30px;
     width: auto;
     margin: 0px;
-    
+
     @media (max-width: 768px) {
         font-size: 28px;
     }

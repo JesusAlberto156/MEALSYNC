@@ -356,6 +356,64 @@ export const Button_Icon_Blue_60 = styled.button.withConfig({
         padding: 2px;
     }
 `;
+export const Button_Icon_Blue_40 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 40px;
+    height: auto;
+    padding: 6px;
+    border-radius: 10px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 35px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 30px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Blue_40x100 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 40px;
+    height: 100px;
+    padding: 6px;
+    border-radius: 10px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 35px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 30px;    
+        padding: 2px;
+    }
+`;
 // Color Verde
 export const Button_Icon_Green_220 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -708,6 +766,35 @@ export const Button_Icon_Green_60 = styled.button.withConfig({
         padding: 2px;
     }
 `;
+export const Button_Icon_Green_40 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 40px;
+    height: auto;
+    padding: 6px;
+    border-radius: 10px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 35px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 30px;    
+        padding: 2px;
+    }
+`;
 // Color Rojo
 export const Button_Icon_Red_220 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -1057,6 +1144,35 @@ export const Button_Icon_Red_60 = styled.button.withConfig({
 
     @media (max-width: 480px) {
         width: 40px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Red_40 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 40px;
+    height: auto;
+    padding: 6px;
+    border-radius: 10px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 35px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 30px;    
         padding: 2px;
     }
 `;

@@ -40,8 +40,8 @@ import { FaPlus } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Search_Bar } from "../styled/Containers";
-import { Button_Icon_Green_45,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
-import { Icon_25,Icon_Button_Black_30, Icon_White_18 } from "../styled/Icons";
+import { Button_Icon_Green_45,Button_Icon_Green_40,Button_Icon_Blue_40,Button_Icon_Blue_60,Button_Icon_Red_40,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
+import { Icon_25,Icon_Button_Black_30,Icon_White_14 } from "../styled/Icons";
 import { Input_Search } from "../styled/Inputs";
 // Componentes personalizados
 
@@ -322,13 +322,14 @@ export default function Search_Bar (){
                     <></>
                 )}
                 {currentSView === 'Suppliers' && currentNView === 'Suppliers' ? (
+                    
                     <>
                         <Tooltip title='Agregar' placement="top">
-                            <Button_Icon_Green_60 ThemeMode={themeMode}>
-                                <Icon_White_18>
+                            <Button_Icon_Green_40 ThemeMode={themeMode}>
+                                <Icon_White_14>
                                     <FaPlus/>
-                                </Icon_White_18>
-                            </Button_Icon_Green_60>
+                                </Icon_White_14>
+                            </Button_Icon_Green_40>
                         </Tooltip>
                         <Select
                             options={isSuppliers.map((supplier) => ({
@@ -389,25 +390,25 @@ export default function Search_Bar (){
                             onChange={handleSelectChange}
                         />
                         <Tooltip title='Ver' placement="top">
-                            <Button_Icon_Green_60 ThemeMode={themeMode}>
-                                <Icon_White_18>
+                            <Button_Icon_Green_40 ThemeMode={themeMode} className={isSelect.length === 0 ? 'roll-out-left' : 'roll-in-left'}>
+                                <Icon_White_14>
                                     <FaEye/>
-                                </Icon_White_18>
-                            </Button_Icon_Green_60>
+                                </Icon_White_14>
+                            </Button_Icon_Green_40>
                         </Tooltip>
                         <Tooltip title='Editar' placement="top">
-                            <Button_Icon_Blue_60 ThemeMode={themeMode}>
-                                <Icon_White_18>
+                            <Button_Icon_Blue_40 ThemeMode={themeMode} className={isSelect.length === 0 ? 'roll-out-left' : 'roll-in-left'}>
+                                <Icon_White_14>
                                     <MdEdit/>
-                                </Icon_White_18>
-                            </Button_Icon_Blue_60>
+                                </Icon_White_14>
+                            </Button_Icon_Blue_40>
                         </Tooltip>
                         <Tooltip title='Eliminar' placement="top">
-                            <Button_Icon_Red_60 ThemeMode={themeMode}>
-                                <Icon_White_18>
+                            <Button_Icon_Red_40 ThemeMode={themeMode} className={isSelect.length === 0 ? 'roll-out-left' : 'roll-in-left'}>
+                                <Icon_White_14>
                                     <MdDelete/>
-                                </Icon_White_18>
-                            </Button_Icon_Red_60>
+                                </Icon_White_14>
+                            </Button_Icon_Red_40>
                         </Tooltip>
                     </>
                 ):(

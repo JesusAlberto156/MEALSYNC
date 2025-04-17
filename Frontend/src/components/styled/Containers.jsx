@@ -231,6 +231,44 @@ export const Container_Form_80 = styled.div.withConfig({
         padding: 10px;
     }
 `;
+export const Container_Form_Header = styled.div`
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    padding: 15px;
+    gap: 15px;
+    width: 100%;
+    height: auto;
+
+    @media (max-width: 768px) {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 5px;
+        gap: 5px;
+    }
+`;
+export const Container_Form_Content = styled.div`
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+
+    @media (max-width: 768px) {
+        padding: 15px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+    }
+`;
 export const Container_Form_500 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -287,10 +325,9 @@ export const Container_Form_450 = styled.div.withConfig({
     padding: 20px;
     padding-top: 10px;
     gap: 14px;
-    margin-right: 40px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -402,7 +439,8 @@ export const Container_Row_100_Center = styled.div`
     position: relative; 
     display: flex;
     justify-content: center;
-    align-items: center;          
+    align-items: center;  
+    text-align: center;        
     background: transparent;
     width: 100%;
     height: auto;  
@@ -427,7 +465,8 @@ export const Container_Row_90_Center = styled.div`
     position: relative; 
     display: flex;
     justify-content: center;
-    align-items: center;          
+    align-items: center;   
+    text-align: center;       
     background: transparent;
     width: 90%;
     height: auto;  
@@ -452,7 +491,8 @@ export const Container_Row_80_Center = styled.div`
     position: relative; 
     display: flex;
     justify-content: center;
-    align-items: center;          
+    align-items: center;  
+    text-align: center;        
     background: transparent;
     width: 80%;
     height: auto;  
@@ -737,7 +777,8 @@ export const Container_Column_100_Center = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;          
+    align-items: center;     
+    text-align: center;     
     background: transparent;
     width: 100%;
     height: auto;  
@@ -763,7 +804,8 @@ export const Container_Column_90_Center = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;          
+    align-items: center;  
+    text-align: center;        
     background: transparent;
     width: 90%;
     height: auto;  
@@ -789,7 +831,8 @@ export const Container_Column_80_Center = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;          
+    align-items: center;   
+    text-align: center;       
     background: transparent;
     width: 80%;
     height: auto;  

@@ -19,7 +19,9 @@ import { AppProviders } from './contexts/AppProviders';
 // Estilos personalizados
 import '../src/components/styled/Animations.css'
 import '../src/components/styled/Alerts.css'
+import '../src/components/styled/Shadows.css'
 import 'animate.css';
+
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
 import Error from './pages/Error';
@@ -41,6 +43,7 @@ import Status_Add from './components/modals/status/StatusAdd';
 import Status_Enable from './components/modals/status/StatusEnable';
 import Suppliers from './pages/administration/Suppliers';
 import Suppliers_Chart from './components/charts/Suppliers';
+import Observations_Chart from './components/charts/Observations';
 import Table_Suppliers from './components/tables/Suppliers';
 import Table_Observations from './components/tables/Observations';
 import Inventory from './pages/administration/Inventory';
@@ -143,7 +146,7 @@ const router = createHashRouter([
                   },
                   {
                     path: 'Observations',
-                    element: <Table_Observations/>
+                    element: <Observations_Chart/>
                   }
                 ]
               },

@@ -173,6 +173,18 @@ export const Icon_White_18 = styled.div`
         font-size: 14px;
     }
 `;
+export const Icon_White_14 = styled.div`
+    font-size: 14px;
+    color: white;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 10px;
+    }
+`;
 //---------- White
 //---------- Black
 export const Icon_Black_30 = styled.div`

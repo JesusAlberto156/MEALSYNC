@@ -87,3 +87,5 @@ const [isModal,setIsModal] = useContext(modalContext);
 const [isSuppliers,setIsSuppliers] = useContext(suppliersContext);
 const [isObservations,setIsObservations] = useContext(observationsContext);
 //____________SUPPLIERS____________
+//____________CHARTS____________
+const [isItemDate,setIsItemDate] = useContext(itemDateContext);

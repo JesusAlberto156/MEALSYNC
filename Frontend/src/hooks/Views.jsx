@@ -71,10 +71,12 @@ export const HandleChangeNavbar = () => {
     // Constantes con el valor de los contextos 
     const [currentNView,setCurrentNView] = useContext(navbarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
+    const [isSelect,setIsSelect] = useContext(selectContext);
     // Función del hook
     const handleChangeNavbar = (View) => {
         setCurrentNView(View);
         setIsSearchTerm('');
+        setIsSelect([]);
     };
     // Retorno de la función del hook
     return handleChangeNavbar;

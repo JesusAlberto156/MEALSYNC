@@ -30,6 +30,7 @@ import Permissions_Edit from "../../components/modals/permissions/PermissionsEdi
 import Permissions_Super_Administrator from "../../components/modals/permissions/PermissionsSuperAdministrator";
 import Status_Add from "../../components/modals/status/StatusAdd";
 import Status_Enable from "../../components/modals/status/StatusEnable";
+import Observations_Suppliers from "../../components/modals/Suppliers/Obervations";
 //____________IMPORT/EXPORT____________
 
 // Página para mostrar el área de administración
@@ -110,6 +111,11 @@ export default function Index_Administration(){
             )}
             {currentMView === 'Status-Enable' ? (
                 <Status_Enable/> 
+            ):(
+                <></>
+            )}
+            {currentMView === 'Suppliers-Observations' ? (
+                <Observations_Suppliers/>
             ):(
                 <></>
             )}

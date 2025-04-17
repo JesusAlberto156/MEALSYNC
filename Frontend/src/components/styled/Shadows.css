@@ -1,0 +1,193 @@
+.shadow-out-1-infinite-light {
+        -webkit-animation: shadow-out-1-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+                animation: shadow-out-1-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+}
+.shadow-out-2-infinite-light {
+        -webkit-animation: shadow-out-2-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+                animation: shadow-out-2-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+}
+.shadow-out-3-infinite-light {
+        -webkit-animation: shadow-out-3-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+                animation: shadow-out-3-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+}
+.shadow-out-4-infinite-light {
+        -webkit-animation: shadow-out-4-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+                animation: shadow-out-4-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+}
+.shadow-out-5-infinite-light {
+        -webkit-animation: shadow-out-5-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+                animation: shadow-out-5-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+}
+.shadow-out-6-infinite-light {
+        -webkit-animation: shadow-out-6-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+                animation: shadow-out-6-light 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate;
+}
+
+@-webkit-keyframes shadow-out-1-light {
+    0% {
+        -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+        -webkit-box-shadow: 0 0 0 0 rgb(155, 9, 9);
+                box-shadow: 0 0 0 0 rgb(155, 9, 9);
+    }
+    100% {
+        -webkit-transform: translateZ(50px);
+                transform: translateZ(50px);
+        -webkit-box-shadow: 0 0 20px 0px rgb(155, 9, 9);
+                box-shadow: 0 0 20px 0px rgb(155, 9, 9);
+    }
+}
+@keyframes shadow-out-1-light {
+    0% {
+        -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+        -webkit-box-shadow: 0 0 0 0 rgb(155, 9, 9);
+                box-shadow: 0 0 0 0 rgb(155, 9, 9);
+    }
+    100% {
+        -webkit-transform: translateZ(50px);
+                transform: translateZ(50px);
+        -webkit-box-shadow: 0 0 20px 0px rgb(155, 9, 9);
+                box-shadow: 0 0 20px 0px rgb(155, 9, 9);
+    }
+}
+@-webkit-keyframes shadow-out-2-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(190, 126, 30);
+                    box-shadow: 0 0 0 0 rgb(190, 126, 30);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(190, 126, 30);
+                    box-shadow: 0 0 20px 0px rgb(190, 126, 30);
+        }
+}
+@keyframes shadow-out-2-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(190, 126, 30);
+                    box-shadow: 0 0 0 0 rgb(190, 126, 30);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(190, 126, 30);
+                    box-shadow: 0 0 20px 0px rgb(190, 126, 30);
+        }
+}
+@-webkit-keyframes shadow-out-3-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(185, 155, 20);
+                    box-shadow: 0 0 0 0 rgb(185, 155, 20);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(185, 155, 20);
+                    box-shadow: 0 0 20px 0px rgb(185, 155, 20);
+        }
+}
+@keyframes shadow-out-3-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(185, 155, 20);
+                    box-shadow: 0 0 0 0 rgb(185, 155, 20);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(185, 155, 20);
+                    box-shadow: 0 0 20px 0px rgb(185, 155, 20);
+        }
+}
+@-webkit-keyframes shadow-out-4-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(178, 196, 17);
+                    box-shadow: 0 0 0 0 rgb(178, 196, 17);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(178, 196, 17);
+                    box-shadow: 0 0 20px 0px rgb(178, 196, 17);
+        }
+}
+@keyframes shadow-out-4-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(178, 196, 17);
+                    box-shadow: 0 0 0 0 rgb(178, 196, 17);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(178, 196, 17);
+                    box-shadow: 0 0 20px 0px rgb(178, 196, 17);
+        }
+}
+@-webkit-keyframes shadow-out-5-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(20, 165, 76);
+                    box-shadow: 0 0 0 0 rgb(20, 165, 76);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(20, 165, 76);
+                    box-shadow: 0 0 20px 0px rgb(20, 165, 76);
+        }
+}
+@keyframes shadow-out-5-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(20, 165, 76);
+                    box-shadow: 0 0 0 0 rgb(20, 165, 76);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(20, 165, 76);
+                    box-shadow: 0 0 20px 0px rgb(20, 165, 76);
+        }
+}
+@-webkit-keyframes shadow-out-6-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(58,93,174);
+                    box-shadow: 0 0 0 0 rgb(58,93,174);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(58,93,174);
+                    box-shadow: 0 0 20px 0px rgb(58,93,174);
+        }
+}
+@keyframes shadow-out-6-light {
+        0% {
+            -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
+            -webkit-box-shadow: 0 0 0 0 rgb(58,93,174);
+                    box-shadow: 0 0 0 0 rgb(58,93,174);
+        }
+        100% {
+            -webkit-transform: translateZ(50px);
+                    transform: translateZ(50px);
+            -webkit-box-shadow: 0 0 20px 0px rgb(58,93,174);
+                    box-shadow: 0 0 20px 0px rgb(58,93,174);
+        }
+}

@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { selectContext,radioContext } from "../../../contexts/FormsProvider";
-import { actionBlockContext } from "../../../contexts/VariablesProvider";
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { SelectContext,RadioContext } from "../../../contexts/FormsProvider";
+import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { useChangeModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useChangeStatusSAdd,useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -20,7 +20,7 @@ import { FcAddRow } from "react-icons/fc";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Button_Border_Row_350 } from "../../styled/Containers";
-import { Text_Title_Fade_30,Text_P_Left_20 } from "../../styled/Text";
+import { Text_Title_30_Center,Text_P_20_Left } from "../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Block_150,Button_Icon_Green_150 } from "../../styled/Buttons";
 import { Label_Check_18 } from "../../styled/Labels";
 import { Input_Radio_16 } from "../../styled/Inputs";
@@ -29,13 +29,13 @@ import { Input_Radio_16 } from "../../styled/Inputs";
 // Modal para agregar estatus al usuario
 export default function Status_Add(){
     // Constantes con el valor de los contextos 
-    const [themeMode] = useContext(themeModeContext);
-    const [isSelect] = useContext(selectContext);
-    const [isRadio] = useContext(radioContext);
-    const [isActiveBlock] = useContext(actionBlockContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSelect] = useContext(SelectContext);
+    const [isRadio] = useContext(RadioContext);
+    const [isActiveBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = useChangeModalView();
+    const changeModalView = HandleChangeModal();
     const filteredRecordsHasStatus = useFilteredRecordsHasStatus();
     const handleSelectChange = useHandleSelectChange();
     const handleRadioChange = useHandleRadioChange();
@@ -45,8 +45,8 @@ export default function Status_Add(){
         <>
             <Container_Modal>
                 <Container_Form_400 ThemeMode={themeMode}>
-                        <Text_Title_Fade_30 ThemeMode={themeMode}>AGREGAR STATUS</Text_Title_Fade_30>
-                        <Text_P_Left_20 ThemeMode={themeMode}>Selecciona un usuario...</Text_P_Left_20>
+                        <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR STATUS</Text_Title_30_Center>
+                        <Text_P_20_Left ThemeMode={themeMode}>Selecciona un usuario...</Text_P_20_Left>
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
                             <Select
                                 options={filteredRecordsHasStatus.map((user) => ({
@@ -105,7 +105,7 @@ export default function Status_Add(){
                                 onChange={handleSelectChange}
                             />
                         </Container_Button_Border_Row_350>
-                        <Text_P_Left_20 ThemeMode={themeMode}>Selecciona un estado...</Text_P_Left_20>
+                        <Text_P_20_Left ThemeMode={themeMode}>Selecciona un estado...</Text_P_20_Left>
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
                             {['Habilitado','Deshabilitado'].map((item,index) => (
                                 <Label_Check_18 ThemeMode={themeMode} key={index}>
@@ -120,7 +120,7 @@ export default function Status_Add(){
                                 </Label_Check_18>
                             ))};
                         </Container_Button_Border_Row_350>
-                        <Text_P_Left_20 ThemeMode={themeMode}>Agregar estatus...</Text_P_Left_20>
+                        <Text_P_20_Left ThemeMode={themeMode}>Agregar estatus...</Text_P_20_Left>
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
                             <Tooltip title='Cancelar' placement="top">
                                 <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => {

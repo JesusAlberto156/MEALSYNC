@@ -353,22 +353,20 @@ export const Container_Form_450 = styled.div.withConfig({
 export const Container_Form_400 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    z-index: 40;
+    z-index: 100;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     box-sizing: border-box;
     width: 400px;
     max-height: 80vh;
     padding: 20px;
-    padding-top: 10px;
     gap: 14px;
-    margin-right: 40px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255,255,255)' : 'rgb(0,0,0)')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -380,14 +378,12 @@ export const Container_Form_400 = styled.div.withConfig({
     @media (max-width: 768px) {
         width: 350px;
         padding: 18px;
-        padding-top: 8px;
         gap: 12px;
     }
 
     @media (max-width: 480px) {
         width: 300px;    
         padding: 16px;
-        padding-top: 6px;
         gap: 10px;
     }
 `;
@@ -439,24 +435,23 @@ export const Container_Row_100_Center = styled.div`
     position: relative; 
     display: flex;
     justify-content: center;
-    align-items: center;  
-    text-align: center;        
+    align-items: center;        
     background: transparent;
     width: 100%;
     height: auto;  
-    padding: 20px;
+    padding: 10px;
     gap: 15px;
     border-radius: 40px;
 
     @media (max-width: 768px) {
         border-radius: 35px;
-        padding: 15px;
+        padding: 8px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
         border-radius: 30px;
-        padding: 10px;
+        padding: 6px;
         gap: 5px;
     }
 }
@@ -465,24 +460,23 @@ export const Container_Row_90_Center = styled.div`
     position: relative; 
     display: flex;
     justify-content: center;
-    align-items: center;   
-    text-align: center;       
+    align-items: center;        
     background: transparent;
     width: 90%;
     height: auto;  
-    padding: 20px;
+    padding: 10px;
     gap: 15px;
     border-radius: 40px;
 
     @media (max-width: 768px) {
         border-radius: 35px;
-        padding: 15px;
+        padding: 8px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
         border-radius: 30px;
-        padding: 10px;
+        padding: 6px;
         gap: 5px;
     }
 }
@@ -491,24 +485,23 @@ export const Container_Row_80_Center = styled.div`
     position: relative; 
     display: flex;
     justify-content: center;
-    align-items: center;  
-    text-align: center;        
+    align-items: center;         
     background: transparent;
     width: 80%;
     height: auto;  
-    padding: 20px;
+    padding: 10px;
     gap: 15px;
     border-radius: 40px;
 
     @media (max-width: 768px) {
         border-radius: 35px;
-        padding: 15px;
+        padding: 8px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
         border-radius: 30px;
-        padding: 10px;
+        padding: 6px;
         gap: 5px;
     }
 }
@@ -990,7 +983,7 @@ export const Container_Column_Black_Width_100_Center = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;          
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0,0,0);
     color: white;
     border: 4px solid white;
     width: 100%;

@@ -1,19 +1,21 @@
+//____________IMPORT/EXPORT____________
+// Hook de express
 import { Router } from 'express';
+// Configuración de variables de entornos
 import config from '../../config/config.js';
-import routerUser from './users.routes.js';
-import routerPermission from './permissions.routes.js';
-import routerStatus from './status.routes.js';
+// Rutas
+import { routerUsers } from './users.js';
+import { routerSuppliers } from './suppliers.js';
+//____________IMPORT/EXPORT____________
 
-const routerAPI = (app) => {
-  const router = Router();
-  const api = config.API_URL;
+// Creación de rutas
+export const routerAPI = (app) => {
+    const router = Router();
+    const api = config.API_URL;
 
-  app.use(api, router);
-  router.use('/usuarios',routerUser);
-  router.use('/permisos',routerPermission);
-  router.use('/estatus',routerStatus);
+    app.use(api, router);
+    router.use('/usuarios',routerUsers);
+    router.use('/proveedores',routerSuppliers);
 
-  return router;
+    return router;
 };
-
-export default routerAPI;

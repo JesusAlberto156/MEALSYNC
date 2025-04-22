@@ -24,8 +24,8 @@ import 'animate.css';
 
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
-import Error from './pages/Error';
-import Loading from './pages/Loading';
+import Error from './pages/general/Error';
+import Loading from './pages/general/Loading';
 import Login from './pages/general/Login';
 import Out_Login from './components/modals/General/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
@@ -44,16 +44,9 @@ import Status_Enable from './components/modals/status/StatusEnable';
 import Suppliers from './pages/administration/Suppliers';
 import Suppliers_Chart from './components/charts/Suppliers';
 import Observations_Chart from './components/charts/Observations';
-import Table_Suppliers from './components/tables/Suppliers';
-import Table_Observations from './components/tables/Observations';
 import Inventory from './pages/administration/Inventory';
-import Table_Inventory from './components/tables/Inventory';
-import Table_Ingredients from './components/tables/Ingredients';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
-import Table_Record_Invetory from './components/tables/RecordInventory';
-import Table_Record_Suppliers from './components/tables/RecordSuppliers';
-import Table_General from './components/tables/General';
 import Index_Kitchen from './pages/Indexs/Kitchen';
 import Home_Kitchen from './pages/kitchen/Home';
 //____________IMPORT/EXPORT____________
@@ -154,14 +147,7 @@ const router = createHashRouter([
                 path: 'Inventory',
                 element: <Inventory/>,
                 children: [
-                  {
-                    path: 'Inventory',
-                    element: <Table_Inventory/>,
-                  },
-                  {
-                    path: 'Ingredients',
-                    element: <Table_Ingredients/>,
-                  },
+                  
                 ]
               },
               {
@@ -172,18 +158,7 @@ const router = createHashRouter([
                 path: 'Record',
                 element: <Record/>,
                 children: [
-                  {
-                    path: 'General',
-                    element: <Table_General/>
-                  },
-                  {
-                    path: 'Inventory',
-                    element: <Table_Record_Invetory/>
-                  },
-                  {
-                    path: 'Suppliers',
-                    element: <Table_Record_Suppliers/>
-                  },
+                  
                 ]
               }
             ]

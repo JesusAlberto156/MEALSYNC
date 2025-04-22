@@ -9,13 +9,12 @@ import { useNavigate } from "react-router-dom";
 // Rutas
 
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { selectedRowContext,actionBlockContext } from "../../../contexts/VariablesProvider";
-import { usersContext } from "../../../contexts/UsersProvider";
-import { refFormStatusContext } from "../../../contexts/RefsProvider";
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { SelectedRowContext,ActionBlockContext } from "../../../contexts/VariablesProvider";
+import { UsersContext } from "../../../contexts/UsersProvider";
 // Hooks personalizados
 import { useChangeStatusEnable } from "../../../hooks/Form";
-import { useChangeModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 import { FaUnlock } from "react-icons/fa";
@@ -25,7 +24,7 @@ import { FaExclamationCircle } from 'react-icons/fa';
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Button_Border_Row_350 } from "../../styled/Containers";
-import { Text_Title_Fade_30,Text_P_Left_16 } from "../../styled/Text";
+import { Text_Title_30_Center,Text_P_16_Left } from "../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Red_150,Button_Icon_Block_150 } from "../../styled/Buttons";
 import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
 
@@ -35,11 +34,10 @@ import Form_Verification from "../../forms/Verification";
 
 export default function Status_Enable(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isSelectedRow] = useContext(selectedRowContext);
-    const [isUsers] = useContext(usersContext);
-    const [isActionBlock] = useContext(actionBlockContext);
-    const {Modal,Form} = useContext(refFormStatusContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isUsers] = useContext(UsersContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
     // useEffect con el usuario
@@ -53,17 +51,17 @@ export default function Status_Enable(){
     },[]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = useChangeModalView();
+    const changeModalView = HandleChangeModal();
     const changeStatusEnable = useChangeStatusEnable();
     // Estructura del componente
     return(
         <>
             {isSelectedRow !== null ? (
-                <Container_Modal ThemeMode={themeMode} ref={Modal}>
-                    <Container_Form_400 ThemeMode={themeMode} ref={Form}>
-                        <Text_Title_Fade_30 ThemeMode={themeMode}>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_Fade_30>
+                <Container_Modal ThemeMode={themeMode}>
+                    <Container_Form_400 ThemeMode={themeMode}>
+                        <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_30_Center>
                         <Form_Verification/>
-                        {isSelectedRow.habilitado ? <Text_P_Left_16 ThemeMode={themeMode}>Se deshabilitará a {user} </Text_P_Left_16> : <Text_P_Left_16 ThemeMode={themeMode}>Se habilitará a {user}...</Text_P_Left_16>}
+                        {isSelectedRow.habilitado ? <Text_P_16_Left ThemeMode={themeMode}>Se deshabilitará a {user} </Text_P_16_Left> : <Text_P_16_Left ThemeMode={themeMode}>Se habilitará a {user}...</Text_P_16_Left>}
                         <Container_Button_Border_Row_350 ThemeMode={themeMode}>
                             <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={(e) => {
                                 e.stopPropagation();

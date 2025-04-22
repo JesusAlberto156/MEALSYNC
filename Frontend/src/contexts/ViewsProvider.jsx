@@ -2,13 +2,13 @@
 // Hooks de React
 import { createContext,useState } from "react"
 // Contextos
-export const themeModeContext = createContext(null);
-export const loginViewContext = createContext(null);
-export const navbarViewContext = createContext(null);
-export const sidebarViewContext = createContext(null);
-export const sidebarContext = createContext(null);
-export const modalViewContext = createContext(null);
-export const modalContext = createContext(null);
+export const ThemeModeContext = createContext(null);
+export const LoginViewContext = createContext(null);
+export const NavbarViewContext = createContext(null);
+export const SidebarViewContext = createContext(null);
+export const SidebarContext = createContext(null);
+export const ModalViewContext = createContext(null);
+export const ModalContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el modo de la página (Claro/Oscuro)
@@ -17,42 +17,42 @@ export const Theme_Mode = ({ children }) => {
     const [themeMode,setThemeMode] = useState(true);
     // Return para darle valor al contexto y heredarlo
     return(
-        <themeModeContext.Provider value={[themeMode,setThemeMode]}>
+        <ThemeModeContext.Provider value={[themeMode,setThemeMode]}>
             {children}
-        </themeModeContext.Provider>
+        </ThemeModeContext.Provider>
     );
 }
 // Función contexto para controlar la vista del login
 export const Login_View = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [currentView,setCurrentView] = useState('');
+    const [currentLView,setCurrentLView] = useState('');
     // Return para darle valor al contexto y heredarlo
     return (
-        <loginViewContext.Provider value={[currentView,setCurrentView]}>
+        <LoginViewContext.Provider value={[currentLView,setCurrentLView]}>
             {children}
-        </loginViewContext.Provider>
+        </LoginViewContext.Provider>
     );
 }
 // Función contexto para controlar la vista del navbar
 export const Navbar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [currentView,setCurrentView] = useState('');
+    const [currentNView,setCurrentNView] = useState('');
     // Return para darle valor al contexto y heredarlo
     return (
-        <navbarViewContext.Provider value={[currentView,setCurrentView]}>
+        <NavbarViewContext.Provider value={[currentNView,setCurrentNView]}>
             {children}
-        </navbarViewContext.Provider>
+        </NavbarViewContext.Provider>
     );
 }
 // Función contexto para controlar la vista del sidebar
 export const Sidebar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [currentView,setCurrentView] = useState('');
+    const [currentSView,setCurrentSView] = useState('');
     // Return para darle valor al contexto y heredarlo
     return (
-        <sidebarViewContext.Provider value={[currentView,setCurrentView]}>
+        <SidebarViewContext.Provider value={[currentSView,setCurrentSView]}>
             {children}
-        </sidebarViewContext.Provider>
+        </SidebarViewContext.Provider>
     );
 }
 // Función contexto para controlar la visibilidad del sidebar
@@ -61,20 +61,20 @@ export const Sidebar = ({ children }) => {
     const [isSidebar,setIsSidebar] = useState(false);
     // UseState para controlar el valor del contexto
     return (
-        <sidebarContext.Provider value={[isSidebar,setIsSidebar]}>
+        <SidebarContext.Provider value={[isSidebar,setIsSidebar]}>
             {children}
-        </sidebarContext.Provider>
+        </SidebarContext.Provider>
     );
 }
 // Función contexto para controlar el modal
 export const Modal_View = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [currentView,setCurrentView] = useState('');
+    const [currentMView,setCurrentMView] = useState('');
     // UseState para controlar el valor del contexto
     return (
-        <modalViewContext.Provider value={[currentView,setCurrentView]}>
+        <ModalViewContext.Provider value={[currentMView,setCurrentMView]}>
             {children}
-        </modalViewContext.Provider>
+        </ModalViewContext.Provider>
     );
 }
 // Función contexto para controlar la visibilidad del modal
@@ -83,8 +83,8 @@ export const Modal = ({children}) => {
     const [isModal,setIsModal] = useState(false);
     // UseState para controlar el valor del contexto
     return (
-        <modalContext.Provider value={[isModal,setIsModal]}>
+        <ModalContext.Provider value={[isModal,setIsModal]}>
             {children}
-        </modalContext.Provider>
+        </ModalContext.Provider>
     );
 }

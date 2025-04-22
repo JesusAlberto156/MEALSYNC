@@ -4,7 +4,7 @@ import { createContext } from "react"
 // Servicios
 import { io } from "socket.io-client";
 // Contextos
-export const socketContext = createContext(null);
+export const SocketContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar la conexión a la base de datos
@@ -13,8 +13,8 @@ export const Socket = ({ children }) => {
     const socket = io('http://localhost:3500/');
     // Return para darle valor al contexto y heredarlo
     return (
-        <socketContext.Provider value={[socket]}>
+        <SocketContext.Provider value={[socket]}>
             {children}
-        </socketContext.Provider>
+        </SocketContext.Provider>
     );
 }

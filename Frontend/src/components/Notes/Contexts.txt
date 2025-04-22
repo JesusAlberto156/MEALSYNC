@@ -23,69 +23,57 @@
 
 // Return para darle valor al contexto y heredarlo
 
-//____________FORM____________
-const [isTextFields,setIsTextFields] = useContext(textFieldsContext);
-const [isName,setIsName] = useContext(nameContext);
-const [isPassword,setIsPassword] = useContext(passwordContext);
-const [isSelect,setIsSelect] = useContext(selectContext);
-const [isRadio,setIsRadio] = useContext(radioContext);
-const [isRadioUsers,setIsRadioUsers] = useContext(radioUsersContext);
-const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
-//____________FORM____________
-//____________PERMISSIONS____________
-const [isPermissions,setIsPermissions] = useContext(permissionsContext);
-const [isPermission,setIsPermission] = useContext(permissionContext);
-const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
-const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
-const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
-//____________PERMISSIONS____________
-//____________REFS____________
-const {user,password} = useContext(refKeyboardContext);
-const {Modal,Form} = useContext(refFormUsersContext);
-const {Button_Edit_U,Button_Delete_U} = useContext(refButtonUsersContext);
-const {Modal,Form} = useContext(refFormPermissionsContext);
-const {Button_Edit_P,Button_Super_P} = useContext(refButtonPermissionsContext);
-const {Modal,Form} = useContext(refFormStatusContext);
-const isButtonS = useContext(refButtonStatusContext);
-//____________REFS____________
-//____________SESSION____________
-const [isLog,setIsLog] = useContext(logContext);
-const [isLogged,setIsLogged] = useContext(loggedContext);
-//____________SESSION____________
-//____________SOCKET____________
-const [socket] = useContext(socketContext);
-//____________SOCKET____________
-//____________STATUS____________
-const [isStatusAll,setIsStatusAll] = useContext(statusAllContext);
-const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
-const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
-const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
-//____________STATUS____________
-//____________USERS____________
-const [isUsers,setIsUsers] = useContext(usersContext);
-const [isUser,setIsUser] = useContext(userContext);
-//____________USERS____________
-//____________VARIABLES____________
-const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
-const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-const [isVerificationBlock,setIsVerificationBlock] = useContext(verificationBlockContext);
-const [isAnimation,setIsAnimation] = useContext(animationContext);
-const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
-const [isViewPassword,setIsViewPassword] = useContext(viewPasswordContext);
-//____________VARIABLES____________
-//____________VIEWS____________
-const [themeMode,setThemeMode] = useContext(themeModeContext);
-const [currentLView,setCurrentLView] = useContext(loginViewContext);
-const [currentNView,setCurrentNView] = useContext(navbarViewContext);
-const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
-const [isSidebar,setIsSidebar] = useContext(sidebarContext);
-const [currentMView,setCurrentMView] = useContext(modalViewContext);
-const [isModal,setIsModal] = useContext(modalContext);
-//____________VIEWS____________
-//____________SUPPLIERS____________
-const [isSuppliers,setIsSuppliers] = useContext(suppliersContext);
-const [isObservations,setIsObservations] = useContext(observationsContext);
-//____________SUPPLIERS____________
 //____________CHARTS____________
-const [isItemDate,setIsItemDate] = useContext(itemDateContext);
+const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
+//____________FORM____________
+const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+const [isSelect,setIsSelect] = useContext(SelectContext);
+const [isRadio,setIsRadio] = useContext(RadioContext);
+const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+//____________FORM____________
+//____________SESSION____________
+const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
+const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
+const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
+const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
+const [isLoggedLogged,setIsLoggedLogged] = useContext(LoggedLoggedContext);
+const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext);
+//____________SESSION____________
+//____________SOCKET____________
+const [socket] = useContext(SocketContext);
+//____________SOCKET____________
+//____________SUPPLIERS____________
+const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext);
+
+const [isObservations,setIsObservations] = useContext(ObservationsContext);
+
+//____________SUPPLIERS____________
+//____________USERS____________
+const [isUsers,setIsUsers] = useContext(UsersContext);
+const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
+const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
+const [isPermissions,setIsPermissions] = useContext(PermissionsContext);
+const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
+const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
+const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
+const [isStatus,setIsStatus] = useContext(StatusContext);
+const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
+const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
+//____________USERS____________
+//____________VARIABLES____________
+const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
+const [isAnimation,setIsAnimation] = useContext(AnimationContext);
+const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
+//____________VARIABLES____________
+//____________VIEWS____________
+const [themeMode,setThemeMode] = useContext(ThemeModeContext);
+const [currentLView,setCurrentLView] = useContext(LoginViewContext);
+const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
+const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
+const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+const [isModal,setIsModal] = useContext(ModalContext);
+//____________VIEWS____________

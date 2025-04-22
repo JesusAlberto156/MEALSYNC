@@ -1,32 +1,133 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { createContext,useState,useEffect,useContext } from "react"
+// Servicios
+import { decryptData } from "../services/Crypto";
 // Contextos
-export const logContext = createContext(null);
-export const loggedContext = createContext(null);
+export const LoggedUserContext = createContext(null);
+export const LoggedPermissionsContext = createContext(null);
+export const LoggedStatusContext = createContext(null);
+export const LoggedLogContext = createContext(null);
+export const LoggedLoggedContext = createContext(null);
+export const LoggedTypeContext = createContext(null);
 // Contextos personalizados
-import { socketContext } from "./SocketProvider";
-import { userContext } from './UsersProvider';
+import { SocketContext } from "./SocketProvider";
 //____________IMPORT/EXPORT____________
 
-// Función contexto para controlarel el inicio de sesión en la página
-export const Log = ({children}) => {
+// Función contexto para controlar los datos del usuario activo
+export const Logged_User = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isLog,setIsLog] = useState(false);
+    const [isLoggedUser,setIsLoggedUser] = useState(() => {
+        const StoredData = sessionStorage.getItem('User');
+
+        if(StoredData){
+            try{
+                const decryptedData = decryptData(StoredData);
+
+                if(decryptedData){
+                    console.log('¡Datos de usuario cargados correctamente!...');
+                    return JSON.parse(decryptedData);
+                }else{
+                    console.log('¡Error al desencriptar datos del sessionStorage!...');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return [];
+            }
+        }else{
+            return [];
+        }
+    });
     // Return para darle valor al contexto y heredarlo
     return (
-        <logContext.Provider value={[isLog,setIsLog]}>
+        <LoggedUserContext.Provider value={[isLoggedUser,setIsLoggedUser]}>
             {children}
-        </logContext.Provider>
+        </LoggedUserContext.Provider>
+    );
+}
+// Función contexto para controlar los datos de los permisos del usuario activo
+export const Logged_Permissions = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isLoggedPermissions,setIsLoggedPermissions] = useState(() => {
+        const StoredData = sessionStorage.getItem('Permissions');
+
+        if(StoredData){
+            try{
+                const decryptedData = decryptData(StoredData);
+
+                if(decryptedData){
+                    console.log('¡Permisos del usuario cargados correctamente!...');
+                    return JSON.parse(decryptedData);
+                }else{
+                    console.log('¡Error al desencriptar datos del sessionStorage!...');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return [];
+            }
+        }else{
+            return [];
+        }
+    });
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <LoggedPermissionsContext.Provider value={[isLoggedPermissions,setIsLoggedPermissions]}>
+            {children}
+        </LoggedPermissionsContext.Provider>
+    );
+}
+// Función contexto para controlar los datos del estatus del usuario activo
+export const Logged_Status = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isLoggedStatus,setIsLoggedStatus] = useState(() => {
+        const StoredData = sessionStorage.getItem('Status');
+
+        if(StoredData){
+            try{
+                const decryptedData = decryptData(StoredData);
+
+                if(decryptedData){
+                    console.log('¡Estatus del usuario cargados correctamente!...');
+                    return JSON.parse(decryptedData);
+                }else{
+                    console.log('¡Error al desencriptar datos del sessionStorage!...');
+                    return [];
+                }
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return [];
+            }
+        }else{
+            return [];
+        }
+    });
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <LoggedStatusContext.Provider value={[isLoggedStatus,setIsLoggedStatus]}>
+            {children}
+        </LoggedStatusContext.Provider>
+    );
+}
+// Función contexto para controlarel el inicio de sesión en la página
+export const Logged_Log = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isLoggedLog,setIsLoggedLog] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <LoggedLogContext.Provider value={[isLoggedLog,setIsLoggedLog]}>
+            {children}
+        </LoggedLogContext.Provider>
     );
 }
 // Función contexto para controlar el estado activo/inactivo de la sesión en la base de datos
-export const Logged = ({ children }) => {
+export const Logged_Logged = ({ children }) => {
     // constantes con contextos perzonalizados
-    const [socket] = useContext(socketContext);
-    const [isUser] = useContext(userContext);
+    const [socket] = useContext(SocketContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
     // UseState para controlar el valor del contexto
-    const [isLogged,setIsLogged] = useState(() => {
+    const [isLoggedLogged,setIsLoggedLogged] = useState(() => {
         const logged = sessionStorage.getItem('Logged');
 
         if(logged){
@@ -44,34 +145,60 @@ export const Logged = ({ children }) => {
     });
     // UseEffect para actualizar datos en la base de datos de la sesión activa/inactiva
     useEffect(() => {
-        if(isLogged && isUser.length !== 0){
-            socket.emit('statusLogin',isUser.idusuario,isUser.usuario);
+        if(isLoggedLogged && isLoggedUser.length !== 0){
+            socket.emit('Status-Log-Update',isLoggedUser.idusuario,isLoggedUser.usuario,1);
 
-            socket.on('statusLogin',(mensaje,usuario) => {
+            socket.on('Status-Log-Update',(mensaje,usuario) => {
                 console.log(mensaje,usuario);
-                socket.emit('status');
+                socket.emit('Status');
             });
 
             return () => {
-                socket.off('statusLogin');
-            }
-        }else if(!isLogged && isUser.length !== 0){
-            socket.emit('statusLogout',isUser.idusuario,isUser.usuario);
-
-            socket.on('statusLogout',(mensaje,usuario) => {
-                console.log(mensaje,usuario);
-                socket.emit('status');
-            });
-
-            return () => {
-                socket.off('statusLogout');
+                socket.off('Status-Log-Update');
             }
         }
-    },[isLogged]);
+        if(!isLoggedLogged && isLoggedUser.length !== 0){
+            socket.emit('Status-Log-Update',isLoggedUser.idusuario,isLoggedUser.usuario,0);
+
+            socket.on('Status-Log-Update',(mensaje,usuario) => {
+                console.log(mensaje,usuario);
+                socket.emit('Status');
+            });
+
+            return () => {
+                socket.off('Status-Log-Update');
+            }
+        }
+    },[isLoggedLogged]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <loggedContext.Provider value={[isLogged,setIsLogged]}>
+        <LoggedLoggedContext.Provider value={[isLoggedLogged,setIsLoggedLogged]}>
             {children}
-        </loggedContext.Provider>
+        </LoggedLoggedContext.Provider>
+    );
+}
+// Función Contexto para controlar el tipo de usuario
+export const Logged_Type = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isLoggedType,setIsLoggedType] = useState(() => {
+        const StoredData = sessionStorage.getItem('Type');
+
+        if(StoredData){
+            try{
+                console.log('¡Tipo de usuario cargado correctamente!...');
+                return StoredData;
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return '';
+            }
+        }else{
+            return '';
+        }
+    });
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <LoggedTypeContext.Provider value={[isLoggedType,setIsLoggedType]}>
+            {children}
+        </LoggedTypeContext.Provider>
     );
 }

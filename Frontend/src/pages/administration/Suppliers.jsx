@@ -8,7 +8,7 @@ import { useContext,useEffect } from "react";
 // Rutas
 
 // Contextos
-import { themeModeContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -25,7 +25,7 @@ import { Outlet } from "react-router-dom";
 // Componente para mostrar la seccion de proveedores en administración
 export default function Suppliers(){
     // Constantes con el valor de los contextos 
-    const [themeMode] = useContext(themeModeContext);
+    const [themeMode] = useContext(ThemeModeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC_Administración'

@@ -8,12 +8,9 @@ import { Toaster } from "sonner";
 // Servicios
 
 // Contextos
-import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarContext,modalViewContext,modalContext } from "../../../contexts/ViewsProvider";
-import { actionBlockContext,animationContext,typeUserContext,searchTermContext } from "../../../contexts/VariablesProvider";
-import { logContext,loggedContext } from "../../../contexts/SessionProvider";
-import { userContext } from "../../../contexts/UsersProvider";
-import { permissionContext } from "../../../contexts/PermissionsProvider";
-import { statusUserContext } from "../../../contexts/StatusProvider";
+import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../../../contexts/ViewsProvider";
+import { ActionBlockContext,AnimationContext,SearchTermContext } from "../../../contexts/VariablesProvider";
+import { LoggedLogContext,LoggedLoggedContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleChangeModal } from "../../../hooks/Views";
 import { HandleChangeLog } from "../../../hooks/Form";
@@ -25,7 +22,7 @@ import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Row_100_Center,Container_Row_90_Left,Container_Row_Border_90_Center } from "../../styled/Containers";
-import { Text_Title_30, Text_P_16 } from "../../styled/Text";
+import { Text_Title_30_Center, Text_P_16_Left } from "../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Red_150 } from "../../styled/Buttons";
 import { Icon_White_26 } from "../../styled/Icons";
 import { Alert_Styles,Alert_Verification } from "../../styled/Alerts";
@@ -36,22 +33,22 @@ import { Alert_Styles,Alert_Verification } from "../../styled/Alerts";
 // Modal para cerrar sesión
 export default function Out_Login(){
     // Constantes con el valor de los contextos 
-    const [themeMode] = useContext(themeModeContext);
-    const [isAnimation] = useContext(animationContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
-    const [currentLView,setCurrentLView] = useContext(loginViewContext);
-    const [currentNView,setCurrentNView] = useContext(navbarViewContext);
-    const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
-    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isLog,setIsLog] = useContext(logContext);
-    const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
-    const [isUser,setIsUser] = useContext(userContext);
-    const [isPermission,setIsPermission] = useContext(permissionContext);
-    const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isAnimation] = useContext(AnimationContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [currentLView,setCurrentLView] = useContext(LoginViewContext);
+    const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
+    const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isModal,setIsModal] = useContext(ModalContext);
+    const [isLog,setIsLog] = useContext(LoggedLogContext);
+    const [isLogged,setIsLogged] = useContext(LoggedLoggedContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+    const [isTypeUser,setIsTypeUser] = useContext(LoggedTypeContext);
+    const [isUser,setIsUser] = useContext(LoggedUserContext);
+    const [isPermission,setIsPermission] = useContext(LoggedPermissionsContext);
+    const [isStatusUser,setIsStatusUser] = useContext(LoggedStatusContext);
     // useEffect con el cerrado de sesión
     useEffect(() => {
         if(isLog && isLogged){
@@ -106,10 +103,10 @@ export default function Out_Login(){
                     <Container_Modal>
                         <Container_Form_400 className={currentMView === 'Out-Login' ? themeMode ? 'roll-in-left-shadow-pop-light' : 'roll-in-left-shadow-pop-dark' : 'roll-out-left'} ThemeMode={themeMode}>
                                 <Container_Row_100_Center>
-                                    <Text_Title_30 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>¿ESTAS SEGURO?</Text_Title_30>
+                                    <Text_Title_30_Center ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>¿ESTAS SEGURO?</Text_Title_30_Center>
                                 </Container_Row_100_Center>
                                 <Container_Row_90_Left>
-                                    <Text_P_16 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>Cerrará la sesión...</Text_P_16>
+                                    <Text_P_16_Left ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>Cerrará la sesión...</Text_P_16_Left>
                                 </Container_Row_90_Left>
                                 <Container_Row_Border_90_Center className={themeMode ? 'shadow-out-infinite-light' : 'shadow-out-infinite-dark'} ThemeMode={themeMode}>
                                     <Tooltip title="Cancelar" placement="top">

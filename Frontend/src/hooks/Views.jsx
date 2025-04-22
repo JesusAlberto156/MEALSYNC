@@ -3,12 +3,11 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
-import { themeModeContext,loginViewContext,navbarViewContext,sidebarViewContext,sidebarContext,modalViewContext,modalContext } from "../contexts/ViewsProvider";
-import { typeUserContext,searchTermContext,selectedRowContext,animationContext,actionBlockContext,verificationBlockContext } from "../contexts/VariablesProvider";
-import { textFieldsContext,nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
-import { statusAddContext,statusEnableContext } from "../contexts/StatusProvider";
-import { permissionsAddContext,permissionsEditContext,permissionsEnableContext } from "../contexts/PermissionsProvider";
-
+import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
+import { SearchTermContext,SelectedRowContext,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
+import { TextFieldsContext,SelectContext,RadioContext,CheckboxContext } from "../contexts/FormsProvider";
+import { PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -23,7 +22,7 @@ import { permissionsAddContext,permissionsEditContext,permissionsEnableContext }
 // Hook para cambiar el modo de la página (Claro/Oscuro)
 export const ToggleThemeMode = () => {
     // Constantes con el valor de los contextos 
-    const [themeMode,setThemeMode] = useContext(themeModeContext);
+    const [themeMode,setThemeMode] = useContext(ThemeModeContext);
     // Función del hook
     const toggleThemeMode = () => {
         setThemeMode(!themeMode);
@@ -34,11 +33,11 @@ export const ToggleThemeMode = () => {
 // Hook para cambiar la vista del login
 export const HandleChangeLogin = () => {
     // Constantes con el valor de los contextos 
-    const [currentLView,setCurrentLView] = useContext(loginViewContext);
-    const [isTypeUser,setIsTypeUser] = useContext(typeUserContext);
-    const [isTextFields,setIsTextFields] = useContext(textFieldsContext);
-    const [isAnimation,setIsAnimation] = useContext(animationContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [currentLView,setCurrentLView] = useContext(LoginViewContext);
+    const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext);
+    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isAnimation,setIsAnimation] = useContext(AnimationContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const handleChangeLogin = (option,type) => {
         setTimeout(() => {
@@ -53,12 +52,12 @@ export const HandleChangeLogin = () => {
                 user: '',      
                 password: '',       
             }));
-            setIsTypeUser('');
+            setIsLoggedType('');
             setIsAnimation(true);
             setIsActionBlock(true);
         }
         if(option === 'Login'){
-            setIsTypeUser(type);
+            setIsLoggedType(type);
             setIsAnimation(false);
             setIsActionBlock(false);
         }
@@ -69,9 +68,9 @@ export const HandleChangeLogin = () => {
 // Hook para cambiar la vista del navbar
 export const HandleChangeNavbar = () => {
     // Constantes con el valor de los contextos 
-    const [currentNView,setCurrentNView] = useContext(navbarViewContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-    const [isSelect,setIsSelect] = useContext(selectContext);
+    const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+    const [isSelect,setIsSelect] = useContext(SelectContext);
     // Función del hook
     const handleChangeNavbar = (View) => {
         setCurrentNView(View);
@@ -84,8 +83,8 @@ export const HandleChangeNavbar = () => {
 // Hook para cambiar la vista del sidebar
 export const HandleChangeSidebar = () => {
     // Constantes con el valor de los contextos 
-    const [currentSView,setCurrentSView] = useContext(sidebarViewContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext)
+    const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext)
     // Función del hook
     const handleChangeSidebar = (View) => {
         setCurrentSView(View);
@@ -97,7 +96,7 @@ export const HandleChangeSidebar = () => {
 // Hook para cambiar el sidebar (Ocultar/Mostrar)
 export const ToggleSidebar = () => {
     // Constantes con el valor de los contextos 
-    const [isSidebar,setIsSidebar] = useContext(sidebarContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     // Función del hook
     const toggleSidebar = () => {
         setIsSidebar(!isSidebar);
@@ -108,9 +107,9 @@ export const ToggleSidebar = () => {
 // Hook para cambiar el modal
 export const HandleChangeModal = () => {
     // Constantes con el valor de los contextos
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
-    const [isModal,setIsModal] = useContext(modalContext);
-    const [isTypeUser] = useContext(typeUserContext);
+    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [isModal,setIsModal] = useContext(ModalContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     // Función del hook
@@ -120,74 +119,10 @@ export const HandleChangeModal = () => {
         if(currentMView === 'Out-Login'){
             setTimeout(() => {
                 setIsModal(false);
-                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
+                navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
             },700);
         }
     }
     // Retorno de la función del hook
     return handleChangeModal;
-}
-export const useChangeModalView = () => {
-    // Constantes con el valor de los contextos 
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
-    const [isSelect,setIsSelect] = useContext(selectContext);
-    const [isRadio,setIsRadio] = useContext(radioContext);
-    const [isName,setIsName] = useContext(nameContext);
-    const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
-    const [isFormVerification,setIsFormVerification] = useContext(verificationBlockContext);
-    const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
-    const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
-    const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
-    const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
-    const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
-    const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
-    // Función del hook
-    const changeModalView = (View) => {
-
-        if(currentMView === 'Users-View'){
-            setIsActionBlock(false);
-            setIsName('');
-            setIsPassword('');
-            setIsFormVerification(false);
-        }
-        if(currentMView === 'Permissions-Add'){
-            setIsPermissionsAdd(false);
-            setIsSelect([]);
-            setIsCheckbox([]);
-            setIsActionBlock(false);
-        }
-        if(currentMView === 'Permissions-Edit'){
-            setIsCheckbox([]);
-            setIsActionBlock(false);
-            setIsPermissionsEdit(false);
-            setIsSelectedRow(null);
-        }
-        if(currentMView === 'Permissions-Super-Administrator'){
-            setIsActionBlock(false);
-            setIsPermissionsEnable([]);
-            setIsSelectedRow(null);
-            setIsName('');
-            setIsPassword('');
-            setIsFormVerification(false);
-        }
-        if(currentMView === 'Status-Add'){
-            setIsSelect([]);
-            setIsRadio('');
-            setIsActionBlock(false);
-            setIsStatusAdd(false);
-        }
-        if(currentMView === 'Status-Enable'){
-            setIsName('');
-            setIsPassword('');
-            setIsSelectedRow(null);
-            setIsActionBlock(false);
-            setIsFormVerification(false);
-            setIsStatusEnable([]);
-        }
-        setCurrentMView(View);
-    }
-    // Retorno de la función del hook
-    return changeModalView;
 }

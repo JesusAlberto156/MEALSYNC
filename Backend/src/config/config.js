@@ -1,7 +1,11 @@
+//____________IMPORT/EXPORT____________
+// Módulo para manipulación del archivo .env
 import dotenv from 'dotenv';
+//____________IMPORT/EXPORT____________
 
+// Hook
 dotenv.config();
-
+// Exportación de la variables de entorno
 export default {
     HOST: process.env.HOST || 'NO ENCONTRO VAR ENTORNO',
     PORT: process.env.PORT || 3600,

@@ -2,7 +2,7 @@
 // Hooks de React
 import { createContext,useState } from "react"
 // Contextos
-export const itemDateContext = createContext(null);
+export const ItemDateContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar la fecha seleccionada de un caledario de un grafico
@@ -11,8 +11,8 @@ export const Item_Date = ({ children }) => {
     const [isItemDate,setIsItemDate] = useState([]);
     // Return para darle valor al contexto y heredarlo
     return(
-        <itemDateContext.Provider value={[isItemDate,setIsItemDate]}> 
+        <ItemDateContext.Provider value={[isItemDate,setIsItemDate]}> 
             {children}
-        </itemDateContext.Provider>
+        </ItemDateContext.Provider>
     );
 }

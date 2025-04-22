@@ -9,9 +9,9 @@ import { Tooltip } from "@mui/material";
 // Rutas
 
 // Contextos
-import { themeModeContext } from '../contexts/ViewsProvider';
+import { ThemeModeContext } from '../../contexts/ViewsProvider';
 // Hooks personalizados
-import { useErrorReturn } from "../hooks/Error";
+import { useErrorReturn } from "../../hooks/Error";
 //__________ICONOS__________
 // Iconos de decoración de la página
 import { IoIosWarning } from "react-icons/io";
@@ -20,12 +20,12 @@ import { IoSettings } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page_Error,Container_100_Right,Container_100_Left,Container_Text_20 } from "../components/styled/Containers";
-import { Icon_Gray_Rotate_50,Icon_Yellow_250 } from "../components/styled/Icons";
-import { Text_Title_Fade_50,Text_A_Left_25 } from "../components/styled/Text";
-import { Button_Icon_White_200 } from "../components/styled/Buttons";
-import { Img_Logo_Error } from "../components/styled/Imgs";
-import { Alert_Error,Alert_Styles } from "../components/styled/Alerts";
+import { Container_Page_Error,Container_100_Right,Container_100_Left,Container_Text_20 } from "../../components/styled/Containers";
+import { Icon_Gray_Rotate_50,Icon_Yellow_250 } from "../../components/styled/Icons";
+import { Text_Title_42_Center,Text_A_24_Left } from "../../components/styled/Text";
+import { Button_Icon_White_200 } from "../../components/styled/Buttons";
+import { Img_Logo_Error } from "../../components/styled/Imgs";
+import { Alert_Error,Alert_Styles } from "../../components/styled/Alerts";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -33,7 +33,7 @@ import { Alert_Error,Alert_Styles } from "../components/styled/Alerts";
 // Página para captar los errores ocasionados por una mala ruta escrita
 export default function Error(){
     // Constantes con el valor de los contextos 
-    const [themeMode] = useContext(themeModeContext);
+    const [themeMode] = useContext(ThemeModeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title='MEALSYNC_Error';
@@ -49,10 +49,10 @@ export default function Error(){
                     <Icon_Yellow_250 ThemeMode={themeMode}><IoIosWarning/></Icon_Yellow_250>
                 </Container_100_Right>
                 <Container_Text_20>
-                    <Text_Title_Fade_50 ThemeMode={themeMode}>Ooops...</Text_Title_Fade_50>
+                    <Text_Title_42_Center ThemeMode={themeMode}>Ooops...</Text_Title_42_Center>
                     <Icon_Gray_Rotate_50 ThemeMode={themeMode}><IoSettings/></Icon_Gray_Rotate_50>
                 </Container_Text_20>
-                <Text_A_Left_25 ThemeMode={themeMode}>Página no encotrada...</Text_A_Left_25>
+                <Text_A_24_Left ThemeMode={themeMode}>Página no encotrada...</Text_A_24_Left>
                 <Tooltip title='Regresar' placement="top">
                     <Button_Icon_White_200 ThemeMode={themeMode} onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200>
                 </Tooltip>

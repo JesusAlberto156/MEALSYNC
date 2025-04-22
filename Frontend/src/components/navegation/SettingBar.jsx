@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { themeModeContext,sidebarContext } from "../../contexts/ViewsProvider";
-import { loggedContext } from "../../contexts/SessionProvider";
-import { typeUserContext } from "../../contexts/VariablesProvider";
+import { ThemeModeContext,SidebarContext } from "../../contexts/ViewsProvider";
+import { LoggedLoggedContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
 import { ToggleThemeMode,ToggleSidebar,HandleChangeModal } from "../../hooks/Views";
 //__________ICONOS__________
@@ -29,10 +28,10 @@ import { Icon_Button_Black_26,Icon_White_18 } from "../styled/Icons";
 // Componente para la configuración visual de la página o cerrar sesión
 export default function Setting_Bar(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isSidebar] = useContext(sidebarContext);
-    const [isLogged] = useContext(loggedContext);
-    const [isTypeUser] = useContext(typeUserContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSidebar] = useContext(SidebarContext);
+    const [isLogged] = useContext(LoggedLoggedContext);
+    const [isTypeUser] = useContext(LoggedTypeContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const toggleThemeMode = ToggleThemeMode();

@@ -8,13 +8,11 @@ import { Tooltip } from "@mui/material";
 // Servicios
 import { encryptData } from "../../services/Crypto";
 // Contextos
-import { themeModeContext,loginViewContext,modalViewContext,modalContext } from "../../contexts/ViewsProvider";
-import { textFieldsContext } from "../../contexts/FormsProvider";
-import { typeUserContext,animationContext,actionBlockContext } from '../../contexts/VariablesProvider';
-import { loggedContext,logContext } from "../../contexts/SessionProvider";
-import { permissionContext,permissionsContext } from "../../contexts/PermissionsProvider";
-import { usersContext,userContext } from "../../contexts/UsersProvider";
-import { statusAllContext,statusUserContext } from "../../contexts/StatusProvider";
+import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
+import { TextFieldsContext } from "../../contexts/FormsProvider";
+import { AnimationContext,ActionBlockContext } from '../../contexts/VariablesProvider';
+import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
+import { UsersContext,PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
 import { HandleChangeLogin } from "../../hooks/Views";
 import { HandleChangeLog } from "../../hooks/Form";
@@ -41,8 +39,8 @@ import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
 // Estilos personalizados
 import { Container_Page,Container_Page_Login,Container_Form_400,Container_Column_90_Center,Container_Row_90_Center } from "../../components/styled/Containers";
 import { Icon_White_26 } from "../../components/styled/Icons";
-import { Img_Logo_Verical_Hospital_240,Img_Logo_Hospital_140,Img_Logo_Hospital_100 } from "../../components/styled/Imgs";
-import { Text_Title_25,Text_Title_20 } from "../../components/styled/Text";
+import { Img_Logo_Verical_Hospital_240 } from "../../components/styled/Imgs";
+import { Text_Title_26_Center } from "../../components/styled/Text";
 import { Button_Icon_Blue_140,Button_Icon_Blue_220,Button_Icon_Green_140 } from "../../components/styled/Buttons";
 import { Alert_Greeting,Alert_Verification,Alert_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
@@ -54,22 +52,22 @@ import Form_Login from "../../components/forms/Login";
 // Página para iniciar sesión
 export default function Login(){
     // Constantes con el valor de los contextos
-    const [isFormText,setIsFormText] = useContext(textFieldsContext);
-    const [isAnimation,setIsAnimation] = useContext(animationContext);
-    const [isPermissions] = useContext(permissionsContext);
-    const [isPermission,setIsPermission] = useContext(permissionContext);
-    const [isLog,setIsLog] = useContext(logContext);
-    const [isLogged,setIsLogged] = useContext(loggedContext);
-    const [isStatusAll] = useContext(statusAllContext);
-    const [isStatusUser,setIsStatusUser] = useContext(statusUserContext);
-    const [isUsers] = useContext(usersContext);
-    const [isUser,setIsUser] = useContext(userContext);
-    const [isTypeUser] = useContext(typeUserContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
-    const [themeMode] = useContext(themeModeContext);
-    const [currentLView] = useContext(loginViewContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
-    const [isModal,setIsModal] = useContext(modalContext);
+    const [isFormText,setIsFormText] = useContext(TextFieldsContext);
+    const [isAnimation,setIsAnimation] = useContext(AnimationContext);
+    const [isPermissions] = useContext(PermissionsContext);
+    const [isPermission,setIsPermission] = useContext(LoggedPermissionsContext);
+    const [isLog,setIsLog] = useContext(LoggedLogContext);
+    const [isLogged,setIsLogged] = useContext(LoggedLoggedContext);
+    const [isStatusAll] = useContext(StatusContext);
+    const [isStatusUser,setIsStatusUser] = useContext(LoggedStatusContext);
+    const [isUsers] = useContext(UsersContext);
+    const [isUser,setIsUser] = useContext(LoggedUserContext);
+    const [isTypeUser] = useContext(LoggedTypeContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [currentLView] = useContext(LoginViewContext);
+    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [isModal,setIsModal] = useContext(ModalContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC';
@@ -254,14 +252,14 @@ export default function Login(){
             <Container_Page>
                 <Container_Page_Login className='bg-pan-bl' ThemeMode={themeMode}>
                     <Setting_Bar/>
-                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'roll-out-left' : themeMode ? 'roll-in-left-shadow-pop-light' : 'roll-in-left-shadow-pop-dark'}>
+                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'roll-out-left':'roll-in-left'}>
+                        <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode}/>
+                        <Text_Title_26_Center ThemeMode={themeMode} className={themeMode ? 'shadow-text-light-infinite' : 'shadow-text-dark-infinite'}>
+                            {currentLView === '' ? 'BIENVENIDO(A)': currentLView === 'Administration' || currentLView === 'Kitchen' ? 'SELECCIÓN DE USUARIO' : 'INICIAR SESIÓN'}
+                        </Text_Title_26_Center>
                         {currentLView === '' ? (
                             <>  
-                                <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode} className={isAnimation ? 'roll-out-image-left' : 'roll-in-image-left'}/>
-                                <Container_Row_90_Center>
-                                    <Text_Title_25 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>BIENVENIDO(A)</Text_Title_25>
-                                </Container_Row_90_Center>
-                                <Container_Column_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
+                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title='Administración' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
                                             onClick={() => handleChangeLogin('Administration','')}>
@@ -281,11 +279,7 @@ export default function Login(){
                         )}
                         {currentLView === 'Administration' ? (
                             <>
-                                <Img_Logo_Hospital_140 ThemeMode={themeMode} className={isAnimation ? 'roll-in-image-left' : 'roll-out-image-left'}/>
-                                <Container_Row_90_Center>
-                                    <Text_Title_20 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>SELECCIÓN DE USUARIO</Text_Title_20>
-                                </Container_Row_90_Center>
-                                <Container_Column_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
+                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title='Administrador' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
                                             onClick={() => handleChangeLogin('Login','Administrator')}>
@@ -317,11 +311,7 @@ export default function Login(){
                         )}
                         {currentLView === 'Kitchen' ? (
                             <>
-                                <Img_Logo_Hospital_140 ThemeMode={themeMode} className={isAnimation ? 'roll-in-image-left' : 'roll-out-image-left'}/>
-                                <Container_Row_90_Center>
-                                    <Text_Title_20 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>SELECCIÓN DE USUARIO</Text_Title_20>
-                                </Container_Row_90_Center>
-                                <Container_Column_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
+                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title='Cocinero' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
                                             onClick={() => handleChangeLogin('Login','Cook')}>
@@ -353,12 +343,8 @@ export default function Login(){
                         )}
                         {currentLView === 'Login' ? (
                             <>
-                                <Img_Logo_Hospital_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-image-left' : 'roll-in-image-left'}/>
-                                <Container_Row_90_Center>
-                                    <Text_Title_25 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>INICIAR SESIÓN</Text_Title_25>
-                                </Container_Row_90_Center>
                                 <Form_Login/>
-                                <Container_Row_90_Center className={themeMode ? "shadow-out-infinite-light" : "shadow-out-infinite-dark"}>
+                                <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_140 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
                                             onClick={() => handleChangeLogin(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration','')}>

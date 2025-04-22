@@ -1,18 +1,16 @@
 import { useState,useContext } from "react";
 
-import { usersContext } from "../contexts/UsersProvider";
-import { selectedRowContext,searchTermContext } from "../contexts/VariablesProvider";
-import { permissionsContext } from "../contexts/PermissionsProvider";
-import { statusAllContext } from '../contexts/StatusProvider';
+import { UsersContext,PermissionsContext,StatusContext } from "../contexts/UsersProvider";
+import { SelectedRowContext,SearchTermContext } from "../contexts/VariablesProvider";
 
 
 export const useTableActions = () => {
 
-    const [isUsers] = useContext(usersContext);
-    const [isPermissions] = useContext(permissionsContext);
-    const [isStatusAll] = useContext(statusAllContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isSearchTerm] = useContext(searchTermContext);
+    const [isUsers] = useContext(UsersContext);
+    const [isPermissions] = useContext(PermissionsContext);
+    const [isStatusAll] = useContext(StatusContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSearchTerm] = useContext(SearchTermContext);
     
     const [currentPage, setCurrentPage] = useState(1);
     

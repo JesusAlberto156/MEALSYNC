@@ -4,23 +4,24 @@ import { createContext,useState,useEffect,useContext } from "react"
 // Servicios
 import { decryptData } from "../services/Crypto";
 // Contextos
-export const suppliersContext = createContext(null);
-export const observationsContext = createContext(null);
+export const SuppliersContext = createContext(null);
+export const ObservationsContext = createContext(null);
 // Contextos personalizados
-import { socketContext } from "./SocketProvider";
+import { SocketContext } from "./SocketProvider";
 //____________IMPORT/EXPORT____________
 
+// ---------- PROVEEDORES
 // Función contexto para controlar los datos de la base de datos de los proveedores
 export const Suppliers = ({ children }) => {
     // constantes con contextos perzonalizados
-    const [socket] = useContext(socketContext);
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isSuppliers,setIsSuppliers] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('suppliers');
+        socket.emit('Suppliers');
 
-        socket.on('suppliers',(result) => {
+        socket.on('Suppliers',(result) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
@@ -33,28 +34,29 @@ export const Suppliers = ({ children }) => {
         });
 
         return () => {
-            socket.off('suppliers');
+            socket.off('Suppliers');
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <suppliersContext.Provider value={[isSuppliers,setIsSuppliers]}>
+        <SuppliersContext.Provider value={[isSuppliers,setIsSuppliers]}>
             {children}
-        </suppliersContext.Provider>
+        </SuppliersContext.Provider>
     );
 }
-
+// ---------- PROVEEDORES
+// ---------- OBSERVACIONES
 // Función contexto para controlar los datos de la base de datos de las observaciones a los proveedores
 export const Observations = ({ children }) => {
     // constantes con contextos perzonalizados
-    const [socket] = useContext(socketContext);
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isObservations,setIsObservations] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('observations');
+        socket.emit('Observations');
 
-        socket.on('observations',(result) => {
+        socket.on('Observations',(result) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
@@ -67,13 +69,14 @@ export const Observations = ({ children }) => {
         });
 
         return () => {
-            socket.off('observations');
+            socket.off('Observations');
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <observationsContext.Provider value={[isObservations,setIsObservations]}>
+        <ObservationsContext.Provider value={[isObservations,setIsObservations]}>
             {children}
-        </observationsContext.Provider>
+        </ObservationsContext.Provider>
     );
 }
+// ---------- OBSERVACIONES

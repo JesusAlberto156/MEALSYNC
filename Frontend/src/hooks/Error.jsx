@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 // Rutas
 
 // Contextos
-import { typeUserContext } from "../contexts/VariablesProvider";
+import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -24,7 +24,7 @@ import { Alert_Verification } from "../components/styled/Alerts";
 // Hook para regresar a una página permitida
 export const useErrorReturn = () => {
     // Constantes con el valor de los contextos
-    const [isTypeUser] = useContext(typeUserContext);
+    const [isTypeUser] = useContext(LoggedTypeContext);
     // Constantes con el valor de los hooks
     const navigate = useNavigate();
     // Función del hook

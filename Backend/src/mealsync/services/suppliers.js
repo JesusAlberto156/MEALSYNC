@@ -1,9 +1,15 @@
-import { conexionDB,sql } from "../../config/database.config.js";
+//____________IMPORT/EXPORT____________
+// Librería 'mssql'
+import sql from 'mssql';
+// Conexión a Base de datos
+import { conexionDB } from "../../config/database.config.js";
+// Método de Encryptación
 import { encryptData } from "../../config/crypto.js";
+//____________IMPORT/EXPORT____________
 
-//__________GET__________
-// ---------- SUPPLIERS ALL
-export const getSuppliersAllService = async () => {
+//______________GET______________
+//---------- PROVEEDORES
+export const getSuppliersService = async () => {
     try{
         const pool = await conexionDB();
         const result = await pool.request().query('SELECT * FROM proveedores');
@@ -18,9 +24,9 @@ export const getSuppliersAllService = async () => {
         throw error;
     }
 }
-// ---------- SUPPLIERS ALL
-// ---------- OBSERVATIONS ALL
-export const getObservationsAllService = async () => {
+//---------- PROVEEDORES
+//---------- OBSERVACIONES
+export const getObservationsService = async () => {
     try{
         const pool = await conexionDB();
         const result = await pool.request().query('SELECT * FROM observacionesProveedor');
@@ -35,5 +41,21 @@ export const getObservationsAllService = async () => {
         throw error;
     }
 }
-// ---------- OBSERVATIONS ALL
-//__________GET__________
+//---------- OBSERVACIONES
+//______________GET______________
+//______________INSERT______________
+//---------- PROVEEDORES
+
+//---------- PROVEEDORES
+//---------- OBSERVACIONES
+
+//---------- OBSERVACIONES
+//______________INSERT______________
+//______________UPDATE______________
+//---------- PROVEEDORES
+
+//---------- PROVEEDORES
+//---------- OBSERVACIONES
+
+//---------- OBSERVACIONES
+//______________UPDATE______________

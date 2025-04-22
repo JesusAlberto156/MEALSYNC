@@ -2,13 +2,11 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { logContext } from "../contexts/SessionProvider";
-import { nameContext,passwordContext,selectContext,radioContext,checkboxContext } from "../contexts/FormsProvider";
-import { usersContext,userContext } from "../contexts/UsersProvider";
-import { permissionsContext,permissionsAddContext,permissionsEditContext,permissionsEnableContext } from "../contexts/PermissionsProvider";
-import { statusAllContext,statusAddContext,statusEnableContext } from '../contexts/StatusProvider';
-import { verificationBlockContext,actionBlockContext,selectedRowContext,viewPasswordContext } from "../contexts/VariablesProvider";
-import { navbarViewContext,sidebarViewContext,modalViewContext } from "../contexts/ViewsProvider";
+import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
+import { SelectContext,RadioContext,CheckboxContext } from "../contexts/FormsProvider";
+import { UsersContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
+import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../contexts/ViewsProvider";
 // Estilos personalizados
 import { Alert_Verification } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -16,7 +14,7 @@ import { Alert_Verification } from "../components/styled/Alerts";
 // Hook para empezar el inicio de sesión en el formulario de login o cerrar sesión
 export const HandleChangeLog = () => {
     // Constantes con el valor de los contextos 
-    const [isLog,setIsLog] = useContext(logContext);
+    const [isLog,setIsLog] = useContext(LoggedLogContext);
     // Función del hook
     const handleChangeLog = () => {
         setIsLog(!isLog);
@@ -27,14 +25,12 @@ export const HandleChangeLog = () => {
 // Hook para cambiar la vista de las contraseñas de los usuarios
 export const useChangeViewPassword = () => {
     // Constantes con el valor de los contextos 
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
-    const [currentMView,setCurrentMView] = useContext(modalViewContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
-    const [isViewPassword,setIsViewPassword] = useContext(viewPasswordContext);
-    const [isName,setIsName] = useContext(nameContext);
-    const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isFormVerification,setIsFormVerification] = useContext(verificationBlockContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
+    const [isFormVerification,setIsFormVerification] = useContext(VerificationBlockContext);
     // Función del hook
     const changeViewPassword = () => {
         if(currentNView === 'Principal' && currentSView === 'Users' && currentMView === 'Users-View'){
@@ -45,8 +41,6 @@ export const useChangeViewPassword = () => {
                         resolve('¡Puedes ver las contraseñas!...');
                         setTimeout(() => {
                             setIsViewPassword(true);
-                            setIsName('');
-                            setIsPassword('');
                             setIsFormVerification(false);
                             setCurrentMView('');
                         },500);
@@ -84,12 +78,12 @@ export const useChangeViewPassword = () => {
 // Hook para agregar los permisos a un usuario desde el modal
 export const useChangePermissionsAdd = () => {
     // Constantes con el valor de los contextos 
-    const [isPermissionsAdd,setIsPermissionsAdd] = useContext(permissionsAddContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
-    const [currentMView] = useContext(modalViewContext);
-    const [isSelect] = useContext(selectContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isSelect] = useContext(SelectContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const changePermissionsAdd = () => {
         if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Add'){
@@ -123,12 +117,12 @@ export const useChangePermissionsAdd = () => {
 // Hook para editar los permisos a un usuario desde el modal
 export const useChangePermissionsEdit = () => {
     // Constantes con el valor de los contextos 
-    const [isPermissionsEdit,setIsPermissionsEdit] = useContext(permissionsEditContext);
-    const [isSelectedRow] = useContext(selectedRowContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
-    const [currentMView] = useContext(modalViewContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const changePermissionsEdit = () => {
         if(isSelectedRow !== null){
@@ -144,12 +138,12 @@ export const useChangePermissionsEdit = () => {
 // Hook para habilitar/deshabilitar el permiso de superadminitrador a un usuario desde el modal
 export const useChangePermissionsEnable = () => {
     // Constantes con el valor de los contextos 
-    const [isSelectedRow] = useContext(selectedRowContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
-    const [currentMView] = useContext(modalViewContext);
-    const [isPermissionsEnable,setIsPermissionsEnable] = useContext(permissionsEnableContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const changePermissionsEnable = () => {
         if(isSelectedRow !== null){
@@ -165,13 +159,13 @@ export const useChangePermissionsEnable = () => {
 // Hook para agregar un estatus a un usuario desde el modal
 export const useChangeStatusSAdd = () => {
     // Constantes con el valor de los contextos 
-    const [isStatusAdd,setIsStatusAdd] = useContext(statusAddContext);
-    const [isSelect] = useContext(selectContext);
-    const [isRadio] = useContext(radioContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
-    const [currentMView] = useContext(modalViewContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
+    const [isSelect] = useContext(SelectContext);
+    const [isRadio] = useContext(RadioContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const changeStatusSAdd = () => {
         if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Add'){
@@ -209,12 +203,12 @@ export const useChangeStatusSAdd = () => {
 // Hook para habilitar a un usuario desde el modal
 export const useChangeStatusEnable = () => {
     // Constantes con el valor de los contextos 
-    const [isStatusEnable,setIsStatusEnable] = useContext(statusEnableContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
-    const [isSelectedRow] = useContext(selectedRowContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
-    const [currentMView] = useContext(modalViewContext);
+    const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
     // Función del hook
     const changeStatusEnable = () => {
         if(isSelectedRow !== null){
@@ -230,8 +224,8 @@ export const useChangeStatusEnable = () => {
 // Hook para filtrar los usuarios cuando no tiene permisos
 export const useFilteredRecordsHasPermissions = () => {
     // Constantes con el valor de los contextos 
-    const [isUsers] = useContext(usersContext);
-    const [isPermissions] = useContext(permissionsContext);
+    const [isUsers] = useContext(UsersContext);
+    const [isPermissions] = useContext(PermissionsContext);
     // Función del hook
     const filteredRecordsHasPermissions = isUsers.filter((data) => {
         return !isPermissions.some(permission => permission.idusuario === data.idusuario);
@@ -242,8 +236,8 @@ export const useFilteredRecordsHasPermissions = () => {
 // Hook para filtrar los usuarios cuando no tiene estatus
 export const useFilteredRecordsHasStatus = () => {
     // Constantes con el valor de los contextos 
-    const [isUsers] = useContext(usersContext);
-    const [isStatusAll] = useContext(statusAllContext);
+    const [isUsers] = useContext(UsersContext);
+    const [isStatusAll] = useContext(StatusContext);
     // Función del hook
     const filteredRecordsHasStatus = isUsers.filter((data) => {
         return !isStatusAll.some(status => status.idusuario === data.idusuario);
@@ -254,7 +248,7 @@ export const useFilteredRecordsHasStatus = () => {
 // Hook para darle valor al contexto del select
 export const useHandleSelectChange = () => {
 
-    const [isSelect,setIsSelect] = useContext(selectContext);
+    const [isSelect,setIsSelect] = useContext(SelectContext);
 
     const handleSelectChange = (selectOption) => {
         setIsSelect(selectOption);
@@ -265,7 +259,7 @@ export const useHandleSelectChange = () => {
 // Hook para darle valor al contexto del radio
 export const useHandleRadioChange = () => {
     // Constantes con el valor de los contextos 
-    const [isRadio,setIsRadio] = useContext(radioContext);
+    const [isRadio,setIsRadio] = useContext(RadioContext);
     // Función del hook
     const handleRadioChange = (radioOption) => {
         setIsRadio(radioOption.target.value);
@@ -276,7 +270,7 @@ export const useHandleRadioChange = () => {
 // Hook para darle valor al contexto del checkbox
 export const useHandleCheckboxChange = () => {
     // Constantes con el valor de los contextos 
-    const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
+    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
     // Función del hook
     const handleCheckboxChange = (option,value) => {
         const newCheckboxValue = {
@@ -302,11 +296,9 @@ export const useHandleCheckboxChange = () => {
 // Hook para comprobar el inicio de sesión
 export const useSessionVerification = () => {
     // Constantes con el valor de los contextos 
-    const [isName] = useContext(nameContext);
-    const [isPassowrd] = useContext(passwordContext);
-    const [isUser] = useContext(userContext);
-    const [isFormVerification,setIsFormVerification] = useContext(verificationBlockContext);
-    const [isActionBlock,setIsActionBlock] = useContext(actionBlockContext);
+    const [isUser] = useContext(LoggedUserContext);
+    const [isFormVerification,setIsFormVerification] = useContext(VerificationBlockContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const sessionVerification = async () => {
         const promise = new Promise(async (resolve,reject) => {

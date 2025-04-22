@@ -2,13 +2,10 @@
 // Hooks de React
 import { createContext,useState } from "react"
 // Contextos
-export const textFieldsContext = createContext(null);
-export const nameContext = createContext(null);
-export const passwordContext = createContext(null);
-export const selectContext = createContext(null);
-export const radioContext = createContext(null);
-export const radioUsersContext = createContext(null);
-export const checkboxContext = createContext(null);
+export const TextFieldsContext = createContext(null);
+export const SelectContext = createContext(null);
+export const RadioContext = createContext(null);
+export const CheckboxContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar los campos de registro de un formulario
@@ -20,31 +17,9 @@ export const Text_Fields = ({ children }) => {
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <textFieldsContext.Provider value={[isTextFields,setIsTextFields]}> 
+        <TextFieldsContext.Provider value={[isTextFields,setIsTextFields]}> 
             {children}
-        </textFieldsContext.Provider>
-    );
-}
-// Función Contexto para controlar el valor en el campo de nombre de usuario en el formulario
-export const Name = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isName,setIsName] = useState('');
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <nameContext.Provider value={[isName,setIsName]}>
-            {children}
-        </nameContext.Provider>
-    );
-}
-// Función Contexto para controlar el valor en el campo de contraseña en el formulario
-export const Password = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isPassword,setIsPassword] = useState('');
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <passwordContext.Provider value={[isPassword,setIsPassword]}>
-            {children}
-        </passwordContext.Provider>
+        </TextFieldsContext.Provider>
     );
 }
 // Función Contexto para controlar el valor en el campo de un select en el formulario
@@ -53,9 +28,9 @@ export const Select = ({children}) => {
     const [isSelect,setIsSelect] = useState([]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <selectContext.Provider value={[isSelect,setIsSelect]}>
+        <SelectContext.Provider value={[isSelect,setIsSelect]}>
             {children}
-        </selectContext.Provider>
+        </SelectContext.Provider>
     );
 }
 // Función Contexto para controlar el valor en el campo de un radio en el formulario
@@ -64,23 +39,9 @@ export const Radio = ({children}) => {
     const [isRadio,setIsRadio] = useState('');
     // Return para darle valor al contexto y heredarlo
     return (
-        <radioContext.Provider value={[isRadio,setIsRadio]}>
+        <RadioContext.Provider value={[isRadio,setIsRadio]}>
             {children}
-        </radioContext.Provider>
-    );
-}
-// Función Contexto para controlar el valor en el campo de un radio en el formulario de los usuarios
-export const Radio_Users = ({children}) => {
-    // UseState para controlar el valor del contexto
-    const [isRadioUsers,setIsRadioUsers] = useState({
-        tipo: '', 
-        estatus: ''
-    });
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <radioUsersContext.Provider value={[isRadioUsers,setIsRadioUsers]}>
-            {children}
-        </radioUsersContext.Provider>
+        </RadioContext.Provider>
     );
 }
 // Función contexto para controlar el valor en el campo de un checkbox en el formulario
@@ -89,8 +50,8 @@ export const Checkbox = ({children}) => {
     const [isCheckbox,setIsCheckbox] = useState([]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <checkboxContext.Provider value={[isCheckbox,setIsCheckbox]}>
+        <CheckboxContext.Provider value={[isCheckbox,setIsCheckbox]}>
             {children}
-        </checkboxContext.Provider>
+        </CheckboxContext.Provider>
     );
 }

@@ -5,12 +5,11 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { checkboxContext } from "../../../contexts/FormsProvider";
-import { actionBlockContext,selectedRowContext } from "../../../contexts/VariablesProvider";
-import { refFormPermissionsContext } from '../../../contexts/RefsProvider';
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { CheckboxContext } from "../../../contexts/FormsProvider";
+import { ActionBlockContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { useChangeModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useChangePermissionsEdit } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -21,7 +20,7 @@ import { AiFillEdit } from "react-icons/ai";
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400 } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Red_170,Button_Icon_Block_170 } from "../../styled/Buttons";
-import { Text_P_Left_20, Text_Title_Fade_30 } from "../../styled/Text";
+import { Text_P_20_Left, Text_Title_30_Center } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
 import { Input_Checkbox_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
@@ -29,24 +28,23 @@ import { Input_Checkbox_16 } from "../../styled/Inputs";
 // Modal para editar permisos a los usuarios
 export default function Permissions_Edit(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isSelectedRow] = useContext(selectedRowContext);
-    const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
-    const [isActionBlock] = useContext(actionBlockContext);
-    const {Modal,Form} = useContext(refFormPermissionsContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = useChangeModalView();
+    const changeModalView = HandleChangeModal();
     const changePermissionsEdit = useChangePermissionsEdit();
     // Estructura del componente
     return(
         <>
             {isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal}>
-                        <Container_Form_450 ThemeMode={themeMode} ref={Form}>
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_Fade_30>
-                            <Text_P_Left_20 ThemeMode={themeMode}>Área de administración...</Text_P_Left_20>
+                    <Container_Modal>
+                        <Container_Form_450 ThemeMode={themeMode}>
+                            <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_30_Center>
+                            <Text_P_20_Left ThemeMode={themeMode}>Área de administración...</Text_P_20_Left>
                             <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                                 <Label_Check_18 ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
@@ -88,7 +86,7 @@ export default function Permissions_Edit(){
                                     Almacenista
                                 </Label_Check_18>
                             </Container_Button_Border_Row_400>
-                            <Text_P_Left_20 ThemeMode={themeMode}>Área de cocina...</Text_P_Left_20>
+                            <Text_P_20_Left ThemeMode={themeMode}>Área de cocina...</Text_P_20_Left>
                             <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                                 <Label_Check_18 ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
@@ -130,7 +128,7 @@ export default function Permissions_Edit(){
                                     Médico
                                 </Label_Check_18>
                             </Container_Button_Border_Row_400>
-                            <Text_P_Left_20 ThemeMode={themeMode}>Editar permisos</Text_P_Left_20>
+                            <Text_P_20_Left ThemeMode={themeMode}>Editar permisos</Text_P_20_Left>
                             <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                                 <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={(e) => {
                                     e.stopPropagation();

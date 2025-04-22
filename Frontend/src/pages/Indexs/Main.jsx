@@ -3,9 +3,8 @@
 import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 // Contextos
-import { themeModeContext } from '../../contexts/ViewsProvider';
-import { loggedContext } from '../../contexts/SessionProvider';
-import { typeUserContext } from '../../contexts/VariablesProvider';
+import { ThemeModeContext } from '../../contexts/ViewsProvider';
+import { LoggedLoggedContext,LoggedTypeContext } from '../../contexts/SessionProvider';
 // Estilos personalizados
 import { Container_Page,Container_Page_Logged } from "../../components/styled/Containers";
 // Componentes personalizados
@@ -16,14 +15,14 @@ import Side_Bar from '../../components/navegation/Sidebar';
 // Página para gestionar la parte principal de las paginas
 export default function Index_Main(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isLogged] = useContext(loggedContext);
-    const [isTypeUser] = useContext(typeUserContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isLoggedLogged] = useContext(LoggedLoggedContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     // Estructura del componente
     return(
         <>
             <Container_Page>
-                <Container_Page_Logged className='bg-pan-bl' ThemeMode={themeMode} TypeUser={isTypeUser} Logged={isLogged}>
+                <Container_Page_Logged className='bg-pan-bl' ThemeMode={themeMode} TypeUser={isLoggedType} Logged={isLoggedLogged}>
                     <Side_Bar/>
                     <Outlet/>
                 </Container_Page_Logged> 

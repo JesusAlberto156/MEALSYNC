@@ -4,10 +4,9 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { selectedRowContext } from "../../contexts/VariablesProvider"
-import { usersContext } from "../../contexts/UsersProvider"
-import { refFormStatusContext,refButtonStatusContext } from '../../contexts/RefsProvider'
-import { themeModeContext } from "../../contexts/ViewsProvider"
+import { SelectedRowContext } from "../../contexts/VariablesProvider"
+import { UsersContext } from "../../contexts/UsersProvider"
+import { ThemeModeContext } from "../../contexts/ViewsProvider"
 // Hooks personalizados
 import { useTableActions } from "../../hooks/Table"
 //__________ICONOS__________
@@ -21,31 +20,22 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_90_Center } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
-import { Text_Span_16 } from "../styled/Text";
+import { Text_Span_16_Center } from "../styled/Text";
 import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los estatus de usuarios
 export default function TableStatus(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isUsers] = useContext(usersContext);
-    const {Modal,Form} = useContext(refFormStatusContext);
-    const isButtonS = useContext(refButtonStatusContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isUsers] = useContext(UsersContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Status");
 
-            const clickedInsideModal = Modal.current && Modal.current.contains(event.target);
-            const clickedInsideForm = Form.current && Form.current.contains(event.target);
-            const clickedInsideButton = isButtonS.current && isButtonS.current.contains(event.target);
-
-            if (table && !table.contains(event.target) &&
-                !clickedInsideButton && 
-                !clickedInsideModal &&
-                !clickedInsideForm
+            if (table && !table.contains(event.target)
             ) {
                 setIsSelectedRow(null);
             }
@@ -98,7 +88,7 @@ export default function TableStatus(){
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )}
-                <Text_Span_16 ThemeMode={themeMode}>Página {currentPage} de {totalPagesStatus}</Text_Span_16>
+                <Text_Span_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesStatus}</Text_Span_16_Center>
                 {currentPage === totalPagesStatus || totalPagesStatus === 0 ? (
                     <Button_Icon_Block_150 ThemeMode={themeMode}><GrNext/></Button_Icon_Block_150>
                 ):(

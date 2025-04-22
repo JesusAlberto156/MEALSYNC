@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { actionBlockContext } from "../../../contexts/VariablesProvider";
-import { checkboxContext,radioUsersContext } from "../../../contexts/FormsProvider";
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { ActionBlockContext } from "../../../contexts/VariablesProvider";
+import { CheckboxContext,RadioContext } from "../../../contexts/FormsProvider";
 // Hooks personalizados
-import { useChangeModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useHandleCheckboxChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -21,7 +21,7 @@ import { MdAddModerator } from "react-icons/md";
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400 } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Green_170,Button_Icon_Block_170 } from "../../styled/Buttons";
-import { Text_Title_Fade_30,Text_P_Left_20 } from "../../styled/Text";
+import { Text_Title_30_Center,Text_P_20_Left } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
 import { Input_Checkbox_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
@@ -30,21 +30,21 @@ import { Input_Checkbox_16 } from "../../styled/Inputs";
 // Modal para ver la contraseña de usuarios
 export default function Users_Permissions(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isCheckbox] = useContext(checkboxContext);
-    const [isRadioUsers,setIsRadioUsers] = useContext(radioUsersContext);
-    const [isActionBlock] = useContext(actionBlockContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isCheckbox] = useContext(CheckboxContext);
+    const [isRadioUsers,setIsRadioUsers] = useContext(RadioContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleCheckboxChange = useHandleCheckboxChange();
-    const changeModalView = useChangeModalView();
+    const changeModalView = HandleChangeModal();
     // Estructura del componente
     return(
         <>
             <Container_Modal>
                 <Container_Form_450 ThemeMode={themeMode} >
-                    <Text_Title_Fade_30 ThemeMode={themeMode}>PERMISOS</Text_Title_Fade_30>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Área de administración...</Text_P_Left_20>
+                    <Text_Title_30_Center ThemeMode={themeMode}>PERMISOS</Text_Title_30_Center>
+                    <Text_P_20_Left ThemeMode={themeMode}>Área de administración...</Text_P_20_Left>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Label_Check_18 ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
@@ -71,7 +71,7 @@ export default function Users_Permissions(){
                             Almacenista
                         </Label_Check_18>
                     </Container_Button_Border_Row_400>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Área de cocina...</Text_P_Left_20>
+                    <Text_P_20_Left ThemeMode={themeMode}>Área de cocina...</Text_P_20_Left>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Label_Check_18 ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
@@ -98,7 +98,7 @@ export default function Users_Permissions(){
                             Médico
                         </Label_Check_18>
                     </Container_Button_Border_Row_400>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Agregar permisos</Text_P_Left_20>
+                    <Text_P_20_Left ThemeMode={themeMode}>Agregar permisos</Text_P_20_Left>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => {

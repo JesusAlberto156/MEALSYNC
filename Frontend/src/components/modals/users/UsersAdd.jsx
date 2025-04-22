@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { actionBlockContext } from "../../../contexts/VariablesProvider";
-import { selectContext,radioUsersContext } from "../../../contexts/FormsProvider";
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { ActionBlockContext } from "../../../contexts/VariablesProvider";
+import { SelectContext,RadioContext } from "../../../contexts/FormsProvider";
 // Hooks personalizados
-import { useChangeModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useHandleRadioChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -21,7 +21,7 @@ import { FaUserPlus } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400,Container_Button_Border_Column_400,Container_Button_Row_300,Container_100_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Green_170,Button_Icon_Block_170 } from "../../styled/Buttons";
-import { Text_Title_Fade_30,Text_P_Left_16,Text_P_Left_20,Text_A_Center_16 } from "../../styled/Text";
+import { Text_Title_30_Center,Text_P_16_Left,Text_P_20_Left,Text_A_16_Center } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
 import { Input_Text_260,Input_Radio_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
@@ -30,21 +30,21 @@ import { Input_Text_260,Input_Radio_16 } from "../../styled/Inputs";
 // Modal para ver la contraseña de usuarios
 export default function Users_Add(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isActionBlock] = useContext(actionBlockContext);
-    const [isSelect] = useContext(selectContext);
-    const [isRadioUsers,setIsRadioUsers] = useContext(radioUsersContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const [isSelect] = useContext(SelectContext);
+    const [isRadioUsers,setIsRadioUsers] = useContext(RadioContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleRadioChange = useHandleRadioChange();
-    const changeModalView = useChangeModalView();
+    const changeModalView = HandleChangeModal();
     // Estructura del componente
     return(
         <>
             <Container_Modal>
                 <Container_Form_450 ThemeMode={themeMode}>
-                    <Text_Title_Fade_30 ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_Fade_30>
-                    <Text_P_Left_16 ThemeMode={themeMode}>Ingresar datos del usuario...</Text_P_Left_16>
+                    <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_30_Center>
+                    <Text_P_16_Left ThemeMode={themeMode}>Ingresar datos del usuario...</Text_P_16_Left>
                     <Container_Button_Border_Column_400 ThemeMode={themeMode}>
                         <Container_Button_Row_300>
                             <Label_Check_18 ThemeMode={themeMode}>Nombre:</Label_Check_18>
@@ -63,7 +63,7 @@ export default function Users_Add(){
                             <Input_Text_260 ThemeMode={themeMode}/>
                         </Container_Button_Row_300>
                     </Container_Button_Border_Column_400>
-                    <Text_A_Center_16 ThemeMode={themeMode}>Permisos...</Text_A_Center_16>
+                    <Text_A_16_Center ThemeMode={themeMode}>Permisos...</Text_A_16_Center>
                     <Container_100_Center>
                         {['Default','Personalizado'].map((item,index) => (
                             <Label_Check_18 ThemeMode={themeMode} key={index}>
@@ -77,7 +77,7 @@ export default function Users_Add(){
                             </Label_Check_18>
                         ))};
                     </Container_100_Center>
-                    <Text_A_Center_16 ThemeMode={themeMode}>Estatus...</Text_A_Center_16>
+                    <Text_A_16_Center ThemeMode={themeMode}>Estatus...</Text_A_16_Center>
                     <Container_100_Center>
                         {['Habilitado','Deshabilitado'].map((item,index) => (
                             <Label_Check_18 ThemeMode={themeMode} key={index}>
@@ -91,7 +91,7 @@ export default function Users_Add(){
                             </Label_Check_18>
                         ))};
                     </Container_100_Center>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Agregar usuario</Text_P_Left_20>
+                    <Text_P_20_Left ThemeMode={themeMode}>Agregar usuario</Text_P_20_Left>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => {

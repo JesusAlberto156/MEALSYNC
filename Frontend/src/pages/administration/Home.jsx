@@ -17,7 +17,6 @@ import { useContext,useEffect } from "react";
 // Estilos personalizados
 import { Container_Row_90_Left,Container_Row_90_Center } from "../../components/styled/Containers";
 import { Img_Logo_Hospital_60 } from "../../components/styled/Imgs";
-import { Text_Title_Fade_50 } from "../../components/styled/Text";
 // Componentes personalizados
 import User_Activity_Chart from "../../components/charts/UserActivity";
 //____________IMPORT/EXPORT____________
@@ -32,7 +31,6 @@ export default function Home_Administration(){
             <Container_Row_90_Left>
                 <Img_Logo_Hospital_60/>
                 <Container_Row_90_Center>
-                    <Text_Title_Fade_50>BIENVENIDO(A) A MEALSYNC</Text_Title_Fade_50>
                 </Container_Row_90_Center>
             </Container_Row_90_Left>
             <Container_Row_90_Left>

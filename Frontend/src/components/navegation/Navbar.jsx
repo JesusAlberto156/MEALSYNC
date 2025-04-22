@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { themeModeContext,navbarViewContext,sidebarViewContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
 import { HandleChangeNavbar } from "../../hooks/Views";
 //__________ICONOS__________
@@ -26,7 +26,7 @@ import { RiRecordMailFill } from "react-icons/ri";
 import { Container_Nav_Bar,Container_Nav_Bar_Button } from "../styled/Containers";
 import { Img_Logo_Hospital_60 } from '../styled/Imgs';
 import { Button_Icon_White_100 } from '../styled/Buttons';
-import { Text_Title_Fade_30 } from '../styled/Text';
+import { Text_Title_30_Center } from '../styled/Text';
 
 // Componentes personalizados
 
@@ -35,9 +35,9 @@ import { Text_Title_Fade_30 } from '../styled/Text';
 // Componente para navegar entre las paginas en la parte superior 
 export default function Nav_Bar(){
     // Constantes con el valor de los contextos 
-    const [themeMode] = useContext(themeModeContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
     // Constantes con la funcionalidad de los hooks
     const changeNavbarView = HandleChangeNavbar();
     const navigate = useNavigate();
@@ -74,18 +74,18 @@ export default function Nav_Bar(){
                                 </Button_Icon_White_100>
                             </Tooltip>
                             {currentNView === 'Principal' ? (
-                                <Text_Title_Fade_30 ThemeMode={themeMode}>USUARIOS</Text_Title_Fade_30>
+                                <Text_Title_30_Center ThemeMode={themeMode}>USUARIOS</Text_Title_30_Center>
                             ):(
                                 <></>
                                 
                             )}
                             {currentNView === 'Permissions' ? (
-                                <Text_Title_Fade_30 ThemeMode={themeMode}>PERMISOS</Text_Title_Fade_30>
+                                <Text_Title_30_Center ThemeMode={themeMode}>PERMISOS</Text_Title_30_Center>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Status' ? (
-                                <Text_Title_Fade_30 ThemeMode={themeMode}>ESTATUS</Text_Title_Fade_30>
+                                <Text_Title_30_Center ThemeMode={themeMode}>ESTATUS</Text_Title_30_Center>
                             ):(
                                 <></>
                             )}
@@ -112,13 +112,13 @@ export default function Nav_Bar(){
                             </Button_Icon_White_100>
                         </Tooltip>
                         {currentNView === 'Suppliers' ? (
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>PROVEEDORES</Text_Title_Fade_30>
+                            <Text_Title_30_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_30_Center>
                         ):(
                             <></>
                             
                         )}
                         {currentNView === 'Observations' ? (
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>OBSERVACIONES</Text_Title_Fade_30>
+                            <Text_Title_30_Center ThemeMode={themeMode}>OBSERVACIONES</Text_Title_30_Center>
                         ):(
                             <></>
                         )}
@@ -145,13 +145,13 @@ export default function Nav_Bar(){
                             </Button_Icon_White_100>
                         </Tooltip>
                         {currentNView === 'Inventory' ? (
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>INVENTARIO</Text_Title_Fade_30>
+                            <Text_Title_30_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_30_Center>
                         ):(
                             <></>
                             
                         )}
                         {currentNView === 'Ingredients' ? (
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>INSUMOS</Text_Title_Fade_30>
+                            <Text_Title_30_Center ThemeMode={themeMode}>INSUMOS</Text_Title_30_Center>
                         ):(
                             <></>
                         )}
@@ -187,19 +187,19 @@ export default function Nav_Bar(){
                             </Button_Icon_White_100>
                         </Tooltip>
                         {currentNView === 'General' ? (
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>GENERAL</Text_Title_Fade_30>
+                            <Text_Title_30_Center ThemeMode={themeMode}>GENERAL</Text_Title_30_Center>
                         ):(
                             <></>
                             
                         )}
                         {currentNView === 'Inventory' ? (
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>INVENTARIO</Text_Title_Fade_30>
+                            <Text_Title_30_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_30_Center>
                         ):(
                             <></>
                             
                         )}
                         {currentNView === 'Ingredients' ? (
-                            <Text_Title_Fade_30 ThemeMode={themeMode}>PROVEEDORES</Text_Title_Fade_30>
+                            <Text_Title_30_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_30_Center>
                         ):(
                             <></>
                         )}

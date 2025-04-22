@@ -4,12 +4,11 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { selectedRowContext } from "../../contexts/VariablesProvider"
-import { refFormPermissionsContext,refButtonPermissionsContext } from "../../contexts/RefsProvider"
-import { usersContext } from "../../contexts/UsersProvider"
-import { permissionContext } from "../../contexts/PermissionsProvider"
-import { themeModeContext } from "../../contexts/ViewsProvider"
-import { checkboxContext } from "../../contexts/FormsProvider"
+import { SelectedRowContext } from "../../contexts/VariablesProvider"
+import { UsersContext } from "../../contexts/UsersProvider"
+import { LoggedPermissionsContext } from "../../contexts/SessionProvider"
+import { ThemeModeContext } from "../../contexts/ViewsProvider"
+import { CheckboxContext } from "../../contexts/FormsProvider"
 // Hooks personalizados
 import { useTableActions } from "../../hooks/Table"
 //__________ICONOS__________
@@ -22,43 +21,31 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_90_Center } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
-import { Text_Span_16 } from "../styled/Text";
+import { Text_Span_16_Center } from "../styled/Text";
 import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los permisos de usuarios
 export default function TablePermissions(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isPermission] = useContext(permissionContext);
-    const [isUsers] = useContext(usersContext);
-    const [isCheckbox,setIsCheckbox] = useContext(checkboxContext);
-    const {Modal,Form} = useContext(refFormPermissionsContext);
-    const {Button_Edit_P,Button_Super_P} = useContext(refButtonPermissionsContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isPermission] = useContext(LoggedPermissionsContext);
+    const [isUsers] = useContext(UsersContext);
+    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Permissions");
 
-            const clickedInsideModal = Modal.current && Modal.current.contains(event.target);
-            const clickedInsideForm = Form.current && Form.current.contains(event.target);
-            const clickedInsideButtonE = Button_Edit_P.current && Button_Edit_P.current.contains(event.target);
-            const clickedInsideButtonS = Button_Super_P.current && Button_Super_P.current.contains(event.target);
-
-            if (table && !table.contains(event.target) &&
-                !clickedInsideButtonE &&
-                !clickedInsideButtonS && 
-                !clickedInsideModal &&
-                !clickedInsideForm
-            ) {
+            if (table && !table.contains(event.target)) {
                 setIsSelectedRow(null);
             }
         };
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    }, [Modal,Form,Button_Edit_P,Button_Super_P]);
+    });
     // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -126,7 +113,7 @@ export default function TablePermissions(){
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )}
-                <Text_Span_16 ThemeMode={themeMode}>Página {currentPage} de {totalPagesPermissions}</Text_Span_16>
+                <Text_Span_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesPermissions}</Text_Span_16_Center>
                 {currentPage === totalPagesPermissions || totalPagesPermissions === 0 ? (
                     <Button_Icon_Block_150 ThemeMode={themeMode}><GrNext/></Button_Icon_Block_150>
                 ):(

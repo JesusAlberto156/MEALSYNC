@@ -1,9 +1,9 @@
 import { useEffect,useContext,useState } from "react";
 import { Tooltip } from "@mui/material";
 
-import { suppliersContext,observationsContext } from "../../contexts/SuppliersProvider";
-import { themeModeContext } from "../../contexts/ViewsProvider";
-import { searchTermContext } from "../../contexts/VariablesProvider";
+import { SuppliersContext,ObservationsContext } from "../../contexts/SuppliersProvider";
+import { ThemeModeContext } from "../../contexts/ViewsProvider";
+import { SearchTermContext } from "../../contexts/VariablesProvider";
 
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
@@ -11,15 +11,15 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_100_Center } from "../styled/Containers";
 import { Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_White_22 } from "../styled/Icons";
-import { Text_A_16 } from "../styled/Text";
+import { Text_A_16_Center } from "../styled/Text";
 import { Chart_850x500 } from "../styled/Charts";
 
 export default function Suppliers_Chart(){
 
-    const [themeMode] = useContext(themeModeContext);
-    const [isSuppliers] = useContext(suppliersContext);
-    const [isObservations] = useContext(observationsContext);
-    const [isSearchTerm] = useContext(searchTermContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isObservations] = useContext(ObservationsContext);
+    const [isSearchTerm] = useContext(SearchTermContext);
     const [qualification, setQualification] = useState({});
 
     useEffect(() => {
@@ -181,7 +181,7 @@ export default function Suppliers_Chart(){
                         </Icon_White_22>
                     </Button_Icon_Blue_140>
                 </Tooltip>
-                <Text_A_16 ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>Página {currentPage}</Text_A_16>
+                <Text_A_16_Center ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>Página {currentPage}</Text_A_16_Center>
                 <Tooltip title='Siguiente' placement='top'>
                     <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage * itemsPerPage >= Object.entries(qualification).filter(([id, data]) =>
                                                                                 data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())

@@ -4,9 +4,8 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { selectedRowContext,viewPasswordContext } from "../../contexts/VariablesProvider"
-import { themeModeContext } from "../../contexts/ViewsProvider"
-import { refButtonUsersContext,refFormUsersContext } from "../../contexts/RefsProvider";
+import { SelectedRowContext,ViewPasswordContext } from "../../contexts/VariablesProvider"
+import { ThemeModeContext } from "../../contexts/ViewsProvider"
 // Hooks personalizados
 import { useTableActions } from "../../hooks/Table"
 //__________ICONOS__________
@@ -17,32 +16,21 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_90_Center } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
-import { Text_Span_16 } from "../styled/Text";
+import { Text_Span_16_Center } from "../styled/Text";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
 export default function TableUsers(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(selectedRowContext);
-    const [isViewPassword] = useContext(viewPasswordContext);
-    const {Modal,Form} = useContext(refFormUsersContext);
-    const {Button_Edit_U,Button_Delete_U} = useContext(refButtonUsersContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isViewPassword] = useContext(ViewPasswordContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Users");
 
-            const clickedInsideModal = Modal.current && Modal.current.contains(event.target);
-            const clickedInsideForm = Form.current && Form.current.contains(event.target);
-            const clickedInsideButtonE = Button_Edit_U.current && Button_Edit_U.current.contains(event.target);
-            const clickedInsideButtonD = Button_Delete_U.current && Button_Delete_U.current.contains(event.target);
-
-            if (table && !table.contains(event.target) &&
-                !clickedInsideButtonE &&
-                !clickedInsideButtonD && 
-                !clickedInsideModal &&
-                !clickedInsideForm
+            if (table && !table.contains(event.target)
             ) {
                 setIsSelectedRow(null);
             }
@@ -95,7 +83,7 @@ export default function TableUsers(){
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )}
-                <Text_Span_16 ThemeMode={themeMode}>Página {currentPage} de {totalPagesUsers}</Text_Span_16>
+                <Text_Span_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesUsers}</Text_Span_16_Center>
                 {currentPage === totalPagesUsers || totalPagesUsers === 0 ? (
                     <Button_Icon_Block_150 ThemeMode={themeMode}><GrNext/></Button_Icon_Block_150>
                 ):(

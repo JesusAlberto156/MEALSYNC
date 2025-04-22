@@ -9,7 +9,7 @@ import { Outlet } from "react-router-dom";
 // Rutas
 
 // Contextos
-import { themeModeContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
@@ -26,7 +26,7 @@ import Search_Bar from '../../components/navegation/SearchBar'
 // Componente para mostrar la seccion de usuarios en administración
 export default function Users(){
     // Constantes con el valor de los contextos 
-    const [themeMode] = useContext(themeModeContext);
+    const [themeMode] = useContext(ThemeModeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC_Administración'

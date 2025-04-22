@@ -1,7 +1,7 @@
 import { useEffect,useContext } from "react";
-import { statusAllContext } from "../../contexts/StatusProvider";
+import { StatusContext } from "../../contexts/UsersProvider";
 export default function User_Activity_Chart(){
-  const [isStatusAll,setIsStatusAll] = useContext(statusAllContext);
+  const [isStatusAll,setIsStatusAll] = useContext(StatusContext);
 
   useEffect(() => {
 

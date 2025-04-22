@@ -8,9 +8,9 @@ import { useContext,useState } from "react";
 // Rutas
 
 // Contextos
-import { themeModeContext } from "../../contexts/ViewsProvider";
-import { nameContext,passwordContext } from "../../contexts/FormsProvider";
-import { verificationBlockContext } from "../../contexts/VariablesProvider";
+import { ThemeModeContext } from "../../contexts/ViewsProvider";
+import { TextFieldsContext } from "../../contexts/FormsProvider";
+import { VerificationBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { useSessionVerification } from "../../hooks/Form";
 //__________ICONOS__________
@@ -20,7 +20,7 @@ import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Button_Border_Column_350,Container_Button_Row_300 } from "../styled/Containers";
-import { Text_P_Left_20 } from "../styled/Text";
+import { Text_P_20_Left } from "../styled/Text";
 import { Input_Group_80,Input_Text_260 } from "../styled/Inputs";
 import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
 import { Button_Icon_Blue_220,Button_Icon_Block_220 } from "../styled/Buttons";
@@ -31,10 +31,9 @@ import { Button_Icon_Blue_220,Button_Icon_Block_220 } from "../styled/Buttons";
 // Formulario para iniciar sesión
 export default function Form_Verification(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isName,setIsName] = useContext(nameContext);
-    const [isPassword,setIsPassword] = useContext(passwordContext);
-    const [isFormVerification] = useContext(verificationBlockContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isFormVerification] = useContext(VerificationBlockContext);
     // Constantes con el valor de useState
     const [textName,setTextName] = useState(false);
     const [isFocusedName, setIsFocusedName] = useState(false);
@@ -47,7 +46,7 @@ export default function Form_Verification(){
     // Estructura del componente
     return(
         <> 
-            <Text_P_Left_20 ThemeMode={themeMode}>Ingresa tus datos...</Text_P_Left_20>
+            <Text_P_20_Left ThemeMode={themeMode}>Ingresa tus datos...</Text_P_20_Left>
             <Container_Button_Border_Column_350 ThemeMode={themeMode}>
                 <Input_Group_80>
                     <Label_Text_20
@@ -60,7 +59,7 @@ export default function Form_Verification(){
                     <Input_Text_260 
                         ThemeMode={themeMode}
                         type="text"
-                        value={isName}
+                        value={isTextFields.user}
                         onClick={(e) => {
                             setTextName(true);
                             setIsFocusedNameColor(true);
@@ -75,7 +74,7 @@ export default function Form_Verification(){
                                 setIsFocusedName(true);
                             }
                         }}   
-                        onChange={(e) => setIsName(e.target.value)} 
+                        onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
                     />
                     {textName && (
                         <Label_Popup_14 ThemeMode={themeMode}>Escribe tú nombre de usuario</Label_Popup_14>
@@ -92,7 +91,7 @@ export default function Form_Verification(){
                     <Input_Text_260 
                         ThemeMode={themeMode}
                         type='password'
-                        value={isPassword}
+                        value={isTextFields.password}
                         onClick={(e) => {
                             setTextPassword(true);
                             setIsFocusedPasswordColor(true);
@@ -107,7 +106,7 @@ export default function Form_Verification(){
                                 setIsFocusedPassword(true);
                             }
                         }}   
-                        onChange={(e) => setIsPassword(e.target.value)} 
+                        onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
                     />
                     {textPassword && (
                         <Label_Popup_14 ThemeMode={themeMode}>Escribe tú Contraseña</Label_Popup_14>

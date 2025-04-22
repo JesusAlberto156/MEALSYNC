@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { themeModeContext,navbarViewContext,sidebarViewContext } from "../../contexts/ViewsProvider";
-import { suppliersContext } from "../../contexts/SuppliersProvider";
-import { typeUserContext,searchTermContext,selectedRowContext,viewPasswordContext } from "../../contexts/VariablesProvider";
-import { permissionContext } from "../../contexts/PermissionsProvider"; 
-import { refButtonUsersContext,refButtonPermissionsContext,refButtonStatusContext } from "../../contexts/RefsProvider";
-import { selectContext } from "../../contexts/FormsProvider";
+import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
+import { SuppliersContext } from "../../contexts/SuppliersProvider";
+import { SearchTermContext,SelectedRowContext,ViewPasswordContext } from "../../contexts/VariablesProvider";
+import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
+import { SelectContext } from "../../contexts/FormsProvider";
 // Hooks personalizados
-import { useChangeModalView } from "../../hooks/Views";
+import { HandleChangeModal } from "../../hooks/Views";
 import { useChangeViewPassword } from "../../hooks/Form";
 import { useHandleSelectChange } from "../../hooks/Form";
 //__________ICONOS__________
@@ -50,21 +49,18 @@ import { Input_Search } from "../styled/Inputs";
 // Componente para buscar elementos o acciones en las tablas
 export default function Search_Bar (){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [currentNView] = useContext(navbarViewContext);
-    const [currentSView] = useContext(sidebarViewContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(searchTermContext);
-    const [isTypeUser] = useContext(typeUserContext);
-    const [isSelectedRow] = useContext(selectedRowContext);
-    const [isPermission] = useContext(permissionContext);
-    const [isViewPassword] = useContext(viewPasswordContext);
-    const {Button_Edit_U,Button_Delete_U} = useContext(refButtonUsersContext);
-    const {Button_Edit_P,Button_Super_P} = useContext(refButtonPermissionsContext);
-    const isButtonS = useContext(refButtonStatusContext);
-    const [isSuppliers,setIsSuppliers] = useContext(suppliersContext);
-    const [isSelect,setIsSelect] = useContext(selectContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+    const [isTypeUser] = useContext(LoggedTypeContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isPermission] = useContext(LoggedPermissionsContext);
+    const [isViewPassword] = useContext(ViewPasswordContext);
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isSelect] = useContext(SelectContext);
     // Constantes con la funcionalidad de los hooks
-    const changeModalView = useChangeModalView();
+    const changeModalView = HandleChangeModal();
     const changeViewPassword = useChangeViewPassword();
     const navigate = useNavigate();
     const handleSelectChange = useHandleSelectChange();
@@ -125,10 +121,10 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45><FaUserPlus/></Button_Icon_Block_45>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode} ref={Button_Edit_U}><FaUserEdit/></Button_Icon_Blue_60>
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Blue_60>
                                 </Tooltip>
                                 <Tooltip title='Eliminar' placement="top">
-                                    <Button_Icon_Red_45 ThemeMode={themeMode} ref={Button_Delete_U}><FaUserMinus/></Button_Icon_Red_45>
+                                    <Button_Icon_Red_45 ThemeMode={themeMode}><FaUserMinus/></Button_Icon_Red_45>
                                 </Tooltip>
                                 <Button_Icon_Block_45><FaEye/></Button_Icon_Block_45>
                             </>
@@ -168,7 +164,7 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45><FaUserPlus/></Button_Icon_Block_45>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode} ref={Button_Edit_U}><FaUserEdit/></Button_Icon_Blue_60>
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Blue_60>
                                 </Tooltip>
                                 <Button_Icon_Block_45><FaEye/></Button_Icon_Block_45>
                             </>
@@ -196,7 +192,7 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} onClick={() => {
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode} onClick={() => {
                                         changeModalView('Permissions-Edit')
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });
                                     }}>
@@ -206,7 +202,7 @@ export default function Search_Bar (){
                                 {isSelectedRow.superadministrador ? (
                                     <>
                                         <Tooltip title="Deshabilitar" placement="top">
-                                            <Button_Icon_Red_45 ref={Button_Super_P} ThemeMode={themeMode} onClick={() => {
+                                            <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => {
                                                 changeModalView('Permissions-Super-Administrator')
                                                 navigate('/Administration/Users/Permissions/Enable',{ replace: true });
                                             }}>
@@ -217,7 +213,7 @@ export default function Search_Bar (){
                                 ):(
                                     <>
                                         <Tooltip title="Habilitar" placement="top">
-                                            <Button_Icon_Green_45 ref={Button_Super_P} ThemeMode={themeMode} onClick={() => {
+                                            <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
                                                 changeModalView('Permissions-Super-Administrator')
                                                 navigate('/Administration/Users/Permissions/Enable',{ replace: true });
                                             }}>
@@ -245,7 +241,7 @@ export default function Search_Bar (){
                             <>
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} onClick={() => {
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode} onClick={() => {
                                         changeModalView('Permissions-Edit')
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });
                                     }}>
@@ -278,7 +274,7 @@ export default function Search_Bar (){
                                 {isSelectedRow.habilitado ? (
                                     <>
                                         <Tooltip title="Deshabilitar" placement="top">
-                                            <Button_Icon_Red_45 ref={isButtonS} ThemeMode={themeMode} onClick={() => {
+                                            <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => {
                                                 changeModalView('Status-Enable')
                                                 navigate('/Administration/Users/Status/Enable',{ replace: true });
                                             }}>
@@ -289,7 +285,7 @@ export default function Search_Bar (){
                                 ):(
                                     <>
                                         <Tooltip title="Habilitar" placement="top">
-                                            <Button_Icon_Green_45 ref={isButtonS} ThemeMode={themeMode} onClick={() => {
+                                            <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
                                                 changeModalView('Status-Enable')
                                                 navigate('/Administration/Users/Status/Enable',{ replace: true });
                                             }}>

@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { themeModeContext } from "../../../contexts/ViewsProvider";
-import { actionBlockContext } from "../../../contexts/VariablesProvider";
-import { selectContext,checkboxContext } from "../../../contexts/FormsProvider";
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { ActionBlockContext } from "../../../contexts/VariablesProvider";
+import { SelectContext,CheckboxContext } from "../../../contexts/FormsProvider";
 // Hooks personalizados
-import { useChangeModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useChangePermissionsAdd,useHandleSelectChange,useFilteredRecordsHasPermissions,useHandleCheckboxChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -21,7 +21,7 @@ import { MdAddModerator } from "react-icons/md";
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400 } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Green_170,Button_Icon_Block_170 } from "../../styled/Buttons";
-import { Text_Title_Fade_30,Text_P_Left_20 } from "../../styled/Text";
+import { Text_Title_30_Center,Text_P_20_Left } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
 import { Input_Checkbox_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
@@ -29,14 +29,14 @@ import { Input_Checkbox_16 } from "../../styled/Inputs";
 // Modal para agregar permisos a los usuarios
 export default function Permissions_Add(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(themeModeContext);
-    const [isActionBlock] = useContext(actionBlockContext);
-    const [isSelect] = useContext(selectContext);
-    const [isCheckbox] = useContext(checkboxContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const [isSelect] = useContext(SelectContext);
+    const [isCheckbox] = useContext(CheckboxContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const changePermissionsAdd = useChangePermissionsAdd();
-    const changeModalView = useChangeModalView();
+    const changeModalView = HandleChangeModal();
     const handleSelectChange = useHandleSelectChange();
     const handleCheckboxChange = useHandleCheckboxChange();
     const filteredRecordsHasPermissions = useFilteredRecordsHasPermissions();
@@ -45,8 +45,8 @@ export default function Permissions_Add(){
         <>
             <Container_Modal>
                 <Container_Form_450 ThemeMode={themeMode}>
-                    <Text_Title_Fade_30 ThemeMode={themeMode}>AGREGAR PERMISOS</Text_Title_Fade_30>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Selecciona un usuario...</Text_P_Left_20>
+                    <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR PERMISOS</Text_Title_30_Center>
+                    <Text_P_20_Left ThemeMode={themeMode}>Selecciona un usuario...</Text_P_20_Left>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Select
                             options={filteredRecordsHasPermissions.map((user) => ({
@@ -105,7 +105,7 @@ export default function Permissions_Add(){
                             onChange={handleSelectChange}
                         />
                     </Container_Button_Border_Row_400>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Área de administración...</Text_P_Left_20>
+                    <Text_P_20_Left ThemeMode={themeMode}>Área de administración...</Text_P_20_Left>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Label_Check_18 ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
@@ -159,7 +159,7 @@ export default function Permissions_Add(){
                             Médico
                         </Label_Check_18>
                     </Container_Button_Border_Row_400>
-                    <Text_P_Left_20 ThemeMode={themeMode}>Agregar permisos</Text_P_Left_20>
+                    <Text_P_20_Left ThemeMode={themeMode}>Agregar permisos</Text_P_20_Left>
                     <Container_Button_Border_Row_400 ThemeMode={themeMode}>
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => {

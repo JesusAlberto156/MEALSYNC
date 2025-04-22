@@ -1,18 +1,18 @@
 import { useEffect,useContext,useState } from "react";
 
-import { themeModeContext } from "../../contexts/ViewsProvider";
-import { suppliersContext,observationsContext } from "../../contexts/SuppliersProvider";
-import { itemDateContext } from "../../contexts/ChartsProvider";
+import { ThemeModeContext } from "../../contexts/ViewsProvider";
+import { SuppliersContext,ObservationsContext } from "../../contexts/SuppliersProvider";
+import { ItemDateContext } from "../../contexts/ChartsProvider";
 
 import { HandleChangeModal } from "../../hooks/Views";
 import { Container_Row_100_Center } from "../styled/Containers";
 import { Chart_850x500 } from "../styled/Charts";
 export default function Observations_Chart(){
 
-    const [themeMode] = useContext(themeModeContext);
-    const [isSuppliers,setIsSuppliers] = useContext(suppliersContext);
-    const [isObservations,setIsObservations] = useContext(observationsContext);
-    const [isItemDate,setIsItemDate] = useContext(itemDateContext);
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext);
+    const [isObservations,setIsObservations] = useContext(ObservationsContext);
+    const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
 
     const [Dates,setDates] = useState([]);
 

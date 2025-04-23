@@ -13,7 +13,7 @@ import { useTableActions } from "../../hooks/Table"
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_90_Center } from "../styled/Containers"
+import { Container_Row_90_Center } from "../styled/Containers"
 import { Table,Tr,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
 import { Text_Span_16_Center } from "../styled/Text";
@@ -75,7 +75,7 @@ export default function TableUsers(){
 
                 </tbody>
             </Table>
-            <Container_90_Center>
+            <Container_Row_90_Center>
                 {currentPage === 1 ? (
                     <Button_Icon_Block_150 ThemeMode={themeMode}><GrPrevious/></Button_Icon_Block_150>
                 ):(
@@ -91,7 +91,7 @@ export default function TableUsers(){
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={nextPageUsers}><GrNext/></Button_Icon_Blue_150>
                     </Tooltip>
                 )} 
-            </Container_90_Center>
+            </Container_Row_90_Center>
         </>
     );
 }

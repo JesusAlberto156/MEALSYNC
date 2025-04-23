@@ -2,11 +2,14 @@
 // Componentes de React
 import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
+// Componentes de React externos
+import { Toaster } from "sonner";
 // Contextos
 import { ThemeModeContext } from '../../contexts/ViewsProvider';
 import { LoggedLoggedContext,LoggedTypeContext } from '../../contexts/SessionProvider';
 // Estilos personalizados
 import { Container_Page,Container_Page_Logged } from "../../components/styled/Containers";
+import { Alert_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
 import Footer from "../../components/navegation/Footer";
 import Side_Bar from '../../components/navegation/Sidebar';
@@ -27,6 +30,14 @@ export default function Index_Main(){
                     <Outlet/>
                 </Container_Page_Logged> 
                 <Footer/>
+                <Alert_Styles>
+                    <Toaster
+                        visibleToasts={3}
+                        richColors
+                        theme='light'
+                        position='top-right'
+                    />
+                </Alert_Styles> 
             </Container_Page>
         </>
     );

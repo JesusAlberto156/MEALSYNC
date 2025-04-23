@@ -18,7 +18,6 @@ import { useContext,useEffect } from "react";
 import { Container_Row_90_Left,Container_Row_90_Center } from "../../components/styled/Containers";
 import { Img_Logo_Hospital_60 } from "../../components/styled/Imgs";
 // Componentes personalizados
-import User_Activity_Chart from "../../components/charts/UserActivity";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de inicio en administración/cocina
@@ -34,7 +33,6 @@ export default function Home_Administration(){
                 </Container_Row_90_Center>
             </Container_Row_90_Left>
             <Container_Row_90_Left>
-                <User_Activity_Chart/>
             </Container_Row_90_Left>    
         </>
     )

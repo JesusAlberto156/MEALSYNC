@@ -1,11 +1,10 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useEffect,useContext } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-// Componentes de React externos
-
+import { useContext,useEffect } from "react";
+import { Outlet } from "react-router-dom";
 // Contextos
-import { ThemeModeContext,SidebarContext } from "../../contexts/ViewsProvider";
+import { SidebarContext,ThemeModeContext } from "../../contexts/ViewsProvider";
+import { LoggedUserContext } from "../../contexts/SessionProvider";
 //__________IMAGES____________
 import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
 import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
@@ -22,22 +21,21 @@ export default function Index_Administration(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSidebar] = useContext(SidebarContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC_Administración';
+
         const showAlerts = async () => {
             const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
-            const Color = themeMode ? '#3a5dae' : '#527ee7';
             
-            await Alert_Greeting('MEALSYNC',`¡Bienvenido(a)! ${isUser.nombre}`,themeMode,Image,Color);
+            await Alert_Greeting('MEALSYNC',`¡Bienvenido(a)! ${isLoggedUser.nombre}`,themeMode,Image);
 
-            await Alert_Greeting('MEALSYNC','¡Le ofrece las siguientes funcionaidades!',themeMode,Image,Color);
+            await Alert_Greeting('MEALSYNC','¡Le ofrece las siguientes funcionaidades!',themeMode,Image);
         }
 
         showAlerts();
     },[]);
-    // Constantes con la funcionalidad de los hooks
-    const navigate = useNavigate();
     // Estructura del componente
     return(
         <>

@@ -9,12 +9,12 @@
 	        animation: shadow-out-container-dark 1.0s ease-out infinite alternate-reverse both;
 }
 .shadow-text-light-infinite {
-	-webkit-animation: shadow-text-light 1.2s ease-out infinite alternate-reverse both;
-	        animation: shadow-text-light 1.2s ease-out infinite alternate-reverse both;
+	-webkit-animation: shadow-text-light 0.8s infinite alternate;
+	        animation: shadow-text-light 0.8s infinite alternate;
 }
 .shadow-text-dark-infinite {
-	-webkit-animation: shadow-text-dark 1.2s ease-out infinite alternate-reverse both;
-	        animation: shadow-text-dark 1.2s ease-out infinite alternate-reverse both;
+	-webkit-animation: shadow-text-dark 0.8s infinite alternate;
+	        animation: shadow-text-dark 0.8s infinite alternate;
 }
 /*------------ SHADOW */
 /*________________ANIMATIONS______________*/
@@ -65,7 +65,7 @@
         text-shadow: 0 0 0 rgba(0, 0, 0, 0);
         }
         100% {
-        text-shadow: 0 0 24px rgb(0, 0, 0);
+        text-shadow: 0 0 16px rgb(0, 0, 0);
         }
 }
 @keyframes shadow-text-light {
@@ -73,7 +73,7 @@
         text-shadow: 0 0 0 rgba(0, 0, 0, 0);
         }
         100% {
-        text-shadow: 0 0 24px rgb(0, 0, 0);
+        text-shadow: 0 0 16px rgb(0, 0, 0);
         }
 }
 @-webkit-keyframes shadow-text-dark {
@@ -81,7 +81,7 @@
         text-shadow: 0 0 0 rgba(0, 0, 0, 0);
         }
         100% {
-        text-shadow: 0 0 24px rgb(255, 255, 255);
+        text-shadow: 0 0 16px rgb(255, 255, 255);
         }
 }
 @keyframes shadow-text-dark {
@@ -89,7 +89,7 @@
         text-shadow: 0 0 0 rgba(0, 0, 0, 0);
         }
         100% {
-        text-shadow: 0 0 24px rgb(255, 255, 255);
+        text-shadow: 0 0 16px rgb(255, 255, 255);
         }
 }
 /*________________SHADOW______________*/

@@ -52,19 +52,19 @@ import Form_Login from "../../components/forms/Login";
 // Página para iniciar sesión
 export default function Login(){
     // Constantes con el valor de los contextos
-    const [isFormText,setIsFormText] = useContext(TextFieldsContext);
-    const [isAnimation,setIsAnimation] = useContext(AnimationContext);
-    const [isPermissions] = useContext(PermissionsContext);
-    const [isPermission,setIsPermission] = useContext(LoggedPermissionsContext);
-    const [isLog,setIsLog] = useContext(LoggedLogContext);
-    const [isLogged,setIsLogged] = useContext(LoggedLoggedContext);
-    const [isStatusAll] = useContext(StatusContext);
-    const [isStatusUser,setIsStatusUser] = useContext(LoggedStatusContext);
-    const [isUsers] = useContext(UsersContext);
-    const [isUser,setIsUser] = useContext(LoggedUserContext);
-    const [isTypeUser] = useContext(LoggedTypeContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [themeMode] = useContext(ThemeModeContext);
+    const [isAnimation] = useContext(AnimationContext);
+    const [isUsers] = useContext(UsersContext);
+    const [isPermissions] = useContext(PermissionsContext);
+    const [isStatus] = useContext(StatusContext);
+    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
+    const [isLoggedLogged,setIsLoggedLogged] = useContext(LoggedLoggedContext);
+    const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
+    const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
+    const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
+    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [currentLView] = useContext(LoginViewContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
@@ -73,31 +73,29 @@ export default function Login(){
         document.title = 'MEALSYNC';
         const showAlerts = async () => {
             const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
-            const Color = themeMode ? '#3a5dae' : '#527ee7';
-            
-            await Alert_Greeting('MEALSYNC','¡Te da la Bienvenida!',themeMode,Image,Color);
 
-            await Alert_Greeting('MEALSYNC','¡Inicia sesión para acceder a la pagina principal!',themeMode,Image,Color);
+            await Alert_Greeting('MEALSYNC','¡Te da la Bienvenida!',themeMode,Image);
+
+            await Alert_Greeting('MEALSYNC','¡Inicia sesión para acceder a la pagina principal!',themeMode,Image);
         }
 
         showAlerts();
     },[]);
     // useEffect con el inicio de sesión del login
     useEffect(() => {
-        if(isLog && !isLogged){
-            document.title = "Cargando...";
+        if(isLoggedLog && !isLoggedLogged){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        const existsUser = isUsers.find(user => user.usuario === isFormText.user);
+                        const existsUser = isUsers.find(user => user.usuario === isTextFields.user);
                         
-                        if(existsUser && existsUser.contrasena === isFormText.password){
-                            let existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
+                        if(existsUser && existsUser.contrasena === isTextFields.password){
+                            let existsStatus = isStatus.find(user => user.idusuario === existsUser.idusuario);
                             const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
 
                             if(!existsStatus || !existsStatus.habilitado || existsStatus.activo || !existsPermission){
-                                setIsLog(false);
+                                setIsLoggedLog(false);
                                 setIsActionBlock(false);
                                 return reject('¡No es posible utilizar este usuario!...');
                             }
@@ -111,23 +109,23 @@ export default function Login(){
                 
                                 if( encryptedUser && encryptedPermission){
                                     setTimeout(() => {
-                                        existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
+                                        existsStatus = isStatus.find(user => user.idusuario === existsUser.idusuario);
                                     
                                         const jsonStatus = JSON.stringify(existsStatus);
                                         const encryptedStatus = encryptData(jsonStatus);
                 
                                         if(encryptedStatus){
                                             sessionStorage.setItem('User',encryptedUser);
-                                            sessionStorage.setItem('Permission',encryptedPermission);
+                                            sessionStorage.setItem('Permissions',encryptedPermission);
                                             sessionStorage.setItem('Status',encryptedStatus);
                                             sessionStorage.setItem('Logged',true);
-                                            sessionStorage.setItem('Type-User',isTypeUser);
+                                            sessionStorage.setItem('Type',isLoggedType);
                                             
-                                            setIsUser(JSON.parse(jsonUser));
-                                            setIsPermission(JSON.parse(jsonPermission));
-                                            setIsStatusUser(JSON.parse(jsonStatus));
+                                            setIsLoggedUser(JSON.parse(jsonUser));
+                                            setIsLoggedPermissions(JSON.parse(jsonPermission));
+                                            setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            if(isTypeUser === 'Doctor'){
+                                            if(isLoggedType === 'Doctor'){
                                                 setCurrentMView('Alert-Doctor');
                                             }
                                             
@@ -136,35 +134,35 @@ export default function Login(){
                                             setIsModal(true);
 
                                             setTimeout(() => {
-                                                setIsFormText(prev => ({
+                                                setIsTextFields(prev => ({
                                                     ...prev,             
                                                     user: '',      
                                                     password: '',       
                                                 }));
-                                                setIsLog(false);
-                                                setIsLogged(true);
+                                                setIsLoggedLog(false);
+                                                setIsLoggedLogged(true);
                                                 setIsActionBlock(false);
                                                 return navigate('/',{ replace: true });
                                             },1000);
                                         }else{
-                                            setIsLog(false);
+                                            setIsLoggedLog(false);
                                             setIsActionBlock(false);
                                             return reject('¡Error al encriptar las credenciales!...');
                                         }
                                     },1500);
                                 }else{
-                                    setIsLog(false);
+                                    setIsLoggedLog(false);
                                     setIsActionBlock(false);
                                     return reject('¡Error al encriptar las credenciales!...');
                                 }
                             }else{
-                                if(isTypeUser === 'Cook' && !existsPermission.cocinero || 
-                                    isTypeUser === 'Nutritionist' && !existsPermission.nutriologo ||
-                                    isTypeUser === 'Doctor' && !existsPermission.medico ||
-                                    isTypeUser === 'Administrator' && !existsPermission.administrador ||
-                                    isTypeUser === 'Chef' && !existsPermission.chef ||
-                                    isTypeUser === 'Storekeeper' && !existsPermission.almacenista){
-                                    setIsLog(false);
+                                if(isLoggedType === 'Cook' && !existsPermission.cocinero || 
+                                    isLoggedType === 'Nutritionist' && !existsPermission.nutriologo ||
+                                    isLoggedType === 'Doctor' && !existsPermission.medico ||
+                                    isLoggedType === 'Administrator' && !existsPermission.administrador ||
+                                    isLoggedType === 'Chef' && !existsPermission.chef ||
+                                    isLoggedType === 'Storekeeper' && !existsPermission.almacenista){
+                                    setIsLoggedLog(false);
                                     setIsActionBlock(false);
                                     return reject('¡Tu usuario no cuenta con los permisos necesarios para acceder!...');
                                 }
@@ -177,23 +175,23 @@ export default function Login(){
                 
                                 if( encryptedUser && encryptedPermission){
                                     setTimeout(() => {
-                                        existsStatus = isStatusAll.find(user => user.idusuario === existsUser.idusuario);
+                                        existsStatus = isStatus.find(user => user.idusuario === existsUser.idusuario);
                                     
                                         const jsonStatus = JSON.stringify(existsStatus);
                                         const encryptedStatus = encryptData(jsonStatus);
                 
                                         if(encryptedStatus){
                                             sessionStorage.setItem('User',encryptedUser);
-                                            sessionStorage.setItem('Permission',encryptedPermission);
+                                            sessionStorage.setItem('Permissions',encryptedPermission);
                                             sessionStorage.setItem('Status',encryptedStatus);
                                             sessionStorage.setItem('Logged',true);
-                                            sessionStorage.setItem('Type-User',isTypeUser);
+                                            sessionStorage.setItem('Type',isLoggedType);
                                             
-                                            setIsUser(JSON.parse(jsonUser));
-                                            setIsPermission(JSON.parse(jsonPermission));
-                                            setIsStatusUser(JSON.parse(jsonStatus));
+                                            setIsLoggedUser(JSON.parse(jsonUser));
+                                            setIsLoggedPermissions(JSON.parse(jsonPermission));
+                                            setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            if(isTypeUser === 'Doctor'){
+                                            if(isLoggedType === 'Doctor'){
                                                 setCurrentMView('Alert-Doctor');
                                             }
                                             
@@ -202,46 +200,44 @@ export default function Login(){
                                             setIsModal(true);
 
                                             setTimeout(() => {
-                                                setIsFormText(prev => ({
+                                                setIsTextFields(prev => ({
                                                     ...prev,             
                                                     user: '',      
                                                     password: '',       
                                                 }));
-                                                setIsLogged(true);
-                                                setIsLog(false);
+                                                setIsLoggedLogged(true);
+                                                setIsLoggedLog(false);
                                                 setIsActionBlock(false);
                                                 return navigate('/',{ replace: true });
                                             },2500);
                                         }else{
-                                            setIsLog(false);
+                                            setIsLoggedLog(false);
                                             setIsActionBlock(false);
                                             return reject('¡Error al encriptar las credenciales!...');
                                         }
                                     },500);
                                 }else{
-                                    setIsLog(false);
+                                    setIsLoggedLog(false);
                                     setIsActionBlock(false);
                                     return reject('¡Error al encriptar las credenciales!...')
                                 }
                             }
                         }else{
-                            setIsLog(false);
+                            setIsLoggedLog(false);
                             setIsActionBlock(false);
                             return reject('¡Usuario o contraseña incorrectos!...');
                         }
                     },1000);
                 }catch(error){
-                    setIsLog(false);
+                    setIsLoggedLog(false);
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
             Alert_Verification(promise,'¡Verificando credenciales!...');
-
-            document.title = "MEALSYNC_Iniciar_Sesión";
         }
-    },[isLog]);
+    },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleChangeLogin = HandleChangeLogin();
@@ -250,109 +246,109 @@ export default function Login(){
     return(
         <>
             <Container_Page>
-                <Container_Page_Login className='bg-pan-bl' ThemeMode={themeMode}>
+                <Container_Page_Login className='bg-pan-bl'>
                     <Setting_Bar/>
-                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'roll-out-left':'roll-in-left'}>
+                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'roll-out-container-left':'roll-in-container-left'}>
                         <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode}/>
-                        <Text_Title_26_Center ThemeMode={themeMode} className={themeMode ? 'shadow-text-light-infinite' : 'shadow-text-dark-infinite'}>
+                        <Text_Title_26_Center ThemeMode={themeMode}>
                             {currentLView === '' ? 'BIENVENIDO(A)': currentLView === 'Administration' || currentLView === 'Kitchen' ? 'SELECCIÓN DE USUARIO' : 'INICIAR SESIÓN'}
                         </Text_Title_26_Center>
-                        {currentLView === '' ? (
-                            <>  
-                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            {currentLView === '' ? (
+                                <>  
                                     <Tooltip title='Administración' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleChangeLogin('Administration','')}>
                                             <Icon_White_26><MdManageAccounts/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                     <Tooltip title='Cocina' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleChangeLogin('Kitchen','')}>
                                             <Icon_White_26><GiRiceCooker/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
-                                </Container_Column_90_Center>
-                            </>
-                        ):(
-                            <></>
-                        )}
-                        {currentLView === 'Administration' ? (
-                            <>
-                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                </>
+                            ):(
+                                <></>
+                            )}
+                            {currentLView === 'Administration' ? (
+                                <>
                                     <Tooltip title='Administrador' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('Login','Administrator')}>
                                             <Icon_White_26><FaUserTie/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                     <Tooltip title='Chef' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('Login','Chef')}>
                                             <Icon_White_26><GiChefToque/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>    
                                     <Tooltip title='Almacenista' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('Login','Storekeeper')}>
                                             <Icon_White_26><FaWarehouse/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Atrás' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('','')}>
                                             <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
-                                </Container_Column_90_Center>
-                            </>
-                        ):(
-                            <></>
-                        )}
-                        {currentLView === 'Kitchen' ? (
-                            <>
-                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                </>
+                            ):(
+                                <></>
+                            )}
+                            {currentLView === 'Kitchen' ? (
+                                <>
                                     <Tooltip title='Cocinero' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('Login','Cook')}>
                                             <Icon_White_26><GiCook/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>  
                                     <Tooltip title='Nutriólogo' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('Login','Nutritionist')}>
                                             <Icon_White_26><IoNutrition/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Médico' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('Login','Doctor')}>
                                             <Icon_White_26><FaUserDoctor/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Atrás' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-left' : 'roll-out-left'}
+                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleChangeLogin('','')}> 
                                             <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
-                                </Container_Column_90_Center>
-                            </>
-                        ):(
-                            <></>
-                        )}
+                                </>
+                            ):(
+                                <></>
+                            )}
+                            {currentLView === 'Login' ? (
+                                <Form_Login/>
+                            ):(
+                                <></>
+                            )}
+                        </Container_Column_90_Center>
                         {currentLView === 'Login' ? (
                             <>
-                                <Form_Login/>
                                 <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title='Atrás' placement="top">
-                                        <Button_Icon_Blue_140 ThemeMode={themeMode} className={isAnimation ? 'roll-out-left' : 'roll-in-left'}
-                                            onClick={() => handleChangeLogin(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? 'Kitchen' : 'Administration','')}>
+                                        <Button_Icon_Blue_140 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                            onClick={() => handleChangeLogin(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}>
                                             <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
                                         </Button_Icon_Blue_140>
                                     </Tooltip>
                                     <Tooltip title='Iniciar sesión' placement="top">
-                                        <Button_Icon_Green_140 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-left' : 'roll-in-left'}
+                                        <Button_Icon_Green_140 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleChangeLog()}>
                                             <Icon_White_26><MdLogin/></Icon_White_26>
                                         </Button_Icon_Green_140>

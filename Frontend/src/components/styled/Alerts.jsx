@@ -6,40 +6,12 @@ import { toast } from 'sonner';
 //__________ICONOS__________
 // Icono para la alerta de advertencia
 import { AiFillWarning } from "react-icons/ai";
-// Icono para la alerta de error
-import { BiSolidMessageAltError } from "react-icons/bi";
-//__________ICONOS__________
-//__________IMAGE__________
-
-//__________IMAGE__________
-// Estilos personalizados
-
 //____________IMPORT/EXPORT____________
 
 //____________STYLES____________
 export const Alert_Styles = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    .Blue {
-        font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        border-radius: 40px;
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-        border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
-    }   
-
-    .Red {
-        font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        border-radius: 40px;
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(125, 27, 27)' : 'rgb(229, 44, 44)')};
-        border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
-    } 
-
     .Yellow {
         font-size: 14px;
         font-family: "Prompt", sans-serif;
@@ -52,8 +24,7 @@ export const Alert_Styles = styled.div.withConfig({
 
     .Verification {
         font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
+        font-family: Century Gothic,Prompt;
         font-style: normal;
         border-radius: 40px;
         border: 3px solid white;
@@ -61,19 +32,17 @@ export const Alert_Styles = styled.div.withConfig({
 `;
 //____________STYLES____________
 //____________GREETING____________
-export const Alert_Greeting = (Title,Message,ThemeMode,Image,Color) => {
+export const Alert_Greeting = (Title,Message,ThemeMode,Image) => {
     return Swal.fire({
         title: Title,
         text: Message,
         showConfirmButton: false,
-        confirmButtonColor: Color,
-        confirmButtonText: 'Aceptar',
         width: '400px',
         heightAuto: true,
-        timer: 2000,
+        timer: 3000,
         backdrop: false,
         customClass: {
-            popup: ThemeMode ? 'greeting-light-theme' : 'greeting-dark-theme',
+            popup: ThemeMode ? 'greeting-theme-light' : 'greeting-theme-dark',
             title: ThemeMode ? 'greeting-title-light' : 'greeting-title-dark',
         },
         showClass: {
@@ -109,12 +78,37 @@ export const Alert_Warning = (titulo,mensaje,themeMode) => {
 };
 //____________WARNING____________
 //____________ERROR____________
-export const Alert_Error = (titulo,mensaje,themeMode) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Red',
-        icon: themeMode ? <BiSolidMessageAltError style={{color:'rgb(229, 44, 44)',fontSize:'20px'}}/> : <BiSolidMessageAltError style={{color:'rgb(125, 27, 27)',fontSize:'20px'}}/>,
+export const Alert_Error = (Title,Message,ThemeMode,Image) => {
+    return Swal.fire({
+        title: Title,
+        text: Message,
+        showConfirmButton: false,
+        width: '400px',
+        heightAuto: true,
+        timer: 3000,
+        backdrop: false,
+        customClass: {
+            popup: ThemeMode ? 'error-theme-light' : 'error-theme-dark',
+            title: ThemeMode ? 'error-title-light' : 'error-title-dark',
+        },
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        imageUrl: Image,
+        imageWidth: 80,
+        imageHeight: 80,
+        position: 'center',
     });
 }
 //____________ERROR____________
@@ -133,3 +127,99 @@ export const Alert_Verification = (promesa,Verificacion) => {
     });
 };
 //____________VERIICATION____________
+//____________MESSAGE____________
+export const Alert_Message = (Title,Message,ThemeMode,Image) => {
+    return Swal.fire({
+        title: Title,
+        text: Message,
+        showConfirmButton: false,
+        width: '400px',
+        heightAuto: true,
+        timer: 3000,
+        backdrop: false,
+        customClass: {
+            popup: ThemeMode ? 'message-theme-light' : 'message-theme-dark',
+            title: ThemeMode ? 'message-title-light' : 'message-title-dark',
+        },
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        imageUrl: Image,
+        imageWidth: 90,
+        imageHeight: 100,
+        position: 'center',
+    });
+}
+//____________LOGOUT____________
+//____________LOGOUT____________
+export const Alert_Logout = (Title,Message,ThemeMode,Image,Color,Hook) => {
+    let remainingTime = 5;
+    let timerInterval;
+
+    Swal.fire({
+        title: Title,
+        text: `${Message} Tiempo restante: ${remainingTime}s`,
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: Color,
+        width: '400px',
+        heightAuto: true,
+        timer: 6000,
+        backdrop: false,
+        customClass: {
+            popup: ThemeMode ? 'logout-theme-light' : 'logout-theme-dark',
+            title: ThemeMode ? 'logout-title-light' : 'logout-title-dark',
+        },
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        imageUrl: Image,
+        imageWidth: 90,
+        imageHeight: 90,
+        position: 'center',
+        allowOutsideClick: false,
+        willClose: () => clearInterval(timerInterval)
+    }).then((result) => {
+        if(result.dismiss === Swal.DismissReason.timer){
+            Hook();
+        }
+        if(result.isDismissed){
+            Swal.close();
+        }
+    });
+
+    timerInterval = setInterval(() => {
+        remainingTime = Math.max(0, remainingTime - 1);
+        Swal.update({
+            text: `${Message} Tiempo restante: ${remainingTime}s`
+        });
+
+        if (remainingTime === 0) {
+            clearInterval(timerInterval);
+        }
+    }, 1000);
+}
+//____________LOGOUT____________

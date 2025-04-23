@@ -3,6 +3,92 @@
 import styled from 'styled-components';
 //____________IMPORT/EXPORT____________
 
+//____________COLOR____________
+//---------- WHITE
+export const Text_White_50_Center = styled.h1`
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 50px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 45px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 40px;
+        padding: 6px;
+    }
+`;
+export const Text_White_40_Center = styled.h1`
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 40px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 35px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 30px;
+        padding: 6px;
+    }
+`;
+//---------- WHITE
+//---------- BLACK
+export const Text_Black_50_Center = styled.h1`
+    color: black;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 50px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 45px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 40px;
+        padding: 6px;
+    }
+`;
+export const Text_Black_40_Center = styled.h1`
+    color: black;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 40px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 35px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 30px;
+        padding: 6px;
+    }
+`;
+//---------- BLACK
+//____________COLOR____________
 //____________TITLE____________
 //---------- CENTER
 export const Text_Title_42_Center = styled.h1.withConfig({

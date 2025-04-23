@@ -1,24 +1,41 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useEffect,useContext } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-// Componentes de React externos
-import { Toaster } from "sonner";
+import { useContext,useEffect } from "react";
+import { Outlet } from "react-router-dom";
 // Contextos
-import { ThemeModeContext,SidebarContext } from "../../contexts/ViewsProvider";
+import { SidebarContext,ThemeModeContext } from "../../contexts/ViewsProvider";
+import { LoggedUserContext } from "../../contexts/SessionProvider";
+//__________IMAGES____________
+import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
+import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
+//__________IMAGES____________
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";
-import { Alert_Styles } from "../../components/styled/Alerts";
+import { Alert_Greeting } from "../../components/styled/Alerts";
 // Componentes personalizados
 import Setting_Bar from "../../components/navegation/SettingBar";
 //____________IMPORT/EXPORT____________
 
+// Página para mostrar el área de administración
 export default function Index_Kitchen(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSidebar] = useContext(SidebarContext);
-    // Constantes con la funcionalidad de los hooks
-    const navigate = useNavigate();
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    // useEffect con el titulo de la página
+    useEffect(() => {
+        document.title = 'MEALSYNC_Cocina';
+
+        const showAlerts = async () => {
+            const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
+            
+            await Alert_Greeting('MEALSYNC',`¡Bienvenido(a)! ${isLoggedUser.nombre}`,themeMode,Image);
+
+            await Alert_Greeting('MEALSYNC','¡Le ofrece las siguientes funcionaidades!',themeMode,Image);
+        }
+
+        showAlerts();
+    },[]);
     // Estructura del componente
     return(
         <>
@@ -26,14 +43,6 @@ export default function Index_Kitchen(){
                 <Setting_Bar/>
                 <Outlet/>
             </Container_Page_Elements>
-            <Alert_Styles ThemeMode={themeMode}>
-                <Toaster
-                    visibleToasts={3}
-                    richColors
-                    theme='dark'
-                    position='top-right'
-                />
-            </Alert_Styles> 
         </>
     );
 }

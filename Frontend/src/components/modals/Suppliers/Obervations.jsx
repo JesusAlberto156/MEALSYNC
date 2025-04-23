@@ -7,9 +7,9 @@ import { IoStar } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { ModalViewContext,ModalContext,ThemeModeContext } from "../../../contexts/ViewsProvider";
-import { ItemDateContext } from "../../../contexts/ChartsProvider";
-import { ObservationsContext,SuppliersContext } from "../../../contexts/SuppliersProvider";
+import { modalViewContext,modalContext,themeModeContext } from "../../../contexts/ViewsProvider";
+import { itemDateContext } from "../../../contexts/ChartsProvider";
+import { observationsContext,suppliersContext } from "../../../contexts/SuppliersProvider";
 
 import { Container_Modal,Container_Form_450,Container_Form_Header,Container_Form_Content,Container_Column_90_Center,Container_Row_90_Center,Container_Row_100_Left,Container_Column_Border_90_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_180,Button_Icon_Blue_40x100 } from "../../styled/Buttons";
@@ -18,12 +18,12 @@ import { Text_Title_30,Text_Title_20,Text_A_16 } from "../../styled/Text";
 
 export default function Observations_Suppliers(){
 
-    const [themeMode] = useContext(ThemeModeContext);
-    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isModal,setIsModal] = useContext(ModalContext);
-    const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
-    const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext);
-    const [isObservations,setIsObservations] = useContext(ObservationsContext);
+    const [themeMode] = useContext(themeModeContext);
+    const [currentMView,setCurrentMView] = useContext(modalViewContext);
+    const [isModal,setIsModal] = useContext(modalContext);
+    const [isItemDate,setIsItemDate] = useContext(itemDateContext);
+    const [isSuppliers,setIsSuppliers] = useContext(suppliersContext);
+    const [isObservations,setIsObservations] = useContext(observationsContext);
 
     const [Suppliers,setSuppliers] = useState([]);
 
@@ -35,7 +35,7 @@ export default function Observations_Suppliers(){
         if (scrollRef.current) {
         scrollRef.current.scrollLeft += direction === 'right' ? 10 : -10;
         }
-    }, 64); // ~60fps
+    }, 64);
     };
 
     const stopScrolling = () => {

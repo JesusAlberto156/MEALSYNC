@@ -14,10 +14,10 @@ import { Alert_Verification } from "../components/styled/Alerts";
 // Hook para empezar el inicio de sesión en el formulario de login o cerrar sesión
 export const HandleChangeLog = () => {
     // Constantes con el valor de los contextos 
-    const [isLog,setIsLog] = useContext(LoggedLogContext);
+    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     // Función del hook
     const handleChangeLog = () => {
-        setIsLog(!isLog);
+        setIsLoggedLog(!isLoggedLog);
     }
     // Retorno de la función del hook
     return handleChangeLog;

@@ -1,19 +1,18 @@
-.greeting-light-theme {
-    background-color: rgba(255, 255, 255, 0.8);
+/*____________GREETING____________*/
+.greeting-theme-light {
+    background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
-    font-family: "Prompt", sans-serif;
-    font-weight: 300;
+    font-family: 'Century Gothic','Prompt';
     font-style: normal;
     font-size: 16px;
     border-radius: 50px;
     padding: 10px;
     padding-bottom: 30px;
 }
-.greeting-dark-theme {
-    background-color: rgba(0, 0, 0, 0.8);
+.greeting-theme-dark {
+    background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
-    font-family: "Prompt", sans-serif;
-    font-weight: 300;
+    font-family: 'Century Gothic','Prompt';
     font-style: normal;
     font-size: 16px;
     border-radius: 50px;
@@ -22,28 +21,137 @@
 }
 .greeting-title-light {
     color: rgb(58,93,174);
-    font-family: "Prompt", sans-serif;
-    font-weight: 700;
+    font-family: 'Century Gothic','Prompt';
     font-style: italic;
     font-size: 30px;
     padding: 0px
 }
 .greeting-title-dark {
     color: rgb(82, 126, 231);
-    font-family: "Prompt", sans-serif;
-    font-weight: 700;
+    font-family: 'Century Gothic','Prompt';
     font-style: italic;
     font-size: 30px;
     padding: 0px
 }
+/*____________GREETING____________*/
+
+/*____________ERROR____________*/
+.error-theme-light {
+    background-color: rgb(155, 9, 9);
+    color: rgb(255, 255, 255);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.error-theme-dark {
+    background-color: rgb(233, 23, 23);
+    color: rgb(255, 255, 255);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.error-title-light {
+    color: rgb(233, 23, 23);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+.error-title-dark {
+    color: rgb(155, 9, 9);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+/*____________ERROR____________*/
+/*____________MESSAGE____________*/
+.message-theme-light {
+    background-color: rgb(82, 126, 231);
+    color: rgb(0, 0, 0);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.message-theme-dark {
+    background-color: rgb(58,93,174);
+    color: rgb(255, 255, 255);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.message-title-light {
+    color: rgb(58,93,174);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+.message-title-dark {
+    color: rgb(82, 126, 231);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+/*____________MESSAGE____________*/
+/*____________LOGOUT____________*/
+.logout-theme-light {
+    background-color: rgb(20, 165, 76);
+    color: rgb(0, 0, 0);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.logout-theme-dark {
+    background-color: rgb(60, 188, 109);
+    color: rgb(255, 255, 255);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.logout-title-light {
+    color: rgb(58,93,174);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+.logout-title-dark {
+    color: rgb(82, 126, 231);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+/*____________LOGOUT____________*/
 
 @media (max-width: 768px) {
-    .greeting-light-theme {
+    /*____________GREETING____________*/
+    .greeting-theme-light {
         font-size: 14px;
         padding: 8px;
         padding-bottom: 25px;
     }
-    .greeting-dark-theme {
+    .greeting-theme-dark {
         font-size: 14px;
         padding: 8px;
         padding-bottom: 25px;
@@ -54,16 +162,72 @@
     .greeting-title-dark {
         font-size: 25px;
     }
+    /*____________GREETING____________*/
 
+    /*____________ERROR____________*/
+    .error-theme-light {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .error-theme-dark {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .error-title-light {
+        font-size: 25px;
+    }
+    .error-title-dark {
+        font-size: 25px;
+    }
+    /*____________ERROR____________*/
+    /*____________MESSAGE____________*/
+    .message-theme-light {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .message-theme-dark {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .message-title-light {
+        font-size: 25px;
+    }
+    .message-title-dark {
+        font-size: 25px;
+    }
+    /*____________MESSAGE____________*/
+    /*____________LOGOUT____________*/
+    .logout-theme-light {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .logout-theme-dark {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .logout-title-light {
+        font-size: 25px;
+    }
+    .logout-title-dark {
+        font-size: 25px;
+    }
+    /*____________LOGOUT____________*/
 }
 
 @media (max-width: 480px) {
-    .greeting-light-theme {
+    /*____________GREETING____________*/
+    .greeting-theme-light {
         font-size: 12px;
         padding: 6px; 
         padding-bottom: 20px;
     }
-    .greeting-dark-theme {
+    .greeting-theme-dark {
         font-size: 12px;
         padding: 6px; 
         padding-bottom: 20px;
@@ -74,5 +238,60 @@
     .greeting-title-dark {
         font-size: 20px;
     }
+    /*____________GREETING____________*/
 
+    /*____________ERROR____________*/
+    .error-theme-light {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .error-theme-dark {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .error-title-light {
+        font-size: 20px;
+    }
+    .error-title-dark {
+        font-size: 20px;
+    }
+    /*____________ERROR____________*/
+    /*____________MESSAGE____________*/
+    .message-theme-light {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .message-theme-dark {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .message-title-light {
+        font-size: 20px;
+    }
+    .message-title-dark {
+        font-size: 20px;
+    }
+    /*____________MESSAGE____________*/
+    /*____________LOGOUT____________*/
+    .logout-theme-light {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .logout-theme-dark {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .logout-title-light {
+        font-size: 20px;
+    }
+    .logout-title-dark {
+        font-size: 20px;
+    }
+    /*____________LOGOUT____________*/
 }

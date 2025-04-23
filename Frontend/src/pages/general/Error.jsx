@@ -1,72 +1,94 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext, useEffect } from "react";
+import { useContext,useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Toaster } from "sonner";
-import { Tooltip } from "@mui/material";
-// Servicios
-
-// Rutas
-
 // Contextos
 import { ThemeModeContext } from '../../contexts/ViewsProvider';
-// Hooks personalizados
-import { useErrorReturn } from "../../hooks/Error";
+import { LoggedTypeContext } from "../../contexts/SessionProvider";
 //__________ICONOS__________
 // Iconos de decoración de la página
 import { IoIosWarning } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
-// Icono del boton de regreso a una página aceptada
-import { FaHome } from "react-icons/fa";
 //__________ICONOS__________
+//__________IMAGES____________
+import Logo_Error_Light from '../../components/imgs/Logo-Error-Light.png';
+import Logo_Error_Dark from '../../components/imgs/Logo-Error-Dark.png';
+//__________IMAGES____________
 // Estilos personalizados
-import { Container_Page_Error,Container_100_Right,Container_100_Left,Container_Text_20 } from "../../components/styled/Containers";
-import { Icon_Gray_Rotate_50,Icon_Yellow_250 } from "../../components/styled/Icons";
-import { Text_Title_42_Center,Text_A_24_Left } from "../../components/styled/Text";
-import { Button_Icon_White_200 } from "../../components/styled/Buttons";
-import { Img_Logo_Error } from "../../components/styled/Imgs";
-import { Alert_Error,Alert_Styles } from "../../components/styled/Alerts";
-// Componentes personalizados
-
+import { Container_Page_Error,Container_Row_100_Center,Container_Column_90_Center } from "../../components/styled/Containers";
+import { Icon_Rotate_Gray_50,Icon_Yellow_250 } from "../../components/styled/Icons";
+import { Text_Title_42_Center,Text_A_20_Center,Text_White_50_Center } from "../../components/styled/Text";
+import { Alert_Error,Alert_Styles,Alert_Verification } from "../../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Página para captar los errores ocasionados por una mala ruta escrita
 export default function Error(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
+    // Constantes con el valor de los useState
+    const [contador,setContador] = useState(5);
     // useEffect con el titulo de la página
     useEffect(() => {
-        document.title='MEALSYNC_Error';
-        Alert_Error('MEALSYNC','¡Error, página no encontrada!...',themeMode);
+        const Image = themeMode ? Logo_Error_Light : Logo_Error_Dark
+        Alert_Error('MEALSYNC','¡Error, página no encontrada!...',themeMode,Image);
     },[])
+    // useEffect con cuenta regresiva para regresar
+    useEffect(() => {
+        if(contador === 0){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        resolve('¡Página encontrada!...');
+                    },1000);
+                    setTimeout(() => {
+                        if(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor'){
+                            navigate('/Kitchen/Home',{replace: true});
+                        }else{
+                            navigate('/Administration/Home',{replace: true});
+                        }
+                    },2000);
+                } catch (error) {
+                    return reject('¡Ocurrio un error inseperado!...');
+                }
+            });
+    
+            return Alert_Verification(promise,'Buscando página...');
+        }
+
+        const intervalo = setInterval(() => {
+            setContador(prev => prev -1);
+        },1000)
+
+        return () => clearInterval(intervalo);
+    },[contador])
     // Constantes con la funcionalidad de los hooks
-    const errorReturn = useErrorReturn();
+    const navigate = useNavigate();
     // Estructura del componente
     return(
         <>
             <Container_Page_Error ThemeMode={themeMode}>
-                <Container_100_Right>
-                    <Icon_Yellow_250 ThemeMode={themeMode}><IoIosWarning/></Icon_Yellow_250>
-                </Container_100_Right>
-                <Container_Text_20>
-                    <Text_Title_42_Center ThemeMode={themeMode}>Ooops...</Text_Title_42_Center>
-                    <Icon_Gray_Rotate_50 ThemeMode={themeMode}><IoSettings/></Icon_Gray_Rotate_50>
-                </Container_Text_20>
-                <Text_A_24_Left ThemeMode={themeMode}>Página no encotrada...</Text_A_24_Left>
-                <Tooltip title='Regresar' placement="top">
-                    <Button_Icon_White_200 ThemeMode={themeMode} onClick={() => errorReturn()}><FaHome/></Button_Icon_White_200>
-                </Tooltip>
-                <Container_100_Left>
-                    <Img_Logo_Error ThemeMode={themeMode}/>
-                </Container_100_Left>
-                <Alert_Styles ThemeMode={themeMode}>
+                <Container_Column_90_Center>
+                    <Container_Row_100_Center>
+                        <Icon_Yellow_250 ThemeMode={themeMode}><IoIosWarning/></Icon_Yellow_250>
+                    </Container_Row_100_Center>
+                    <Container_Row_100_Center>
+                        <Text_Title_42_Center ThemeMode={themeMode}>Ooops...</Text_Title_42_Center>
+                        <Icon_Rotate_Gray_50><IoSettings/></Icon_Rotate_Gray_50>
+                    </Container_Row_100_Center>
+                    <Text_A_20_Center ThemeMode={themeMode}>Página no encotrada...</Text_A_20_Center>
+                    <Text_White_50_Center>{contador}</Text_White_50_Center>
+                </Container_Column_90_Center>
+                <Alert_Styles>
                     <Toaster
                         visibleToasts={3}
                         richColors
-                        theme='dark'
+                        theme='light'
                         position='top-right'
                     />
-                </Alert_Styles>
+                </Alert_Styles>  
             </Container_Page_Error>
         </>
     );

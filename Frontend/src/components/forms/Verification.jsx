@@ -19,7 +19,7 @@ import { FaUser } from "react-icons/fa6";
 import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Button_Border_Column_350,Container_Button_Row_300 } from "../styled/Containers";
+import { Container_Column_Border_90_Center,Container_Row_90_Center } from "../styled/Containers";
 import { Text_P_20_Left } from "../styled/Text";
 import { Input_Group_80,Input_Text_260 } from "../styled/Inputs";
 import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
@@ -47,7 +47,7 @@ export default function Form_Verification(){
     return(
         <> 
             <Text_P_20_Left ThemeMode={themeMode}>Ingresa tus datos...</Text_P_20_Left>
-            <Container_Button_Border_Column_350 ThemeMode={themeMode}>
+            <Container_Column_Border_90_Center ThemeMode={themeMode}>
                 <Input_Group_80>
                     <Label_Text_20
                         ThemeMode={themeMode}
@@ -112,7 +112,7 @@ export default function Form_Verification(){
                         <Label_Popup_14 ThemeMode={themeMode}>Escribe tú Contraseña</Label_Popup_14>
                     )}
                 </Input_Group_80>
-                <Container_Button_Row_300>
+                <Container_Row_90_Center>
                     {isFormVerification ? (
                         <>
                             <Button_Icon_Block_220 ThemeMode={themeMode}><FaUserCheck/></Button_Icon_Block_220>
@@ -127,8 +127,8 @@ export default function Form_Verification(){
                             </Button_Icon_Blue_220>
                         </>
                     )}
-                </Container_Button_Row_300>
-            </Container_Button_Border_Column_350>
+                </Container_Row_90_Center>
+            </Container_Column_Border_90_Center>
         </>  
     );
 }

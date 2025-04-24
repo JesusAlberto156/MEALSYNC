@@ -20,7 +20,8 @@ export const Input_Group_80 = styled.div`
 `;
 //____________GROUP____________
 //____________TEXT____________
-export const Input_Text_60 = styled.input.withConfig({
+//-------- Black
+export const Input_Text_Black_60 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 60%;
@@ -52,7 +53,7 @@ export const Input_Text_60 = styled.input.withConfig({
         box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
     }
 `;
-export const Input_Text_50 = styled.input.withConfig({
+export const Input_Text_Black_50 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 50%;
@@ -84,7 +85,43 @@ export const Input_Text_50 = styled.input.withConfig({
         box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
     }
 `;
+//-------- Black
+//-------- White
+export const Input_Text_White_20 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 20%;
+    height: auto;
+    color: white;
+    font-size: 16px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid white;
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
 
+    &::placeholder {
+        color: white; 
+    }
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    &:focus {
+        box-shadow: 0 0 8px rgb(255, 255, 255);
+    }
+`;
+//-------- White
 
 export const Input_Text_65 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -277,30 +314,3 @@ export const Input_Checkbox_16 = styled.input.withConfig({
     }
 `;
 //____________CHECK____________
-//____________SEARCH____________
-export const Input_Search = styled.input`
-    padding: 10px;
-    font-size: 18px;
-    border: none;
-    background: transparent;
-    border-bottom: 2px solid white;
-    color: white;
-    border-radius: 6px;
-    width: 250px;
-    margin-right: auto;
-
-    &::placeholder {
-        color: white; 
-    }
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-        width: 175px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 10px;
-        width: 100px;
-    }
-`;
-//____________SEARCH____________

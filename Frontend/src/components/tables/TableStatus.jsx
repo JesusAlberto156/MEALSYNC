@@ -18,7 +18,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_90_Center } from "../styled/Containers"
-import { Table,Tr,Th,Td } from "../styled/Tables"
+import { Table,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
 import { Text_Span_16_Center } from "../styled/Text";
 import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
@@ -54,16 +54,16 @@ export default function TableStatus(){
         <>
             <Table id="Table-Status">
                 <thead>
-                    <Tr>
+                    <tr>
                         <Th ThemeMode={themeMode}>Nombre de Usuario</Th>
                         <Th ThemeMode={themeMode}>Habilitado</Th>
                         <Th ThemeMode={themeMode}>Activo</Th>
-                    </Tr>
+                    </tr>
                 </thead>
                 <tbody>
                     {isUsers.map((user) => (
                         currentRecordsStatus.filter((permission) => user.idusuario === permission.idusuario).map((status) => (
-                            <Tr
+                            <tr
                                 key={status.idestatus}
                                 onClick={() => handleRowClick(status)}
                                 style={{
@@ -75,7 +75,7 @@ export default function TableStatus(){
                                 <Td ThemeMode={themeMode}>{user.nombre}</Td>
                                 <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_16 ThemeMode={themeMode}><FaUserLock/></Icon_Green_16> : <Icon_Red_16 ThemeMode={themeMode}><FaUserLock/></Icon_Red_16>}</Td>
                                 <Td ThemeMode={themeMode}>{status.activo ? <Icon_Green_16 ThemeMode={themeMode}><FaUserClock/></Icon_Green_16>: <Icon_Red_16 ThemeMode={themeMode}><FaUserClock/></Icon_Red_16>}</Td>
-                            </Tr>
+                            </tr>
                         ))
                     ))}
                 </tbody>

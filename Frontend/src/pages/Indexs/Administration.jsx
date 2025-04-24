@@ -29,7 +29,7 @@ export default function Index_Administration(){
         const showAlerts = async () => {
             const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
             
-            await Alert_Greeting('MEALSYNC',`¡Bienvenido(a)! ${isLoggedUser.nombre}`,themeMode,Image);
+            await Alert_Greeting('MEALSYNC',`¡Bienvenido(a)! ${isLoggedUser.nombrecorto}`,themeMode,Image);
 
             await Alert_Greeting('MEALSYNC','¡Le ofrece las siguientes funcionaidades!',themeMode,Image);
         }

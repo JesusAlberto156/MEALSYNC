@@ -83,7 +83,7 @@ export default function Error(){
                 </Container_Column_90_Center>
                 <Alert_Styles>
                     <Toaster
-                        visibleToasts={3}
+                        visibleToasts={1}
                         richColors
                         theme='light'
                         position='top-right'

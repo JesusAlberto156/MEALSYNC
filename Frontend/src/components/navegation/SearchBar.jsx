@@ -38,10 +38,10 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Search_Bar } from "../styled/Containers";
-import { Button_Icon_Green_45,Button_Icon_Green_40,Button_Icon_Blue_40,Button_Icon_Blue_60,Button_Icon_Red_40,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
-import { Icon_25,Icon_Button_Black_30,Icon_White_14 } from "../styled/Icons";
-import { Input_Search } from "../styled/Inputs";
+import { Container_Row_100_Left,Container_Row_80_Right } from "../styled/Containers";
+import { Button_Icon_Green_60,Button_Icon_Green_45,Button_Icon_Green_40,Button_Icon_Blue_40,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Red_40,Button_Icon_Red_45,Button_Icon_Block_45 } from "../styled/Buttons";
+import { Icon_26,Icon_Button_Black_30,Icon_White_14,Icon_White_18 } from "../styled/Icons";
+import { Input_Text_White_20 } from "../styled/Inputs";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -67,9 +67,9 @@ export default function Search_Bar (){
     // Estructura del componente
     return(
         <>
-            <Container_Search_Bar>
-                <Icon_25><FcSearch/></Icon_25>
-                <Input_Search
+            <Container_Row_100_Left>
+                <Icon_26><FcSearch/></Icon_26>
+                <Input_Text_White_20
                     type="text"
                     placeholder="Buscar..."
                     value={isSearchTerm}
@@ -84,95 +84,108 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-                {currentSView === 'Users' && currentNView === 'Principal' ? (
-                    isPermission.superadministrador ? (
-                        isSelectedRow === null ? (
+                <Container_Row_80_Right>    
+                    {currentSView === 'Users' && currentNView === 'Users' ? (
+                        isPermission.superadministrador ? (
                             <>
                                 <Tooltip title='Agregar' placement="top">
-                                    <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Users-Add')
-                                        navigate('/Administration/Users/Principal/Add',{ replace: true });
+                                    <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                    onClick={() => {
+                                        changeModalView('Users-Add');
+                                        navigate('/Administration/Users/Users/Add',{ replace: true });
                                     }}>
-                                        <FaUserPlus/>
-                                    </Button_Icon_Green_45>
+                                        <Icon_White_18><FaUserPlus/></Icon_White_18>
+                                    </Button_Icon_Green_60>
                                 </Tooltip>
-                                <Button_Icon_Block_45 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Block_45>
-                                <Button_Icon_Block_45 ThemeMode={themeMode}><FaUserMinus/></Button_Icon_Block_45>
+                                <Tooltip title='Editar' placement="top">
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    onClick={() => {
+                                        changeModalView('Users-Edit');
+                                        navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                    }}>
+                                        <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                    </Button_Icon_Blue_60>
+                                </Tooltip>
+                                <Tooltip title='Eliminar' placement="top">
+                                    <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    onClick={() => {
+                                        changeModalView('Users-Delete');
+                                        navigate('/Administration/Users/Users/Delete',{ replace: true });
+                                    }}>
+                                        <Icon_White_18><FaUserMinus/></Icon_White_18>
+                                    </Button_Icon_Red_60>
+                                </Tooltip>
                                 {isViewPassword ? (
                                     <>
-                                        <Tooltip title='Ocultar' placement="top">
-                                            <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => changeViewPassword()}><IoIosEyeOff/></Button_Icon_Red_45>
+                                        <Tooltip title='Ocultar contraseñas' placement="top">
+                                            <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'} 
+                                            onClick={() => changeViewPassword()}>
+                                                <Icon_White_18><IoIosEyeOff/></Icon_White_18>
+                                            </Button_Icon_Red_60>
                                         </Tooltip>
                                     </>
                                 ):(
                                     <>
-                                        <Tooltip title='Ver' placement="top">
-                                            <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                                changeModalView('Users-View')
-                                                navigate('/Administration/Users/Principal/View',{ replace: true });
+                                        <Tooltip title='Mostrar contraseñas' placement="top">
+                                            <Button_Icon_Green_60 ThemeMode={themeMode}  className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                changeModalView('Users-View');
+                                                navigate('/Administration/Users/Users/View',{ replace: true });
                                             }}>
-                                                <FaEye/>
-                                            </Button_Icon_Green_45>
-                                        </Tooltip> 
+                                                <Icon_White_18><FaEye/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
                                     </>
                                 )}
                             </>
                         ):(
                             <>
-                                <Button_Icon_Block_45><FaUserPlus/></Button_Icon_Block_45>
+                                <Tooltip title='Agregar' placement="top">
+                                    <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                    onClick={() => {
+                                        changeModalView('Users-Add');
+                                        navigate('/Administration/Users/Users/Add',{ replace: true });
+                                    }}>
+                                        <Icon_White_18><FaUserPlus/></Icon_White_18>
+                                    </Button_Icon_Green_60>
+                                </Tooltip>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Blue_60>
+                                    <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    onClick={() => {
+                                        changeModalView('Users-Edit');
+                                        navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                    }}>
+                                        <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                    </Button_Icon_Blue_60>
                                 </Tooltip>
-                                <Tooltip title='Eliminar' placement="top">
-                                    <Button_Icon_Red_45 ThemeMode={themeMode}><FaUserMinus/></Button_Icon_Red_45>
-                                </Tooltip>
-                                <Button_Icon_Block_45><FaEye/></Button_Icon_Block_45>
+                                {isViewPassword ? (
+                                    <>
+                                        <Tooltip title='Ocultar contraseñas' placement="top">
+                                            <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'} 
+                                            onClick={() => changeViewPassword()}>
+                                                <Icon_White_18><IoIosEyeOff/></Icon_White_18>
+                                            </Button_Icon_Red_60>
+                                        </Tooltip>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Mostrar contraseñas' placement="top">
+                                            <Button_Icon_Green_60 ThemeMode={themeMode}  className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                changeModalView('Users-View');
+                                                navigate('/Administration/Users/Users/View',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><FaEye/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
+                                    </>
+                                )}
                             </>
                         )
                     ):(
-                        isSelectedRow === null ? (
-                            <>
-                                <Tooltip title='Agregar' placement="top">
-                                    <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Users-Add')
-                                        navigate('/Administration/Users/Principal/Add',{ replace: true });
-                                    }}>
-                                        <FaUserPlus/>
-                                    </Button_Icon_Green_45>
-                                </Tooltip>
-                                <Button_Icon_Block_45 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Block_45>
-                                {isViewPassword ? (
-                                    <>
-                                        <Tooltip title='Ocultar' placement="top">
-                                            <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => changeViewPassword()}><IoIosEyeOff/></Button_Icon_Red_45>
-                                        </Tooltip>
-                                    </>
-                                ):(
-                                    <>
-                                        <Tooltip title='Ver' placement="top">
-                                            <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                                changeModalView('Users-View')
-                                                navigate('/Administration/Users/Principal/View',{ replace: true });
-                                            }}>
-                                                <FaEye/>
-                                            </Button_Icon_Green_45>
-                                        </Tooltip> 
-                                    </>
-                                )}
-                            </>
-                        ):(
-                            <>
-                                <Button_Icon_Block_45><FaUserPlus/></Button_Icon_Block_45>
-                                <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode}><FaUserEdit/></Button_Icon_Blue_60>
-                                </Tooltip>
-                                <Button_Icon_Block_45><FaEye/></Button_Icon_Block_45>
-                            </>
-                        )
-                    )
-                ):(
-                    <></>
-                )}
+                        <></>
+                    )}
+                </Container_Row_80_Right>
                 {currentSView === 'Users' && currentNView === 'Permissions' ? (
                     isPermission.superadministrador ? (
                         isSelectedRow === null ? (
@@ -410,7 +423,7 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-            </Container_Search_Bar> 
+            </Container_Row_100_Left> 
         </>
     );
 }

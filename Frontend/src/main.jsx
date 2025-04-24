@@ -18,11 +18,12 @@ import { AppProviders } from './contexts/AppProviders';
 //__________ICONOS__________
 // Estilos personalizados
 import '../src/components/styled/Animations.css'
-import '../src/components/styled/Alerts.css'
-import '../src/components/styled/animations/Shadows.css'
-import '../src/components/styled/animations/Rolls.css'
+import '../src/components/styled/Alerts.css';
+import '../src/components/styled/animations/Rolls.css';
+import '../src/components/styled/animations/Shadows.css';
+import '../src/components/styled/animations/Pulsates.css';
+import '../src/components/styled/animations/Slides.css';
 import 'animate.css';
-
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
 import Error from './pages/general/Error';
@@ -32,7 +33,7 @@ import Out_Login from './components/modals/General/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
 import Home_Administration from './pages/administration/Home';
 import Users from './pages/administration/Users';
-import TableUsers from './components/tables/TableUsers';
+import Table_Users from './components/tables/users/Users';
 import Users_Add from './components/modals/users/UsersAdd';
 import Users_View from './components/modals/users/UsersView';
 import TablePermissions from './components/tables/TablePermissions';
@@ -83,7 +84,7 @@ const router = createHashRouter([
                 children: [
                   {
                     path: 'Users',
-                    element: <TableUsers/>,
+                    element: <Table_Users/>,
                     children: [
                       {
                         path: 'Add',

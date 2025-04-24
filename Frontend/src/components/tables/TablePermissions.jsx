@@ -19,7 +19,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_90_Center } from "../styled/Containers"
-import { Table,Tr,Th,Td } from "../styled/Tables"
+import { Table,Th,Td } from "../styled/Tables"
 import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
 import { Text_Span_16_Center } from "../styled/Text";
 import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
@@ -61,7 +61,7 @@ export default function TablePermissions(){
         <>
             <Table id="Table-Permissions">
                 <thead>
-                    <Tr>
+                    <tr>
                         <Th ThemeMode={themeMode}>Nombre de Usuario</Th>
                         <Th ThemeMode={themeMode}>Administrador</Th>
                         <Th ThemeMode={themeMode}>Chef</Th>
@@ -74,12 +74,12 @@ export default function TablePermissions(){
                         ):(
                             <></>
                         )}
-                    </Tr>
+                    </tr>
                 </thead>
                 <tbody>
                     {isUsers.map((user) => (
                         currentRecordsPermissions.filter((permission) => user.idusuario === permission.idusuario).map((permission) => (
-                            <Tr
+                            <tr
                                 key={permission.idpermiso}
                                 onClick={() => handleRowClick(permission)}
                                 style={{
@@ -100,7 +100,7 @@ export default function TablePermissions(){
                                 ):(
                                     <></>
                                 )}
-                            </Tr>
+                            </tr>
                         ))
                     ))}
                 </tbody>

@@ -19,7 +19,7 @@ import { MdCancel } from "react-icons/md";
 import { FaUserPlus } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400,Container_Button_Border_Column_400,Container_Button_Row_300,Container_100_Center } from "../../styled/Containers";
+import { Container_Modal,Container_Form_450,Container_Row_Border_90_Center,Container_Column_Border_90_Center,Container_Row_90_Center,Container_Row_100_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Green_170,Button_Icon_Block_170 } from "../../styled/Buttons";
 import { Text_Title_30_Center,Text_P_16_Left,Text_P_20_Left,Text_A_16_Center } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
@@ -45,26 +45,26 @@ export default function Users_Add(){
                 <Container_Form_450 ThemeMode={themeMode}>
                     <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_30_Center>
                     <Text_P_16_Left ThemeMode={themeMode}>Ingresar datos del usuario...</Text_P_16_Left>
-                    <Container_Button_Border_Column_400 ThemeMode={themeMode}>
-                        <Container_Button_Row_300>
+                    <Container_Column_Border_90_Center ThemeMode={themeMode}>
+                        <Container_Row_90_Center>
                             <Label_Check_18 ThemeMode={themeMode}>Nombre:</Label_Check_18>
                             <Input_Text_260 ThemeMode={themeMode}/>
-                        </Container_Button_Row_300>
-                        <Container_Button_Row_300>
+                        </Container_Row_90_Center>
+                        <Container_Row_90_Center>
                             <Label_Check_18 ThemeMode={themeMode}>Nombre corto:</Label_Check_18>
                             <Input_Text_260 ThemeMode={themeMode}/>
-                        </Container_Button_Row_300>
-                        <Container_Button_Row_300>
+                        </Container_Row_90_Center>
+                        <Container_Row_90_Center>
                             <Label_Check_18 ThemeMode={themeMode}>Usuario:</Label_Check_18>
                             <Input_Text_260 ThemeMode={themeMode}/>
-                        </Container_Button_Row_300>
-                        <Container_Button_Row_300>
+                        </Container_Row_90_Center>
+                        <Container_Row_90_Center>
                             <Label_Check_18 ThemeMode={themeMode}>Contraseña:</Label_Check_18>
                             <Input_Text_260 ThemeMode={themeMode}/>
-                        </Container_Button_Row_300>
-                    </Container_Button_Border_Column_400>
+                        </Container_Row_90_Center>
+                    </Container_Column_Border_90_Center>
                     <Text_A_16_Center ThemeMode={themeMode}>Permisos...</Text_A_16_Center>
-                    <Container_100_Center>
+                    <Container_Row_100_Center>
                         {['Default','Personalizado'].map((item,index) => (
                             <Label_Check_18 ThemeMode={themeMode} key={index}>
                                 <Input_Radio_16 ThemeMode={themeMode}
@@ -76,9 +76,9 @@ export default function Users_Add(){
                                 {item}
                             </Label_Check_18>
                         ))};
-                    </Container_100_Center>
+                    </Container_Row_100_Center>
                     <Text_A_16_Center ThemeMode={themeMode}>Estatus...</Text_A_16_Center>
-                    <Container_100_Center>
+                    <Container_Row_100_Center>
                         {['Habilitado','Deshabilitado'].map((item,index) => (
                             <Label_Check_18 ThemeMode={themeMode} key={index}>
                                 <Input_Radio_16 ThemeMode={themeMode}
@@ -90,9 +90,9 @@ export default function Users_Add(){
                                 {item}
                             </Label_Check_18>
                         ))};
-                    </Container_100_Center>
+                    </Container_Row_100_Center>
                     <Text_P_20_Left ThemeMode={themeMode}>Agregar usuario</Text_P_20_Left>
-                    <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                    <Container_Row_Border_90_Center ThemeMode={themeMode}>
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => {
                                 changeModalView('')
@@ -112,7 +112,7 @@ export default function Users_Add(){
                                 </Tooltip>
                             </>
                         )}
-                    </Container_Button_Border_Row_400>
+                    </Container_Row_Border_90_Center>
                 </Container_Form_450>
             </Container_Modal>
         </>

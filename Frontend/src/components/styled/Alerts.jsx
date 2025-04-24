@@ -3,25 +3,10 @@
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import { toast } from 'sonner';
-//__________ICONOS__________
-// Icono para la alerta de advertencia
-import { AiFillWarning } from "react-icons/ai";
 //____________IMPORT/EXPORT____________
 
 //____________STYLES____________
-export const Alert_Styles = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    .Yellow {
-        font-size: 14px;
-        font-family: "Prompt", sans-serif;
-        font-weight: 300;
-        font-style: normal;
-        border-radius: 40px;
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(122, 104, 21)' : 'rgb(182, 154, 31)')};
-        border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
-    } 
-
+export const Alert_Styles = styled.div`
     .Verification {
         font-size: 14px;
         font-family: Century Gothic,Prompt;
@@ -67,15 +52,39 @@ export const Alert_Greeting = (Title,Message,ThemeMode,Image) => {
 };
 //____________GREETING____________
 //____________WARNING____________
-export const Alert_Warning = (titulo,mensaje,themeMode) => {
-    toast(titulo,{
-        duration:4000,
-        description: mensaje,
-        className: 'Yellow',
-        icon: themeMode ? <AiFillWarning style={{color:'rgb(182, 154, 31)',fontSize:'20px'}}/> : <AiFillWarning style={{color:'rgb(122, 104, 21)',fontSize:'20px'}}/>,
-    }
-    );
-};
+export const Alert_Warning = (Title,Message,ThemeMode,Image) => {
+    return Swal.fire({
+        title: Title,
+        text: Message,
+        showConfirmButton: false,
+        width: '400px',
+        heightAuto: true,
+        timer: 3000,
+        backdrop: false,
+        customClass: {
+            popup: ThemeMode ? 'warning-theme-light' : 'warning-theme-dark',
+            title: ThemeMode ? 'warning-title-light' : 'warning-title-dark',
+        },
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        imageUrl: Image,
+        imageWidth: 100,
+        imageHeight: 100,
+        position: 'center',
+    });
+}
 //____________WARNING____________
 //____________ERROR____________
 export const Alert_Error = (Title,Message,ThemeMode,Image) => {
@@ -127,41 +136,6 @@ export const Alert_Verification = (promesa,Verificacion) => {
     });
 };
 //____________VERIICATION____________
-//____________MESSAGE____________
-export const Alert_Message = (Title,Message,ThemeMode,Image) => {
-    return Swal.fire({
-        title: Title,
-        text: Message,
-        showConfirmButton: false,
-        width: '400px',
-        heightAuto: true,
-        timer: 3000,
-        backdrop: false,
-        customClass: {
-            popup: ThemeMode ? 'message-theme-light' : 'message-theme-dark',
-            title: ThemeMode ? 'message-title-light' : 'message-title-dark',
-        },
-        showClass: {
-            popup: `
-                animate__animated
-                animate__fadeInUp
-                animate__faster
-            `
-        },
-        hideClass: {
-            popup: `
-                animate__animated
-                animate__fadeOutDown
-                animate__faster
-            `
-        },
-        imageUrl: Image,
-        imageWidth: 90,
-        imageHeight: 100,
-        position: 'center',
-    });
-}
-//____________LOGOUT____________
 //____________LOGOUT____________
 export const Alert_Logout = (Title,Message,ThemeMode,Image,Color,Hook) => {
     let remainingTime = 5;
@@ -169,7 +143,7 @@ export const Alert_Logout = (Title,Message,ThemeMode,Image,Color,Hook) => {
 
     Swal.fire({
         title: Title,
-        text: `${Message} Tiempo restante: ${remainingTime}s`,
+        html: `${Message}<br>Tiempo restante: ${remainingTime}s`,
         showConfirmButton: false,
         showCancelButton: true,
         cancelButtonText: 'Cancelar',
@@ -214,7 +188,7 @@ export const Alert_Logout = (Title,Message,ThemeMode,Image,Color,Hook) => {
     timerInterval = setInterval(() => {
         remainingTime = Math.max(0, remainingTime - 1);
         Swal.update({
-            text: `${Message} Tiempo restante: ${remainingTime}s`
+            html: `${Message}<br>Tiempo restante: ${remainingTime}s`
         });
 
         if (remainingTime === 0) {

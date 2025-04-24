@@ -16,7 +16,6 @@ import { useContext,useEffect } from "react";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_90_Left,Container_Row_90_Center } from "../../components/styled/Containers";
-import { Img_Logo_Hospital_60 } from "../../components/styled/Imgs";
 // Componentes personalizados
 //____________IMPORT/EXPORT____________
 
@@ -28,7 +27,6 @@ export default function Home_Administration(){
     return(
         <> 
             <Container_Row_90_Left>
-                <Img_Logo_Hospital_60/>
                 <Container_Row_90_Center>
                 </Container_Row_90_Center>
             </Container_Row_90_Left>

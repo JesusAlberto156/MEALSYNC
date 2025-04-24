@@ -364,7 +364,7 @@ export default function Login(){
             </Container_Page>  
             <Alert_Styles>
                 <Toaster
-                    visibleToasts={3}
+                    visibleToasts={1}
                     richColors
                     theme='light'
                     position='top-right'

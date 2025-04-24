@@ -5,6 +5,30 @@ import styled from 'styled-components';
 import { Rotate_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
+//____________IMAGE____________
+//---------- Black/White
+export const Icon_Image_Black_90 = styled.img.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 90px; 
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};;
+
+    @media (max-width: 768px) {
+        width: 80px; 
+        height: 80px;
+    }
+
+    @media (max-width: 480px) {
+        width: 70px; 
+        height: 70px;
+    }
+`;
+//---------- Black/White
+//____________IMAGE____________
 //____________BUTTON____________
 //---------- Black
 export const Icon_Button_Black_30 = styled.button.withConfig({
@@ -513,17 +537,6 @@ export const Icon_Yellow_250 = styled.div.withConfig({
 //____________COLOR____________
 
 
-export const Icon_25 = styled.div`
-    font-size: 25px;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 15px;
-    }
-`;
 // Color Verde
 export const Icon_Green_16 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -554,47 +567,6 @@ export const Icon_Red_16 = styled.div.withConfig({
         font-size: 12px;
     }
 `;
-
-//____________IMAGE____________
-export const Icon_Image_Profile_Dark = styled.img`
-    width: 80px; 
-    height: 80px;
-    border-radius: 50%;
-    object-fit: contain;
-    border: 4px solid white;
-    background-color: transparent;
-
-    @media (max-width: 768px) {
-        width: 70px; 
-        height: 70px;
-    }
-
-    @media (max-width: 480px) {
-        width: 60px; 
-        height: 60px;
-    }
-`;
-export const Icon_Image_Profile_Light = styled.img`
-    width: 80px; 
-    height: 80px;
-    border-radius: 50%;
-    object-fit: contain;
-    border: 4px solid black;
-    background-color: transparent;
-    margin-top: 0px;
-
-    @media (max-width: 768px) {
-        width: 70px; 
-        height: 70px;
-    }
-
-    @media (max-width: 480px) {
-        width: 60px; 
-        height: 60px;
-    }
-`;
-//____________IMAGE____________
-
 
 //--------MODAL--------
 export const Icon_Warning_Modal = styled.div`

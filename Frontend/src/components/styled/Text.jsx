@@ -1354,313 +1354,281 @@ export const Text_P_12_Right = styled.p.withConfig({
 //______________SPAN____________
 //---------- CENTER
 export const Text_Span_24_Center = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 24px;
     text-align: center;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 22px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 20px;
-        padding: 6px;
     }
 `;
 export const Text_Span_20_Center = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 20px;
     text-align: center;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 18px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 16px;
-        padding: 6px;
     }
 `;
 export const Text_Span_16_Center = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 16px;
     text-align: center;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 14px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 12px;
-        padding: 6px;
     }
 `;
 export const Text_Span_12_Center = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
     text-align: center;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 10px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 8px;
-        padding: 6px;
     }
 `;
 //---------- CENTER
 //---------- JUSTIFY
 export const Text_Span_24_Justify = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 24px;
     text-align: justify;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 22px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 20px;
-        padding: 6px;
     }
 `;
 export const Text_Span_20_Justify = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 20px;
     text-align: justify;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 18px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 16px;
-        padding: 6px;
     }
 `;
 export const Text_Span_16_Justify = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 16px;
     text-align: justify;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 14px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 12px;
-        padding: 6px;
     }
 `;
 export const Text_Span_12_Justify = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
     text-align: justify;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 10px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 8px;
-        padding: 6px;
     }
 `;
 //---------- JUSTIFY
 //---------- LEFT
 export const Text_Span_24_Left = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 24px;
     text-align: left;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 22px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 20px;
-        padding: 6px;
     }
 `;
 export const Text_Span_20_Left = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 20px;
     text-align: left;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 18px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 16px;
-        padding: 6px;
     }
 `;
 export const Text_Span_16_Left = styled.span`
+    color: white;    
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 16px;
     text-align: left;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 14px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 12px;
-        padding: 6px;
     }
 `;
 export const Text_Span_12_Left = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
     text-align: left;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 10px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 8px;
-        padding: 6px;
     }
 `;
 //---------- LEFT
 //---------- RIGHT
 export const Text_Span_24_Right = styled.span`
+    color: white;    
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 24px;
     text-align: right;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 22px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 20px;
-        padding: 6px;
     }
 `;
 export const Text_Span_20_Right = styled.span`
+    color: white;    
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 20px;
     text-align: right;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 18px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 16px;
-        padding: 6px;
     }
 `;
 export const Text_Span_16_Right = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 16px;
     text-align: right;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 14px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 12px;
-        padding: 6px;
     }
 `;
 export const Text_Span_12_Right = styled.span`
+    color: white;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
     text-align: right;
-    padding: 10px;
     width: auto;
     margin: 0px;
 
     @media (max-width: 768px) {
         font-size: 10px;
-        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 8px;
-        padding: 6px;
     }
 `;
 //---------- RIGHT

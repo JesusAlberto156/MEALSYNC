@@ -8,7 +8,7 @@ import { AnimationContext } from "../../contexts/VariablesProvider";
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_90_Left } from "../styled/Containers";
 import { Text_P_16_Left,Text_A_16_Left } from "../styled/Text";
-import { Input_Text_60,Input_Text_50 } from "../styled/Inputs";
+import { Input_Text_Black_50,Input_Text_Black_60 } from "../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
@@ -25,7 +25,7 @@ export default function Form_Login(){
             </Container_Row_90_Left>
             <Container_Row_100_Left>
                 <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Usuario:</Text_A_16_Left>
-                <Input_Text_60 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                <Input_Text_Black_60 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                     placeholder="Escribir aquí..."
                     type="text"
                     value={isTextFields.user}
@@ -34,7 +34,7 @@ export default function Form_Login(){
             </Container_Row_100_Left>
             <Container_Row_100_Left>
                 <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Contraseña:</Text_A_16_Left>
-                <Input_Text_50 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                <Input_Text_Black_50 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                     placeholder="Escribir aquí..."
                     type="password"
                     value={isTextFields.password}

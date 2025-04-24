@@ -118,44 +118,42 @@ export const Container_Page_Elements = styled.div.withConfig({
 })`
     position: fixed;
     top: 0%;
-    left: ${({ sidebarVisible }) => (sidebarVisible ? "20%" : "2%")};
-    width: ${({ sidebarVisible }) => (sidebarVisible ? "80%" : "100%")};
+    left: ${({ sidebarVisible }) => (sidebarVisible ? "23%" : "2%")};
+    width: 100%;
     height: 100%;
-    max-width: ${({ sidebarVisible }) => (sidebarVisible ? "80vw" : "95vw")}; 
+    max-width: ${({ sidebarVisible }) => (sidebarVisible ? "75vw" : "95vw")}; 
     max-height: 100vh;
     margin: 0px;
     gap: 15px;
     padding: 10px;
     padding-top: 30px;
-    padding-bottom: 100px;
+    padding-bottom: 30px;
     background-color: transparent;
     display: flex;
     flex-direction: column;
-    align-Items: flex-start;
+    align-Items: center;
     justify-content: flex-start;
     box-sizing: border-box;
-    transition: all ${({ sidebarVisible }) => (sidebarVisible ? "0.3s" : "3.0s")} ease;
-    overflow-y: hidden; 
+    transition: all ${({ sidebarVisible }) => (sidebarVisible ? "0.3s" : "1.0s")} ease;
+    overflow-y: auto; 
     overflow-x: auto;
     
     @media (max-width: 768px) {
         padding: 8px;
         padding-top: 25px;
-        padding-bottom: 80px;
+        padding-bottom: 25px;
         gap: 10px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "32%" : "2%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "100%" : "100%")}; 
+        left: ${({ sidebarVisible }) => (sidebarVisible ? "33%" : "2%")};  
         max-width: ${({ sidebarVisible }) => (sidebarVisible ? "65vw" : "95vw")}; 
     }
 
     @media (max-width: 480px) {
         padding: 6px;
         padding-top: 20px;
-        padding-bottom: 60px;
+        padding-bottom: 20px;
         gap: 5px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "42%" : "2%")}; 
-        width: ${({ sidebarVisible }) => (sidebarVisible ? "100%" : "100%")}; 
-        max-width: ${({ sidebarVisible }) => (sidebarVisible ? "55vw" : "95vw")}; 
+        left: ${({ sidebarVisible }) => (sidebarVisible ? "36%" : "2%")}; 
+        max-width: ${({ sidebarVisible }) => (sidebarVisible ? "60vw" : "95vw")}; 
     }
 `;
 export const Container_Page_Error = styled.div.withConfig({
@@ -382,22 +380,20 @@ export const Container_Form_400 = styled.div.withConfig({
 export const Container_Form_350 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    z-index: 40;
+    z-index: 100;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     box-sizing: border-box;
     width: 350px;
     max-height: 80vh;
     padding: 20px;
-    padding-top: 10px;
     gap: 14px;
-    margin-right: 40px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255,255,255)' : 'rgb(0,0,0)')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -409,14 +405,12 @@ export const Container_Form_350 = styled.div.withConfig({
     @media (max-width: 768px) {
         width: 300px;
         padding: 18px;
-        padding-top: 8px;
         gap: 12px;
     }
 
     @media (max-width: 480px) {
         width: 250px;    
         padding: 16px;
-        padding-top: 6px;
         gap: 10px;
     }
 `;
@@ -753,6 +747,71 @@ export const Container_Row_80_Left = styled.div`
     }
 }
 `;
+//-------- White
+export const Container_Row_White_Width_98_Left = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 98%;
+    height: auto;
+    gap: 10px;
+    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')};
+    border-radius: 40px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')}; 
+    display: flex;            
+    align-items: left; 
+    padding: 4px; 
+    padding-left: 20px;
+
+    @media (max-width: 768px) {
+        padding: 3px; 
+        padding-left: 15px;
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 2px; 
+        padding-left: 10px;
+        gap: 6px;
+    }
+`;
+//-------- White
+//-------- Blue
+export const Container_Row_Blue_Width_92_Left = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 92%;
+    height: auto;
+    gap: 10px;
+    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    border-radius: 40px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')}; 
+    display: flex;            
+    align-items: left; 
+    padding: 4px; 
+    padding-left: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        padding: 3px; 
+        padding-left: 15px;
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 2px; 
+        padding-left: 10px;
+        gap: 6px;
+    }
+`;
+//-------- Blue
 //-------- LEFT --------
 //____________ROW____________
 //____________COLUMN____________
@@ -928,11 +987,11 @@ export const Container_Column_Border_70_Center = styled.div.withConfig({
 export const Container_Column_White_Height_100_Center = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    width: 260px;
+    width: 280px;
     height: 100vh;
     padding: 10px;
     gap: 15px;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')};
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
     box-sizing: border-box;
     position: fixed;
@@ -948,19 +1007,19 @@ export const Container_Column_White_Height_100_Center = styled.div.withConfig({
     z-index: 40;
 
     @media (max-width: 768px) {
-        width: 230px;
+        width: 250px;
         padding: 8px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 200px;
+        width: 220px;
         padding: 6px;
         gap: 5px;
     }
 
     &.hidden {
-        transform: translateX(-95%);
+        transform: translateX(-100%);
     }
 
     &.visible {
@@ -1191,113 +1250,3 @@ export const Container_Modal = styled.div`
     overflow-y: auto;
 `;
 //____________MODAL____________
-//____________ICON____________
-export const Container_Icon_60 = styled.div`
-    text-align: center;
-    margin-top: 60px;
-
-    @media (max-width: 768px) {
-        margin-top: 50px;
-    }
-
-    @media (max-width: 480px) {
-        margin-top: 40px;
-    }
-}
-`;
-//____________ICON____________
-//____________NAVEGATION____________
-export const Container_Nav_Bar = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;           
-    background: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.8)')};
-    width: 90%;
-    height: 60px;  
-    border-radius: 50px; 
-    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};   
-    position: relative; 
-    opacity:0.9;
-    padding: 4px;
-    gap: 15px;
-    margin-left: 15px;
-
-    @media (max-width: 768px) {
-        height: 50px;
-        padding: 3px;
-        gap: 10px;    
-        margin-left: 10px;
-    }
-
-    @media (max-width: 480px) {
-        height: 40px;
-        padding: 2px;
-        gap: 5px;
-        margin-left: 5px;
-    }
-`;
-export const Container_Nav_Bar_Button = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 90%;
-    height: 55px;
-    gap: 7px;
-    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    border-radius: 50px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')}; 
-    display: flex;            
-    justify-content: flex-start;
-    align-items: center; 
-    padding-left: 25px; 
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    white-space: nowrap;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    @media (max-width: 768px) {
-        height: 45px;
-        padding-left: 20px;
-        gap: 6px;
-    }
-
-    @media (max-width: 480px) {
-        height: 35px;
-        padding-left: 15px;
-        gap: 5px;
-    }
-`;
-export const Container_Search_Bar = styled.div`  
-    display: flex;            
-    align-items: center;
-    justify-content: flex-end;         
-    background: transparent;
-    width: 90%;
-    height: 60px;       
-    position: relative; 
-    opacity:0.9;
-    padding: 4px;
-    gap: 8px;
-    margin-left: 15px;
-
-    @media (max-width: 768px) {
-        height: 50px;
-        padding: 3px;
-        gap: 6px;  
-        margin-left: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        height: 40px;
-        padding: 2px;
-        gap: 4px;
-        margin-left: 5px;
-    }
-`;
-//____________NAVEGATION____________

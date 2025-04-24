@@ -9,13 +9,13 @@ import { SearchTermContext,ActionBlockContext } from "../contexts/VariablesProvi
 // Hooks personalizados
 import { HandleChangeLog } from "../hooks/Form";
 //__________IMAGES____________
-import Logo_Hospital_Light from '../components/imgs/Logo-Hospital-Light.png';
-import Logo_Hospital_Dark from '../components/imgs/Logo-Hospital-Dark.png';
+import Logo_Warning_Light from '../components/imgs/Logo-Warning-Light.png';
+import Logo_Warning_Dark from '../components/imgs/Logo-Warning-Dark.webp';
 import Logo_Logout_Light from '../components/imgs/Logo-Logout-Light.png';
 import Logo_Logout_Dark from '../components/imgs/Logo-Logout-Dark.png';
 //__________IMAGES____________
 // Estilos personalizados
-import { Alert_Logout,Alert_Message,Alert_Verification } from "../components/styled/Alerts";
+import { Alert_Logout,Alert_Warning,Alert_Verification } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Componente para proteger las rutas de la pagina
@@ -39,20 +39,21 @@ export const PrivateRouteKitchen = () => {
     // Constantes con el valor de los useRef
     const inactividadTimer = useRef(null);
     // Constantes
-    const tiempoInactivoParaAccion = 300000;
+    const tiempoInactivoParaAccion = 600000;
     // Reiniciar temporizador de inactividad
     const ejecutarAccionFinal = () => {
         const showAlerts = async () => {
-            const Image_Hospital = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
+            const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
             const Image_Logout = themeMode ? Logo_Logout_Light : Logo_Logout_Dark;
             const Color = themeMode ? '#3a5dae' : '#527ee7';
 
-            await Alert_Message('MEALSYNC',`¡${isLoggedUser.nombre}!`,themeMode,Image_Hospital);
+            await Alert_Warning('MEALSYNC',`¡${isLoggedUser.nombre}!`,themeMode,Image_Warning);
 
             await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleChangeLog);
         }
-
-        showAlerts();
+        if(isLoggedLogged){
+            showAlerts();
+        }
     };
     const resetInactividad = () => {
         clearTimeout(inactividadTimer.current);

@@ -18,7 +18,7 @@ import { MdCancel } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Button_Border_Row_350 } from "../../styled/Containers";
+import { Container_Modal,Container_Form_400,Container_Row_Border_90_Center } from "../../styled/Containers";
 import { Text_P_16_Left, Text_Title_30_Center } from "../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Red_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../../styled/Buttons";
 // Componentes personalizados
@@ -57,7 +57,7 @@ export default function Permissions_Super_Administrator(){
                             <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.superadministrador ? 'DESHABILITAR PERMISO':'HABILITAR PERMISO'}</Text_Title_30_Center>
                             <Form_Verification/>
                             {isSelectedRow.superadministrador ? <Text_P_16_Left ThemeMode={themeMode}>Se deshabilitará a {user}</Text_P_16_Left>:<Text_P_16_Left ThemeMode={themeMode}>Se habilitará a {user}</Text_P_16_Left>}
-                            <Container_Button_Border_Row_350 ThemeMode={themeMode}>
+                            <Container_Row_Border_90_Center ThemeMode={themeMode}>
                                 <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={(e) => {
                                     e.stopPropagation();
                                     changeModalView('');
@@ -90,7 +90,7 @@ export default function Permissions_Super_Administrator(){
                                         <Button_Icon_Block_150 ThemeMode={themeMode}><MdAdminPanelSettings/></Button_Icon_Block_150>
                                     </>
                                 )}
-                            </Container_Button_Border_Row_350>
+                            </Container_Row_Border_90_Center>
                         </Container_Form_400>
                     </Container_Modal>  
                 </>

@@ -19,7 +19,7 @@ import { MdCancel } from "react-icons/md";
 import { FcAddRow } from "react-icons/fc";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Button_Border_Row_350 } from "../../styled/Containers";
+import { Container_Modal,Container_Form_400,Container_Row_Border_90_Center } from "../../styled/Containers";
 import { Text_Title_30_Center,Text_P_20_Left } from "../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Block_150,Button_Icon_Green_150 } from "../../styled/Buttons";
 import { Label_Check_18 } from "../../styled/Labels";
@@ -47,7 +47,7 @@ export default function Status_Add(){
                 <Container_Form_400 ThemeMode={themeMode}>
                         <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR STATUS</Text_Title_30_Center>
                         <Text_P_20_Left ThemeMode={themeMode}>Selecciona un usuario...</Text_P_20_Left>
-                        <Container_Button_Border_Row_350 ThemeMode={themeMode}>
+                        <Container_Row_Border_90_Center ThemeMode={themeMode}>
                             <Select
                                 options={filteredRecordsHasStatus.map((user) => ({
                                     value: user.idusuario,
@@ -104,9 +104,9 @@ export default function Status_Add(){
                                 value={isSelect}
                                 onChange={handleSelectChange}
                             />
-                        </Container_Button_Border_Row_350>
+                        </Container_Row_Border_90_Center>
                         <Text_P_20_Left ThemeMode={themeMode}>Selecciona un estado...</Text_P_20_Left>
-                        <Container_Button_Border_Row_350 ThemeMode={themeMode}>
+                        <Container_Row_Border_90_Center ThemeMode={themeMode}>
                             {['Habilitado','Deshabilitado'].map((item,index) => (
                                 <Label_Check_18 ThemeMode={themeMode} key={index}>
                                     <Input_Radio_16 ThemeMode={themeMode}
@@ -119,9 +119,9 @@ export default function Status_Add(){
                                     {item}
                                 </Label_Check_18>
                             ))};
-                        </Container_Button_Border_Row_350>
+                        </Container_Row_Border_90_Center>
                         <Text_P_20_Left ThemeMode={themeMode}>Agregar estatus...</Text_P_20_Left>
-                        <Container_Button_Border_Row_350 ThemeMode={themeMode}>
+                        <Container_Row_Border_90_Center ThemeMode={themeMode}>
                             <Tooltip title='Cancelar' placement="top">
                                 <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={() => {
                                     changeModalView('')
@@ -141,7 +141,7 @@ export default function Status_Add(){
                                     </Tooltip>
                                 </>
                             )}
-                        </Container_Button_Border_Row_350>
+                        </Container_Row_Border_90_Center>
                 </Container_Form_400>
             </Container_Modal>
         </>

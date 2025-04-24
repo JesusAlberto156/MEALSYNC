@@ -19,7 +19,7 @@ import { MdCancel } from "react-icons/md";
 import { MdAddModerator } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400 } from "../../styled/Containers";
+import { Container_Modal,Container_Form_450,Container_Row_Border_90_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Green_170,Button_Icon_Block_170 } from "../../styled/Buttons";
 import { Text_Title_30_Center,Text_P_20_Left } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
@@ -47,7 +47,7 @@ export default function Permissions_Add(){
                 <Container_Form_450 ThemeMode={themeMode}>
                     <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR PERMISOS</Text_Title_30_Center>
                     <Text_P_20_Left ThemeMode={themeMode}>Selecciona un usuario...</Text_P_20_Left>
-                    <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                    <Container_Row_Border_90_Center ThemeMode={themeMode}>
                         <Select
                             options={filteredRecordsHasPermissions.map((user) => ({
                                 value: user.idusuario,
@@ -104,9 +104,9 @@ export default function Permissions_Add(){
                             value={isSelect}
                             onChange={handleSelectChange}
                         />
-                    </Container_Button_Border_Row_400>
+                    </Container_Row_Border_90_Center>
                     <Text_P_20_Left ThemeMode={themeMode}>Área de administración...</Text_P_20_Left>
-                    <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                    <Container_Row_Border_90_Center ThemeMode={themeMode}>
                         <Label_Check_18 ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 value={isCheckbox.some(item => item.name === 'Administrator' && item.value)}
@@ -131,9 +131,9 @@ export default function Permissions_Add(){
                             />
                             Almacenista
                         </Label_Check_18>
-                    </Container_Button_Border_Row_400>
+                    </Container_Row_Border_90_Center>
                     <Text_P_Left_20 ThemeMode={themeMode}>Área de cocina...</Text_P_Left_20>
-                    <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                    <Container_Row_Border_90_Center ThemeMode={themeMode}>
                         <Label_Check_18 ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
@@ -158,9 +158,9 @@ export default function Permissions_Add(){
                             />
                             Médico
                         </Label_Check_18>
-                    </Container_Button_Border_Row_400>
+                    </Container_Row_Border_90_Center>
                     <Text_P_20_Left ThemeMode={themeMode}>Agregar permisos</Text_P_20_Left>
-                    <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                    <Container_Row_Border_90_Center ThemeMode={themeMode}>
                         <Tooltip title='Cancelar' placement="top">
                             <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={() => {
                                 changeModalView('')
@@ -180,7 +180,7 @@ export default function Permissions_Add(){
                                 </Tooltip>
                             </>
                         )}
-                    </Container_Button_Border_Row_400>
+                    </Container_Row_Border_90_Center>
                 </Container_Form_450>
             </Container_Modal>
         </>

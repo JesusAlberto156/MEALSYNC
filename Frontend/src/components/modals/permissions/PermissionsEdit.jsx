@@ -18,7 +18,7 @@ import { MdCancel } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Button_Border_Row_400 } from "../../styled/Containers";
+import { Container_Modal,Container_Form_450,Container_Row_Border_90_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_170,Button_Icon_Red_170,Button_Icon_Block_170 } from "../../styled/Buttons";
 import { Text_P_20_Left, Text_Title_30_Center } from "../../styled/Text";
 import { Label_Check_18 } from "../../styled/Labels";
@@ -45,7 +45,7 @@ export default function Permissions_Edit(){
                         <Container_Form_450 ThemeMode={themeMode}>
                             <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_30_Center>
                             <Text_P_20_Left ThemeMode={themeMode}>Área de administración...</Text_P_20_Left>
-                            <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                            <Container_Row_Border_90_Center ThemeMode={themeMode}>
                                 <Label_Check_18 ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
@@ -85,9 +85,9 @@ export default function Permissions_Edit(){
                                     />
                                     Almacenista
                                 </Label_Check_18>
-                            </Container_Button_Border_Row_400>
+                            </Container_Row_Border_90_Center>
                             <Text_P_20_Left ThemeMode={themeMode}>Área de cocina...</Text_P_20_Left>
-                            <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                            <Container_Row_Border_90_Center ThemeMode={themeMode}>
                                 <Label_Check_18 ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
@@ -127,9 +127,9 @@ export default function Permissions_Edit(){
                                     />
                                     Médico
                                 </Label_Check_18>
-                            </Container_Button_Border_Row_400>
+                            </Container_Row_Border_90_Center>
                             <Text_P_20_Left ThemeMode={themeMode}>Editar permisos</Text_P_20_Left>
-                            <Container_Button_Border_Row_400 ThemeMode={themeMode}>
+                            <Container_Row_Border_90_Center ThemeMode={themeMode}>
                                 <Button_Icon_Blue_170 ThemeMode={themeMode} onClick={(e) => {
                                     e.stopPropagation();
                                     changeModalView('');
@@ -151,7 +151,7 @@ export default function Permissions_Edit(){
                                         </Button_Icon_Blue_170>
                                     </>
                                 )}
-                            </Container_Button_Border_Row_400>
+                            </Container_Row_Border_90_Center>
                         </Container_Form_450>
                     </Container_Modal>  
                 </>

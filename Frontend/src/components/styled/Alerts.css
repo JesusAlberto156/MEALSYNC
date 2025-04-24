@@ -34,7 +34,42 @@
     padding: 0px
 }
 /*____________GREETING____________*/
-
+/*____________WARNING____________*/
+.warning-theme-light {
+    background-color: rgb(250, 238, 66);
+    color: rgb(0, 0, 0);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.warning-theme-dark {
+    background-color: rgb(250, 184, 3);
+    color: rgb(0, 0, 0);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.warning-title-light {
+    color: rgb(250, 184, 3);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+.warning-title-dark {
+    color: rgb(250, 238, 66);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+/*____________WARNING____________*/
 /*____________ERROR____________*/
 .error-theme-light {
     background-color: rgb(155, 9, 9);
@@ -71,45 +106,9 @@
     padding: 0px
 }
 /*____________ERROR____________*/
-/*____________MESSAGE____________*/
-.message-theme-light {
-    background-color: rgb(82, 126, 231);
-    color: rgb(0, 0, 0);
-    font-family: 'Century Gothic','Prompt';
-    font-style: normal;
-    font-size: 16px;
-    border-radius: 50px;
-    padding: 10px;
-    padding-bottom: 30px;
-}
-.message-theme-dark {
-    background-color: rgb(58,93,174);
-    color: rgb(255, 255, 255);
-    font-family: 'Century Gothic','Prompt';
-    font-style: normal;
-    font-size: 16px;
-    border-radius: 50px;
-    padding: 10px;
-    padding-bottom: 30px;
-}
-.message-title-light {
-    color: rgb(58,93,174);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
-}
-.message-title-dark {
-    color: rgb(82, 126, 231);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
-}
-/*____________MESSAGE____________*/
 /*____________LOGOUT____________*/
 .logout-theme-light {
-    background-color: rgb(20, 165, 76);
+    background-color: rgb(252, 160, 160);
     color: rgb(0, 0, 0);
     font-family: 'Century Gothic','Prompt';
     font-style: normal;
@@ -119,7 +118,7 @@
     padding-bottom: 30px;
 }
 .logout-theme-dark {
-    background-color: rgb(60, 188, 109);
+    background-color: rgb(221, 59, 59);
     color: rgb(255, 255, 255);
     font-family: 'Century Gothic','Prompt';
     font-style: normal;
@@ -129,14 +128,14 @@
     padding-bottom: 30px;
 }
 .logout-title-light {
-    color: rgb(58,93,174);
+    color: rgb(221, 59, 59);
     font-family: 'Century Gothic','Prompt';
     font-style: italic;
     font-size: 30px;
     padding: 0px
 }
 .logout-title-dark {
-    color: rgb(82, 126, 231);
+    color: rgb(252, 160, 160);
     font-family: 'Century Gothic','Prompt';
     font-style: italic;
     font-size: 30px;
@@ -163,7 +162,24 @@
         font-size: 25px;
     }
     /*____________GREETING____________*/
-
+    /*____________WARNING____________*/
+    .warning-theme-light {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .warning-theme-dark {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .warning-title-light {
+        font-size: 25px;
+    }
+    .warning-title-dark {
+        font-size: 25px;
+    }
+    /*____________WARNING____________*/
     /*____________ERROR____________*/
     .error-theme-light {
         font-size: 14px;
@@ -182,24 +198,6 @@
         font-size: 25px;
     }
     /*____________ERROR____________*/
-    /*____________MESSAGE____________*/
-    .message-theme-light {
-        font-size: 14px;
-        padding: 8px;
-        padding-bottom: 25px;
-    }
-    .message-theme-dark {
-        font-size: 14px;
-        padding: 8px;
-        padding-bottom: 25px;
-    }
-    .message-title-light {
-        font-size: 25px;
-    }
-    .message-title-dark {
-        font-size: 25px;
-    }
-    /*____________MESSAGE____________*/
     /*____________LOGOUT____________*/
     .logout-theme-light {
         font-size: 14px;
@@ -239,7 +237,24 @@
         font-size: 20px;
     }
     /*____________GREETING____________*/
-
+    /*____________WARNING____________*/
+    .warning-theme-light {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .warning-theme-dark {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .warning-title-light {
+        font-size: 20px;
+    }
+    .warning-title-dark {
+        font-size: 20px;
+    }
+    /*____________WARNING____________*/
     /*____________ERROR____________*/
     .error-theme-light {
         font-size: 12px;
@@ -258,24 +273,6 @@
         font-size: 20px;
     }
     /*____________ERROR____________*/
-    /*____________MESSAGE____________*/
-    .message-theme-light {
-        font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
-    }
-    .message-theme-dark {
-        font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
-    }
-    .message-title-light {
-        font-size: 20px;
-    }
-    .message-title-dark {
-        font-size: 20px;
-    }
-    /*____________MESSAGE____________*/
     /*____________LOGOUT____________*/
     .logout-theme-light {
         font-size: 12px;

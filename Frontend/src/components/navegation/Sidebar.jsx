@@ -1,33 +1,32 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useState,useContext } from "react";
+import { useState,useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,SidebarContext } from "../../contexts/ViewsProvider";
-import { LoggedTypeContext,LoggedUserContext } from "../../contexts/SessionProvider";
+import { LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleChangeSidebar,HandleChangeNavbar } from "../../hooks/Views";
 //__________ICONOS__________
 // Icono para el inicio
-import { BiSolidHomeAlt2 } from "react-icons/bi";
+import { IoHome } from "react-icons/io5";
 // Iconos para las opciones del cocinero
 import { FaHospitalUser } from "react-icons/fa6";
-import { FaUserFriends } from "react-icons/fa";
 import { IoNutrition } from "react-icons/io5";
 // Icono para la opción de doctor
 import { FaUserDoctor } from "react-icons/fa6";
 // Iconos para la parte administrativa
-import { FaUserGroup } from "react-icons/fa6";
+import { FaUserFriends } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa";
-import { BiSolidFoodMenu } from "react-icons/bi";
-import { MdStorage } from "react-icons/md";
-import { MdWorkHistory } from "react-icons/md";
+import { FaWarehouse } from "react-icons/fa";
+import { MdOutlineMenuBook } from "react-icons/md";
+import { FaHistory } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Column_White_Height_100_Center,Container_Column_Border_80_Center,Container_Row_100_Center,Container_Icon_60 } from "../styled/Containers";
-import { Icon_Image_Profile_Light,Icon_18 } from "../styled/Icons";
+import { Container_Column_White_Height_100_Center,Container_Column_Border_80_Center,Container_Row_100_Center } from "../styled/Containers";
+import { Icon_Image_Black_90,Icon_White_18 } from "../styled/Icons";
 import { Text_Title_22_Center,Text_Span_16_Left } from "../styled/Text";
 import { Button_Icon_Blue_200 } from '../styled/Buttons';
 // Componentes personalizados
@@ -39,10 +38,35 @@ export default function Side_Bar() {
   // Constantes con el valor de los contextos 
   const [themeMode] = useContext(ThemeModeContext);
   const [isSidebar] = useContext(SidebarContext);
-  const [isTypeUser] = useContext(LoggedTypeContext);
-  const [isUser] = useContext(LoggedUserContext);
-
-  const [profileImage, setProfileImage] = useState("https://img.freepik.com/vector-premium/icono-contacto-perfil-icono-avatar_1199668-1320.jpg?w=740");
+  const [isLoggedType] = useContext(LoggedTypeContext);
+  const [isLoggedUser] = useContext(LoggedUserContext);
+  const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
+  // Constantes con el valor de los useState
+  const [profileImage, setProfileImage] = useState('');
+  // UseEffect con la imagen del usuario
+  useEffect(() => {
+    if(isLoggedPermissions.superadministrador){
+      return setProfileImage('https://blog.edipro.cl/wp-content/uploads/2020/02/cropped-superjefe.3-681x352.jpg');
+    }
+    if(isLoggedType === 'Administrator'){
+      return setProfileImage('https://cmsresources.elempleo.com/co/assets/backend/styles/770x513/public/fotos/noticias/administradores-min.jpg');
+    }
+    if(isLoggedType === 'Chef'){
+      return setProfileImage('https://img.freepik.com/foto-gratis/expertos-gastronomia-espalda-espalda-pie-cocina-profesional-restaurante-mientras-posan-camara-chefs-vistiendo-uniformes-cocina-mientras-estan-pie-cocina-gourmet-brazos-cruzados_482257-41991.jpg?t=st=1745432760~exp=1745436360~hmac=d779bdc838a09b980fee6122e72ca035cb0cd068ee322468866d9103be104733&w=740');
+    }
+    if(isLoggedType === 'Storekeeper'){
+      return setProfileImage('https://previews.123rf.com/images/kzenon/kzenon1301/kzenon130100553/17620188-el-trabajo-en-equipo-de-trabajo-o-almacenista-con-esc%C3%A1ner-y-su-compa%C3%B1ero-de-trabajo-con-el.jpg');
+    }
+    if(isLoggedType === 'Cook'){
+      return setProfileImage('https://chefejecutivo.com/wp-content/uploads/2022/05/food-truck-restaurantes.jpg');
+    }
+    if(isLoggedType === 'Nutritionist'){
+      return setProfileImage('https://saludnutricional.com.mx/wp-content/uploads/2024/09/Diferencia-entre-nutriologo-CDMX-y-bariatra.jpg');
+    }
+    if(isLoggedType === 'Doctor'){
+      return setProfileImage('https://staticnew-common-prod.topdoctors.mx/assets/imageCloud/home-page/doctor-main-banner.webp?width=375/height=300/format=avif');
+    }
+  },[]);
   // Constantes con la funcionalidad de los hooks
   const navigate = useNavigate();
   const handleChangeSidebar = HandleChangeSidebar();
@@ -50,94 +74,94 @@ export default function Side_Bar() {
   // Estructura del componente
   return (
     <>
-      <Container_Column_White_Height_100_Center ThemeMode={themeMode} className={isSidebar ? 'visible bounce-in-left' : 'hidden bounce-out-left'}>
-        <Container_Column_Border_80_Center className={themeMode ? 'shadow-out-infinite-light' : 'shadow-out-infinite-dark'} ThemeMode={themeMode}>
-          <Container_Icon_60>
-            <Icon_Image_Profile_Light src={profileImage}/>
-          </Container_Icon_60>
+      <Container_Column_White_Height_100_Center ThemeMode={themeMode} className={isSidebar ? 'slide-in-container-left' : 'slide-out-container-left'}>
+        <Container_Column_Border_80_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'} ThemeMode={themeMode}>
           <Container_Row_100_Center>
-            <Text_Title_22_Center className={themeMode ? 'text-pop-light' : 'text-pop-dark'} ThemeMode={themeMode}>{isUser.nombrecorto}</Text_Title_22_Center>
+            <Icon_Image_Black_90 ThemeMode={themeMode} src={profileImage}/>
+          </Container_Row_100_Center>
+          <Container_Row_100_Center>
+            <Text_Title_22_Center ThemeMode={themeMode}>{isLoggedUser.nombre}</Text_Title_22_Center>
           </Container_Row_100_Center>
           <Tooltip title='Inicio' placement="right">
-            <Button_Icon_Blue_200 ThemeMode={themeMode} onClick={() => {
+            <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
               handleChangeSidebar('Home');
-              navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
+              navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
             }}>
-              <Text_Span_16_Left>Inicio</Text_Span_16_Left><Icon_18><BiSolidHomeAlt2/></Icon_18>
+              <Text_Span_16_Left>Inicio</Text_Span_16_Left><Icon_White_18><IoHome/></Icon_White_18>
             </Button_Icon_Blue_200>
           </Tooltip>
-          {isTypeUser === 'Cook' ? (
+          {isLoggedType === 'Cook' ? (
             <></>
           ):(
             <></>
           )}
-          {isTypeUser === 'Nutritionist' ? (
+          {isLoggedType === 'Nutritionist' ? (
             <></>
           ):(
             <></>
           )}
-          {isTypeUser === 'Doctor' ? (
+          {isLoggedType === 'Doctor' ? (
             <></>
           ):(
             <></>
           )}
-          {isTypeUser === 'Administrator' ? (
+          {isLoggedType === 'Administrator' ? (
             <>
               <Tooltip title='Usuarios' placement="right">
-                <Button_Icon_Blue_200 ThemeMode={themeMode} onClick={() => {
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                   handleChangeSidebar('Users');
                   handleChangeNavbar('Users');
                   navigate('/Administration/Users/Users',{ replace: true });
                 }}>
-                  <Text_Span_16_Left>Usuarios</Text_Span_16_Left><Icon_18><FaUserGroup/></Icon_18>
+                  <Text_Span_16_Left>Usuarios</Text_Span_16_Left><Icon_White_18><FaUserFriends/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Proveedores' placement="right">
-                <Button_Icon_Blue_200 ThemeMode={themeMode} onClick={() => {
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                   handleChangeSidebar('Suppliers');
                   handleChangeNavbar('Suppliers');
                   navigate('/Administration/Suppliers/Suppliers',{ replace: true });
                 }}>
-                  <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_18><FaUserTie/></Icon_18>
+                  <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><FaUserTie/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
-                <Button_Icon_Blue_200 ThemeMode={themeMode} onClick={() => {
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                   handleChangeSidebar('Inventory');
                   handleChangeNavbar('Inventory');
                   navigate('/Administration/Inventory/Inventory',{ replace: true });
                 }}>
-                  <Text_Span_16_Left>Inventario</Text_Span_16_Left><Icon_18><MdStorage/></Icon_18>
+                  <Text_Span_16_Left>Inventario</Text_Span_16_Left><Icon_White_18><FaWarehouse/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Menús' placement="right">
-                <Button_Icon_Blue_200 ThemeMode={themeMode} onClick={() => {
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                   handleChangeSidebar('Menus');
                   handleChangeNavbar('');
                   navigate('/Administration/Menus',{ replace: true });
                 }}>
-                  <Text_Span_16_Left>Menús</Text_Span_16_Left><Icon_18><BiSolidFoodMenu/></Icon_18>
+                  <Text_Span_16_Left>Menús</Text_Span_16_Left><Icon_White_18><MdOutlineMenuBook/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
-                <Button_Icon_Blue_200 ThemeMode={themeMode} onClick={() => {
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                   handleChangeSidebar('Record');
                   handleChangeNavbar('Inventory');
                   navigate('/Administration/Record/General',{ replace: true });
                 }}>
-                  <Text_Span_16_Left>Historial</Text_Span_16_Left><Icon_18><MdWorkHistory/></Icon_18>
+                  <Text_Span_16_Left>Historial</Text_Span_16_Left><Icon_White_18><FaHistory/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
             </>
           ):(
             <></>
           )}
-          {isTypeUser === 'Chef' ? (
+          {isLoggedType === 'Chef' ? (
             <></>
           ):(
             <></>
           )}
-          {isTypeUser === 'Storekeeper' ? (
+          {isLoggedType === 'Storekeeper' ? (
             <></>
           ):(
             <></>

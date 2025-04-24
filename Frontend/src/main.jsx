@@ -34,7 +34,7 @@ import Index_Administration from './pages/Indexs/Administration';
 import Home_Administration from './pages/administration/Home';
 import Users from './pages/administration/Users';
 import Table_Users from './components/tables/users/Users';
-import Users_Add from './components/modals/users/UsersAdd';
+import User_Add from './components/modals/users/users/Add';
 import Users_View from './components/modals/users/UsersView';
 import TablePermissions from './components/tables/TablePermissions';
 import Permissions_Add from './components/modals/permissions/PermissionsAdd';
@@ -88,7 +88,7 @@ const router = createHashRouter([
                     children: [
                       {
                         path: 'Add',
-                        element: <Users_Add/>
+                        element: <User_Add/>
                       },
 
                       {

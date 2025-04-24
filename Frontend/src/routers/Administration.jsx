@@ -111,11 +111,11 @@ export const PrivateRouteAdministration = () => {
                                 setIsActionBlock(false);
                                 setIsModal(false);
                                 navigate("/",{replace: true});
-                            },500);
-                        },1500)
+                            },700);
+                        },500)
                     },2000);
                 }catch(error){
-                    setIsLog(false);
+                    setIsLoggedLog(false);
                     setIsActionBlock(false);
                     reject('¡Ocurrio un error inesperado!...');
                 }

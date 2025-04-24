@@ -4,7 +4,6 @@ import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
-import { Toaster } from "sonner";
 // Servicios
 
 // Contextos
@@ -79,10 +78,10 @@ export default function Out_Login(){
                                 setIsModal(false);
                                 navigate("/",{replace: true});
                             },700);
-                        },1500)
+                        },500)
                     },2000);
                 }catch(error){
-                    setIsLog(false);
+                    setIsLoggedLog(false);
                     setIsActionBlock(false);
                     reject('¡Ocurrio un error inesperado!...');
                 }

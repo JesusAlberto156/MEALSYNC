@@ -189,38 +189,6 @@ export const Container_Page_Loading = styled.div.withConfig({
 `;
 //____________PAGE____________
 //____________FORM____________
-export const Container_Form_80 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    z-index: 4000;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 80%;
-    max-height: auto;
-    padding: 20px;
-    border-radius: 50px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(204, 203, 198, 0.7)' : 'rgba(41, 41, 40, 0.8)')};
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        padding: 15px;
-    }
-
-    @media (max-width: 480px) {    
-        padding: 10px;
-    }
-`;
 export const Container_Form_Header = styled.div`
     position: sticky;
     display: flex;
@@ -262,22 +230,20 @@ export const Container_Form_Content = styled.div`
 export const Container_Form_500 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    z-index: 40;
+    z-index: 100;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     box-sizing: border-box;
     width: 500px;
     max-height: 80vh;
     padding: 20px;
-    padding-top: 10px;
     gap: 14px;
-    margin-right: 40px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255,255,255)' : 'rgb(0,0,0)')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -289,35 +255,32 @@ export const Container_Form_500 = styled.div.withConfig({
     @media (max-width: 768px) {
         width: 450px;
         padding: 18px;
-        padding-top: 8px;
         gap: 12px;
     }
 
     @media (max-width: 480px) {
         width: 400px;    
         padding: 16px;
-        padding-top: 6px;
         gap: 10px;
     }
 `;
 export const Container_Form_450 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    z-index: 40;
+    z-index: 100;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     box-sizing: border-box;
     width: 450px;
     max-height: 80vh;
     padding: 20px;
-    padding-top: 10px;
     gap: 14px;
     border-radius: 50px;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255,255,255)' : 'rgb(0,0,0)')};
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -329,14 +292,12 @@ export const Container_Form_450 = styled.div.withConfig({
     @media (max-width: 768px) {
         width: 400px;
         padding: 18px;
-        padding-top: 8px;
         gap: 12px;
     }
 
     @media (max-width: 480px) {
         width: 350px;    
         padding: 16px;
-        padding-top: 6px;
         gap: 10px;
     }
 `;

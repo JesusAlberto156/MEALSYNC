@@ -91,7 +91,7 @@ export default function Search_Bar (){
                                 <Tooltip title='Agregar' placement="top">
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
-                                        changeModalView('Users-Add');
+                                        changeModalView('User-Add');
                                         navigate('/Administration/Users/Users/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserPlus/></Icon_White_18>
@@ -100,7 +100,7 @@ export default function Search_Bar (){
                                 <Tooltip title='Editar' placement="top">
                                     <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                     onClick={() => {
-                                        changeModalView('Users-Edit');
+                                        changeModalView('User-Edit');
                                         navigate('/Administration/Users/Users/Edit',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserEdit/></Icon_White_18>
@@ -109,7 +109,7 @@ export default function Search_Bar (){
                                 <Tooltip title='Eliminar' placement="top">
                                     <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                     onClick={() => {
-                                        changeModalView('Users-Delete');
+                                        changeModalView('User-Delete');
                                         navigate('/Administration/Users/Users/Delete',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserMinus/></Icon_White_18>

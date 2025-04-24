@@ -114,14 +114,20 @@ export const HandleChangeModal = () => {
     const navigate = useNavigate();
     // Función del hook
     const handleChangeModal = (View) => {
-        setCurrentMView(View);
-        setIsModal(true);
         if(currentMView === 'Out-Login'){
             setTimeout(() => {
                 setIsModal(false);
                 navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
             },700);
         }
+        if(currentMView === 'User-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                navigate('/Administration/Users/Users',{ replace: true });
+            },700);
+        }
+        setCurrentMView(View);
+        setIsModal(true);
     }
     // Retorno de la función del hook
     return handleChangeModal;

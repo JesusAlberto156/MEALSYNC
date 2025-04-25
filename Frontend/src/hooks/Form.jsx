@@ -71,8 +71,9 @@ export const HandleUserAdd = () => {
     // Retorno de la función del hook
     return handleUserAdd;
 }
+
 // Hook para cambiar la vista de las contraseñas de los usuarios
-export const useChangeViewPassword = () => {
+export const HandleViewPassword = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
@@ -81,8 +82,8 @@ export const useChangeViewPassword = () => {
     const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     const [isFormVerification,setIsFormVerification] = useContext(VerificationBlockContext);
     // Función del hook
-    const changeViewPassword = () => {
-        if(currentNView === 'Principal' && currentSView === 'Users' && currentMView === 'Users-View'){
+    const handleViewPassword = () => {
+        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-View'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setIsActionBlock(false);
@@ -122,7 +123,7 @@ export const useChangeViewPassword = () => {
         }
     }
     // Retorno de la función del hook
-    return changeViewPassword;
+    return handleViewPassword;
 }
 // Hook para agregar los permisos a un usuario desde el modal
 export const useChangePermissionsAdd = () => {
@@ -343,37 +344,34 @@ export const useHandleCheckboxChange = () => {
     return handleCheckboxChange;
 }
 // Hook para comprobar el inicio de sesión
-export const useSessionVerification = () => {
+export const HandleVerificationBlock = () => {
     // Constantes con el valor de los contextos 
-    const [isUser] = useContext(LoggedUserContext);
-    const [isFormVerification,setIsFormVerification] = useContext(VerificationBlockContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isTextFields] = useContext(TextFieldsContext);
+    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
-    const sessionVerification = async () => {
+    const handleVerificationBlock = async () => {
         const promise = new Promise(async (resolve,reject) => {
             try{
-                setIsFormVerification(true);
+                setIsVerificationBlock(true);
                 setTimeout(() => {
-                    if(isUser.length !== 0){
-                        if(isName === ''){
-                            setIsFormVerification(false);
-                            return reject('¡Falta escribir el nombre de usuario!...');
+                    if(isLoggedUser.length !== 0){
+                        if(isTextFields.user === '' || isTextFields.password === ''){
+                            setIsVerificationBlock(false);
+                            return reject('¡Falta escribir el nombre de usuario o la contraseña del usuario!...');
                         }
-                        if(isPassowrd === ''){
-                            setIsFormVerification(false);
-                            return reject('¡Falta escribir la contraseña!...')
-                        }
-                        if(isName === isUser.usuario && isPassowrd === isUser.contrasena){
+                        if(isTextFields.user === isLoggedUser.usuario && isTextFields.password === isLoggedUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsActionBlock(true);
                         }else{
-                            setIsFormVerification(false);
+                            setIsVerificationBlock(false);
                             return reject('¡Nombre de usuario o contraseña incorrectos!...');
                         }
                     }
                 },1000);
             } catch (error) {
-                setIsFormVerification(false);
+                setIsVerificationBlock(false);
                 return reject('¡Ocurrio un error inseperado!...');
             }
         });
@@ -381,5 +379,5 @@ export const useSessionVerification = () => {
         Alert_Verification(promise,'Verificando datos...');
     }
     // Retorno de la función del hook
-    return sessionVerification;
+    return handleVerificationBlock;
 }

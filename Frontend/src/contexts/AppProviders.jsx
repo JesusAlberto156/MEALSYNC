@@ -8,6 +8,7 @@ import { Users,Permissions,Status,User_Add,User_Edit,Permissions_Add,Permissions
 import { Suppliers,Observations } from './SuppliersProvider';
 import { Text_Fields,Select,Radio_Permissions,Radio_Status,Checkbox } from './FormsProvider';
 import { Item_Date } from './ChartsProvider';
+import { Ref_Alert_Greeting } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
 // Función general de contextos
@@ -52,7 +53,9 @@ export const AppProviders = ({children}) => {
                                                                                                                                                         <Permissions_Enable>
                                                                                                                                                             <Status_Add>
                                                                                                                                                                 <Status_Enable>
-                                                                                                                                                                    {children}
+                                                                                                                                                                    <Ref_Alert_Greeting>
+                                                                                                                                                                        {children}
+                                                                                                                                                                    </Ref_Alert_Greeting>
                                                                                                                                                                 </Status_Enable>
                                                                                                                                                             </Status_Add>
                                                                                                                                                         </Permissions_Enable>

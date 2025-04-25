@@ -1,29 +1,24 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useState } from "react";
+import { useContext } from "react";
 // Componentes de React externos
-
-// Servicios
-
-// Rutas
-
+import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { TextFieldsContext } from "../../contexts/FormsProvider";
 import { VerificationBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
-import { useSessionVerification } from "../../hooks/Form";
+import { HandleVerificationBlock } from "../../hooks/Form";
 //__________ICONOS__________
 // Iconos del boton de comprobar
-import { FaUser } from "react-icons/fa6";
 import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Column_Border_90_Center,Container_Row_90_Center } from "../styled/Containers";
-import { Text_P_20_Left } from "../styled/Text";
-import { Input_Group_80,Input_Text_260 } from "../styled/Inputs";
-import { Label_Text_20_Center,Label_Popup_14 } from "../styled/Labels";
-import { Button_Icon_Blue_220,Button_Icon_Block_220 } from "../styled/Buttons";
+import { Container_Row_90_Left,Container_Column_90_Center,Container_Row_90_Center } from "../styled/Containers";
+import { Text_A_16_Left,Text_P_16_Center } from "../styled/Text";
+import { Input_Text_Black_100 } from "../styled/Inputs";
+import { Button_Icon_Blue_220 } from "../styled/Buttons";
+import { Icon_White_26 } from "../styled/Icons";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -33,102 +28,46 @@ export default function Form_Verification(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
-    const [isFormVerification] = useContext(VerificationBlockContext);
-    // Constantes con el valor de useState
-    const [textName,setTextName] = useState(false);
-    const [isFocusedName, setIsFocusedName] = useState(false);
-    const [isFocusedNameColor, setIsFocusedNameColor] = useState(false);
-    const [textPassword,setTextPassword] = useState(false);
-    const [isFocusedPassword, setIsFocusedPassword] = useState(false);
-    const [isFocusedPasswordColor, setIsFocusedPasswordColor] = useState(false);
+    const [isVerificationBlock] = useContext(VerificationBlockContext);
     // Constantes con la funcionalidad de los hooks
-    const sessionVerification = useSessionVerification();
+    const handleVerificationBlock = HandleVerificationBlock();
     // Estructura del componente
     return(
         <> 
-            <Text_P_20_Left ThemeMode={themeMode}>Ingresa tus datos...</Text_P_20_Left>
-            <Container_Column_Border_90_Center ThemeMode={themeMode}>
-                <Input_Group_80>
-                    <Label_Text_20_Center
-                        ThemeMode={themeMode}
-                        isLabelUp={isFocusedName}
-                        isFocused={isFocusedNameColor}
-                    >
-                        Nombre de usuario
-                    </Label_Text_20_Center>
-                    <Input_Text_260 
-                        ThemeMode={themeMode}
+            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                <Container_Row_90_Left>
+                    <Text_P_16_Center ThemeMode={themeMode}>Ingresa tus datos...</Text_P_16_Center>
+                </Container_Row_90_Left>
+                <Container_Row_90_Left>
+                    <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
+                    <Input_Text_Black_100 ThemeMode={themeMode}
+                        placeholder="Nombre de usuario..."
                         type="text"
                         value={isTextFields.user}
-                        onClick={(e) => {
-                            setTextName(true);
-                            setIsFocusedNameColor(true);
-                            setIsFocusedName(true);
-                        }}
-                        onBlur={(e) => {
-                            setTextName(false);
-                            setIsFocusedNameColor(false);
-                            if (e.target.value === ''){
-                                setIsFocusedName(false);
-                            }else{
-                                setIsFocusedName(true);
-                            }
-                        }}   
                         onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
                     />
-                    {textName && (
-                        <Label_Popup_14 ThemeMode={themeMode}>Escribe tú nombre de usuario</Label_Popup_14>
-                    )}
-                </Input_Group_80>
-                <Input_Group_80>
-                    <Label_Text_20_Center 
-                        ThemeMode={themeMode}
-                        isLabelUp={isFocusedPassword}
-                        isFocused={isFocusedPasswordColor}
-                    >
-                        Contraseña
-                    </Label_Text_20_Center>
-                    <Input_Text_260 
-                        ThemeMode={themeMode}
-                        type='password'
+                </Container_Row_90_Left>
+                <Container_Row_90_Left>
+                    <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
+                    <Input_Text_Black_100 ThemeMode={themeMode}
+                        placeholder="Contraseña de usuario..."
+                        type="password"
                         value={isTextFields.password}
-                        onClick={(e) => {
-                            setTextPassword(true);
-                            setIsFocusedPasswordColor(true);
-                            setIsFocusedPassword(true);
-                        }}
-                        onBlur={(e) => {
-                            setTextPassword(false);
-                            setIsFocusedPasswordColor(false);
-                            if (e.target.value === ''){
-                                setIsFocusedPassword(false);
-                            }else{
-                                setIsFocusedPassword(true);
-                            }
-                        }}   
                         onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
                     />
-                    {textPassword && (
-                        <Label_Popup_14 ThemeMode={themeMode}>Escribe tú Contraseña</Label_Popup_14>
-                    )}
-                </Input_Group_80>
-                <Container_Row_90_Center>
-                    {isFormVerification ? (
-                        <>
-                            <Button_Icon_Block_220 ThemeMode={themeMode}><FaUserCheck/></Button_Icon_Block_220>
-                        </>
-                    ):(
-                        <>
-                            <Button_Icon_Blue_220 ThemeMode={themeMode} onClick={(e) => {
-                                e.stopPropagation();
-                                sessionVerification();
-                            }}>
-                                <FaUser/>
-                            </Button_Icon_Blue_220>
-                        </>
-                    )}
-                </Container_Row_90_Center>
-            </Container_Column_Border_90_Center>
+                </Container_Row_90_Left>
+            </Container_Column_90_Center>
+            <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                <Tooltip title='Verificar' placement="top">
+                    <Button_Icon_Blue_220 ThemeMode={themeMode}  className={isVerificationBlock ? 'roll-out-button-left' : 'roll-in-button-left'} 
+                    onClick={() => {
+                        handleVerificationBlock();
+                    }}>
+                        <Icon_White_26><FaUserCheck/></Icon_White_26>
+                    </Button_Icon_Blue_220>
+                </Tooltip>
+                
+            </Container_Row_90_Center>
         </>  
     );
 }

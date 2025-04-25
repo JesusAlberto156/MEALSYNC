@@ -2,6 +2,7 @@
 // Hooks de React
 import { createContext,useRef } from "react"
 // Contextos
+export const RefAlertGreetingContext = createContext(null);
 export const refKeyboardContext = createContext(null);
 export const refFormUsersContext = createContext(null);
 export const refButtonUsersContext = createContext(null);
@@ -10,6 +11,18 @@ export const refButtonPermissionsContext = createContext(null);
 export const refFormStatusContext = createContext(null);
 export const refButtonStatusContext = createContext(null);
 //____________IMPORT/EXPORT____________
+
+// Función contexto para controlar las alertas de bienvenida de la pagina
+export const Ref_Alert_Greeting = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isAlertGreeting = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefAlertGreetingContext.Provider value={isAlertGreeting}>
+            {children}
+        </RefAlertGreetingContext.Provider>
+    );
+}
 
 export const Ref_Keyboard = ({ children }) => {
 

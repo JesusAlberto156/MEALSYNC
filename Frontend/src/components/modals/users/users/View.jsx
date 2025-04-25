@@ -1,0 +1,78 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+// Componentes de React externos
+import { Tooltip } from "@mui/material";
+// Contextos
+import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
+import { ActionBlockContext,AnimationContext } from "../../../../contexts/VariablesProvider";
+// Hooks personalizados
+import { HandleChangeModal } from "../../../../hooks/Views";
+import { HandleViewPassword } from '../../../../hooks/Form'; 
+//__________ICONOS__________
+// Icono para cerrar el modal
+import { MdCancel } from "react-icons/md";
+// Icono para realizar la función del modal
+import { FaEye } from "react-icons/fa";
+//__________ICONOS__________
+// Estilos personalizados
+import { Container_Modal,Container_Form_450,Container_Row_100_Center,Container_Row_90_Center } from "../../../styled/Containers";
+import { Button_Icon_Blue_160,Button_Icon_Green_160 } from "../../../styled/Buttons";
+import { Text_Title_30_Center } from "../../../styled/Text";
+import { Icon_White_26 } from "../../../styled/Icons";
+// Componentes perzonalizados
+import Form_Verification from "../../../forms/Verification";
+//____________IMPORT/EXPORT____________
+
+// Modal para ver la contraseña de usuarios
+export default function User_View(){
+    // Constantes con el valor de los contextos
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const [isAnimation] = useContext(AnimationContext);
+    const [isModal] = useContext(ModalContext);
+    const [currentMView] = useContext(ModalViewContext);
+    // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
+    const changeModalView = HandleChangeModal();
+    const handleViewPassword = HandleViewPassword();
+    // Estructura del componente
+    return(
+        <>
+            {isModal ? (
+                <>
+                    <Container_Modal>
+                        <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'User-View' ? 'bounce-in-container-top' : 'bounce-out-container-top'}>
+                            <Container_Row_100_Center>
+                                <Text_Title_30_Center ThemeMode={themeMode}>VER CONTRASEÑAS</Text_Title_30_Center>
+                            </Container_Row_100_Center>
+                            <Form_Verification/>
+                            <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Tooltip title='Cancelar' placement="top">
+                                    <Button_Icon_Blue_160 ThemeMode={themeMode}  className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    onClick={() => {
+                                        changeModalView('')
+                                        navigate('/Administration/Users/Users',{ replace: true });
+                                    }}>
+                                        <Icon_White_26><MdCancel/></Icon_White_26>
+                                    </Button_Icon_Blue_160>
+                                </Tooltip>
+                                <Tooltip title='Ver' placement="top">
+                                    <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                    onClick={() => {
+                                        handleViewPassword();
+                                    }}>
+                                        <Icon_White_26><FaEye/></Icon_White_26>
+                                    </Button_Icon_Green_160>
+                                </Tooltip>
+                            </Container_Row_90_Center>
+                        </Container_Form_450>
+                    </Container_Modal>  
+                </>
+            ):(
+                <></>
+            )}
+        </>
+    );
+}

@@ -74,7 +74,6 @@ export default function User_Add(){
     },[isRadioPermissions]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        console.log(isUserAdd,isPermissionsAdd,isStatusAdd);
         if(isUserAdd){
             const promise = new Promise(async (resolve,reject) => {
                 try{
@@ -109,11 +108,11 @@ export default function User_Add(){
         }
         if(isPermissionsAdd){
             if(isRadioPermissions !== ''){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            const user = isUsers.find(user => user.usuario === isTextFields.user);
-                            if(user){
+                const user = isUsers.find(user => user.usuario === isTextFields.user);
+                if(user){
+                    const promise = new Promise(async (resolve,reject) => {
+                        try{
+                            setTimeout(() => {
                                 if(isRadioPermissions === 'Personalizado'){
                                     let Administrator = 0,Chef = 0,Storekeeper = 0,Cook = 0,Nutritionist = 0,Doctor = 0;
                                     isCheckbox.map(permission => {
@@ -138,7 +137,7 @@ export default function User_Add(){
                                         socket.emit('Permissions');
                                     });
                                 }
-                                
+
                                 resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
                                 setIsRadioPermissions('');
@@ -148,19 +147,19 @@ export default function User_Add(){
                                 return () => {
                                     socket.off('Permissions-Insert');
                                 }
-                            }
-                        },1000);
-                    }catch(error){
-                        setIsAnimation(false);
-                        setIsActionBlock(false);
-                        setIsUserAdd(false);
-                        setIsPermissionsAdd(false);
-                        setIsStatusAdd(false);
-                        return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
-                    }
-                });
+                            },1000);
+                        }catch(error){
+                            setIsAnimation(false);
+                            setIsActionBlock(false);
+                            setIsUserAdd(false);
+                            setIsPermissionsAdd(false);
+                            setIsStatusAdd(false);
+                            return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
+                        }
+                    });
 
-                Alert_Verification(promise,'¡Agregando permisos al usuario!...');
+                    Alert_Verification(promise,'¡Agregando permisos al usuario!...');
+                }
             }
         }
         if(isStatusAdd){
@@ -213,7 +212,7 @@ export default function User_Add(){
                 Alert_Verification(promise,'¡Agregando estatus al usuario!...');
             }
         }
-    },[isUserAdd,isPermissionsAdd,isStatusAdd,isUsers])
+    },[isUserAdd,isStatusAdd,isUsers])
     // Estructura del componente
     return(
         <>

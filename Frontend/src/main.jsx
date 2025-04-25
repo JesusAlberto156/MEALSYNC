@@ -38,7 +38,7 @@ import Users from './pages/administration/Users';
 import Table_Users from './components/tables/users/Users';
 import User_Add from './components/modals/users/users/Add';
 import User_Permissions_Add from './components/modals/users/users/PermissionsAdd';
-import Users_View from './components/modals/users/UsersView';
+import User_View from './components/modals/users/users/View';
 import TablePermissions from './components/tables/TablePermissions';
 import Permissions_Add from './components/modals/permissions/PermissionsAdd';
 import Permissions_Edit from './components/modals/permissions/PermissionsEdit';
@@ -82,6 +82,10 @@ const router = createHashRouter([
             element: <User_Permissions_Add/>,
           },
           {
+            path: 'Administration/Users/Users/View',
+            element: <User_View/>,
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [
@@ -96,12 +100,6 @@ const router = createHashRouter([
                   {
                     path: 'Users',
                     element: <Table_Users/>,
-                    children: [
-                      {
-                        path: 'View',
-                        element: <Users_View/>
-                      },
-                    ]
                   },
                   {
                     path: 'Permissions',

@@ -32,6 +32,9 @@ const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsCo
 const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
 const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
 //____________FORM____________
+//____________REF____________
+const isAlertGreeting = useContext(RefAlertGreetingContext);
+//____________REF____________
 //____________SESSION____________
 const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
 const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);

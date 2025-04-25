@@ -13,7 +13,7 @@ import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/Sessi
 import { SelectContext } from "../../contexts/FormsProvider";
 // Hooks personalizados
 import { HandleChangeModal } from "../../hooks/Views";
-import { useChangeViewPassword } from "../../hooks/Form";
+import { HandleViewPassword } from "../../hooks/Form";
 import { useHandleSelectChange } from "../../hooks/Form";
 //__________ICONOS__________
 // Icono para la seccion del buscador
@@ -61,7 +61,7 @@ export default function Search_Bar (){
     const [isSelect] = useContext(SelectContext);
     // Constantes con la funcionalidad de los hooks
     const changeModalView = HandleChangeModal();
-    const changeViewPassword = useChangeViewPassword();
+    const handleViewPassword = HandleViewPassword();
     const navigate = useNavigate();
     const handleSelectChange = useHandleSelectChange();
     // Estructura del componente
@@ -118,8 +118,8 @@ export default function Search_Bar (){
                                 {isViewPassword ? (
                                     <>
                                         <Tooltip title='Ocultar contraseñas' placement="top">
-                                            <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'} 
-                                            onClick={() => changeViewPassword()}>
+                                            <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null || isViewPassword ? 'roll-in-button-left':'roll-out-button-left'} 
+                                            onClick={() => handleViewPassword()}>
                                                 <Icon_White_18><IoIosEyeOff/></Icon_White_18>
                                             </Button_Icon_Red_60>
                                         </Tooltip>
@@ -127,9 +127,9 @@ export default function Search_Bar (){
                                 ):(
                                     <>
                                         <Tooltip title='Mostrar contraseñas' placement="top">
-                                            <Button_Icon_Green_60 ThemeMode={themeMode}  className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            <Button_Icon_Green_60 ThemeMode={themeMode}  className={isSelectedRow === null || !isViewPassword ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
-                                                changeModalView('Users-View');
+                                                changeModalView('User-View');
                                                 navigate('/Administration/Users/Users/View',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaEye/></Icon_White_18>

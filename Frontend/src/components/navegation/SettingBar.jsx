@@ -20,7 +20,7 @@ import { BiSolidToggleRight } from "react-icons/bi";
 import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_100_Right } from "../styled/Containers";
+import { Container_Row_90_Right } from "../styled/Containers";
 import { Button_Icon_Blue_80,Button_Icon_Red_80 } from "../styled/Buttons";
 import { Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
 //____________IMPORT/EXPORT____________
@@ -40,7 +40,7 @@ export default function Setting_Bar(){
     // Estructura del componente
     return(
         <>
-            <Container_Row_100_Right>
+            <Container_Row_90_Right>
                 {isLogged ? (
                     <>  
                         <Tooltip title='Salir' placement="bottom">
@@ -65,7 +65,7 @@ export default function Setting_Bar(){
                         {themeMode ? <IoMdSunny/> : <FaMoon/>}
                     </Icon_Button_Black_30>
                 </Tooltip>
-            </Container_Row_100_Right>
+            </Container_Row_90_Right>
         </>
     );
 }

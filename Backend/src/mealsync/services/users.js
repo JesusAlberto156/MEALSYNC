@@ -59,6 +59,23 @@ export const getStatusService = async () => {
     }
 }
 //---------- ESTATUS
+//---------- TIPOS DE USUARIOS
+export const getUserTypesService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM tipoUsuario');
+    
+        const jsonData = JSON.stringify(result.recordset);
+    
+        const encryptedData = encryptData(jsonData);
+    
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los tipos de los usuarios: ',error.message);
+        throw error;
+    }
+}
+//---------- TIPOS DE USUARIOS
 //______________GET______________
 //______________INSERT______________
 //---------- USUARIOS

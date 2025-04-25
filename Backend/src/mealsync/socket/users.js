@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getUsersService,getPermissionsService,getStatusService } from "../services/users.js";
+import { getUsersService,getPermissionsService,getStatusService,getUserTypesService } from "../services/users.js";
 import { insertUsersService,insertPermissionsService,insertStatusService } from "../services/users.js";
 import { updatePermissionsService,updatePermissionService,updateStatusLogService,updateStatusEnableService } from "../services/users.js";
 // Servidor socket
@@ -42,15 +42,26 @@ export const Users_GET = (socket) => {
         }
     });
     //---------- ESTATUS
+    //---------- TIPOS DE USUARIOS
+    socket.on('User-Types', async () => {
+        try {
+            const result = await getUserTypesService();
+            console.log('Tipos de usuarios obtenidos...');
+            io.emit('User-Types', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- TIPOS DE USUARIOS
 };
 //____________GET____________
 //______________INSERT______________
 export const Users_INSERT = (socket) => {
     //---------- USUARIOS
-    socket.on('Users-Insert',async (id,nombre,nombrecorto,usuario,contrasena) => {
+    socket.on('User-Insert',async (id,nombre,nombrecorto,usuario,contrasena) => {
       try{
           await insertUsersService(id,nombre,nombrecorto,usuario,contrasena);
-          io.emit('Users-Insert','Se inserto el usuario ',usuario);
+          io.emit('User-Insert','Se inserto el usuario ',usuario);
       }catch(error){
           console.error('Error al insertar: ',error);
           return error;

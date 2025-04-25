@@ -4,7 +4,8 @@ import { createContext,useState } from "react"
 // Contextos
 export const TextFieldsContext = createContext(null);
 export const SelectContext = createContext(null);
-export const RadioContext = createContext(null);
+export const RadioPermissionsContext = createContext(null);
+export const RadioStatusContext = createContext(null);
 export const CheckboxContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
@@ -12,8 +13,11 @@ export const CheckboxContext = createContext(null);
 export const Text_Fields = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFields,setIsTextFields] = useState({
+        name: '',
+        shortName: '',
         user: '',
         password: '',
+        userTypes: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -34,14 +38,25 @@ export const Select = ({children}) => {
     );
 }
 // Función Contexto para controlar el valor en el campo de un radio en el formulario
-export const Radio = ({children}) => {
+export const Radio_Permissions = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isRadio,setIsRadio] = useState('');
+    const [isRadioPermissions,setIsRadioPermissions] = useState('');
     // Return para darle valor al contexto y heredarlo
     return (
-        <RadioContext.Provider value={[isRadio,setIsRadio]}>
+        <RadioPermissionsContext.Provider value={[isRadioPermissions,setIsRadioPermissions]}>
             {children}
-        </RadioContext.Provider>
+        </RadioPermissionsContext.Provider>
+    );
+}
+// Función Contexto para controlar el valor en el campo de un radio en el formulario
+export const Radio_Status = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isRadioStatus,setIsRadioStatus] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <RadioStatusContext.Provider value={[isRadioStatus,setIsRadioStatus]}>
+            {children}
+        </RadioStatusContext.Provider>
     );
 }
 // Función contexto para controlar el valor en el campo de un checkbox en el formulario

@@ -5,11 +5,12 @@
 	        animation: pulsate-buttom 3s ease-in-out infinite both;
 }
 /*---------- BUTTON*/
-
+/*---------- IMAGE*/
 .pulsate-image {
 	-webkit-animation: pulsate-image 2s ease-in-out infinite both;
 	        animation: pulsate-image 2s ease-in-out infinite both;
 }
+/*---------- IMAGE*/
 /*________________ANIMATIONS______________*/
 
 

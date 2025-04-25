@@ -7,7 +7,7 @@ import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
 import { ThemeModeContext } from "../../../contexts/ViewsProvider";
-import { SelectContext,RadioContext } from "../../../contexts/FormsProvider";
+import { SelectContext,RadioStatusContext } from "../../../contexts/FormsProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleChangeModal } from "../../../hooks/Views";
@@ -31,7 +31,7 @@ export default function Status_Add(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelect] = useContext(SelectContext);
-    const [isRadio] = useContext(RadioContext);
+    const [isRadio] = useContext(RadioStatusContext);
     const [isActiveBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();

@@ -21,6 +21,42 @@ export const Input_Group_80 = styled.div`
 //____________GROUP____________
 //____________TEXT____________
 //-------- Black
+export const Input_Text_Black_100 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 100%;
+    height: auto;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-size: 16px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
+
+    &::placeholder {
+        color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    }
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    &:focus {
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+    }
+`;
 export const Input_Text_Black_60 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`

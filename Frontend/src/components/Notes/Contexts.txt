@@ -28,7 +28,8 @@ const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
 //____________FORM____________
 const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
 const [isSelect,setIsSelect] = useContext(SelectContext);
-const [isRadio,setIsRadio] = useContext(RadioContext);
+const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
+const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
 const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
 //____________FORM____________
 //____________SESSION____________
@@ -59,6 +60,7 @@ const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnabl
 const [isStatus,setIsStatus] = useContext(StatusContext);
 const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
 const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
+const [isUserTypes,setIsUserTypes] = useContext(UserTypesContext);
 //____________USERS____________
 //____________VARIABLES____________
 const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);

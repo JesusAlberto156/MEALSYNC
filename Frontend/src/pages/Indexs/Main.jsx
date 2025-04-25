@@ -32,7 +32,7 @@ export default function Index_Main(){
                 <Footer/>
                 <Alert_Styles>
                     <Toaster
-                        visibleToasts={1}
+                        visibleToasts={5}
                         richColors
                         theme='light'
                         position='top-right'

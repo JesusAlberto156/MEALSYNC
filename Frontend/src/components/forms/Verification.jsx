@@ -22,7 +22,7 @@ import { FaUserCheck } from "react-icons/fa6";
 import { Container_Column_Border_90_Center,Container_Row_90_Center } from "../styled/Containers";
 import { Text_P_20_Left } from "../styled/Text";
 import { Input_Group_80,Input_Text_260 } from "../styled/Inputs";
-import { Label_Text_20,Label_Popup_14 } from "../styled/Labels";
+import { Label_Text_20_Center,Label_Popup_14 } from "../styled/Labels";
 import { Button_Icon_Blue_220,Button_Icon_Block_220 } from "../styled/Buttons";
 // Componentes personalizados
 
@@ -49,13 +49,13 @@ export default function Form_Verification(){
             <Text_P_20_Left ThemeMode={themeMode}>Ingresa tus datos...</Text_P_20_Left>
             <Container_Column_Border_90_Center ThemeMode={themeMode}>
                 <Input_Group_80>
-                    <Label_Text_20
+                    <Label_Text_20_Center
                         ThemeMode={themeMode}
                         isLabelUp={isFocusedName}
                         isFocused={isFocusedNameColor}
                     >
                         Nombre de usuario
-                    </Label_Text_20>
+                    </Label_Text_20_Center>
                     <Input_Text_260 
                         ThemeMode={themeMode}
                         type="text"
@@ -81,13 +81,13 @@ export default function Form_Verification(){
                     )}
                 </Input_Group_80>
                 <Input_Group_80>
-                    <Label_Text_20 
+                    <Label_Text_20_Center 
                         ThemeMode={themeMode}
                         isLabelUp={isFocusedPassword}
                         isFocused={isFocusedPasswordColor}
                     >
                         Contraseña
-                    </Label_Text_20>
+                    </Label_Text_20_Center>
                     <Input_Text_260 
                         ThemeMode={themeMode}
                         type='password'

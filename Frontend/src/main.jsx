@@ -23,6 +23,8 @@ import '../src/components/styled/animations/Rolls.css';
 import '../src/components/styled/animations/Shadows.css';
 import '../src/components/styled/animations/Pulsates.css';
 import '../src/components/styled/animations/Slides.css';
+import '../src/components/styled/animations/Puffs.css';
+import '../src/components/styled/animations/Bounces.css';
 import 'animate.css';
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
@@ -35,6 +37,7 @@ import Home_Administration from './pages/administration/Home';
 import Users from './pages/administration/Users';
 import Table_Users from './components/tables/users/Users';
 import User_Add from './components/modals/users/users/Add';
+import User_Permissions_Add from './components/modals/users/users/PermissionsAdd';
 import Users_View from './components/modals/users/UsersView';
 import TablePermissions from './components/tables/TablePermissions';
 import Permissions_Add from './components/modals/permissions/PermissionsAdd';
@@ -71,6 +74,14 @@ const router = createHashRouter([
         element: <PrivateRouteAdministration/>,
         children: [
           {
+            path: 'Administration/Users/Users/Add',
+            element: <User_Add/>,
+          },
+          {
+            path: 'Administration/Users/Users/Add/Permissions',
+            element: <User_Permissions_Add/>,
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [
@@ -86,11 +97,6 @@ const router = createHashRouter([
                     path: 'Users',
                     element: <Table_Users/>,
                     children: [
-                      {
-                        path: 'Add',
-                        element: <User_Add/>
-                      },
-
                       {
                         path: 'View',
                         element: <Users_View/>

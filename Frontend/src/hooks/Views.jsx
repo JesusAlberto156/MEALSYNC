@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Contextos
 import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
-import { TextFieldsContext,SelectContext,RadioContext,CheckboxContext } from "../contexts/FormsProvider";
+import { TextFieldsContext,SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../contexts/FormsProvider";
 import { PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
@@ -110,6 +110,18 @@ export const HandleChangeModal = () => {
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
+    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
+    const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
+    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+    // Estados iniciales de los contextos
+    const initialTextFields = {
+        name: '',
+        shortName: '',
+        user: '',
+        password: '',
+        userTypes: 0,
+    };
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     // Función del hook
@@ -120,11 +132,15 @@ export const HandleChangeModal = () => {
                 navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
             },700);
         }
-        if(currentMView === 'User-Add' && View === ''){
+        if(currentMView === 'User-Add'){
             setTimeout(() => {
                 setIsModal(false);
+                setIsTextFields(initialTextFields);
+                setIsRadioPermissions('');
+                setIsRadioStatus('');
+                setIsCheckbox([]);
                 navigate('/Administration/Users/Users',{ replace: true });
-            },700);
+            },1550);
         }
         setCurrentMView(View);
         setIsModal(true);

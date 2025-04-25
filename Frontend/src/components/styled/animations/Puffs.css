@@ -1,0 +1,89 @@
+/*________________ANIMATIONS______________*/
+/*---------- CONTAINER*/
+/*------------ IN */
+.puff-in-container-center {
+	-webkit-animation: puff-in-container-center 0.7s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+	        animation: puff-in-container-center 0.7s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+}
+/*------------ IN */
+/*------------ OUT */
+.puff-out-container-center {
+	-webkit-animation: puff-out-container-center 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+	        animation: puff-out-container-center 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+}
+/*------------ OUT */
+/*---------- CONTAINER*/
+/*________________ANIMATIONS______________*/
+
+/*________________PUFFS______________*/
+/*---------- CONTAINER*/
+/*------------ IN */
+@-webkit-keyframes puff-in-container-center {
+    0% {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+    opacity: 0;
+    }
+    100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+    }
+}
+@keyframes puff-in-container-center {
+    0% {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+    opacity: 0;
+    }
+    100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+    }
+}  
+/*------------ IN */
+/*------------ OUT */
+@-webkit-keyframes puff-out-container-center {
+    0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+    }
+    100% {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+    opacity: 0;
+    }
+}
+@keyframes puff-out-container-center {
+    0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+    }
+    100% {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+    opacity: 0;
+    }
+} 
+/*------------ OUT */
+/*---------- CONTAINER*/
+/*________________PUFFS______________*/

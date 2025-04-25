@@ -3,8 +3,8 @@
 import { useContext } from "react";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
-import { SelectContext,RadioContext,CheckboxContext } from "../contexts/FormsProvider";
-import { UsersContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsContext } from "../contexts/FormsProvider";
+import { UsersContext,UserAddContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../contexts/ViewsProvider";
 // Estilos personalizados
@@ -21,6 +21,55 @@ export const HandleChangeLog = () => {
     }
     // Retorno de la función del hook
     return handleChangeLog;
+}
+// Hook para agregar un usuario desde el modal
+export const HandleUserAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFields] = useContext(TextFieldsContext);
+    const [isRadioPermissions] = useContext(RadioPermissionsContext);
+    const [isRadioStatus] = useContext(RadioStatusContext);
+    // Función del hook
+    const handleUserAdd = () => {
+        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Add'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFields.name === '' || isTextFields.shortName === '' || isTextFields.user === '' || isTextFields.password === '' || isTextFields.userTypes === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del usuario!...')
+                        };
+                        if(isRadioPermissions === ''){
+                            setIsActionBlock(false);
+                            return reject('¡Los permisos del usuario no han sido seleccionados!...')
+                        };
+
+                        if(isRadioStatus === ''){
+                            setIsActionBlock(false);
+                            return reject('¡El estatus del usuario no han sido seleccionado!...')
+                        };
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsUserAdd(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    } 
+    // Retorno de la función del hook
+    return handleUserAdd;
 }
 // Hook para cambiar la vista de las contraseñas de los usuarios
 export const useChangeViewPassword = () => {
@@ -259,7 +308,7 @@ export const useHandleSelectChange = () => {
 // Hook para darle valor al contexto del radio
 export const useHandleRadioChange = () => {
     // Constantes con el valor de los contextos 
-    const [isRadio,setIsRadio] = useContext(RadioContext);
+    const [isRadio,setIsRadio] = useContext(RadioStatusContext);
     // Función del hook
     const handleRadioChange = (radioOption) => {
         setIsRadio(radioOption.target.value);

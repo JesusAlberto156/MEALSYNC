@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Consultas a la base de datos
-import { getUsersService,getPermissionsService,getStatusService } from "../services/users.js";
+import { getUsersService,getPermissionsService,getStatusService,getUserTypesService } from "../services/users.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
@@ -34,4 +34,14 @@ export const getStatusController = async (req,res) => {
     }
 }
 //---------- ESTATUS
+//---------- TIPOS DE USUARIOS
+export const getUserTypesController = async (req,res) => {
+  try{
+      const userTypes = await getUserTypesService();
+      res.status(200).json(userTypes);
+  } catch(error){
+      res.status(500).json({message: 'Error al obtener los tipos de los usuarios ', error: error.message});
+  }
+}
+//---------- TIPOS DE USUARIOS
 //______________GET______________

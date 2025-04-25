@@ -1,6 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { createContext,useContext,useState,useEffect,useRef } from "react"
+import { Navigate } from "react-router-dom";
 // Servicios
 import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
@@ -14,12 +15,13 @@ export const PermissionsEnableContext = createContext(null);
 export const StatusContext = createContext(null);
 export const StatusAddContext = createContext(null);
 export const StatusEnableContext = createContext(null);
+export const UserTypesContext = createContext(null);
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 import { LoggedLoggedContext,LoggedUserContext,LoggedTypeContext,LoggedLogContext,LoggedPermissionsContext } from "./SessionProvider";
-import { ThemeModeContext,ModalViewContext } from "./ViewsProvider";
-import { SelectContext,CheckboxContext,RadioContext } from "./FormsProvider";
-import { ActionBlockContext,SelectedRowContext,VerificationBlockContext } from "./VariablesProvider";
+import { ThemeModeContext,ModalViewContext,ModalContext } from "./ViewsProvider";
+import { SelectContext,TextFieldsContext,RadioPermissionsContext,CheckboxContext,RadioStatusContext } from "./FormsProvider";
+import { ActionBlockContext,SelectedRowContext,VerificationBlockContext,AnimationContext } from "./VariablesProvider";
 // Estilos personalizados
 import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -61,12 +63,8 @@ export const Users = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de un usuario
 export const User_Add = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserAdd,setIsUserAdd] = useState(false);
-    // UseEffect para agregar datos a la base de datos
-    
     // Return para darle valor al contexto y heredarlo
     return (
         <UserAddContext.Provider value={[isUserAdd,setIsUserAdd]}>
@@ -174,71 +172,8 @@ export const Permissions = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de los permisos de un usuario
 export const Permissions_Add = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [isSelect,setIsSelect] = useContext(SelectContext);
-    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsAdd,setIsPermissionsAdd] = useState(false);
-    // UseEffect para agregar datos a la base de datos
-    useEffect(() => {
-        if(isPermissionsAdd){
-            if(isSelect.length !== 0){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            if(isCheckbox.length !== 0){
-                                let Administrator = 0,Chef = 0,Storekeeper = 0,Cook = 0,Nutritionist = 0,Doctor = 0;
-                                isCheckbox.map(permission => {
-                                    if(permission.name === 'Administrator' && permission.value) Administrator = 1 
-                                    if(permission.name === 'Chef' && permission.value) Chef = 1 
-                                    if(permission.name === 'Storekeeper' && permission.value) Storekeeper = 1 
-                                    if(permission.name === 'Cook' && permission.value) Cook = 1 
-                                    if(permission.name === 'Nutritionist' && permission.value) Nutritionist = 1 
-                                    if(permission.name === 'Doctor' && permission.value) Doctor = 1 
-                                });
-                                socket.emit('Permissions-Insert',isSelect.value,isSelect.label,Administrator,Chef,Storekeeper,Cook,Nutritionist,Doctor);
-                                
-                                socket.on('Permissions-Insert',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Permissions');
-                                });
-                            }else{
-                                socket.emit('Permissions-Insert',isSelect.value,isSelect.label,0,0,0,0,0,0);
-
-                                socket.on('Permissions-Insert',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Permissions');
-                                });
-                            }
-                            
-                            resolve('¡MEALSYNC agregó los permisos al usuario!...')
-                            
-                            setTimeout(() => {
-                                setCurrentMView('');
-                                setIsSelect([]);
-                                setIsCheckbox([]);
-                                setIsPermissionsAdd(false);
-                                setIsActionBlock(false);
-                            },500);
-
-                            return () => {
-                                socket.off('Permissions-Insert');
-                            }
-                        },2000);
-                    }catch(error){
-                        setIsActionBlock(false);
-                        setIsStatusAdd(false);
-                        return reject('¡Ocurrio un error inesperado!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Agregando permisos a un usuario!...');
-            }
-        }
-    },[isPermissionsAdd]);
     // Return para darle valor al contexto y heredarlo
     return (
         <PermissionsAddContext.Provider value={[isPermissionsAdd,setIsPermissionsAdd]}>
@@ -453,53 +388,8 @@ export const Status = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de los estatus de un usuario
 export const Status_Add = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [isSelect,setIsSelect] = useContext(SelectContext);
-    const [isRadio,setIsRadio] = useContext(RadioContext);
-    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isActiveBlock,setIsActiveBlock] = useContext(ActionBlockContext);
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isStatusAdd,setIsStatusAdd] = useState(false);
-    // UseEffect para agregar datos a la base de datos
-    useEffect(() => {
-        if(isStatusAdd){
-            if(isSelect.length !== 0 && isRadio !== ''){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            socket.emit('Status-Insert',isSelect.value,isRadio === 'Habilitado' ? 1:0,isSelect.label);
-
-                            socket.on('Status-Insert',(message,user) => {
-                                console.log(message,user);
-                                socket.emit('Status');
-                            });
-                            
-                            resolve('¡MEALSYNC agregó el status al usuario!...')
-                            
-                            setTimeout(() => {
-                                setCurrentMView('');
-                                setIsRadio('');
-                                setIsSelect([]);
-                                setIsStatusAdd(false);
-                                setIsActiveBlock(false);
-                            },500);
-
-                            return () => {
-                                socket.off('Status-Insert');
-                            }
-                        },2000);
-                    }catch(error){
-                        setIsActiveBlock(false);
-                        setIsStatusAdd(false);
-                        reject('¡Ocurrio un error inesperado!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Agregando estatus a un usuario!...');
-            }
-        }
-    },[isStatusAdd])
     // Return para darle valor al contexto y heredarlo
     return (
         <StatusAddContext.Provider value={[isStatusAdd,setIsStatusAdd]}>
@@ -601,3 +491,39 @@ export const Status_Enable = ({ children }) => {
     );
 }
 // ---------- ESTATUS
+// ---------- TIPOS DE USUARIOS
+// Función contexto para controlar los datos de la base de datos de tipos de usuarios
+export const User_Types = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isUserTypes,setIsUserTypes] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        socket.emit('User-Types');
+
+        socket.on('User-Types',(result) => {
+            const decryptedData = decryptData(result);
+            if(decryptedData){
+                const parsedData = JSON.parse(decryptedData);
+                console.log('¡Tipos de Usuarios obtenidos!...')
+                setIsUserTypes(parsedData);
+                
+            }else{
+                console.log('¡Error al desencriptar los usuarios!...');
+                setIsUserTypes([]);
+            }
+        });
+
+        return () => {
+            socket.off('User-Types');
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <UserTypesContext.Provider value={[isUserTypes,setIsUserTypes]}>
+            {children}
+        </UserTypesContext.Provider>
+    );
+}
+// ---------- TIPOS DE USUARIOS

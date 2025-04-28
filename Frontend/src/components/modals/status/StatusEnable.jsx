@@ -14,7 +14,7 @@ import { SelectedRowContext,ActionBlockContext } from "../../../contexts/Variabl
 import { UsersContext } from "../../../contexts/UsersProvider";
 // Hooks personalizados
 import { useChangeStatusEnable } from "../../../hooks/Form";
-import { HandleChangeModal } from "../../../hooks/Views";
+import { HandleModalView } from "../../../hooks/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 import { FaUnlock } from "react-icons/fa";
@@ -51,7 +51,7 @@ export default function Status_Enable(){
     },[]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = HandleChangeModal();
+    const changeModalView = HandleModalView();
     const changeStatusEnable = useChangeStatusEnable();
     // Estructura del componente
     return(

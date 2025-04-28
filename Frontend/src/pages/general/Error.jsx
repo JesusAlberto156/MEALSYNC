@@ -27,7 +27,6 @@ import { Alert_Error,Alert_Styles,Alert_Verification } from "../../components/st
 export default function Error(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
-    const [isLoggedType] = useContext(LoggedTypeContext);
     // Constantes con el valor de los useState
     const [contador,setContador] = useState(5);
     // useEffect con el titulo de la página
@@ -42,14 +41,10 @@ export default function Error(){
                 try{
                     setTimeout(() => {
                         resolve('¡Página encontrada!...');
+                        setTimeout(() => {
+                            navigate('/',{replace: true});
+                        },1000);
                     },1000);
-                    setTimeout(() => {
-                        if(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor'){
-                            navigate('/Kitchen/Home',{replace: true});
-                        }else{
-                            navigate('/Administration/Home',{replace: true});
-                        }
-                    },2000);
                 } catch (error) {
                     return reject('¡Ocurrio un error inseperado!...');
                 }

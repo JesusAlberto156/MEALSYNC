@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { ThemeModeContext,SidebarContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext,SidebarContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleChangeSidebar,HandleChangeNavbar } from "../../hooks/Views";
+import { HandleSidebarView,HandleNavbarView } from "../../hooks/Views";
 //__________ICONOS__________
 // Icono para el inicio
 import { IoHome } from "react-icons/io5";
@@ -41,8 +41,10 @@ export default function Side_Bar() {
   const [isLoggedType] = useContext(LoggedTypeContext);
   const [isLoggedUser] = useContext(LoggedUserContext);
   const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
+  const [currentSView] = useContext(SidebarViewContext);
   // Constantes con el valor de los useState
   const [profileImage, setProfileImage] = useState('');
+  const [isRoute,setIsRoute] = useState('');
   // UseEffect con la imagen del usuario
   useEffect(() => {
     if(isLoggedPermissions.superadministrador){
@@ -67,10 +69,34 @@ export default function Side_Bar() {
       return setProfileImage('https://staticnew-common-prod.topdoctors.mx/assets/imageCloud/home-page/doctor-main-banner.webp?width=375/height=300/format=avif');
     }
   },[]);
+  // UseEffect para cargar la ruta del session storage
+  useEffect(() => {
+    if(currentSView === 'Home' && isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor'){
+      setIsRoute('/Kitchen/Home');
+    }else{
+      setIsRoute('/Administration/Home');
+    }
+    if(currentSView === 'Users'){
+      setIsRoute('/Administration/Users/Users');
+    }
+    if(currentSView === 'Suppliers'){
+      setIsRoute('/Administration/Suppliers/Suppliers');
+    }
+    if(currentSView === 'Inventory'){
+      setIsRoute('/Administration/Inventory/Inventory');
+    }
+    if(currentSView === 'Menus'){
+      setIsRoute('/Administration/Menus');
+    }
+    if(currentSView === 'Record'){
+      setIsRoute('/Administration/Record/General');
+    }
+    navigate(isRoute,{ replace: true });
+  },[currentSView])
   // Constantes con la funcionalidad de los hooks
   const navigate = useNavigate();
-  const handleChangeSidebar = HandleChangeSidebar();
-  const handleChangeNavbar = HandleChangeNavbar();
+  const handleSidebarView = HandleSidebarView();
+  const handleNavbarView = HandleNavbarView();
   // Estructura del componente
   return (
     <>
@@ -84,8 +110,7 @@ export default function Side_Bar() {
           </Container_Row_100_Center>
           <Tooltip title='Inicio' placement="right">
             <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-              handleChangeSidebar('Home');
-              navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
+              handleSidebarView('Home');
             }}>
               <Text_Span_16_Left>Inicio</Text_Span_16_Left><Icon_White_18><IoHome/></Icon_White_18>
             </Button_Icon_Blue_200>
@@ -109,45 +134,40 @@ export default function Side_Bar() {
             <>
               <Tooltip title='Usuarios' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleChangeSidebar('Users');
-                  handleChangeNavbar('Users');
-                  navigate('/Administration/Users/Users',{ replace: true });
+                  handleSidebarView('Users');
+                  handleNavbarView('Users');
                 }}>
                   <Text_Span_16_Left>Usuarios</Text_Span_16_Left><Icon_White_18><FaUserFriends/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Proveedores' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleChangeSidebar('Suppliers');
-                  handleChangeNavbar('Suppliers');
-                  navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                  handleSidebarView('Suppliers');
+                  handleNavbarView('Suppliers');
                 }}>
                   <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><FaUserTie/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleChangeSidebar('Inventory');
-                  handleChangeNavbar('Inventory');
-                  navigate('/Administration/Inventory/Inventory',{ replace: true });
+                  handleSidebarView('Inventory');
+                  handleNavbarView('Inventory');
                 }}>
                   <Text_Span_16_Left>Inventario</Text_Span_16_Left><Icon_White_18><FaWarehouse/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Menús' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleChangeSidebar('Menus');
-                  handleChangeNavbar('');
-                  navigate('/Administration/Menus',{ replace: true });
+                  handleSidebarView('Menus');
+                  handleNavbarView('');
                 }}>
                   <Text_Span_16_Left>Menús</Text_Span_16_Left><Icon_White_18><MdOutlineMenuBook/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Historial' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleChangeSidebar('Record');
-                  handleChangeNavbar('Inventory');
-                  navigate('/Administration/Record/General',{ replace: true });
+                  handleSidebarView('Record');
+                  handleNavbarView('Inventory');
                 }}>
                   <Text_Span_16_Left>Historial</Text_Span_16_Left><Icon_White_18><FaHistory/></Icon_White_18>
                 </Button_Icon_Blue_200>

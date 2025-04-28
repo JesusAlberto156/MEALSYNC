@@ -26,12 +26,13 @@ export const ToggleThemeMode = () => {
     // Función del hook
     const toggleThemeMode = () => {
         setThemeMode(!themeMode);
+        sessionStorage.setItem('Theme-Mode',!themeMode);
     }
     // Retorno de la función del hook
     return toggleThemeMode;
 }
 // Hook para cambiar la vista del login
-export const HandleChangeLogin = () => {
+export const HandleLoginView = () => {
     // Constantes con el valor de los contextos 
     const [currentLView,setCurrentLView] = useContext(LoginViewContext);
     const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext);
@@ -39,7 +40,7 @@ export const HandleChangeLogin = () => {
     const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
-    const handleChangeLogin = (option,type) => {
+    const handleLoginView = (option,type) => {
         setTimeout(() => {
             setCurrentLView(option);
         },700);
@@ -63,35 +64,35 @@ export const HandleChangeLogin = () => {
         }
     }
     // Retorno de la función del hook
-    return handleChangeLogin;
+    return handleLoginView;
 }
 // Hook para cambiar la vista del navbar
-export const HandleChangeNavbar = () => {
+export const HandleNavbarView = () => {
     // Constantes con el valor de los contextos 
     const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
-    const [isSelect,setIsSelect] = useContext(SelectContext);
     // Función del hook
-    const handleChangeNavbar = (View) => {
+    const handleNavbarView = (View) => {
         setCurrentNView(View);
         setIsSearchTerm('');
-        setIsSelect([]);
+        sessionStorage.setItem('Navbar-View',View);
     };
     // Retorno de la función del hook
-    return handleChangeNavbar;
+    return handleNavbarView;
 }
 // Hook para cambiar la vista del sidebar
-export const HandleChangeSidebar = () => {
+export const HandleSidebarView = () => {
     // Constantes con el valor de los contextos 
     const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext)
     // Función del hook
-    const handleChangeSidebar = (View) => {
+    const handleSidebarView = (View) => {
         setCurrentSView(View);
         setIsSearchTerm('');
+        sessionStorage.setItem('Sidebar-View',View);
     };
     // Retorno de la función del hook
-    return handleChangeSidebar;
+    return handleSidebarView;
 };
 // Hook para cambiar el sidebar (Ocultar/Mostrar)
 export const ToggleSidebar = () => {
@@ -100,12 +101,13 @@ export const ToggleSidebar = () => {
     // Función del hook
     const toggleSidebar = () => {
         setIsSidebar(!isSidebar);
+        sessionStorage.setItem('Sidebar',!isSidebar);
     };
     // Retorno de la función del hook
     return toggleSidebar;
 };
 // Hook para cambiar el modal
-export const HandleChangeModal = () => {
+export const HandleModalView = () => {
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
@@ -125,26 +127,34 @@ export const HandleChangeModal = () => {
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     // Función del hook
-    const handleChangeModal = (View) => {
+    const handleModalView = (View) => {
         if(currentMView === 'Out-Login'){
+            setCurrentMView(View);
             setTimeout(() => {
                 setIsModal(false);
-                navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
+                sessionStorage.setItem('Modal-View',View);
+                sessionStorage.setItem('Modal',false);
+                return navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
             },700);
         }
         if(currentMView === 'User-Add'){
+            setCurrentMView(View);
             setTimeout(() => {
                 setIsModal(false);
                 setIsTextFields(initialTextFields);
                 setIsRadioPermissions('');
                 setIsRadioStatus('');
                 setIsCheckbox([]);
-                navigate('/Administration/Users/Users',{ replace: true });
-            },1550);
+                sessionStorage.setItem('Modal-View',View);
+                sessionStorage.setItem('Modal',false);
+                return navigate('/Administration/Users/Users',{ replace: true });
+            },750);
         }
         setCurrentMView(View);
         setIsModal(true);
+        sessionStorage.setItem('Modal-View',View);
+        sessionStorage.setItem('Modal',true);
     }
     // Retorno de la función del hook
-    return handleChangeModal;
+    return handleModalView;
 }

@@ -10,7 +10,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { SelectContext,RadioStatusContext } from "../../../contexts/FormsProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../hooks/Views";
+import { HandleModalView } from "../../../hooks/Views";
 import { useChangeStatusSAdd,useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -35,7 +35,7 @@ export default function Status_Add(){
     const [isActiveBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = HandleChangeModal();
+    const changeModalView = HandleModalView();
     const filteredRecordsHasStatus = useFilteredRecordsHasStatus();
     const handleSelectChange = useHandleSelectChange();
     const handleRadioChange = useHandleRadioChange();

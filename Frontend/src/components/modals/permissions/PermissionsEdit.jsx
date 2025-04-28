@@ -9,7 +9,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { CheckboxContext } from "../../../contexts/FormsProvider";
 import { ActionBlockContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../hooks/Views";
+import { HandleModalView } from "../../../hooks/Views";
 import { useChangePermissionsEdit } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -34,7 +34,7 @@ export default function Permissions_Edit(){
     const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = HandleChangeModal();
+    const changeModalView = HandleModalView();
     const changePermissionsEdit = useChangePermissionsEdit();
     // Estructura del componente
     return(

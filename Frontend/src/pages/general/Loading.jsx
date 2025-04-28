@@ -26,25 +26,18 @@ import { Alert_Greeting } from '../../components/styled/Alerts';
 export default function Loading(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
-    const [isLoggedType] = useContext(LoggedTypeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";
 
         const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
 
-        Alert_Greeting("MEALSYNC",'¡Cargando!...',themeMode,Image);
+        Alert_Greeting("MEALSYNC",'¡Cargando!...',themeMode,Image); 
+        
+        sessionStorage.setItem('Route','/Login');
 
         setTimeout(() => {
-            if(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor'){
-                navigate('/Kitchen/Home',{replace: true});
-            }
-            if(isLoggedType==='Administrator' || isLoggedType==='Chef' || isLoggedType==='Storekeeper'){
-                navigate('/Administration/Home',{replace: true});
-            }
-            if(isLoggedType === ''){
-                navigate('/Login',{replace: true});
-            }                       
+            navigate(sessionStorage.getItem('Route'), { replace: true });
         },1000);
     },[]);
     // Constantes con la funcionalidad de los hooks

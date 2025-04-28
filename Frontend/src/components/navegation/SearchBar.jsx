@@ -12,7 +12,7 @@ import { SearchTermContext,SelectedRowContext,ViewPasswordContext } from "../../
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 import { SelectContext } from "../../contexts/FormsProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../hooks/Views";
+import { HandleModalView } from "../../hooks/Views";
 import { HandleViewPassword } from "../../hooks/Form";
 import { useHandleSelectChange } from "../../hooks/Form";
 //__________ICONOS__________
@@ -60,7 +60,7 @@ export default function Search_Bar (){
     const [isSuppliers] = useContext(SuppliersContext);
     const [isSelect] = useContext(SelectContext);
     // Constantes con la funcionalidad de los hooks
-    const changeModalView = HandleChangeModal();
+    const handleModalView = HandleModalView();
     const handleViewPassword = HandleViewPassword();
     const navigate = useNavigate();
     const handleSelectChange = useHandleSelectChange();
@@ -91,7 +91,7 @@ export default function Search_Bar (){
                                 <Tooltip title='Agregar' placement="top">
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
-                                        changeModalView('User-Add');
+                                        handleModalView('User-Add');
                                         navigate('/Administration/Users/Users/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserPlus/></Icon_White_18>
@@ -100,7 +100,7 @@ export default function Search_Bar (){
                                 <Tooltip title='Editar' placement="top">
                                     <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                     onClick={() => {
-                                        changeModalView('User-Edit');
+                                        handleModalView('User-Edit');
                                         navigate('/Administration/Users/Users/Edit',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserEdit/></Icon_White_18>
@@ -109,7 +109,7 @@ export default function Search_Bar (){
                                 <Tooltip title='Eliminar' placement="top">
                                     <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                     onClick={() => {
-                                        changeModalView('User-Delete');
+                                        handleModalView('User-Delete');
                                         navigate('/Administration/Users/Users/Delete',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserMinus/></Icon_White_18>
@@ -129,7 +129,7 @@ export default function Search_Bar (){
                                         <Tooltip title='Mostrar contraseñas' placement="top">
                                             <Button_Icon_Green_60 ThemeMode={themeMode}  className={isSelectedRow === null || !isViewPassword ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
-                                                changeModalView('User-View');
+                                                handleModalView('User-View');
                                                 navigate('/Administration/Users/Users/View',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaEye/></Icon_White_18>
@@ -192,7 +192,7 @@ export default function Search_Bar (){
                             <>
                                 <Tooltip title="Agregar" placement="top">
                                     <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Permissions-Add')
+                                        handleModalView('Permissions-Add')
                                         navigate('/Administration/Users/Permissions/Add',{ replace: true });
                                     }}>
                                         <MdAddModerator/>
@@ -206,7 +206,7 @@ export default function Search_Bar (){
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
                                     <Button_Icon_Blue_60 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Permissions-Edit')
+                                        handleModalView('Permissions-Edit')
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });
                                     }}>
                                         <AiFillEdit/>
@@ -216,7 +216,7 @@ export default function Search_Bar (){
                                     <>
                                         <Tooltip title="Deshabilitar" placement="top">
                                             <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => {
-                                                changeModalView('Permissions-Super-Administrator')
+                                                handleModalView('Permissions-Super-Administrator')
                                                 navigate('/Administration/Users/Permissions/Enable',{ replace: true });
                                             }}>
                                                 <MdAdminPanelSettings/>
@@ -227,7 +227,7 @@ export default function Search_Bar (){
                                     <>
                                         <Tooltip title="Habilitar" placement="top">
                                             <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                                changeModalView('Permissions-Super-Administrator')
+                                                handleModalView('Permissions-Super-Administrator')
                                                 navigate('/Administration/Users/Permissions/Enable',{ replace: true });
                                             }}>
                                                 <MdAdminPanelSettings/>
@@ -242,7 +242,7 @@ export default function Search_Bar (){
                             <>
                                 <Tooltip title="Agregar" placement="top">
                                     <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Permissions-Add')
+                                        handleModalView('Permissions-Add')
                                         navigate('/Administration/Users/Permissions/Add',{ replace: true });
                                     }}>
                                         <MdAddModerator/>
@@ -255,7 +255,7 @@ export default function Search_Bar (){
                                 <Button_Icon_Block_45 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_45>
                                 <Tooltip title="Editar" placement="top">
                                     <Button_Icon_Blue_60 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Permissions-Edit')
+                                        handleModalView('Permissions-Edit')
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });
                                     }}>
                                         <AiFillEdit/>
@@ -273,7 +273,7 @@ export default function Search_Bar (){
                             <>
                                 <Tooltip title="Agregar" placement="top">
                                     <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Status-Add');
+                                        handleModalView('Status-Add');
                                         navigate('/Administration/Users/Status/Add',{ replace: true });
                                     }}>
                                         <FcAddRow/>
@@ -288,7 +288,7 @@ export default function Search_Bar (){
                                     <>
                                         <Tooltip title="Deshabilitar" placement="top">
                                             <Button_Icon_Red_45 ThemeMode={themeMode} onClick={() => {
-                                                changeModalView('Status-Enable')
+                                                handleModalView('Status-Enable')
                                                 navigate('/Administration/Users/Status/Enable',{ replace: true });
                                             }}>
                                                 <FaLock/>
@@ -299,7 +299,7 @@ export default function Search_Bar (){
                                     <>
                                         <Tooltip title="Habilitar" placement="top">
                                             <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                                changeModalView('Status-Enable')
+                                                handleModalView('Status-Enable')
                                                 navigate('/Administration/Users/Status/Enable',{ replace: true });
                                             }}>
                                                 <FaLockOpen/>
@@ -314,7 +314,7 @@ export default function Search_Bar (){
                             <>
                                 <Tooltip title="Agregar" placement="top">
                                     <Button_Icon_Green_45 ThemeMode={themeMode} onClick={() => {
-                                        changeModalView('Status-Add')
+                                        handleModalView('Status-Add')
                                         navigate('/Administration/Users/Status/Add',{ replace: true });
                                     }}>
                                         <FcAddRow/>

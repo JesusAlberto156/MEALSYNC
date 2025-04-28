@@ -8,7 +8,7 @@ import { Tooltip } from "@mui/material";
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext,AnimationContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../../hooks/Views";
+import { HandleModalView } from "../../../../hooks/Views";
 import { HandleViewPassword } from '../../../../hooks/Form'; 
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -35,7 +35,7 @@ export default function User_View(){
     const [currentMView] = useContext(ModalViewContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = HandleChangeModal();
+    const handleModalView = HandleModalView();
     const handleViewPassword = HandleViewPassword();
     // Estructura del componente
     return(
@@ -52,7 +52,7 @@ export default function User_View(){
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_160 ThemeMode={themeMode}  className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                     onClick={() => {
-                                        changeModalView('')
+                                        handleModalView('')
                                         navigate('/Administration/Users/Users',{ replace: true });
                                     }}>
                                         <Icon_White_26><MdCancel/></Icon_White_26>

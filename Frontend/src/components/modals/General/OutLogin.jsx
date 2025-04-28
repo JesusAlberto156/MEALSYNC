@@ -11,8 +11,8 @@ import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,
 import { ActionBlockContext,AnimationContext,SearchTermContext } from "../../../contexts/VariablesProvider";
 import { LoggedLogContext,LoggedLoggedContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../hooks/Views";
-import { HandleChangeLog } from "../../../hooks/Form";
+import { HandleModalView } from "../../../hooks/Views";
+import { HandleLoggedLog } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -92,8 +92,8 @@ export default function Out_Login(){
     },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleChangeModal = HandleChangeModal();
-    const handleChangeLog = HandleChangeLog();
+    const handleChangeModal = HandleModalView();
+    const handleChangeLog = HandleLoggedLog();
     // Estructura del componente
     return(
         <>

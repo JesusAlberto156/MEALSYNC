@@ -128,20 +128,8 @@ export const Logged_Logged = ({ children }) => {
     const [isLoggedUser] = useContext(LoggedUserContext);
     // UseState para controlar el valor del contexto
     const [isLoggedLogged,setIsLoggedLogged] = useState(() => {
-        const logged = sessionStorage.getItem('Logged');
-
-        if(logged){
-            try{
-                if(logged === 'true'){
-                    console.log('¡Inicio de sesión cargado correctamente!...');
-                    return true;
-                }
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-                return false;
-            }
-        }
-        return false;
+        const loggedLogged = sessionStorage.getItem('Logged') === 'true';
+        return loggedLogged;
     });
     // UseEffect para actualizar datos en la base de datos de la sesión activa/inactiva
     useEffect(() => {
@@ -181,19 +169,8 @@ export const Logged_Logged = ({ children }) => {
 export const Logged_Type = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedType,setIsLoggedType] = useState(() => {
-        const StoredData = sessionStorage.getItem('Type');
-
-        if(StoredData){
-            try{
-                console.log('¡Tipo de usuario cargado correctamente!...');
-                return StoredData;
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-                return '';
-            }
-        }else{
-            return '';
-        }
+        const loggedType = sessionStorage.getItem('Type');
+        return loggedType || '';
     });
     // Return para darle valor al contexto y heredarlo
     return (

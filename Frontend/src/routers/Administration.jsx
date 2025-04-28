@@ -7,7 +7,7 @@ import { SidebarContext,ThemeModeContext,SidebarViewContext,NavbarViewContext,Lo
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
 import { SearchTermContext,ActionBlockContext } from "../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleChangeLog } from "../hooks/Form";
+import { HandleLoggedLog } from "../hooks/Form";
 //__________IMAGES____________
 import Logo_Warning_Light from '../components/imgs/Logo-Warning-Light.png';
 import Logo_Warning_Dark from '../components/imgs/Logo-Warning-Dark.webp';
@@ -39,7 +39,7 @@ export const PrivateRouteAdministration = () => {
     // Constantes con el valor de los useRef
     const inactividadTimer = useRef(null);
     // Constantes
-    const tiempoInactivoParaAccion = 600000;
+    const tiempoInactivoParaAccion = 900000;
     // Reiniciar temporizador de inactividad
     const ejecutarAccionFinal = () => {
         const showAlerts = async () => {
@@ -49,7 +49,7 @@ export const PrivateRouteAdministration = () => {
 
             await Alert_Warning('MEALSYNC',`¡${isLoggedUser.nombre}!`,themeMode,Image_Warning);
 
-            await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleChangeLog);
+            await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleLoggedLog);
         }
         if(isLoggedLogged){
             showAlerts();
@@ -61,7 +61,7 @@ export const PrivateRouteAdministration = () => {
     };
     // useEffect para detectar eventos
     useEffect(() => {
-        const eventos = ['mousemove', 'keydown', 'scroll', 'click'];
+        const eventos = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart', 'touchmove'];
         eventos.forEach(e => window.addEventListener(e, resetInactividad));
     
         const handleVisibilityChange = () => {
@@ -126,7 +126,7 @@ export const PrivateRouteAdministration = () => {
     },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleChangeLog = HandleChangeLog();
+    const handleLoggedLog = HandleLoggedLog();
     // Función del componente
     if(!isLoggedLogged) return <Navigate to={'/'}/>;
     return isLoggedType==='Administrator' || isLoggedType==='Chef' || isLoggedType==='Storekeeper' ? <Outlet/> : <Navigate to={'/'}/>;

@@ -8,14 +8,14 @@ import { Tooltip } from "@mui/material";
 // Servicios
 import { encryptData } from "../../services/Crypto";
 // Contextos
-import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { TextFieldsContext } from "../../contexts/FormsProvider";
 import { AnimationContext,ActionBlockContext } from '../../contexts/VariablesProvider';
 import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
 import { UsersContext,PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
-import { HandleChangeLogin } from "../../hooks/Views";
-import { HandleChangeLog } from "../../hooks/Form";
+import { HandleLoginView } from "../../hooks/Views";
+import { HandleLoggedLog } from "../../hooks/Form";
 //__________ICONOS__________
 // Iconos de la parte principal del login
 import { MdManageAccounts } from "react-icons/md";
@@ -67,6 +67,7 @@ export default function Login(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [currentLView] = useContext(LoginViewContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     // useEffect con el titulo de la página
     useEffect(() => {
@@ -118,17 +119,24 @@ export default function Login(){
                                             sessionStorage.setItem('User',encryptedUser);
                                             sessionStorage.setItem('Permissions',encryptedPermission);
                                             sessionStorage.setItem('Status',encryptedStatus);
-                                            sessionStorage.setItem('Logged',true);
                                             sessionStorage.setItem('Type',isLoggedType);
-                                            
+                                            sessionStorage.setItem('Sidebar',true);
+
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));
                                             setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            if(isLoggedType === 'Doctor'){
-                                                setCurrentMView('Alert-Doctor');
+                                            setCurrentSView('Home');
+                                            sessionStorage.setItem('Sidebar-View','Home');
+
+                                            if(isLoggedType==='Administrator' || isLoggedType==='Chef' || isLoggedType==='Storekeeper'){
+                                                sessionStorage.setItem('Route','/Administration/Home');
                                             }
-                                            
+
+                                            if(isLoggedType==='Cook' || isLoggedType==='Nutritionist' || isLoggedType==='Doctor'){
+                                                sessionStorage.setItem('Route','/Kitchen/Home');
+                                            }
+
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setIsModal(true);
@@ -141,8 +149,9 @@ export default function Login(){
                                                 }));
                                                 setIsLoggedLog(false);
                                                 setIsLoggedLogged(true);
+                                                sessionStorage.setItem('Logged',true);
                                                 setIsActionBlock(false);
-                                                return navigate('/',{ replace: true });
+                                                return navigate(sessionStorage.getItem('Route'),{ replace: true });
                                             },1000);
                                         }else{
                                             setIsLoggedLog(false);
@@ -186,15 +195,23 @@ export default function Login(){
                                             sessionStorage.setItem('Status',encryptedStatus);
                                             sessionStorage.setItem('Logged',true);
                                             sessionStorage.setItem('Type',isLoggedType);
+                                            sessionStorage.setItem('Sidebar',true);
                                             
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));
                                             setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            if(isLoggedType === 'Doctor'){
-                                                setCurrentMView('Alert-Doctor');
+                                            setCurrentSView('Home');
+                                            sessionStorage.setItem('Sidebar-View','Home');
+
+                                            if(isLoggedType==='Administrator' || isLoggedType==='Chef' || isLoggedType==='Storekeeper'){
+                                                sessionStorage.setItem('Route','/Administration/Home');
                                             }
-                                            
+
+                                            if(isLoggedType==='Cook' || isLoggedType==='Nutritionist' || isLoggedType==='Doctor'){
+                                                sessionStorage.setItem('Route','/Kitchen/Home');
+                                            }
+
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setIsModal(true);
@@ -208,7 +225,7 @@ export default function Login(){
                                                 setIsLoggedLogged(true);
                                                 setIsLoggedLog(false);
                                                 setIsActionBlock(false);
-                                                return navigate('/',{ replace: true });
+                                                return navigate(sessionStorage.getItem('Route'),{ replace: true });
                                             },2500);
                                         }else{
                                             setIsLoggedLog(false);
@@ -240,15 +257,15 @@ export default function Login(){
     },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleChangeLogin = HandleChangeLogin();
-    const handleChangeLog = HandleChangeLog();
+    const handleLoginView = HandleLoginView();
+    const handleLoggedLog = HandleLoggedLog();
     // Estructura del componente
     return(
         <>
             <Container_Page>
                 <Container_Page_Login className='bg-pan-bl'>
                     <Setting_Bar/>
-                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'roll-out-container-left':'roll-in-container-left'}>
+                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'slide-out-container-top':'slide-in-container-top'}>
                         <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode}/>
                         <Text_Title_26_Center ThemeMode={themeMode}>
                             {currentLView === '' ? 'BIENVENIDO(A)': currentLView === 'Administration' || currentLView === 'Kitchen' ? 'SELECCIÓN DE USUARIO' : 'INICIAR SESIÓN'}
@@ -258,13 +275,13 @@ export default function Login(){
                                 <>  
                                     <Tooltip title='Administración' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleChangeLogin('Administration','')}>
+                                            onClick={() => handleLoginView('Administration','')}>
                                             <Icon_White_26><MdManageAccounts/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                     <Tooltip title='Cocina' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleChangeLogin('Kitchen','')}>
+                                            onClick={() => handleLoginView('Kitchen','')}>
                                             <Icon_White_26><GiRiceCooker/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
@@ -276,25 +293,25 @@ export default function Login(){
                                 <>
                                     <Tooltip title='Administrador' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('Login','Administrator')}>
+                                            onClick={() => handleLoginView('Login','Administrator')}>
                                             <Icon_White_26><FaUserTie/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                     <Tooltip title='Chef' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('Login','Chef')}>
+                                            onClick={() => handleLoginView('Login','Chef')}>
                                             <Icon_White_26><GiChefToque/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>    
                                     <Tooltip title='Almacenista' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('Login','Storekeeper')}>
+                                            onClick={() => handleLoginView('Login','Storekeeper')}>
                                             <Icon_White_26><FaWarehouse/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('','')}>
+                                            onClick={() => handleLoginView('','')}>
                                             <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
@@ -306,25 +323,25 @@ export default function Login(){
                                 <>
                                     <Tooltip title='Cocinero' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('Login','Cook')}>
+                                            onClick={() => handleLoginView('Login','Cook')}>
                                             <Icon_White_26><GiCook/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>  
                                     <Tooltip title='Nutriólogo' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('Login','Nutritionist')}>
+                                            onClick={() => handleLoginView('Login','Nutritionist')}>
                                             <Icon_White_26><IoNutrition/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Médico' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('Login','Doctor')}>
+                                            onClick={() => handleLoginView('Login','Doctor')}>
                                             <Icon_White_26><FaUserDoctor/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleChangeLogin('','')}> 
+                                            onClick={() => handleLoginView('','')}> 
                                             <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
@@ -343,13 +360,13 @@ export default function Login(){
                                 <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_140 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleChangeLogin(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}>
+                                            onClick={() => handleLoginView(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}>
                                             <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
                                         </Button_Icon_Blue_140>
                                     </Tooltip>
                                     <Tooltip title='Iniciar sesión' placement="top">
                                         <Button_Icon_Green_140 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleChangeLog()}>
+                                            onClick={() => handleLoggedLog()}>
                                             <Icon_White_26><MdLogin/></Icon_White_26>
                                         </Button_Icon_Green_140>
                                     </Tooltip>

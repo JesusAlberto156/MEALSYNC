@@ -10,7 +10,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 import { SelectContext,CheckboxContext } from "../../../contexts/FormsProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useChangePermissionsAdd,useHandleSelectChange,useFilteredRecordsHasPermissions,useHandleCheckboxChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -20,9 +20,9 @@ import { MdAddModerator } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_Border_90_Center } from "../../styled/Containers";
-import { Button_Icon_Blue_170,Button_Icon_Green_170,Button_Icon_Block_170 } from "../../styled/Buttons";
+import { Button_Icon_Blue_170,Button_Icon_Green_170 } from "../../styled/Buttons";
 import { Text_Title_30_Center,Text_P_20_Left } from "../../styled/Text";
-import { Label_Check_18 } from "../../styled/Labels";
+import { Label_Text_16_Center } from "../../styled/Labels";
 import { Input_Checkbox_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
@@ -36,7 +36,7 @@ export default function Permissions_Add(){
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const changePermissionsAdd = useChangePermissionsAdd();
-    const changeModalView = HandleModalView();
+    const changeModalView = HandleChangeModal();
     const handleSelectChange = useHandleSelectChange();
     const handleCheckboxChange = useHandleCheckboxChange();
     const filteredRecordsHasPermissions = useFilteredRecordsHasPermissions();
@@ -107,57 +107,57 @@ export default function Permissions_Add(){
                     </Container_Row_Border_90_Center>
                     <Text_P_20_Left ThemeMode={themeMode}>Área de administración...</Text_P_20_Left>
                     <Container_Row_Border_90_Center ThemeMode={themeMode}>
-                        <Label_Check_18 ThemeMode={themeMode}>
+                        <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 value={isCheckbox.some(item => item.name === 'Administrator' && item.value)}
                                 onChange={(e) => handleCheckboxChange('Administrator',e)}
                                 type="checkbox"
                             />
                             Administrador
-                        </Label_Check_18>
-                        <Label_Check_18 ThemeMode={themeMode}>
+                        </Label_Text_16_Center>
+                        <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 value={isCheckbox.some(item => item.name === 'Chef' && item.value)}
                                 onChange={(e) => handleCheckboxChange('Chef',e)}
                                 type="checkbox"
                             />
                             Chef
-                        </Label_Check_18>
-                        <Label_Check_18 ThemeMode={themeMode}>
+                        </Label_Text_16_Center>
+                        <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Storekeeper' && item.value)}
                                 onChange={(e) => handleCheckboxChange('Storekeeper',e)}
                             />
                             Almacenista
-                        </Label_Check_18>
+                        </Label_Text_16_Center>
                     </Container_Row_Border_90_Center>
                     <Text_P_Left_20 ThemeMode={themeMode}>Área de cocina...</Text_P_Left_20>
                     <Container_Row_Border_90_Center ThemeMode={themeMode}>
-                        <Label_Check_18 ThemeMode={themeMode}>
+                        <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Cook' && item.value)}
                                 onChange={(e) => handleCheckboxChange('Cook',e)}
                             />
                             Cocinero
-                        </Label_Check_18>
-                        <Label_Check_18 ThemeMode={themeMode}>
+                        </Label_Text_16_Center>
+                        <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Nutritionist' && item.value)}
                                 onChange={(e) => handleCheckboxChange('Nutritionist',e)}
                             />
                             Nutriólogo
-                        </Label_Check_18>
-                        <Label_Check_18 ThemeMode={themeMode}>
+                        </Label_Text_16_Center>
+                        <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Doctor' && item.value)}
                                 onChange={(e) => handleCheckboxChange('Doctor',e)}
                             />
                             Médico
-                        </Label_Check_18>
+                        </Label_Text_16_Center>
                     </Container_Row_Border_90_Center>
                     <Text_P_20_Left ThemeMode={themeMode}>Agregar permisos</Text_P_20_Left>
                     <Container_Row_Border_90_Center ThemeMode={themeMode}>
@@ -171,7 +171,7 @@ export default function Permissions_Add(){
                         </Tooltip>
                         {isActionBlock ? (
                             <>
-                                <Button_Icon_Block_170 ThemeMode={themeMode}><MdAddModerator/></Button_Icon_Block_170>
+                                
                             </>
                         ):(
                             <>

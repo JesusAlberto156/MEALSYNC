@@ -40,8 +40,8 @@ export default function Nav_Bar(){
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     // Constantes con la funcionalidad de los hooks
-    const handleChangeNavbar = HandleNavbarView();
     const navigate = useNavigate();
+    const handleNavbarView = HandleNavbarView();
     // Estructura del componente
     return(
         <>
@@ -52,7 +52,8 @@ export default function Nav_Bar(){
                         <>
                             <Tooltip title='Usuarios' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleChangeNavbar('Users');
+                                    handleNavbarView('Users');
+                                    sessionStorage.setItem('Route','/Administration/Users/Users');
                                     navigate('/Administration/Users/Users',{ replace: true });
                                 }}>
                                     <Icon_22><FaUser/></Icon_22>
@@ -60,7 +61,8 @@ export default function Nav_Bar(){
                             </Tooltip>
                             <Tooltip title='Permisos' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleChangeNavbar('Permissions')
+                                    handleNavbarView('Permissions')
+                                    sessionStorage.setItem('Route','/Administration/Users/Permissions');
                                     navigate('/Administration/Users/Permissions',{ replace: true });
                                 }}>
                                     <Icon_22><FaUserShield/></Icon_22>
@@ -68,7 +70,8 @@ export default function Nav_Bar(){
                             </Tooltip>
                             <Tooltip title='Estatus' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleChangeNavbar('Status')
+                                    handleNavbarView('Status')
+                                    sessionStorage.setItem('Route','/Administration/Users/Status');
                                     navigate('/Administration/Users/Status',{ replace: true });
                                 }}>
                                     <Icon_22><FaUserLock/></Icon_22>
@@ -78,7 +81,6 @@ export default function Nav_Bar(){
                                 <Text_Title_26_Center ThemeMode={themeMode}>USUARIOS</Text_Title_26_Center>
                             ):(
                                 <></>
-                                
                             )}
                             {currentNView === 'Permissions' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>PERMISOS</Text_Title_26_Center>
@@ -94,6 +96,7 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
+
                     {currentSView === 'Suppliers' ? (
                         <>
                         <Tooltip title='Proveedores' placement="top">

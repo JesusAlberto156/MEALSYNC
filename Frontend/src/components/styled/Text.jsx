@@ -88,6 +88,98 @@ export const Text_Black_40_Center = styled.h1`
     }
 `;
 //---------- BLACK
+//---------- BLACK/WHITE
+export const Text_Black_White_50_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 50px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 45px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 40px;
+        padding: 6px;
+    }
+`;
+export const Text_Black_White_40_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 40px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 35px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 30px;
+        padding: 6px;
+    }
+`;
+//---------- BLACK/WHITE
+//---------- WHITE/BLACK
+export const Text_White_Black_50_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 50px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 45px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 40px;
+        padding: 6px;
+    }
+`;
+export const Text_White_Black_40_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 40px;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    margin: 0px;
+    
+    @media (max-width: 768px) {
+        font-size: 35px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 30px;
+        padding: 6px;
+    }
+`;
+//---------- WHITE/BLACK
 //____________COLOR____________
 //____________TITLE____________
 //---------- CENTER
@@ -1633,3 +1725,270 @@ export const Text_Span_12_Right = styled.span`
 `;
 //---------- RIGHT
 //______________SPAN____________
+//______________TEXT____________
+//---------- CENTER
+export const Text_24_Center = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_20_Center = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_16_Center = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_12_Center = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- CENTER
+//---------- JUSTIFY
+export const Text_24_Justify = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: justify;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_20_Justify = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: justify;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_16_Justify = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: justify;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_12_Justify = styled.span`
+
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: justify;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- JUSTIFY
+//---------- LEFT
+export const Text_24_Left = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: left;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_20_Left = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: left;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_16_Left = styled.span` 
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: left;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_12_Left = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: left;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- LEFT
+//---------- RIGHT
+export const Text_24_Right = styled.span`  
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: right;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_20_Right = styled.span`  
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: right;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_16_Right = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: right;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_12_Right = styled.span`
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: right;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- RIGHT
+//______________TEXT____________

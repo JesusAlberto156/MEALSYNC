@@ -9,7 +9,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { UsersContext } from "../../../contexts/UsersProvider";
 import { ActionBlockContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useChangePermissionsEnable } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -20,7 +20,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Row_Border_90_Center } from "../../styled/Containers";
 import { Text_P_16_Left, Text_Title_30_Center } from "../../styled/Text";
-import { Button_Icon_Blue_150,Button_Icon_Red_150,Button_Icon_Green_150,Button_Icon_Block_150 } from "../../styled/Buttons";
+import { Button_Icon_Blue_150,Button_Icon_Red_150,Button_Icon_Green_150 } from "../../styled/Buttons";
 // Componentes personalizados
 import Form_Verification from '../../forms/Verification';
 //____________IMPORT/EXPORT____________
@@ -45,7 +45,7 @@ export default function Permissions_Super_Administrator(){
         },[]);
         // Constantes con la funcionalidad de los hooks
         const navigate = useNavigate();
-        const changeModalView = HandleModalView();
+        const changeModalView = HandleChangeModal();
         const changePermissionsEnable = useChangePermissionsEnable();
         // Estructura del componente
     return(
@@ -87,7 +87,7 @@ export default function Permissions_Super_Administrator(){
                                     )
                                 ):(
                                     <>
-                                        <Button_Icon_Block_150 ThemeMode={themeMode}><MdAdminPanelSettings/></Button_Icon_Block_150>
+                                        
                                     </>
                                 )}
                             </Container_Row_Border_90_Center>

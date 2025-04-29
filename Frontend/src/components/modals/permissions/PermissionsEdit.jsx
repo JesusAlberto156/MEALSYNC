@@ -9,7 +9,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { CheckboxContext } from "../../../contexts/FormsProvider";
 import { ActionBlockContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useChangePermissionsEdit } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -19,9 +19,9 @@ import { AiFillEdit } from "react-icons/ai";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_Border_90_Center } from "../../styled/Containers";
-import { Button_Icon_Blue_170,Button_Icon_Red_170,Button_Icon_Block_170 } from "../../styled/Buttons";
+import { Button_Icon_Blue_170,Button_Icon_Red_170 } from "../../styled/Buttons";
 import { Text_P_20_Left, Text_Title_30_Center } from "../../styled/Text";
-import { Label_Check_18 } from "../../styled/Labels";
+import { Label_Text_16_Center } from "../../styled/Labels";
 import { Input_Checkbox_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
@@ -34,7 +34,7 @@ export default function Permissions_Edit(){
     const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = HandleModalView();
+    const changeModalView = HandleChangeModal();
     const changePermissionsEdit = useChangePermissionsEdit();
     // Estructura del componente
     return(
@@ -46,7 +46,7 @@ export default function Permissions_Edit(){
                             <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_30_Center>
                             <Text_P_20_Left ThemeMode={themeMode}>Área de administración...</Text_P_20_Left>
                             <Container_Row_Border_90_Center ThemeMode={themeMode}>
-                                <Label_Check_18 ThemeMode={themeMode}>
+                                <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
                                         checked={isCheckbox.administrador}
@@ -58,8 +58,8 @@ export default function Permissions_Edit(){
                                         }
                                     />
                                     Administrador
-                                </Label_Check_18>
-                                <Label_Check_18 ThemeMode={themeMode}>
+                                </Label_Text_16_Center>
+                                <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
                                         checked={isCheckbox.chef}
@@ -71,8 +71,8 @@ export default function Permissions_Edit(){
                                         }
                                     />
                                     Chef
-                                </Label_Check_18>
-                                <Label_Check_18 ThemeMode={themeMode}>
+                                </Label_Text_16_Center>
+                                <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
                                         checked={isCheckbox.almacenista}
@@ -84,11 +84,11 @@ export default function Permissions_Edit(){
                                         }
                                     />
                                     Almacenista
-                                </Label_Check_18>
+                                </Label_Text_16_Center>
                             </Container_Row_Border_90_Center>
                             <Text_P_20_Left ThemeMode={themeMode}>Área de cocina...</Text_P_20_Left>
                             <Container_Row_Border_90_Center ThemeMode={themeMode}>
-                                <Label_Check_18 ThemeMode={themeMode}>
+                                <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
                                         checked={isCheckbox.cocinero}
@@ -100,8 +100,8 @@ export default function Permissions_Edit(){
                                         }
                                     />
                                     Cocinero
-                                </Label_Check_18>
-                                <Label_Check_18 ThemeMode={themeMode}>
+                                </Label_Text_16_Center>
+                                <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
                                         checked={isCheckbox.nutriologo}
@@ -113,8 +113,8 @@ export default function Permissions_Edit(){
                                         }
                                     />
                                     Nutriólogo
-                                </Label_Check_18>
-                                <Label_Check_18 ThemeMode={themeMode}>
+                                </Label_Text_16_Center>
+                                <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
                                         checked={isCheckbox.medico}
@@ -126,7 +126,7 @@ export default function Permissions_Edit(){
                                         }
                                     />
                                     Médico
-                                </Label_Check_18>
+                                </Label_Text_16_Center>
                             </Container_Row_Border_90_Center>
                             <Text_P_20_Left ThemeMode={themeMode}>Editar permisos</Text_P_20_Left>
                             <Container_Row_Border_90_Center ThemeMode={themeMode}>
@@ -139,7 +139,7 @@ export default function Permissions_Edit(){
                                 </Button_Icon_Blue_170>
                                 {isActionBlock ? (
                                     <>
-                                        <Button_Icon_Block_170 ThemeMode={themeMode}><AiFillEdit/></Button_Icon_Block_170>
+                                        
                                     </>
                                 ):(
                                     <>

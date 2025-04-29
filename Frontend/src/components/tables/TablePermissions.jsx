@@ -20,7 +20,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 // Estilos personalizados
 import { Container_Row_90_Center } from "../styled/Containers"
 import { Table,Th,Td } from "../styled/Tables"
-import { Button_Icon_Block_150,Button_Icon_Blue_150 } from "../styled/Buttons"
+import { Button_Icon_Blue_150 } from "../styled/Buttons"
 import { Text_Span_16_Center } from "../styled/Text";
 import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
 //____________IMPORT/EXPORT____________
@@ -107,7 +107,7 @@ export default function TablePermissions(){
             </Table>
             <Container_Row_90_Center>
                 {currentPage === 1 ? (
-                    <Button_Icon_Block_150 ThemeMode={themeMode}><GrPrevious/></Button_Icon_Block_150>
+                    <></>
                 ):(
                     <Tooltip title='Anterior página' placement="top">
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
@@ -115,7 +115,7 @@ export default function TablePermissions(){
                 )}
                 <Text_Span_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesPermissions}</Text_Span_16_Center>
                 {currentPage === totalPagesPermissions || totalPagesPermissions === 0 ? (
-                    <Button_Icon_Block_150 ThemeMode={themeMode}><GrNext/></Button_Icon_Block_150>
+                    <></>
                 ):(
                     <Tooltip title='Siguiente página' placement="top">
                         <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={nextPagePermissions}><GrNext/></Button_Icon_Blue_150>

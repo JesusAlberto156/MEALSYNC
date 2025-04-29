@@ -14,7 +14,7 @@ import { SelectedRowContext,ActionBlockContext } from "../../../contexts/Variabl
 import { UsersContext } from "../../../contexts/UsersProvider";
 // Hooks personalizados
 import { useChangeStatusEnable } from "../../../hooks/Form";
-import { HandleModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 import { FaUnlock } from "react-icons/fa";
@@ -25,7 +25,7 @@ import { FaExclamationCircle } from 'react-icons/fa';
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Row_Border_90_Center } from "../../styled/Containers";
 import { Text_Title_30_Center,Text_P_16_Left } from "../../styled/Text";
-import { Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Red_150,Button_Icon_Block_150 } from "../../styled/Buttons";
+import { Button_Icon_Blue_150,Button_Icon_Green_150,Button_Icon_Red_150 } from "../../styled/Buttons";
 import { Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../styled/Icons";
 
 // Componentes personalizados
@@ -51,7 +51,7 @@ export default function Status_Enable(){
     },[]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = HandleModalView();
+    const changeModalView = HandleChangeModal();
     const changeStatusEnable = useChangeStatusEnable();
     // Estructura del componente
     return(
@@ -97,7 +97,7 @@ export default function Status_Enable(){
                                     </>
                                 ):(
                                     <>
-                                        <Button_Icon_Block_150 ThemeMode={themeMode}><FaUnlock/></Button_Icon_Block_150>
+                                    
                                     </>
                                 )
                             )}

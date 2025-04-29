@@ -17,7 +17,6 @@ import { AppProviders } from './contexts/AppProviders';
 
 //__________ICONOS__________
 // Estilos personalizados
-import '../src/components/styled/Animations.css'
 import '../src/components/styled/Alerts.css';
 import '../src/components/styled/animations/Rolls.css';
 import '../src/components/styled/animations/Shadows.css';

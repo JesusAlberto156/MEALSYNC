@@ -12,7 +12,7 @@ import { TextFieldsContext,RadioPermissionsContext,RadioStatusContext,CheckboxCo
 import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
+import { HandleChangeModal } from "../../../../hooks/Views";
 import { HandleUserAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -58,13 +58,15 @@ export default function User_Add(){
     };
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleChangeModal = HandleChangeModal();
     const handleUserAdd = HandleUserAdd();
     // UseEffect para abrir modal de los permisos
     useEffect(() => {
         if(isRadioPermissions === 'Personalizado' && isCheckbox.length === 0){
             setIsAnimation(true);
-            navigate('/Administration/Users/Users/Add/Permissions',{ replace: true });
+            setTimeout(() => {
+                navigate('/Administration/Users/Users/Add/Permissions',{ replace: true });
+            },700);
         }
         if(isRadioPermissions === 'Default'){
             setIsCheckbox([]);
@@ -217,7 +219,7 @@ export default function User_Add(){
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'User-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'User-Add' ? 'bounce-in-container-top' : 'bounce-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
@@ -225,7 +227,7 @@ export default function User_Add(){
                                 <Container_Row_90_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Ingresar datos del usuario...</Text_A_16_Left>
                                 </Container_Row_90_Left>
-                                <Container_Row_100_Center>
+                                <Container_Row_90_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Nombre completo..."
@@ -233,8 +235,8 @@ export default function User_Add(){
                                         value={isTextFields.name}
                                         onChange={(e) => setIsTextFields(prev => ({...prev, name: e.target.value}))}
                                     />
-                                </Container_Row_100_Center>
-                                <Container_Row_100_Center>
+                                </Container_Row_90_Left>
+                                <Container_Row_90_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre corto:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Primer nombre y apellido..."
@@ -242,8 +244,8 @@ export default function User_Add(){
                                         value={isTextFields.shortName}
                                         onChange={(e) => setIsTextFields(prev => ({...prev, shortName: e.target.value}))}
                                     />
-                                </Container_Row_100_Center>
-                                <Container_Row_100_Center>
+                                </Container_Row_90_Left>
+                                <Container_Row_90_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Nombre de usuario..."
@@ -251,8 +253,8 @@ export default function User_Add(){
                                         value={isTextFields.user}
                                         onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
                                     />
-                                </Container_Row_100_Center>
-                                <Container_Row_100_Center>
+                                </Container_Row_90_Left>
+                                <Container_Row_90_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Contraseña de usuario..."
@@ -260,7 +262,7 @@ export default function User_Add(){
                                         value={isTextFields.password}
                                         onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
                                     />
-                                </Container_Row_100_Center>
+                                </Container_Row_90_Left>
                                 <Select
                                     options={isUserTypes.map((userTypes) => ({
                                         value: userTypes.idtipo,
@@ -356,7 +358,7 @@ export default function User_Add(){
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_160 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleChangeModal('')}>
                                         <Icon_White_26><MdCancel/></Icon_White_26>
                                     </Button_Icon_Blue_160>
                                 </Tooltip>

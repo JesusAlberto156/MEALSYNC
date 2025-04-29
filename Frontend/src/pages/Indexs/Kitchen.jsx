@@ -12,6 +12,7 @@ import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";
 import { Alert_Greeting } from "../../components/styled/Alerts";
+import { RefAlertGreetingContext } from "../../contexts/RefsProvider";
 // Componentes personalizados
 import Setting_Bar from "../../components/navegation/SettingBar";
 //____________IMPORT/EXPORT____________
@@ -22,6 +23,7 @@ export default function Index_Kitchen(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isSidebar] = useContext(SidebarContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const isAlertGreeting = useContext(RefAlertGreetingContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC_Cocina';
@@ -34,7 +36,10 @@ export default function Index_Kitchen(){
             await Alert_Greeting('MEALSYNC','¡Le ofrece las siguientes funcionaidades!',themeMode,Image);
         }
 
-        showAlerts();
+        if(!isAlertGreeting.current){
+            showAlerts();
+            isAlertGreeting.current = true;
+        }
     },[]);
     // Estructura del componente
     return(

@@ -4,14 +4,12 @@ import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
-// Servicios
-
 // Contextos
 import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../../../contexts/ViewsProvider";
 import { ActionBlockContext,AnimationContext,SearchTermContext } from "../../../contexts/VariablesProvider";
 import { LoggedLogContext,LoggedLoggedContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { HandleLoggedLog } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -25,8 +23,6 @@ import { Text_Title_30_Center, Text_P_16_Left } from "../../styled/Text";
 import { Button_Icon_Blue_120,Button_Icon_Red_120 } from "../../styled/Buttons";
 import { Icon_White_26 } from "../../styled/Icons";
 import { Alert_Verification } from "../../styled/Alerts";
-// Componentes personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Modal para cerrar sesión
@@ -69,15 +65,15 @@ export default function Out_Login(){
                             setIsLoggedPermissions([]);
                             setIsLoggedStatus([]);
                             setIsLoggedLog(false);
-                            setIsLoggedLogged(false);
 
                             setTimeout(() => {
                                 sessionStorage.clear();
                                 setIsLoggedUser([]);
                                 setIsActionBlock(false);
                                 setIsModal(false);
+                                setIsLoggedLogged(false);
                                 navigate("/",{replace: true});
-                            },700);
+                            },800);
                         },500)
                     },2000);
                 }catch(error){
@@ -92,15 +88,15 @@ export default function Out_Login(){
     },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleChangeModal = HandleModalView();
-    const handleChangeLog = HandleLoggedLog();
+    const handleModalView = HandleChangeModal();
+    const handleLoggedLog = HandleLoggedLog();
     // Estructura del componente
     return(
         <>
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_350 className={currentMView === 'Out-Login' ? 'roll-in-container-left' : 'roll-out-container-left'} ThemeMode={themeMode}>
+                        <Container_Form_350 className={currentMView === 'Out-Login' ? 'slide-in-container-top' : 'slide-out-container-top'} ThemeMode={themeMode}>
                                 <Container_Row_100_Center>
                                     <Text_Title_30_Center ThemeMode={themeMode}>¿ESTAS SEGURO?</Text_Title_30_Center>
                                 </Container_Row_100_Center>
@@ -110,13 +106,13 @@ export default function Out_Login(){
                                 <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title="Cancelar" placement="top">
                                         <Button_Icon_Blue_120 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleChangeModal('')}>
+                                            onClick={() => handleModalView('')}>
                                             <Icon_White_26><MdCancel/></Icon_White_26>
                                         </Button_Icon_Blue_120>
                                     </Tooltip>
                                     <Tooltip title="Cerrar sesión" placement="top">
                                         <Button_Icon_Red_120 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleChangeLog()}>
+                                            onClick={() => handleLoggedLog()}>
                                             <Icon_White_26><ImExit/></Icon_White_26>
                                         </Button_Icon_Red_120>
                                     </Tooltip>

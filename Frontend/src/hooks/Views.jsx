@@ -26,7 +26,6 @@ export const ToggleThemeMode = () => {
     // Función del hook
     const toggleThemeMode = () => {
         setThemeMode(!themeMode);
-        sessionStorage.setItem('Theme-Mode',!themeMode);
     }
     // Retorno de la función del hook
     return toggleThemeMode;
@@ -71,6 +70,7 @@ export const HandleNavbarView = () => {
     // Constantes con el valor de los contextos 
     const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+    const [isSelect,setIsSelect] = useContext(SelectContext);
     // Función del hook
     const handleNavbarView = (View) => {
         setCurrentNView(View);
@@ -107,7 +107,7 @@ export const ToggleSidebar = () => {
     return toggleSidebar;
 };
 // Hook para cambiar el modal
-export const HandleModalView = () => {
+export const HandleChangeModal = () => {
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
@@ -127,34 +127,29 @@ export const HandleModalView = () => {
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     // Función del hook
-    const handleModalView = (View) => {
+    const handleChangeModal = (View) => {
         if(currentMView === 'Out-Login'){
-            setCurrentMView(View);
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal-View',View);
-                sessionStorage.setItem('Modal',false);
-                return navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
-            },700);
+                const route = sessionStorage.getItem('Route');
+                if(route){
+                    navigate(route,{ replace: true });
+                }
+            },750);
         }
         if(currentMView === 'User-Add'){
-            setCurrentMView(View);
             setTimeout(() => {
                 setIsModal(false);
                 setIsTextFields(initialTextFields);
                 setIsRadioPermissions('');
                 setIsRadioStatus('');
                 setIsCheckbox([]);
-                sessionStorage.setItem('Modal-View',View);
-                sessionStorage.setItem('Modal',false);
-                return navigate('/Administration/Users/Users',{ replace: true });
-            },750);
+                navigate('/Administration/Users/Users',{ replace: true });
+            },1550);
         }
         setCurrentMView(View);
         setIsModal(true);
-        sessionStorage.setItem('Modal-View',View);
-        sessionStorage.setItem('Modal',true);
     }
     // Retorno de la función del hook
-    return handleModalView;
+    return handleChangeModal;
 }

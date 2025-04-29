@@ -14,11 +14,7 @@ export const ModalContext = createContext(null);
 // Función Contexto para controlar el modo de la página (Claro/Oscuro)
 export const Theme_Mode = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [themeMode,setThemeMode] = useState(() => {
-        const themeMode = sessionStorage.getItem('Theme-Mode') === 'true';
-        console.log('¡Tema de la página cargado correctamente!...');
-        return themeMode;
-    });
+    const [themeMode,setThemeMode] = useState(true);
     // Return para darle valor al contexto y heredarlo
     return(
         <ThemeModeContext.Provider value={[themeMode,setThemeMode]}>
@@ -41,8 +37,19 @@ export const Login_View = ({ children }) => {
 export const Navbar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentNView,setCurrentNView] = useState(() => {
-        const navbarView = sessionStorage.getItem('Navbar-View');
-        return navbarView || '';
+        const StoredData = sessionStorage.getItem('Navbar-View');
+
+        if(StoredData){
+            try{
+                console.log('¡Tipo de usuario cargado correctamente!...');
+                return StoredData;
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return '';
+            }
+        }else{
+            return '';
+        }
     });
     // Return para darle valor al contexto y heredarlo
     return (
@@ -55,8 +62,19 @@ export const Navbar_View = ({ children }) => {
 export const Sidebar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentSView,setCurrentSView] = useState(() => {
-        const sidebarView = sessionStorage.getItem('Sidebar-View');
-        return sidebarView || '';
+        const StoredData = sessionStorage.getItem('Sidebar-View');
+
+        if(StoredData){
+            try{
+                console.log('¡Tipo de usuario cargado correctamente!...');
+                return StoredData;
+            } catch (error) {
+                console.error('Error procesando datos de sessionStorage:',error);
+                return '';
+            }
+        }else{
+            return '';
+        }
     });
     // Return para darle valor al contexto y heredarlo
     return (
@@ -82,10 +100,7 @@ export const Sidebar = ({ children }) => {
 // Función contexto para controlar el modal
 export const Modal_View = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [currentMView,setCurrentMView] = useState(() => {
-        const modalView = sessionStorage.getItem('Modal-View');
-        return modalView || '';
-    });
+    const [currentMView,setCurrentMView] = useState('');
     // UseState para controlar el valor del contexto
     return (
         <ModalViewContext.Provider value={[currentMView,setCurrentMView]}>
@@ -96,10 +111,7 @@ export const Modal_View = ({children}) => {
 // Función contexto para controlar la visibilidad del modal
 export const Modal = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isModal,setIsModal] = useState(() => {
-        const modal = sessionStorage.getItem('Modal') === 'true';
-        return modal;
-    });
+    const [isModal,setIsModal] = useState(false);
     // UseState para controlar el valor del contexto
     return (
         <ModalContext.Provider value={[isModal,setIsModal]}>

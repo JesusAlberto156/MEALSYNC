@@ -1,14 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import { keyframes } from 'styled-components';
-//__________ICONOS__________
-
-//__________ICONOS__________
-//__________IMAGE__________
-
-//__________IMAGE__________
-// Estilos personalizados
-
 //____________IMPORT/EXPORT____________
 
 //____________ANIMATION____________

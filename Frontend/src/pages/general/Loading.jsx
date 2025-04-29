@@ -18,26 +18,29 @@ import { Container_Page_Loading,Container_Row_80_Center } from "../../components
 import { Text_Title_42_Center } from "../../components/styled/Text";
 import { Icon_Rotate_Gray_50 } from "../../components/styled/Icons";
 import { Alert_Greeting } from '../../components/styled/Alerts';
-// Componentes personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Página para cargar otra página
 export default function Loading(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";
 
         const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
 
-        Alert_Greeting("MEALSYNC",'¡Cargando!...',themeMode,Image); 
-        
-        sessionStorage.setItem('Route','/Login');
+        Alert_Greeting("MEALSYNC",'¡Cargando!...',themeMode,Image);
 
         setTimeout(() => {
-            navigate(sessionStorage.getItem('Route'), { replace: true });
+            const route = sessionStorage.getItem('Route');
+                
+            if(route){
+                navigate(route,{ replace: true });
+            }else{
+                navigate('/Login',{replace: true});
+            }                   
         },1000);
     },[]);
     // Constantes con la funcionalidad de los hooks

@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 // Contextos
 import { ThemeModeContext } from '../../contexts/ViewsProvider';
-import { LoggedTypeContext } from "../../contexts/SessionProvider";
 //__________ICONOS__________
 // Iconos de decoración de la página
 import { IoIosWarning } from "react-icons/io";
@@ -19,7 +18,7 @@ import Logo_Error_Dark from '../../components/imgs/Logo-Error-Dark.png';
 // Estilos personalizados
 import { Container_Page_Error,Container_Row_100_Center,Container_Column_90_Center } from "../../components/styled/Containers";
 import { Icon_Rotate_Gray_50,Icon_Yellow_250 } from "../../components/styled/Icons";
-import { Text_Title_42_Center,Text_A_20_Center,Text_White_50_Center } from "../../components/styled/Text";
+import { Text_Title_42_Center,Text_A_20_Center,Text_White_50_Center,Text_Black_White_40_Center } from "../../components/styled/Text";
 import { Alert_Error,Alert_Styles,Alert_Verification } from "../../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
@@ -41,10 +40,10 @@ export default function Error(){
                 try{
                     setTimeout(() => {
                         resolve('¡Página encontrada!...');
-                        setTimeout(() => {
-                            navigate('/',{replace: true});
-                        },1000);
                     },1000);
+                    setTimeout(() => {
+                        navigate('/',{replace: true});
+                    },2000);
                 } catch (error) {
                     return reject('¡Ocurrio un error inseperado!...');
                 }
@@ -74,6 +73,7 @@ export default function Error(){
                         <Icon_Rotate_Gray_50><IoSettings/></Icon_Rotate_Gray_50>
                     </Container_Row_100_Center>
                     <Text_A_20_Center ThemeMode={themeMode}>Página no encotrada...</Text_A_20_Center>
+                    <Text_Black_White_40_Center ThemeMode={themeMode}>Redirigiendo en...</Text_Black_White_40_Center>
                     <Text_White_50_Center>{contador}</Text_White_50_Center>
                 </Container_Column_90_Center>
                 <Alert_Styles>

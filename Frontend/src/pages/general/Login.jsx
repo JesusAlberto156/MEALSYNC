@@ -8,7 +8,7 @@ import { Tooltip } from "@mui/material";
 // Servicios
 import { encryptData } from "../../services/Crypto";
 // Contextos
-import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext,SidebarViewContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
 import { TextFieldsContext } from "../../contexts/FormsProvider";
 import { AnimationContext,ActionBlockContext } from '../../contexts/VariablesProvider';
 import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
@@ -67,7 +67,6 @@ export default function Login(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [currentLView] = useContext(LoginViewContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     // useEffect con el titulo de la página
     useEffect(() => {
@@ -119,24 +118,17 @@ export default function Login(){
                                             sessionStorage.setItem('User',encryptedUser);
                                             sessionStorage.setItem('Permissions',encryptedPermission);
                                             sessionStorage.setItem('Status',encryptedStatus);
+                                            sessionStorage.setItem('Logged',true);
                                             sessionStorage.setItem('Type',isLoggedType);
-                                            sessionStorage.setItem('Sidebar',true);
-
+                                            
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));
                                             setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            setCurrentSView('Home');
-                                            sessionStorage.setItem('Sidebar-View','Home');
-
-                                            if(isLoggedType==='Administrator' || isLoggedType==='Chef' || isLoggedType==='Storekeeper'){
-                                                sessionStorage.setItem('Route','/Administration/Home');
+                                            if(isLoggedType === 'Doctor'){
+                                                setCurrentMView('Alert-Doctor');
                                             }
-
-                                            if(isLoggedType==='Cook' || isLoggedType==='Nutritionist' || isLoggedType==='Doctor'){
-                                                sessionStorage.setItem('Route','/Kitchen/Home');
-                                            }
-
+                                            
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setIsModal(true);
@@ -149,9 +141,9 @@ export default function Login(){
                                                 }));
                                                 setIsLoggedLog(false);
                                                 setIsLoggedLogged(true);
-                                                sessionStorage.setItem('Logged',true);
                                                 setIsActionBlock(false);
-                                                return navigate(sessionStorage.getItem('Route'),{ replace: true });
+                                                sessionStorage.setItem('Route',isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home');
+                                                return navigate('/',{ replace: true });
                                             },1000);
                                         }else{
                                             setIsLoggedLog(false);
@@ -195,23 +187,15 @@ export default function Login(){
                                             sessionStorage.setItem('Status',encryptedStatus);
                                             sessionStorage.setItem('Logged',true);
                                             sessionStorage.setItem('Type',isLoggedType);
-                                            sessionStorage.setItem('Sidebar',true);
                                             
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));
                                             setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            setCurrentSView('Home');
-                                            sessionStorage.setItem('Sidebar-View','Home');
-
-                                            if(isLoggedType==='Administrator' || isLoggedType==='Chef' || isLoggedType==='Storekeeper'){
-                                                sessionStorage.setItem('Route','/Administration/Home');
+                                            if(isLoggedType === 'Doctor'){
+                                                setCurrentMView('Alert-Doctor');
                                             }
-
-                                            if(isLoggedType==='Cook' || isLoggedType==='Nutritionist' || isLoggedType==='Doctor'){
-                                                sessionStorage.setItem('Route','/Kitchen/Home');
-                                            }
-
+                                            
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setIsModal(true);
@@ -225,7 +209,8 @@ export default function Login(){
                                                 setIsLoggedLogged(true);
                                                 setIsLoggedLog(false);
                                                 setIsActionBlock(false);
-                                                return navigate(sessionStorage.getItem('Route'),{ replace: true });
+                                                sessionStorage.setItem('Route',isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home');
+                                                return navigate('/',{ replace: true });
                                             },2500);
                                         }else{
                                             setIsLoggedLog(false);

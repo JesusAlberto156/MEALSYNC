@@ -10,7 +10,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { SelectContext,RadioStatusContext } from "../../../contexts/FormsProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../hooks/Views";
+import { HandleChangeModal } from "../../../hooks/Views";
 import { useChangeStatusSAdd,useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -21,8 +21,8 @@ import { FcAddRow } from "react-icons/fc";
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Row_Border_90_Center } from "../../styled/Containers";
 import { Text_Title_30_Center,Text_P_20_Left } from "../../styled/Text";
-import { Button_Icon_Blue_150,Button_Icon_Block_150,Button_Icon_Green_150 } from "../../styled/Buttons";
-import { Label_Check_18 } from "../../styled/Labels";
+import { Button_Icon_Blue_150,Button_Icon_Green_150 } from "../../styled/Buttons";
+import { Label_Text_16_Center } from "../../styled/Labels";
 import { Input_Radio_16 } from "../../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
@@ -35,7 +35,7 @@ export default function Status_Add(){
     const [isActiveBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const changeModalView = HandleModalView();
+    const changeModalView = HandleChangeModal();
     const filteredRecordsHasStatus = useFilteredRecordsHasStatus();
     const handleSelectChange = useHandleSelectChange();
     const handleRadioChange = useHandleRadioChange();
@@ -108,7 +108,7 @@ export default function Status_Add(){
                         <Text_P_20_Left ThemeMode={themeMode}>Selecciona un estado...</Text_P_20_Left>
                         <Container_Row_Border_90_Center ThemeMode={themeMode}>
                             {['Habilitado','Deshabilitado'].map((item,index) => (
-                                <Label_Check_18 ThemeMode={themeMode} key={index}>
+                                <Label_Text_16_Center ThemeMode={themeMode} key={index}>
                                     <Input_Radio_16 ThemeMode={themeMode}
                                         type="radio"
                                         name="group"
@@ -117,7 +117,7 @@ export default function Status_Add(){
                                         onChange={handleRadioChange}
                                     />
                                     {item}
-                                </Label_Check_18>
+                                </Label_Text_16_Center>
                             ))};
                         </Container_Row_Border_90_Center>
                         <Text_P_20_Left ThemeMode={themeMode}>Agregar estatus...</Text_P_20_Left>
@@ -132,7 +132,7 @@ export default function Status_Add(){
                             </Tooltip>
                             {isActiveBlock ? (
                                 <>
-                                    <Button_Icon_Block_150 ThemeMode={themeMode}><FcAddRow/></Button_Icon_Block_150>   
+                                    
                                 </>
                             ):(
                                 <>

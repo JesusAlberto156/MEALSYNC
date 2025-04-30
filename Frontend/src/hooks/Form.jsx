@@ -1,12 +1,13 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
 import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
-import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../contexts/ViewsProvider";
+import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 // Estilos personalizados
 import { Alert_Verification } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -78,9 +79,21 @@ export const HandleViewPassword = () => {
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
-    const [isFormVerification,setIsFormVerification] = useContext(VerificationBlockContext);
+    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
+    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    // Estados iniciales de los contextos
+    const initialTextFields = {
+        name: '',
+        shortName: '',
+        user: '',
+        password: '',
+        userTypes: 0,
+    };
+    // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
     // Función del hook
     const handleViewPassword = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-View'){
@@ -89,11 +102,19 @@ export const HandleViewPassword = () => {
                     setIsActionBlock(false);
                     setTimeout(() => {
                         resolve('¡Puedes ver las contraseñas!...');
+                        setCurrentMView('');
                         setTimeout(() => {
                             setIsViewPassword(true);
-                            setIsFormVerification(false);
-                            setCurrentMView('');
-                        },500);
+                            setIsVerificationBlock(false);
+                            sessionStorage.removeItem('Action-Block');
+                            sessionStorage.removeItem('Verification-Block');
+                            sessionStorage.setItem('Modal-View','');
+                            sessionStorage.setItem('Modal',false);
+                            
+                            setIsTextFields(initialTextFields);
+                            setIsModal(false);
+                            navigate('/Administration/Users/Users',{ replace: true });
+                        },750);
                     },1000);
                 }catch(error){
                     setIsActionBlock(true);
@@ -364,6 +385,8 @@ export const HandleVerificationBlock = () => {
                         if(isTextFields.user === isLoggedUser.usuario && isTextFields.password === isLoggedUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsActionBlock(true);
+                            sessionStorage.setItem('Verification-Block',true);
+                            sessionStorage.setItem('Action-Block',true);
                         }else{
                             setIsVerificationBlock(false);
                             return reject('¡Nombre de usuario o contraseña incorrectos!...');

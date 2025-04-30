@@ -105,6 +105,7 @@ export default function User_Permissions_Add(){
                                 setIsRadioPermissions('');
                                 setIsCheckbox([]);
                                 setIsAnimation(false);
+                                sessionStorage.removeItem('Animation');
                                 setTimeout(() => {
                                     navigate('/Administration/Users/Users/Add',{ replace: true });
                                 },750);
@@ -115,6 +116,7 @@ export default function User_Permissions_Add(){
                         <Tooltip title='Agregar' placement='top'>
                             <Button_Icon_Green_160 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                                 setIsAnimation(false);
+                                sessionStorage.removeItem('Animation');
                                 if(isCheckbox.length === 0){
                                     setIsRadioPermissions('Default');
                                 }

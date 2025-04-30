@@ -1,14 +1,13 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext,AnimationContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../../hooks/Views";
+import { HandleModalView } from "../../../../hooks/Views";
 import { HandleViewPassword } from '../../../../hooks/Form'; 
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -34,8 +33,7 @@ export default function User_View(){
     const [isModal] = useContext(ModalContext);
     const [currentMView] = useContext(ModalViewContext);
     // Constantes con la funcionalidad de los hooks
-    const navigate = useNavigate();
-    const changeModalView = HandleChangeModal();
+    const handleModalView = HandleModalView();
     const handleViewPassword = HandleViewPassword();
     // Estructura del componente
     return(
@@ -43,7 +41,7 @@ export default function User_View(){
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'User-View' ? 'bounce-in-container-top' : 'bounce-out-container-top'}>
+                        <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'User-View' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>VER CONTRASEÑAS</Text_Title_30_Center>
                             </Container_Row_100_Center>
@@ -52,8 +50,7 @@ export default function User_View(){
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_160 ThemeMode={themeMode}  className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                     onClick={() => {
-                                        changeModalView('')
-                                        navigate('/Administration/Users/Users',{ replace: true });
+                                        handleModalView('');
                                     }}>
                                         <Icon_White_26><MdCancel/></Icon_White_26>
                                     </Button_Icon_Blue_160>

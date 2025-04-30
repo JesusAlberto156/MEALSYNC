@@ -14,7 +14,7 @@ import { HandleVerificationBlock } from "../../hooks/Form";
 import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Left,Container_Column_90_Center,Container_Row_90_Center } from "../styled/Containers";
+import { Container_Row_90_Left,Container_Column_90_Center,Container_Row_100_Center,Container_Row_90_Center } from "../styled/Containers";
 import { Text_A_16_Left,Text_P_16_Center } from "../styled/Text";
 import { Input_Text_Black_100 } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
@@ -38,7 +38,7 @@ export default function Form_Verification(){
                 <Container_Row_90_Left>
                     <Text_P_16_Center ThemeMode={themeMode}>Ingresa tus datos...</Text_P_16_Center>
                 </Container_Row_90_Left>
-                <Container_Row_90_Left>
+                <Container_Row_100_Center>
                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
                     <Input_Text_Black_100 ThemeMode={themeMode}
                         placeholder="Nombre de usuario..."
@@ -46,8 +46,8 @@ export default function Form_Verification(){
                         value={isTextFields.user}
                         onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
                     />
-                </Container_Row_90_Left>
-                <Container_Row_90_Left>
+                </Container_Row_100_Center>
+                <Container_Row_100_Center>
                     <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
                     <Input_Text_Black_100 ThemeMode={themeMode}
                         placeholder="Contraseña de usuario..."
@@ -55,7 +55,7 @@ export default function Form_Verification(){
                         value={isTextFields.password}
                         onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
                     />
-                </Container_Row_90_Left>
+                </Container_Row_100_Center>
             </Container_Column_90_Center>
             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                 <Tooltip title='Verificar' placement="top">

@@ -13,11 +13,11 @@ import { useTableActions } from "../../../hooks/Table"
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers"
-import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables"
-import { Button_Icon_Blue_180 } from "../../styled/Buttons"
+import { Container_Row_90_Center } from "../../styled/Containers";
+import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
+import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_A_16_Center } from "../../styled/Text";
-import { Icon_White_18 } from "../../styled/Icons"
+import { Icon_White_18 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
@@ -25,7 +25,7 @@ export default function Table_Users(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isViewPassword] = useContext(ViewPasswordContext);
+    const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -40,6 +40,14 @@ export default function Table_Users(){
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     }, []);
+    // UseEffect para reiniciar la vista de contraseña
+    useEffect(() => {
+        if(isViewPassword){
+            setTimeout(() => {
+                setIsViewPassword(false);
+            },60000)
+        }
+    },[isViewPassword])
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = useTableActions();
     // Estructura del componente
@@ -70,7 +78,7 @@ export default function Table_Users(){
                             <Td ThemeMode={themeMode}>{user.nombre}</Td>
                             <Td ThemeMode={themeMode}>{user.nombrecorto}</Td>
                             <Td ThemeMode={themeMode}>{user.usuario}</Td>
-                            <Td ThemeMode={themeMode}>{isViewPassword ? user.contrasena : '•'.repeat(user.contrasena.length)}</Td>
+                            <Td ThemeMode={themeMode}>{isViewPassword ? user.contrasena : '•'.repeat(8)}</Td>
                         </tr>
                     ))}
 

@@ -8,7 +8,7 @@ import { Tooltip } from "@mui/material";
 import { ThemeModeContext,SidebarContext } from "../../contexts/ViewsProvider";
 import { LoggedLoggedContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
-import { ToggleThemeMode,ToggleSidebar,HandleChangeModal } from "../../hooks/Views";
+import { ToggleThemeMode,ToggleSidebar,HandleModalView } from "../../hooks/Views";
 //__________ICONOS__________
 // Icono para cambiar el modo de la interfaz
 import { IoMdSunny } from "react-icons/io";
@@ -36,7 +36,7 @@ export default function Setting_Bar(){
     const navigate = useNavigate();
     const toggleThemeMode = ToggleThemeMode();
     const toggleSidebar = ToggleSidebar();
-    const handleChangeModal = HandleChangeModal();
+    const handleModalView = HandleModalView();
     // Estructura del componente
     return(
         <>
@@ -45,7 +45,7 @@ export default function Setting_Bar(){
                     <>  
                         <Tooltip title='Salir' placement="bottom">
                             <Button_Icon_Red_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeModal('Out-Login');
+                                handleModalView('Out-Login');
                                 navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
                             }}>
                                 <Icon_White_18><ImExit/></Icon_White_18>

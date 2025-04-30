@@ -250,7 +250,7 @@ export default function Login(){
             <Container_Page>
                 <Container_Page_Login className='bg-pan-bl'>
                     <Setting_Bar/>
-                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'slide-out-container-top':'slide-in-container-top'}>
+                    <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'slide-out-container-top':'roll-in-container-left'}>
                         <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode}/>
                         <Text_Title_26_Center ThemeMode={themeMode}>
                             {currentLView === '' ? 'BIENVENIDO(A)': currentLView === 'Administration' || currentLView === 'Kitchen' ? 'SELECCIÓN DE USUARIO' : 'INICIAR SESIÓN'}

@@ -38,11 +38,11 @@ import Table_Users from './components/tables/users/Users';
 import User_Add from './components/modals/users/users/Add';
 import User_Permissions_Add from './components/modals/users/users/PermissionsAdd';
 import User_View from './components/modals/users/users/View';
-import TablePermissions from './components/tables/TablePermissions';
+import Table_Permissions from './components/tables/users/Permissions';
 import Permissions_Add from './components/modals/permissions/PermissionsAdd';
 import Permissions_Edit from './components/modals/permissions/PermissionsEdit';
 import Permissions_Super_Administrator from './components/modals/permissions/PermissionsSuperAdministrator';
-import TableStatus from './components/tables/TableStatus';
+import Table_Status from './components/tables/users/Status';
 import Status_Add from './components/modals/status/StatusAdd';
 import Status_Enable from './components/modals/status/StatusEnable';
 import Suppliers from './pages/administration/Suppliers';
@@ -102,7 +102,7 @@ const router = createHashRouter([
                   },
                   {
                     path: 'Permissions',
-                    element: <TablePermissions/>,
+                    element: <Table_Permissions/>,
                     children: [
                       {
                         path: 'Add',
@@ -120,7 +120,7 @@ const router = createHashRouter([
                   },
                   {
                     path: 'Status',
-                    element: <TableStatus/>,
+                    element: <Table_Status/>,
                     children: [
                       {
                         path: 'Add',

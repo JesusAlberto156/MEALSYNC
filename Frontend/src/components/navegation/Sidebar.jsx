@@ -43,7 +43,6 @@ export default function Side_Bar() {
   const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
   // Constantes con el valor de los useState
   const [profileImage, setProfileImage] = useState('');
-  const [visible,setVisible] = useState(true);
   // UseEffect con la imagen del usuario
   useEffect(() => {
     if(isLoggedPermissions.superadministrador){
@@ -68,10 +67,6 @@ export default function Side_Bar() {
       return setProfileImage('https://staticnew-common-prod.topdoctors.mx/assets/imageCloud/home-page/doctor-main-banner.webp?width=375/height=300/format=avif');
     }
   },[]);
-  // UseEffect para cargar el estado del sidebar
-  useEffect(() => {
-    setVisible(isSidebar);
-  },[isSidebar])
   // Constantes con la funcionalidad de los hooks
   const navigate = useNavigate();
   const handleSidebarView = HandleSidebarView();

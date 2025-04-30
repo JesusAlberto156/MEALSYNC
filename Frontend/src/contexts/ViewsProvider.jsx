@@ -37,19 +37,8 @@ export const Login_View = ({ children }) => {
 export const Navbar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentNView,setCurrentNView] = useState(() => {
-        const StoredData = sessionStorage.getItem('Navbar-View');
-
-        if(StoredData){
-            try{
-                console.log('¡Tipo de usuario cargado correctamente!...');
-                return StoredData;
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-                return '';
-            }
-        }else{
-            return '';
-        }
+        const navbarView = sessionStorage.getItem('Navbar-View');
+        return navbarView || '';
     });
     // Return para darle valor al contexto y heredarlo
     return (
@@ -62,19 +51,8 @@ export const Navbar_View = ({ children }) => {
 export const Sidebar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentSView,setCurrentSView] = useState(() => {
-        const StoredData = sessionStorage.getItem('Sidebar-View');
-
-        if(StoredData){
-            try{
-                console.log('¡Tipo de usuario cargado correctamente!...');
-                return StoredData;
-            } catch (error) {
-                console.error('Error procesando datos de sessionStorage:',error);
-                return '';
-            }
-        }else{
-            return '';
-        }
+        const sidebarView = sessionStorage.getItem('Sidebar-View');
+        return sidebarView || '';
     });
     // Return para darle valor al contexto y heredarlo
     return (
@@ -100,7 +78,10 @@ export const Sidebar = ({ children }) => {
 // Función contexto para controlar el modal
 export const Modal_View = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [currentMView,setCurrentMView] = useState('');
+    const [currentMView,setCurrentMView] = useState(() => {
+        const modalView = sessionStorage.getItem('Modal-View');
+        return modalView || '';
+    });
     // UseState para controlar el valor del contexto
     return (
         <ModalViewContext.Provider value={[currentMView,setCurrentMView]}>
@@ -111,7 +92,10 @@ export const Modal_View = ({children}) => {
 // Función contexto para controlar la visibilidad del modal
 export const Modal = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isModal,setIsModal] = useState(false);
+    const [isModal,setIsModal] = useState(() => {
+        const modal = sessionStorage.getItem('Modal') === 'true';
+        return modal;
+    });
     // UseState para controlar el valor del contexto
     return (
         <ModalContext.Provider value={[isModal,setIsModal]}>

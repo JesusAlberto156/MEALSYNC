@@ -4,11 +4,11 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext } from "../../contexts/VariablesProvider"
-import { UsersContext } from "../../contexts/UsersProvider"
-import { ThemeModeContext } from "../../contexts/ViewsProvider"
+import { SelectedRowContext } from "../../../contexts/VariablesProvider"
+import { UsersContext } from "../../../contexts/UsersProvider"
+import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 // Hooks personalizados
-import { useTableActions } from "../../hooks/Table"
+import { useTableActions } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaUserLock } from "react-icons/fa";
@@ -17,15 +17,15 @@ import { FaUserClock } from "react-icons/fa6";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../styled/Containers"
-import { Table,Th,Td } from "../styled/Tables"
-import { Button_Icon_Blue_150 } from "../styled/Buttons"
-import { Text_Span_16_Center } from "../styled/Text";
-import { Icon_Green_16,Icon_Red_16 } from "../styled/Icons"
+import { Container_Row_90_Center } from "../../styled/Containers";
+import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
+import { Button_Icon_Blue_180 } from "../../styled/Buttons";
+import { Text_A_16_Center } from "../../styled/Text";
+import { Icon_Green_18,Icon_Red_18,Icon_White_18 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los estatus de usuarios
-export default function TableStatus(){
+export default function Table_Status(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
@@ -46,21 +46,21 @@ export default function TableStatus(){
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    }, [Modal,Form,isButtonS]);
+    });
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = useTableActions();
     // Estructura del componente
     return(
         <>
             <Table id="Table-Status">
-                <thead>
+                <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th ThemeMode={themeMode}>Nombre de Usuario</Th>
-                        <Th ThemeMode={themeMode}>Habilitado</Th>
-                        <Th ThemeMode={themeMode}>Activo</Th>
+                        <Th>Nombre de Usuario</Th>
+                        <Th>Habilitado</Th>
+                        <Th>Activo</Th>
                     </tr>
-                </thead>
-                <tbody>
+                </Thead>
+                <Tbody ThemeMode={themeMode}>
                     {isUsers.map((user) => (
                         currentRecordsStatus.filter((permission) => user.idusuario === permission.idusuario).map((status) => (
                             <tr
@@ -73,29 +73,27 @@ export default function TableStatus(){
                                 }}
                             >
                                 <Td ThemeMode={themeMode}>{user.nombre}</Td>
-                                <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_16 ThemeMode={themeMode}><FaUserLock/></Icon_Green_16> : <Icon_Red_16 ThemeMode={themeMode}><FaUserLock/></Icon_Red_16>}</Td>
-                                <Td ThemeMode={themeMode}>{status.activo ? <Icon_Green_16 ThemeMode={themeMode}><FaUserClock/></Icon_Green_16>: <Icon_Red_16 ThemeMode={themeMode}><FaUserClock/></Icon_Red_16>}</Td>
+                                <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_18 ThemeMode={themeMode}><FaUserLock/></Icon_Green_18> : <Icon_Red_18 ThemeMode={themeMode}><FaUserLock/></Icon_Red_18>}</Td>
+                                <Td ThemeMode={themeMode}>{status.activo ? <Icon_Green_18 ThemeMode={themeMode}><FaUserClock/></Icon_Green_18>: <Icon_Red_18 ThemeMode={themeMode}><FaUserClock/></Icon_Red_18>}</Td>
                             </tr>
                         ))
                     ))}
-                </tbody>
+                </Tbody>
             </Table>
             <Container_Row_90_Center>
-                {currentPage === 1 ? (
-                    <></>
-                ):(
-                    <Tooltip title='Anterior página' placement="top">
-                        <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={prevPage}><GrNext/></Button_Icon_Blue_150>
-                    </Tooltip>
-                )}
-                <Text_Span_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesStatus}</Text_Span_16_Center>
-                {currentPage === totalPagesStatus || totalPagesStatus === 0 ? (
-                    <></>
-                ):(
-                    <Tooltip title='Siguiente página' placement="top">
-                        <Button_Icon_Blue_150 ThemeMode={themeMode} onClick={nextPageStatus}><GrNext/></Button_Icon_Blue_150>
-                    </Tooltip>
-                )} 
+                <Tooltip title='Página anterior' placement="top">
+                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                        onClick={prevPage}>
+                        <Icon_White_18><GrPrevious/></Icon_White_18>
+                    </Button_Icon_Blue_180>
+                </Tooltip>
+                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesStatus}</Text_A_16_Center>
+                <Tooltip title='Página siguiente' placement="top">
+                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesStatus || totalPagesStatus === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                        onClick={nextPageStatus}>
+                        <Icon_White_18><GrNext/></Icon_White_18>
+                    </Button_Icon_Blue_180>
+                </Tooltip>
             </Container_Row_90_Center>
         </>
     );

@@ -35,7 +35,10 @@ export const Search_Term = ({ children }) => {
 // Función Contexto para controlar la verificación de inicio de sesión
 export const Verification_Block = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isVerificationBlock,setIsVerificationBlock] = useState(false);
+    const [isVerificationBlock,setIsVerificationBlock] = useState(() => {
+        const verificationBlock = sessionStorage.getItem('Verification-Block') === 'true';
+        return verificationBlock;
+    });
     // Return para darle valor al contexto y heredarlo
     return (
         <VerificationBlockContext.Provider value={[isVerificationBlock,setIsVerificationBlock]}>
@@ -46,7 +49,10 @@ export const Verification_Block = ({children}) => {
 // Función Contexto para controlar las animaciones de los objetos
 export const Animation = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isAnimation,setIsAnimation] = useState(false);
+    const [isAnimation,setIsAnimation] = useState(() => {
+        const animation = sessionStorage.getItem('Animation') === 'true';
+        return animation;
+    });
     // Return para darle valor al contexto y heredarlo
     return (
         <AnimationContext.Provider value={[isAnimation,setIsAnimation]}>
@@ -57,7 +63,10 @@ export const Animation = ({children}) => {
 // Función Contexto para controlar el bloqueo de acciones
 export const Action_Block = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isActiveBlock,setIsActiveBlock] = useState(false);
+    const [isActiveBlock,setIsActiveBlock] = useState(() => {
+        const activeBlock = sessionStorage.getItem('Action-Block') === 'true';
+        return activeBlock;
+    });
     // Return para darle valor al contexto y heredarlo
     return (
         <ActionBlockContext.Provider value={[isActiveBlock,setIsActiveBlock]}>

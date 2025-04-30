@@ -9,7 +9,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { UsersContext } from "../../../contexts/UsersProvider";
 import { ActionBlockContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../hooks/Views";
+import { HandleModalView } from "../../../hooks/Views";
 import { useChangePermissionsEnable } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -45,7 +45,7 @@ export default function Permissions_Super_Administrator(){
         },[]);
         // Constantes con la funcionalidad de los hooks
         const navigate = useNavigate();
-        const changeModalView = HandleChangeModal();
+        const changeModalView = HandleModalView();
         const changePermissionsEnable = useChangePermissionsEnable();
         // Estructura del componente
     return(

@@ -107,7 +107,7 @@ export const ToggleSidebar = () => {
     return toggleSidebar;
 };
 // Hook para cambiar el modal
-export const HandleChangeModal = () => {
+export const HandleModalView = () => {
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
@@ -116,6 +116,8 @@ export const HandleChangeModal = () => {
     const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
     const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
     const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     // Estados iniciales de los contextos
     const initialTextFields = {
         name: '',
@@ -127,10 +129,13 @@ export const HandleChangeModal = () => {
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     // Función del hook
-    const handleChangeModal = (View) => {
+    const handleModalView = (View) => {
+        setIsModal(true);
+        sessionStorage.setItem('Modal',true);
         if(currentMView === 'Out-Login'){
             setTimeout(() => {
                 setIsModal(false);
+                sessionStorage.setItem('Modal',false);
                 const route = sessionStorage.getItem('Route');
                 if(route){
                     navigate(route,{ replace: true });
@@ -140,16 +145,29 @@ export const HandleChangeModal = () => {
         if(currentMView === 'User-Add'){
             setTimeout(() => {
                 setIsModal(false);
+                sessionStorage.setItem('Modal',false);
                 setIsTextFields(initialTextFields);
                 setIsRadioPermissions('');
                 setIsRadioStatus('');
                 setIsCheckbox([]);
                 navigate('/Administration/Users/Users',{ replace: true });
-            },1550);
+            },750);
+        }
+        if(currentMView === 'User-View'){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsTextFields(initialTextFields);
+                setIsActionBlock(false);
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Action-Block');
+                sessionStorage.removeItem('Verification-Block');
+                navigate('/Administration/Users/Users',{ replace: true });
+            },750);
         }
         setCurrentMView(View);
-        setIsModal(true);
+        sessionStorage.setItem('Modal-View',View);
     }
     // Retorno de la función del hook
-    return handleChangeModal;
+    return handleModalView;
 }

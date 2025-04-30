@@ -12,7 +12,7 @@ import { TextFieldsContext,RadioPermissionsContext,RadioStatusContext,CheckboxCo
 import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../../hooks/Views";
+import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUserAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -58,12 +58,13 @@ export default function User_Add(){
     };
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleChangeModal = HandleChangeModal();
+    const handleModalView = HandleModalView();
     const handleUserAdd = HandleUserAdd();
     // UseEffect para abrir modal de los permisos
     useEffect(() => {
         if(isRadioPermissions === 'Personalizado' && isCheckbox.length === 0){
             setIsAnimation(true);
+            sessionStorage.setItem('Animation',true);
             setTimeout(() => {
                 navigate('/Administration/Users/Users/Add/Permissions',{ replace: true });
             },700);
@@ -191,7 +192,7 @@ export default function User_Add(){
                                     setIsPermissionsAdd(false);
                                     setIsStatusAdd(false);
                                     navigate('/Administration/Users/Users',{ replace: true });
-                                },1550);
+                                },750);
 
                                 return () => {
                                     socket.off('Status-Insert');
@@ -219,7 +220,7 @@ export default function User_Add(){
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'User-Add' ? 'bounce-in-container-top' : 'bounce-out-container-top'}>
+                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'User-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
@@ -358,7 +359,7 @@ export default function User_Add(){
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_160 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleChangeModal('')}>
+                                        onClick={() => handleModalView('')}>
                                         <Icon_White_26><MdCancel/></Icon_White_26>
                                     </Button_Icon_Blue_160>
                                 </Tooltip>

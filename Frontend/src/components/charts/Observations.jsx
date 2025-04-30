@@ -4,7 +4,7 @@ import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { SuppliersContext,ObservationsContext } from "../../contexts/SuppliersProvider";
 import { ItemDateContext } from "../../contexts/ChartsProvider";
 
-import { HandleChangeModal } from "../../hooks/Views";
+import { HandleModalView } from "../../hooks/Views";
 import { Container_Row_100_Center } from "../styled/Containers";
 import { Chart_850x500 } from "../styled/Charts";
 export default function Observations_Chart(){
@@ -16,7 +16,7 @@ export default function Observations_Chart(){
 
     const [Dates,setDates] = useState([]);
 
-    const handleChangeModal = HandleChangeModal();
+    const handleChangeModal = HandleModalView();
 
     useEffect(() => {
         if(isObservations.length !== 0 && isSuppliers.length !== 0){

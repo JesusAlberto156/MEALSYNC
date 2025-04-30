@@ -9,7 +9,7 @@ import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,
 import { ActionBlockContext,AnimationContext,SearchTermContext } from "../../../contexts/VariablesProvider";
 import { LoggedLogContext,LoggedLoggedContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleChangeModal } from "../../../hooks/Views";
+import { HandleModalView } from "../../../hooks/Views";
 import { HandleLoggedLog } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -88,7 +88,7 @@ export default function Out_Login(){
     },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleChangeModal();
+    const handleModalView = HandleModalView();
     const handleLoggedLog = HandleLoggedLog();
     // Estructura del componente
     return(

@@ -24,22 +24,11 @@ import { Button_Icon_Blue_120 } from "../../components/styled/Buttons";
 export default function Home_Administration(){
     // Constantes con el valor de los contextos 
 
-    // Abrir pestaña
-    const OpenPage = () => {
-        if (window.electronAPI) {  // Asegúrate de que electronAPI esté definido
-            window.electronAPI.openWindow(); // Llama a la función en preload.js
-          } else {
-            console.error('electronAPI no está disponible');
-          }
-    }
     // Estructura del componente
     return(
         <> 
             <Container_Row_90_Left>
                 <Container_Row_90_Center>
-                    <Button_Icon_Blue_120 onClick={() => OpenPage()}>
-                        Abrir pestaña
-                    </Button_Icon_Blue_120>
                 </Container_Row_90_Center>
             </Container_Row_90_Left>
             <Container_Row_90_Left>

@@ -3,12 +3,12 @@
 import { Socket } from './SocketProvider';
 import { Theme_Mode,Login_View,Navbar_View,Sidebar_View,Sidebar,Modal_View,Modal } from './ViewsProvider';
 import { Logged_User,Logged_Permissions,Logged_Status,Logged_Log,Logged_Logged,Logged_Type } from './SessionProvider';
-import { Selected_Row,Search_Term,Verification_Block,Animation,Action_Block,View_Password } from './VariablesProvider';
+import { Selected_Row,Search_Term,Verification_Block,Animation,Action_Block,View_Password,Keyboard,Keyboard_View } from './VariablesProvider';
 import { Users,Permissions,Status,User_Add,User_Edit,Permissions_Add,Permissions_Edit,Permissions_Enable,Status_Add,Status_Enable,User_Types } from './UsersProvider';
 import { Suppliers,Observations } from './SuppliersProvider';
 import { Text_Fields,Select,Radio_Permissions,Radio_Status,Checkbox } from './FormsProvider';
 import { Item_Date } from './ChartsProvider';
-import { Ref_Alert_Greeting } from './RefsProvider';
+import { Ref_Alert_Greeting,Ref_Keyboard } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
 // Función general de contextos
@@ -34,47 +34,53 @@ export const AppProviders = ({children}) => {
                                                                             <Animation>
                                                                                 <Action_Block>
                                                                                     <View_Password>
-                                                                                        <Users>
-                                                                                            <Permissions>
-                                                                                                <Status>
-                                                                                                    <User_Types>
-                                                                                                        <Suppliers>
-                                                                                                            <Observations>
-                                                                                                                <Text_Fields>
-                                                                                                                    <Select>
-                                                                                                                        <Radio_Permissions>
-                                                                                                                            <Radio_Status>
-                                                                                                                                <Checkbox>
-                                                                                                                                    <Item_Date>
-                                                                                                                                        <User_Add>
-                                                                                                                                            <User_Edit>
-                                                                                                                                                <Permissions_Add>
-                                                                                                                                                    <Permissions_Edit>
-                                                                                                                                                        <Permissions_Enable>
-                                                                                                                                                            <Status_Add>
-                                                                                                                                                                <Status_Enable>
-                                                                                                                                                                    <Ref_Alert_Greeting>
-                                                                                                                                                                        {children}
-                                                                                                                                                                    </Ref_Alert_Greeting>
-                                                                                                                                                                </Status_Enable>
-                                                                                                                                                            </Status_Add>
-                                                                                                                                                        </Permissions_Enable>
-                                                                                                                                                    </Permissions_Edit>
-                                                                                                                                                </Permissions_Add>
-                                                                                                                                            </User_Edit>
-                                                                                                                                        </User_Add>
-                                                                                                                                    </Item_Date>
-                                                                                                                                </Checkbox>
-                                                                                                                            </Radio_Status>
-                                                                                                                        </Radio_Permissions>
-                                                                                                                    </Select>
-                                                                                                                </Text_Fields>
-                                                                                                            </Observations>
-                                                                                                        </Suppliers>
-                                                                                                    </User_Types>
-                                                                                                </Status>
-                                                                                            </Permissions>
-                                                                                        </Users>
+                                                                                        <Keyboard>
+                                                                                            <Keyboard_View>
+                                                                                                <Users>
+                                                                                                    <Permissions>
+                                                                                                        <Status>
+                                                                                                            <User_Types>
+                                                                                                                <Suppliers>
+                                                                                                                    <Observations>
+                                                                                                                        <Text_Fields>
+                                                                                                                            <Select>
+                                                                                                                                <Radio_Permissions>
+                                                                                                                                    <Radio_Status>
+                                                                                                                                        <Checkbox>
+                                                                                                                                            <Item_Date>
+                                                                                                                                                <User_Add>
+                                                                                                                                                    <User_Edit>
+                                                                                                                                                        <Permissions_Add>
+                                                                                                                                                            <Permissions_Edit>
+                                                                                                                                                                <Permissions_Enable>
+                                                                                                                                                                    <Status_Add>
+                                                                                                                                                                        <Status_Enable>
+                                                                                                                                                                            <Ref_Alert_Greeting>
+                                                                                                                                                                                <Ref_Keyboard>
+                                                                                                                                                                                    {children}
+                                                                                                                                                                                </Ref_Keyboard>
+                                                                                                                                                                            </Ref_Alert_Greeting>
+                                                                                                                                                                        </Status_Enable>
+                                                                                                                                                                    </Status_Add>
+                                                                                                                                                                </Permissions_Enable>
+                                                                                                                                                            </Permissions_Edit>
+                                                                                                                                                        </Permissions_Add>
+                                                                                                                                                    </User_Edit>
+                                                                                                                                                </User_Add>
+                                                                                                                                            </Item_Date>
+                                                                                                                                        </Checkbox>
+                                                                                                                                    </Radio_Status>
+                                                                                                                                </Radio_Permissions>
+                                                                                                                            </Select>
+                                                                                                                        </Text_Fields>
+                                                                                                                    </Observations>
+                                                                                                                </Suppliers>
+                                                                                                            </User_Types>
+                                                                                                        </Status>
+                                                                                                    </Permissions>
+                                                                                                </Users>
+                                                                                            </Keyboard_View>
+                                                                                        </Keyboard>
                                                                                     </View_Password>
                                                                                 </Action_Block>
                                                                             </Animation>

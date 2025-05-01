@@ -34,6 +34,7 @@ const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
 //____________FORM____________
 //____________REF____________
 const isAlertGreeting = useContext(RefAlertGreetingContext);
+const isKeyboard = useContext(RefKeyboardContext);
 //____________REF____________
 //____________SESSION____________
 const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
@@ -72,6 +73,8 @@ const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBloc
 const [isAnimation,setIsAnimation] = useContext(AnimationContext);
 const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
 const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
+const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
+const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
 //____________VARIABLES____________
 //____________VIEWS____________
 const [themeMode,setThemeMode] = useContext(ThemeModeContext);

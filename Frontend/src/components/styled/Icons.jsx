@@ -536,38 +536,6 @@ export const Icon_Yellow_250 = styled.div.withConfig({
 //---------- Yellow
 //____________COLOR____________
 
-
-// Color Verde
-export const Icon_Green_16 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 16px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 12px;
-    }
-`;
-// Color Rojo
-export const Icon_Red_16 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 16px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 12px;
-    }
-`;
-
 //--------MODAL--------
 export const Icon_Warning_Modal = styled.div`
     position: relative;

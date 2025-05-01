@@ -11,8 +11,6 @@ import Background_Kitchen_Light from '../imgs/Background-Kitchen-Light.jpg';
 import Background_Administration_Dark from '../imgs/Background-Administration-Dark.jpeg';
 import Background_Administration_Light from '../imgs/Background-Administration-Light.jpg'
 //__________IMAGE__________
-// Estilos personalizados
-
 //____________IMPORT/EXPORT____________
 
 //____________PAGE____________

@@ -45,6 +45,7 @@ export default function Form_Verification(){
                         type="text"
                         value={isTextFields.user}
                         onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
+                        disabled={isVerificationBlock}
                     />
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
@@ -54,6 +55,7 @@ export default function Form_Verification(){
                         type="password"
                         value={isTextFields.password}
                         onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
+                        disabled={isVerificationBlock}
                     />
                 </Container_Row_100_Center>
             </Container_Column_90_Center>

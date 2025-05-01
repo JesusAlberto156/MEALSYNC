@@ -45,7 +45,7 @@ export default function Table_Users(){
         if(isViewPassword){
             setTimeout(() => {
                 setIsViewPassword(false);
-            },60000)
+            },30000)
         }
     },[isViewPassword])
     // Constantes con la funcionalidad de los hooks

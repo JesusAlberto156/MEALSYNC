@@ -4,7 +4,6 @@ import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
-import { LoggedTypeContext } from "../../contexts/SessionProvider";
 //__________ICONOS__________
 // Icono de carga
 import { IoSettings } from "react-icons/io5";
@@ -24,7 +23,6 @@ import { Alert_Greeting } from '../../components/styled/Alerts';
 export default function Loading(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
-    const [isLoggedType] = useContext(LoggedTypeContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";

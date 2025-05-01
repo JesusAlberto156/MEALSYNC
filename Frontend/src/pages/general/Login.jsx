@@ -10,7 +10,7 @@ import { encryptData } from "../../services/Crypto";
 // Contextos
 import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
 import { TextFieldsContext } from "../../contexts/FormsProvider";
-import { AnimationContext,ActionBlockContext } from '../../contexts/VariablesProvider';
+import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext } from '../../contexts/VariablesProvider';
 import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
 import { UsersContext,PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
@@ -47,6 +47,7 @@ import { Alert_Greeting,Alert_Verification,Alert_Styles } from '../../components
 import Setting_Bar from '../../components/navegation/SettingBar';
 import Footer from "../../components/navegation/Footer";
 import Form_Login from "../../components/forms/Login";
+import Virtual_Keyboard from "../../components/forms/Keyboard";
 //____________IMPORT/EXPORT____________
 
 // Página para iniciar sesión
@@ -68,6 +69,8 @@ export default function Login(){
     const [currentLView] = useContext(LoginViewContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC';
@@ -81,6 +84,20 @@ export default function Login(){
 
         showAlerts();
     },[]);
+    // useEffect para escribir en los campos del login
+    const handleKeyboard = (newValue) => {
+        if(isKeyboardView === 'User' ){
+            setIsTextFields(prev => ({
+                ...prev,
+                user: newValue, 
+            }));
+        }else{
+            setIsTextFields(prev => ({
+                ...prev,
+                password: newValue,
+            }));
+        }
+    };
     // useEffect con el inicio de sesión del login
     useEffect(() => {
         if(isLoggedLog && !isLoggedLogged){
@@ -361,6 +378,13 @@ export default function Login(){
                             <></>
                         )}
                     </Container_Form_400>
+                    {isKeyboard ? (
+                        <>
+                            <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFields.user : isTextFields.password} onChange={handleKeyboard}/>  
+                        </>
+                    ):(
+                        <></>
+                    )}
                 </Container_Page_Login> 
                 <Footer/>
             </Container_Page>  

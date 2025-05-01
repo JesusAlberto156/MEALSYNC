@@ -8,6 +8,8 @@ export const VerificationBlockContext = createContext(null);
 export const AnimationContext = createContext(null);
 export const ActionBlockContext = createContext(null);
 export const ViewPasswordContext = createContext(null);
+export const KeyboardContext = createContext(null);
+export const KeyboardViewContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el renglon seleccionado de una tabla
@@ -83,5 +85,27 @@ export const View_Password = ({children}) => {
         <ViewPasswordContext.Provider value={[isViewPassword,setIsViewPassword]}>
             {children}
         </ViewPasswordContext.Provider>
+    );
+}
+// Función Contexto para controlar la visibilidad del teclado
+export const Keyboard = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isKeyboard,setIsKeyboard] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <KeyboardContext.Provider value={[isKeyboard,setIsKeyboard]}>
+            {children}
+        </KeyboardContext.Provider>
+    );
+}
+// Función Contexto para controlar donde va a escribir el teclado
+export const Keyboard_View = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isKeyboardView,setIsKeyboardView] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <KeyboardViewContext.Provider value={[isKeyboardView,setIsKeyboardView]}>
+            {children}
+        </KeyboardViewContext.Provider>
     );
 }

@@ -43,9 +43,7 @@ export const Input_Text_Black_100 = styled.input.withConfig({
 `;
 //-------- Black
 //-------- White
-export const Input_Text_White_20 = styled.input.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+export const Input_Text_White_20 = styled.input`
     width: 20%;
     height: auto;
     color: white;

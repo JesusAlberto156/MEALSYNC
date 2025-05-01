@@ -3,7 +3,8 @@
 import { createContext,useRef } from "react"
 // Contextos
 export const RefAlertGreetingContext = createContext(null);
-export const refKeyboardContext = createContext(null);
+export const RefKeyboardContext = createContext(null);
+
 export const refFormUsersContext = createContext(null);
 export const refButtonUsersContext = createContext(null);
 export const refFormPermissionsContext = createContext(null);
@@ -23,20 +24,18 @@ export const Ref_Alert_Greeting = ({ children }) => {
         </RefAlertGreetingContext.Provider>
     );
 }
-
+// Función contexto para controlar el teclado de la pagina
 export const Ref_Keyboard = ({ children }) => {
-
-    const isKeyboard = {
-        user: useRef(null),
-        password: useRef(null),
-    };
-
+    // UseRef para controlar el valor del contexto
+    const isKeyboard = useRef(null);
+    // Return para darle valor al contexto y heredarlo
     return(
-        <refKeyboardContext.Provider value={isKeyboard}>
+        <RefKeyboardContext.Provider value={isKeyboard}>
             {children}
-        </refKeyboardContext.Provider>
+        </RefKeyboardContext.Provider>
     );
 }
+
 export const Ref_Form_Users = ({ children }) => {
 
     const isForm = {

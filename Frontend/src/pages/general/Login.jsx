@@ -10,7 +10,7 @@ import { encryptData } from "../../services/Crypto";
 // Contextos
 import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
 import { TextFieldsContext } from "../../contexts/FormsProvider";
-import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext } from '../../contexts/VariablesProvider';
+import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from '../../contexts/VariablesProvider';
 import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
 import { UsersContext,PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
@@ -71,6 +71,7 @@ export default function Login(){
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView] = useContext(KeyboardViewContext);
+    const [isTouch,setIsTouch] = useContext(TouchContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC';

@@ -4,8 +4,8 @@ import { createContext,useRef } from "react"
 // Contextos
 export const RefAlertGreetingContext = createContext(null);
 export const RefKeyboardContext = createContext(null);
+export const RefUsersContext = createContext(null);
 
-export const refFormUsersContext = createContext(null);
 export const refButtonUsersContext = createContext(null);
 export const refFormPermissionsContext = createContext(null);
 export const refButtonPermissionsContext = createContext(null);
@@ -35,18 +35,20 @@ export const Ref_Keyboard = ({ children }) => {
         </RefKeyboardContext.Provider>
     );
 }
-
-export const Ref_Form_Users = ({ children }) => {
-
-    const isForm = {
+// Función contexto para controlar la tabla de usuarios
+export const Ref_Users = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isUsers = {
         Modal: useRef(null),
         Form: useRef(null),
+        Button_Edit_U: useRef(null),
+        Button_Delete_U: useRef(null),
     };
-
+    // Return para darle valor al contexto y heredarlo
     return(
-        <refFormUsersContext.Provider value={isForm}>
+        <RefUsersContext.Provider value={isUsers}>
             {children}
-        </refFormUsersContext.Provider>
+        </RefUsersContext.Provider>
     );
 }
 

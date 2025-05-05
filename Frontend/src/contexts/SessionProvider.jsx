@@ -129,7 +129,9 @@ export const Logged_Logged = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedLogged,setIsLoggedLogged] = useState(() => {
         const logged = sessionStorage.getItem('Logged') === 'true';
-        console.log('¡Inicio de sesión cargado correctamente!...');
+        if(logged){
+            console.log('¡Inicio de sesión cargado correctamente!...');
+        }
         return logged
     });
     // UseEffect para actualizar datos en la base de datos de la sesión activa/inactiva
@@ -171,7 +173,9 @@ export const Logged_Type = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedType,setIsLoggedType] = useState(() => {
         const type = sessionStorage.getItem('Type');
-        console.log('¡Tipo de usuario cargado correctamente!...');
+        if(type !== null){
+            console.log('¡Tipo de usuario cargado correctamente!...');
+        }
         return type || '';
     });
     // Return para darle valor al contexto y heredarlo

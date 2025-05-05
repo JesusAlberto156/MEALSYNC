@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { TextFieldsContext } from "../../contexts/FormsProvider";
-import { AnimationContext,KeyboardContext,KeyboardViewContext } from "../../contexts/VariablesProvider";
+import { AnimationContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../../contexts/RefsProvider";
 // Estilos personalizados
 import { Container_Row_100_Center,Container_Row_90_Left } from "../styled/Containers";
@@ -21,6 +21,7 @@ export default function Form_Login(){
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
+    const [isTouch] = useContext(TouchContext);
     // UseEffect que determina la visibilidad del teclado
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -58,8 +59,10 @@ export default function Form_Login(){
                     value={isTextFields.user}
                     onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
                     onFocus={() => {
-                        setIsKeyboard(true);
-                        setIsKeyboardView('User');
+                        if(isTouch){
+                            setIsKeyboard(true);
+                            setIsKeyboardView('User');
+                        }
                     }}
                 />
             </Container_Row_100_Center>

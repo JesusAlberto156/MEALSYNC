@@ -10,6 +10,7 @@ export const ActionBlockContext = createContext(null);
 export const ViewPasswordContext = createContext(null);
 export const KeyboardContext = createContext(null);
 export const KeyboardViewContext = createContext(null);
+export const TouchContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el renglon seleccionado de una tabla
@@ -107,5 +108,16 @@ export const Keyboard_View = ({children}) => {
         <KeyboardViewContext.Provider value={[isKeyboardView,setIsKeyboardView]}>
             {children}
         </KeyboardViewContext.Provider>
+    );
+}
+// Función Contexto para controlar si es necesario abrir el teclado o no
+export const Touch = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isTouch,setIsTouch] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <TouchContext.Provider value={[isTouch,setIsTouch]}>
+            {children}
+        </TouchContext.Provider>
     );
 }

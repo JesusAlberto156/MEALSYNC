@@ -9,8 +9,9 @@ import { UsersContext } from "../../../contexts/UsersProvider"
 import { LoggedPermissionsContext } from "../../../contexts/SessionProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { CheckboxContext } from "../../../contexts/FormsProvider"
+import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
-import { useTableActions } from "../../../hooks/Table"
+import { TableActions } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 // Iconos de la sección de Administración del login
@@ -35,19 +36,26 @@ export default function Table_Permissions(){
     const [isPermission] = useContext(LoggedPermissionsContext);
     const [isUsers] = useContext(UsersContext);
     const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+    const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Permissions");
 
-            if (table && !table.contains(event.target)) {
+            const isClickInsideTable = table && table.contains(event.target);
+            const isClickInsideModal = Modal?.current?.contains(event.target);
+            const isClickInsideForm = Form?.current?.contains(event.target);
+            const isClickInsideEdit = Button_Edit_P?.current?.contains(event.target);
+            const isClickInsideEnable = Button_Enable_P?.current?.contains(event.target);
+
+            if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideEnable) {
                 setIsSelectedRow(null);
             }
         };
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    });
+    },[Modal,Form,Button_Edit_P,Button_Enable_P]);
     // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -57,7 +65,7 @@ export default function Table_Permissions(){
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = useTableActions();
+    const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = TableActions();
     // Estructura del componente
     return(
         <>

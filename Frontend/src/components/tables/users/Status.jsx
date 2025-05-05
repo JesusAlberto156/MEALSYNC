@@ -8,7 +8,7 @@ import { SelectedRowContext } from "../../../contexts/VariablesProvider"
 import { UsersContext } from "../../../contexts/UsersProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 // Hooks personalizados
-import { useTableActions } from "../../../hooks/Table"
+import { TableActions } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaUserLock } from "react-icons/fa";
@@ -48,7 +48,7 @@ export default function Table_Status(){
         };
     });
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = useTableActions();
+    const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = TableActions();
     // Estructura del componente
     return(
         <>

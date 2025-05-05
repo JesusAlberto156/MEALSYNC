@@ -5,10 +5,8 @@ import { createContext,useRef } from "react"
 export const RefAlertGreetingContext = createContext(null);
 export const RefKeyboardContext = createContext(null);
 export const RefUsersContext = createContext(null);
+export const RefPermissionsContext = createContext(null);
 
-export const refButtonUsersContext = createContext(null);
-export const refFormPermissionsContext = createContext(null);
-export const refButtonPermissionsContext = createContext(null);
 export const refFormStatusContext = createContext(null);
 export const refButtonStatusContext = createContext(null);
 //____________IMPORT/EXPORT____________
@@ -51,46 +49,20 @@ export const Ref_Users = ({ children }) => {
         </RefUsersContext.Provider>
     );
 }
-
-export const Ref_Button_Users = ({ children }) => {
-
-    const isButtons = {
-        Button_Edit_U: useRef(null),
-        Button_Delete_U: useRef(null),
-    };
-
-    return(
-        <refButtonUsersContext.Provider value={isButtons}>
-            {children}
-        </refButtonUsersContext.Provider>
-    );
-}
-
-export const Ref_Form_Permissions = ({ children }) => {
-
-    const isForm = {
+// Función contexto para controlar la tabla de permisos
+export const Ref_Permissions = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isPermissions = {
         Modal: useRef(null),
         Form: useRef(null),
-    };
-
-    return(
-        <refFormPermissionsContext.Provider value={isForm}>
-            {children}
-        </refFormPermissionsContext.Provider>
-    );
-}
-
-export const Ref_Button_Permissions = ({ children }) => {
-
-    const isButtons = {
         Button_Edit_P: useRef(null),
-        Button_Super_P: useRef(null),
+        Button_Enable_P: useRef(null),
     };
-
+    // Return para darle valor al contexto y heredarlo
     return(
-        <refButtonPermissionsContext.Provider value={isButtons}>
+        <RefPermissionsContext.Provider value={isPermissions}>
             {children}
-        </refButtonPermissionsContext.Provider>
+        </RefPermissionsContext.Provider>
     );
 }
 

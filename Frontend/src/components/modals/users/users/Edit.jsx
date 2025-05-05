@@ -8,22 +8,23 @@ import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../../../../contexts/FormsProvider";
-import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
-import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { TextFieldsContext } from "../../../../contexts/FormsProvider";
+import { UserTypesContext,UserEditContext } from "../../../../contexts/UsersProvider";
+import { ActionBlockContext,SelectedRowContext } from "../../../../contexts/VariablesProvider";
+import { RefUsersContext } from '../../../../contexts/RefsProvider';
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
-import { HandleUserAdd } from "../../../../hooks/Form";
+import { HandleUserEdit } from "../../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_90_Center,Container_Row_100_Center,Container_Column_90_Center,Container_Row_90_Left,Container_Row_100_Left } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
-import { Button_Icon_Blue_160,Button_Icon_Green_160 } from "../../../styled/Buttons";
+import { Button_Icon_Blue_160,Button_Icon_Red_160 } from "../../../styled/Buttons";
 import { Icon_White_26 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -37,189 +38,62 @@ export default function User_Edit(){
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
     const [isUserTypes] = useContext(UserTypesContext);
-    const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
-    const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
-    const [isAnimation,setIsAnimation] = useContext(AnimationContext);
-    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
-    const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
-    const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
+    const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
     const [socket] = useContext(SocketContext);
-    const [isUsers] = useContext(UsersContext);
-    // Estados iniciales de los contextos
-    const initialTextFields = {
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-    };
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
-    const handleUserAdd = HandleUserAdd();
-    // UseEffect para abrir modal de los permisos
+    const handleUserEdit = HandleUserEdit();
+    // UseEffect para editar datos a la base de datos
     useEffect(() => {
-        if(isRadioPermissions === 'Personalizado' && isCheckbox.length === 0){
-            setIsAnimation(true);
-            sessionStorage.setItem('Animation',true);
-            setTimeout(() => {
-                navigate('/Administration/Users/Users/Add/Permissions',{ replace: true });
-            },700);
-        }
-        if(isRadioPermissions === 'Default'){
-            setIsCheckbox([]);
-        }
-    },[isRadioPermissions]);
-    // UseEffect para agregar datos a la base de datos
-    useEffect(() => {
-        if(isUserAdd){
+        if(isUserEdit){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('User-Insert',isTextFields.userTypes,isTextFields.name,isTextFields.shortName,isTextFields.user,isTextFields.password)
+                        socket.emit('User-Update',isTextFields.userTypes,isSelectedRow.idusuario,isTextFields.name,isTextFields.shortName,isTextFields.user,isTextFields.password)
                     
-                        socket.on('User-Insert',(message,user) => {
+                        socket.on('User-Update',(message,user) => {
                             console.log(message,user);
                             socket.emit('Users');
                         });
 
-                        resolve('¡¡MEALSYNC agrego al usuario!...');
+                        resolve('¡¡MEALSYNC actualizo al usuario!...');
 
-                        setIsUserAdd(false);
-                        setIsPermissionsAdd(true);
+                        setCurrentMView('');
+                        sessionStorage.setItem('Modal-View','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Modal',false);
+                            setIsActionBlock(false);
+                            setIsUserEdit(false);
+                            setIsSelectedRow(null);
+                            navigate('/Administration/Users/Users',{ replace: true });
+                        },750);
 
                         return () => {
-                            socket.off('User-Insert');
+                            socket.off('User-Update');
                         }
                     },1000);
                 }catch(error){
-                    setIsAnimation(false);
                     setIsActionBlock(false);
-                    setIsUserAdd(false);
-                    setIsPermissionsAdd(false);
-                    setIsStatusAdd(false);
+                    setIsUserEdit(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando un usuario!...');
+            Alert_Verification(promise,'Actualizado un usuario!...');
         }
-        if(isPermissionsAdd){
-            if(isRadioPermissions !== ''){
-                const user = isUsers.find(user => user.usuario === isTextFields.user);
-                if(user){
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setTimeout(() => {
-                                if(isRadioPermissions === 'Personalizado'){
-                                    let Administrator = 0,Chef = 0,Storekeeper = 0,Cook = 0,Nutritionist = 0,Doctor = 0;
-                                    isCheckbox.map(permission => {
-                                        if(permission.name === 'Administrator' && permission.value) Administrator = 1 
-                                        if(permission.name === 'Chef' && permission.value) Chef = 1 
-                                        if(permission.name === 'Storekeeper' && permission.value) Storekeeper = 1 
-                                        if(permission.name === 'Cook' && permission.value) Cook = 1 
-                                        if(permission.name === 'Nutritionist' && permission.value) Nutritionist = 1 
-                                        if(permission.name === 'Doctor' && permission.value) Doctor = 1 
-                                    });
-                                    socket.emit('Permissions-Insert',user.idusuario,user.usuario,Administrator,Chef,Storekeeper,Cook,Nutritionist,Doctor);
-                                    
-                                    socket.on('Permissions-Insert',(message,user) => {
-                                        console.log(message,user);
-                                        socket.emit('Permissions');
-                                    });
-                                }else{
-                                    socket.emit('Permissions-Insert',user.idusuario,user.usuario,0,0,0,0,0,0);
-
-                                    socket.on('Permissions-Insert',(message,user) => {
-                                        console.log(message,user);
-                                        socket.emit('Permissions');
-                                    });
-                                }
-
-                                resolve('¡MEALSYNC agregó los permisos al usuario!...')
-
-                                setIsRadioPermissions('');
-                                setIsPermissionsAdd(false);
-                                setIsStatusAdd(true);
-
-                                return () => {
-                                    socket.off('Permissions-Insert');
-                                }
-                            },1000);
-                        }catch(error){
-                            setIsAnimation(false);
-                            setIsActionBlock(false);
-                            setIsUserAdd(false);
-                            setIsPermissionsAdd(false);
-                            setIsStatusAdd(false);
-                            return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
-                        }
-                    });
-
-                    Alert_Verification(promise,'¡Agregando permisos al usuario!...');
-                }
-            }
-        }
-        if(isStatusAdd){
-            if(isRadioStatus !== ''){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            const user = isUsers.find(user => user.usuario === isTextFields.user);
-                            if(user){
-                                socket.emit('Status-Insert',user.idusuario,isRadioStatus === 'Habilitado' ? 1:0,user.usuario);
-
-                                socket.on('Status-Insert',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Status');
-                                });
-                                
-                                resolve('¡MEALSYNC agregó el status al usuario!...');
-
-                                setCurrentMView('');
-                                setTimeout(() => {
-                                    setIsModal(false);
-                                    setIsTextFields(initialTextFields);
-                                    setIsRadioPermissions('');
-                                    setIsRadioStatus('');
-                                    setIsCheckbox([]);
-                                    setIsAnimation(false);
-                                    setIsActionBlock(false);
-                                    setIsUserAdd(false);
-                                    setIsPermissionsAdd(false);
-                                    setIsStatusAdd(false);
-                                    navigate('/Administration/Users/Users',{ replace: true });
-                                },750);
-
-                                return () => {
-                                    socket.off('Status-Insert');
-                                }
-                            }
-                        },1000);
-                    }catch(error){
-                        
-                        setIsAnimation(false);
-                        setIsActionBlock(false);
-                        setIsUserAdd(false);
-                        setIsPermissionsAdd(false);
-                        setIsStatusAdd(false);
-                        return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Agregando estatus al usuario!...');
-            }
-        }
-    },[isUserAdd,isStatusAdd,isUsers])
+    },[isUserEdit])
     // Estructura del componente
     return(
         <>
-            {isModal ? (
+            {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal>
-                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'User-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Modal ref={Modal}>
+                        <Container_Form_500 ref={Form} ThemeMode={themeMode} className={currentMView === 'User-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>EDITAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
@@ -323,16 +197,16 @@ export default function User_Edit(){
                             </Container_Column_90_Center>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Red_160 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
                                         <Icon_White_26><MdCancel/></Icon_White_26>
-                                    </Button_Icon_Blue_160>
+                                    </Button_Icon_Red_160>
                                 </Tooltip>
-                                <Tooltip title='Agregar' placement='top'>
-                                    <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUserAdd()}>
-                                        <Icon_White_26><FaUserPlus/></Icon_White_26>
-                                    </Button_Icon_Green_160>
+                                <Tooltip title='Editar' placement='top'>
+                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        onClick={() => handleUserEdit()}>
+                                        <Icon_White_26><FaUserEdit/></Icon_White_26>
+                                    </Button_Icon_Blue_160>
                                 </Tooltip>
                             </Container_Row_90_Center>
                         </Container_Form_500>

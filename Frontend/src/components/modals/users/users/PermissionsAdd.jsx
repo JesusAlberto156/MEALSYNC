@@ -9,7 +9,7 @@ import { ThemeModeContext } from "../../../../contexts/ViewsProvider";
 import { AnimationContext } from "../../../../contexts/VariablesProvider";
 import { RadioPermissionsContext,CheckboxContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
-import { useHandleCheckboxChange } from "../../../../hooks/Form";
+import { HandleCheckbox } from "../../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -34,7 +34,7 @@ export default function User_Permissions_Add(){
     const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleCheckboxChange = useHandleCheckboxChange();
+    const handleCheckbox = HandleCheckbox();
     // Estructura del componente
     return(
         <>
@@ -48,7 +48,7 @@ export default function User_Permissions_Add(){
                         <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 value={isCheckbox.some(item => item.name === 'Administrator' && item.value)}
-                                onChange={(e) => handleCheckboxChange('Administrator',e)}
+                                onChange={(e) => handleCheckbox('Administrator',e)}
                                 type="checkbox"
                             />
                             Administrador
@@ -56,7 +56,7 @@ export default function User_Permissions_Add(){
                         <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 value={isCheckbox.some(item => item.name === 'Chef' && item.value)}
-                                onChange={(e) => handleCheckboxChange('Chef',e)}
+                                onChange={(e) => handleCheckbox('Chef',e)}
                                 type="checkbox"
                             />
                             Chef
@@ -65,7 +65,7 @@ export default function User_Permissions_Add(){
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Storekeeper' && item.value)}
-                                onChange={(e) => handleCheckboxChange('Storekeeper',e)}
+                                onChange={(e) => handleCheckbox('Storekeeper',e)}
                             />
                             Almacenista
                         </Label_Text_16_Center>
@@ -78,7 +78,7 @@ export default function User_Permissions_Add(){
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Cook' && item.value)}
-                                onChange={(e) => handleCheckboxChange('Cook',e)}
+                                onChange={(e) => handleCheckbox('Cook',e)}
                             />
                             Cocinero
                         </Label_Text_16_Center>
@@ -86,7 +86,7 @@ export default function User_Permissions_Add(){
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Nutritionist' && item.value)}
-                                onChange={(e) => handleCheckboxChange('Nutritionist',e)}
+                                onChange={(e) => handleCheckbox('Nutritionist',e)}
                             />
                             Nutriólogo
                         </Label_Text_16_Center>
@@ -94,7 +94,7 @@ export default function User_Permissions_Add(){
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
                                 value={isCheckbox.some(item => item.name === 'Doctor' && item.value)}
-                                onChange={(e) => handleCheckboxChange('Doctor',e)}
+                                onChange={(e) => handleCheckbox('Doctor',e)}
                             />
                             Médico
                         </Label_Text_16_Center>

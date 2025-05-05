@@ -36,6 +36,8 @@ const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
 const isAlertGreeting = useContext(RefAlertGreetingContext);
 const isKeyboard = useContext(RefKeyboardContext);
 const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
+const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
+
 //____________REF____________
 //____________SESSION____________
 const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);

@@ -8,7 +8,7 @@ import { Users,Permissions,Status,User_Add,User_Edit,Permissions_Add,Permissions
 import { Suppliers,Observations } from './SuppliersProvider';
 import { Text_Fields,Select,Radio_Permissions,Radio_Status,Checkbox } from './FormsProvider';
 import { Item_Date } from './ChartsProvider';
-import { Ref_Alert_Greeting,Ref_Keyboard } from './RefsProvider';
+import { Ref_Alert_Greeting,Ref_Keyboard,Ref_Users,Ref_Permissions } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
 // Función general de contextos
@@ -58,7 +58,11 @@ export const AppProviders = ({children}) => {
                                                                                                                                                                             <Status_Enable>
                                                                                                                                                                                 <Ref_Alert_Greeting>
                                                                                                                                                                                     <Ref_Keyboard>
-                                                                                                                                                                                        {children}
+                                                                                                                                                                                        <Ref_Users>
+                                                                                                                                                                                            <Ref_Permissions>
+                                                                                                                                                                                                {children}
+                                                                                                                                                                                            </Ref_Permissions>
+                                                                                                                                                                                        </Ref_Users>
                                                                                                                                                                                     </Ref_Keyboard>
                                                                                                                                                                                 </Ref_Alert_Greeting>
                                                                                                                                                                             </Status_Enable>

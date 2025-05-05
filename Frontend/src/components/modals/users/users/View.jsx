@@ -29,7 +29,6 @@ export default function User_View(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isActionBlock] = useContext(ActionBlockContext);
-    const [isAnimation] = useContext(AnimationContext);
     const [isModal] = useContext(ModalContext);
     const [currentMView] = useContext(ModalViewContext);
     // Constantes con la funcionalidad de los hooks
@@ -48,7 +47,7 @@ export default function User_View(){
                             <Form_Verification/>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement="top">
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode}  className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom'
                                     onClick={() => {
                                         handleModalView('');
                                     }}>

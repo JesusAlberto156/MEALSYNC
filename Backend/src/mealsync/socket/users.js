@@ -2,7 +2,7 @@
 // Consultas de sql
 import { getUsersService,getPermissionsService,getStatusService,getUserTypesService } from "../services/users.js";
 import { insertUsersService,insertPermissionsService,insertStatusService } from "../services/users.js";
-import { updatePermissionsService,updatePermissionService,updateStatusLogService,updateStatusEnableService } from "../services/users.js";
+import { updateUsersService,updatePermissionsService,updatePermissionService,updateStatusLogService,updateStatusEnableService } from "../services/users.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
@@ -59,14 +59,14 @@ export const Users_GET = (socket) => {
 export const Users_INSERT = (socket) => {
     //---------- USUARIOS
     socket.on('User-Insert',async (id,nombre,nombrecorto,usuario,contrasena) => {
-      try{
-          await insertUsersService(id,nombre,nombrecorto,usuario,contrasena);
-          io.emit('User-Insert','Se inserto el usuario ',usuario);
-      }catch(error){
-          console.error('Error al insertar: ',error);
-          return error;
-      }
-  });
+        try{
+            await insertUsersService(id,nombre,nombrecorto,usuario,contrasena);
+            io.emit('User-Insert','Se inserto el usuario ',usuario);
+        }catch(error){
+            console.error('Error al insertar: ',error);
+            return error;
+        }
+    });
     //---------- USUARIOS
     //---------- PERMISOS
     socket.on('Permissions-Insert',async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
@@ -95,7 +95,15 @@ export const Users_INSERT = (socket) => {
 //______________UPDATE______________
 export const Users_UPDATE = (socket) => {
     //---------- USUARIOS
-
+    socket.on('User-Update',async (id,idusuario,nombre,nombrecorto,usuario,contrasena) => {
+        try{
+            await updateUsersService(id,idusuario,nombre,nombrecorto,usuario,contrasena);
+            io.emit('User-Update','Se actualizo el usuario ',usuario);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
+            return error;
+        }
+    });
     //---------- USUARIOS
     //---------- PERMISOS
     socket.on('Permissions-Update', async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {

@@ -149,7 +149,28 @@ export const insertStatusService = async (id,habilitado) => {
 //______________INSERT______________
 //______________UPDATE______________
 //---------- USUARIOS
+export const updateUsersService = async (id,idusuario,nombre,nombrecorto,usuario,contrasena) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('id',sql.Int,id)
+            .input('idusuario',sql.Int,idusuario)
+            .input('nombre',sql.VarChar(150),nombre)
+            .input('nombrecorto',sql.VarChar(50),nombrecorto)
+            .input('usuario',sql.VarChar(25),usuario)
+            .input('contrasena',sql.VarChar(15),contrasena)
+            .query('UPDATE usuarios SET nombre = @nombre, nombrecorto = @nombrecorto, usuario = @usuario, contrasena = @contrasena, idtipo = @id WHERE idusuario = @idusuario');
 
+        if(result.rowsAffected[0]>0){
+            return 'Usuario actualizado...';
+        }else{
+            return 'No se pudo actualizar el usuario...';
+        }
+    }catch(error){
+        console.error('Error al actualizar el usuario: ',error.message);
+        throw error;
+    }
+}
 //---------- USUARIOS
 //---------- PERMISOS
 export const updatePermissionsService = async (id,administrador,chef,almacenista,cocinero,nutriologo,medico) => {

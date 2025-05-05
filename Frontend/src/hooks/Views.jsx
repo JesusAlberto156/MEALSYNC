@@ -118,6 +118,8 @@ export const HandleModalView = () => {
     const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelect,setIsSelect] = useContext(SelectContext);
     // Estados iniciales de los contextos
     const initialTextFields = {
         name: '',
@@ -132,7 +134,7 @@ export const HandleModalView = () => {
     const handleModalView = (View) => {
         setIsModal(true);
         sessionStorage.setItem('Modal',true);
-        if(currentMView === 'Out-Login'){
+        if(currentMView === 'Out-Login' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
@@ -142,18 +144,28 @@ export const HandleModalView = () => {
                 }
             },750);
         }
-        if(currentMView === 'User-Add'){
+        if(currentMView === 'User-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 setIsTextFields(initialTextFields);
                 setIsRadioPermissions('');
+                setIsActionBlock(false);
                 setIsRadioStatus('');
                 setIsCheckbox([]);
                 navigate('/Administration/Users/Users',{ replace: true });
             },750);
         }
-        if(currentMView === 'User-View'){
+        if(currentMView === 'User-Edit' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                navigate('/Administration/Users/Users',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'User-View' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
@@ -163,6 +175,25 @@ export const HandleModalView = () => {
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
                 navigate('/Administration/Users/Users',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Permissions-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsActionBlock(false);
+                setIsCheckbox([]);
+                setIsSelect([]);
+                navigate('/Administration/Users/Permissions',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Permissions-Edit' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsActionBlock(false);
+                setIsSelectedRow(null);
+                navigate('/Administration/Users/Permissions',{ replace: true });
             },750);
         }
         setCurrentMView(View);

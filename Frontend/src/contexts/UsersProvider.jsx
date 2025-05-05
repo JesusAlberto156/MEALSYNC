@@ -16,6 +16,10 @@ export const StatusContext = createContext(null);
 export const StatusAddContext = createContext(null);
 export const StatusEnableContext = createContext(null);
 export const UserTypesContext = createContext(null);
+//__________IMAGES____________
+import Logo_Warning_Light from '../components/imgs/Logo-Warning-Light.png';
+import Logo_Warning_Dark from '../components/imgs/Logo-Warning-Dark.webp';
+//__________IMAGES____________
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 import { LoggedLoggedContext,LoggedUserContext,LoggedTypeContext,LoggedLogContext,LoggedPermissionsContext } from "./SessionProvider";
@@ -31,8 +35,14 @@ import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
 export const Users = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
+    const [isLoggedLogged] = useContext(LoggedLoggedContext);
+    const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
+    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
+    const [themeMode] = useContext(ThemeModeContext);
     // UseState para controlar el valor del contexto
     const [isUsers,setIsUsers] = useState([]);
+    // UseRef para las alertas
+    const alertShow = useRef(false);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
         socket.emit('Users');
@@ -54,6 +64,31 @@ export const Users = ({ children }) => {
             socket.off('Users');
         }
     },[]);
+    // UseEffect para verificar que los datos existan
+    useEffect(() => {
+        if(isLoggedLogged  && isLoggedUser.length !== 0 && !alertShow.current){
+            const user = isUsers.find(user => user.idusuario === isLoggedUser.idusuario);
+            if(user){
+                if(user.usuario !== isLoggedUser.usuario || user.contrasena !== isLoggedUser.contrasena){
+                    const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
+                    alertShow.current = true;
+                    Alert_Warning('MEALSYNC','¡Se han modificado los datos para iniciar sesión, por un administrador!...',themeMode,Image_Warning);
+                    setTimeout(() => {
+                        setIsLoggedLog(true);
+                    },3000);
+                }else{
+                    const jsonUser = JSON.stringify(user);
+                    const encryptedUser = encryptData(jsonUser);
+                    if(encryptedUser){
+                        sessionStorage.setItem('User',encryptedUser);
+                        setIsLoggedUser(JSON.parse(jsonUser));
+                    }else{
+                        return console.log('¡Error al encriptar las credenciales!...');
+                    }
+                }
+            }
+        }
+    },[isUsers]);
     // Return para darle valor al contexto y heredarlo
     return (
         <UsersContext.Provider value={[isUsers,setIsUsers]}>
@@ -74,12 +109,8 @@ export const User_Add = ({ children }) => {
 }
 // Función contexto para controlar los datos editados de un usuario
 export const User_Edit = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserEdit,setIsUserEdit] = useState(false);
-    // UseEffect para editar datos a la base de datos
-    
     // Return para darle valor al contexto y heredarlo
     return (
         <UserEditContext.Provider value={[isUserEdit,setIsUserEdit]}>
@@ -183,56 +214,8 @@ export const Permissions_Add = ({ children }) => {
 }
 // Función contexto para controlar los datos editados de los permisos de un usuario
 export const Permissions_Edit = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isUsers] = useContext(UsersContext);
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsEdit,setIsPermissionsEdit] = useState(false);
-    // UseEffect para editar datos a la base de datos
-    useEffect(() => {
-        if(isPermissionsEdit){
-            if(isCheckbox.length !== 0){
-                const user = isUsers.find(user => user.idusuario === isCheckbox.idusuario);
-                if(user){
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setTimeout(() => {
-                                socket.emit('Permissions-Update',isCheckbox.idusuario,user.usuario,isCheckbox.administrador,isCheckbox.chef,isCheckbox.almacenista,isCheckbox.cocinero,isCheckbox.nutriologo,isCheckbox.medico)
-                                
-                                socket.on('Permissions-Update',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Permissions');
-                                });
-                                resolve('¡MEALSYNC edito los permisos al usuario!...')
-                                
-                                setTimeout(() => {
-                                    setIsCheckbox([]);
-                                    setIsActionBlock(false);
-                                    setIsPermissionsEdit(false);
-                                    setIsSelectedRow(null);
-                                    setCurrentMView('');
-                                },500);
-
-                                return () => {
-                                    socket.off('Permissions-Update');
-                                }
-                            },2000);
-                        }catch(error){
-                            setIsActionBlock(false);
-                            setIsPermissionsEdit(false);
-                            return reject('¡Ocurrio un error inesperado!...');
-                        }
-                    }); 
-                    
-                    Alert_Verification(promise,'¡Editando permisos a un usuario!...');
-                }
-            }
-        }
-    },[isPermissionsEdit]);
     // Return para darle valor al contexto y heredarlo
     return(
         <PermissionsEditContext.Provider value={[isPermissionsEdit,setIsPermissionsEdit]}>

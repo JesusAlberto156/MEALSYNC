@@ -9,7 +9,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
-import { useTableActions } from "../../../hooks/Table"
+import { TableActions } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
@@ -30,34 +30,51 @@ export default function Table_Users(){
     const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
     const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    // Estados iniciales de los contextos
+    const initialTextFields = {
+        name: '',
+        shortName: '',
+        user: '',
+        password: '',
+        userTypes: 0,
+    };
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Users");
-            const modal = Modal.current && Modal.current.contains(event.target);
-            const form = Form.current && Form.current.contains(event.target);
-            const buttonE = Button_Edit_U.current && Button_Edit_U.current.contains(event.target);
-            const buttonD = Button_Delete_U.current && Button_Delete_U.current.contains(event.target);
-
-            if (table && !table.contains(event.target) &&
-                !modal &&
-                !form &&
-                !buttonE &&
-                !buttonD
-            ) {
+    
+            const isClickInsideTable = table && table.contains(event.target);
+            const isClickInsideModal = Modal?.current?.contains(event.target);
+            const isClickInsideForm = Form?.current?.contains(event.target);
+            const isClickInsideEdit = Button_Edit_U?.current?.contains(event.target);
+            const isClickInsideDelete = Button_Delete_U?.current?.contains(event.target);
+    
+            if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete) {
                 setIsSelectedRow(null);
             }
         };
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    }, [Modal,Form,Button_Edit_U,Button_Delete_U]);
+    },[Modal,Form,Button_Edit_U, Button_Delete_U]);
     // UseEffect para reiniciar la vista de contraseña
     useEffect(() => {
         if(isViewPassword){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        resolve('¡Se ocultaron las contraseñas!...');
+                        setTimeout(() => {
+                            setIsViewPassword(false);
+                        },500);
+                    },1000);
+                }catch(error){
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
             setTimeout(() => {
-                setIsViewPassword(false);
-            },30000)
+                Alert_Verification(promise,'¡Ocultando contraseñas!...');
+            },30000);            
         }
     },[isViewPassword])
     // UseEfect para pasar el valor del renglon seleccionado a los input
@@ -70,11 +87,13 @@ export default function Table_Users(){
                 user: isSelectedRow.usuario,
                 password: isSelectedRow.contrasena,
                 userTypes: isSelectedRow.idtipo,
-        }))
+            }))
+        }else{
+            setIsTextFields(initialTextFields);
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = useTableActions();
+    const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = TableActions();
     // Estructura del componente
     return(
         <>

@@ -11,7 +11,7 @@ import { SelectContext,RadioStatusContext } from "../../../contexts/FormsProvide
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../hooks/Views";
-import { useChangeStatusSAdd,useFilteredRecordsHasStatus,useHandleRadioChange,useHandleSelectChange } from "../../../hooks/Form";
+import { useChangeStatusSAdd,FilteredRecordsHasStatus,HandleRadio,HandleSelect } from "../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -36,9 +36,9 @@ export default function Status_Add(){
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const changeModalView = HandleModalView();
-    const filteredRecordsHasStatus = useFilteredRecordsHasStatus();
-    const handleSelectChange = useHandleSelectChange();
-    const handleRadioChange = useHandleRadioChange();
+    const filteredRecordsHasStatus = FilteredRecordsHasStatus();
+    const handleSelectChange = HandleSelect();
+    const handleRadioChange = HandleRadio();
     const changeStatusSAdd = useChangeStatusSAdd();
     // Estructura del componente
     return(

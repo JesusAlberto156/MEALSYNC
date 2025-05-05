@@ -4,7 +4,7 @@ import { UsersContext,PermissionsContext,StatusContext } from "../contexts/Users
 import { SelectedRowContext,SearchTermContext } from "../contexts/VariablesProvider";
 
 
-export const useTableActions = () => {
+export const TableActions = () => {
 
     const [isUsers] = useContext(UsersContext);
     const [isPermissions] = useContext(PermissionsContext);

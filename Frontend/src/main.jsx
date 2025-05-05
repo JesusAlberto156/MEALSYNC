@@ -40,9 +40,9 @@ import User_Permissions_Add from './components/modals/users/users/PermissionsAdd
 import User_Edit from './components/modals/users/users/Edit';
 import User_View from './components/modals/users/users/View';
 import Table_Permissions from './components/tables/users/Permissions';
-import Permissions_Add from './components/modals/permissions/PermissionsAdd';
-import Permissions_Edit from './components/modals/permissions/PermissionsEdit';
-import Permissions_Super_Administrator from './components/modals/permissions/PermissionsSuperAdministrator';
+import Permissions_Add from './components/modals/users/permissions/Add';
+import Permissions_Edit from './components/modals/users/permissions/Edit';
+import Permissions_Enable from './components/modals/users/permissions/Enable';
 import Table_Status from './components/tables/users/Status';
 import Status_Add from './components/modals/status/StatusAdd';
 import Status_Enable from './components/modals/status/StatusEnable';
@@ -90,6 +90,18 @@ const router = createHashRouter([
             element: <User_View/>,
           },
           {
+            path: 'Administration/Users/Permissions/Add',
+            element: <Permissions_Add/>,
+          },
+          {
+            path: 'Administration/Users/Permissions/Edit',
+            element: <Permissions_Edit/>,
+          },
+          {
+            path: 'Administration/Users/Permissions/Enable',
+            element: <Permissions_Enable/>,
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [
@@ -108,20 +120,6 @@ const router = createHashRouter([
                   {
                     path: 'Permissions',
                     element: <Table_Permissions/>,
-                    children: [
-                      {
-                        path: 'Add',
-                        element: <Permissions_Add/>
-                      },
-                      {
-                        path: 'Edit',
-                        element: <Permissions_Edit/>
-                      },
-                      {
-                        path: 'Enable',
-                        element: <Permissions_Super_Administrator/>
-                      },
-                    ]
                   },
                   {
                     path: 'Status',

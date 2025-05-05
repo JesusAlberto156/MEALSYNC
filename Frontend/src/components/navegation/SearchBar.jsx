@@ -8,6 +8,7 @@ import { Tooltip } from "@mui/material";
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext,ViewPasswordContext } from "../../contexts/VariablesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
+import { RefUsersContext,RefPermissionsContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../hooks/Views";
 import { HandleViewPassword } from "../../hooks/Form";
@@ -52,6 +53,8 @@ export default function Search_Bar (){
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [isPermission] = useContext(LoggedPermissionsContext);
     const [isViewPassword] = useContext(ViewPasswordContext);
+    const {Modal_U,Form_U,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
+    const {Modal_P,Form_P,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -90,19 +93,25 @@ export default function Search_Bar (){
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    onClick={() => {
-                                        handleModalView('User-Edit');
-                                        navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                    <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (isSelectedRow !== null) {
+                                            handleModalView('User-Edit');
+                                            navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                        }
                                     }}>
                                         <Icon_White_18><FaUserEdit/></Icon_White_18>
                                     </Button_Icon_Blue_60>
                                 </Tooltip>
                                 <Tooltip title='Eliminar' placement="top">
-                                    <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    onClick={() => {
-                                        handleModalView('User-Delete');
-                                        navigate('/Administration/Users/Users/Delete',{ replace: true });
+                                    <Button_Icon_Red_60 ref={Button_Delete_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (isSelectedRow !== null) {
+                                            handleModalView('User-Delete');
+                                            navigate('/Administration/Users/Users/Delete',{ replace: true });
+                                        }
                                     }}>
                                         <Icon_White_18><FaUserMinus/></Icon_White_18>
                                     </Button_Icon_Red_60>
@@ -142,10 +151,13 @@ export default function Search_Bar (){
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    onClick={() => {
-                                        handleModalView('User-Edit');
-                                        navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                    <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (isSelectedRow !== null) {
+                                            handleModalView('User-Edit');
+                                            navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                        }
                                     }}>
                                         <Icon_White_18><FaUserEdit/></Icon_White_18>
                                     </Button_Icon_Blue_60>
@@ -190,7 +202,7 @@ export default function Search_Bar (){
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                     onClick={() => {
                                         handleModalView('Permissions-Edit');
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });
@@ -202,7 +214,7 @@ export default function Search_Bar (){
                                     isSelectedRow.superadministrador ? (
                                         <>
                                             <Tooltip title='Deshabilitar' placement="top">
-                                                <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                                <Button_Icon_Red_60 ref={Button_Enable_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                                 onClick={() => {
                                                     handleModalView('Permissions-Enable');
                                                     navigate('/Administration/Users/Permissions/Enable',{ replace: true });
@@ -214,7 +226,7 @@ export default function Search_Bar (){
                                     ):(
                                         <>
                                             <Tooltip title='Habilitar' placement="top">
-                                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                                <Button_Icon_Green_60 ref={Button_Enable_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                                 onClick={() => {
                                                     handleModalView('Permissions-Enable');
                                                     navigate('/Administration/Users/Permissions/Enable',{ replace: true });
@@ -240,7 +252,7 @@ export default function Search_Bar (){
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                     onClick={() => {
                                         handleModalView('Permissions-Edit');
                                         navigate('/Administration/Users/Permissions/Edit',{ replace: true });

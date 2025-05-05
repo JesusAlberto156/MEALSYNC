@@ -67,7 +67,7 @@ export default function User_Add(){
             sessionStorage.setItem('Animation',true);
             setTimeout(() => {
                 navigate('/Administration/Users/Users/Add/Permissions',{ replace: true });
-            },700);
+            },200);
         }
         if(isRadioPermissions === 'Default'){
             setIsCheckbox([]);
@@ -180,8 +180,10 @@ export default function User_Add(){
                                 resolve('¡MEALSYNC agregó el status al usuario!...');
 
                                 setCurrentMView('');
+                                sessionStorage.setItem('Modal-View','');
                                 setTimeout(() => {
                                     setIsModal(false);
+                                    sessionStorage.setItem('Modal',false);
                                     setIsTextFields(initialTextFields);
                                     setIsRadioPermissions('');
                                     setIsRadioStatus('');
@@ -358,7 +360,7 @@ export default function User_Add(){
                             </Container_Column_90_Center>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
                                         <Icon_White_26><MdCancel/></Icon_White_26>
                                     </Button_Icon_Blue_160>

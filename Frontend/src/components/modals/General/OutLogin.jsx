@@ -20,8 +20,8 @@ import { ImExit } from "react-icons/im";
 // Estilos personalizados
 import { Container_Modal,Container_Form_350,Container_Row_100_Center,Container_Row_90_Left,Container_Row_90_Center } from "../../styled/Containers";
 import { Text_Title_30_Center, Text_P_16_Left } from "../../styled/Text";
-import { Button_Icon_Blue_120,Button_Icon_Red_120 } from "../../styled/Buttons";
-import { Icon_White_26 } from "../../styled/Icons";
+import { Button_Icon_Blue_150,Button_Icon_Red_150 } from "../../styled/Buttons";
+import { Icon_White_22 } from "../../styled/Icons";
 import { Alert_Verification } from "../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
@@ -105,16 +105,16 @@ export default function Out_Login(){
                                 </Container_Row_90_Left>
                                 <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title="Cancelar" placement="top">
-                                        <Button_Icon_Blue_120 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Blue_150 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleModalView('')}>
-                                            <Icon_White_26><MdCancel/></Icon_White_26>
-                                        </Button_Icon_Blue_120>
+                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                        </Button_Icon_Blue_150>
                                     </Tooltip>
                                     <Tooltip title="Cerrar sesión" placement="top">
-                                        <Button_Icon_Red_120 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Red_150 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoggedLog()}>
-                                            <Icon_White_26><ImExit/></Icon_White_26>
-                                        </Button_Icon_Red_120>
+                                            <Icon_White_22><ImExit/></Icon_White_22>
+                                        </Button_Icon_Red_150>
                                     </Tooltip>
                                 </Container_Row_90_Center>
                         </Container_Form_350>

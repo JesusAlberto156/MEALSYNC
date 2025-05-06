@@ -22,8 +22,8 @@ import { AiFillEdit } from "react-icons/ai";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_90_Left,Container_Row_90_Center } from "../../../styled/Containers";
-import { Button_Icon_Red_160,Button_Icon_Blue_160 } from "../../../styled/Buttons";
-import { Icon_White_26 } from "../../../styled/Icons";
+import { Button_Icon_Red_170,Button_Icon_Blue_170 } from "../../../styled/Buttons";
+import { Icon_White_22 } from "../../../styled/Icons";
 import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
@@ -189,16 +189,16 @@ export default function Permissions_Edit(){
                             </Container_Row_90_Center>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Red_160 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Red_170 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_26><MdCancel/></Icon_White_26>
-                                    </Button_Icon_Red_160>
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Red_170>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement='top'>
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Blue_170 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handlePermissionsEdit()}>
-                                        <Icon_White_26><AiFillEdit/></Icon_White_26>
-                                    </Button_Icon_Blue_160>
+                                        <Icon_White_22><AiFillEdit/></Icon_White_22>
+                                    </Button_Icon_Blue_170>
                                 </Tooltip>
                             </Container_Row_90_Center>
                         </Container_Form_450>

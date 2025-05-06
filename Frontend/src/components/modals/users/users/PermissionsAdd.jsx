@@ -18,10 +18,10 @@ import { MdAddModerator } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_90_Center,Container_Row_90_Left } from "../../../styled/Containers";
-import { Button_Icon_Blue_160,Button_Icon_Green_160 } from "../../../styled/Buttons";
-import { Text_Title_30_Center,Text_P_16_Left } from "../../../styled/Text";
+import { Button_Icon_Blue_170,Button_Icon_Green_170 } from "../../../styled/Buttons";
+import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
-import { Icon_White_26 } from "../../../styled/Icons";
+import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
@@ -42,7 +42,7 @@ export default function User_Permissions_Add(){
                 <Container_Form_450 ThemeMode={themeMode} className={isAnimation ? 'puff-in-container-center' : 'puff-out-container-center'}>
                     <Text_Title_30_Center ThemeMode={themeMode}>PERMISOS PERSONALIZADOS</Text_Title_30_Center>
                     <Container_Row_90_Left>
-                        <Text_P_16_Left ThemeMode={themeMode}>Área de administración...</Text_P_16_Left>
+                        <Text_A_16_Left ThemeMode={themeMode}>Área de administración...</Text_A_16_Left>
                     </Container_Row_90_Left>
                     <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                         <Label_Text_16_Center ThemeMode={themeMode}>
@@ -71,7 +71,7 @@ export default function User_Permissions_Add(){
                         </Label_Text_16_Center>
                     </Container_Row_90_Center>
                     <Container_Row_90_Left>
-                        <Text_P_16_Left ThemeMode={themeMode}>Área de cocina...</Text_P_16_Left>
+                        <Text_A_16_Left ThemeMode={themeMode}>Área de cocina...</Text_A_16_Left>
                     </Container_Row_90_Left>
                     <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                         <Label_Text_16_Center ThemeMode={themeMode}>
@@ -101,7 +101,7 @@ export default function User_Permissions_Add(){
                     </Container_Row_90_Center>
                     <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                         <Tooltip title='Cancelar' placement='top'>
-                            <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
+                            <Button_Icon_Blue_170 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                                 setIsRadioPermissions('');
                                 setIsCheckbox([]);
                                 setIsAnimation(false);
@@ -110,11 +110,11 @@ export default function User_Permissions_Add(){
                                     navigate('/Administration/Users/Users/Add',{ replace: true });
                                 },750);
                             }}>
-                                <Icon_White_26><MdCancel/></Icon_White_26>
-                            </Button_Icon_Blue_160>
+                                <Icon_White_22><MdCancel/></Icon_White_22>
+                            </Button_Icon_Blue_170>
                         </Tooltip>
                         <Tooltip title='Agregar' placement='top'>
-                            <Button_Icon_Green_160 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
+                            <Button_Icon_Green_170 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                                 setIsAnimation(false);
                                 sessionStorage.removeItem('Animation');
                                 if(isCheckbox.length === 0){
@@ -124,8 +124,8 @@ export default function User_Permissions_Add(){
                                     navigate('/Administration/Users/Users/Add',{ replace: true });
                                 },750);
                             }}>
-                                <Icon_White_26><MdAddModerator/></Icon_White_26>
-                            </Button_Icon_Green_160>
+                                <Icon_White_22><MdAddModerator/></Icon_White_22>
+                            </Button_Icon_Green_170>
                         </Tooltip>
                     </Container_Row_90_Center>
                 </Container_Form_450>

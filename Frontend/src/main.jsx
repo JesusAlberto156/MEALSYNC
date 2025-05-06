@@ -44,8 +44,8 @@ import Permissions_Add from './components/modals/users/permissions/Add';
 import Permissions_Edit from './components/modals/users/permissions/Edit';
 import Permissions_Enable from './components/modals/users/permissions/Enable';
 import Table_Status from './components/tables/users/Status';
-import Status_Add from './components/modals/status/StatusAdd';
-import Status_Enable from './components/modals/status/StatusEnable';
+import Status_Add from './components/modals/users/status/Add';
+import Status_Enable from './components/modals/users/status/Enable';
 import Suppliers from './pages/administration/Suppliers';
 import Suppliers_Chart from './components/charts/Suppliers';
 import Observations_Chart from './components/charts/Observations';
@@ -102,6 +102,14 @@ const router = createHashRouter([
             element: <Permissions_Enable/>,
           },
           {
+            path: 'Administration/Users/Status/Add',
+            element: <Status_Add/>,
+          },
+          {
+            path: 'Administration/Users/Status/Enable',
+            element: <Status_Enable/>,
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [
@@ -124,16 +132,6 @@ const router = createHashRouter([
                   {
                     path: 'Status',
                     element: <Table_Status/>,
-                    children: [
-                      {
-                        path: 'Add',
-                        element: <Status_Add/>
-                      },
-                      {
-                        path: 'Enable',
-                        element: <Status_Enable/>
-                      },
-                    ]
                   },
                 ]
               },

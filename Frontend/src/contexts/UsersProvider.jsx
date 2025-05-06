@@ -1,7 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { createContext,useContext,useState,useEffect,useRef } from "react"
-import { Navigate } from "react-router-dom";
 // Servicios
 import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
@@ -23,11 +22,9 @@ import Logo_Warning_Dark from '../components/imgs/Logo-Warning-Dark.webp';
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 import { LoggedLoggedContext,LoggedUserContext,LoggedTypeContext,LoggedLogContext,LoggedPermissionsContext } from "./SessionProvider";
-import { ThemeModeContext,ModalViewContext,ModalContext } from "./ViewsProvider";
-import { SelectContext,TextFieldsContext,RadioPermissionsContext,CheckboxContext,RadioStatusContext } from "./FormsProvider";
-import { ActionBlockContext,SelectedRowContext,VerificationBlockContext,AnimationContext } from "./VariablesProvider";
+import { ThemeModeContext } from "./ViewsProvider";
 // Estilos personalizados
-import { Alert_Verification,Alert_Warning } from "../components/styled/Alerts";
+import { Alert_Warning } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // ---------- USUARIOS
@@ -85,6 +82,14 @@ export const Users = ({ children }) => {
                     }else{
                         return console.log('¡Error al encriptar las credenciales!...');
                     }
+                }
+                const jsonUser = JSON.stringify(user);
+                const encryptedUser = encryptData(jsonUser);
+                if(encryptedUser){
+                    sessionStorage.setItem('User',encryptedUser);
+                    setIsLoggedUser(JSON.parse(jsonUser));
+                }else{
+                    return console.log('¡Error al encriptar las credenciales!...');
                 }
             }
         }
@@ -166,8 +171,9 @@ export const Permissions = ({ children }) => {
                         isLoggedType === 'Administrator' && !user.administrador ||
                         isLoggedType === 'Chef' && !user.chef ||
                         isLoggedType === 'Storekeeper' && !user.almacenista){
+                        const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                         alertShow.current = true;
-                        Alert_Warning('MEALSYNC','¡Ha perdido su permiso de acceso, por un administrador!...',themeMode);
+                        Alert_Warning('MEALSYNC','¡Ha perdido su permiso de acceso, por un administrador!...',themeMode,Image_Warning);
                         setTimeout(() => {
                             setIsLoggedLog(true);
                         },3000);
@@ -190,6 +196,14 @@ export const Permissions = ({ children }) => {
                     }else{
                         return console.log('¡Error al encriptar las credenciales!...');
                     }
+                }
+                const jsonPermission = JSON.stringify(user);
+                const encryptedPermission = encryptData(jsonPermission);
+                if(encryptedPermission){
+                    sessionStorage.setItem('Permissions',encryptedPermission);
+                    setIsLoggedPermissions(JSON.parse(jsonPermission));
+                }else{
+                    return console.log('¡Error al encriptar las credenciales!...');
                 }
             }
         }
@@ -225,88 +239,8 @@ export const Permissions_Edit = ({ children }) => {
 }
 // Función Contexto para controlar los datos habilitados en el permiso del superadministrador de un usuario
 export const Permissions_Enable = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-    const [isUsers] = useContext(UsersContext);
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsEnable,setIsPermissionsEnable] = useState([]);
-    // UseEffect para editar datos a la base de datos
-    useEffect(() => {
-        if(isPermissionsEnable.length !== 0){
-            const user = isUsers.find(user => user.idusuario === isPermissionsEnable.idusuario);
-            if(user){
-                if(isPermissionsEnable.superadministrador){
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setTimeout(() => {
-                                socket.emit('Permission-Update',isPermissionsEnable.idusuario,user.usuario,0);
-                                
-                                socket.on('Permission-Update',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Permissions');
-                                });
-                                resolve('¡MEALSYNC deshabilito el permiso al usuario!...')
-                                
-                                setTimeout(() => {
-                                    setIsActionBlock(false);
-                                    setIsPermissionsEnable([]);
-                                    setIsSelectedRow(null);
-                                    setCurrentMView('');
-                                    setIsVerificationBlock(false);
-                                },500);
-
-                                return () => {
-                                    socket.off('Permission-Update');
-                                }
-                            },2000);
-                        }catch(error){
-                            setIsActionBlock(true);
-                            setIsPermissionsEnable([]);
-                            return reject('¡Ocurrio un error inesperado!...');
-                        }
-                    }); 
-                    
-                    Alert_Verification(promise,'¡Deshabilitando el permiso a un usuario!...');
-                }else{
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setTimeout(() => {
-                                socket.emit('Permission-Update',isPermissionsEnable.idusuario,user.usuario,1);
-                                
-                                socket.on('Permission-Update',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Permissions');
-                                });
-                                resolve('¡MEALSYNC Habilito el permiso al usuario!...')
-                                
-                                setTimeout(() => {
-                                    setIsActionBlock(false);
-                                    setIsPermissionsEnable([]);
-                                    setIsSelectedRow(null);
-                                    setCurrentMView('');
-                                    setIsVerificationBlock(false);
-                                },500);
-
-                                return () => {
-                                    socket.off('Permission-Update');
-                                }
-                            },2000);
-                        }catch(error){
-                            setIsActionBlock(true);
-                            setIsPermissionsEnable([]);
-                            return reject('¡Ocurrio un error inesperado!...');
-                        }
-                    }); 
-                    
-                    Alert_Verification(promise,'¡Habilitando el permiso a un usuario!...');
-                }
-            }
-        }
-    },[isPermissionsEnable]);
     // Return para darle valor al contexto y heredarlo
     return(
         <PermissionsEnableContext.Provider value={[isPermissionsEnable,setIsPermissionsEnable]}>
@@ -353,8 +287,9 @@ export const Status = ({ children }) => {
             const user = isStatus.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
                 if(!user.habilitado){
+                    const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                     alertShow.current = true;
-                    Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...',themeMode);
+                    Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...',themeMode,Image_Warning);
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     },3000);
@@ -382,90 +317,8 @@ export const Status_Add = ({ children }) => {
 }
 // Función contexto para controlar los usuarios habilitados/deshabilitados 
 export const Status_Enable = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [isUsers] = useContext(UsersContext);
-    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isStatusEnable,setIsStatusEnable] = useState([]);
-    // UseEffect para actualizar datos a la base de datos
-    useEffect(() => {
-        if(isStatusEnable.length !== 0){
-            const enable = isUsers.find(user => user.idusuario === isStatusEnable.idusuario);
-            if(isStatusEnable.habilitado){
-                if(enable){
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{ 
-                            setIsActionBlock(false); 
-                            setTimeout(() => {
-                                socket.emit('Status-Enable-Update',isStatusEnable.idusuario,enable.usuario,0);
-        
-                                socket.on('Status-Enable-Update',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Status');
-                                });
-                                
-                                resolve('¡MEALSYNC deshabilito al usuario!...')
-
-                                setTimeout(() => {
-                                    setCurrentMView('');
-                                    setIsStatusEnable([]);
-                                    setIsSelectedRow(null);
-                                    setIsVerificationBlock(false);
-                                },500);
-
-                                return () => {
-                                    socket.off('Status-Enable-Update');
-                                }
-                            },2000);
-                        }catch(error){
-                            setIsActionBlock(true);
-                            reject('¡Ocurrio un error inesperado!...');
-                        }
-                    });
-
-                    Alert_Verification(promise,'¡Deshabilitando usuario!...');
-                }
-            }else if(!isStatusEnable.habilitado){
-                if(enable){
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{  
-                            setIsActionBlock(false);   
-                            setTimeout(() => {
-                                socket.emit('Status-Enable-Update',isStatusEnable.idusuario,enable.usuario,1);
-
-                                socket.on('Status-Enable-Update',(message,user) => {
-                                    console.log(message,user);              
-                                    socket.emit('Status');
-                                });
-
-                                resolve('¡MEALSYNC habilito al usuario!...')
-                                
-                                setTimeout(() => {
-                                    setCurrentMView('');
-                                    setIsStatusEnable([]);
-                                    setIsSelectedRow(null);
-                                    setIsVerificationBlock(false);
-                                },500);
-
-                                return () => {
-                                    socket.off('Status-Enable-Update');
-                                }
-                            },2000);
-                        }catch(error){
-                            setIsActionBlock(true);
-                            reject('¡Ocurrio un error inesperado!...');
-                        }
-                    });
-
-                    Alert_Verification(promise,'¡Habilitando usuario!...');
-                }
-            }
-        }
-    },[isStatusEnable]);
     // Return para darle valor al contexto y heredarlo
     return (
         <StatusEnableContext.Provider value={[isStatusEnable,setIsStatusEnable]}>

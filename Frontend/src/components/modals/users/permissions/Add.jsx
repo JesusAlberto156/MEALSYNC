@@ -22,8 +22,8 @@ import { MdAddModerator } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_90_Left,Container_Column_90_Center,Container_Row_90_Center } from "../../../styled/Containers";
-import { Button_Icon_Blue_160,Button_Icon_Green_160 } from "../../../styled/Buttons";
-import { Icon_White_26 } from "../../../styled/Icons";
+import { Button_Icon_Blue_170,Button_Icon_Green_170 } from "../../../styled/Buttons";
+import { Icon_White_22 } from "../../../styled/Icons";
 import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
@@ -140,12 +140,12 @@ export default function Permissions_Add(){
                                             fontStyle: 'normal',
                                             fontSize: '18px',
                                             '@media (max-width: 768px)':{
-                                                width: '250px',
+                                                width: '300px',
                                                 padding: '4px',
                                                 fontSize: '16px',
                                             },
                                             '@media (max-width: 480px)':{
-                                                width: '200px',
+                                                width: '250px',
                                                 padding: '2px',
                                                 fontSize: '14px',
                                             },
@@ -238,16 +238,16 @@ export default function Permissions_Add(){
                             </Container_Row_90_Center>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Blue_170 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_26><MdCancel/></Icon_White_26>
-                                    </Button_Icon_Blue_160>
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Blue_170>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
-                                    <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Green_170 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handlePermissionsAdd()}>
-                                        <Icon_White_26><MdAddModerator/></Icon_White_26>
-                                    </Button_Icon_Green_160>
+                                        <Icon_White_22><MdAddModerator/></Icon_White_22>
+                                    </Button_Icon_Green_170>
                                 </Tooltip>
                             </Container_Row_90_Center>
                         </Container_Form_450>

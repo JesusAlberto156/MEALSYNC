@@ -24,8 +24,8 @@ import { FaUserEdit } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_90_Center,Container_Row_100_Center,Container_Column_90_Center,Container_Row_90_Left,Container_Row_100_Left } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
-import { Button_Icon_Blue_160,Button_Icon_Red_160 } from "../../../styled/Buttons";
-import { Icon_White_26 } from "../../../styled/Icons";
+import { Button_Icon_Blue_180,Button_Icon_Red_180 } from "../../../styled/Buttons";
+import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -197,16 +197,16 @@ export default function User_Edit(){
                             </Container_Column_90_Center>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Red_160 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Red_180 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_26><MdCancel/></Icon_White_26>
-                                    </Button_Icon_Red_160>
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Red_180>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement='top'>
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handleUserEdit()}>
-                                        <Icon_White_26><FaUserEdit/></Icon_White_26>
-                                    </Button_Icon_Blue_160>
+                                        <Icon_White_22><FaUserEdit/></Icon_White_22>
+                                    </Button_Icon_Blue_180>
                                 </Tooltip>
                             </Container_Row_90_Center>
                         </Container_Form_500>

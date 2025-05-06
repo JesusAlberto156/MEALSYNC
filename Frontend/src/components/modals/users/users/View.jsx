@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { ActionBlockContext,AnimationContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleViewPassword } from '../../../../hooks/Form'; 
@@ -17,9 +17,9 @@ import { FaEye } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_100_Center,Container_Row_90_Center } from "../../../styled/Containers";
-import { Button_Icon_Blue_160,Button_Icon_Green_160 } from "../../../styled/Buttons";
+import { Button_Icon_Blue_170,Button_Icon_Green_170 } from "../../../styled/Buttons";
 import { Text_Title_30_Center } from "../../../styled/Text";
-import { Icon_White_26 } from "../../../styled/Icons";
+import { Icon_White_22 } from "../../../styled/Icons";
 // Componentes perzonalizados
 import Form_Verification from "../../../forms/Verification";
 //____________IMPORT/EXPORT____________
@@ -47,20 +47,20 @@ export default function User_View(){
                             <Form_Verification/>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement="top">
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Blue_170 ThemeMode={themeMode} className='pulsate-buttom'
                                     onClick={() => {
                                         handleModalView('');
                                     }}>
-                                        <Icon_White_26><MdCancel/></Icon_White_26>
-                                    </Button_Icon_Blue_160>
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Blue_170>
                                 </Tooltip>
                                 <Tooltip title='Ver' placement="top">
-                                    <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                    <Button_Icon_Green_170 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
                                     onClick={() => {
                                         handleViewPassword();
                                     }}>
-                                        <Icon_White_26><FaEye/></Icon_White_26>
-                                    </Button_Icon_Green_160>
+                                        <Icon_White_22><FaEye/></Icon_White_22>
+                                    </Button_Icon_Green_170>
                                 </Tooltip>
                             </Container_Row_90_Center>
                         </Container_Form_450>

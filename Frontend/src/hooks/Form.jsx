@@ -250,7 +250,7 @@ export const HandlePermissionsEdit = () => {
     return handlePermissionsEdit;
 }
 // Hook para habilitar/deshabilitar el permiso de superadminitrador a un usuario desde el modal
-export const useChangePermissionsEnable = () => {
+export const HandlePermissionsEnable = () => {
     // Constantes con el valor de los contextos 
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [currentNView] = useContext(NavbarViewContext);
@@ -259,29 +259,29 @@ export const useChangePermissionsEnable = () => {
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
-    const changePermissionsEnable = () => {
+    const handlePermissionsEnable = () => {
         if(isSelectedRow !== null){
-            if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Super-Administrator'){
+            if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Enable'){
                 setIsPermissionsEnable(isSelectedRow);
                 setIsActionBlock(false);
             }
         }
     }
     // Retorno de la función del hook
-    return changePermissionsEnable;
+    return handlePermissionsEnable;
 }
 // Hook para agregar un estatus a un usuario desde el modal
-export const useChangeStatusSAdd = () => {
+export const HandleStatusSAdd = () => {
     // Constantes con el valor de los contextos 
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
     const [isSelect] = useContext(SelectContext);
-    const [isRadio] = useContext(RadioContext);
+    const [isRadio] = useContext(RadioStatusContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
-    const changeStatusSAdd = () => {
+    const handleStatusSAdd = () => {
         if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Add'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
@@ -312,10 +312,10 @@ export const useChangeStatusSAdd = () => {
         }
     } 
     // Retorno de la función del hook
-    return changeStatusSAdd;
+    return handleStatusSAdd;
 }
 // Hook para habilitar a un usuario desde el modal
-export const useChangeStatusEnable = () => {
+export const HandleStatusEnable = () => {
     // Constantes con el valor de los contextos 
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -324,7 +324,7 @@ export const useChangeStatusEnable = () => {
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     // Función del hook
-    const changeStatusEnable = () => {
+    const handleStatusEnable = () => {
         if(isSelectedRow !== null){
             if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Enable'){
                 setIsStatusEnable(isSelectedRow);
@@ -333,7 +333,7 @@ export const useChangeStatusEnable = () => {
         }
     }
     // Retorno de la función del hook
-    return changeStatusEnable;
+    return handleStatusEnable;
 }
 // Hook para filtrar los usuarios cuando no tiene permisos
 export const FilteredRecordsHasPermissions = () => {

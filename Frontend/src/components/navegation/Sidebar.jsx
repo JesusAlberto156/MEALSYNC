@@ -7,6 +7,7 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,SidebarContext } from "../../contexts/ViewsProvider";
 import { LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext } from "../../contexts/SessionProvider";
+import { PermissionsContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
 import { HandleSidebarView,HandleNavbarView } from "../../hooks/Views";
 //__________ICONOS__________
@@ -41,6 +42,7 @@ export default function Side_Bar() {
   const [isLoggedType] = useContext(LoggedTypeContext);
   const [isLoggedUser] = useContext(LoggedUserContext);
   const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
+  const [isPermissions] = useContext(PermissionsContext);
   // Constantes con el valor de los useState
   const [profileImage, setProfileImage] = useState('');
   // UseEffect con la imagen del usuario
@@ -66,7 +68,7 @@ export default function Side_Bar() {
     if(isLoggedType === 'Doctor'){
       return setProfileImage('https://staticnew-common-prod.topdoctors.mx/assets/imageCloud/home-page/doctor-main-banner.webp?width=375/height=300/format=avif');
     }
-  },[]);
+  },[isPermissions]);
   // Constantes con la funcionalidad de los hooks
   const navigate = useNavigate();
   const handleSidebarView = HandleSidebarView();

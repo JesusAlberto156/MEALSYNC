@@ -8,7 +8,7 @@ import { Tooltip } from "@mui/material";
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext,ViewPasswordContext } from "../../contexts/VariablesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
-import { RefUsersContext,RefPermissionsContext } from "../../contexts/RefsProvider";
+import { RefUsersContext,RefPermissionsContext,RefStatusContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../hooks/Views";
 import { HandleViewPassword } from "../../hooks/Form";
@@ -55,6 +55,7 @@ export default function Search_Bar (){
     const [isViewPassword] = useContext(ViewPasswordContext);
     const {Modal_U,Form_U,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
     const {Modal_P,Form_P,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
+    const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -281,9 +282,9 @@ export default function Search_Bar (){
                                     isSelectedRow.habilitado ? (
                                         <>
                                             <Tooltip title='Deshabilitar' placement="top">
-                                                <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                                <Button_Icon_Red_60 ref={Button_Enable_S} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                                 onClick={() => {
-                                                    handleModalView('Permissions-Status-Enable');
+                                                    handleModalView('Status-Enable');
                                                     navigate('/Administration/Users/Status/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaLock/></Icon_White_18>
@@ -293,9 +294,9 @@ export default function Search_Bar (){
                                     ):(
                                         <>
                                             <Tooltip title='Habilitar' placement="top">
-                                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                                <Button_Icon_Green_60 ref={Button_Enable_S} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                                 onClick={() => {
-                                                    handleModalView('Permissions-Status-Enable');
+                                                    handleModalView('Status-Enable');
                                                     navigate('/Administration/Users/Status/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaLockOpen/></Icon_White_18>

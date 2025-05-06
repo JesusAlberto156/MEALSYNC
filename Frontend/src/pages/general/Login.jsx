@@ -38,10 +38,10 @@ import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
 //__________IMAGES____________
 // Estilos personalizados
 import { Container_Page,Container_Page_Login,Container_Form_400,Container_Column_90_Center,Container_Row_90_Center } from "../../components/styled/Containers";
-import { Icon_White_26 } from "../../components/styled/Icons";
+import { Icon_White_22 } from "../../components/styled/Icons";
 import { Img_Logo_Verical_Hospital_240 } from "../../components/styled/Imgs";
 import { Text_Title_26_Center } from "../../components/styled/Text";
-import { Button_Icon_Blue_140,Button_Icon_Blue_220,Button_Icon_Green_140 } from "../../components/styled/Buttons";
+import { Button_Icon_Blue_160,Button_Icon_Blue_220,Button_Icon_Green_160 } from "../../components/styled/Buttons";
 import { Alert_Greeting,Alert_Verification,Alert_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
 import Setting_Bar from '../../components/navegation/SettingBar';
@@ -279,13 +279,13 @@ export default function Login(){
                                     <Tooltip title='Administración' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoginView('Administration','')}>
-                                            <Icon_White_26><MdManageAccounts/></Icon_White_26>
+                                            <Icon_White_22><MdManageAccounts/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                     <Tooltip title='Cocina' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoginView('Kitchen','')}>
-                                            <Icon_White_26><GiRiceCooker/></Icon_White_26>
+                                            <Icon_White_22><GiRiceCooker/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                 </>
@@ -297,25 +297,25 @@ export default function Login(){
                                     <Tooltip title='Administrador' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('Login','Administrator')}>
-                                            <Icon_White_26><FaUserTie/></Icon_White_26>
+                                            <Icon_White_22><FaUserTie/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                     <Tooltip title='Chef' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('Login','Chef')}>
-                                            <Icon_White_26><GiChefToque/></Icon_White_26>
+                                            <Icon_White_22><GiChefToque/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>    
                                     <Tooltip title='Almacenista' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('Login','Storekeeper')}>
-                                            <Icon_White_26><FaWarehouse/></Icon_White_26>
+                                            <Icon_White_22><FaWarehouse/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('','')}>
-                                            <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
+                                            <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>
                                 </>
@@ -327,25 +327,25 @@ export default function Login(){
                                     <Tooltip title='Cocinero' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('Login','Cook')}>
-                                            <Icon_White_26><GiCook/></Icon_White_26>
+                                            <Icon_White_22><GiCook/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip>  
                                     <Tooltip title='Nutriólogo' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('Login','Nutritionist')}>
-                                            <Icon_White_26><IoNutrition/></Icon_White_26>
+                                            <Icon_White_22><IoNutrition/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Médico' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('Login','Doctor')}>
-                                            <Icon_White_26><FaUserDoctor/></Icon_White_26>
+                                            <Icon_White_22><FaUserDoctor/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleLoginView('','')}> 
-                                            <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
+                                            <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
                                         </Button_Icon_Blue_220>
                                     </Tooltip> 
                                 </>
@@ -362,16 +362,16 @@ export default function Login(){
                             <>
                                 <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title='Atrás' placement="top">
-                                        <Button_Icon_Blue_140 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Blue_160 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoginView(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}>
-                                            <Icon_White_26><IoArrowBackCircle/></Icon_White_26>
-                                        </Button_Icon_Blue_140>
+                                            <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
+                                        </Button_Icon_Blue_160>
                                     </Tooltip>
                                     <Tooltip title='Iniciar sesión' placement="top">
-                                        <Button_Icon_Green_140 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoggedLog()}>
-                                            <Icon_White_26><MdLogin/></Icon_White_26>
-                                        </Button_Icon_Green_140>
+                                            <Icon_White_22><MdLogin/></Icon_White_22>
+                                        </Button_Icon_Green_160>
                                     </Tooltip>
                                 </Container_Row_90_Center>
                             </>

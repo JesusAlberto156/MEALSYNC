@@ -23,8 +23,8 @@ import { FaUserPlus } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_90_Center,Container_Row_100_Center,Container_Column_90_Center,Container_Row_90_Left } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left,Text_A_16_Center } from "../../../styled/Text";
-import { Button_Icon_Blue_160,Button_Icon_Green_160 } from "../../../styled/Buttons";
-import { Icon_White_26 } from "../../../styled/Icons";
+import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
+import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Radio_16 } from "../../../styled/Inputs";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -79,6 +79,14 @@ export default function User_Add(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
+                        if(isUsers.some(user => user.usuario === isTextFields.user)){
+                            setIsAnimation(false);
+                            setIsActionBlock(false);
+                            setIsUserAdd(false);
+                            setIsPermissionsAdd(false);
+                            setIsStatusAdd(false);
+                            return reject('¡Usuario ya existente!...');
+                        }
                         socket.emit('User-Insert',isTextFields.userTypes,isTextFields.name,isTextFields.shortName,isTextFields.user,isTextFields.password)
                     
                         socket.on('User-Insert',(message,user) => {
@@ -360,16 +368,16 @@ export default function User_Add(){
                             </Container_Column_90_Center>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_26><MdCancel/></Icon_White_26>
-                                    </Button_Icon_Blue_160>
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Blue_180>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
-                                    <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handleUserAdd()}>
-                                        <Icon_White_26><FaUserPlus/></Icon_White_26>
-                                    </Button_Icon_Green_160>
+                                        <Icon_White_22><FaUserPlus/></Icon_White_22>
+                                    </Button_Icon_Green_180>
                                 </Tooltip>
                             </Container_Row_90_Center>
                         </Container_Form_500>

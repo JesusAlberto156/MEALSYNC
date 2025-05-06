@@ -7,6 +7,7 @@ import { Tooltip } from "@mui/material"
 import { SelectedRowContext } from "../../../contexts/VariablesProvider"
 import { UsersContext } from "../../../contexts/UsersProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
+import { RefStatusContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
 import { TableActions } from "../../../hooks/Table"
 //__________ICONOS__________
@@ -30,13 +31,18 @@ export default function Table_Status(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isUsers] = useContext(UsersContext);
+    const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Status");
 
-            if (table && !table.contains(event.target)
-            ) {
+            const isClickInsideTable = table && table.contains(event.target);
+            const isClickInsideModal = Modal?.current?.contains(event.target);
+            const isClickInsideForm = Form?.current?.contains(event.target);
+            const isClickInsideEnable = Button_Enable_S?.current?.contains(event.target);
+
+            if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEnable) {
                 setIsSelectedRow(null);
             }
         };
@@ -46,7 +52,7 @@ export default function Table_Status(){
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    });
+    },[Modal,Form,Button_Enable_S]);
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = TableActions();
     // Estructura del componente

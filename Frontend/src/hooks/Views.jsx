@@ -8,15 +8,6 @@ import { SearchTermContext,SelectedRowContext,AnimationContext,ActionBlockContex
 import { TextFieldsContext,SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../contexts/FormsProvider";
 import { PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
-// Hooks personalizados
-
-//__________ICONOS__________
-
-//__________ICONOS__________
-// Estilos personalizados
-
-// Componentes personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro)
@@ -120,6 +111,8 @@ export const HandleModalView = () => {
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSelect,setIsSelect] = useContext(SelectContext);
+    const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
+    const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     // Estados iniciales de los contextos
     const initialTextFields = {
         name: '',
@@ -194,6 +187,44 @@ export const HandleModalView = () => {
                 setIsActionBlock(false);
                 setIsSelectedRow(null);
                 navigate('/Administration/Users/Permissions',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Permissions-Enable' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsActionBlock(false);
+                setIsSelectedRow(null);
+                setIsVerificationBlock(false);
+                setIsTextFields(initialTextFields);
+                setIsPermissionsEnable([]);
+                sessionStorage.removeItem('Action-Block');
+                sessionStorage.removeItem('Verification-Block');
+                navigate('/Administration/Users/Permissions',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Status-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsActionBlock(false);
+                setIsSelect([])
+                setIsRadioStatus('');
+                navigate('/Administration/Users/Status',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Status-Enable' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsTextFields(initialTextFields);
+                setIsActionBlock(false);
+                setIsVerificationBlock(false);
+                setIsStatusEnable([]);
+                setIsSelectedRow(null);
+                sessionStorage.removeItem('Action-Block');
+                sessionStorage.removeItem('Verification-Block');
+                navigate('/Administration/Users/Status',{ replace: true });
             },750);
         }
         setCurrentMView(View);

@@ -20,6 +20,7 @@ import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_A_16_Center } from "../../styled/Text";
 import { Icon_White_18 } from "../../styled/Icons";
+import { Alert_Verification } from "../../styled/Alerts"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
@@ -60,19 +61,20 @@ export default function Table_Users(){
     // UseEffect para reiniciar la vista de contraseña
     useEffect(() => {
         if(isViewPassword){
-            const promise = new Promise(async (resolve,reject) => {
-                try{
-                    setTimeout(() => {
-                        resolve('¡Se ocultaron las contraseñas!...');
-                        setTimeout(() => {
-                            setIsViewPassword(false);
-                        },500);
-                    },1000);
-                }catch(error){
-                    return reject('¡Ocurrio un error inesperado!...');
-                }
-            });
             setTimeout(() => {
+                const promise = new Promise(async (resolve,reject) => {
+                    try{
+                        setTimeout(() => {
+                            resolve('¡Se ocultaron las contraseñas!...');
+                            setTimeout(() => {
+                                setIsViewPassword(false);
+                            },500);
+                        },1000);
+                    }catch(error){
+                        return reject('¡Ocurrio un error inesperado!...');
+                    }
+                });
+
                 Alert_Verification(promise,'¡Ocultando contraseñas!...');
             },30000);            
         }

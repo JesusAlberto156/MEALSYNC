@@ -6,9 +6,7 @@ export const RefAlertGreetingContext = createContext(null);
 export const RefKeyboardContext = createContext(null);
 export const RefUsersContext = createContext(null);
 export const RefPermissionsContext = createContext(null);
-
-export const refFormStatusContext = createContext(null);
-export const refButtonStatusContext = createContext(null);
+export const RefStatusContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar las alertas de bienvenida de la pagina
@@ -65,28 +63,18 @@ export const Ref_Permissions = ({ children }) => {
         </RefPermissionsContext.Provider>
     );
 }
-
-export const Ref_Form_Status = ({ children }) => {
-
-    const isForm = {
+// Función contexto para controlar la tabla de estatus
+export const Ref_Status = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isStatus = {
         Modal: useRef(null),
         Form: useRef(null),
+        Button_Enable_S: useRef(null),
     };
-
+    // Return para darle valor al contexto y heredarlo
     return(
-        <refFormStatusContext.Provider value={isForm}>
+        <RefStatusContext.Provider value={isStatus}>
             {children}
-        </refFormStatusContext.Provider>
-    );
-}
-
-export const Ref_Button_Status = ({ children }) => {
-
-    const isButtonS = useRef(null);
-
-    return(
-        <refButtonStatusContext.Provider value={isButtonS}>
-            {children}
-        </refButtonStatusContext.Provider>
+        </RefStatusContext.Provider>
     );
 }

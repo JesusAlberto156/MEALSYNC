@@ -96,33 +96,34 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
-
                     {currentSView === 'Suppliers' ? (
                         <>
                         <Tooltip title='Proveedores' placement="top">
-                            <Button_Icon_White_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeNavbar('Suppliers');
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                handleNavbarView('Suppliers');
+                                sessionStorage.setItem('Route','/Administration/Suppliers/Suppliers');
                                 navigate('/Administration/Suppliers/Suppliers',{ replace: true });
                             }}>
-                                <FaUserTie/>
-                            </Button_Icon_White_80>
+                                <Icon_22><FaUserTie/></Icon_22>
+                            </Button_Icon_White_100>
                         </Tooltip>
                         <Tooltip title='Observaciones' placement="top">
-                            <Button_Icon_White_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeNavbar('Observations')
+                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                handleNavbarView('Observations');
+                                sessionStorage.setItem('Route','/Administration/Suppliers/Observations');
                                 navigate('/Administration/Suppliers/Observations',{ replace: true });
                             }}>
-                                <MdSpeakerNotes/>
-                            </Button_Icon_White_80>
+                                <Icon_22><MdSpeakerNotes/></Icon_22>
+                            </Button_Icon_White_100>
                         </Tooltip>
                         {currentNView === 'Suppliers' ? (
-                            <Text_Title_30_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_30_Center>
+                            <Text_Title_26_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_26_Center>
                         ):(
                             <></>
                             
                         )}
                         {currentNView === 'Observations' ? (
-                            <Text_Title_30_Center ThemeMode={themeMode}>OBSERVACIONES</Text_Title_30_Center>
+                            <Text_Title_26_Center ThemeMode={themeMode}>OBSERVACIONES</Text_Title_26_Center>
                         ):(
                             <></>
                         )}
@@ -130,6 +131,7 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
+
                     {currentSView === 'Inventory' ? (
                         <>
                         <Tooltip title='Inventario' placement="top">

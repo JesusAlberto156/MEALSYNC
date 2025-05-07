@@ -7,6 +7,7 @@ export const RefKeyboardContext = createContext(null);
 export const RefUsersContext = createContext(null);
 export const RefPermissionsContext = createContext(null);
 export const RefStatusContext = createContext(null);
+export const RefSuppliersContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar las alertas de bienvenida de la pagina
@@ -76,5 +77,22 @@ export const Ref_Status = ({ children }) => {
         <RefStatusContext.Provider value={isStatus}>
             {children}
         </RefStatusContext.Provider>
+    );
+}
+// Función contexto para controlar la grafica de proveedores
+export const Ref_Suppliers = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isSuppliers = {
+        Modal: useRef(null),
+        Form: useRef(null),
+        Button_Edit_S: useRef(null),
+        Button_Delete_S: useRef(null),
+        Button_Details_S: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefSuppliersContext.Provider value={isSuppliers}>
+            {children}
+        </RefSuppliersContext.Provider>
     );
 }

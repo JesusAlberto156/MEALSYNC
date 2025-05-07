@@ -1,6 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext,useEffect } from "react";
+import { useRef } from "react";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { TextFieldsContext } from "../../contexts/FormsProvider";
@@ -21,29 +22,70 @@ export default function Form_Login(){
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
-    const [isTouch] = useContext(TouchContext);
+    const [isTouch,setIsTouch] = useContext(TouchContext);
+    // Constantes con el valor de useRef
+    const lastTouchTimeRef = useRef(0);
+    const isTouchRef = useRef(isTouch);
     // UseEffect que determina la visibilidad del teclado
+    useEffect(() => {
+        const handleTouchStart = () => {
+            lastTouchTimeRef.current = Date.now();
+            setIsTouch(true);
+        };
+    
+        const handleMouseOrKey = () => {
+            const now = Date.now();
+            const timeSinceLastTouch = now - lastTouchTimeRef.current;
+    
+            // Solo desactiva touch si ha pasado más de 500ms desde el último touch
+            if (timeSinceLastTouch > 500) {
+                setIsTouch(false);
+            }
+        };
+
+        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('mousedown', handleMouseOrKey);
+        window.addEventListener('keydown', handleMouseOrKey);
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('mousedown', handleMouseOrKey);
+            window.removeEventListener('keydown', handleMouseOrKey);
+        };
+    },[]);
+    // UseEffect que determina que se mantenga visible del teclado
     useEffect(() => {
         const handleClickOutside = (event) => {
             setTimeout(() => {
                 const inputUser = document.getElementById("Input-User");
                 const inputPassword = document.getElementById("Input-Password");
                 const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
-
-                if (inputUser && !inputUser.contains(event.target) &&
-                    inputPassword && !inputPassword.contains(event.target) &&
-                    !keyboard) {
+    
+                const clickInsideInputs = 
+                    (inputUser && inputUser.contains(event.target)) ||
+                    (inputPassword && inputPassword.contains(event.target));
+    
+                if (!clickInsideInputs && !keyboard) {
                     setIsKeyboardView('');
                     setTimeout(() => {
                         setIsKeyboard(false);
-                    },500)
+                    }, 500);
                 }
-            },0);
+            }, 0);
         };
     
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+    
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
     }, [Keyboard]);
+    // useEffect para mantener el touch actualizado
+    useEffect(() => {
+        isTouchRef.current = isTouch;
+    }, [isTouch]);
     // Estructura del componente
     return(
         <> 
@@ -59,7 +101,7 @@ export default function Form_Login(){
                     value={isTextFields.user}
                     onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
                     onFocus={() => {
-                        if(isTouch){
+                        if(isTouchRef.current){
                             setIsKeyboard(true);
                             setIsKeyboardView('User');
                         }
@@ -75,8 +117,10 @@ export default function Form_Login(){
                     value={isTextFields.password}
                     onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
                     onFocus={() => {
-                        setIsKeyboard(true);
-                        setIsKeyboardView('Password');
+                        if(isTouchRef.current){
+                            setIsKeyboard(true);
+                            setIsKeyboardView('Password');
+                        }
                     }}
                 />
             </Container_Row_100_Center>

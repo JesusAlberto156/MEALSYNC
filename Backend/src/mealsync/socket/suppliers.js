@@ -12,7 +12,7 @@ export const Suppliers_GET = (socket) => {
         try {
           const result = await getSuppliersService();
           console.log('Proveedores obtenidos...');
-          io.emit('suppliers', result);
+          io.emit('Suppliers', result);
         } catch (error) {
           console.error('Error al obtener los datos: ', error);
         }
@@ -23,7 +23,7 @@ export const Suppliers_GET = (socket) => {
         try {
           const result = await getObservationsService();
           console.log('Observaciones de proveedores obtenidos...');
-          io.emit('observations', result);
+          io.emit('Observations', result);
         } catch (error) {
           console.error('Error al obtener los datos: ', error);
         }

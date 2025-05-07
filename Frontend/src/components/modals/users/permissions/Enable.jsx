@@ -28,6 +28,7 @@ import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Form_Verification from '../../../forms/Verification';
+import Error_Enable from "../../errors/Enable";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar permiso de super administrador a los usuarios
@@ -161,7 +162,9 @@ export default function Permissions_Enable(){
                     </Container_Modal>  
                 </>
             ):(
-                <></>
+                <>
+                    <Error_Enable/>
+                </>
             )}
         </>
     );

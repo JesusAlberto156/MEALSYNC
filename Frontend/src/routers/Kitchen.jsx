@@ -37,6 +37,7 @@ export const PrivateRouteKitchen = () => {
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
     // Constantes con el valor de los useRef
+    const isLoggedLoggedRef = useRef(isLoggedLogged);
     const inactividadTimer = useRef(null);
     // Constantes
     const tiempoInactivoParaAccion = 900000;
@@ -51,7 +52,7 @@ export const PrivateRouteKitchen = () => {
 
             await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleLoggedLog);
         }
-        if(isLoggedLogged){
+        if(isLoggedLoggedRef.current){
             showAlerts();
         }
     };
@@ -59,6 +60,10 @@ export const PrivateRouteKitchen = () => {
         clearTimeout(inactividadTimer.current);
         inactividadTimer.current = setTimeout(ejecutarAccionFinal, tiempoInactivoParaAccion);
     };
+    // UseEffect para actualizar el valor de logged
+    useEffect(() => {
+        isLoggedLoggedRef.current = isLoggedLogged;
+    }, [isLoggedLogged]);
     // useEffect para detectar eventos
     useEffect(() => {
         const eventos = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart', 'touchmove'];

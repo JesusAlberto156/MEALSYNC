@@ -1,25 +1,29 @@
 import { useEffect,useContext,useState } from "react";
 import { Tooltip } from "@mui/material";
 
-import { SuppliersContext,ObservationsContext } from "../../contexts/SuppliersProvider";
-import { ThemeModeContext } from "../../contexts/ViewsProvider";
-import { SearchTermContext } from "../../contexts/VariablesProvider";
-
+import { SuppliersContext,ObservationsContext } from "../../../contexts/SuppliersProvider";
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { SearchTermContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
+import { RefSuppliersContext } from "../../../contexts/RefsProvider";
+//__________ICONOS__________
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
-import { Container_Row_100_Center } from "../styled/Containers";
-import { Button_Icon_Blue_140 } from "../styled/Buttons";
-import { Icon_White_22 } from "../styled/Icons";
-import { Text_A_16_Center } from "../styled/Text";
-import { Chart_850x500 } from "../styled/Charts";
+import { Container_Row_100_Center } from "../../styled/Containers";
+import { Button_Icon_Blue_140 } from "../../styled/Buttons";
+import { Icon_White_22 } from "../../styled/Icons";
+import { Text_A_16_Center } from "../../styled/Text";
+import { Chart_850x500 } from "../../styled/Charts";
 
-export default function Suppliers_Chart(){
+export default function Chart_Suppliers(){
 
     const [themeMode] = useContext(ThemeModeContext);
     const [isSuppliers] = useContext(SuppliersContext);
     const [isObservations] = useContext(ObservationsContext);
     const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const {Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
+
     const [qualification, setQualification] = useState({});
 
     useEffect(() => {
@@ -54,14 +58,22 @@ export default function Suppliers_Chart(){
         setCurrentPage(newPage);
     };
 
+    const filteredEntries = Object.entries(qualification).filter(([id, data]) =>
+        data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredEntries.length / itemsPerPage);
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedEntries = filteredEntries.slice(startIndex, startIndex + itemsPerPage);
+
     useEffect(() => {
-        const filteredEntries = Object.entries(qualification).filter(([id, data]) =>
-            data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())
-        );
+        if(currentPage > totalPages){
+            setCurrentPage (1);
+        }
+    },[isSearchTerm]);
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const paginatedEntries = filteredEntries.slice(startIndex, startIndex + itemsPerPage);
-
+    useEffect(() => {
         window.google.charts.load("current", { packages: ["corechart"] });
         window.google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -83,15 +95,15 @@ export default function Suppliers_Chart(){
                         }
                     }else if(promedio <= 2){
                         if(themeMode){
-                            color = 'rgb(155, 75, 9)';
+                            color = 'rgb(235, 108, 23)';
                         }else{
-                            color = 'rgb(199, 103, 24)';
+                            color = 'rgb(189, 91, 11)';
                         }
                     }else if(promedio <= 3){
                         if(themeMode){
-                            color = 'rgb(155, 133, 9)';
+                            color = 'rgb(250, 207, 66)';
                         }else{
-                            color = 'rgb(211, 182, 17)';
+                            color = 'rgb(250, 184, 3)';
                         }
                     }else if(promedio <= 4){
                         if(themeMode){
@@ -101,9 +113,9 @@ export default function Suppliers_Chart(){
                         }
                     }else if(promedio <= 5){
                         if(themeMode){
-                            color = 'rgb(50, 155, 9)';
+                            color = 'rgb(20, 165, 76)';
                         }else{
-                            color = 'rgb(71, 209, 16)';
+                            color = 'rgb(60, 188, 109)';
                         }
                     }
 
@@ -143,6 +155,7 @@ export default function Suppliers_Chart(){
                 titleTextStyle: {
                     color: color,
                     fontSize: 20,
+                    fontName: "Century Gothic",
                 },
                 bar: {groupWidth: "95%"},
                 width: '100%',
@@ -154,38 +167,70 @@ export default function Suppliers_Chart(){
                     maxValue: 5,
                     textStyle: {
                         color: color,
+                        fontName: "Century Gothic",
                     }
                 },
                 vAxis: {
                     textStyle: {
                         color: color,
+                        fontName: "Century Gothic",
                     }
                 },
             };
-            var chart = new google.visualization.BarChart(document.getElementById("Suppliers"));
+            var chart = new google.visualization.BarChart(document.getElementById("Chart-Suppliers"));
             chart.draw(view, options);
+        
+            google.visualization.events.addListener(chart, 'select', () => {
+                var selection = chart.getSelection();
+                if (selection.length > 0) {
+                    var selectedItem = selection[0];
+                    var selectedRow = selectedItem.row;
+                    var selectedData = paginatedEntries[selectedRow];
+                    
+                    setIsSelectedRow(selectedData[1].idProveedor);
+                }
+            });
         }
     },[qualification,isSearchTerm,currentPage,themeMode]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            const chart = document.getElementById("Chart-Suppliers");
+            const isClickInsideChart = chart && chart.contains(event.target);
+            const isClickInsideModal = Modal?.current?.contains(event.target);
+            const isClickInsideForm = Form?.current?.contains(event.target);
+            const isClickInsideEdit = Button_Edit_S?.current?.contains(event.target);
+            const isClickInsideDelete = Button_Delete_S?.current?.contains(event.target);
+            const isClickInsideDetails = Button_Details_S?.current?.contains(event.target);
+
+            if (!isClickInsideChart && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete && !isClickInsideDetails) {
+                setIsSelectedRow(null);
+            }
+        };
+
+        document.addEventListener("click", handleClickOutside);
+        return () => document.removeEventListener("click", handleClickOutside);
+    },[Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S]);
 
     return (
         <>
             <Container_Row_100_Center>
-                <Chart_850x500 ThemeMode={themeMode} id="Suppliers"/>
+                <Chart_850x500 ThemeMode={themeMode} id="Chart-Suppliers"/>
             </Container_Row_100_Center>
             <Container_Row_100_Center>
                 <Tooltip title='Anterior' placement='top'>
-                    <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-left' : 'roll-in-left'}
+                    <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
                         onClick={() => handlePageChange(currentPage - 1)}>
                         <Icon_White_22>
                             <GrPrevious/>
                         </Icon_White_22>
                     </Button_Icon_Blue_140>
                 </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode} className={themeMode ? 'text-shadow-drop-infinite-light' : 'text-shadow-drop-infinite-dark'}>Página {currentPage}</Text_A_16_Center>
+                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPages}</Text_A_16_Center>
                 <Tooltip title='Siguiente' placement='top'>
                     <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage * itemsPerPage >= Object.entries(qualification).filter(([id, data]) =>
                                                                                 data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())
-                                                                            ).length ? 'roll-out-left' : 'roll-in-left'}   
+                                                                            ).length ? 'roll-out-button-left' : 'roll-in-button-left'}   
                         onClick={() => handlePageChange(currentPage + 1)}>
                         <Icon_White_22>
                             <GrNext/>

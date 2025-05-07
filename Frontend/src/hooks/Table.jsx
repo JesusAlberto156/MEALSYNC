@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useState,useContext } from "react";
+import { useState,useContext,useEffect } from "react";
 // Contextos
 import { UsersContext,PermissionsContext,StatusContext } from "../contexts/UsersProvider";
 import { SelectedRowContext,SearchTermContext } from "../contexts/VariablesProvider";
@@ -41,6 +41,12 @@ export const TableActionsUsers = () => {
     const prevPage = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesUsers){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageUsers,
@@ -82,6 +88,12 @@ export const TableActionsPermissions = () => {
     const prevPage = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesPermissions){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPagePermissions,
@@ -123,6 +135,12 @@ export const TableActionsStatus = () => {
     const prevPage = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);
     };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesStatus){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageStatus,

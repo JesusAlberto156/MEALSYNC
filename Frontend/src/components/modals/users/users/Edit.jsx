@@ -28,6 +28,8 @@ import { Button_Icon_Blue_180,Button_Icon_Red_180 } from "../../../styled/Button
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
+// Componentes personalizados
+import Error_Edit from "../../errors/Edit";
 //____________IMPORT/EXPORT____________
 
 // Modal para ver la contraseña de usuarios
@@ -213,7 +215,9 @@ export default function User_Edit(){
                     </Container_Modal>
                 </>
             ):(
-                <></>
+                <>
+                    <Error_Edit/>
+                </>
             )}
         </>
     );

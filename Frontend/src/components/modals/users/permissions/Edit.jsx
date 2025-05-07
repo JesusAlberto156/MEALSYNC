@@ -28,6 +28,8 @@ import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
+// Componentes personalizados
+import Error_Edit from "../../errors/Edit";
 //____________IMPORT/EXPORT____________
 
 // Modal para editar permisos a los usuarios
@@ -205,7 +207,9 @@ export default function Permissions_Edit(){
                     </Container_Modal>  
                 </>
             ):(
-                <></>
+                <>
+                    <Error_Edit/>
+                </>
             )}
         </>
     );

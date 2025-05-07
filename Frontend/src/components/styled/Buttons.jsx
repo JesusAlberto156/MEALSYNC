@@ -346,6 +346,12 @@ export const Button_Icon_Blue_60 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
     @media (max-width: 768px) {
         width: 50px;
         padding: 4px;
@@ -756,6 +762,12 @@ export const Button_Icon_Green_60 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
     @media (max-width: 768px) {
         width: 50px;
         padding: 4px;
@@ -1135,6 +1147,12 @@ export const Button_Icon_Red_60 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
     }
 
     @media (max-width: 768px) {
@@ -1552,6 +1570,12 @@ export const Button_Icon_White_60 = styled.button.withConfig({
         border: ${({ ThemeMode }) => (ThemeMode ? '2px solid white' : '2px solid black')};
         color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
     }
 
     @media (max-width: 768px) {

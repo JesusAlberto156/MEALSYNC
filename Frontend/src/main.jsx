@@ -31,7 +31,7 @@ import Index_Main from './pages/Indexs/Main';
 import Error from './pages/general/Error';
 import Loading from './pages/general/Loading';
 import Login from './pages/general/Login';
-import Out_Login from './components/modals/General/OutLogin';
+import Out_Login from './components/modals/general/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
 import Home_Administration from './pages/administration/Home';
 import Users from './pages/administration/Users';
@@ -48,7 +48,8 @@ import Table_Status from './components/tables/users/Status';
 import Status_Add from './components/modals/users/status/Add';
 import Status_Enable from './components/modals/users/status/Enable';
 import Suppliers from './pages/administration/Suppliers';
-import Suppliers_Chart from './components/charts/Suppliers';
+import Chart_Suppliers from './components/charts/suppliers/Suppliers';
+import Suppliers_Details from './components/modals/Suppliers/suppliers/Details';
 import Observations_Chart from './components/charts/Observations';
 import Inventory from './pages/administration/Inventory';
 import Menus from './pages/administration/Menus';
@@ -111,6 +112,10 @@ const router = createHashRouter([
             element: <Status_Enable/>,
           },
           {
+            path: 'Administration/Suppliers/Suppliers/Details',
+            element: <Suppliers_Details/>,
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [
@@ -142,7 +147,7 @@ const router = createHashRouter([
                 children: [
                   {
                     path: 'Suppliers',
-                    element: <Suppliers_Chart/>
+                    element: <Chart_Suppliers/>
                   },
                   {
                     path: 'Observations',

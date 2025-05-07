@@ -18,16 +18,16 @@ import { HandleModalView } from "../../../../hooks/Views";
 import { MdCancel } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
-import { FaExclamationCircle } from 'react-icons/fa';
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_400,Container_Row_90_Left,Container_Row_90_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
 import { Button_Icon_Blue_160,Button_Icon_Green_160,Button_Icon_Red_160 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_Warning_Modal,Icon_Tooltip_Modal } from "../../../styled/Icons";
+import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Form_Verification from "../../../forms/Verification";
+import Error_Enable from "../../errors/Enable";
 //____________IMPORT/EXPORT____________
 
 export default function Status_Enable(){
@@ -159,7 +159,9 @@ export default function Status_Enable(){
                     </Container_Form_400>
                 </Container_Modal>
             ):(
-                <></>
+                <>
+                    <Error_Enable/>
+                </>
             )}
         </>
     );

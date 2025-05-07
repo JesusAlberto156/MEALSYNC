@@ -19,8 +19,6 @@ import { Text_A_16_Left,Text_P_16_Center } from "../styled/Text";
 import { Input_Text_Black_100 } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
 import { Icon_White_22 } from "../styled/Icons";
-// Componentes personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión

@@ -1,13 +1,12 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../../../contexts/ViewsProvider";
-import { ActionBlockContext,AnimationContext,SearchTermContext } from "../../../contexts/VariablesProvider";
-import { LoggedLogContext,LoggedLoggedContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../../contexts/SessionProvider";
+import { ThemeModeContext,ModalViewContext,ModalContext } from "../../../contexts/ViewsProvider";
+import { ActionBlockContext,AnimationContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../hooks/Views";
 import { HandleLoggedLog } from "../../../hooks/Form";
@@ -22,7 +21,6 @@ import { Container_Modal,Container_Form_350,Container_Row_100_Center,Container_R
 import { Text_Title_30_Center, Text_P_16_Left } from "../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Red_150 } from "../../styled/Buttons";
 import { Icon_White_22 } from "../../styled/Icons";
-import { Alert_Verification } from "../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Modal para cerrar sesión
@@ -30,64 +28,10 @@ export default function Out_Login(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
     const [isAnimation] = useContext(AnimationContext);
-    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [currentLView,setCurrentLView] = useContext(LoginViewContext);
-    const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
-    const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
-    const [isModal,setIsModal] = useContext(ModalContext);
-    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
-    const [isLoggedLogged,setIsLoggedLogged] = useContext(LoggedLoggedContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
-    const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext);
-    const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
-    const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
-    const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
-    // useEffect con el cerrado de sesión
-    useEffect(() => {
-        if(isLoggedLog && isLoggedLogged){
-            document.title = "Cargando...";
-            const promise = new Promise(async (resolve,reject) => {
-                try{       
-                    setIsActionBlock(true);         
-                    setTimeout(() => {
-                        resolve('¡MEALSYNC le agradece su estancia!...');
-                        setCurrentMView('');
-
-                        setTimeout(() => {
-                            setCurrentLView('');
-                            setCurrentNView('');
-                            setCurrentSView('');
-                            setIsSidebar(true);
-                            setIsLoggedType('');
-                            setIsSearchTerm('');
-                            setIsLoggedPermissions([]);
-                            setIsLoggedStatus([]);
-                            setIsLoggedLog(false);
-
-                            setTimeout(() => {
-                                sessionStorage.clear();
-                                setIsLoggedUser([]);
-                                setIsActionBlock(false);
-                                setIsModal(false);
-                                setIsLoggedLogged(false);
-                                navigate("/",{replace: true});
-                            },800);
-                        },500)
-                    },2000);
-                }catch(error){
-                    setIsLoggedLog(false);
-                    setIsActionBlock(false);
-                    reject('¡Ocurrio un error inesperado!...');
-                }
-            });
-            
-            Alert_Verification(promise,'¡Cerrando sesión!...');
-        }
-    },[isLoggedLog]);
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isModal] = useContext(ModalContext);
     // Constantes con la funcionalidad de los hooks
-    const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleLoggedLog = HandleLoggedLog();
     // Estructura del componente

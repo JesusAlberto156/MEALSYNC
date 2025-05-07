@@ -1,0 +1,33 @@
+/*________________ANIMATIONS______________*/
+/*------------ ICONS */
+.rotate-icon-center {
+	-webkit-animation: rotate-icon-center 1s cubic-bezier(0.470, 0.000, 0.745, 0.715) infinite reverse both;
+	        animation: rotate-icon-center 1s cubic-bezier(0.470, 0.000, 0.745, 0.715) infinite reverse both;
+}
+/*------------ ICONS */
+/*________________ANIMATIONS______________*/
+
+/*________________ROTATES________________*/
+/*------------ ICONS */
+@-webkit-keyframes rotate-icon-center {
+    0% {
+      -webkit-transform: rotate(0);
+              transform: rotate(0);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+}
+@keyframes rotate-icon-center {
+    0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    }
+}
+/*------------ ICONS */
+/*________________ROTATES________________*/

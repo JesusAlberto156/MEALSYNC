@@ -9,7 +9,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
-import { TableActions } from "../../../hooks/Table"
+import { TableActionsUsers } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
@@ -95,7 +95,7 @@ export default function Table_Users(){
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = TableActions();
+    const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = TableActionsUsers();
     // Estructura del componente
     return(
         <>

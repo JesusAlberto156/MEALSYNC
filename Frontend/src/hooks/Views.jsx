@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
 import { TextFieldsContext,SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../contexts/FormsProvider";
-import { PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 //____________IMPORT/EXPORT____________
 

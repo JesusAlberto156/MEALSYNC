@@ -24,6 +24,7 @@ import '../src/components/styled/animations/Pulsates.css';
 import '../src/components/styled/animations/Slides.css';
 import '../src/components/styled/animations/Puffs.css';
 import '../src/components/styled/animations/Bounces.css';
+import '../src/components/styled/animations/Rotates.css';
 import 'animate.css';
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';

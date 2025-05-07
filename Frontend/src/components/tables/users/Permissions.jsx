@@ -11,7 +11,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { CheckboxContext } from "../../../contexts/FormsProvider"
 import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
-import { TableActions } from "../../../hooks/Table"
+import { TableActionsPermissions } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 // Iconos de la sección de Administración del login
@@ -65,7 +65,7 @@ export default function Table_Permissions(){
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = TableActions();
+    const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = TableActionsPermissions();
     // Estructura del componente
     return(
         <>

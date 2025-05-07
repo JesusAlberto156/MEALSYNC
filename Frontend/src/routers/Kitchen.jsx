@@ -91,8 +91,8 @@ export const PrivateRouteKitchen = () => {
                     setIsActionBlock(true);         
                     setTimeout(() => {
                         resolve('¡MEALSYNC le agradece su estancia!...');
+                        
                         setCurrentMView('');
-
                         setTimeout(() => {
                             setCurrentLView('');
                             setCurrentNView('');
@@ -112,7 +112,7 @@ export const PrivateRouteKitchen = () => {
                                 setIsModal(false);
                                 navigate("/",{replace: true});
                             },700);
-                        },500)
+                        },750)
                     },2000);
                 }catch(error){
                     setIsLoggedLog(false);

@@ -9,11 +9,12 @@ import { UsersContext } from "../../../contexts/UsersProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { RefStatusContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
-import { TableActions } from "../../../hooks/Table"
+import { TableActionsStatus } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
-import { FaUserLock } from "react-icons/fa";
-import { FaUserClock } from "react-icons/fa6";
+import { FaLockOpen } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { GiAnticlockwiseRotation } from "react-icons/gi";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -54,7 +55,7 @@ export default function Table_Status(){
         };
     },[Modal,Form,Button_Enable_S]);
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = TableActions();
+    const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = TableActionsStatus();
     // Estructura del componente
     return(
         <>
@@ -79,8 +80,8 @@ export default function Table_Status(){
                                 }}
                             >
                                 <Td ThemeMode={themeMode}>{user.nombre}</Td>
-                                <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_18 ThemeMode={themeMode}><FaUserLock/></Icon_Green_18> : <Icon_Red_18 ThemeMode={themeMode}><FaUserLock/></Icon_Red_18>}</Td>
-                                <Td ThemeMode={themeMode}>{status.activo ? <Icon_Green_18 ThemeMode={themeMode}><FaUserClock/></Icon_Green_18>: <Icon_Red_18 ThemeMode={themeMode}><FaUserClock/></Icon_Red_18>}</Td>
+                                <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaLockOpen/></Icon_Green_18> : <Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaLock/></Icon_Red_18>}</Td>
+                                <Td ThemeMode={themeMode}>{status.activo ? <Icon_Green_18 ThemeMode={themeMode} className='rotate-icon-center'><GiAnticlockwiseRotation/></Icon_Green_18>: <Icon_Red_18 ThemeMode={themeMode} className='rotate-icon-center'><GiAnticlockwiseRotation/></Icon_Red_18>}</Td>
                             </tr>
                         ))
                     ))}

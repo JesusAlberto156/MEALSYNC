@@ -107,7 +107,7 @@ export default function User_Permissions_Add(){
                                 setIsAnimation(false);
                                 sessionStorage.removeItem('Animation');
                                 setTimeout(() => {
-                                    navigate('/Administration/Users/Users/Add',{ replace: true });
+                                    navigate('/Administration/Users/Add',{ replace: true });
                                 },750);
                             }}>
                                 <Icon_White_22><MdCancel/></Icon_White_22>
@@ -121,7 +121,7 @@ export default function User_Permissions_Add(){
                                     setIsRadioPermissions('Default');
                                 }
                                 setTimeout(() => {
-                                    navigate('/Administration/Users/Users/Add',{ replace: true });
+                                    navigate('/Administration/Users/Add',{ replace: true });
                                 },750);
                             }}>
                                 <Icon_White_22><MdAddModerator/></Icon_White_22>

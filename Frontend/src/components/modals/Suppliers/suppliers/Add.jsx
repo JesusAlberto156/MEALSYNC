@@ -58,6 +58,8 @@ export default function Suppliers_Add(){
 
                         resolve('¡MEALSYNC agrego al proveedor!...');
 
+                        const route = sessionStorage.getItem('Route');
+
                         setCurrentMView('');
                         sessionStorage.setItem('Modal-View','');
                         setTimeout(() => {
@@ -66,7 +68,7 @@ export default function Suppliers_Add(){
                             setIsActionBlock(false);
                             setIsSupplierAdd(false);
                             resetTextFieldsSupplier();
-                            navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                            navigate(route,{ replace: true });
                         },750);
 
                         return () => {

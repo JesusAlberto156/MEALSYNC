@@ -64,6 +64,8 @@ export default function User_Edit(){
 
                         resolve('¡MEALSYNC actualizo al usuario!...');
 
+                        const route = sessionStorage.getItem('Route');
+
                         setCurrentMView('');
                         sessionStorage.setItem('Modal-View','');
                         setTimeout(() => {
@@ -72,7 +74,7 @@ export default function User_Edit(){
                             setIsActionBlock(false);
                             setIsUserEdit(false);
                             setIsSelectedRow(null);
-                            navigate('/Administration/Users/Users',{ replace: true });
+                            navigate(route,{ replace: true });
                         },750);
 
                         return () => {

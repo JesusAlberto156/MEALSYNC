@@ -114,8 +114,8 @@ export default function Side_Bar() {
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                   handleSidebarView('Users');
                   handleNavbarView('Users');
-                  sessionStorage.setItem('Route','/Administration/Users/Users');
-                  navigate('/Administration/Users/Users',{ replace: true });
+                  sessionStorage.setItem('Route','/Administration/Index/Users');
+                  navigate('/Administration/Index/Users',{ replace: true });
                 }}>
                   <Text_Span_16_Left>Usuarios</Text_Span_16_Left><Icon_White_18><FaUserFriends/></Icon_White_18>
                 </Button_Icon_Blue_200>
@@ -124,8 +124,8 @@ export default function Side_Bar() {
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                   handleSidebarView('Suppliers');
                   handleNavbarView('Suppliers');
-                  sessionStorage.setItem('Route','/Administration/Suppliers/Suppliers');
-                  navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                  sessionStorage.setItem('Route','/Administration/Index/Suppliers');
+                  navigate('/Administration/Index/Suppliers',{ replace: true });
                 }}>
                   <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><FaUserTie/></Icon_White_18>
                 </Button_Icon_Blue_200>

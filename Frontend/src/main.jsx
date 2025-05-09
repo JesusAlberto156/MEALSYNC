@@ -17,6 +17,7 @@ import '../src/components/styled/animations/Puffs.css';
 import '../src/components/styled/animations/Bounces.css';
 import '../src/components/styled/animations/Rotates.css';
 import 'animate.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
 import Error from './pages/general/Error';
@@ -24,8 +25,8 @@ import Loading from './pages/general/Loading';
 import Login from './pages/general/Login';
 import Out_Login from './components/modals/general/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
-import Home_Administration from './pages/administration/Home';
-import Users from './pages/administration/Users';
+import Administration_Home from './pages/administration/Home';
+import Administration_Index from './pages/administration/Index';
 import Table_Users from './components/tables/users/Users';
 import User_Add from './components/modals/users/users/Add';
 import User_Permissions_Add from './components/modals/users/users/PermissionsAdd';
@@ -38,12 +39,11 @@ import Permissions_Enable from './components/modals/users/permissions/Enable';
 import Table_Status from './components/tables/users/Status';
 import Status_Add from './components/modals/users/status/Add';
 import Status_Enable from './components/modals/users/status/Enable';
-import Suppliers from './pages/administration/Suppliers';
 import Chart_Suppliers from './components/charts/suppliers/Suppliers';
 import Suppliers_Add from './components/modals/Suppliers/suppliers/Add';
 import Suppliers_Edit from './components/modals/Suppliers/suppliers/Edit';
 import Suppliers_Details from './components/modals/Suppliers/suppliers/Details';
-import Observations_Chart from './components/charts/Observations';
+import Chart_Observations from './components/charts/suppliers/Observations';
 import Inventory from './pages/administration/Inventory';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
@@ -69,51 +69,51 @@ const router = createHashRouter([
         element: <PrivateRouteAdministration/>,
         children: [
           {
-            path: 'Administration/Users/Users/Add',
+            path: 'Administration/Users/Add',
             element: <User_Add/>,
           },
           {
-            path: 'Administration/Users/Users/Add/Permissions',
+            path: 'Administration/Users/Add/Permissions',
             element: <User_Permissions_Add/>,
           },
           {
-            path: 'Administration/Users/Users/Edit',
+            path: 'Administration/Users/Edit',
             element: <User_Edit/>,
           },
           {
-            path: 'Administration/Users/Users/View',
+            path: 'Administration/Users/View',
             element: <User_View/>,
           },
           {
-            path: 'Administration/Users/Permissions/Add',
+            path: 'Administration/Permissions/Add',
             element: <Permissions_Add/>,
           },
           {
-            path: 'Administration/Users/Permissions/Edit',
+            path: 'Administration/Permissions/Edit',
             element: <Permissions_Edit/>,
           },
           {
-            path: 'Administration/Users/Permissions/Enable',
+            path: 'Administration/Permissions/Enable',
             element: <Permissions_Enable/>,
           },
           {
-            path: 'Administration/Users/Status/Add',
+            path: 'Administration/Status/Add',
             element: <Status_Add/>,
           },
           {
-            path: 'Administration/Users/Status/Enable',
+            path: 'Administration/Status/Enable',
             element: <Status_Enable/>,
           },
           {
-            path: 'Administration/Suppliers/Suppliers/Add',
+            path: 'Administration/Suppliers/Add',
             element: <Suppliers_Add/>,
           },
           {
-            path: 'Administration/Suppliers/Suppliers/Edit',
+            path: 'Administration/Suppliers/Edit',
             element: <Suppliers_Edit/>,
           },
           {
-            path: 'Administration/Suppliers/Suppliers/Details',
+            path: 'Administration/Suppliers/Details',
             element: <Suppliers_Details/>,
           },
           {
@@ -122,11 +122,11 @@ const router = createHashRouter([
             children: [
               {
                 path: 'Home',
-                element: <Home_Administration/>
+                element: <Administration_Home/>
               },
               {
-                path: 'Users',
-                element: <Users/>,
+                path: 'Index',
+                element: <Administration_Index/>,
                 children: [
                   {
                     path: 'Users',
@@ -140,28 +140,19 @@ const router = createHashRouter([
                     path: 'Status',
                     element: <Table_Status/>,
                   },
-                ]
-              },
-              {
-                path: 'Suppliers',
-                element: <Suppliers/>,
-                children: [
                   {
                     path: 'Suppliers',
                     element: <Chart_Suppliers/>
                   },
                   {
                     path: 'Observations',
-                    element: <Observations_Chart/>
+                    element: <Chart_Observations/>
                   }
                 ]
               },
               {
                 path: 'Inventory',
                 element: <Inventory/>,
-                children: [
-                  
-                ]
               },
               {
                 path: 'Menus',
@@ -170,9 +161,6 @@ const router = createHashRouter([
               {
                 path: 'Record',
                 element: <Record/>,
-                children: [
-                  
-                ]
               }
             ]
           },

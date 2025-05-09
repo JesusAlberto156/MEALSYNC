@@ -53,8 +53,8 @@ export default function Nav_Bar(){
                             <Tooltip title='Usuarios' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                     handleNavbarView('Users');
-                                    sessionStorage.setItem('Route','/Administration/Users/Users');
-                                    navigate('/Administration/Users/Users',{ replace: true });
+                                    sessionStorage.setItem('Route','/Administration/Index/Users');
+                                    navigate('/Administration/Index/Users',{ replace: true });
                                 }}>
                                     <Icon_22><FaUser/></Icon_22>
                                 </Button_Icon_White_100>
@@ -62,8 +62,8 @@ export default function Nav_Bar(){
                             <Tooltip title='Permisos' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                     handleNavbarView('Permissions')
-                                    sessionStorage.setItem('Route','/Administration/Users/Permissions');
-                                    navigate('/Administration/Users/Permissions',{ replace: true });
+                                    sessionStorage.setItem('Route','/Administration/Index/Permissions');
+                                    navigate('/Administration/Index/Permissions',{ replace: true });
                                 }}>
                                     <Icon_22><FaUserShield/></Icon_22>
                                 </Button_Icon_White_100>
@@ -71,8 +71,8 @@ export default function Nav_Bar(){
                             <Tooltip title='Estatus' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                     handleNavbarView('Status')
-                                    sessionStorage.setItem('Route','/Administration/Users/Status');
-                                    navigate('/Administration/Users/Status',{ replace: true });
+                                    sessionStorage.setItem('Route','/Administration/Index/Status');
+                                    navigate('/Administration/Index/Status',{ replace: true });
                                 }}>
                                     <Icon_22><FaUserLock/></Icon_22>
                                 </Button_Icon_White_100>
@@ -101,8 +101,8 @@ export default function Nav_Bar(){
                         <Tooltip title='Proveedores' placement="top">
                             <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                 handleNavbarView('Suppliers');
-                                sessionStorage.setItem('Route','/Administration/Suppliers/Suppliers');
-                                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                                sessionStorage.setItem('Route','/Administration/Index/Suppliers');
+                                navigate('/Administration/Index/Suppliers',{ replace: true });
                             }}>
                                 <Icon_22><FaUserTie/></Icon_22>
                             </Button_Icon_White_100>
@@ -110,8 +110,8 @@ export default function Nav_Bar(){
                         <Tooltip title='Observaciones' placement="top">
                             <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                 handleNavbarView('Observations');
-                                sessionStorage.setItem('Route','/Administration/Suppliers/Observations');
-                                navigate('/Administration/Suppliers/Observations',{ replace: true });
+                                sessionStorage.setItem('Route','/Administration/Index/Observations');
+                                navigate('/Administration/Index/Observations',{ replace: true });
                             }}>
                                 <Icon_22><MdSpeakerNotes/></Icon_22>
                             </Button_Icon_White_100>
@@ -131,6 +131,7 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
+
 
                     {currentSView === 'Inventory' ? (
                         <>
@@ -165,7 +166,6 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
-
                     {currentSView === 'Record' ? (
                         <>
                         <Tooltip title='General' placement="top">

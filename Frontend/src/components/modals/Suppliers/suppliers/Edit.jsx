@@ -60,6 +60,8 @@ export default function Suppliers_Edit(){
 
                         resolve('¡MEALSYNC actualizo al proveedor!...');
 
+                        const route = sessionStorage.getItem('Route');
+
                         setCurrentMView('');
                         sessionStorage.setItem('Modal-View','');
                         setTimeout(() => {
@@ -68,7 +70,7 @@ export default function Suppliers_Edit(){
                             setIsActionBlock(false);
                             setIsSupplierEdit(false);
                             setIsSelectedRow(null);
-                            navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                            navigate(route,{ replace: true });
                         },750);
 
                         return () => {

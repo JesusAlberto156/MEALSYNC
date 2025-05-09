@@ -84,6 +84,8 @@ export default function Permissions_Add(){
 
                                 resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
+                                const route = sessionStorage.getItem('Route');
+
                                 setCurrentMView('');
                                 sessionStorage.setItem('Modal-View','');
                                 setTimeout(() => {
@@ -93,7 +95,7 @@ export default function Permissions_Add(){
                                     setIsPermissionsAdd(false);
                                     setIsCheckbox([]);
                                     setIsSelect([]);
-                                    navigate('/Administration/Users/Permissions',{ replace: true });
+                                    navigate(route,{ replace: true });
                                 },750);
 
                                 return () => {

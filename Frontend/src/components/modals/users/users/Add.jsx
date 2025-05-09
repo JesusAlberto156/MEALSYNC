@@ -60,7 +60,7 @@ export default function User_Add(){
             setIsAnimation(true);
             sessionStorage.setItem('Animation',true);
             setTimeout(() => {
-                navigate('/Administration/Users/Users/Add/Permissions',{ replace: true });
+                navigate('/Administration/Users/Add/Permissions',{ replace: true });
             },200);
         }
         if(isRadioPermissions === 'Default'){
@@ -181,6 +181,8 @@ export default function User_Add(){
                                 
                                 resolve('¡MEALSYNC agregó el status al usuario!...');
 
+                                const route = sessionStorage.getItem('Route');
+
                                 setCurrentMView('');
                                 sessionStorage.setItem('Modal-View','');
                                 setTimeout(() => {
@@ -195,7 +197,7 @@ export default function User_Add(){
                                     setIsUserAdd(false);
                                     setIsPermissionsAdd(false);
                                     setIsStatusAdd(false);
-                                    navigate('/Administration/Users/Users',{ replace: true });
+                                    navigate(route,{ replace: true });
                                 },750);
 
                                 return () => {

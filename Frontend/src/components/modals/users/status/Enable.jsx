@@ -79,7 +79,9 @@ export default function Status_Enable(){
                             }else{
                                 resolve('¡MEALSYNC habilito al usuario!...');
                             }
-                            
+
+                            const route = sessionStorage.getItem('Route');
+
                             setCurrentMView('');
                             sessionStorage.setItem('Modal-View','');
                             setTimeout(() => {
@@ -92,7 +94,7 @@ export default function Status_Enable(){
                                 sessionStorage.removeItem('Verification-Block');
                                 setIsStatusEnable([]);
                                 setIsSelectedRow(null);
-                                navigate('/Administration/Users/Status',{ replace: true });
+                                navigate(route,{ replace: true });
                             },750);
 
                             return () => {

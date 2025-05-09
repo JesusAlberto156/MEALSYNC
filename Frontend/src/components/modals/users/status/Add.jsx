@@ -66,6 +66,8 @@ export default function Status_Add(){
                             
                             resolve('¡MEALSYNC agregó el status al usuario!...');
 
+                            const route = sessionStorage.getItem('Route');
+
                             setCurrentMView('');
                             sessionStorage.setItem('Modal-View','');
                             setTimeout(() => {
@@ -75,7 +77,7 @@ export default function Status_Add(){
                                 setIsActionBlock(false);
                                 setIsSelect([]);
                                 setIsStatusAdd(false);
-                                navigate('/Administration/Users/Status',{ replace: true });
+                                navigate(route,{ replace: true });
                             },750);
 
                             return () => {

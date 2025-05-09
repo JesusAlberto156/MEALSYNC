@@ -92,7 +92,7 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('User-Add');
-                                        navigate('/Administration/Users/Users/Add',{ replace: true });
+                                        navigate('/Administration/Users/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -105,7 +105,7 @@ export default function Search_Bar (){
                                             e.stopPropagation();
                                             if (isSelectedRow !== null) {
                                                 handleModalView('User-Edit');
-                                                navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                                navigate('/Administration/Users/Edit',{ replace: true });
                                             }
                                         }}>
                                             <Icon_White_18><FaUserEdit/></Icon_White_18>
@@ -116,7 +116,7 @@ export default function Search_Bar (){
                                             e.stopPropagation();
                                             if (isSelectedRow !== null) {
                                                 handleModalView('User-Delete');
-                                                navigate('/Administration/Users/Users/Delete',{ replace: true });
+                                                navigate('/Administration/Users/Delete',{ replace: true });
                                             }
                                         }}>
                                             <Icon_White_18><FaUserMinus/></Icon_White_18>
@@ -130,7 +130,7 @@ export default function Search_Bar (){
                                                 e.stopPropagation();
                                                 if (isSelectedRow !== null) {
                                                     handleModalView('User-Edit');
-                                                    navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                                    navigate('/Administration/Users/Edit',{ replace: true });
                                                 }
                                             }}>
                                                 <Icon_White_18><FaUserEdit/></Icon_White_18>
@@ -142,7 +142,7 @@ export default function Search_Bar (){
                                                 e.stopPropagation();
                                                 if (isSelectedRow !== null) {
                                                     handleModalView('User-Delete');
-                                                    navigate('/Administration/Users/Users/Delete',{ replace: true });
+                                                    navigate('/Administration/Users/Delete',{ replace: true });
                                                 }
                                             }}>
                                                 <Icon_White_18><FaUserMinus/></Icon_White_18>
@@ -165,7 +165,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isViewPassword ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('User-View');
-                                                navigate('/Administration/Users/Users/View',{ replace: true });
+                                                navigate('/Administration/Users/View',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaEye/></Icon_White_18>
                                             </Button_Icon_Green_60>
@@ -179,7 +179,7 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('User-Add');
-                                        navigate('/Administration/Users/Users/Add',{ replace: true });
+                                        navigate('/Administration/Users/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -192,7 +192,7 @@ export default function Search_Bar (){
                                             e.stopPropagation();
                                             if (isSelectedRow !== null) {
                                                 handleModalView('User-Edit');
-                                                navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                                navigate('/Administration/Users/Edit',{ replace: true });
                                             }
                                         }}>
                                             <Icon_White_18><FaUserEdit/></Icon_White_18>
@@ -206,7 +206,7 @@ export default function Search_Bar (){
                                                 e.stopPropagation();
                                                 if (isSelectedRow !== null) {
                                                     handleModalView('User-Edit');
-                                                    navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                                    navigate('/Administration/Users/Edit',{ replace: true });
                                                 }
                                             }}>
                                                 <Icon_White_18><FaUserEdit/></Icon_White_18>
@@ -229,7 +229,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isViewPassword ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('User-View');
-                                                navigate('/Administration/Users/Users/View',{ replace: true });
+                                                navigate('/Administration/Users/View',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaEye/></Icon_White_18>
                                             </Button_Icon_Green_60>
@@ -248,7 +248,7 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('Permissions-Add');
-                                        navigate('/Administration/Users/Permissions/Add',{ replace: true });
+                                        navigate('/Administration/Permissions/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><MdAddModerator/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -259,7 +259,7 @@ export default function Search_Bar (){
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Permissions-Edit');
-                                            navigate('/Administration/Users/Permissions/Edit',{ replace: true });
+                                            navigate('/Administration/Permissions/Edit',{ replace: true });
                                         }}>
                                             <Icon_White_18><AiFillEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
@@ -270,7 +270,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                             onClick={() => {
                                                 handleModalView('Permissions-Edit');
-                                                navigate('/Administration/Users/Permissions/Edit',{ replace: true });
+                                                navigate('/Administration/Permissions/Edit',{ replace: true });
                                             }}>
                                                 <Icon_White_18><AiFillEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
@@ -285,7 +285,7 @@ export default function Search_Bar (){
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
                                                     handleModalView('Permissions-Enable');
-                                                    navigate('/Administration/Users/Permissions/Enable',{ replace: true });
+                                                    navigate('/Administration/Permissions/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><MdAdminPanelSettings/></Icon_White_18>
                                                 </Button_Icon_Red_60>
@@ -298,7 +298,7 @@ export default function Search_Bar (){
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
                                                     handleModalView('Permissions-Enable');
-                                                    navigate('/Administration/Users/Permissions/Enable',{ replace: true });
+                                                    navigate('/Administration/Permissions/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><MdAdminPanelSettings/></Icon_White_18>
                                                 </Button_Icon_Green_60>
@@ -315,21 +315,35 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('Permissions-Add');
-                                        navigate('/Administration/Users/Permissions/Add',{ replace: true });
+                                        navigate('/Administration/Permissions/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><MdAddModerator/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
-                                <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    disabled={isSelectedRow === null}
-                                    onClick={() => {
-                                        handleModalView('Permissions-Edit');
-                                        navigate('/Administration/Users/Permissions/Edit',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><AiFillEdit/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </Tooltip>
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Permissions-Edit');
+                                            navigate('/Administration/Permissions/Edit',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                        </Button_Icon_Blue_60>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Permissions-Edit');
+                                                navigate('/Administration/Permissions/Edit',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                    </>
+                                )}
                             </>
                         )
                     ):(
@@ -342,7 +356,7 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('Status-Add');
-                                        navigate('/Administration/Users/Status/Add',{ replace: true });
+                                        navigate('/Administration/Status/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><FcAddRow/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -355,7 +369,7 @@ export default function Search_Bar (){
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
                                                     handleModalView('Status-Enable');
-                                                    navigate('/Administration/Users/Status/Enable',{ replace: true });
+                                                    navigate('/Administration/Status/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaLock/></Icon_White_18>
                                                 </Button_Icon_Red_60>
@@ -368,7 +382,7 @@ export default function Search_Bar (){
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
                                                     handleModalView('Status-Enable');
-                                                    navigate('/Administration/Users/Status/Enable',{ replace: true });
+                                                    navigate('/Administration/Status/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaLockOpen/></Icon_White_18>
                                                 </Button_Icon_Green_60>
@@ -385,7 +399,7 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('Status-Add');
-                                        navigate('/Administration/Users/Status/Add',{ replace: true });
+                                        navigate('/Administration/Status/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><FcAddRow/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -402,7 +416,7 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('Supplier-Add');
-                                        navigate('/Administration/Suppliers/Suppliers/Add',{ replace: true });
+                                        navigate('/Administration/Suppliers/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><ImUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -413,7 +427,7 @@ export default function Search_Bar (){
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Supplier-Edit');
-                                            navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                            navigate('/Administration/Suppliers/Edit',{ replace: true });
                                         }}>
                                             <Icon_White_18><RiEditFill/></Icon_White_18>
                                         </Button_Icon_Blue_60>
@@ -421,7 +435,7 @@ export default function Search_Bar (){
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Supplier-Delete');
-                                            navigate('/Administration/Suppliers/Suppliers/Delete',{ replace: true });
+                                            navigate('/Administration/Suppliers/Delete',{ replace: true });
                                         }}>
                                             <Icon_White_18><ImUserMinus/></Icon_White_18>
                                         </Button_Icon_Red_60>
@@ -429,7 +443,7 @@ export default function Search_Bar (){
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Supplier-Details');
-                                            navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                            navigate('/Administration/Suppliers/Details',{ replace: true });
                                         }}>
                                             <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
                                         </Button_Icon_Green_60>
@@ -440,7 +454,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('Supplier-Edit');
-                                                navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                                navigate('/Administration/Suppliers/Edit',{ replace: true });
                                             }}>
                                                 <Icon_White_18><RiEditFill/></Icon_White_18>
                                             </Button_Icon_Blue_60>
@@ -449,7 +463,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('Supplier-Delete');
-                                                navigate('/Administration/Suppliers/Suppliers/Delete',{ replace: true });
+                                                navigate('/Administration/Suppliers/Delete',{ replace: true });
                                             }}>
                                                 <Icon_White_18><ImUserMinus/></Icon_White_18>
                                             </Button_Icon_Red_60>
@@ -458,7 +472,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('Supplier-Details');
-                                                navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                                navigate('/Administration/Suppliers/Details',{ replace: true });
                                             }}>
                                                 <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
                                             </Button_Icon_Green_60>
@@ -472,7 +486,7 @@ export default function Search_Bar (){
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
                                         handleModalView('Supplier-Add');
-                                        navigate('/Administration/Suppliers/Suppliers/Add',{ replace: true });
+                                        navigate('/Administration/Suppliers/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><ImUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -483,7 +497,7 @@ export default function Search_Bar (){
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Supplier-Edit');
-                                            navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                            navigate('/Administration/Suppliers/Edit',{ replace: true });
                                         }}>
                                             <Icon_White_18><RiEditFill/></Icon_White_18>
                                         </Button_Icon_Blue_60>
@@ -491,7 +505,7 @@ export default function Search_Bar (){
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Supplier-Details');
-                                            navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                            navigate('/Administration/Suppliers/Details',{ replace: true });
                                         }}>
                                             <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
                                         </Button_Icon_Green_60>
@@ -502,7 +516,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('Supplier-Edit');
-                                                navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                                navigate('/Administration/Suppliers/Edit',{ replace: true });
                                             }}>
                                                 <Icon_White_18><RiEditFill/></Icon_White_18>
                                             </Button_Icon_Blue_60>
@@ -511,7 +525,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('Supplier-Details');
-                                                navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                                navigate('/Administration/Suppliers/Details',{ replace: true });
                                             }}>
                                                 <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
                                             </Button_Icon_Green_60>

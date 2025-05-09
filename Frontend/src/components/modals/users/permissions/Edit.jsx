@@ -66,6 +66,8 @@ export default function Permissions_Edit(){
                                 });
                                 resolve('¡MEALSYNC edito los permisos al usuario!...')
                                 
+                                const route = sessionStorage.getItem('Route');
+
                                 setCurrentMView('');
                                 sessionStorage.setItem('Modal-View','');
                                 setTimeout(() => {
@@ -74,7 +76,7 @@ export default function Permissions_Edit(){
                                     setIsActionBlock(false);
                                     setIsPermissionsEdit(false);
                                     setIsSelectedRow(null);
-                                    navigate('/Administration/Users/Permissions',{ replace: true });
+                                    navigate(route,{ replace: true });
                                 },750);
 
                                 return () => {

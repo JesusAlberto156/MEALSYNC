@@ -16,12 +16,11 @@ import { useContext,useEffect } from "react";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_90_Left,Container_Row_90_Center } from "../../components/styled/Containers";
-import { Button_Icon_Blue_120 } from "../../components/styled/Buttons";
 // Componentes personalizados
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de inicio en administración/cocina
-export default function Home_Administration(){
+export default function Administration_Home(){
     // Constantes con el valor de los contextos 
 
     // Estructura del componente

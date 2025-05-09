@@ -81,6 +81,8 @@ export default function Permissions_Enable(){
                                 resolve('¡MEALSYNC Habilito el super administrador al usuario!...');
                             }
                             
+                            const route = sessionStorage.getItem('Route');
+
                             setCurrentMView('');
                             sessionStorage.setItem('Modal-View','');
                             setTimeout(() => {
@@ -93,7 +95,7 @@ export default function Permissions_Enable(){
                                 sessionStorage.removeItem('Action-Block');
                                 sessionStorage.removeItem('Verification-Block');
                                 setIsVerificationBlock(false);
-                                navigate('/Administration/Users/Permissions',{ replace: true });
+                                navigate(route,{ replace: true });
                             },750);
 
                             return () => {

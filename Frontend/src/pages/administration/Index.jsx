@@ -12,7 +12,7 @@ import Search_Bar from '../../components/navegation/SearchBar'
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de usuarios en administración
-export default function Users(){
+export default function Administration_Index(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
     // Estructura del componente

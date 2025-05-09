@@ -122,14 +122,12 @@ export const HandleModalView = () => {
     const handleModalView = (View) => {
         setIsModal(true);
         sessionStorage.setItem('Modal',true);
+        const route = sessionStorage.getItem('Route');
         if(currentMView === 'Out-Login' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
-                const route = sessionStorage.getItem('Route');
-                if(route){
-                    navigate(route,{ replace: true });
-                }
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'User-Add' && View === ''){
@@ -141,7 +139,7 @@ export const HandleModalView = () => {
                 setIsActionBlock(false);
                 setIsRadioStatus('');
                 setIsCheckbox([]);
-                navigate('/Administration/Users/Users',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'User-Edit' && View === ''){
@@ -150,7 +148,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 setIsSelectedRow(null);
                 setIsActionBlock(false);
-                navigate('/Administration/Users/Users',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'User-View' && View === ''){
@@ -162,7 +160,7 @@ export const HandleModalView = () => {
                 setIsVerificationBlock(false);
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
-                navigate('/Administration/Users/Users',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Permissions-Add' && View === ''){
@@ -172,7 +170,7 @@ export const HandleModalView = () => {
                 setIsActionBlock(false);
                 setIsCheckbox([]);
                 setIsSelect([]);
-                navigate('/Administration/Users/Permissions',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Permissions-Edit' && View === ''){
@@ -181,7 +179,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 setIsActionBlock(false);
                 setIsSelectedRow(null);
-                navigate('/Administration/Users/Permissions',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Permissions-Enable' && View === ''){
@@ -195,7 +193,7 @@ export const HandleModalView = () => {
                 setIsPermissionsEnable([]);
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
-                navigate('/Administration/Users/Permissions',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Status-Add' && View === ''){
@@ -205,7 +203,7 @@ export const HandleModalView = () => {
                 setIsActionBlock(false);
                 setIsSelect([])
                 setIsRadioStatus('');
-                navigate('/Administration/Users/Status',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Status-Enable' && View === ''){
@@ -219,7 +217,7 @@ export const HandleModalView = () => {
                 setIsSelectedRow(null);
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
-                navigate('/Administration/Users/Status',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Supplier-Add' && View === ''){
@@ -228,7 +226,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 resetTextFieldsSupplier();
                 setIsActionBlock(false);
-                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Supplier-Edit' && View === ''){
@@ -237,7 +235,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 setIsSelectedRow(null);
                 setIsActionBlock(false);
-                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Supplier-Details' && View === ''){
@@ -245,7 +243,7 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 setIsSelectedRow(null);
-                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+                navigate(route,{ replace: true });
             },750);
         }
         setCurrentMView(View);

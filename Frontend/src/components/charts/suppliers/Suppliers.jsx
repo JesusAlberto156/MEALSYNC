@@ -1,25 +1,31 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { useEffect,useContext,useState } from "react";
+// Componentes de React externos
 import { Tooltip } from "@mui/material";
-
+// Contextos
 import { SuppliersContext,ObservationsContext } from "../../../contexts/SuppliersProvider";
 import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
 import { TextFieldsSupplierContext } from "../../../contexts/FormsProvider";
 import { RefSuppliersContext } from "../../../contexts/RefsProvider";
-
+// Hooks personalizados
 import { ResetTextFieldsSupplier } from "../../../hooks/Texts";
 //__________ICONOS__________
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
+// Estilos personalizados
 import { Container_Row_100_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_140 } from "../../styled/Buttons";
 import { Icon_White_22 } from "../../styled/Icons";
 import { Text_A_16_Center } from "../../styled/Text";
-import { Chart_850x500 } from "../../styled/Charts";
+import { Chart_90 } from "../../styled/Charts";
+//____________IMPORT/EXPORT____________
 
+// Grafica con los datos de los proveedores
 export default function Chart_Suppliers(){
-
+    // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSuppliers] = useContext(SuppliersContext);
     const [isObservations] = useContext(ObservationsContext);
@@ -27,9 +33,10 @@ export default function Chart_Suppliers(){
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
     const {Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
-
+    // Constantes con el valor de useState
     const [qualification, setQualification] = useState({});
-
+    const [currentPage, setCurrentPage] = useState(1);
+    // UseEffect para obtener la calificacion de los proveedores
     useEffect(() => {
         if(isObservations.length !== 0 && isSuppliers.length !== 0){
             const updatedQualification = {};
@@ -54,37 +61,38 @@ export default function Chart_Suppliers(){
             setQualification(updatedQualification);
         }
     },[isObservations,isSuppliers]);
-
-    const [currentPage, setCurrentPage] = useState(1);
+    // Total de datos por página
     const itemsPerPage = 5;
-
+    // Cambio de pagina
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
-
+    // Filtrado de datos de la grafica
     const filteredEntries = Object.entries(qualification).filter(([id, data]) =>
         data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())
     );
-
+    // Calculo del total de paginas con los datos filtrados
     const totalPages = Math.ceil(filteredEntries.length / itemsPerPage);
-
+    // Indices
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedEntries = filteredEntries.slice(startIndex, startIndex + itemsPerPage);
-
+    // UseEffect para corregir la paginacion con el buscador
     useEffect(() => {
         if(currentPage > totalPages){
             setCurrentPage (1);
         }
     },[isSearchTerm]);
-
+    // UseEffect que se encarga de dibujar la grafica
     useEffect(() => {
         window.google.charts.load("current", { packages: ["corechart"] });
         window.google.charts.setOnLoadCallback(() => {
             const container = document.getElementById("Chart-Suppliers");
     
-            if (!container || paginatedEntries.length === 0) return; // ✅ Verificación
+            if (!container || paginatedEntries.length === 0) return;
     
             drawChart();
+
+            window.addEventListener("resize", drawChart);
         });
 
         function drawChart() {
@@ -161,14 +169,24 @@ export default function Chart_Suppliers(){
                                 role: "annotation" },
                             2]);
     
+            const container = document.getElementById("Chart-Suppliers");
+            const width = container?.offsetWidth || window.innerWidth;
+            const fontSize = Math.max(12, Math.floor(width / 60));
+            
             var options = {
                 title: "Listado de prooveedores",
                 titleTextStyle: {
                     color: color,
-                    fontSize: 20,
+                    fontSize: fontSize,
                     fontName: "Century Gothic",
                 },
-                bar: {groupWidth: "95%"},
+                bar: {groupWidth: "80%"},
+                chartArea: {
+                    left: '25%',
+                    top: '18%',
+                    width: '70%',
+                    height: '70%',
+                },
                 width: '100%',
                 height: '100%',
                 legend: { position: "none" },
@@ -179,15 +197,28 @@ export default function Chart_Suppliers(){
                     textStyle: {
                         color: color,
                         fontName: "Century Gothic",
+                        fontSize: fontSize - 2,
                     }
                 },
                 vAxis: {
                     textStyle: {
                         color: color,
                         fontName: "Century Gothic",
+                        fontSize: fontSize - 2,
                     }
                 },
+                animation: {
+                    duration: 500,
+                    easing: 'out',
+                },
+                isStacked: false,
             };
+
+            if (paginatedEntries.length === 1) {
+                options.bar.groupWidth = "20%";  // Asegura que la barra no sea demasiado delgada
+                options.chartArea.height = "50%";  // Asegura que la barra no ocupe todo el gráfico
+            }
+
             var chart = new google.visualization.BarChart(document.getElementById("Chart-Suppliers"));
             chart.draw(view, options);
         
@@ -228,8 +259,12 @@ export default function Chart_Suppliers(){
                 }
             });
         }
-    },[qualification,isSearchTerm,currentPage,themeMode]);
 
+        return () => {
+            window.removeEventListener("resize", drawChart);
+        };
+    },[qualification,isSearchTerm,currentPage,themeMode]);
+    // UseEffect que se encarga de matener la seleccion en la grafica
     useEffect(() => {
         const handleClickOutside = (event) => {
             const chart = document.getElementById("Chart-Suppliers");
@@ -248,7 +283,7 @@ export default function Chart_Suppliers(){
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     },[Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S]);
-
+    // UseEffect que se encarga de manejar las variables cuando se selecciona una opcion de la grafica
     useEffect(() => {
         if(isSelectedRow !== null){
             setIsTextFieldsSupplier(prev => ({
@@ -263,13 +298,13 @@ export default function Chart_Suppliers(){
             resetTextFieldsSupplier();
         }
     },[isSelectedRow]);
-
+    // Constantes con la funcionalidad de los hooks
     const resetTextFieldsSupplier = ResetTextFieldsSupplier();
-
+    // Estructura del componente
     return(
         <>
             <Container_Row_100_Center>
-                <Chart_850x500 ThemeMode={themeMode} id="Chart-Suppliers"/>
+                <Chart_90 ThemeMode={themeMode} id="Chart-Suppliers"/>
             </Container_Row_100_Center>
             <Container_Row_100_Center>
                 <Tooltip title='Anterior' placement='top'>

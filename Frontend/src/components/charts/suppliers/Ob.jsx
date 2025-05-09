@@ -1,13 +1,14 @@
 import { useEffect,useContext,useState } from "react";
 
-import { ThemeModeContext } from "../../contexts/ViewsProvider";
-import { SuppliersContext,ObservationsContext } from "../../contexts/SuppliersProvider";
-import { ItemDateContext } from "../../contexts/ChartsProvider";
+import format from 'date-fns/format'
+import { ThemeModeContext } from "../../../contexts/ViewsProvider";
+import { SuppliersContext,ObservationsContext } from "../../../contexts/SuppliersProvider";
+import { ItemDateContext } from "../../../contexts/ChartsProvider";
 
-import { HandleModalView } from "../../hooks/Views";
-import { Container_Row_100_Center } from "../styled/Containers";
-import { Chart_850x500 } from "../styled/Charts";
-export default function Observations_Chart(){
+import { HandleModalView } from "../../../hooks/Views";
+import { Container_Row_100_Center } from "../../styled/Containers";
+import { Chart_90 } from "../../styled/Charts";
+export default function Chart_Observations(){
 
     const [themeMode] = useContext(ThemeModeContext);
     const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext);
@@ -57,8 +58,6 @@ export default function Observations_Chart(){
         google.charts.load("current", {packages:["calendar"]});
         google.charts.setOnLoadCallback(drawChart);
 
-        console.log(Dates);
-
         function drawChart() {
             var dataTable = new google.visualization.DataTable();
             dataTable.addColumn({ type: 'date', id: 'Date' });
@@ -72,16 +71,16 @@ export default function Observations_Chart(){
                 );
             }
      
-            var chart = new google.visualization.Calendar(document.getElementById('Observations'));
+            var chart = new google.visualization.Calendar(document.getElementById('Chart-Observations'));
      
             var options = {
-              title: "Observaciones de proveedores",
-              height: 350,
-
-              colorAxis: {
-                values:[1,2,3,4,5,6],
-                colors: ['rgb(155, 9, 9)','rgb(190, 126, 30)','rgb(185, 155, 20)','rgb(178, 196, 17)','rgb(20, 165, 76)','rgb(58,93,174)'],
-              }
+                title: "Observaciones de proveedores",
+                height: '100%',
+                width: '100%',
+                colorAxis: {
+                    values:[1,2,3,4,5,6],
+                    colors: ['rgb(155, 9, 9)','rgb(190, 126, 30)','rgb(185, 155, 20)','rgb(178, 196, 17)','rgb(20, 165, 76)','rgb(58,93,174)'],
+                }
             };
      
             chart.draw(dataTable, options);
@@ -112,12 +111,18 @@ export default function Observations_Chart(){
                 }
             });
         }
+
+        window.addEventListener('resize', drawChart);
+
+        return () => {
+            window.removeEventListener('resize', drawChart);
+        };
     },[Dates]);
 
     return(
         <>
             <Container_Row_100_Center>
-                <Chart_850x500 id="Observations" ThemeMode={themeMode}/>
+                <Chart_90 id="Chart-Observations" ThemeMode={themeMode}/>
             </Container_Row_100_Center>
         </>
     );

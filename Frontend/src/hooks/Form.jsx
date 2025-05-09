@@ -342,7 +342,6 @@ export const HandleStatusEnable = () => {
 export const HandleSupplierAdd = () => {
     // Constantes con el valor de los contextos 
     const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
-    const [isSelectedRow] = useContext(SelectedRowContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
@@ -351,36 +350,34 @@ export const HandleSupplierAdd = () => {
     const [isSuppliers] = useContext(SuppliersContext);
     // Función del hook
     const handleSupplierAdd = () => {
-        if(isSelectedRow !== null){
-            if(currentNView === 'Suppliers' && currentSView === 'Suppliers' && currentMView === 'Supplier-Add'){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-                        setIsActionBlock(true);
-                        setTimeout(() => {
-                            if(isTextFieldsSupplier.name === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.address === '' || isTextFieldsSupplier.phone === '' || isTextFieldsSupplier.email === ''){
-                                setIsActionBlock(false);
-                                return reject('¡Falta información del proveedor!...')
-                            };
-    
-                            if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.name)){
-                                setIsActionBlock(false);
-                                return reject('¡Proveedor ya existente!...');
-                            }
+        if(currentNView === 'Suppliers' && currentSView === 'Suppliers' && currentMView === 'Supplier-Add'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupplier.name === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.address === '' || isTextFieldsSupplier.phone === '' || isTextFieldsSupplier.email === ''){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del proveedor!...')
+                        };
 
-                            resolve('¡Información verificada!...');
-                            
-                            setTimeout(() => {
-                                setIsSupplierAdd(true);
-                            },500)
-                        },1000);
-                    }catch(error){
-                        setIsActionBlock(false);
-                        return reject('¡Ocurrio un error inesperado!...');
-                    }
-                });
-    
-                Alert_Verification(promise,'¡Verificando información!...');
-            }
+                        if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.name)){
+                            setIsActionBlock(false);
+                            return reject('¡Proveedor ya existente!...');
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplierAdd(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook

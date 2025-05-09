@@ -3,26 +3,25 @@
 import styled from 'styled-components';
 //____________IMPORT/EXPORT____________
 
-export const Chart_850x500 = styled.button.withConfig({
+export const Chart_90 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    width: 850px;
-    height: 500px;
+    width: 90%;
+    height: auto;
     border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    border-radius: 50px;
+    border-radius: 40px;
     background: ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255)' : 'rgba(0, 0, 0)')};
     position: relative;
+    padding: 20px;
     z-index: 40;
 
     @media (max-width: 768px) {
-        width: 600px;
-        height: 400px;
-        border-radius: 45px;
+        padding: 15px;
+        border-radius: 35px;
     }
 
     @media (max-width: 480px) {
-        width: 300px;
-        height: 250px;
-        border-radius: 40px;
+        padding: 10px;
+        border-radius: 30px;
     }
 `;

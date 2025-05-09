@@ -2,20 +2,11 @@
 // Hooks de React
 import { createRoot } from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom'
-// Componentes de React externos
-
-// Servicios
-
 // Rutas
 import { PrivateRouteAdministration } from './routers/Administration';
 import { PrivateRouteKitchen } from './routers/Kitchen';
 // Contextos
 import { AppProviders } from './contexts/AppProviders';
-// Hooks personalizados
-
-//__________ICONOS__________
-
-//__________ICONOS__________
 // Estilos personalizados
 import '../src/components/styled/Alerts.css';
 import '../src/components/styled/animations/Rolls.css';
@@ -49,6 +40,8 @@ import Status_Add from './components/modals/users/status/Add';
 import Status_Enable from './components/modals/users/status/Enable';
 import Suppliers from './pages/administration/Suppliers';
 import Chart_Suppliers from './components/charts/suppliers/Suppliers';
+import Suppliers_Add from './components/modals/Suppliers/suppliers/Add';
+import Suppliers_Edit from './components/modals/Suppliers/suppliers/Edit';
 import Suppliers_Details from './components/modals/Suppliers/suppliers/Details';
 import Observations_Chart from './components/charts/Observations';
 import Inventory from './pages/administration/Inventory';
@@ -110,6 +103,14 @@ const router = createHashRouter([
           {
             path: 'Administration/Users/Status/Enable',
             element: <Status_Enable/>,
+          },
+          {
+            path: 'Administration/Suppliers/Suppliers/Add',
+            element: <Suppliers_Add/>,
+          },
+          {
+            path: 'Administration/Suppliers/Suppliers/Edit',
+            element: <Suppliers_Edit/>,
           },
           {
             path: 'Administration/Suppliers/Suppliers/Details',

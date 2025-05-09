@@ -8,7 +8,7 @@ import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsContext } from "../../../../contexts/FormsProvider";
+import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserEditContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext,SelectedRowContext } from "../../../../contexts/VariablesProvider";
 import { RefUsersContext } from '../../../../contexts/RefsProvider';
@@ -38,7 +38,7 @@ export default function User_Edit(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isUserTypes] = useContext(UserTypesContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
@@ -55,14 +55,14 @@ export default function User_Edit(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('User-Update',isTextFields.userTypes,isSelectedRow.idusuario,isTextFields.name,isTextFields.shortName,isTextFields.user,isTextFields.password)
+                        socket.emit('User-Update',isTextFieldsUser.userTypes,isSelectedRow.idusuario,isTextFieldsUser.name,isTextFieldsUser.shortName,isTextFieldsUser.user,isTextFieldsUser.password)
                     
                         socket.on('User-Update',(message,user) => {
                             console.log(message,user);
                             socket.emit('Users');
                         });
 
-                        resolve('¡¡MEALSYNC actualizo al usuario!...');
+                        resolve('¡MEALSYNC actualizo al usuario!...');
 
                         setCurrentMView('');
                         sessionStorage.setItem('Modal-View','');
@@ -86,7 +86,7 @@ export default function User_Edit(){
                 }
             });
 
-            Alert_Verification(promise,'Actualizado un usuario!...');
+            Alert_Verification(promise,'¡Actualizado un usuario!...');
         }
     },[isUserEdit])
     // Estructura del componente
@@ -108,8 +108,8 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Nombre completo..."
                                         type="text"
-                                        value={isTextFields.name}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, name: e.target.value}))}
+                                        value={isTextFieldsUser.name}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
@@ -117,8 +117,8 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Primer nombre y apellido..."
                                         type="text"
-                                        value={isTextFields.shortName}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, shortName: e.target.value}))}
+                                        value={isTextFieldsUser.shortName}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
@@ -126,8 +126,8 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Nombre de usuario..."
                                         type="text"
-                                        value={isTextFields.user}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
+                                        value={isTextFieldsUser.user}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
@@ -135,8 +135,8 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Contraseña de usuario..."
                                         type="password"
-                                        value={isTextFields.password}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
+                                        value={isTextFieldsUser.password}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
                                 <Select
@@ -192,9 +192,9 @@ export default function User_Edit(){
                                     placeholder='Seleccione uno...'
                                     value={isUserTypes
                                         .map(user => ({ value: user.idtipo, label: user.tipo }))
-                                        .find(option => option.value === isTextFields.userTypes)
+                                        .find(option => option.value === isTextFieldsUser.userTypes)
                                     }
-                                    onChange={(e) => setIsTextFields(prev => ({...prev, userTypes: e.value}))}
+                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
                                 />
                             </Container_Column_90_Center>
                             <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
@@ -215,9 +215,13 @@ export default function User_Edit(){
                     </Container_Modal>
                 </>
             ):(
-                <>
-                    <Error_Edit/>
-                </>
+                currentMView === 'User-Edit' ? (
+                    <>
+                        <Error_Edit/>
+                    </>
+                ):(
+                    <></>
+                )
             )}
         </>
     );

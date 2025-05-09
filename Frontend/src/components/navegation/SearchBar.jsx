@@ -97,32 +97,59 @@ export default function Search_Bar (){
                                         <Icon_White_18><FaUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
-                                <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    disabled={isSelectedRow === null}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        if (isSelectedRow !== null) {
-                                            handleModalView('User-Edit');
-                                            navigate('/Administration/Users/Users/Edit',{ replace: true });
-                                        }
-                                    }}>
-                                        <Icon_White_18><FaUserEdit/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </Tooltip>
-                                <Tooltip title='Eliminar' placement="top">
-                                    <Button_Icon_Red_60 ref={Button_Delete_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    disabled={isSelectedRow === null}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        if (isSelectedRow !== null) {
-                                            handleModalView('User-Delete');
-                                            navigate('/Administration/Users/Users/Delete',{ replace: true });
-                                        }
-                                    }}>
-                                        <Icon_White_18><FaUserMinus/></Icon_White_18>
-                                    </Button_Icon_Red_60>
-                                </Tooltip>
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (isSelectedRow !== null) {
+                                                handleModalView('User-Edit');
+                                                navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                            }
+                                        }}>
+                                            <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                        </Button_Icon_Blue_60>
+                                        <Button_Icon_Red_60 ref={Button_Delete_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (isSelectedRow !== null) {
+                                                handleModalView('User-Delete');
+                                                navigate('/Administration/Users/Users/Delete',{ replace: true });
+                                            }
+                                        }}>
+                                            <Icon_White_18><FaUserMinus/></Icon_White_18>
+                                        </Button_Icon_Red_60>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (isSelectedRow !== null) {
+                                                    handleModalView('User-Edit');
+                                                    navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                                }
+                                            }}>
+                                                <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (isSelectedRow !== null) {
+                                                    handleModalView('User-Delete');
+                                                    navigate('/Administration/Users/Users/Delete',{ replace: true });
+                                                }
+                                            }}>
+                                                <Icon_White_18><FaUserMinus/></Icon_White_18>
+                                            </Button_Icon_Red_60>
+                                        </Tooltip>  
+                                    </>
+                                )}
                                 {isViewPassword ? (
                                     <>
                                         <Tooltip title='Ocultar contraseñas' placement="top">
@@ -157,23 +184,40 @@ export default function Search_Bar (){
                                         <Icon_White_18><FaUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
-                                <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    disabled={isSelectedRow === null}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        if (isSelectedRow !== null) {
-                                            handleModalView('User-Edit');
-                                            navigate('/Administration/Users/Users/Edit',{ replace: true });
-                                        }
-                                    }}>
-                                        <Icon_White_18><FaUserEdit/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </Tooltip>
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (isSelectedRow !== null) {
+                                                handleModalView('User-Edit');
+                                                navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                            }
+                                        }}>
+                                            <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                        </Button_Icon_Blue_60>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (isSelectedRow !== null) {
+                                                    handleModalView('User-Edit');
+                                                    navigate('/Administration/Users/Users/Edit',{ replace: true });
+                                                }
+                                            }}>
+                                                <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip> 
+                                    </>
+                                )}
                                 {isViewPassword ? (
                                     <>
                                         <Tooltip title='Ocultar contraseñas' placement="top">
-                                            <Button_Icon_Red_60 ThemeMode={themeMode} className={isSelectedRow === null || isViewPassword ? 'roll-in-button-left':'roll-out-button-left'} 
+                                            <Button_Icon_Red_60 ThemeMode={themeMode} className={isViewPassword ? 'roll-in-button-left':'roll-out-button-left'} 
                                             onClick={() => handleViewPassword()}>
                                                 <Icon_White_18><IoIosEyeOff/></Icon_White_18>
                                             </Button_Icon_Red_60>
@@ -182,7 +226,7 @@ export default function Search_Bar (){
                                 ):(
                                     <>
                                         <Tooltip title='Mostrar contraseñas' placement="top">
-                                            <Button_Icon_Green_60 ThemeMode={themeMode}  className={isSelectedRow === null || !isViewPassword ? 'roll-in-button-left':'roll-out-button-left'}
+                                            <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isViewPassword ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('User-View');
                                                 navigate('/Administration/Users/Users/View',{ replace: true });
@@ -209,16 +253,30 @@ export default function Search_Bar (){
                                         <Icon_White_18><MdAddModerator/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
-                                <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    disabled={isSelectedRow === null}
-                                    onClick={() => {
-                                        handleModalView('Permissions-Edit');
-                                        navigate('/Administration/Users/Permissions/Edit',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><AiFillEdit/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </Tooltip>
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Permissions-Edit');
+                                            navigate('/Administration/Users/Permissions/Edit',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                        </Button_Icon_Blue_60>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Permissions-Edit');
+                                                navigate('/Administration/Users/Permissions/Edit',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                    </>
+                                )}
                                 {isSelectedRow !== null ? (
                                     isSelectedRow.superadministrador ? (
                                         <>
@@ -343,69 +401,123 @@ export default function Search_Bar (){
                                 <Tooltip title='Agregar' placement="top">
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
-                                        handleModalView('Suppliers-Add');
+                                        handleModalView('Supplier-Add');
                                         navigate('/Administration/Suppliers/Suppliers/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><ImUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
-                                <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleModalView('Suppliers-Edit');
-                                        navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><RiEditFill/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </Tooltip>
-                                <Tooltip title='Eliminar' placement="top">
-                                    <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleModalView('Suppliers-Delete');
-                                        navigate('/Administration/Suppliers/Suppliers/Delete',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><ImUserMinus/></Icon_White_18>
-                                    </Button_Icon_Red_60>
-                                </Tooltip>
-                                <Tooltip title='Ver Detalles' placement="top">
-                                    <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleModalView('Suppliers-Details');
-                                        navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
-                                    </Button_Icon_Green_60>
-                                </Tooltip>
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Supplier-Edit');
+                                            navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><RiEditFill/></Icon_White_18>
+                                        </Button_Icon_Blue_60>
+                                        <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Supplier-Delete');
+                                            navigate('/Administration/Suppliers/Suppliers/Delete',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><ImUserMinus/></Icon_White_18>
+                                        </Button_Icon_Red_60>
+                                        <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Supplier-Details');
+                                            navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Supplier-Edit');
+                                                navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><RiEditFill/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Supplier-Delete');
+                                                navigate('/Administration/Suppliers/Suppliers/Delete',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><ImUserMinus/></Icon_White_18>
+                                            </Button_Icon_Red_60>
+                                        </Tooltip>
+                                        <Tooltip title='Ver Detalles' placement="top">
+                                            <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Supplier-Details');
+                                                navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
+                                    </>
+                                )}
                             </>
                         ):(
                             <>
                                 <Tooltip title='Agregar' placement="top">
                                     <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
                                     onClick={() => {
-                                        handleModalView('Suppliers-Add');
+                                        handleModalView('Supplier-Add');
                                         navigate('/Administration/Suppliers/Suppliers/Add',{ replace: true });
                                     }}>
                                         <Icon_White_18><ImUserPlus/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
-                                <Tooltip title='Editar' placement="top">
-                                    <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleModalView('Suppliers-Edit');
-                                        navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><RiEditFill/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </Tooltip>
-                                <Tooltip title='Ver Detalles' placement="top">
-                                    <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleModalView('Suppliers-Details');
-                                        navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
-                                    </Button_Icon_Green_60>
-                                </Tooltip>
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Supplier-Edit');
+                                            navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><RiEditFill/></Icon_White_18>
+                                        </Button_Icon_Blue_60>
+                                        <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Supplier-Details');
+                                            navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Supplier-Edit');
+                                                navigate('/Administration/Suppliers/Suppliers/Edit',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><RiEditFill/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                        <Tooltip title='Ver Detalles' placement="top">
+                                            <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Supplier-Details');
+                                                navigate('/Administration/Suppliers/Suppliers/Details',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
+                                    </>
+                                )}
                             </>
                         )
                     ):(

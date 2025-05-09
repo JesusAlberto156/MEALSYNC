@@ -1,7 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos

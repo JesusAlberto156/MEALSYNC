@@ -26,7 +26,8 @@
 //____________CHARTS____________
 const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
 //____________FORM____________
-const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
+const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
 const [isSelect,setIsSelect] = useContext(SelectContext);
 const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
 const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
@@ -53,7 +54,8 @@ const [socket] = useContext(SocketContext);
 //____________SOCKET____________
 //____________SUPPLIERS____________
 const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext);
-
+const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
+const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext);
 const [isObservations,setIsObservations] = useContext(ObservationsContext);
 
 //____________SUPPLIERS____________

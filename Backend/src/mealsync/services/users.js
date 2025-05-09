@@ -91,7 +91,7 @@ export const insertUsersService = async (id,nombre,nombrecorto,usuario,contrasen
             .query('INSERT INTO usuarios (nombre,nombrecorto,usuario,contrasena,idtipo) VALUES (@nombre,@nombrecorto,@usuario,@contrasena,@id)');
 
         if(result.rowsAffected[0]>0){
-            return 'Usuario insertados...';
+            return 'Usuario insertado...';
         }else{
             return 'No se pudo insertar el usuario...';
         }

@@ -6,9 +6,10 @@ import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,ViewPasswordContext } from "../../../contexts/VariablesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
-import { TextFieldsContext } from "../../../contexts/FormsProvider"
+import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
+import { ResetTextFieldsUser } from "../../../hooks/Texts"
 import { TableActionsUsers } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos de la paginación
@@ -30,15 +31,7 @@ export default function Table_Users(){
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
-    // Estados iniciales de los contextos
-    const initialTextFields = {
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-    };
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -82,7 +75,7 @@ export default function Table_Users(){
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
         if(isSelectedRow !== null){
-            setIsTextFields(prev => ({
+            setIsTextFieldsUser(prev => ({
                 ...prev,
                 name: isSelectedRow.nombre,
                 shortName: isSelectedRow.nombrecorto,
@@ -91,11 +84,12 @@ export default function Table_Users(){
                 userTypes: isSelectedRow.idtipo,
             }))
         }else{
-            setIsTextFields(initialTextFields);
+            resetTextFieldsUser();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = TableActionsUsers();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     // Estructura del componente
     return(
         <>

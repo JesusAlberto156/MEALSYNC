@@ -4,10 +4,13 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
-import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsContext } from "../contexts/FormsProvider";
+import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsUserContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
+// Hooks personalizados
+import { ResetTextFieldsUser } from "./Texts";
 // Estilos personalizados
 import { Alert_Verification } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -31,7 +34,7 @@ export const HandleUserAdd = () => {
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isRadioPermissions] = useContext(RadioPermissionsContext);
     const [isRadioStatus] = useContext(RadioStatusContext);
     // Función del hook
@@ -41,7 +44,7 @@ export const HandleUserAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFields.name === '' || isTextFields.shortName === '' || isTextFields.user === '' || isTextFields.password === '' || isTextFields.userTypes === 0){
+                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del usuario!...')
                         };
@@ -80,8 +83,9 @@ export const HandleUserEdit = () => {
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isUsers] = useContext(UsersContext);
     // Función del hook
     const handleUserAdd = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Edit'){
@@ -89,15 +93,22 @@ export const HandleUserEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFields.name === '' || isTextFields.shortName === '' || isTextFields.user === '' || isTextFields.password === '' || isTextFields.userTypes === 0){
+                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del usuario!...')
                         };
-                        if(isTextFields.name === isSelectedRow.nombre && isTextFields.shortName === isSelectedRow.nombrecorto &&  isTextFields.user === isSelectedRow.usuario && isTextFields.password === isSelectedRow.contrasena && isTextFields.userTypes === isSelectedRow.idtipo){
+                        if(isTextFieldsUser.name === isSelectedRow.nombre && isTextFieldsUser.shortName === isSelectedRow.nombrecorto &&  isTextFieldsUser.user === isSelectedRow.usuario && isTextFieldsUser.password === isSelectedRow.contrasena && isTextFieldsUser.userTypes === isSelectedRow.idtipo){
                             setIsActionBlock(false);
                             return reject('¡No hay información del usuario modificada!...')
                         };
 
+                        if(isSelectedRow.usuario !== isTextFieldsUser.user){
+                            if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
+                                setIsActionBlock(false);
+                                return reject('¡Usuario ya existente!...');
+                            }
+                        }
+                        
                         resolve('¡Información verificada!...');
                         
                         setTimeout(() => {
@@ -126,17 +137,9 @@ export const HandleViewPassword = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
-    // Estados iniciales de los contextos
-    const initialTextFields = {
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-    };
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     // Función del hook
     const handleViewPassword = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-View'){
@@ -154,7 +157,7 @@ export const HandleViewPassword = () => {
                             sessionStorage.setItem('Modal-View','');
                             sessionStorage.setItem('Modal',false);
                             
-                            setIsTextFields(initialTextFields);
+                            resetTextFieldsUser();
                             setIsModal(false);
                             navigate('/Administration/Users/Users',{ replace: true });
                         },750);
@@ -335,6 +338,109 @@ export const HandleStatusEnable = () => {
     // Retorno de la función del hook
     return handleStatusEnable;
 }
+// Hook para editar los permisos a un usuario desde el modal
+export const HandleSupplierAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
+    const [isSuppliers] = useContext(SuppliersContext);
+    // Función del hook
+    const handleSupplierAdd = () => {
+        if(isSelectedRow !== null){
+            if(currentNView === 'Suppliers' && currentSView === 'Suppliers' && currentMView === 'Supplier-Add'){
+                const promise = new Promise(async (resolve,reject) => {
+                    try{
+                        setIsActionBlock(true);
+                        setTimeout(() => {
+                            if(isTextFieldsSupplier.name === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.address === '' || isTextFieldsSupplier.phone === '' || isTextFieldsSupplier.email === ''){
+                                setIsActionBlock(false);
+                                return reject('¡Falta información del proveedor!...')
+                            };
+    
+                            if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.name)){
+                                setIsActionBlock(false);
+                                return reject('¡Proveedor ya existente!...');
+                            }
+
+                            resolve('¡Información verificada!...');
+                            
+                            setTimeout(() => {
+                                setIsSupplierAdd(true);
+                            },500)
+                        },1000);
+                    }catch(error){
+                        setIsActionBlock(false);
+                        return reject('¡Ocurrio un error inesperado!...');
+                    }
+                });
+    
+                Alert_Verification(promise,'¡Verificando información!...');
+            }
+        }
+    }
+    // Retorno de la función del hook
+    return handleSupplierAdd;
+}
+// Hook para editar los permisos a un usuario desde el modal
+export const HandleSupplierEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
+    const [isSuppliers] = useContext(SuppliersContext);
+    // Función del hook
+    const handleSupplierEdit = () => {
+        if(isSelectedRow !== null){
+            if(currentNView === 'Suppliers' && currentSView === 'Suppliers' && currentMView === 'Supplier-Edit'){
+                const promise = new Promise(async (resolve,reject) => {
+                    try{
+                        setIsActionBlock(true);
+                        setTimeout(() => {
+                            if(isTextFieldsSupplier.name === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.address === '' || isTextFieldsSupplier.phone === '' || isTextFieldsSupplier.email === ''){
+                                setIsActionBlock(false);
+                                return reject('¡Falta información del proveedor!...')
+                            };
+    
+                            if(isTextFieldsSupplier.name === isSelectedRow.nombre && isTextFieldsSupplier.rfc === isSelectedRow.rfc &&  isTextFieldsSupplier.address === isSelectedRow.domicilio && isTextFieldsSupplier.phone === isSelectedRow.telefono && isTextFieldsSupplier.email === isSelectedRow.correo){
+                                setIsActionBlock(false);
+                                return reject('¡No hay información del proveedor modificada!...')
+                            };
+
+                            if(isSelectedRow.nombre !== isTextFieldsSupplier.name){
+                                if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.name)){
+                                    setIsActionBlock(false);
+                                    return reject('¡Proveedor ya existente!...');
+                                }
+                            }
+                            
+                            resolve('¡Información verificada!...');
+                            
+                            setTimeout(() => {
+                                setIsSupplierEdit(true);
+                            },500)
+                        },1000);
+                    }catch(error){
+                        setIsActionBlock(false);
+                        return reject('¡Ocurrio un error inesperado!...');
+                    }
+                });
+    
+                Alert_Verification(promise,'¡Verificando información!...');
+            }
+        }
+    }
+    // Retorno de la función del hook
+    return handleSupplierEdit;
+}
 // Hook para filtrar los usuarios cuando no tiene permisos
 export const FilteredRecordsHasPermissions = () => {
     // Constantes con el valor de los contextos 
@@ -411,7 +517,7 @@ export const HandleCheckbox = () => {
 export const HandleVerificationBlock = () => {
     // Constantes con el valor de los contextos 
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
@@ -421,11 +527,11 @@ export const HandleVerificationBlock = () => {
                 setIsVerificationBlock(true);
                 setTimeout(() => {
                     if(isLoggedUser.length !== 0){
-                        if(isTextFields.user === '' || isTextFields.password === ''){
+                        if(isTextFieldsUser.user === '' || isTextFieldsUser.password === ''){
                             setIsVerificationBlock(false);
                             return reject('¡Falta escribir el nombre de usuario o la contraseña del usuario!...');
                         }
-                        if(isTextFields.user === isLoggedUser.usuario && isTextFields.password === isLoggedUser.contrasena){
+                        if(isTextFieldsUser.user === isLoggedUser.usuario && isTextFieldsUser.password === isLoggedUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsActionBlock(true);
                             sessionStorage.setItem('Verification-Block',true);

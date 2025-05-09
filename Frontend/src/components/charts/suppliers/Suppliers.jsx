@@ -4,7 +4,10 @@ import { Tooltip } from "@mui/material";
 import { SuppliersContext,ObservationsContext } from "../../../contexts/SuppliersProvider";
 import { ThemeModeContext } from "../../../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
+import { TextFieldsSupplierContext } from "../../../contexts/FormsProvider";
 import { RefSuppliersContext } from "../../../contexts/RefsProvider";
+
+import { ResetTextFieldsSupplier } from "../../../hooks/Texts";
 //__________ICONOS__________
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
@@ -22,6 +25,7 @@ export default function Chart_Suppliers(){
     const [isObservations] = useContext(ObservationsContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
     const {Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
 
     const [qualification, setQualification] = useState({});
@@ -75,7 +79,14 @@ export default function Chart_Suppliers(){
 
     useEffect(() => {
         window.google.charts.load("current", { packages: ["corechart"] });
-        window.google.charts.setOnLoadCallback(drawChart);
+        window.google.charts.setOnLoadCallback(() => {
+            const container = document.getElementById("Chart-Suppliers");
+    
+            if (!container || paginatedEntries.length === 0) return; // ✅ Verificación
+    
+            drawChart();
+        });
+
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Proveedor', 'Calificación', { role: 'style' }],
@@ -107,9 +118,9 @@ export default function Chart_Suppliers(){
                         }
                     }else if(promedio <= 4){
                         if(themeMode){
-                            color = 'rgb(116, 155, 9)';
+                            color = 'rgb(160, 187, 39)';
                         }else{
-                            color = 'rgb(164, 218, 17)';
+                            color = 'rgb(116, 136, 25)';
                         }
                     }else if(promedio <= 5){
                         if(themeMode){
@@ -187,7 +198,33 @@ export default function Chart_Suppliers(){
                     var selectedRow = selectedItem.row;
                     var selectedData = paginatedEntries[selectedRow];
                     
-                    setIsSelectedRow(selectedData[1].idProveedor);
+                    const supplier = isSuppliers.find(suppliers => suppliers.idproveedor === selectedData[1].idProveedor);
+
+                    if(supplier){
+                        if(selectedData[1].cantidad === 0){
+                            setIsSelectedRow({
+                                idproveedor: selectedData[1].idProveedor,
+                                calificacion: selectedData[1].suma,
+                                cantidad: selectedData[1].cantidad,
+                                nombre: supplier.nombre,
+                                rfc: supplier.rfc,
+                                domicilio: supplier.domicilio,
+                                telefono: supplier.telefono,
+                                correo: supplier.correo,
+                            });
+                        }else{
+                            setIsSelectedRow({
+                                idproveedor: selectedData[1].idProveedor,
+                                calificacion: selectedData[1].suma / selectedData[1].cantidad,
+                                cantidad: selectedData[1].cantidad,
+                                nombre: supplier.nombre,
+                                rfc: supplier.rfc,
+                                domicilio: supplier.domicilio,
+                                telefono: supplier.telefono,
+                                correo: supplier.correo,
+                            });
+                        }
+                    }
                 }
             });
         }
@@ -212,7 +249,24 @@ export default function Chart_Suppliers(){
         return () => document.removeEventListener("click", handleClickOutside);
     },[Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S]);
 
-    return (
+    useEffect(() => {
+        if(isSelectedRow !== null){
+            setIsTextFieldsSupplier(prev => ({
+                ...prev,
+                name: isSelectedRow.nombre,
+                rfc: isSelectedRow.rfc,
+                address: isSelectedRow.domicilio,
+                phone: isSelectedRow.telefono,
+                email: isSelectedRow.correo,
+            }))
+        }else{
+            resetTextFieldsSupplier();
+        }
+    },[isSelectedRow]);
+
+    const resetTextFieldsSupplier = ResetTextFieldsSupplier();
+
+    return(
         <>
             <Container_Row_100_Center>
                 <Chart_850x500 ThemeMode={themeMode} id="Chart-Suppliers"/>

@@ -10,8 +10,8 @@ import { SelectedRowContext,ActionBlockContext,VerificationBlockContext } from "
 import { UsersContext,StatusEnableContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { RefStatusContext } from "../../../../contexts/RefsProvider";
-import { TextFieldsContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
+import { ResetTextFieldsUser } from "../../../../hooks/Texts";
 import { HandleStatusEnable } from "../../../../hooks/Form";
 import { HandleModalView } from "../../../../hooks/Views";
 //__________ICONOS__________
@@ -42,17 +42,8 @@ export default function Status_Enable(){
     const [socket] = useContext(SocketContext);
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
-    // Estados iniciales de los contextos
-    const initialTextFields = {
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-    };
     // useEffect con el usuario
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -66,6 +57,7 @@ export default function Status_Enable(){
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleStatusEnable = HandleStatusEnable();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isStatusEnable.length !== 0){
@@ -93,7 +85,7 @@ export default function Status_Enable(){
                             setTimeout(() => {
                                 setIsModal(false);
                                 sessionStorage.setItem('Modal',false);
-                                setIsTextFields(initialTextFields);
+                                resetTextFieldsUser();
                                 setIsActionBlock(false);
                                 setIsVerificationBlock(false);
                                 sessionStorage.removeItem('Action-Block');
@@ -159,9 +151,13 @@ export default function Status_Enable(){
                     </Container_Form_400>
                 </Container_Modal>
             ):(
-                <>
-                    <Error_Enable/>
-                </>
+                currentMView === 'Status-Enable' ? (
+                    <>
+                        <Error_Enable/>
+                    </>
+                ):(
+                    <></>
+                )
             )}
         </>
     );

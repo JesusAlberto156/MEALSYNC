@@ -402,6 +402,64 @@ export const Icon_Black_White_18 = styled.div.withConfig({
     }
 `;
 //---------- Black/White
+//---------- Blue
+export const Icon_Blue_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Blue_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Blue_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Blue_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Blue
 //---------- Green
 export const Icon_Green_30 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -533,66 +591,177 @@ export const Icon_Yellow_250 = styled.div.withConfig({
         font-size: 150px;
     }
 `;
+export const Icon_Yellow_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Yellow_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Yellow_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Yellow_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
 //---------- Yellow
+//---------- Orange
+export const Icon_Orange_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Orange_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Orange_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Orange_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Orange
+//---------- Lime Green 
+export const Icon_Lime_Green_30 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Lime_Green_26 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Lime_Green_22 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Lime_Green_18 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Lime Green 
 //____________COLOR____________
-
-//--------MODAL--------
-export const Icon_Warning_Modal = styled.div`
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    color: #e74c3c; /* Rojo de advertencia */
-    font-size: 20px;
-
-    &:hover > div, &:focus > div {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    @media (max-width: 768px) {
-        font-size: 15px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 10px;
-    }
-`;
-export const Icon_Tooltip_Modal = styled.div`
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    left: -1100%;
-    top: -180%;
-    transform: translateX(-50%) translateY(10px);
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 8px;
-    border-radius: 5px;
-    white-space: nowrap;
-    z-index: 10;
-    transition: opacity 0.3s, transform 0.3s;
-
-    &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 100%;
-        margin-top: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #333 transparent transparent transparent;
-    }
-    
-    @media (max-width: 768px) {
-        left: -1250%;
-        top: -220%;
-    }
-
-    @media (max-width: 480px) {
-        left: -1400%;
-        top: -260%;
-    }
-`;
-//--------MODAL--------

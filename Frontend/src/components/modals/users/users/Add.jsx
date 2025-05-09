@@ -8,10 +8,11 @@ import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../../../../contexts/FormsProvider";
+import { TextFieldsUserContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
+import { ResetTextFieldsUser } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUserAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
@@ -36,7 +37,7 @@ export default function User_Add(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isUserTypes] = useContext(UserTypesContext);
     const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
     const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
@@ -48,18 +49,11 @@ export default function User_Add(){
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
     const [socket] = useContext(SocketContext);
     const [isUsers] = useContext(UsersContext);
-    // Estados iniciales de los contextos
-    const initialTextFields = {
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-    };
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleUserAdd = HandleUserAdd();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     // UseEffect para abrir modal de los permisos
     useEffect(() => {
         if(isRadioPermissions === 'Personalizado' && isCheckbox.length === 0){
@@ -79,7 +73,7 @@ export default function User_Add(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        if(isUsers.some(user => user.usuario === isTextFields.user)){
+                        if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
                             setIsAnimation(false);
                             setIsActionBlock(false);
                             setIsUserAdd(false);
@@ -87,14 +81,14 @@ export default function User_Add(){
                             setIsStatusAdd(false);
                             return reject('¡Usuario ya existente!...');
                         }
-                        socket.emit('User-Insert',isTextFields.userTypes,isTextFields.name,isTextFields.shortName,isTextFields.user,isTextFields.password)
+                        socket.emit('User-Insert',isTextFieldsUser.userTypes,isTextFieldsUser.name,isTextFieldsUser.shortName,isTextFieldsUser.user,isTextFieldsUser.password)
                     
                         socket.on('User-Insert',(message,user) => {
                             console.log(message,user);
                             socket.emit('Users');
                         });
 
-                        resolve('¡¡MEALSYNC agrego al usuario!...');
+                        resolve('¡MEALSYNC agrego al usuario!...');
 
                         setIsUserAdd(false);
                         setIsPermissionsAdd(true);
@@ -117,7 +111,7 @@ export default function User_Add(){
         }
         if(isPermissionsAdd){
             if(isRadioPermissions !== ''){
-                const user = isUsers.find(user => user.usuario === isTextFields.user);
+                const user = isUsers.find(user => user.usuario === isTextFieldsUser.user);
                 if(user){
                     const promise = new Promise(async (resolve,reject) => {
                         try{
@@ -176,7 +170,7 @@ export default function User_Add(){
                 const promise = new Promise(async (resolve,reject) => {
                     try{
                         setTimeout(() => {
-                            const user = isUsers.find(user => user.usuario === isTextFields.user);
+                            const user = isUsers.find(user => user.usuario === isTextFieldsUser.user);
                             if(user){
                                 socket.emit('Status-Insert',user.idusuario,isRadioStatus === 'Habilitado' ? 1:0,user.usuario);
 
@@ -192,7 +186,7 @@ export default function User_Add(){
                                 setTimeout(() => {
                                     setIsModal(false);
                                     sessionStorage.setItem('Modal',false);
-                                    setIsTextFields(initialTextFields);
+                                    resetTextFieldsUser();
                                     setIsRadioPermissions('');
                                     setIsRadioStatus('');
                                     setIsCheckbox([]);
@@ -243,8 +237,8 @@ export default function User_Add(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Nombre completo..."
                                         type="text"
-                                        value={isTextFields.name}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, name: e.target.value}))}
+                                        value={isTextFieldsUser.name}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
                                     />
                                 </Container_Row_90_Left>
                                 <Container_Row_90_Left>
@@ -252,8 +246,8 @@ export default function User_Add(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Primer nombre y apellido..."
                                         type="text"
-                                        value={isTextFields.shortName}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, shortName: e.target.value}))}
+                                        value={isTextFieldsUser.shortName}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
                                     />
                                 </Container_Row_90_Left>
                                 <Container_Row_90_Left>
@@ -261,8 +255,8 @@ export default function User_Add(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Nombre de usuario..."
                                         type="text"
-                                        value={isTextFields.user}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
+                                        value={isTextFieldsUser.user}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
                                     />
                                 </Container_Row_90_Left>
                                 <Container_Row_90_Left>
@@ -270,8 +264,8 @@ export default function User_Add(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="Contraseña de usuario..."
                                         type="password"
-                                        value={isTextFields.password}
-                                        onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
+                                        value={isTextFieldsUser.password}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                                     />
                                 </Container_Row_90_Left>
                                 <Select
@@ -327,9 +321,9 @@ export default function User_Add(){
                                     placeholder='Seleccione uno...'
                                     value={isUserTypes
                                         .map(user => ({ value: user.idtipo, label: user.tipo }))
-                                        .find(option => option.value === isTextFields.userTypes)
+                                        .find(option => option.value === isTextFieldsUser.userTypes)
                                     }
-                                    onChange={(e) => setIsTextFields(prev => ({...prev, userTypes: e.value}))}
+                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
                                 />
                             </Container_Column_90_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>

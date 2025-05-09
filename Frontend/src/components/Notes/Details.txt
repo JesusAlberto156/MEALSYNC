@@ -1,0 +1,8 @@
+ - Falta verificaion de campos a la hora de registrar y editar los usuarios
+ - Falta la eliminacion de usuarios junto con sus premisos y estatus
+ - Falta agregar el teclado en la verificacion de inicio de sesión
+ - Falta agregar el teclado en la creación y edición de los usuarios
+ - Falta agregar el cerrado de sesion automatico si yo cierro la pestaña de forma forzada o bien navego a otra pagina y quiero regresar
+ - Falta verificaion de campos a la hora de registrar y editar los proveedores
+ - Falta la eliminacion de proveedores junto con sus observaciones
+ - Falta agregar el teclado en la creación y edición de los proveedores

@@ -2,17 +2,18 @@
 // Hooks de React
 import { createContext,useState } from "react"
 // Contextos
-export const TextFieldsContext = createContext(null);
+export const TextFieldsUserContext = createContext(null);
+export const TextFieldsSupplierContext = createContext(null);
 export const SelectContext = createContext(null);
 export const RadioPermissionsContext = createContext(null);
 export const RadioStatusContext = createContext(null);
 export const CheckboxContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Función contexto para controlar los campos de registro de un formulario
-export const Text_Fields = ({ children }) => {
+// Función contexto para controlar los campos de registro de un formulario de usuario
+export const Text_Fields_User = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isTextFields,setIsTextFields] = useState({
+    const [isTextFieldsUser,setIsTextFieldsUser] = useState({
         name: '',
         shortName: '',
         user: '',
@@ -21,9 +22,26 @@ export const Text_Fields = ({ children }) => {
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <TextFieldsContext.Provider value={[isTextFields,setIsTextFields]}> 
+        <TextFieldsUserContext.Provider value={[isTextFieldsUser,setIsTextFieldsUser]}> 
             {children}
-        </TextFieldsContext.Provider>
+        </TextFieldsUserContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de usuario
+export const Text_Fields_Supplier = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useState({
+        name: '',
+        rfc: '',
+        address: '',
+        phone: '',
+        email: '',
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsSupplierContext.Provider value={[isTextFieldsSupplier,setIsTextFieldsSupplier]}> 
+            {children}
+        </TextFieldsSupplierContext.Provider>
     );
 }
 // Función Contexto para controlar el valor en el campo de un select en el formulario

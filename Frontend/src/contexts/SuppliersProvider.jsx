@@ -5,6 +5,8 @@ import { createContext,useState,useEffect,useContext } from "react"
 import { decryptData } from "../services/Crypto";
 // Contextos
 export const SuppliersContext = createContext(null);
+export const SupplierAddContext = createContext(null);
+export const SupplierEditContext = createContext(null);
 export const ObservationsContext = createContext(null);
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
@@ -42,6 +44,28 @@ export const Suppliers = ({ children }) => {
         <SuppliersContext.Provider value={[isSuppliers,setIsSuppliers]}>
             {children}
         </SuppliersContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de un proveedor
+export const Supplier_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplierAdd,setIsSupplierAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SupplierAddContext.Provider value={[isSupplierAdd,setIsSupplierAdd]}>
+            {children}
+        </SupplierAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de un proveedor
+export const Supplier_Edit = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplierEdit,setIsSupplierEdit] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SupplierEditContext.Provider value={[isSupplierEdit,setIsSupplierEdit]}>
+            {children}
+        </SupplierEditContext.Provider>
     );
 }
 // ---------- PROVEEDORES

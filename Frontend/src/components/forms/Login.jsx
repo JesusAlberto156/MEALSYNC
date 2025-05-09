@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react";
 import { useRef } from "react";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
-import { TextFieldsContext } from "../../contexts/FormsProvider";
+import { TextFieldsUserContext } from "../../contexts/FormsProvider";
 import { AnimationContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../../contexts/RefsProvider";
 // Estilos personalizados
@@ -17,7 +17,7 @@ import { Input_Text_Black_100 } from "../styled/Inputs";
 export default function Form_Login(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isAnimation] = useContext(AnimationContext);
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
@@ -98,8 +98,8 @@ export default function Form_Login(){
                     placeholder="Nombre de usuario..."
                     type="text"
                     id="Input-User"
-                    value={isTextFields.user}
-                    onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
+                    value={isTextFieldsUser.user}
+                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
                     onFocus={() => {
                         if(isTouchRef.current){
                             setIsKeyboard(true);
@@ -114,8 +114,8 @@ export default function Form_Login(){
                     placeholder="Contraseña de usuario..."
                     type="password"
                     id="Input-Password"
-                    value={isTextFields.password}
-                    onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
+                    value={isTextFieldsUser.password}
+                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                     onFocus={() => {
                         if(isTouchRef.current){
                             setIsKeyboard(true);

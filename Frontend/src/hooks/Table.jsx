@@ -31,7 +31,16 @@ export const TableActionsUsers = () => {
     const currentRecordsUsers = filteredRecordsUsers.slice(indexOfFirstRecord, indexOfLastRecord);
     // Función de selección de los renglones de la tabla
     const handleRowClick = (user) => {
-        setIsSelectedRow((prevSelected) => (prevSelected === user ? null : user));
+        setIsSelectedRow((prevSelected) => {
+            if (prevSelected === user) {
+                // Retrasa el deseleccionado
+                setTimeout(() => setIsSelectedRow(null), 700);
+                return prevSelected; // mantener el estado actual mientras tanto
+            } else {
+                // Selección inmediata
+                return user;
+            }
+        });
     };
     // Función de siguiente de registros de la tabla
     const nextPageUsers = () => {
@@ -77,8 +86,17 @@ export const TableActionsPermissions = () => {
     // Filtrado de datos por página
     const currentRecordsPermissions = filteredRecordsPermissions.slice(indexOfFirstRecord, indexOfLastRecord);
     // Función de selección de los renglones de la tabla
-    const handleRowClick = (user) => {
-        setIsSelectedRow((prevSelected) => (prevSelected === user ? null : user));
+    const handleRowClick = (permissions) => {
+        setIsSelectedRow((prevSelected) => {
+            if (prevSelected === permissions) {
+                // Retrasa el deseleccionado
+                setTimeout(() => setIsSelectedRow(null), 700);
+                return prevSelected; // mantener el estado actual mientras tanto
+            } else {
+                // Selección inmediata
+                return permissions;
+            }
+        });
     };
     // Función de siguiente de registros de la tabla
     const nextPagePermissions = () => {
@@ -124,8 +142,17 @@ export const TableActionsStatus = () => {
     // Filtrado de datos por página
     const currentRecordsStatus = filteredRecordsStatus.slice(indexOfFirstRecord, indexOfLastRecord);
     // Función de selección de los renglones de la tabla
-    const handleRowClick = (user) => {
-        setIsSelectedRow((prevSelected) => (prevSelected === user ? null : user));
+    const handleRowClick = (status) => {
+        setIsSelectedRow((prevSelected) => {
+            if (prevSelected === status) {
+                // Retrasa el deseleccionado
+                setTimeout(() => setIsSelectedRow(null), 700);
+                return prevSelected; // mantener el estado actual mientras tanto
+            } else {
+                // Selección inmediata
+                return status;
+            }
+        });
     };
     // Función de siguiente de registros de la tabla
     const nextPageStatus = () => {

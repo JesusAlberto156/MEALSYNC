@@ -10,8 +10,8 @@ import { UsersContext,PermissionsEnableContext } from "../../../../contexts/User
 import { ActionBlockContext,SelectedRowContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { RefPermissionsContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
-import { TextFieldsContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
+import { ResetTextFieldsUser } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandlePermissionsEnable } from "../../../../hooks/Form";
 //__________ICONOS__________
@@ -44,17 +44,8 @@ export default function Permissions_Enable(){
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [socket] = useContext(SocketContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
-    // Estados iniciales de los contextos
-    const initialTextFields = {
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-    };
     // useEffect con el usuario
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -68,6 +59,7 @@ export default function Permissions_Enable(){
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handlePermissionsEnable = HandlePermissionsEnable();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isPermissionsEnable.length !== 0){
@@ -97,7 +89,7 @@ export default function Permissions_Enable(){
                                 setIsActionBlock(false);
                                 setIsPermissionsEnable([]);
                                 setIsSelectedRow(null);
-                                setIsTextFields(initialTextFields);
+                                resetTextFieldsUser();
                                 sessionStorage.removeItem('Action-Block');
                                 sessionStorage.removeItem('Verification-Block');
                                 setIsVerificationBlock(false);
@@ -162,9 +154,13 @@ export default function Permissions_Enable(){
                     </Container_Modal>  
                 </>
             ):(
-                <>
-                    <Error_Enable/>
-                </>
+                currentMView === 'Permissions-Enable' ? (
+                    <>
+                        <Error_Enable/>
+                    </>
+                ):(
+                    <></>
+                )
             )}
         </>
     );

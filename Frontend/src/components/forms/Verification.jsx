@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
-import { TextFieldsContext } from "../../contexts/FormsProvider";
+import { TextFieldsUserContext } from "../../contexts/FormsProvider";
 import { VerificationBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleVerificationBlock } from "../../hooks/Form";
@@ -25,7 +25,7 @@ import { Icon_White_22 } from "../styled/Icons";
 export default function Form_Verification(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isVerificationBlock] = useContext(VerificationBlockContext);
     // Constantes con la funcionalidad de los hooks
     const handleVerificationBlock = HandleVerificationBlock();
@@ -41,8 +41,8 @@ export default function Form_Verification(){
                     <Input_Text_Black_100 ThemeMode={themeMode}
                         placeholder="Nombre de usuario..."
                         type="text"
-                        value={isTextFields.user}
-                        onChange={(e) => setIsTextFields(prev => ({...prev, user: e.target.value}))}
+                        value={isTextFieldsUser.user}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
                         disabled={isVerificationBlock}
                     />
                 </Container_Row_100_Center>
@@ -51,8 +51,8 @@ export default function Form_Verification(){
                     <Input_Text_Black_100 ThemeMode={themeMode}
                         placeholder="Contraseña de usuario..."
                         type="password"
-                        value={isTextFields.password}
-                        onChange={(e) => setIsTextFields(prev => ({...prev, password: e.target.value}))}
+                        value={isTextFieldsUser.password}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                         disabled={isVerificationBlock}
                     />
                 </Container_Row_100_Center>

@@ -5,7 +5,7 @@ import { Outlet,useNavigate,Navigate } from "react-router-dom";
 // Contextos
 import { SidebarContext,ThemeModeContext,SidebarViewContext,NavbarViewContext,LoginViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
-import { SearchTermContext,ActionBlockContext } from "../contexts/VariablesProvider";
+import { SearchTermContext,ActionBlockContext,SelectedRowContext } from "../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleLoggedLog } from "../hooks/Form";
 //__________IMAGES____________
@@ -36,6 +36,7 @@ export const PrivateRouteKitchen = () => {
     const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     // Constantes con el valor de los useRef
     const isLoggedLoggedRef = useRef(isLoggedLogged);
     const inactividadTimer = useRef(null);
@@ -109,6 +110,7 @@ export const PrivateRouteKitchen = () => {
                             setIsLoggedStatus([]);
                             setIsLoggedLog(false);
                             setIsLoggedLogged(false);
+                            setIsSelectedRow(null);
 
                             setTimeout(() => {
                                 sessionStorage.clear();

@@ -207,9 +207,13 @@ export default function Permissions_Edit(){
                     </Container_Modal>  
                 </>
             ):(
-                <>
-                    <Error_Edit/>
-                </>
+                currentMView === 'Permissions-Edit' ? (
+                    <>
+                        <Error_Edit/>
+                    </>
+                ):(
+                    <></>
+                )
             )}
         </>
     );

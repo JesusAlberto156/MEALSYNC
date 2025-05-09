@@ -9,8 +9,8 @@ import { Tooltip } from "@mui/material";
 import { encryptData } from "../../services/Crypto";
 // Contextos
 import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
-import { TextFieldsContext } from "../../contexts/FormsProvider";
-import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from '../../contexts/VariablesProvider';
+import { TextFieldsUserContext } from "../../contexts/FormsProvider";
+import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext } from '../../contexts/VariablesProvider';
 import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
 import { UsersContext,PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
@@ -64,14 +64,13 @@ export default function Login(){
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [currentLView] = useContext(LoginViewContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView] = useContext(KeyboardViewContext);
-    const [isTouch,setIsTouch] = useContext(TouchContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC';
@@ -88,12 +87,12 @@ export default function Login(){
     // useEffect para escribir en los campos del login
     const handleKeyboard = (newValue) => {
         if(isKeyboardView === 'User' ){
-            setIsTextFields(prev => ({
+            setIsTextFieldsUser(prev => ({
                 ...prev,
                 user: newValue, 
             }));
         }else{
-            setIsTextFields(prev => ({
+            setIsTextFieldsUser(prev => ({
                 ...prev,
                 password: newValue,
             }));
@@ -106,15 +105,16 @@ export default function Login(){
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        const existsUser = isUsers.find(user => user.usuario === isTextFields.user);
+                        const existsUser = isUsers.find(user => user.usuario === isTextFieldsUser.user);
                         
-                        if(existsUser && existsUser.contrasena === isTextFields.password){
+                        if(existsUser && existsUser.contrasena === isTextFieldsUser.password){
                             let existsStatus = isStatus.find(user => user.idusuario === existsUser.idusuario);
                             const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
 
                             if(!existsStatus || !existsStatus.habilitado || existsStatus.activo || !existsPermission){
                                 setIsLoggedLog(false);
                                 setIsActionBlock(false);
+                                setIsModal(false);
                                 return reject('¡No es posible utilizar este usuario!...');
                             }
 
@@ -145,14 +145,16 @@ export default function Login(){
 
                                             if(isLoggedType === 'Doctor'){
                                                 setCurrentMView('Alert-Doctor');
+                                                sessionStorage.setItem('Modal-View','Alert-Doctor');
                                             }
                                             
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setIsModal(true);
+                                            sessionStorage.setItem('Modal',true);
 
                                             setTimeout(() => {
-                                                setIsTextFields(prev => ({
+                                                setIsTextFieldsUser(prev => ({
                                                     ...prev,             
                                                     user: '',      
                                                     password: '',       
@@ -166,12 +168,14 @@ export default function Login(){
                                         }else{
                                             setIsLoggedLog(false);
                                             setIsActionBlock(false);
+                                            setIsModal(false);
                                             return reject('¡Error al encriptar las credenciales!...');
                                         }
                                     },1500);
                                 }else{
                                     setIsLoggedLog(false);
                                     setIsActionBlock(false);
+                                    setIsModal(false);
                                     return reject('¡Error al encriptar las credenciales!...');
                                 }
                             }else{
@@ -212,14 +216,16 @@ export default function Login(){
 
                                             if(isLoggedType === 'Doctor'){
                                                 setCurrentMView('Alert-Doctor');
+                                                sessionStorage.setItem('Modal-View','Alert-Doctor');
                                             }
                                             
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setIsModal(true);
+                                            sessionStorage.setItem('Modal',true);
 
                                             setTimeout(() => {
-                                                setIsTextFields(prev => ({
+                                                setIsTextFieldsUser(prev => ({
                                                     ...prev,             
                                                     user: '',      
                                                     password: '',       
@@ -233,24 +239,28 @@ export default function Login(){
                                         }else{
                                             setIsLoggedLog(false);
                                             setIsActionBlock(false);
+                                            setIsModal(false);
                                             return reject('¡Error al encriptar las credenciales!...');
                                         }
                                     },500);
                                 }else{
                                     setIsLoggedLog(false);
                                     setIsActionBlock(false);
+                                    setIsModal(false);
                                     return reject('¡Error al encriptar las credenciales!...')
                                 }
                             }
                         }else{
                             setIsLoggedLog(false);
                             setIsActionBlock(false);
+                            setIsModal(false);
                             return reject('¡Usuario o contraseña incorrectos!...');
                         }
                     },1000);
                 }catch(error){
                     setIsLoggedLog(false);
                     setIsActionBlock(false);
+                    setIsModal(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
@@ -381,7 +391,7 @@ export default function Login(){
                     </Container_Form_400>
                     {isKeyboard ? (
                         <>
-                            <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFields.user : isTextFields.password} onChange={handleKeyboard}/>  
+                            <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.user : isTextFieldsUser.password} onChange={handleKeyboard}/>  
                         </>
                     ):(
                         <></>

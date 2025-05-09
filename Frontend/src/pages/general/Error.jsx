@@ -30,6 +30,7 @@ export default function Error(){
     const [contador,setContador] = useState(5);
     // useEffect con el titulo de la página
     useEffect(() => {
+        document.title = 'MEALSYNC_Error...'
         const Image = themeMode ? Logo_Error_Light : Logo_Error_Dark
         Alert_Error('MEALSYNC','¡Error, página no encontrada!...',themeMode,Image);
     },[])

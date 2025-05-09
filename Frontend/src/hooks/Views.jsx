@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 // Contextos
 import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
-import { TextFieldsContext,SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../contexts/FormsProvider";
+import { SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext,TextFieldsUserContext } from "../contexts/FormsProvider";
 import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
+// Hooks personalizados
+import { ResetTextFieldsUser,ResetTextFieldsSupplier } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro)
@@ -26,7 +28,7 @@ export const HandleLoginView = () => {
     // Constantes con el valor de los contextos 
     const [currentLView,setCurrentLView] = useContext(LoginViewContext);
     const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
@@ -38,7 +40,7 @@ export const HandleLoginView = () => {
             setIsAnimation(false);
         }
         if(option === 'Administration' || option === 'Kitchen'){
-            setIsTextFields(prev => ({
+            setIsTextFieldsUser(prev => ({
                 ...prev,             
                 user: '',      
                 password: '',       
@@ -103,7 +105,6 @@ export const HandleModalView = () => {
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
-    const [isTextFields,setIsTextFields] = useContext(TextFieldsContext);
     const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
     const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
     const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
@@ -113,16 +114,10 @@ export const HandleModalView = () => {
     const [isSelect,setIsSelect] = useContext(SelectContext);
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
-    // Estados iniciales de los contextos
-    const initialTextFields = {
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-    };
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
+    const resetTextFieldsUser = ResetTextFieldsUser();
+    const resetTextFieldsSupplier = ResetTextFieldsSupplier();
     // Función del hook
     const handleModalView = (View) => {
         setIsModal(true);
@@ -141,7 +136,7 @@ export const HandleModalView = () => {
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
-                setIsTextFields(initialTextFields);
+                resetTextFieldsUser();
                 setIsRadioPermissions('');
                 setIsActionBlock(false);
                 setIsRadioStatus('');
@@ -162,7 +157,7 @@ export const HandleModalView = () => {
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
-                setIsTextFields(initialTextFields);
+                resetTextFieldsUser();
                 setIsActionBlock(false);
                 setIsVerificationBlock(false);
                 sessionStorage.removeItem('Action-Block');
@@ -196,7 +191,7 @@ export const HandleModalView = () => {
                 setIsActionBlock(false);
                 setIsSelectedRow(null);
                 setIsVerificationBlock(false);
-                setIsTextFields(initialTextFields);
+                resetTextFieldsUser();
                 setIsPermissionsEnable([]);
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
@@ -217,7 +212,7 @@ export const HandleModalView = () => {
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
-                setIsTextFields(initialTextFields);
+                resetTextFieldsUser();
                 setIsActionBlock(false);
                 setIsVerificationBlock(false);
                 setIsStatusEnable([]);
@@ -225,6 +220,32 @@ export const HandleModalView = () => {
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
                 navigate('/Administration/Users/Status',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Supplier-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                resetTextFieldsSupplier();
+                setIsActionBlock(false);
+                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Supplier-Edit' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Supplier-Details' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow(null);
+                navigate('/Administration/Suppliers/Suppliers',{ replace: true });
             },750);
         }
         setCurrentMView(View);

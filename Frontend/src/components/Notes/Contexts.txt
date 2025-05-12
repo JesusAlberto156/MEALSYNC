@@ -92,3 +92,10 @@ const [isSidebar,setIsSidebar] = useContext(SidebarContext);
 const [currentMView,setCurrentMView] = useContext(ModalViewContext);
 const [isModal,setIsModal] = useContext(ModalContext);
 //____________VIEWS____________
+//____________WAREHOUSE____________
+const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
+const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext);
+const [isUnits,setIsUnits] = useContext(UnitsContext);
+const [isSupplyPrices,setIsSupplyPrices] = useContext(SupplyPricesContext);
+const [isWarehouse,setIsWarehouse] = useContext(WarehouseContext);
+//____________WAREHOUSE____________

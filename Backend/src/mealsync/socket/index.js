@@ -2,6 +2,7 @@
 // Eventos socket
 import { Users_GET,Users_INSERT,Users_UPDATE } from './users.js';
 import { Suppliers_GET,Suppliers_INSERT,Suppliers_UPDATE } from './suppliers.js';
+import { Warehouse_GET,Warehouse_INSERT,Warehouse_UPDATE } from './warehouse.js';
 // Servidor socket
 import { io } from '../../index.js';
 //____________IMPORT/EXPORT____________
@@ -18,6 +19,10 @@ export const socketEvents = () => {
     Suppliers_GET(socket);
     Suppliers_INSERT(socket);
     Suppliers_UPDATE(socket);
+    // Almacén
+    Warehouse_GET(socket);
+    Warehouse_INSERT(socket);
+    Warehouse_UPDATE(socket);
     
     socket.on('disconnect', () => {
         console.log(`Cliente desconectado: ${socket.id}`);

@@ -132,7 +132,10 @@ export default function Side_Bar() {
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  
+                  handleSidebarView('Warehouse');
+                  handleNavbarView('Warehouse');
+                  sessionStorage.setItem('Route','/Administration/Index/Warehouse');
+                  navigate('/Administration/Index/Warehouse',{ replace: true });
                 }}>
                   <Text_Span_16_Left>Inventario</Text_Span_16_Left><Icon_White_18><FaWarehouse/></Icon_White_18>
                 </Button_Icon_Blue_200>

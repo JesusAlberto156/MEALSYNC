@@ -19,6 +19,7 @@ import { MdSpeakerNotes } from "react-icons/md";
 // Iconos para la sección de inventario del navbar
 import { FaWarehouse } from "react-icons/fa";
 import { MdFastfood } from "react-icons/md";
+import { IoStatsChart } from "react-icons/io5";
 
 import { RiRecordMailFill } from "react-icons/ri";
 //__________ICONOS__________
@@ -131,41 +132,56 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
-
-
-                    {currentSView === 'Inventory' ? (
+                    {currentSView === 'Warehouse' ? (
                         <>
-                        <Tooltip title='Inventario' placement="top">
-                            <Button_Icon_White_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeNavbar('Inventory');
-                                navigate('/Administration/Inventory/Inventory',{ replace: true });
-                            }}>
-                                <FaWarehouse/>
-                            </Button_Icon_White_80>
-                        </Tooltip>
-                        <Tooltip title='Insumos' placement="top">
-                            <Button_Icon_White_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeNavbar('Ingredients')
-                                navigate('/Administration/Inventory/Ingredients',{ replace: true });
-                            }}>
-                                <MdFastfood/>
-                            </Button_Icon_White_80>
-                        </Tooltip>
-                        {currentNView === 'Inventory' ? (
-                            <Text_Title_30_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_30_Center>
-                        ):(
-                            <></>
-                            
-                        )}
-                        {currentNView === 'Ingredients' ? (
-                            <Text_Title_30_Center ThemeMode={themeMode}>INSUMOS</Text_Title_30_Center>
-                        ):(
-                            <></>
-                        )}
-                    </>
+                            <Tooltip title='Inventario' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Warehouse');
+                                    sessionStorage.setItem('Route','/Administration/Index/Warehouse');
+                                    navigate('/Administration/Index/Warehouse',{ replace: true });
+                                }}>
+                                    <Icon_22><FaWarehouse/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Insumos' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Supplies')
+                                    sessionStorage.setItem('Route','/Administration/Index/Supplies');
+                                    navigate('/Administration/Index/Supplies',{ replace: true });
+                                }}>
+                                    <Icon_22><MdFastfood/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Estadísticas' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Statistics')
+                                    sessionStorage.setItem('Route','/Administration/Index/Statistics');
+                                    navigate('/Administration/Index/Statistics',{ replace: true });
+                                }}>
+                                    <Icon_22><IoStatsChart/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            {currentNView === 'Warehouse' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_26_Center>
+                            ):(
+                                <></>
+                                
+                            )}
+                            {currentNView === 'Supplies' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>INSUMOS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                            {currentNView === 'Statistics' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>ESTADÍSTICAS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                        </>
                     ):(
                         <></>
                     )}
+
                     {currentSView === 'Record' ? (
                         <>
                         <Tooltip title='General' placement="top">

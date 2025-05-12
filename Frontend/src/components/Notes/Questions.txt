@@ -1,0 +1,5 @@
+Todos los tipos de medición para los insumos
+Como manejar los tipos de insumos
+Estadisticas de contabilidad del inventario
+Estadisticas del invetario y los insumos
+Todo sobre los pedidos 

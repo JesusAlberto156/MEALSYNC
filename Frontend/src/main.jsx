@@ -44,6 +44,9 @@ import Suppliers_Add from './components/modals/Suppliers/suppliers/Add';
 import Suppliers_Edit from './components/modals/Suppliers/suppliers/Edit';
 import Suppliers_Details from './components/modals/Suppliers/suppliers/Details';
 import Chart_Observations from './components/charts/suppliers/Observations';
+
+import Table_Warehouse from './components/tables/warehouse/Warehouse';
+import Table_Supplies from './components/tables/warehouse/Supplies';
 import Inventory from './pages/administration/Inventory';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
@@ -147,6 +150,14 @@ const router = createHashRouter([
                   {
                     path: 'Observations',
                     element: <Chart_Observations/>
+                  },
+                  {
+                    path: 'Warehouse',
+                    element: <Table_Warehouse/>
+                  },
+                  {
+                    path: 'Supplies',
+                    element: <Table_Supplies/>
                   }
                 ]
               },

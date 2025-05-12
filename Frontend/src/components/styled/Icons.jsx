@@ -27,6 +27,36 @@ export const Icon_Image_Black_90 = styled.img.withConfig({
         height: 70px;
     }
 `;
+export const Icon_Image_Black_60 = styled.img.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};;
+
+    @media (max-width: 768px) {
+        width: 50px; 
+        height: 50px;
+    }
+
+    @media (max-width: 480px) {
+        width: 40px; 
+        height: 40px;
+    }
+`;
+export const Icon_Image_90 = styled.img.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 90%; 
+    height: auto;
+    border-radius: 10%;
+    object-fit: cover;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};;
+`;
 //---------- Black/White
 //____________IMAGE____________
 //____________BUTTON____________

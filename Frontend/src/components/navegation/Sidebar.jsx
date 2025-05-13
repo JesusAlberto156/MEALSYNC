@@ -19,8 +19,8 @@ import { IoNutrition } from "react-icons/io5";
 // Icono para la opción de doctor
 import { FaUserDoctor } from "react-icons/fa6";
 // Iconos para la parte administrativa
-import { FaUserFriends } from "react-icons/fa";
-import { FaUserTie } from "react-icons/fa";
+import { FaCircleUser } from "react-icons/fa6";
+import { GiHandTruck } from "react-icons/gi";
 import { FaWarehouse } from "react-icons/fa";
 import { MdOutlineMenuBook } from "react-icons/md";
 import { FaHistory } from "react-icons/fa";
@@ -117,7 +117,7 @@ export default function Side_Bar() {
                   sessionStorage.setItem('Route','/Administration/Index/Users');
                   navigate('/Administration/Index/Users',{ replace: true });
                 }}>
-                  <Text_Span_16_Left>Usuarios</Text_Span_16_Left><Icon_White_18><FaUserFriends/></Icon_White_18>
+                  <Text_Span_16_Left>Usuarios</Text_Span_16_Left><Icon_White_18><FaCircleUser/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Proveedores' placement="right">
@@ -127,7 +127,7 @@ export default function Side_Bar() {
                   sessionStorage.setItem('Route','/Administration/Index/Suppliers');
                   navigate('/Administration/Index/Suppliers',{ replace: true });
                 }}>
-                  <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><FaUserTie/></Icon_White_18>
+                  <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><GiHandTruck/></Icon_White_18>
                 </Button_Icon_Blue_200>
               </Tooltip>
               <Tooltip title='Inventario' placement="right">

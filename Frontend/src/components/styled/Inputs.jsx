@@ -12,11 +12,11 @@ export const Input_Text_Black_100 = styled.input.withConfig({
     height: auto;
     color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
     font-size: 16px;
-    padding: 8px;
-    border: none;
-    border-radius: 10px;
-    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background: transparent;
+    padding: 10px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '1px solid black' : '1px solid white')};
+    border-radius: 15px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
+    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(226,223,217)' : 'rgb(84,88,89)')};
     transition: 0.1s ease;
     outline: none;
     cursor: text;
@@ -27,18 +27,22 @@ export const Input_Text_Black_100 = styled.input.withConfig({
 
     @media (max-width: 768px) {
         font-size: 14px;
-        padding: 6px;
+        padding: 8px;
     }
     
     @media (max-width: 480px) {
         font-size: 12px;
-        padding: 4px;
+        padding: 6px;
     }
 
     &:focus {
         color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
         border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
         box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+
+        &::placeholder {
+            color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+        }
     }
 `;
 //-------- Black

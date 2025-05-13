@@ -67,7 +67,8 @@ VALUES ('carne de res','Producto provinente del ganado vacuno','1');
 SELECT * FROM medida
 SELECT * FROM tipoInsumo
 
+SELECT * FROM insumos
+
 INSERT INTO insumos(nombre,descripcion,imagen,idproveedor,idtipo)
 VALUES ('Leche Entera Vaca Blanca','','https://us-central1-yema-cdn.cloudfunctions.net/cdn/api/v1/yema-plm/images/view/productImage/32303-leche-entera-vaca-blanca-1_785c7390-75b2-4375-83cd-0cdae9676e51=fjpg-q80-tcrop-w688',3,1);
 
-SELECT * FROM insumos

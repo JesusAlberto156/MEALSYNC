@@ -11,14 +11,14 @@ import { HandleNavbarView } from "../../hooks/Views";
 //__________ICONOS__________
 // Iconos para la opcion de usuarios del navbar
 import { FaUser } from "react-icons/fa6";
-import { FaUserShield } from "react-icons/fa6";
-import { FaUserLock } from "react-icons/fa";
+import { IoShieldHalfSharp } from "react-icons/io5";
+import { IoIosLock } from "react-icons/io";
 // Iconos para la opcion de proveedores del navbar
-import { FaUserTie } from "react-icons/fa6";
+import { FaStore } from "react-icons/fa";
 import { MdSpeakerNotes } from "react-icons/md";
 // Iconos para la sección de inventario del navbar
 import { FaWarehouse } from "react-icons/fa";
-import { MdFastfood } from "react-icons/md";
+import { FaBoxes } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
 
 import { RiRecordMailFill } from "react-icons/ri";
@@ -66,7 +66,7 @@ export default function Nav_Bar(){
                                     sessionStorage.setItem('Route','/Administration/Index/Permissions');
                                     navigate('/Administration/Index/Permissions',{ replace: true });
                                 }}>
-                                    <Icon_22><FaUserShield/></Icon_22>
+                                    <Icon_22><IoShieldHalfSharp/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
                             <Tooltip title='Estatus' placement="top">
@@ -75,7 +75,7 @@ export default function Nav_Bar(){
                                     sessionStorage.setItem('Route','/Administration/Index/Status');
                                     navigate('/Administration/Index/Status',{ replace: true });
                                 }}>
-                                    <Icon_22><FaUserLock/></Icon_22>
+                                    <Icon_22><IoIosLock/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
                             {currentNView === 'Users' ? (
@@ -105,7 +105,7 @@ export default function Nav_Bar(){
                                 sessionStorage.setItem('Route','/Administration/Index/Suppliers');
                                 navigate('/Administration/Index/Suppliers',{ replace: true });
                             }}>
-                                <Icon_22><FaUserTie/></Icon_22>
+                                <Icon_22><FaStore/></Icon_22>
                             </Button_Icon_White_100>
                         </Tooltip>
                         <Tooltip title='Observaciones' placement="top">
@@ -149,7 +149,7 @@ export default function Nav_Bar(){
                                     sessionStorage.setItem('Route','/Administration/Index/Supplies');
                                     navigate('/Administration/Index/Supplies',{ replace: true });
                                 }}>
-                                    <Icon_22><MdFastfood/></Icon_22>
+                                    <Icon_22><FaBoxes/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
                             <Tooltip title='Estadísticas' placement="top">

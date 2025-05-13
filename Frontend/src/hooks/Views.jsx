@@ -9,7 +9,7 @@ import { SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContex
 import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser,ResetTextFieldsSupplier } from "./Texts";
+import { ResetTextFieldsUser,ResetTextFieldsSupplier,ResetTextFieldsSupply } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro)
@@ -118,6 +118,7 @@ export const HandleModalView = () => {
     const navigate = useNavigate();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsSupplier = ResetTextFieldsSupplier();
+    const resetTextFieldsSupply = ResetTextFieldsSupply();
     // Función del hook
     const handleModalView = (View) => {
         setIsModal(true);
@@ -243,6 +244,15 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 setIsSelectedRow(null);
+                navigate(route,{ replace: true });
+            },750);
+        }
+
+        if(currentMView === 'Supply-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                resetTextFieldsSupply();
                 navigate(route,{ replace: true });
             },750);
         }

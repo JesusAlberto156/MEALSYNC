@@ -4,6 +4,7 @@ import { createContext,useState } from "react"
 // Contextos
 export const TextFieldsUserContext = createContext(null);
 export const TextFieldsSupplierContext = createContext(null);
+export const TextFieldsSupplyContext = createContext(null);
 export const SelectContext = createContext(null);
 export const RadioPermissionsContext = createContext(null);
 export const RadioStatusContext = createContext(null);
@@ -27,7 +28,7 @@ export const Text_Fields_User = ({ children }) => {
         </TextFieldsUserContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de usuario
+// Función contexto para controlar los campos de registro de un formulario de proveedor
 export const Text_Fields_Supplier = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useState({
@@ -42,6 +43,23 @@ export const Text_Fields_Supplier = ({ children }) => {
         <TextFieldsSupplierContext.Provider value={[isTextFieldsSupplier,setIsTextFieldsSupplier]}> 
             {children}
         </TextFieldsSupplierContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de insumos
+export const Text_Fields_Supply = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsSupply,setIsTextFieldsSupply] = useState({
+        name: '',
+        description: '',
+        image: '',
+        supplier: 0,
+        type: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsSupplyContext.Provider value={[isTextFieldsSupply,setIsTextFieldsSupply]}> 
+            {children}
+        </TextFieldsSupplyContext.Provider>
     );
 }
 // Función Contexto para controlar el valor en el campo de un select en el formulario

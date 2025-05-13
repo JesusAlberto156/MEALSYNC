@@ -5,6 +5,7 @@ import { createContext,useContext,useState,useEffect } from "react"
 import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
 export const SuppliesContext = createContext(null);
+export const SupplyAddContext = createContext(null);
 export const SupplyTypesContext = createContext(null);
 export const UnitsContext = createContext(null);
 export const SupplyPricesContext = createContext(null);
@@ -52,6 +53,17 @@ export const Supplies = ({ children }) => {
         <SuppliesContext.Provider value={[isSupplies,setIsSupplies]}>
             {children}
         </SuppliesContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de un insumo
+export const Supply_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplyAdd,setIsSupplyAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <SupplyAddContext.Provider value={[isSupplyAdd,setIsSupplyAdd]}>
+            {children}
+        </SupplyAddContext.Provider>
     );
 }
 // ---------- INSUMOS

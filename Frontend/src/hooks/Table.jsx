@@ -178,15 +178,13 @@ export const TableActionsStatus = () => {
 // Hook para realizar las acciones de la tabla de estatus
 export const TableActionsSupplies = () => {
     // Constantes con el valor de los contextos
-    const [isUsers] = useContext(UsersContext);
     const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
-    const [isStatusAll] = useContext(StatusContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
-    const filteredRecordsStatus = isSupplies.filter((data) => {
+    const filteredRecordsSupplies = isSupplies.filter((data) => {
         const supplies = isSupplies.find(supply => supply.idinsumo === data.idinsumo);
         return supplies && supplies.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
@@ -196,25 +194,25 @@ export const TableActionsSupplies = () => {
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     // Total de páginas
-    const totalPagesStatus = Math.ceil(filteredRecordsStatus.length / recordsPerPage);
+    const totalPagesSupplies = Math.ceil(filteredRecordsSupplies.length / recordsPerPage);
     // Filtrado de datos por página
-    const currentRecordsStatus = filteredRecordsStatus.slice(indexOfFirstRecord, indexOfLastRecord);
+    const currentRecordsSupplies = filteredRecordsSupplies.slice(indexOfFirstRecord, indexOfLastRecord);
     // Función de selección de los renglones de la tabla
-    const handleRowClick = (status) => {
+    const handleRowClick = (supply) => {
         setIsSelectedRow((prevSelected) => {
-            if (prevSelected === status) {
+            if (prevSelected === supply) {
                 // Retrasa el deseleccionado
                 setTimeout(() => setIsSelectedRow(null), 700);
                 return prevSelected; // mantener el estado actual mientras tanto
             } else {
                 // Selección inmediata
-                return status;
+                return supply;
             }
         });
     };
     // Función de siguiente de registros de la tabla
-    const nextPageStatus = () => {
-        if (currentPage < totalPagesStatus) setCurrentPage(currentPage + 1);
+    const nextPageSupplies = () => {
+        if (currentPage < totalPagesSupplies) setCurrentPage(currentPage + 1);
     };
     // Función de retroceso de registros de la tabla
     const prevPage = () => {
@@ -222,13 +220,13 @@ export const TableActionsSupplies = () => {
     };
     // UseEffect para actualizar la paginación
     useEffect(() => {
-        if(currentPage > totalPagesStatus){
+        if(currentPage > totalPagesSupplies){
             setCurrentPage(1);
         }
     },[isSearchTerm])
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
-             nextPageStatus,
-             currentRecordsStatus,
-             totalPagesStatus}
+             nextPageSupplies,
+             currentRecordsSupplies,
+             totalPagesSupplies}
 }

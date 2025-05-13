@@ -35,6 +35,10 @@ import { ImUserPlus } from "react-icons/im";
 import { RiEditFill } from "react-icons/ri";
 import { ImUserMinus } from "react-icons/im";
 import { BiSolidUserDetail } from "react-icons/bi";
+// Icono para la sección de insumos
+import { IoMdAddCircle } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
+import { AiFillDelete } from "react-icons/ai";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_80_Right } from "../styled/Containers";
@@ -533,6 +537,66 @@ export default function Search_Bar (){
                                     </>
                                 )}
                             </>
+                        )
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Warehouse' && currentNView === 'Supplies' ? (
+                        isPermission.superadministrador ? (
+                            <>
+                                <Tooltip title='Agregar' placement="top">
+                                    <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                    onClick={() => {
+                                        handleModalView('Supply-Add');
+                                        navigate('/Administration/Supplies/Add',{ replace: true });
+                                    }}>
+                                        <Icon_White_18><IoMdAddCircle/></Icon_White_18>
+                                    </Button_Icon_Green_60>
+                                </Tooltip>
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Supply-Edit');
+                                            navigate('/Administration/Supplies/Edit',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><MdEdit/></Icon_White_18>
+                                        </Button_Icon_Blue_60>
+                                        <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        disabled={isSelectedRow === null}
+                                        onClick={() => {
+                                            handleModalView('Supply-Delete');
+                                            navigate('/Administration/Supplies/Delete',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><AiFillDelete/></Icon_White_18>
+                                        </Button_Icon_Red_60>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Supply-Edit');
+                                                navigate('/Administration/Supplies/Edit',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleModalView('Supply-Delete');
+                                                navigate('/Administration/Supplies/Delete',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><AiFillDelete/></Icon_White_18>
+                                            </Button_Icon_Red_60>
+                                        </Tooltip>
+                                    </>
+                                )}
+                            </>
+                        ):(
+                            <></>
                         )
                     ):(
                         <></>

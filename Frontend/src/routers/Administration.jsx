@@ -39,11 +39,16 @@ export const PrivateRouteAdministration = () => {
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     // Constantes con el valor de los useRef
     const isLoggedLoggedRef = useRef(isLoggedLogged);
+    const logoutInitiatedRef = useRef(false);
     const inactividadTimer = useRef(null);
     // Constantes
     const tiempoInactivoParaAccion = 900000;
     // Reiniciar temporizador de inactividad
     const ejecutarAccionFinal = () => {
+        if(!isLoggedLoggedRef.current || logoutInitiatedRef.current) return;
+
+        logoutInitiatedRef.current = true; 
+
         const showAlerts = async () => {
             const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
             const Image_Logout = themeMode ? Logo_Logout_Light : Logo_Logout_Dark;
@@ -117,6 +122,7 @@ export const PrivateRouteAdministration = () => {
                                 setIsLoggedUser([]);
                                 setIsActionBlock(false);
                                 setIsModal(false);
+                                logoutInitiatedRef.current = false;
                                 navigate("/",{replace: true});
                             },700);
                         },750)

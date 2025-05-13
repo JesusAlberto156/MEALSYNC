@@ -47,7 +47,8 @@ import Chart_Observations from './components/charts/suppliers/Observations';
 
 import Table_Warehouse from './components/tables/warehouse/Warehouse';
 import Table_Supplies from './components/tables/warehouse/Supplies';
-import Inventory from './pages/administration/Inventory';
+import Supply_Add from './components/modals/warehouse/supplies/Add';
+
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
 import Index_Kitchen from './pages/Indexs/Kitchen';
@@ -119,6 +120,11 @@ const router = createHashRouter([
             path: 'Administration/Suppliers/Details',
             element: <Suppliers_Details/>,
           },
+
+          {
+            path: 'Administration/Supplies/Add',
+            element: <Supply_Add/>,
+          },
           {
             path: 'Administration',
             element: <Index_Administration/>,
@@ -160,10 +166,6 @@ const router = createHashRouter([
                     element: <Table_Supplies/>
                   }
                 ]
-              },
-              {
-                path: 'Inventory',
-                element: <Inventory/>,
               },
               {
                 path: 'Menus',

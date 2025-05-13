@@ -9,6 +9,7 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
 import { SupplyTypesContext,UnitsContext } from "../../../contexts/WarehouseProvider"
+import { SuppliersContext } from "../../../contexts/SuppliersProvider"
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../hooks/Texts"
 import { TableActionsSupplies } from "../../../hooks/Table"
@@ -25,7 +26,7 @@ import { Icon_White_18,Icon_Image_Black_60 } from "../../styled/Icons";
 import { Alert_Verification } from "../../styled/Alerts"
 //____________IMPORT/EXPORT____________
 
-// Tabla de los usuarios
+// Tabla de los insumos
 export default function Table_Supplies(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
@@ -33,12 +34,13 @@ export default function Table_Supplies(){
     const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
-    const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext);
-    const [isUnits,setIsUnits] = useContext(UnitsContext);
+    const [isSupplyTypes] = useContext(SupplyTypesContext);
+    const [isUnits] = useContext(UnitsContext);
+    const [isSuppliers] = useContext(SuppliersContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const table = document.getElementById("Table-Users");
+            const table = document.getElementById("Table-Supplies");
     
             const isClickInsideTable = table && table.contains(event.target);
             const isClickInsideModal = Modal?.current?.contains(event.target);
@@ -91,12 +93,12 @@ export default function Table_Supplies(){
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageUsers, prevPage, currentRecordsStatus, currentPage, totalPagesUsers} = TableActionsSupplies();
+    const {handleRowClick, nextPageSupplies, prevPage, currentRecordsSupplies, currentPage, totalPagesSupplies} = TableActionsSupplies();
     const resetTextFieldsUser = ResetTextFieldsUser();
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Users">
+            <Table id="Table-Supplies">
                 <Thead ThemeMode={themeMode}>
                     <tr>
                         <Th>Nombre</Th>
@@ -108,7 +110,7 @@ export default function Table_Supplies(){
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
-                    {currentRecordsStatus.map((supply) => (
+                    {currentRecordsSupplies.map((supply) => (
                         <tr 
                             key={supply.idinsumo}
                             onClick={() => handleRowClick(supply)}
@@ -122,7 +124,14 @@ export default function Table_Supplies(){
                             <Td ThemeMode={themeMode}>{supply.descripcion}</Td>
                             <Td ThemeMode={themeMode}><Icon_Image_Black_60 ThemeMode={themeMode} src={supply.imagen}/></Td>
                             <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo||'Desconocido'}</Td>
-                            <Td ThemeMode={themeMode}>{supply.idproveedor}</Td>
+                            <Td ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Td>
+                            <Td ThemeMode={themeMode}>
+                                {(() => {
+                                    const supplyType = isSupplyTypes.find(type => type.idtipo === supply.idtipo);
+                                    const unit = isUnits.find(unit => unit.idmedida === supplyType?.idmedida);
+                                    return unit?.medida || 'Desconocido';
+                                })()}
+                            </Td>
                         </tr>
                     ))}
                 </Tbody>
@@ -134,10 +143,10 @@ export default function Table_Supplies(){
                         <Icon_White_18><GrPrevious/></Icon_White_18>
                     </Button_Icon_Blue_180>
                 </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesUsers}</Text_A_16_Center>
+                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSupplies}</Text_A_16_Center>
                 <Tooltip title='Página siguiente' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesUsers || totalPagesUsers === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={nextPageUsers}>
+                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSupplies || totalPagesSupplies === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                        onClick={nextPageSupplies}>
                         <Icon_White_18><GrNext/></Icon_White_18>
                     </Button_Icon_Blue_180>
                 </Tooltip>

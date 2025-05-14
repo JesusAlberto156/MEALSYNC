@@ -6,6 +6,7 @@ import { Outlet,useNavigate,Navigate } from "react-router-dom";
 import { SidebarContext,ThemeModeContext,SidebarViewContext,NavbarViewContext,LoginViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
 import { SearchTermContext,ActionBlockContext,SelectedRowContext } from "../contexts/VariablesProvider";
+import { RefAlertGreetingContext } from "../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleLoggedLog } from "../hooks/Form";
 //__________IMAGES____________
@@ -37,13 +38,19 @@ export const PrivateRouteKitchen = () => {
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const isAlertGreeting = useContext(RefAlertGreetingContext);
     // Constantes con el valor de los useRef
     const isLoggedLoggedRef = useRef(isLoggedLogged);
+    const logoutInitiatedRef = useRef(false);
     const inactividadTimer = useRef(null);
     // Constantes
     const tiempoInactivoParaAccion = 900000;
     // Reiniciar temporizador de inactividad
     const ejecutarAccionFinal = () => {
+        if(!isLoggedLoggedRef.current || logoutInitiatedRef.current) return;
+
+        logoutInitiatedRef.current = true; 
+
         const showAlerts = async () => {
             const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
             const Image_Logout = themeMode ? Logo_Logout_Light : Logo_Logout_Dark;
@@ -51,13 +58,14 @@ export const PrivateRouteKitchen = () => {
 
             await Alert_Warning('MEALSYNC',`¡${isLoggedUser.nombre}!`,themeMode,Image_Warning);
 
-            await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleLoggedLog);
+            await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleLoggedLog,resetInactividad);
         }
         if(isLoggedLoggedRef.current){
             showAlerts();
         }
     };
     const resetInactividad = () => {
+        logoutInitiatedRef.current = false;
         clearTimeout(inactividadTimer.current);
         inactividadTimer.current = setTimeout(ejecutarAccionFinal, tiempoInactivoParaAccion);
     };
@@ -117,6 +125,8 @@ export const PrivateRouteKitchen = () => {
                                 setIsLoggedUser([]);
                                 setIsActionBlock(false);
                                 setIsModal(false);
+                                isAlertGreeting.current = false;
+                                logoutInitiatedRef.current = false;
                                 navigate("/",{replace: true});
                             },700);
                         },750)

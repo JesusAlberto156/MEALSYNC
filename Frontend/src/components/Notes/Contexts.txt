@@ -8,7 +8,10 @@
 // Contextos personalizados
 
 // Estilos personalizados
-
+350 - 120
+400 - 150
+450 - 180
+500 - 
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar
@@ -27,6 +30,7 @@
 const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
 //____________FORM____________
 const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
+const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
 const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
 const [isSelect,setIsSelect] = useContext(SelectContext);

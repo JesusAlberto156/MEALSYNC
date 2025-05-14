@@ -26,7 +26,7 @@ import { MdOutlineMenuBook } from "react-icons/md";
 import { FaHistory } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Column_White_Height_100_Center,Container_Column_Border_80_Center,Container_Row_100_Center } from "../styled/Containers";
+import { Container_Column_White_Height_100_Center,Container_Column_80_Center,Container_Row_100_Center } from "../styled/Containers";
 import { Icon_Image_Black_90,Icon_White_18 } from "../styled/Icons";
 import { Text_Title_22_Center,Text_Span_16_Left } from "../styled/Text";
 import { Button_Icon_Blue_200 } from '../styled/Buttons';
@@ -77,7 +77,7 @@ export default function Side_Bar() {
   return (
     <>
       <Container_Column_White_Height_100_Center ThemeMode={themeMode} className={isSidebar ? 'slide-in-container-left' : 'slide-out-container-left'}>
-        <Container_Column_Border_80_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'} ThemeMode={themeMode}>
+        <Container_Column_80_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
           <Container_Row_100_Center>
             <Icon_Image_Black_90 ThemeMode={themeMode} src={profileImage}/>
           </Container_Row_100_Center>
@@ -168,7 +168,7 @@ export default function Side_Bar() {
           ):(
             <></>
           )}
-        </Container_Column_Border_80_Center>
+        </Container_Column_80_Center>
       </Container_Column_White_Height_100_Center>
     </>
   );

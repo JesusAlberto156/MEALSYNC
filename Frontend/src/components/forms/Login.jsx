@@ -8,8 +8,8 @@ import { TextFieldsUserContext } from "../../contexts/FormsProvider";
 import { AnimationContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../../contexts/RefsProvider";
 // Estilos personalizados
-import { Container_Row_100_Center,Container_Row_90_Left } from "../styled/Containers";
-import { Text_P_16_Left,Text_A_16_Left } from "../styled/Text";
+import { Container_Row_100_Center,Container_Column_90_Center,Container_Row_NG_95_Left } from "../styled/Containers";
+import { Text_A_16_Left,Text_Blue_16_Left } from "../styled/Text";
 import { Input_Text_Black_100 } from "../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
@@ -89,42 +89,44 @@ export default function Form_Login(){
     // Estructura del componente
     return(
         <> 
-            <Container_Row_90_Left>
-                <Text_P_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Ingresar tus datos...</Text_P_16_Left>
-            </Container_Row_90_Left>
-            <Container_Row_100_Center>
-                <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Usuario:</Text_A_16_Left>
-                <Input_Text_Black_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                    placeholder="Nombre de usuario..."
-                    type="text"
-                    id="Input-User"
-                    value={isTextFieldsUser.user}
-                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
-                    onFocus={() => {
-                        if(isTouchRef.current){
-                            setIsKeyboard(true);
-                            setIsKeyboardView('User');
-                        }
-                    }}
-                />
-            </Container_Row_100_Center>
-            <Container_Row_100_Center>
-                <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Contraseña:</Text_A_16_Left>
-                <Input_Text_Black_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                    placeholder="Contraseña de usuario..."
-                    type="password"
-                    id="Input-Password"
-                    value={isTextFieldsUser.password}
-                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
-                    onFocus={() => {
-                        if(isTouchRef.current){
-                            setIsKeyboard(true);
-                            setIsKeyboardView('Password');
-                        }
-                    }}
-                />
-            </Container_Row_100_Center>
-
+            <Container_Row_NG_95_Left>
+                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC </Text_Blue_16_Left>
+                <Text_A_16_Left ThemeMode={themeMode}>- Ingresar tus datos...</Text_A_16_Left>
+            </Container_Row_NG_95_Left>
+            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                <Container_Row_100_Center>
+                    <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Usuario:</Text_A_16_Left>
+                    <Input_Text_Black_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                        placeholder="..."
+                        type="text"
+                        id="Input-User"
+                        value={isTextFieldsUser.user}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
+                        onFocus={() => {
+                            if(isTouchRef.current){
+                                setIsKeyboard(true);
+                                setIsKeyboardView('User');
+                            }
+                        }}
+                    />
+                </Container_Row_100_Center>
+                <Container_Row_100_Center>
+                    <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Contraseña:</Text_A_16_Left>
+                    <Input_Text_Black_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                        placeholder="..."
+                        type="password"
+                        id="Input-Password"
+                        value={isTextFieldsUser.password}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
+                        onFocus={() => {
+                            if(isTouchRef.current){
+                                setIsKeyboard(true);
+                                setIsKeyboardView('Password');
+                            }
+                        }}
+                    />
+                </Container_Row_100_Center>
+            </Container_Column_90_Center>
         </>  
     );
 }

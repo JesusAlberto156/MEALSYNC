@@ -16,8 +16,8 @@ import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Row_100_Center,Container_Row_90_Center } from "../../../styled/Containers";
-import { Button_Icon_Blue_170,Button_Icon_Green_170 } from "../../../styled/Buttons";
+import { Container_Modal,Container_Form_450,Container_Row_100_Center,Container_Row_95_Center } from "../../../styled/Containers";
+import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Text_Title_30_Center } from "../../../styled/Text";
 import { Icon_White_22 } from "../../../styled/Icons";
 // Componentes perzonalizados
@@ -45,24 +45,24 @@ export default function User_View(){
                                 <Text_Title_30_Center ThemeMode={themeMode}>VER CONTRASEÑAS</Text_Title_30_Center>
                             </Container_Row_100_Center>
                             <Form_Verification/>
-                            <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">
-                                    <Button_Icon_Blue_170 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
                                     onClick={() => {
                                         handleModalView('');
                                     }}>
                                         <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Blue_170>
+                                    </Button_Icon_Blue_180>
                                 </Tooltip>
                                 <Tooltip title='Ver' placement="top">
-                                    <Button_Icon_Green_170 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                    <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
                                     onClick={() => {
                                         handleViewPassword();
                                     }}>
                                         <Icon_White_22><FaEye/></Icon_White_22>
-                                    </Button_Icon_Green_170>
+                                    </Button_Icon_Green_180>
                                 </Tooltip>
-                            </Container_Row_90_Center>
+                            </Container_Row_95_Center>
                         </Container_Form_450>
                     </Container_Modal>  
                 </>

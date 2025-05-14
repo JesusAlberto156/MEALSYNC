@@ -4,6 +4,352 @@ import styled from 'styled-components';
 //____________IMPORT/EXPORT____________
 
 //____________COLOR____________
+//---------- BLUE
+//-------- CENTER
+export const Text_Blue_24_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_Blue_20_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_Blue_16_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_Blue_12_Center = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//-------- CENTER
+//-------- JUSTIFY
+export const Text_Blue_24_Justify = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_Blue_20_Justify = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_Blue_16_Justify = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_Blue_12_Justify = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//-------- JUSTIFY
+//-------- LEFT
+export const Text_Blue_24_Left = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_Blue_20_Left = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_Blue_16_Left = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_Blue_12_Left = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//-------- LEFT
+//-------- RIGHT
+export const Text_Blue_24_Right = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_Blue_20_Right = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_Blue_16_Right = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_Blue_12_Right = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//-------- RIGHT
+//---------- BLUE
 //---------- WHITE
 export const Text_White_50_Center = styled.h1`
     color: white;
@@ -729,6 +1075,8 @@ export const Text_A_24_Center = styled.a.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -751,6 +1099,8 @@ export const Text_A_20_Center = styled.a.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -773,6 +1123,8 @@ export const Text_A_16_Center = styled.a.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -795,6 +1147,8 @@ export const Text_A_12_Center = styled.a.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -819,6 +1173,8 @@ export const Text_A_24_Justify = styled.a.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -841,6 +1197,8 @@ export const Text_A_20_Justify = styled.a.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -863,6 +1221,8 @@ export const Text_A_16_Justify = styled.a.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -885,6 +1245,8 @@ export const Text_A_12_Justify = styled.a.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -909,6 +1271,8 @@ export const Text_A_24_Left = styled.a.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -931,6 +1295,8 @@ export const Text_A_20_Left = styled.a.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -953,6 +1319,8 @@ export const Text_A_16_Left = styled.a.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -975,6 +1343,8 @@ export const Text_A_12_Left = styled.a.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -999,6 +1369,8 @@ export const Text_A_24_Right = styled.a.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1021,6 +1393,8 @@ export const Text_A_20_Right = styled.a.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1043,6 +1417,8 @@ export const Text_A_16_Right = styled.a.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1065,6 +1441,8 @@ export const Text_A_12_Right = styled.a.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1091,6 +1469,8 @@ export const Text_P_24_Center = styled.p.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1113,6 +1493,8 @@ export const Text_P_20_Center = styled.p.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1135,6 +1517,8 @@ export const Text_P_16_Center = styled.p.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1157,6 +1541,8 @@ export const Text_P_12_Center = styled.p.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1181,6 +1567,8 @@ export const Text_P_24_Justify = styled.p.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1203,6 +1591,8 @@ export const Text_P_20_Justify = styled.p.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1225,6 +1615,8 @@ export const Text_P_16_Justify = styled.p.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1247,6 +1639,8 @@ export const Text_P_12_Justify = styled.p.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: justify;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1271,6 +1665,8 @@ export const Text_P_24_Left = styled.p.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1293,6 +1689,8 @@ export const Text_P_20_Left = styled.p.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1315,6 +1713,8 @@ export const Text_P_16_Left = styled.p.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1337,6 +1737,8 @@ export const Text_P_12_Left = styled.p.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1361,6 +1763,8 @@ export const Text_P_24_Right = styled.p.withConfig({
     font-style: normal;
     font-size: 24px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1383,6 +1787,8 @@ export const Text_P_20_Right = styled.p.withConfig({
     font-style: normal;
     font-size: 20px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1405,6 +1811,8 @@ export const Text_P_16_Right = styled.p.withConfig({
     font-style: normal;
     font-size: 16px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;
@@ -1427,6 +1835,8 @@ export const Text_P_12_Right = styled.p.withConfig({
     font-style: normal;
     font-size: 12px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 10px;
     width: auto;
     margin: 0px;

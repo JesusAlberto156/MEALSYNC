@@ -3,6 +3,8 @@
 import { createContext,useState } from "react"
 // Contextos
 export const TextFieldsUserContext = createContext(null);
+export const TextFieldsPermissionsContext = createContext(null);
+export const TextFieldsStatusContext = createContext(null);
 export const TextFieldsSupplierContext = createContext(null);
 export const TextFieldsSupplyContext = createContext(null);
 export const SelectContext = createContext(null);
@@ -26,6 +28,25 @@ export const Text_Fields_User = ({ children }) => {
         <TextFieldsUserContext.Provider value={[isTextFieldsUser,setIsTextFieldsUser]}> 
             {children}
         </TextFieldsUserContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de permisos
+export const Text_Fields_Permissions = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useState({
+        user: 0,
+        administrator: 0,
+        chef: 0,
+        storekeeper: 0,
+        cook: 0,
+        nutritionist: 0,
+        doctor: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsPermissionsContext.Provider value={[isTextFieldsPermissions,setIsTextFieldsPermissions]}> 
+            {children}
+        </TextFieldsPermissionsContext.Provider>
     );
 }
 // Función contexto para controlar los campos de registro de un formulario de proveedor

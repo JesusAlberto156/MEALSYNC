@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsSupplyContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsSupplierContext,TextFieldsSupplyContext } from "../contexts/FormsProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los usuarios
@@ -23,6 +23,27 @@ export const ResetTextFieldsUser = () => {
     }
     // Retorno de la función del hook
     return resetTextFieldsUser;
+}
+// Hook para reinciar los campos de texto de los permisos
+export const ResetTextFieldsPermissions = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    // Estados iniciales de los contextos
+    const initialTextFieldsPermissions = {
+        user: 0,
+        administrator: 0,
+        chef: 0,
+        storekeeper: 0,
+        cook: 0,
+        nutritionist: 0,
+        doctor: 0,
+    };
+    // Función del hook
+    const resetTextFieldsPermissions = () => {
+        setIsTextFieldsPermissions(initialTextFieldsPermissions);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsPermissions;
 }
 // Hook para reinciar los campos de texto de los usuarios
 export const ResetTextFieldsSupplier = () => {

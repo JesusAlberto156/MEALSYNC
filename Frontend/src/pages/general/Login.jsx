@@ -37,11 +37,11 @@ import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
 import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
 //__________IMAGES____________
 // Estilos personalizados
-import { Container_Page,Container_Page_Login,Container_Form_400,Container_Column_90_Center,Container_Row_90_Center } from "../../components/styled/Containers";
+import { Container_Page,Container_Page_Login,Container_Form_400,Container_Column_90_Center,Container_Row_95_Center } from "../../components/styled/Containers";
 import { Icon_White_22 } from "../../components/styled/Icons";
 import { Img_Logo_Verical_Hospital_240 } from "../../components/styled/Imgs";
 import { Text_Title_26_Center } from "../../components/styled/Text";
-import { Button_Icon_Blue_160,Button_Icon_Blue_220,Button_Icon_Green_160 } from "../../components/styled/Buttons";
+import { Button_Icon_Blue_150,Button_Icon_Blue_220,Button_Icon_Green_150 } from "../../components/styled/Buttons";
 import { Alert_Greeting,Alert_Verification,Alert_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
 import Setting_Bar from '../../components/navegation/SettingBar';
@@ -279,111 +279,115 @@ export default function Login(){
                 <Container_Page_Login className='bg-pan-bl'>
                     <Setting_Bar/>
                     <Container_Form_400 ThemeMode={themeMode} className={isModal ? 'slide-out-container-top':'roll-in-container-left'}>
-                        <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode}/>
+                        <Container_Row_95_Center>
+                            <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode}/>
+                        </Container_Row_95_Center>
                         <Text_Title_26_Center ThemeMode={themeMode}>
                             {currentLView === '' ? 'BIENVENIDO(A)': currentLView === 'Administration' || currentLView === 'Kitchen' ? 'SELECCIÓN DE USUARIO' : 'INICIAR SESIÓN'}
                         </Text_Title_26_Center>
-                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                            {currentLView === '' ? (
-                                <>  
-                                    <Tooltip title='Administración' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleLoginView('Administration','')}>
-                                            <Icon_White_22><MdManageAccounts/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip>
-                                    <Tooltip title='Cocina' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleLoginView('Kitchen','')}>
-                                            <Icon_White_22><GiRiceCooker/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {currentLView === 'Administration' ? (
-                                <>
-                                    <Tooltip title='Administrador' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('Login','Administrator')}>
-                                            <Icon_White_22><FaUserTie/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip>
-                                    <Tooltip title='Chef' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('Login','Chef')}>
-                                            <Icon_White_22><GiChefToque/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip>    
-                                    <Tooltip title='Almacenista' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('Login','Storekeeper')}>
-                                            <Icon_White_22><FaWarehouse/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip> 
-                                    <Tooltip title='Atrás' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('','')}>
-                                            <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {currentLView === 'Kitchen' ? (
-                                <>
-                                    <Tooltip title='Cocinero' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('Login','Cook')}>
-                                            <Icon_White_22><GiCook/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip>  
-                                    <Tooltip title='Nutriólogo' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('Login','Nutritionist')}>
-                                            <Icon_White_22><IoNutrition/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip> 
-                                    <Tooltip title='Médico' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('Login','Doctor')}>
-                                            <Icon_White_22><FaUserDoctor/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip> 
-                                    <Tooltip title='Atrás' placement="top">
-                                        <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => handleLoginView('','')}> 
-                                            <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
-                                        </Button_Icon_Blue_220>
-                                    </Tooltip> 
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {currentLView === 'Login' ? (
-                                <Form_Login/>
-                            ):(
-                                <></>
-                            )}
-                        </Container_Column_90_Center>
+                        {currentLView === '' || currentLView === 'Administration' || currentLView === 'Kitchen' ? (
+                            <>
+                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                    {currentLView === '' ? (
+                                        <>  
+                                            <Tooltip title='Administración' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                                    onClick={() => handleLoginView('Administration','')}>
+                                                    <Icon_White_22><MdManageAccounts/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip>
+                                            <Tooltip title='Cocina' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                                    onClick={() => handleLoginView('Kitchen','')}>
+                                                    <Icon_White_22><GiRiceCooker/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip>
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                    {currentLView === 'Administration' ? (
+                                        <>
+                                            <Tooltip title='Administrador' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('Login','Administrator')}>
+                                                    <Icon_White_22><FaUserTie/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip>
+                                            <Tooltip title='Chef' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('Login','Chef')}>
+                                                    <Icon_White_22><GiChefToque/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip>    
+                                            <Tooltip title='Almacenista' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('Login','Storekeeper')}>
+                                                    <Icon_White_22><FaWarehouse/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip> 
+                                            <Tooltip title='Atrás' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('','')}>
+                                                    <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip>
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                    {currentLView === 'Kitchen' ? (
+                                        <>
+                                            <Tooltip title='Cocinero' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('Login','Cook')}>
+                                                    <Icon_White_22><GiCook/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip>  
+                                            <Tooltip title='Nutriólogo' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('Login','Nutritionist')}>
+                                                    <Icon_White_22><IoNutrition/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip> 
+                                            <Tooltip title='Médico' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('Login','Doctor')}>
+                                                    <Icon_White_22><FaUserDoctor/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip> 
+                                            <Tooltip title='Atrás' placement="top">
+                                                <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handleLoginView('','')}> 
+                                                    <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
+                                                </Button_Icon_Blue_220>
+                                            </Tooltip> 
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                </Container_Column_90_Center>   
+                            </>
+                        ):(
+                            <></>
+                        )}
                         {currentLView === 'Login' ? (
                             <>
-                                <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Form_Login/>
+                                <Container_Row_95_Center>
                                     <Tooltip title='Atrás' placement="top">
-                                        <Button_Icon_Blue_160 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Blue_150 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoginView(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}>
                                             <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
-                                        </Button_Icon_Blue_160>
+                                        </Button_Icon_Blue_150>
                                     </Tooltip>
                                     <Tooltip title='Iniciar sesión' placement="top">
-                                        <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Green_150 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoggedLog()}>
                                             <Icon_White_22><MdLogin/></Icon_White_22>
-                                        </Button_Icon_Green_160>
+                                        </Button_Icon_Green_150>
                                     </Tooltip>
-                                </Container_Row_90_Center>
+                                </Container_Row_95_Center>
                             </>
                         ):(
                             <></>

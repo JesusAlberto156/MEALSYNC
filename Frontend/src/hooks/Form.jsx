@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
-import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsUserContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
+import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
@@ -159,7 +159,7 @@ export const HandleViewPassword = () => {
                             
                             resetTextFieldsUser();
                             setIsModal(false);
-                            navigate('/Administration/Users/Users',{ replace: true });
+                            navigate('/Administration/Index/Users',{ replace: true });
                         },750);
                     },1000);
                 }catch(error){
@@ -192,6 +192,18 @@ export const HandleViewPassword = () => {
     // Retorno de la función del hook
     return handleViewPassword;
 }
+// Hook para filtrar los usuarios cuando no tiene permisos
+export const FilteredRecordsHasPermissions = () => {
+    // Constantes con el valor de los contextos 
+    const [isUsers] = useContext(UsersContext);
+    const [isPermissions] = useContext(PermissionsContext);
+    // Función del hook
+    const filteredRecordsHasPermissions = isUsers.filter((data) => {
+        return !isPermissions.some(permission => permission.idusuario === data.idusuario);
+    });
+    // Retorno de la función del hook
+    return filteredRecordsHasPermissions;
+}
 // Hook para agregar los permisos a un usuario desde el modal
 export const HandlePermissionsAdd = () => {
     // Constantes con el valor de los contextos 
@@ -199,7 +211,7 @@ export const HandlePermissionsAdd = () => {
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
-    const [isSelect] = useContext(SelectContext);
+    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const handlePermissionsAdd = () => {
@@ -208,7 +220,7 @@ export const HandlePermissionsAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isSelect.length === 0){
+                        if(isTextFieldsPermissions.user === 0){
                             setIsActionBlock(false);
                             return reject('¡No ha seleccionado un usuario!...')
                         };
@@ -338,6 +350,7 @@ export const HandleStatusEnable = () => {
     // Retorno de la función del hook
     return handleStatusEnable;
 }
+
 // Hook para editar los permisos a un usuario desde el modal
 export const HandleSupplierAdd = () => {
     // Constantes con el valor de los contextos 
@@ -437,18 +450,6 @@ export const HandleSupplierEdit = () => {
     }
     // Retorno de la función del hook
     return handleSupplierEdit;
-}
-// Hook para filtrar los usuarios cuando no tiene permisos
-export const FilteredRecordsHasPermissions = () => {
-    // Constantes con el valor de los contextos 
-    const [isUsers] = useContext(UsersContext);
-    const [isPermissions] = useContext(PermissionsContext);
-    // Función del hook
-    const filteredRecordsHasPermissions = isUsers.filter((data) => {
-        return !isPermissions.some(permission => permission.idusuario === data.idusuario);
-    });
-    // Retorno de la función del hook
-    return filteredRecordsHasPermissions;
 }
 // Hook para filtrar los usuarios cuando no tiene estatus
 export const FilteredRecordsHasStatus = () => {

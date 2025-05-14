@@ -14,8 +14,8 @@ import { HandleVerificationBlock } from "../../hooks/Form";
 import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Left,Container_Column_90_Center,Container_Row_100_Center,Container_Row_90_Center } from "../styled/Containers";
-import { Text_A_16_Left,Text_P_16_Center } from "../styled/Text";
+import { Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Left } from "../styled/Containers";
+import { Text_A_16_Left,Text_Blue_16_Left } from "../styled/Text";
 import { Input_Text_Black_100 } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
 import { Icon_White_22 } from "../styled/Icons";
@@ -32,14 +32,15 @@ export default function Form_Verification(){
     // Estructura del componente
     return(
         <> 
+            <Container_Row_NG_95_Left>
+                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>   
+                <Text_A_16_Left ThemeMode={themeMode}>- Ingresa los datos de tu sesión...</Text_A_16_Left>
+            </Container_Row_NG_95_Left>
             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                <Container_Row_90_Left>
-                    <Text_P_16_Center ThemeMode={themeMode}>Ingresa tus datos...</Text_P_16_Center>
-                </Container_Row_90_Left>
                 <Container_Row_100_Center>
                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
                     <Input_Text_Black_100 ThemeMode={themeMode}
-                        placeholder="Nombre de usuario..."
+                        placeholder="..."
                         type="text"
                         value={isTextFieldsUser.user}
                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
@@ -49,15 +50,13 @@ export default function Form_Verification(){
                 <Container_Row_100_Center>
                     <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
                     <Input_Text_Black_100 ThemeMode={themeMode}
-                        placeholder="Contraseña de usuario..."
+                        placeholder="..."
                         type="password"
                         value={isTextFieldsUser.password}
                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                         disabled={isVerificationBlock}
                     />
                 </Container_Row_100_Center>
-            </Container_Column_90_Center>
-            <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                 <Tooltip title='Verificar' placement="top">
                     <Button_Icon_Blue_220 ThemeMode={themeMode}  className={isVerificationBlock ? 'roll-out-button-left' : 'roll-in-button-left'} 
                     onClick={() => {
@@ -66,8 +65,7 @@ export default function Form_Verification(){
                         <Icon_White_22><FaUserCheck/></Icon_White_22>
                     </Button_Icon_Blue_220>
                 </Tooltip>
-                
-            </Container_Row_90_Center>
+            </Container_Column_90_Center>
         </>  
     );
 }

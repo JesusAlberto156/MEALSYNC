@@ -137,7 +137,7 @@ export const Alert_Verification = (promesa,Verificacion) => {
 };
 //____________VERIICATION____________
 //____________LOGOUT____________
-export const Alert_Logout = (Title,Message,ThemeMode,Image,Color,Hook) => {
+export const Alert_Logout = (Title,Message,ThemeMode,Image,Color,HookLogout,HookReset) => {
     let remainingTime = 5;
     let timerInterval;
 
@@ -175,25 +175,28 @@ export const Alert_Logout = (Title,Message,ThemeMode,Image,Color,Hook) => {
         imageHeight: 90,
         position: 'center',
         allowOutsideClick: false,
-        willClose: () => clearInterval(timerInterval)
-    }).then((result) => {
-        if(result.dismiss === Swal.DismissReason.timer){
-            Hook();
-        }
-        if(result.isDismissed){
-            Swal.close();
-        }
-    });
+        didOpen: () => {
+            timerInterval = setInterval(() => {
+                remainingTime--;
+                Swal.update({
+                    html: `${Message}<br>Tiempo restante: ${remainingTime}s`
+                });
 
-    timerInterval = setInterval(() => {
-        remainingTime = Math.max(0, remainingTime - 1);
-        Swal.update({
-            html: `${Message}<br>Tiempo restante: ${remainingTime}s`
-        });
-
-        if (remainingTime === 0) {
+                if (remainingTime <= 0) {
+                    clearInterval(timerInterval);
+                }
+            }, 1000);
+        },
+        willClose: () => {
             clearInterval(timerInterval);
         }
-    }, 1000);
+    }).then((result) => {
+        // Verificamos qué lo cerró
+        if (result.dismiss === Swal.DismissReason.timer) {
+            HookLogout();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            HookReset();
+        }
+    });
 }
 //____________LOGOUT____________

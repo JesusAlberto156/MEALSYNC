@@ -8,3 +8,6 @@
  - Falta la eliminacion de proveedores junto con sus observaciones
  - Falta agregar el teclado en la creación y edición de los proveedores
  - Falta Agregar la creacion y edición de las observaciones a proveedores asi como su verificación de campos
+ - Falta agregar el teclado en la creación y edición de las observaciones a proveedores
+ - Falta agregar detalles en el caledario de las observaciones 
+ 

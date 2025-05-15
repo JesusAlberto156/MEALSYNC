@@ -10,6 +10,7 @@ import { UsersContext,PermissionsEnableContext } from "../../../../contexts/User
 import { ActionBlockContext,SelectedRowContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { RefPermissionsContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
+import { TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
@@ -18,12 +19,12 @@ import { HandlePermissionsEnable } from "../../../../hooks/Form";
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
-import { MdAdminPanelSettings } from "react-icons/md";
+import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Row_90_Left,Container_Row_90_Center } from "../../../styled/Containers";
-import { Text_P_16_Left,Text_Title_30_Center } from "../../../styled/Text";
-import { Button_Icon_Blue_160,Button_Icon_Red_160,Button_Icon_Green_160 } from "../../../styled/Buttons";
+import { Container_Modal,Container_Form_450,Container_Row_90_Center,Container_Row_NG_90_Left } from "../../../styled/Containers";
+import { Text_P_16_Left,Text_Title_30_Center,Text_Blue_16_Left } from "../../../styled/Text";
+import { Button_Icon_Blue_180,Button_Icon_Red_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
@@ -44,6 +45,7 @@ export default function Permissions_Enable(){
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [socket] = useContext(SocketContext);
+    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
     // useEffect con el usuario
@@ -51,7 +53,7 @@ export default function Permissions_Enable(){
         if(isSelectedRow !== null){
             const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
             if(isUser){
-                setUser(isUser.usuario);
+                setUser(isUser);
             }
         }
     },[]);
@@ -63,54 +65,51 @@ export default function Permissions_Enable(){
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isPermissionsEnable.length !== 0){
-            const user = isUsers.find(user => user.idusuario === isPermissionsEnable.idusuario);
-            if(user){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Permission-Update',isPermissionsEnable.idusuario,user.usuario,isPermissionsEnable.superadministrador ? 0:1);
+                        
+                        socket.on('Permission-Update',(message,user) => {
+                            console.log(message,user);
+                            socket.emit('Permissions');
+                        });
+
+                        if(isPermissionsEnable.superadministrador){
+                            resolve('¡MEALSYNC deshabilito el super administrador al usuario!...');
+                        }else{
+                            resolve('¡MEALSYNC Habilito el super administrador al usuario!...');
+                        }
+                        
+                        const route = sessionStorage.getItem('Route');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Modal-View','');
                         setTimeout(() => {
-                            socket.emit('Permission-Update',isPermissionsEnable.idusuario,user.usuario,isPermissionsEnable.superadministrador ? 0:1);
-                            
-                            socket.on('Permission-Update',(message,user) => {
-                                console.log(message,user);
-                                socket.emit('Permissions');
-                            });
+                            setIsModal(false);
+                            sessionStorage.setItem('Modal',false);
+                            setIsActionBlock(false);
+                            setIsPermissionsEnable([]);
+                            setIsSelectedRow(null);
+                            resetTextFieldsUser();
+                            sessionStorage.removeItem('Action-Block');
+                            sessionStorage.removeItem('Verification-Block');
+                            setIsVerificationBlock(false);
+                            navigate(route,{ replace: true });
+                        },750);
 
-                            if(isPermissionsEnable.superadministrador){
-                                resolve('¡MEALSYNC deshabilito el super administrador al usuario!...');
-                            }else{
-                                resolve('¡MEALSYNC Habilito el super administrador al usuario!...');
-                            }
-                            
-                            const route = sessionStorage.getItem('Route');
-
-                            setCurrentMView('');
-                            sessionStorage.setItem('Modal-View','');
-                            setTimeout(() => {
-                                setIsModal(false);
-                                sessionStorage.setItem('Modal',false);
-                                setIsActionBlock(false);
-                                setIsPermissionsEnable([]);
-                                setIsSelectedRow(null);
-                                resetTextFieldsUser();
-                                sessionStorage.removeItem('Action-Block');
-                                sessionStorage.removeItem('Verification-Block');
-                                setIsVerificationBlock(false);
-                                navigate(route,{ replace: true });
-                            },750);
-
-                            return () => {
-                                socket.off('Permission-Update');
-                            }
-                        },2000);
-                    }catch(error){
-                        setIsActionBlock(true);
-                        setIsPermissionsEnable([]);
-                        return reject('¡Ocurrio un error inesperado!...');
-                    }
-                }); 
-                
-                Alert_Verification(promise,isPermissionsEnable.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
-            }
+                        return () => {
+                            socket.off('Permission-Update');
+                        }
+                    },2000);
+                }catch(error){
+                    setIsActionBlock(true);
+                    setIsPermissionsEnable([]);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            }); 
+            
+            Alert_Verification(promise,isPermissionsEnable.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
         }
     },[isPermissionsEnable]);
     // Estructura del componente
@@ -119,40 +118,41 @@ export default function Permissions_Enable(){
             {isModal && isSelectedRow !== null ? (
                 <>
                     <Container_Modal ref={Modal}>
-                        <Container_Form_400 ref={Form} ThemeMode={themeMode} className={currentMView === 'Permissions-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Form_450 ref={Form} ThemeMode={themeMode} className={currentMView === 'Permissions-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.superadministrador ? 'DESHABILITAR SUPER ADMINISTRADOR':'HABILITAR SUPER ADMINISTRADOR'}</Text_Title_30_Center>
-                            <Container_Row_90_Left>
-                                {isSelectedRow.superadministrador ? <Text_P_16_Left ThemeMode={themeMode}>Se deshabilitará a {user}</Text_P_16_Left>:<Text_P_16_Left ThemeMode={themeMode}>Se habilitará a {user}</Text_P_16_Left>}
-                            </Container_Row_90_Left>
+                            <Container_Row_NG_90_Left className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_P_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsPermissions.user}</Text_P_16_Left>
+                            </Container_Row_NG_90_Left>
                             <Form_Verification/>
-                            <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_90_Center>
                                 <Tooltip title='Cancelar' placement="top">
-                                    <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
                                         <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Blue_160>
+                                    </Button_Icon_Blue_180>
                                 </Tooltip>
                                 {isSelectedRow.superadministrador ? (
                                     <>
                                         <Tooltip title='Deshabilitar' placement="top">
-                                            <Button_Icon_Red_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                            <Button_Icon_Red_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
                                                 onClick={() => handlePermissionsEnable()}>
-                                                <Icon_White_22><MdAdminPanelSettings/></Icon_White_22>
-                                            </Button_Icon_Red_160>
+                                                <Icon_White_22><FaUserTie/></Icon_White_22>
+                                            </Button_Icon_Red_180>
                                         </Tooltip>
                                     </>
                                 ):(
                                     <>
                                         <Tooltip title='Habilitar' placement="top">
-                                            <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                            <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
                                                 onClick={() => handlePermissionsEnable()}>
-                                                <Icon_White_22><MdAdminPanelSettings/></Icon_White_22>
-                                            </Button_Icon_Green_160>
+                                                <Icon_White_22><FaUserTie/></Icon_White_22>
+                                            </Button_Icon_Green_180>
                                         </Tooltip>
                                     </>
                                 )}
                             </Container_Row_90_Center>
-                        </Container_Form_400>
+                        </Container_Form_450>
                     </Container_Modal>  
                 </>
             ):(

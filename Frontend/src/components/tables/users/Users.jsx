@@ -8,6 +8,7 @@ import { SelectedRowContext,ViewPasswordContext } from "../../../contexts/Variab
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
+import { UserTypesContext } from "../../../contexts/UsersProvider"
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../hooks/Texts"
 import { TableActionsUsers } from "../../../hooks/Table"
@@ -32,6 +33,7 @@ export default function Table_Users(){
     const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isUserTypes] = useContext(UserTypesContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -53,8 +55,10 @@ export default function Table_Users(){
     },[Modal,Form,Button_Edit_U, Button_Delete_U]);
     // UseEffect para reiniciar la vista de contraseña
     useEffect(() => {
+        let timeoutId;
+
         if(isViewPassword){
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 const promise = new Promise(async (resolve,reject) => {
                     try{
                         setTimeout(() => {
@@ -71,12 +75,15 @@ export default function Table_Users(){
                 Alert_Verification(promise,'¡Ocultando contraseñas!...');
             },30000);            
         }
+
+        return () => clearTimeout(timeoutId);
     },[isViewPassword])
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
         if(isSelectedRow !== null){
             setIsTextFieldsUser(prev => ({
                 ...prev,
+                iduser: isSelectedRow.idusuario,
                 name: isSelectedRow.nombre,
                 shortName: isSelectedRow.nombrecorto,
                 user: isSelectedRow.usuario,
@@ -96,11 +103,11 @@ export default function Table_Users(){
             <Table id="Table-Users">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th>ID Usuario</Th>
-                        <Th>Nombre</Th>
-                        <Th>Nombre Corto</Th>
+                        <Th>Nombre completo</Th>
+                        <Th>Nombre corto</Th>
                         <Th>Usuario</Th>
                         <Th>Contraseña</Th>
+                        <Th>Tipo de usuario</Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
@@ -114,14 +121,13 @@ export default function Table_Users(){
                                 transition: 'background-color 0.5s ease',
                             }}
                         >
-                            <Td ThemeMode={themeMode}>{user.idusuario}</Td>
                             <Td ThemeMode={themeMode}>{user.nombre}</Td>
                             <Td ThemeMode={themeMode}>{user.nombrecorto}</Td>
                             <Td ThemeMode={themeMode}>{user.usuario}</Td>
                             <Td ThemeMode={themeMode}>{isViewPassword ? user.contrasena : '•'.repeat(8)}</Td>
+                            <Td ThemeMode={themeMode}>{isUserTypes.find(type => type.idtipo === user.idtipo)?.tipo || 'Desconocido'}</Td>
                         </tr>
                     ))}
-
                 </Tbody>
             </Table>
             <Container_Row_90_Center>

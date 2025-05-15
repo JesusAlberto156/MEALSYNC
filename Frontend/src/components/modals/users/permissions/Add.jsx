@@ -9,7 +9,7 @@ import Select from "react-select";
 import { ThemeModeContext,ModalViewContext,ModalContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
-import { PermissionsAddContext,UsersContext } from "../../../../contexts/UsersProvider";
+import { PermissionsAddContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
@@ -19,7 +19,7 @@ import { ResetTextFieldsPermissions } from "../../../../hooks/Texts";
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
-import { MdAddModerator } from "react-icons/md";
+import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
@@ -41,7 +41,6 @@ export default function Permissions_Add(){
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
-    const [isUsers] = useContext(UsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handlePermissionsAdd = HandlePermissionsAdd();
@@ -51,46 +50,43 @@ export default function Permissions_Add(){
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isPermissionsAdd){
-                const user = isUsers.find(user => user.idusuario === isTextFieldsPermissions.user);
-                if(user){
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setTimeout(() => {
-                                socket.emit('Permissions-Insert',user.idusuario,user.usuario,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
-                                
-                                socket.on('Permissions-Insert',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Permissions');
-                                });
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Permissions-Insert',isTextFieldsPermissions.iduser,isTextFieldsPermissions.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
+                        
+                        socket.on('Permissions-Insert',(message,user) => {
+                            console.log(message,user);
+                            socket.emit('Permissions');
+                        });
 
-                                resolve('¡MEALSYNC agregó los permisos al usuario!...')
+                        resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
-                                const route = sessionStorage.getItem('Route');
+                        const route = sessionStorage.getItem('Route');
 
-                                setCurrentMView('');
-                                sessionStorage.setItem('Modal-View','');
-                                setTimeout(() => {
-                                    setIsModal(false);
-                                    sessionStorage.setItem('Modal',false);
-                                    resetTextFieldsPermissions();
-                                    setIsActionBlock(false);
-                                    setIsPermissionsAdd(false);
-                                    navigate(route,{ replace: true });
-                                },750);
-
-                                return () => {
-                                    socket.off('Permissions-Insert');
-                                }
-                            },1000);
-                        }catch(error){
+                        setCurrentMView('');
+                        sessionStorage.setItem('Modal-View','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Modal',false);
+                            resetTextFieldsPermissions();
                             setIsActionBlock(false);
                             setIsPermissionsAdd(false);
-                            return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
-                        }
-                    });
+                            navigate(route,{ replace: true });
+                        },750);
 
-                    Alert_Verification(promise,'¡Agregando permisos al usuario!...');
+                        return () => {
+                            socket.off('Permissions-Insert');
+                        }
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    setIsPermissionsAdd(false);
+                    return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
                 }
+            });
+
+            Alert_Verification(promise,'¡Agregando permisos al usuario!...');
         }
     },[isPermissionsAdd])
     // Estructura del componente
@@ -159,9 +155,9 @@ export default function Permissions_Add(){
                                     placeholder='Seleccione uno...'
                                     value={filteredRecordsHasPermissions
                                         .map(user => ({ value: user.idusuario, label: user.usuario }))
-                                        .find(option => option.value === isTextFieldsPermissions.user)
+                                        .find(option => option.value === isTextFieldsPermissions.iduser)
                                     }
-                                    onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, user: e.value}))}
+                                    onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, iduser: e.value, user: e.label}))}
                                 />
                             </Container_Row_95_Center> 
                             <Container_Row_NG_95_Left>
@@ -234,7 +230,7 @@ export default function Permissions_Add(){
                                 <Tooltip title='Agregar' placement='top'>
                                     <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handlePermissionsAdd()}>
-                                        <Icon_White_22><MdAddModerator/></Icon_White_22>
+                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
                                     </Button_Icon_Green_180>
                                 </Tooltip>
                             </Container_Row_95_Center>

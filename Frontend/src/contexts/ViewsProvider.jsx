@@ -9,6 +9,7 @@ export const SidebarViewContext = createContext(null);
 export const SidebarContext = createContext(null);
 export const ModalViewContext = createContext(null);
 export const ModalContext = createContext(null);
+export const SubModalContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función Contexto para controlar el modo de la página (Claro/Oscuro)
@@ -101,5 +102,19 @@ export const Modal = ({children}) => {
         <ModalContext.Provider value={[isModal,setIsModal]}>
             {children}
         </ModalContext.Provider>
+    );
+}
+// Función contexto para controlar la visibilidad de un sub-modal
+export const Sub_Modal = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isSubModal,setIsSubModal] = useState(() => {
+        const subModal = sessionStorage.getItem('Sub-Modal') === 'true';
+        return subModal;
+    });
+    // UseState para controlar el valor del contexto
+    return (
+        <SubModalContext.Provider value={[isSubModal,setIsSubModal]}>
+            {children}
+        </SubModalContext.Provider>
     );
 }

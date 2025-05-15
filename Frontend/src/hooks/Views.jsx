@@ -9,7 +9,7 @@ import { SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContex
 import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsSupplier,ResetTextFieldsSupply } from "./Texts";
+import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro)
@@ -118,6 +118,7 @@ export const HandleModalView = () => {
     const navigate = useNavigate();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
+    const resetTextFieldsStatus = ResetTextFieldsStatus();
     const resetTextFieldsSupplier = ResetTextFieldsSupplier();
     const resetTextFieldsSupply = ResetTextFieldsSupply();
     // Función del hook
@@ -137,10 +138,8 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 resetTextFieldsUser();
-                setIsRadioPermissions('');
+                resetTextFieldsPermissions();
                 setIsActionBlock(false);
-                setIsRadioStatus('');
-                setIsCheckbox([]);
                 navigate(route,{ replace: true });
             },750);
         }
@@ -202,8 +201,7 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 setIsActionBlock(false);
-                setIsSelect([])
-                setIsRadioStatus('');
+                resetTextFieldsStatus();
                 navigate(route,{ replace: true });
             },750);
         }
@@ -221,6 +219,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+
         if(currentMView === 'Supplier-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);

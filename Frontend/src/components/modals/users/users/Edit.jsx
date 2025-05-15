@@ -19,12 +19,12 @@ import { HandleUserEdit } from "../../../../hooks/Form";
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
-import { FaUserEdit } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_90_Center,Container_Row_100_Center,Container_Column_90_Center,Container_Row_90_Left,Container_Row_100_Left } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
-import { Button_Icon_Blue_180,Button_Icon_Red_180 } from "../../../styled/Buttons";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_100_Left,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -101,14 +101,15 @@ export default function User_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>EDITAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
+                            <Container_Row_NG_95_Left>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsUser.user}</Text_A_16_Left>
+                            </Container_Row_NG_95_Left>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_90_Left>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Editar datos del usuario...</Text_A_16_Left>
-                                </Container_Row_90_Left>
                                 <Container_Row_100_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="Nombre completo..."
+                                        placeholder="..."
                                         type="text"
                                         value={isTextFieldsUser.name}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
@@ -117,7 +118,7 @@ export default function User_Edit(){
                                 <Container_Row_100_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre corto:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="Primer nombre y apellido..."
+                                        placeholder="..."
                                         type="text"
                                         value={isTextFieldsUser.shortName}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
@@ -126,7 +127,7 @@ export default function User_Edit(){
                                 <Container_Row_100_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="Nombre de usuario..."
+                                        placeholder="..."
                                         type="text"
                                         value={isTextFieldsUser.user}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
@@ -135,7 +136,7 @@ export default function User_Edit(){
                                 <Container_Row_100_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="Contraseña de usuario..."
+                                        placeholder="..."
                                         type="password"
                                         value={isTextFieldsUser.password}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
@@ -199,20 +200,20 @@ export default function User_Edit(){
                                     onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
                                 />
                             </Container_Column_90_Center>
-                            <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Red_180 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
                                         <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Red_180>
+                                    </Button_Icon_Red_210>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement='top'>
-                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handleUserEdit()}>
-                                        <Icon_White_22><FaUserEdit/></Icon_White_22>
-                                    </Button_Icon_Blue_180>
+                                        <Icon_White_22><MdEdit/></Icon_White_22>
+                                    </Button_Icon_Blue_210>
                                 </Tooltip>
-                            </Container_Row_90_Center>
+                            </Container_Row_95_Center>
                         </Container_Form_500>
                     </Container_Modal>
                 </>

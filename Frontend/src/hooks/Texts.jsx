@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsSupplierContext,TextFieldsSupplyContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext } from "../contexts/FormsProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los usuarios
@@ -11,11 +11,14 @@ export const ResetTextFieldsUser = () => {
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     // Estados iniciales de los contextos
     const initialTextFieldsUser = {
+        iduser: 0,
         name: '',
         shortName: '',
         user: '',
         password: '',
         userTypes: 0,
+        permissions: '',
+        status: '',
     };
     // Función del hook
     const resetTextFieldsUser = () => {
@@ -30,7 +33,8 @@ export const ResetTextFieldsPermissions = () => {
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     // Estados iniciales de los contextos
     const initialTextFieldsPermissions = {
-        user: 0,
+        iduser: 0,
+        user: '',
         administrator: 0,
         chef: 0,
         storekeeper: 0,
@@ -44,6 +48,23 @@ export const ResetTextFieldsPermissions = () => {
     }
     // Retorno de la función del hook
     return resetTextFieldsPermissions;
+}
+// Hook para reinciar los campos de texto de los permisos
+export const ResetTextFieldsStatus = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
+    // Estados iniciales de los contextos
+    const initialTextFieldsStatus = {
+        iduser: 0,
+        user: '',
+        status: '',
+    };
+    // Función del hook
+    const resetTextFieldsStatus = () => {
+        setIsTextFieldsStatus(initialTextFieldsStatus);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsStatus;
 }
 // Hook para reinciar los campos de texto de los usuarios
 export const ResetTextFieldsSupplier = () => {

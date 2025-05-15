@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
-import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
+import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
@@ -220,7 +220,7 @@ export const HandlePermissionsAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsPermissions.user === 0){
+                        if(isTextFieldsPermissions.iduser === 0 && isTextFieldsPermissions.user === ''){
                             setIsActionBlock(false);
                             return reject('¡No ha seleccionado un usuario!...')
                         };
@@ -289,8 +289,7 @@ export const HandlePermissionsEnable = () => {
 export const HandleStatusSAdd = () => {
     // Constantes con el valor de los contextos 
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
-    const [isSelect] = useContext(SelectContext);
-    const [isRadio] = useContext(RadioStatusContext);
+    const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
@@ -302,11 +301,11 @@ export const HandleStatusSAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isSelect.length === 0){
+                        if(isTextFieldsStatus.iduser === 0 && isTextFieldsStatus.user === ''){
                             setIsActionBlock(false);
                             return reject('¡No ha seleccionado un usuario!...')
                         };
-                        if(isRadio === ''){
+                        if(isTextFieldsStatus.status === ''){
                             setIsActionBlock(false);
                             return reject('¡No ha seleccionado un estado!...')
                         };

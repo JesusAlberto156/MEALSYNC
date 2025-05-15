@@ -8,15 +8,15 @@ import { SelectedRowContext } from "../../../contexts/VariablesProvider"
 import { UsersContext } from "../../../contexts/UsersProvider"
 import { LoggedPermissionsContext } from "../../../contexts/SessionProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
-import { CheckboxContext } from "../../../contexts/FormsProvider"
+import { TextFieldsPermissionsContext } from "../../../contexts/FormsProvider"
 import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
 import { TableActionsPermissions } from "../../../hooks/Table"
+import { ResetTextFieldsPermissions } from "../../../hooks/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 // Iconos de la sección de Administración del login
-import { MdShield } from "react-icons/md";
-import { FaShieldAlt } from "react-icons/fa";
+import { FaShieldAlt,FaUserTie } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -35,7 +35,7 @@ export default function Table_Permissions(){
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isPermission] = useContext(LoggedPermissionsContext);
     const [isUsers] = useContext(UsersContext);
-    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
@@ -59,12 +59,25 @@ export default function Table_Permissions(){
     // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
         if(isSelectedRow !== null){
-            setIsCheckbox(isSelectedRow);
+            const user = isUsers.find(user => user.idusuario === isSelectedRow.idusuario);
+            setIsTextFieldsPermissions(prev => ({
+                ...prev,
+                iduser: isSelectedRow.idusuario,
+                user: user.usuario,
+                administrator: isSelectedRow.administrador,
+                chef: isSelectedRow.chef,
+                storekeeper: isSelectedRow.almacenista,
+                cook: isSelectedRow.cocinero,
+                nutritionist: isSelectedRow.nutriologo,
+                doctor: isSelectedRow.medico,
+            }));
+
         }else{
-            setIsCheckbox([]);
+            resetTextFieldsPermissions();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
+    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = TableActionsPermissions();
     // Estructura del componente
     return(
@@ -72,7 +85,7 @@ export default function Table_Permissions(){
             <Table id="Table-Permissions">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th>Nombre de Usuario</Th>
+                        <Th>Usuario (nombre completo)</Th>
                         <Th>Administrador</Th>
                         <Th>Chef</Th>
                         <Th>Almacenista</Th>
@@ -106,7 +119,7 @@ export default function Table_Permissions(){
                                 <Td ThemeMode={themeMode}>{permission.nutriologo ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
                                 <Td ThemeMode={themeMode}>{permission.medico ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
                                 {isPermission.superadministrador ? (
-                                    <Td ThemeMode={themeMode}>{permission.superadministrador ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><MdShield/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><MdShield/></Icon_Red_18>}</Td>
+                                    <Td ThemeMode={themeMode}>{permission.superadministrador ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Red_18>}</Td>
                                 ):(
                                     <></>
                                 )}

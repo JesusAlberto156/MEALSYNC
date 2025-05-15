@@ -16,20 +16,15 @@ import { HandleViewPassword } from "../../hooks/Form";
 // Icono para la seccion del buscador
 import { FcSearch } from "react-icons/fc";
 import { FaShoppingCart } from "react-icons/fa";
-// Iconos para la seccion de usuarios
-import { FaUserPlus } from "react-icons/fa";
-import { FaUserEdit } from "react-icons/fa";
-import { FaUserMinus } from "react-icons/fa";
+// Iconos para un crud
+import { IoIosAddCircle } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { IoIosEyeOff } from "react-icons/io";
-// Iconos para la sección de permisos
-import { MdAddModerator } from "react-icons/md";
-import { AiFillEdit } from "react-icons/ai";
-import { MdAdminPanelSettings } from "react-icons/md";
-// Iconos para la sección de estatus
-import { FcAddRow } from "react-icons/fc";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa6";
 // Icon para la seccion de proveedores
 import { ImUserPlus } from "react-icons/im";
 import { RiEditFill } from "react-icons/ri";
@@ -37,7 +32,6 @@ import { ImUserMinus } from "react-icons/im";
 import { BiSolidUserDetail } from "react-icons/bi";
 // Icono para la sección de insumos
 import { IoMdAddCircle } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
 import { AiFillDelete } from "react-icons/ai";
 //__________ICONOS__________
 // Estilos personalizados
@@ -98,7 +92,7 @@ export default function Search_Bar (){
                                         handleModalView('User-Add');
                                         navigate('/Administration/Users/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><FaUserPlus/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow === null ? (
@@ -112,7 +106,7 @@ export default function Search_Bar (){
                                                 navigate('/Administration/Users/Edit',{ replace: true });
                                             }
                                         }}>
-                                            <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                            <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
                                         <Button_Icon_Red_60 ref={Button_Delete_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
                                         disabled={isSelectedRow === null}
@@ -123,7 +117,7 @@ export default function Search_Bar (){
                                                 navigate('/Administration/Users/Delete',{ replace: true });
                                             }
                                         }}>
-                                            <Icon_White_18><FaUserMinus/></Icon_White_18>
+                                            <Icon_White_18><MdDelete/></Icon_White_18>
                                         </Button_Icon_Red_60>
                                     </>
                                 ):(
@@ -137,7 +131,7 @@ export default function Search_Bar (){
                                                     navigate('/Administration/Users/Edit',{ replace: true });
                                                 }
                                             }}>
-                                                <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
                                         <Tooltip title='Eliminar' placement="top">
@@ -149,7 +143,7 @@ export default function Search_Bar (){
                                                     navigate('/Administration/Users/Delete',{ replace: true });
                                                 }
                                             }}>
-                                                <Icon_White_18><FaUserMinus/></Icon_White_18>
+                                                <Icon_White_18><MdDelete/></Icon_White_18>
                                             </Button_Icon_Red_60>
                                         </Tooltip>  
                                     </>
@@ -185,7 +179,7 @@ export default function Search_Bar (){
                                         handleModalView('User-Add');
                                         navigate('/Administration/Users/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><FaUserPlus/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow === null ? (
@@ -199,7 +193,7 @@ export default function Search_Bar (){
                                                 navigate('/Administration/Users/Edit',{ replace: true });
                                             }
                                         }}>
-                                            <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                            <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
                                     </>
                                 ):(
@@ -213,7 +207,7 @@ export default function Search_Bar (){
                                                     navigate('/Administration/Users/Edit',{ replace: true });
                                                 }
                                             }}>
-                                                <Icon_White_18><FaUserEdit/></Icon_White_18>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip> 
                                     </>
@@ -254,7 +248,7 @@ export default function Search_Bar (){
                                         handleModalView('Permissions-Add');
                                         navigate('/Administration/Permissions/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><MdAddModerator/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow === null ? (
@@ -265,7 +259,7 @@ export default function Search_Bar (){
                                             handleModalView('Permissions-Edit');
                                             navigate('/Administration/Permissions/Edit',{ replace: true });
                                         }}>
-                                            <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                            <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
                                     </>
                                 ):(
@@ -276,7 +270,7 @@ export default function Search_Bar (){
                                                 handleModalView('Permissions-Edit');
                                                 navigate('/Administration/Permissions/Edit',{ replace: true });
                                             }}>
-                                                <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
                                     </>
@@ -291,7 +285,7 @@ export default function Search_Bar (){
                                                     handleModalView('Permissions-Enable');
                                                     navigate('/Administration/Permissions/Enable',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdAdminPanelSettings/></Icon_White_18>
+                                                    <Icon_White_18><FaUserTie/></Icon_White_18>
                                                 </Button_Icon_Red_60>
                                             </Tooltip>
                                         </>
@@ -304,7 +298,7 @@ export default function Search_Bar (){
                                                     handleModalView('Permissions-Enable');
                                                     navigate('/Administration/Permissions/Enable',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdAdminPanelSettings/></Icon_White_18>
+                                                    <Icon_White_18><FaUserTie/></Icon_White_18>
                                                 </Button_Icon_Green_60>
                                             </Tooltip>
                                         </>
@@ -321,7 +315,7 @@ export default function Search_Bar (){
                                         handleModalView('Permissions-Add');
                                         navigate('/Administration/Permissions/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><MdAddModerator/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow === null ? (
@@ -332,7 +326,7 @@ export default function Search_Bar (){
                                             handleModalView('Permissions-Edit');
                                             navigate('/Administration/Permissions/Edit',{ replace: true });
                                         }}>
-                                            <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                            <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
                                     </>
                                 ):(
@@ -343,7 +337,7 @@ export default function Search_Bar (){
                                                 handleModalView('Permissions-Edit');
                                                 navigate('/Administration/Permissions/Edit',{ replace: true });
                                             }}>
-                                                <Icon_White_18><AiFillEdit/></Icon_White_18>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
                                     </>
@@ -362,7 +356,7 @@ export default function Search_Bar (){
                                         handleModalView('Status-Add');
                                         navigate('/Administration/Status/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><FcAddRow/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow !== null ? (
@@ -405,7 +399,7 @@ export default function Search_Bar (){
                                         handleModalView('Status-Add');
                                         navigate('/Administration/Status/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><FcAddRow/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                             </>

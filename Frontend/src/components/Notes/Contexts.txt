@@ -31,6 +31,7 @@ const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
 //____________FORM____________
 const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
 const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
 const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
 const [isSelect,setIsSelect] = useContext(SelectContext);
@@ -96,6 +97,7 @@ const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
 const [isSidebar,setIsSidebar] = useContext(SidebarContext);
 const [currentMView,setCurrentMView] = useContext(ModalViewContext);
 const [isModal,setIsModal] = useContext(ModalContext);
+const [isSubModal,setIsSubModal] = useContext(SubModalContext);
 //____________VIEWS____________
 //____________WAREHOUSE____________
 const [isSupplies,setIsSupplies] = useContext(SuppliesContext);

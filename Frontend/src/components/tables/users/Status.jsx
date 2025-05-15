@@ -8,13 +8,14 @@ import { SelectedRowContext } from "../../../contexts/VariablesProvider"
 import { UsersContext } from "../../../contexts/UsersProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { RefStatusContext } from "../../../contexts/RefsProvider"
+import { TextFieldsStatusContext } from "../../../contexts/FormsProvider"
 // Hooks personalizados
 import { TableActionsStatus } from "../../../hooks/Table"
+import { ResetTextFieldsStatus } from "../../../hooks/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaLockOpen } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import { GiAnticlockwiseRotation } from "react-icons/gi";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -33,6 +34,7 @@ export default function Table_Status(){
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isUsers] = useContext(UsersContext);
     const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
+    const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -54,7 +56,23 @@ export default function Table_Status(){
             document.removeEventListener("click", handleClickOutside);
         };
     },[Modal,Form,Button_Enable_S]);
+    // UseEffect que pasa el valor a un check con la selección de la tabla
+    useEffect(() => {
+        if(isSelectedRow !== null){
+            const user = isUsers.find(user => user.idusuario === isSelectedRow.idusuario);
+            setIsTextFieldsStatus(prev => ({
+                ...prev,
+                iduser: isSelectedRow.idusuario,
+                user: user.usuario,
+                status: isSelectedRow.habilitado ? 'Habilitado' : 'Deshabilitado',
+            }));
+
+        }else{
+            resetTextFieldsStatus();
+        }
+    },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
+    const resetTextFieldsStatus = ResetTextFieldsStatus();
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = TableActionsStatus();
     // Estructura del componente
     return(
@@ -62,9 +80,8 @@ export default function Table_Status(){
             <Table id="Table-Status">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th>Nombre de Usuario</Th>
+                        <Th>Usuario (nombre completo)</Th>
                         <Th>Habilitado</Th>
-                        <Th>Activo</Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
@@ -81,7 +98,6 @@ export default function Table_Status(){
                             >
                                 <Td ThemeMode={themeMode}>{user.nombre}</Td>
                                 <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaLockOpen/></Icon_Green_18> : <Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaLock/></Icon_Red_18>}</Td>
-                                <Td ThemeMode={themeMode}>{status.activo ? <Icon_Green_18 ThemeMode={themeMode} className='rotate-icon-center'><GiAnticlockwiseRotation/></Icon_Green_18>: <Icon_Red_18 ThemeMode={themeMode} className='rotate-icon-center'><GiAnticlockwiseRotation/></Icon_Red_18>}</Td>
                             </tr>
                         ))
                     ))}

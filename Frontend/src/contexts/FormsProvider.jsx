@@ -17,11 +17,14 @@ export const CheckboxContext = createContext(null);
 export const Text_Fields_User = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsUser,setIsTextFieldsUser] = useState({
+        iduser: 0,
         name: '',
         shortName: '',
         user: '',
         password: '',
         userTypes: 0,
+        permissions: '',
+        status: '',
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -34,7 +37,8 @@ export const Text_Fields_User = ({ children }) => {
 export const Text_Fields_Permissions = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useState({
-        user: 0,
+        iduser: 0,
+        user: '',
         administrator: 0,
         chef: 0,
         storekeeper: 0,
@@ -47,6 +51,21 @@ export const Text_Fields_Permissions = ({ children }) => {
         <TextFieldsPermissionsContext.Provider value={[isTextFieldsPermissions,setIsTextFieldsPermissions]}> 
             {children}
         </TextFieldsPermissionsContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de estatus
+export const Text_Fields_Status = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsStatus,setIsTextFieldsStatus] = useState({
+        iduser: 0,
+        user: '',
+        status: '',
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsStatusContext.Provider value={[isTextFieldsStatus,setIsTextFieldsStatus]}> 
+            {children}
+        </TextFieldsStatusContext.Provider>
     );
 }
 // Función contexto para controlar los campos de registro de un formulario de proveedor

@@ -10,6 +10,7 @@ import { SelectedRowContext,ActionBlockContext,VerificationBlockContext } from "
 import { UsersContext,StatusEnableContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { RefStatusContext } from "../../../../contexts/RefsProvider";
+import { TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../../hooks/Texts";
 import { HandleStatusEnable } from "../../../../hooks/Form";
@@ -20,9 +21,9 @@ import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Row_90_Left,Container_Row_90_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
-import { Button_Icon_Blue_160,Button_Icon_Green_160,Button_Icon_Red_160 } from "../../../styled/Buttons";
+import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_90_Left } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Button_Icon_Blue_180,Button_Icon_Green_180,Button_Icon_Red_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
@@ -42,6 +43,7 @@ export default function Status_Enable(){
     const [socket] = useContext(SocketContext);
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
+    const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
     // Constantes con el valor de useState
     const [user,setUser] = useState('');
     // useEffect con el usuario
@@ -49,7 +51,7 @@ export default function Status_Enable(){
         if(isSelectedRow !== null){
             const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
             if(isUser){
-                setUser(isUser.usuario);
+                setUser(isUser);
             }
         }
     },[]);
@@ -61,55 +63,52 @@ export default function Status_Enable(){
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isStatusEnable.length !== 0){
-            const enable = isUsers.find(user => user.idusuario === isStatusEnable.idusuario);
-            if(enable){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{ 
-                        setIsActionBlock(false); 
+            const promise = new Promise(async (resolve,reject) => {
+                try{ 
+                    setIsActionBlock(false); 
+                    setTimeout(() => {
+                        socket.emit('Status-Enable-Update',isTextFieldsStatus.iduser,isTextFieldsStatus.user,isTextFieldsStatus.status === 'Habilitado' ? 0:1);
+
+                        socket.on('Status-Enable-Update',(message,user) => {
+                            console.log(message,user);
+                            socket.emit('Status');
+                        });
+                        
+                        if(isStatusEnable.habilitado){
+                            resolve('¡MEALSYNC deshabilito al usuario!...');
+                        }else{
+                            resolve('¡MEALSYNC habilito al usuario!...');
+                        }
+
+                        const route = sessionStorage.getItem('Route');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Modal-View','');
                         setTimeout(() => {
-                            socket.emit('Status-Enable-Update',isStatusEnable.idusuario,enable.usuario,isStatusEnable.habilitado ? 0:1);
-    
-                            socket.on('Status-Enable-Update',(message,user) => {
-                                console.log(message,user);
-                                socket.emit('Status');
-                            });
-                            
-                            if(isStatusEnable.habilitado){
-                                resolve('¡MEALSYNC deshabilito al usuario!...');
-                            }else{
-                                resolve('¡MEALSYNC habilito al usuario!...');
-                            }
+                            setIsModal(false);
+                            sessionStorage.setItem('Modal',false);
+                            resetTextFieldsUser();
+                            setIsActionBlock(false);
+                            setIsVerificationBlock(false);
+                            sessionStorage.removeItem('Action-Block');
+                            sessionStorage.removeItem('Verification-Block');
+                            setIsStatusEnable([]);
+                            setIsSelectedRow(null);
+                            navigate(route,{ replace: true });
+                        },750);
 
-                            const route = sessionStorage.getItem('Route');
+                        return () => {
+                            socket.off('Status-Enable-Update');
+                        }
+                    },2000);
+                }catch(error){
+                    setIsActionBlock(true);
+                    setIsStatusEnable([]);
+                    reject('¡Ocurrio un error inesperado!...');
+                }
+            });
 
-                            setCurrentMView('');
-                            sessionStorage.setItem('Modal-View','');
-                            setTimeout(() => {
-                                setIsModal(false);
-                                sessionStorage.setItem('Modal',false);
-                                resetTextFieldsUser();
-                                setIsActionBlock(false);
-                                setIsVerificationBlock(false);
-                                sessionStorage.removeItem('Action-Block');
-                                sessionStorage.removeItem('Verification-Block');
-                                setIsStatusEnable([]);
-                                setIsSelectedRow(null);
-                                navigate(route,{ replace: true });
-                            },750);
-
-                            return () => {
-                                socket.off('Status-Enable-Update');
-                            }
-                        },2000);
-                    }catch(error){
-                        setIsActionBlock(true);
-                        setIsStatusEnable([]);
-                        reject('¡Ocurrio un error inesperado!...');
-                    }
-                });
-
-                Alert_Verification(promise,isStatusEnable.habilitado ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
-            }
+            Alert_Verification(promise,isStatusEnable.habilitado ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
         }
     },[isStatusEnable]);
     // Estructura del componente
@@ -117,40 +116,41 @@ export default function Status_Enable(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <Container_Modal ref={Modal}>
-                    <Container_Form_400 ref={Form} ThemeMode={themeMode} className={currentMView === 'Status-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Form_450 ref={Form} ThemeMode={themeMode} className={currentMView === 'Status-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_30_Center>
-                        <Container_Row_90_Left>
-                            {isSelectedRow.habilitado ? <Text_A_16_Left ThemeMode={themeMode}>Se deshabilitará a {user} </Text_A_16_Left> : <Text_A_16_Left ThemeMode={themeMode}>Se habilitará a {user}...</Text_A_16_Left>}
-                        </Container_Row_90_Left>
+                        <Container_Row_NG_90_Left className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                            <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {user.usuario}</Text_A_16_Left>
+                        </Container_Row_NG_90_Left>
                         <Form_Verification/>
-                        <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement="top">
-                                <Button_Icon_Blue_160 ThemeMode={themeMode} className='pulsate-buttom'
+                                <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
                                     onClick={() => handleModalView('')}>
                                     <Icon_White_22><MdCancel/></Icon_White_22>
-                                </Button_Icon_Blue_160>
+                                </Button_Icon_Blue_180>
                             </Tooltip>
                             {isSelectedRow.habilitado ? (
                                 <>
                                     <Tooltip title='Deshabilitar' placement="top">
-                                        <Button_Icon_Red_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                        <Button_Icon_Red_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleStatusEnable()}>
                                             <Icon_White_22><FaLock/></Icon_White_22>
-                                        </Button_Icon_Red_160>
+                                        </Button_Icon_Red_180>
                                     </Tooltip>
                                 </>
                             ):(
                                 <>
                                     <Tooltip title='Habilitar' placement="top">
-                                        <Button_Icon_Green_160 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                        <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
                                             onClick={() => handleStatusEnable()}>
                                             <Icon_White_22><FaLockOpen/></Icon_White_22>
-                                        </Button_Icon_Green_160>
+                                        </Button_Icon_Green_180>
                                     </Tooltip>
                                 </>
                             )}
-                        </Container_Row_90_Center>
-                    </Container_Form_400>
+                        </Container_Row_95_Center>
+                    </Container_Form_450>
                 </Container_Modal>
             ):(
                 currentMView === 'Status-Enable' ? (

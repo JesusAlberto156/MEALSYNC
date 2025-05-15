@@ -34,6 +34,35 @@ export const Button_Icon_Blue_220 = styled.button.withConfig({
         padding: 2px;
     }
 `;
+export const Button_Icon_Blue_210 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 210px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 180px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;    
+        padding: 2px;
+    }
+`;
 export const Button_Icon_Blue_200 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -450,6 +479,35 @@ export const Button_Icon_Green_220 = styled.button.withConfig({
         padding: 2px;
     }
 `;
+export const Button_Icon_Green_210 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 210px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 180px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;    
+        padding: 2px;
+    }
+`;
 export const Button_Icon_Green_200 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -834,6 +892,35 @@ export const Button_Icon_Red_220 = styled.button.withConfig({
 
     @media (max-width: 480px) {
         width: 160px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Red_210 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 210px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 180px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;    
         padding: 2px;
     }
 `;
@@ -1224,6 +1311,38 @@ export const Button_Icon_White_220 = styled.button.withConfig({
 
     @media (max-width: 480px) {
         width: 160px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_White_210 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 210px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+        border: ${({ ThemeMode }) => (ThemeMode ? '2px solid white' : '2px solid black')};
+        color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 180px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;    
         padding: 2px;
     }
 `;

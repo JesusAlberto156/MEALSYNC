@@ -17,6 +17,7 @@ import { HandleStatusEnable } from "../../../../hooks/Form";
 import { HandleModalView } from "../../../../hooks/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
+// Icono para realizar la función del modal
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
@@ -31,6 +32,7 @@ import Form_Verification from "../../../forms/Verification";
 import Error_Enable from "../../errors/Enable";
 //____________IMPORT/EXPORT____________
 
+// Modal para habilitar/deshabilitar usuarios
 export default function Status_Enable(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
@@ -44,17 +46,6 @@ export default function Status_Enable(){
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
     const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
-    // Constantes con el valor de useState
-    const [user,setUser] = useState('');
-    // useEffect con el usuario
-    useEffect(() => {
-        if(isSelectedRow !== null){
-            const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
-            if(isUser){
-                setUser(isUser);
-            }
-        }
-    },[]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -69,11 +60,6 @@ export default function Status_Enable(){
                     setTimeout(() => {
                         socket.emit('Status-Enable-Update',isTextFieldsStatus.iduser,isTextFieldsStatus.user,isTextFieldsStatus.status === 'Habilitado' ? 0:1);
 
-                        socket.on('Status-Enable-Update',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Status');
-                        });
-                        
                         if(isStatusEnable.habilitado){
                             resolve('¡MEALSYNC deshabilito al usuario!...');
                         }else{
@@ -96,21 +82,30 @@ export default function Status_Enable(){
                             setIsSelectedRow(null);
                             navigate(route,{ replace: true });
                         },750);
-
-                        return () => {
-                            socket.off('Status-Enable-Update');
-                        }
                     },2000);
                 }catch(error){
                     setIsActionBlock(true);
                     setIsStatusEnable([]);
-                    reject('¡Ocurrio un error inesperado!...');
+                    return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
             Alert_Verification(promise,isStatusEnable.habilitado ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
         }
     },[isStatusEnable]);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleStatusEnableUpdate = (message,user) => {
+            console.log(message,user);
+            socket.emit('Status');
+        };
+
+        socket.on('Status-Enable-Update',handleStatusEnableUpdate);
+        
+        return () => {
+            socket.off('Status-Enable-Update',handleStatusEnableUpdate);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>
@@ -120,7 +115,7 @@ export default function Status_Enable(){
                         <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_30_Center>
                         <Container_Row_NG_90_Left className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                            <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {user.usuario}</Text_A_16_Left>
+                            <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsStatus.user}</Text_A_16_Left>
                         </Container_Row_NG_90_Left>
                         <Form_Verification/>
                         <Container_Row_95_Center>

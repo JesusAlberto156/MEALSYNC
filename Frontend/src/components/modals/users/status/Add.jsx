@@ -53,13 +53,8 @@ export default function Status_Add(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Status-Insert',isTextFieldsStatus.isuser,isTextFieldsStatus.status === 'Habilitado' ? 1:0,isTextFieldsStatus.user);
+                        socket.emit('Status-Insert',isTextFieldsStatus.iduser,isTextFieldsStatus.status === 'Habilitado' ? 1:0,isTextFieldsStatus.user);
 
-                        socket.on('Status-Insert',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Status');
-                        });
-                        
                         resolve('¡MEALSYNC agregó el status al usuario!...');
 
                         const route = sessionStorage.getItem('Route');
@@ -74,11 +69,7 @@ export default function Status_Add(){
                             resetTextFieldsStatus();
                             navigate(route,{ replace: true });
                         },750);
-
-                        return () => {
-                            socket.off('Status-Insert');
-                        }
-                    },1000);
+                    },2000);
                 }catch(error){
                     setIsActionBlock(false);
                     setIsStatusAdd(false);
@@ -89,6 +80,19 @@ export default function Status_Add(){
             Alert_Verification(promise,'¡Agregando estatus al usuario!...');
         }
     },[isStatusAdd]);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleStatusInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Status');
+        };
+
+        socket.on('Status-Insert',handleStatusInsert);
+        
+        return () => {
+            socket.off('Status-Insert',handleStatusInsert);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>

@@ -8,11 +8,11 @@ import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,SubModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsUserContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../../../../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser } from "../../../../hooks/Texts";
+import { ResetTextFieldsUser,ResetTextFieldsPermissions } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUserAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
@@ -22,7 +22,7 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_90_Left,Container_Row_NG_95_Left } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left,Text_A_16_Center,Text_Blue_16_Left } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
@@ -31,18 +31,16 @@ import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Alert_Verification } from "../../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
-// Modal para ver la contraseña de usuarios
+// Modal para agregar usuarios a su tabla
 export default function User_Add(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isUserTypes] = useContext(UserTypesContext);
-    const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
-    const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
     const [isAnimation,setIsAnimation] = useContext(AnimationContext);
-    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
@@ -55,9 +53,10 @@ export default function User_Add(){
     const handleModalView = HandleModalView();
     const handleUserAdd = HandleUserAdd();
     const resetTextFieldsUser = ResetTextFieldsUser();
+    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     // UseEffect para abrir modal de los permisos
     useEffect(() => {
-        if(isTextFieldsUser.permissions === 'Personalizado' && !isAnimation){
+        if(isTextFieldsUser.permissions === 'Personalizado' && !isAnimation && !isSubModal){
             setIsSubModal(true);
             sessionStorage.setItem('Sub-Modal',true);
             setIsAnimation(true);
@@ -65,6 +64,11 @@ export default function User_Add(){
             setTimeout(() => {
                 navigate('/Administration/Users/Add/Permissions',{ replace: true });
             },200);
+        }if(isTextFieldsUser.permissions === 'Default'){
+            setIsAnimation(false);
+            sessionStorage.setItem('Animation',false);
+            setIsSubModal(false);
+            sessionStorage.setItem('Sub-Modal',false);
         }
     },[isTextFieldsUser]);
     // UseEffect para agregar datos a la base de datos
@@ -74,35 +78,21 @@ export default function User_Add(){
                 try{
                     setTimeout(() => {
                         if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
-                            setIsAnimation(false);
                             setIsActionBlock(false);
                             setIsUserAdd(false);
-                            setIsPermissionsAdd(false);
-                            setIsStatusAdd(false);
                             return reject('¡Usuario ya existente!...');
                         }
                         socket.emit('User-Insert',isTextFieldsUser.userTypes,isTextFieldsUser.name,isTextFieldsUser.shortName,isTextFieldsUser.user,isTextFieldsUser.password)
-                    
-                        socket.on('User-Insert',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Users');
-                        });
 
                         resolve('¡MEALSYNC agrego al usuario!...');
 
                         setIsUserAdd(false);
                         setIsPermissionsAdd(true);
-
-                        return () => {
-                            socket.off('User-Insert');
-                        }
-                    },1000);
+                        
+                    },2000);
                 }catch(error){
-                    setIsAnimation(false);
                     setIsActionBlock(false);
                     setIsUserAdd(false);
-                    setIsPermissionsAdd(false);
-                    setIsStatusAdd(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
@@ -110,107 +100,62 @@ export default function User_Add(){
             Alert_Verification(promise,'¡Agregando un usuario!...');
         }
         if(isPermissionsAdd){
-            if(isRadioPermissions !== ''){
-                const user = isUsers.find(user => user.usuario === isTextFieldsUser.user);
-                if(user){
-                    const promise = new Promise(async (resolve,reject) => {
-                        try{
-                            setTimeout(() => {
-                                if(isRadioPermissions === 'Personalizado'){
-                                    let Administrator = 0,Chef = 0,Storekeeper = 0,Cook = 0,Nutritionist = 0,Doctor = 0;
-                                    isCheckbox.map(permission => {
-                                        if(permission.name === 'Administrator' && permission.value) Administrator = 1 
-                                        if(permission.name === 'Chef' && permission.value) Chef = 1 
-                                        if(permission.name === 'Storekeeper' && permission.value) Storekeeper = 1 
-                                        if(permission.name === 'Cook' && permission.value) Cook = 1 
-                                        if(permission.name === 'Nutritionist' && permission.value) Nutritionist = 1 
-                                        if(permission.name === 'Doctor' && permission.value) Doctor = 1 
-                                    });
-                                    socket.emit('Permissions-Insert',user.idusuario,user.usuario,Administrator,Chef,Storekeeper,Cook,Nutritionist,Doctor);
-                                    
-                                    socket.on('Permissions-Insert',(message,user) => {
-                                        console.log(message,user);
-                                        socket.emit('Permissions');
-                                    });
-                                }else{
-                                    socket.emit('Permissions-Insert',user.idusuario,user.usuario,0,0,0,0,0,0);
-
-                                    socket.on('Permissions-Insert',(message,user) => {
-                                        console.log(message,user);
-                                        socket.emit('Permissions');
-                                    });
-                                }
-
-                                resolve('¡MEALSYNC agregó los permisos al usuario!...')
-
-                                setIsRadioPermissions('');
-                                setIsPermissionsAdd(false);
-                                setIsStatusAdd(true);
-
-                                return () => {
-                                    socket.off('Permissions-Insert');
-                                }
-                            },1000);
-                        }catch(error){
-                            setIsAnimation(false);
-                            setIsActionBlock(false);
-                            setIsUserAdd(false);
-                            setIsPermissionsAdd(false);
-                            setIsStatusAdd(false);
-                            return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
-                        }
-                    });
-
-                    Alert_Verification(promise,'¡Agregando permisos al usuario!...');
-                }
-            }
-        }
-        if(isStatusAdd){
-            if(isRadioStatus !== ''){
+            if(isTextFieldsUser.iduser !== 0){
                 const promise = new Promise(async (resolve,reject) => {
                     try{
                         setTimeout(() => {
-                            const user = isUsers.find(user => user.usuario === isTextFieldsUser.user);
-                            if(user){
-                                socket.emit('Status-Insert',user.idusuario,isRadioStatus === 'Habilitado' ? 1:0,user.usuario);
+                            socket.emit('Permissions-Insert',isTextFieldsUser.iduser,isTextFieldsUser.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
+                            
+                            resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
-                                socket.on('Status-Insert',(message,user) => {
-                                    console.log(message,user);
-                                    socket.emit('Status');
-                                });
-                                
-                                resolve('¡MEALSYNC agregó el status al usuario!...');
-
-                                const route = sessionStorage.getItem('Route');
-
-                                setCurrentMView('');
-                                sessionStorage.setItem('Modal-View','');
-                                setTimeout(() => {
-                                    setIsModal(false);
-                                    sessionStorage.setItem('Modal',false);
-                                    resetTextFieldsUser();
-                                    setIsRadioPermissions('');
-                                    setIsRadioStatus('');
-                                    setIsCheckbox([]);
-                                    setIsAnimation(false);
-                                    setIsActionBlock(false);
-                                    setIsUserAdd(false);
-                                    setIsPermissionsAdd(false);
-                                    setIsStatusAdd(false);
-                                    navigate(route,{ replace: true });
-                                },750);
-
-                                return () => {
-                                    socket.off('Status-Insert');
-                                }
-                            }
-                        },1000);
+                            setIsPermissionsAdd(false);
+                            setIsStatusAdd(true);
+                        },2000);
                     }catch(error){
-                        
-                        setIsAnimation(false);
                         setIsActionBlock(false);
-                        setIsUserAdd(false);
                         setIsPermissionsAdd(false);
+                        return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
+                    }
+                });
+
+                Alert_Verification(promise,'¡Agregando permisos al usuario!...');
+            }else{
+                setIsTextFieldsUser(prev => ({
+                    ...prev,
+                    iduser: isUsers.find(user => user.usuario === isTextFieldsUser.user)?.idusuario || 0,
+                }));
+                setIsPermissionsAdd(true);
+            }
+        }
+        if(isStatusAdd){
+            if(isTextFieldsUser.iduser !== 0){
+                const promise = new Promise(async (resolve,reject) => {
+                    try{
+                        setTimeout(() => {
+                            socket.emit('Status-Insert',isTextFieldsUser.iduser,isTextFieldsUser.status === 'Habilitado' ? 1:0,isTextFieldsUser.user);
+                            
+                            resolve('¡MEALSYNC agregó el status al usuario!...');
+
+                            const route = sessionStorage.getItem('Route');
+
+                            setCurrentMView('');
+                            sessionStorage.setItem('Modal-View','');
+                            setTimeout(() => {
+                                setIsModal(false);
+                                sessionStorage.setItem('Modal',false);
+                                setIsSubModal(false);
+                                sessionStorage.setItem('Sub-Modal',false);
+                                resetTextFieldsUser();
+                                resetTextFieldsPermissions();
+                                setIsAnimation(false);
+                                sessionStorage.removeItem('Animation');
+                                setIsActionBlock(false);
+                                setIsStatusAdd(false);
+                                navigate(route,{ replace: true });
+                            },750);
+                        },2000);
+                    }catch(error){               
+                        setIsActionBlock(false);
                         setIsStatusAdd(false);
                         return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
                     }
@@ -219,7 +164,32 @@ export default function User_Add(){
                 Alert_Verification(promise,'¡Agregando estatus al usuario!...');
             }
         }
-    },[isUserAdd,isStatusAdd,isUsers])
+    },[isUserAdd,isPermissionsAdd,isStatusAdd,isUsers,isTextFieldsUser])
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleUserInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Users');
+        };
+        const handlePermissionsInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Permissions');
+        };
+        const handleStatusInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Status');
+        };
+
+        socket.on('User-Insert',handleUserInsert);
+        socket.on('Permissions-Insert',handlePermissionsInsert);
+        socket.on('Status-Insert',handleStatusInsert);
+        
+        return () => {
+            socket.off('User-Insert',handleUserInsert);
+            socket.off('Permissions-Insert',handlePermissionsInsert);
+            socket.off('Status-Insert',handleStatusInsert);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>
@@ -235,7 +205,7 @@ export default function User_Add(){
                                 <Text_A_16_Center ThemeMode={themeMode}>Datos del usuario...</Text_A_16_Center>
                             </Container_Row_NG_95_Left>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_90_Left>
+                                <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
@@ -243,8 +213,8 @@ export default function User_Add(){
                                         value={isTextFieldsUser.name}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
                                     />
-                                </Container_Row_90_Left>
-                                <Container_Row_90_Left>
+                                </Container_Row_100_Center>
+                                <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre corto:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
@@ -252,8 +222,8 @@ export default function User_Add(){
                                         value={isTextFieldsUser.shortName}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
                                     />
-                                </Container_Row_90_Left>
-                                <Container_Row_90_Left>
+                                </Container_Row_100_Center>
+                                <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
@@ -261,8 +231,8 @@ export default function User_Add(){
                                         value={isTextFieldsUser.user}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
                                     />
-                                </Container_Row_90_Left>
-                                <Container_Row_90_Left>
+                                </Container_Row_100_Center>
+                                <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
@@ -270,7 +240,7 @@ export default function User_Add(){
                                         value={isTextFieldsUser.password}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                                     />
-                                </Container_Row_90_Left>
+                                </Container_Row_100_Center>
                                 <Select
                                     options={isUserTypes.map((userTypes) => ({
                                         value: userTypes.idtipo,

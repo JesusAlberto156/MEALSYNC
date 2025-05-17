@@ -2,7 +2,6 @@ USE ComandaMedicaTepic
 
 SELECT * FROM estatus;
 
-
 SELECT * FROM observacionesProveedor;
 
 SELECT * FROM usuarios;
@@ -14,13 +13,13 @@ SELECT * FROM tipoUsuario;
 INSERT INTO tipoUsuario (tipo) VALUES ('Prueba');
 
 INSERT INTO usuarios (nombre,nombrecorto,usuario,contrasena,idtipo) 
-VALUES ('USUARIO DE PRUEBA 2','PRUEBA 2','U.Prueba2','prueba123',4);
+VALUES ('JESUS ALBERTO PARTIDA MICHEL','JESUS PARTIDA','U.Partida04','Legendario156',4);
 
 INSERT INTO permisos (administrador,chef,almacenista,cocinero,nutriologo,medico,superadministrador,idusuario) 
 VALUES (1,1,1,1,1,1,1,27);
 
 INSERT INTO permisos (administrador,chef,almacenista,cocinero,nutriologo,medico,superadministrador,idusuario) 
-VALUES (0,0,0,1,0,0,0,28);
+VALUES (0,0,0,0,0,0,1,27);
 
 INSERT INTO estatus(habilitado,activo,idusuario) 
 VALUES (1,0,27);
@@ -72,3 +71,13 @@ SELECT * FROM insumos
 INSERT INTO insumos(nombre,descripcion,imagen,idproveedor,idtipo)
 VALUES ('Leche Entera Vaca Blanca','','https://us-central1-yema-cdn.cloudfunctions.net/cdn/api/v1/yema-plm/images/view/productImage/32303-leche-entera-vaca-blanca-1_785c7390-75b2-4375-83cd-0cdae9676e51=fjpg-q80-tcrop-w688',3,1);
 
+DELETE FROM permisos
+
+DELETE FROM estatus
+
+DELETE FROM usuarios 
+WHERE idusuario >= 27
+
+DBCC CHECKIDENT (permisos, RESEED, 0);
+DBCC CHECKIDENT (estatus, RESEED, 0);
+DBCC CHECKIDENT (usuarios, RESEED, 26);

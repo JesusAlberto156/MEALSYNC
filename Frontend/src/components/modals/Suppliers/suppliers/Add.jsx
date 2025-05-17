@@ -17,12 +17,13 @@ import { HandleSupplierAdd } from "../../../../hooks/Form";
 import { ResetTextFieldsSupplier } from "../../../../hooks/Texts";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
-import { ImUserPlus } from "react-icons/im";
+// Icono para realizar la función del modal
+import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_90_Left,Container_Row_90_Center,Container_Column_90_Center,Container_Row_100_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left } from "../../../styled/Text";
-import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
+import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -92,15 +93,16 @@ export default function Suppliers_Add(){
                 <Container_Modal ref={Modal}>
                     <Container_Form_500 ref={Form} ThemeMode={themeMode} className={currentMView === 'Supplier-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR PROVEEDOR</Text_Title_30_Center>
+                        <Container_Row_NG_95_Left>
+                            <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                            <Text_A_16_Left ThemeMode={themeMode}>Datos del proveedor...</Text_A_16_Left>
+                        </Container_Row_NG_95_Left>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                            <Container_Row_90_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>Datos del proveedor...</Text_A_16_Left>
-                            </Container_Row_90_Left>
                             <Container_Row_100_Center>
                                 <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Name"
-                                    placeholder="Nombre del proveedor..."
+                                    placeholder="..."
                                     type="text"
                                     value={isTextFieldsSupplier.name}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, name: e.target.value}))}
@@ -110,7 +112,7 @@ export default function Suppliers_Add(){
                                 <Text_A_16_Left ThemeMode={themeMode}>RFC:</Text_A_16_Left>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Rfc"
-                                    placeholder="RFC del proveedor..."
+                                    placeholder="..."
                                     type="text"
                                     value={isTextFieldsSupplier.rfc}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, rfc: e.target.value}))}
@@ -120,7 +122,7 @@ export default function Suppliers_Add(){
                                 <Text_A_16_Left ThemeMode={themeMode}>Domicilio:</Text_A_16_Left>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Address"
-                                    placeholder="Domicilio del proveedor..."
+                                    placeholder="..."
                                     type="text"
                                     value={isTextFieldsSupplier.address}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, address: e.target.value}))}
@@ -130,7 +132,7 @@ export default function Suppliers_Add(){
                                 <Text_A_16_Left ThemeMode={themeMode}>Teléfono:</Text_A_16_Left>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Phone"
-                                    placeholder="Telefono del proveedor..."
+                                    placeholder="..."
                                     type="tel"
                                     value={isTextFieldsSupplier.phone}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, phone: e.target.value}))}
@@ -140,27 +142,27 @@ export default function Suppliers_Add(){
                                 <Text_A_16_Left ThemeMode={themeMode}>Correo:</Text_A_16_Left>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Email"
-                                    placeholder="Correo del proveedor..."
+                                    placeholder="..."
                                     type="email"
                                     value={isTextFieldsSupplier.email}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, email: e.target.value}))}
                                 />
                             </Container_Row_100_Center>
                         </Container_Column_90_Center>
-                        <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
-                                <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
+                                <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                     onClick={() => handleModalView('')}>
                                     <Icon_White_22><MdCancel/></Icon_White_22>
-                                </Button_Icon_Blue_180>
+                                </Button_Icon_Blue_210>
                             </Tooltip>
                             <Tooltip title='Agregar' placement='top'>
-                                <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                     onClick={() => handleSupplierAdd()}>
-                                    <Icon_White_22><ImUserPlus/></Icon_White_22>
-                                </Button_Icon_Green_180>
+                                    <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                </Button_Icon_Green_210>
                             </Tooltip>
-                        </Container_Row_90_Center>
+                        </Container_Row_95_Center>
                     </Container_Form_500>
                 </Container_Modal>
             ):(

@@ -131,7 +131,7 @@ export const Alert_Verification = (promesa,Verificacion) => {
         error: (msj) => {
             return `${msj}`;
         },
-        duration:1000,
+        duration:2000,
         className:'Verification',
     });
 };

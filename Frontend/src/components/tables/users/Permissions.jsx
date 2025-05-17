@@ -59,11 +59,10 @@ export default function Table_Permissions(){
     // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
         if(isSelectedRow !== null){
-            const user = isUsers.find(user => user.idusuario === isSelectedRow.idusuario);
             setIsTextFieldsPermissions(prev => ({
                 ...prev,
                 iduser: isSelectedRow.idusuario,
-                user: user.usuario,
+                user: isUsers.find(user => user.idusuario === isSelectedRow.idusuario)?.usuario || 'Desconocido',
                 administrator: isSelectedRow.administrador,
                 chef: isSelectedRow.chef,
                 storekeeper: isSelectedRow.almacenista,

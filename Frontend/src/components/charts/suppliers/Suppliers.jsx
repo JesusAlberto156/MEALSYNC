@@ -309,7 +309,7 @@ export default function Chart_Suppliers(){
             <Container_Row_100_Center>
                 <Tooltip title='Anterior' placement='top'>
                     <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={() => handlePageChange(currentPage - 1)}>
+                        onClick={() => currentPage > 1 ? handlePageChange(currentPage - 1) : null}>
                         <Icon_White_22>
                             <GrPrevious/>
                         </Icon_White_22>
@@ -320,7 +320,7 @@ export default function Chart_Suppliers(){
                     <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage * itemsPerPage >= Object.entries(qualification).filter(([id, data]) =>
                                                                                 data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())
                                                                             ).length ? 'roll-out-button-left' : 'roll-in-button-left'}   
-                        onClick={() => handlePageChange(currentPage + 1)}>
+                        onClick={() => currentPage < totalPages ? handlePageChange(currentPage + 1) : null}>
                         <Icon_White_22>
                             <GrNext/>
                         </Icon_White_22>

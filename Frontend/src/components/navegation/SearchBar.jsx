@@ -25,11 +25,6 @@ import { IoIosEyeOff } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
-// Icon para la seccion de proveedores
-import { ImUserPlus } from "react-icons/im";
-import { RiEditFill } from "react-icons/ri";
-import { ImUserMinus } from "react-icons/im";
-import { BiSolidUserDetail } from "react-icons/bi";
 // Icono para la sección de insumos
 import { IoMdAddCircle } from "react-icons/io";
 import { AiFillDelete } from "react-icons/ai";
@@ -416,7 +411,7 @@ export default function Search_Bar (){
                                         handleModalView('Supplier-Add');
                                         navigate('/Administration/Suppliers/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><ImUserPlus/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow === null ? (
@@ -427,7 +422,7 @@ export default function Search_Bar (){
                                             handleModalView('Supplier-Edit');
                                             navigate('/Administration/Suppliers/Edit',{ replace: true });
                                         }}>
-                                            <Icon_White_18><RiEditFill/></Icon_White_18>
+                                            <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
                                         <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                         disabled={isSelectedRow === null}
@@ -435,7 +430,7 @@ export default function Search_Bar (){
                                             handleModalView('Supplier-Delete');
                                             navigate('/Administration/Suppliers/Delete',{ replace: true });
                                         }}>
-                                            <Icon_White_18><ImUserMinus/></Icon_White_18>
+                                            <Icon_White_18><MdDelete/></Icon_White_18>
                                         </Button_Icon_Red_60>
                                         <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                         disabled={isSelectedRow === null}
@@ -443,7 +438,7 @@ export default function Search_Bar (){
                                             handleModalView('Supplier-Details');
                                             navigate('/Administration/Suppliers/Details',{ replace: true });
                                         }}>
-                                            <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                            <Icon_White_18><FaEye/></Icon_White_18>
                                         </Button_Icon_Green_60>
                                     </>
                                 ):(
@@ -454,7 +449,7 @@ export default function Search_Bar (){
                                                 handleModalView('Supplier-Edit');
                                                 navigate('/Administration/Suppliers/Edit',{ replace: true });
                                             }}>
-                                                <Icon_White_18><RiEditFill/></Icon_White_18>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
                                         <Tooltip title='Eliminar' placement="top">
@@ -463,7 +458,7 @@ export default function Search_Bar (){
                                                 handleModalView('Supplier-Delete');
                                                 navigate('/Administration/Suppliers/Delete',{ replace: true });
                                             }}>
-                                                <Icon_White_18><ImUserMinus/></Icon_White_18>
+                                                <Icon_White_18><MdDelete/></Icon_White_18>
                                             </Button_Icon_Red_60>
                                         </Tooltip>
                                         <Tooltip title='Ver Detalles' placement="top">
@@ -472,7 +467,7 @@ export default function Search_Bar (){
                                                 handleModalView('Supplier-Details');
                                                 navigate('/Administration/Suppliers/Details',{ replace: true });
                                             }}>
-                                                <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                                <Icon_White_18><FaEye/></Icon_White_18>
                                             </Button_Icon_Green_60>
                                         </Tooltip>
                                     </>
@@ -486,7 +481,7 @@ export default function Search_Bar (){
                                         handleModalView('Supplier-Add');
                                         navigate('/Administration/Suppliers/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><ImUserPlus/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow === null ? (
@@ -497,7 +492,7 @@ export default function Search_Bar (){
                                             handleModalView('Supplier-Edit');
                                             navigate('/Administration/Suppliers/Edit',{ replace: true });
                                         }}>
-                                            <Icon_White_18><RiEditFill/></Icon_White_18>
+                                            <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
                                         <Button_Icon_Green_60 ref={Button_Details_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                         disabled={isSelectedRow === null}
@@ -505,7 +500,7 @@ export default function Search_Bar (){
                                             handleModalView('Supplier-Details');
                                             navigate('/Administration/Suppliers/Details',{ replace: true });
                                         }}>
-                                            <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                            <Icon_White_18><FaEye/></Icon_White_18>
                                         </Button_Icon_Green_60>
                                     </>
                                 ):(
@@ -516,7 +511,7 @@ export default function Search_Bar (){
                                                 handleModalView('Supplier-Edit');
                                                 navigate('/Administration/Suppliers/Edit',{ replace: true });
                                             }}>
-                                                <Icon_White_18><RiEditFill/></Icon_White_18>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
                                         <Tooltip title='Ver Detalles' placement="top">
@@ -525,7 +520,7 @@ export default function Search_Bar (){
                                                 handleModalView('Supplier-Details');
                                                 navigate('/Administration/Suppliers/Details',{ replace: true });
                                             }}>
-                                                <Icon_White_18><BiSolidUserDetail/></Icon_White_18>
+                                                <Icon_White_18><FaEye/></Icon_White_18>
                                             </Button_Icon_Green_60>
                                         </Tooltip>
                                     </>
@@ -544,7 +539,7 @@ export default function Search_Bar (){
                                         handleModalView('Supply-Add');
                                         navigate('/Administration/Supplies/Add',{ replace: true });
                                     }}>
-                                        <Icon_White_18><IoMdAddCircle/></Icon_White_18>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                     </Button_Icon_Green_60>
                                 </Tooltip>
                                 {isSelectedRow === null ? (

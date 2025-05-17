@@ -46,17 +46,6 @@ export default function Permissions_Enable(){
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [socket] = useContext(SocketContext);
     const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
-    // Constantes con el valor de useState
-    const [user,setUser] = useState('');
-    // useEffect con el usuario
-    useEffect(() => {
-        if(isSelectedRow !== null){
-            const isUser = isUsers.find(u => u.idusuario === isSelectedRow.idusuario);
-            if(isUser){
-                setUser(isUser);
-            }
-        }
-    },[]);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -68,12 +57,7 @@ export default function Permissions_Enable(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Permission-Update',isPermissionsEnable.idusuario,user.usuario,isPermissionsEnable.superadministrador ? 0:1);
-                        
-                        socket.on('Permission-Update',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Permissions');
-                        });
+                        socket.emit('Permission-Update',isPermissionsEnable.idusuario,isTextFieldsPermissions.user,isPermissionsEnable.superadministrador ? 0:1);
 
                         if(isPermissionsEnable.superadministrador){
                             resolve('¡MEALSYNC deshabilito el super administrador al usuario!...');
@@ -97,10 +81,6 @@ export default function Permissions_Enable(){
                             setIsVerificationBlock(false);
                             navigate(route,{ replace: true });
                         },750);
-
-                        return () => {
-                            socket.off('Permission-Update');
-                        }
                     },2000);
                 }catch(error){
                     setIsActionBlock(true);
@@ -112,6 +92,19 @@ export default function Permissions_Enable(){
             Alert_Verification(promise,isPermissionsEnable.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
         }
     },[isPermissionsEnable]);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handlePermissionUpdate = (message,user) => {
+            console.log(message,user);
+            socket.emit('Permissions');
+        };
+
+        socket.on('Permission-Update',handlePermissionUpdate);
+        
+        return () => {
+            socket.off('Permission-Update',handlePermissionUpdate);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>

@@ -3,9 +3,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
-import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
+import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext,SubModalContext } from "../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
-import { SelectContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext,TextFieldsUserContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext } from "../contexts/FormsProvider";
 import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
@@ -63,7 +63,6 @@ export const HandleNavbarView = () => {
     // Constantes con el valor de los contextos 
     const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
-    const [isSelect,setIsSelect] = useContext(SelectContext);
     // Función del hook
     const handleNavbarView = (View) => {
         setCurrentNView(View);
@@ -105,15 +104,13 @@ export const HandleModalView = () => {
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
-    const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
-    const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
-    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+    const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isSelect,setIsSelect] = useContext(SelectContext);
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
+    const [isSubModal,setIsSubModal] = useContext(SubModalContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetTextFieldsUser = ResetTextFieldsUser();
@@ -138,6 +135,10 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 resetTextFieldsUser();
+                setIsSubModal(false);
+                sessionStorage.setItem('Sub-Modal',false);
+                setIsAnimation(false);
+                sessionStorage.removeItem('Animation');
                 resetTextFieldsPermissions();
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
@@ -219,7 +220,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-
         if(currentMView === 'Supplier-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -229,6 +229,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+
         if(currentMView === 'Supplier-Edit' && View === ''){
             setTimeout(() => {
                 setIsModal(false);

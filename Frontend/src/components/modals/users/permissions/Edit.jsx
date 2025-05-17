@@ -55,11 +55,7 @@ export default function Permissions_Edit(){
                 try{
                     setTimeout(() => {
                         socket.emit('Permissions-Update',isTextFieldsPermissions.iduser,isTextFieldsPermissions.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor)
-                        
-                        socket.on('Permissions-Update',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Permissions');
-                        });
+
                         resolve('¡MEALSYNC edito los permisos al usuario!...')
                         
                         const route = sessionStorage.getItem('Route');
@@ -74,10 +70,6 @@ export default function Permissions_Edit(){
                             setIsSelectedRow(null);
                             navigate(route,{ replace: true });
                         },750);
-
-                        return () => {
-                            socket.off('Permissions-Update');
-                        }
                     },2000);
                 }catch(error){
                     setIsActionBlock(false);
@@ -89,6 +81,19 @@ export default function Permissions_Edit(){
             Alert_Verification(promise,'¡Editando permisos a un usuario!...');
         }
     },[isPermissionsEdit]);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handlePermissionsUpdate = (message,user) => {
+            console.log(message,user);
+            socket.emit('Permissions');
+        };
+
+        socket.on('Permissions-Update',handlePermissionsUpdate);
+        
+        return () => {
+            socket.off('Permissions-Update',handlePermissionsUpdate);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>

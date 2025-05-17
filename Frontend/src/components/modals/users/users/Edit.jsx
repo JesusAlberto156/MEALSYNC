@@ -32,7 +32,7 @@ import { Alert_Verification } from "../../../styled/Alerts";
 import Error_Edit from "../../errors/Edit";
 //____________IMPORT/EXPORT____________
 
-// Modal para ver la contraseña de usuarios
+// Modal para editar los usuarios de la tabla
 export default function User_Edit(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
@@ -56,11 +56,6 @@ export default function User_Edit(){
                 try{
                     setTimeout(() => {
                         socket.emit('User-Update',isTextFieldsUser.userTypes,isSelectedRow.idusuario,isTextFieldsUser.name,isTextFieldsUser.shortName,isTextFieldsUser.user,isTextFieldsUser.password)
-                    
-                        socket.on('User-Update',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Users');
-                        });
 
                         resolve('¡MEALSYNC actualizo al usuario!...');
 
@@ -76,11 +71,7 @@ export default function User_Edit(){
                             setIsSelectedRow(null);
                             navigate(route,{ replace: true });
                         },750);
-
-                        return () => {
-                            socket.off('User-Update');
-                        }
-                    },1000);
+                    },2000);
                 }catch(error){
                     setIsActionBlock(false);
                     setIsUserEdit(false);
@@ -91,6 +82,19 @@ export default function User_Edit(){
             Alert_Verification(promise,'¡Actualizado un usuario!...');
         }
     },[isUserEdit])
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handlePermissionUpdate = (message,user) => {
+            console.log(message,user);
+            socket.emit('Users');
+        };
+
+        socket.on('User-Update',handlePermissionUpdate);
+        
+        return () => {
+            socket.off('User-Update',handlePermissionUpdate);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>

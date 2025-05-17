@@ -8,7 +8,7 @@ import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsSupplyContext,RadioPermissionsContext,RadioStatusContext,CheckboxContext } from "../../../../contexts/FormsProvider";
+import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
 import { UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";

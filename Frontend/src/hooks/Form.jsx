@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
-import { SelectContext,RadioStatusContext,RadioPermissionsContext,CheckboxContext,TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
@@ -26,6 +26,46 @@ export const HandleLoggedLog = () => {
     // Retorno de la función del hook
     return handleLoggedLog;
 }
+// Hook para comprobar el inicio de sesión
+export const HandleVerificationBlock = () => {
+    // Constantes con el valor de los contextos 
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    // Función del hook
+    const handleVerificationBlock = async () => {
+        const promise = new Promise(async (resolve,reject) => {
+            try{
+                setIsVerificationBlock(true);
+                setTimeout(() => {
+                    if(isLoggedUser.length !== 0){
+                        if(isTextFieldsUser.user === '' || isTextFieldsUser.password === ''){
+                            setIsVerificationBlock(false);
+                            return reject('¡Falta escribir el nombre de usuario o la contraseña del usuario!...');
+                        }
+                        if(isTextFieldsUser.user === isLoggedUser.usuario && isTextFieldsUser.password === isLoggedUser.contrasena){
+                            resolve('¡Bienvenido(a), puede proceder con la acción!...');
+                            setIsActionBlock(true);
+                            sessionStorage.setItem('Verification-Block',true);
+                            sessionStorage.setItem('Action-Block',true);
+                        }else{
+                            setIsVerificationBlock(false);
+                            return reject('¡Nombre de usuario o contraseña incorrectos!...');
+                        }
+                    }
+                },1000);
+            } catch (error) {
+                setIsVerificationBlock(false);
+                return reject('¡Ocurrio un error inseperado!...');
+            }
+        });
+
+        Alert_Verification(promise,'Verificando datos...');
+    }
+    // Retorno de la función del hook
+    return handleVerificationBlock;
+}
 // Hook para agregar un usuario desde el modal
 export const HandleUserAdd = () => {
     // Constantes con el valor de los contextos 
@@ -35,8 +75,6 @@ export const HandleUserAdd = () => {
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isTextFieldsUser] = useContext(TextFieldsUserContext);
-    const [isRadioPermissions] = useContext(RadioPermissionsContext);
-    const [isRadioStatus] = useContext(RadioStatusContext);
     // Función del hook
     const handleUserAdd = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Add'){
@@ -48,12 +86,12 @@ export const HandleUserAdd = () => {
                             setIsActionBlock(false);
                             return reject('¡Falta información del usuario!...')
                         };
-                        if(isRadioPermissions === ''){
+                        if(isTextFieldsUser.permissions === ''){
                             setIsActionBlock(false);
                             return reject('¡Los permisos del usuario no han sido seleccionados!...')
                         };
 
-                        if(isRadioStatus === ''){
+                        if(isTextFieldsUser.status === ''){
                             setIsActionBlock(false);
                             return reject('¡El estatus del usuario no han sido seleccionado!...')
                         };
@@ -285,6 +323,18 @@ export const HandlePermissionsEnable = () => {
     // Retorno de la función del hook
     return handlePermissionsEnable;
 }
+// Hook para filtrar los usuarios cuando no tiene estatus
+export const FilteredRecordsHasStatus = () => {
+    // Constantes con el valor de los contextos 
+    const [isUsers] = useContext(UsersContext);
+    const [isStatusAll] = useContext(StatusContext);
+    // Función del hook
+    const filteredRecordsHasStatus = isUsers.filter((data) => {
+        return !isStatusAll.some(status => status.idusuario === data.idusuario);
+    });
+    // Retorno de la función del hook
+    return filteredRecordsHasStatus;
+}
 // Hook para agregar un estatus a un usuario desde el modal
 export const HandleStatusSAdd = () => {
     // Constantes con el valor de los contextos 
@@ -449,104 +499,4 @@ export const HandleSupplierEdit = () => {
     }
     // Retorno de la función del hook
     return handleSupplierEdit;
-}
-// Hook para filtrar los usuarios cuando no tiene estatus
-export const FilteredRecordsHasStatus = () => {
-    // Constantes con el valor de los contextos 
-    const [isUsers] = useContext(UsersContext);
-    const [isStatusAll] = useContext(StatusContext);
-    // Función del hook
-    const filteredRecordsHasStatus = isUsers.filter((data) => {
-        return !isStatusAll.some(status => status.idusuario === data.idusuario);
-    });
-    // Retorno de la función del hook
-    return filteredRecordsHasStatus;
-}
-// Hook para darle valor al contexto del select
-export const HandleSelect = () => {
-
-    const [isSelect,setIsSelect] = useContext(SelectContext);
-
-    const handleSelect = (selectOption) => {
-        setIsSelect(selectOption);
-    }
-
-    return handleSelect;
-}
-// Hook para darle valor al contexto del radio
-export const HandleRadio = () => {
-    // Constantes con el valor de los contextos 
-    const [isRadio,setIsRadio] = useContext(RadioStatusContext);
-    // Función del hook
-    const handleRadio = (radioOption) => {
-        setIsRadio(radioOption.target.value);
-    }
-    // Retorno de la función del hook
-    return handleRadio;
-}
-// Hook para darle valor al contexto del checkbox
-export const HandleCheckbox = () => {
-    // Constantes con el valor de los contextos 
-    const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
-    // Función del hook
-    const handleCheckbox = (option,value) => {
-        const newCheckboxValue = {
-            name: option,
-            value: value.target.checked,
-        };
-        setIsCheckbox(prevState => {
-            const existingCheckboxIndex = prevState.findIndex(item => item.name === option);
-            if (existingCheckboxIndex >= 0) {
-                // Si el checkbox ya existe, actualizar su valor
-                const updatedState = [...prevState];
-                updatedState[existingCheckboxIndex] = newCheckboxValue;
-                return updatedState;
-            } else {
-                // Si no existe, agregarlo al estado
-                return [...prevState, newCheckboxValue];
-            }
-        });
-    }
-    // Retorno de la función del hook
-    return handleCheckbox;
-}
-// Hook para comprobar el inicio de sesión
-export const HandleVerificationBlock = () => {
-    // Constantes con el valor de los contextos 
-    const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
-    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    // Función del hook
-    const handleVerificationBlock = async () => {
-        const promise = new Promise(async (resolve,reject) => {
-            try{
-                setIsVerificationBlock(true);
-                setTimeout(() => {
-                    if(isLoggedUser.length !== 0){
-                        if(isTextFieldsUser.user === '' || isTextFieldsUser.password === ''){
-                            setIsVerificationBlock(false);
-                            return reject('¡Falta escribir el nombre de usuario o la contraseña del usuario!...');
-                        }
-                        if(isTextFieldsUser.user === isLoggedUser.usuario && isTextFieldsUser.password === isLoggedUser.contrasena){
-                            resolve('¡Bienvenido(a), puede proceder con la acción!...');
-                            setIsActionBlock(true);
-                            sessionStorage.setItem('Verification-Block',true);
-                            sessionStorage.setItem('Action-Block',true);
-                        }else{
-                            setIsVerificationBlock(false);
-                            return reject('¡Nombre de usuario o contraseña incorrectos!...');
-                        }
-                    }
-                },1000);
-            } catch (error) {
-                setIsVerificationBlock(false);
-                return reject('¡Ocurrio un error inseperado!...');
-            }
-        });
-
-        Alert_Verification(promise,'Verificando datos...');
-    }
-    // Retorno de la función del hook
-    return handleVerificationBlock;
 }

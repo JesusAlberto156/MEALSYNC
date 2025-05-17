@@ -11,7 +11,7 @@
 350 - 120
 400 - 150
 450 - 180
-500 - 
+500 - 210
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar

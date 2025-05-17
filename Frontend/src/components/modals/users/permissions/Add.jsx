@@ -55,11 +55,6 @@ export default function Permissions_Add(){
                     setTimeout(() => {
                         socket.emit('Permissions-Insert',isTextFieldsPermissions.iduser,isTextFieldsPermissions.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
                         
-                        socket.on('Permissions-Insert',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Permissions');
-                        });
-
                         resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
                         const route = sessionStorage.getItem('Route');
@@ -74,11 +69,7 @@ export default function Permissions_Add(){
                             setIsPermissionsAdd(false);
                             navigate(route,{ replace: true });
                         },750);
-
-                        return () => {
-                            socket.off('Permissions-Insert');
-                        }
-                    },1000);
+                    },2000);
                 }catch(error){
                     setIsActionBlock(false);
                     setIsPermissionsAdd(false);
@@ -89,6 +80,19 @@ export default function Permissions_Add(){
             Alert_Verification(promise,'¡Agregando permisos al usuario!...');
         }
     },[isPermissionsAdd])
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handlePermissionsInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Permissions');
+        };
+
+        socket.on('Permissions-Insert',handlePermissionsInsert);
+        
+        return () => {
+            socket.off('Permissions-Insert',handlePermissionsInsert);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>

@@ -4,9 +4,10 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
-import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
+import { SuppliesContext,SupplyAddContext } from "../contexts/WarehouseProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
@@ -399,8 +400,7 @@ export const HandleStatusEnable = () => {
     // Retorno de la función del hook
     return handleStatusEnable;
 }
-
-// Hook para editar los permisos a un usuario desde el modal
+// Hook para agregar un porveedor desde el modal
 export const HandleSupplierAdd = () => {
     // Constantes con el valor de los contextos 
     const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
@@ -445,7 +445,7 @@ export const HandleSupplierAdd = () => {
     // Retorno de la función del hook
     return handleSupplierAdd;
 }
-// Hook para editar los permisos a un usuario desde el modal
+// Hook para editar un porveedor desde el modal
 export const HandleSupplierEdit = () => {
     // Constantes con el valor de los contextos 
     const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext);
@@ -499,4 +499,51 @@ export const HandleSupplierEdit = () => {
     }
     // Retorno de la función del hook
     return handleSupplierEdit;
+}
+//Hook para agregar un insumo desde el modal
+export const HandleSupplyAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
+    const [isSupplies] = useContext(SuppliesContext);
+    const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
+    // Función del hook
+    const handleSupplyAdd = () => {
+        if(currentNView === 'Supplies' && currentSView === 'Warehouse' && currentMView === 'Supply-Add'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupply.name === '' || isTextFieldsSupply.description === '' || isTextFieldsSupply.image === '' || isTextFieldsSupply.supplier === 0 || isTextFieldsSupply.type === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del insumo!...');
+                        };
+
+                        const exists = isSupplies.some(supply => supply.nombre === isTextFieldsSupply.name && supply.idproveedor === isTextFieldsSupply.supplier);
+                        
+                        if(exists){
+                            setIsActionBlock(false);
+                            return reject('¡Insumo con el proveedor ya existente!...');
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyAdd(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+     // Retorno de la función del hook
+     return handleSupplyAdd
 }

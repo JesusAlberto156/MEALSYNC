@@ -5,9 +5,7 @@
  - Falta agregar el cerrado de sesion automatico si yo cierro la pestaña de forma forzada o bien navego a otra pagina y quiero regresar
  - Falta verificaion de campos a la hora de registrar y editar los proveedores
  - Falta la eliminacion de proveedores junto con sus observaciones
-
  - Falta agregar el teclado en la creación y edición de los proveedores
- - Falta Agregar la creacion y edición de las observaciones a proveedores asi como su verificación de campos
- - Falta agregar el teclado en la creación y edición de las observaciones a proveedores
- - Falta agregar detalles en el caledario de las observaciones 
+ - Falta configurar todo lo relacionado a observaciones del proveedor
+
  

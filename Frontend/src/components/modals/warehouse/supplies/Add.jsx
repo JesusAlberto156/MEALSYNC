@@ -10,23 +10,23 @@ import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
 import { UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
-import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { SupplyTypesContext } from "../../../../contexts/WarehouseProvider";
+import { SupplyTypesContext,SupplyAddContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser } from "../../../../hooks/Texts";
+import { ResetTextFieldsSupply } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
-import { HandleUserAdd } from "../../../../hooks/Form";
+import { HandleSupplyAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
-import { IoMdAddCircle } from "react-icons/io";
+import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_90_Center,Container_Row_100_Center,Container_Column_90_Center,Container_Row_90_Left } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_A_16_Center } from "../../../styled/Text";
-import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -45,16 +45,65 @@ export default function Supply_Add(){
     const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
+    const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
     const [socket] = useContext(SocketContext);
     const [isUsers] = useContext(UsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
-    const handleUserAdd = HandleUserAdd();
-    const resetTextFieldsUser = ResetTextFieldsUser();
+    const handleSupplyAdd = HandleSupplyAdd();
+    const resetTextFieldsSupply = ResetTextFieldsSupply();
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-    },[isUserAdd,isStatusAdd,isUsers])
+        if(isSupplyAdd){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Status-Insert',isTextFieldsUser.iduser,isTextFieldsUser.status === 'Habilitado' ? 1:0,isTextFieldsUser.user);
+                        
+                        resolve('¡MEALSYNC agregó el status al usuario!...');
+
+                        const route = sessionStorage.getItem('Route');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Modal-View','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Modal',false);
+                            setIsSubModal(false);
+                            sessionStorage.setItem('Sub-Modal',false);
+                            resetTextFieldsUser();
+                            resetTextFieldsPermissions();
+                            setIsAnimation(false);
+                            sessionStorage.removeItem('Animation');
+                            setIsActionBlock(false);
+                            setIsStatusAdd(false);
+                            navigate(route,{ replace: true });
+                        },750);
+                    },2000);
+                }catch(error){
+                    setIsActionBlock(false);
+                        setIsStatusAdd(false);
+                        return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Agregando estatus al usuario!...');
+        }
+    },[isSupplyAdd]);
+    // UseEffect para quitar la suscrpcion de socket
+        useEffect(() => {
+            const handleSupplyInsert = (message,user) => {
+                console.log(message,user);
+                socket.emit('Supplies');
+            };
+    
+            socket.on('Supply-Insert',handleSupplyInsert);
+            
+            return () => {
+                socket.off('Supply-Insert',handleSupplyInsert);
+            }
+        },[socket])
     // Estructura del componente
     return(
         <>
@@ -65,40 +114,44 @@ export default function Supply_Add(){
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR INSUMO</Text_Title_30_Center>
                             </Container_Row_100_Center>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos del insumo...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_90_Left>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Ingresar datos del insumo...</Text_A_16_Left>
-                                </Container_Row_90_Left>
-                                <Container_Row_90_Left>
+                                <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="Nombre completo del insumo..."
+                                        placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupply.name}
                                         onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, name: e.target.value}))}
                                     />
-                                </Container_Row_90_Left>
-                                <Container_Row_90_Left>
+                                </Container_Row_100_Center>
+                                <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Descripción:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="Breve descipción del insumo..."
+                                        placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupply.description}
                                         onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, description: e.target.value}))}
                                     />
-                                </Container_Row_90_Left>
-                                <Container_Row_90_Left>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Imagen:</Text_A_16_Left>
+                                </Container_Row_100_Center>
+                                <Container_Row_100_Center>
+                                    <Text_A_16_Left ThemeMode={themeMode}>Imagen (URL):</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="URL de la imagen del insumo..."
+                                        placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupply.image}
                                         onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, image: e.target.value}))}
                                     />
-                                </Container_Row_90_Left>
-                                <Container_Row_90_Center>
-                                    <Text_A_16_Center ThemeMode={themeMode}>Proveedor...</Text_A_16_Center>
-                                </Container_Row_90_Center>
+                                </Container_Row_100_Center>
+                            </Container_Column_90_Center>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Proveedor...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Select
                                     options={isSuppliers.map((supplier) => ({
                                         value: supplier.idproveedor,
@@ -156,9 +209,12 @@ export default function Supply_Add(){
                                     }
                                     onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, supplier: e.value}))}
                                 />
-                                <Container_Row_90_Center>
-                                    <Text_A_16_Center ThemeMode={themeMode}>Tipo de insumo...</Text_A_16_Center>
-                                </Container_Row_90_Center>
+                            </Container_Column_90_Center>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Tipo de insumo...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Select
                                     options={isSupplyTypes.map((type) => ({
                                         value: type.idtipo,
@@ -217,20 +273,20 @@ export default function Supply_Add(){
                                     onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, type: e.value}))}
                                 />
                             </Container_Column_90_Center>
-                            <Container_Row_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
                                         <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Blue_180>
+                                    </Button_Icon_Blue_210>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
-                                    <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUserAdd()}>
-                                        <Icon_White_22><IoMdAddCircle/></Icon_White_22>
-                                    </Button_Icon_Green_180>
+                                    <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        onClick={() => handleSupplyAdd()}>
+                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                    </Button_Icon_Green_210>
                                 </Tooltip>
-                            </Container_Row_90_Center>
+                            </Container_Row_95_Center>
                         </Container_Form_500>
                     </Container_Modal>
                 </>

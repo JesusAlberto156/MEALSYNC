@@ -19,7 +19,9 @@ import { MdSpeakerNotes } from "react-icons/md";
 // Iconos para la sección de inventario del navbar
 import { FaWarehouse } from "react-icons/fa";
 import { FaBoxes } from "react-icons/fa";
+import { FaBoxOpen } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
+
 
 import { RiRecordMailFill } from "react-icons/ri";
 //__________ICONOS__________
@@ -150,6 +152,15 @@ export default function Nav_Bar(){
                                     navigate('/Administration/Index/Supplies',{ replace: true });
                                 }}>
                                     <Icon_22><FaBoxes/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Tipos de Insumo' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Supply-Types')
+                                    sessionStorage.setItem('Route','/Administration/Index/Supply-Types');
+                                    navigate('/Administration/Index/Supply-Types',{ replace: true });
+                                }}>
+                                    <Icon_22><FaBoxOpen/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
                             <Tooltip title='Estadísticas' placement="top">

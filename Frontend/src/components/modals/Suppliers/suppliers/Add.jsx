@@ -51,11 +51,6 @@ export default function Suppliers_Add(){
                 try{
                     setTimeout(() => {
                         socket.emit('Supplier-Insert',isTextFieldsSupplier.name,isTextFieldsSupplier.rfc,isTextFieldsSupplier.address,isTextFieldsSupplier.phone,isTextFieldsSupplier.email)
-                    
-                        socket.on('Supplier-Insert',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Suppliers');
-                        });
 
                         resolve('¡MEALSYNC agrego al proveedor!...');
 
@@ -71,11 +66,7 @@ export default function Suppliers_Add(){
                             resetTextFieldsSupplier();
                             navigate(route,{ replace: true });
                         },750);
-
-                        return () => {
-                            socket.off('Supplier-Insert');
-                        }
-                    },1000);
+                    },2000);
                 }catch(error){
                     setIsActionBlock(false);
                     setIsSupplierAdd(false);
@@ -86,6 +77,19 @@ export default function Suppliers_Add(){
             Alert_Verification(promise,'Agregando un proveedor!...');
         }
     },[isSupplierAdd]);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleSupplierInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Suppliers');
+        };
+
+        socket.on('Supplier-Insert',handleSupplierInsert);
+        
+        return () => {
+            socket.off('Supplier-Insert',handleSupplierInsert);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>
@@ -95,7 +99,7 @@ export default function Suppliers_Add(){
                         <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR PROVEEDOR</Text_Title_30_Center>
                         <Container_Row_NG_95_Left>
                             <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                            <Text_A_16_Left ThemeMode={themeMode}>Datos del proveedor...</Text_A_16_Left>
+                            <Text_A_16_Left ThemeMode={themeMode}>- Datos del proveedor...</Text_A_16_Left>
                         </Container_Row_NG_95_Left>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>

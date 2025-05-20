@@ -229,7 +229,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-
         if(currentMView === 'Supplier-Edit' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -247,7 +246,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-
         if(currentMView === 'Supply-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -256,6 +254,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+        
         setCurrentMView(View);
         sessionStorage.setItem('Modal-View',View);
     }

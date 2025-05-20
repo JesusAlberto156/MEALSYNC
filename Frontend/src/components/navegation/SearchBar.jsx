@@ -25,9 +25,6 @@ import { IoIosEyeOff } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
-// Icono para la sección de insumos
-import { IoMdAddCircle } from "react-icons/io";
-import { AiFillDelete } from "react-icons/ai";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_80_Right } from "../styled/Containers";
@@ -558,7 +555,7 @@ export default function Search_Bar (){
                                             handleModalView('Supply-Delete');
                                             navigate('/Administration/Supplies/Delete',{ replace: true });
                                         }}>
-                                            <Icon_White_18><AiFillDelete/></Icon_White_18>
+                                            <Icon_White_18><MdDelete/></Icon_White_18>
                                         </Button_Icon_Red_60>
                                     </>
                                 ):(
@@ -578,7 +575,7 @@ export default function Search_Bar (){
                                                 handleModalView('Supply-Delete');
                                                 navigate('/Administration/Supplies/Delete',{ replace: true });
                                             }}>
-                                                <Icon_White_18><AiFillDelete/></Icon_White_18>
+                                                <Icon_White_18><MdDelete/></Icon_White_18>
                                             </Button_Icon_Red_60>
                                         </Tooltip>
                                     </>

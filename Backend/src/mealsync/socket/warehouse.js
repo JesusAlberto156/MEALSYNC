@@ -1,6 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
 import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService } from "../services/warehouse.js";
+import { insertSupplyService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
@@ -67,7 +68,15 @@ export const Warehouse_GET = (socket) => {
 //______________INSERT______________
 export const Warehouse_INSERT = (socket) => {
     //---------- INSUMOS
-    
+    socket.on('Supply-Insert',async (nombre,descripcion,imagen,idproveedor,idtipo) => {
+        try{
+            await insertSupplyService(nombre,descripcion,imagen,idproveedor,idtipo);
+            io.emit('Supply-Insert','Se inserto el insumo ',nombre);
+        }catch(error){
+            console.error('Error al insertar: ',error);
+            return error;
+        }
+    });
     //---------- INSUMOS
     //---------- TIPO DE INSUMOS
 

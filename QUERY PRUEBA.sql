@@ -81,3 +81,16 @@ WHERE idusuario >= 27
 DBCC CHECKIDENT (permisos, RESEED, 0);
 DBCC CHECKIDENT (estatus, RESEED, 0);
 DBCC CHECKIDENT (usuarios, RESEED, 26);
+
+DELETE FROM observacionesProveedor
+
+DELETE FROM insumos
+
+DELETE FROM proveedores
+
+DBCC CHECKIDENT (proveedores, RESEED, 0);
+DBCC CHECKIDENT (insumos, RESEED, 0);
+DBCC CHECKIDENT (observacionesProveedor, RESEED, 0);
+
+SELECT * FROM proveedores
+SELECT * FROM almacen

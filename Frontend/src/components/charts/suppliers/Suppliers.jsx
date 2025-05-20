@@ -38,7 +38,7 @@ export default function Chart_Suppliers(){
     const [currentPage, setCurrentPage] = useState(1);
     // UseEffect para obtener la calificacion de los proveedores
     useEffect(() => {
-        if(isObservations.length !== 0 && isSuppliers.length !== 0){
+        if(isObservations.length !== 0 || isSuppliers.length !== 0){
             const updatedQualification = {};
 
             isSuppliers.forEach(supplier => {

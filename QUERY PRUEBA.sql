@@ -60,6 +60,12 @@ SELECT * FROM bebida
 INSERT INTO medida(medida)
 VALUES ('Litros');
 
+UPDATE medida SET unidad = ('Kilogramos') WHERE idmedida = 1;
+UPDATE medida SET medida = ('Paquete'), cantidad = (0.750) WHERE idmedida = 1; 
+
+UPDATE medida SET unidad = ('Kilogramos') WHERE idmedida = 2;
+UPDATE medida SET medida = ('Paquete'), cantidad = (1) WHERE idmedida = 2; 
+
 INSERT INTO tipoInsumo(tipo,descripcion,idmedida)
 VALUES ('carne de res','Producto provinente del ganado vacuno','1');
 
@@ -94,3 +100,6 @@ DBCC CHECKIDENT (observacionesProveedor, RESEED, 0);
 
 SELECT * FROM proveedores
 SELECT * FROM almacen
+
+ALTER TABLE medida
+ADD cantidad DECIMAL(10,4) NULL 

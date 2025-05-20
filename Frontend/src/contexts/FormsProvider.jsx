@@ -7,6 +7,7 @@ export const TextFieldsPermissionsContext = createContext(null);
 export const TextFieldsStatusContext = createContext(null);
 export const TextFieldsSupplierContext = createContext(null);
 export const TextFieldsSupplyContext = createContext(null);
+export const TextFieldsSupplyTypesContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar los campos de registro de un formulario de usuario
@@ -85,6 +86,7 @@ export const Text_Fields_Supplier = ({ children }) => {
 export const Text_Fields_Supply = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useState({
+        idsupply: 0,
         name: '',
         description: '',
         image: '',
@@ -96,5 +98,37 @@ export const Text_Fields_Supply = ({ children }) => {
         <TextFieldsSupplyContext.Provider value={[isTextFieldsSupply,setIsTextFieldsSupply]}> 
             {children}
         </TextFieldsSupplyContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de tipos de insumos
+export const Text_Fields_Supply_Types = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useState({
+        idtype: 0,
+        type: '',
+        description: '',
+        idunits: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsSupplyTypesContext.Provider value={[isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes]}> 
+            {children}
+        </TextFieldsSupplyTypesContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de tipos de insumos
+export const Text_Fields_Units = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useState({
+        idtype: 0,
+        type: '',
+        description: '',
+        idunits: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsSupplyTypesContext.Provider value={[isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes]}> 
+            {children}
+        </TextFieldsSupplyTypesContext.Provider>
     );
 }

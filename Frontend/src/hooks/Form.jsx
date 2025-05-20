@@ -7,7 +7,7 @@ import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider"
 import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
-import { SuppliesContext,SupplyAddContext } from "../contexts/WarehouseProvider";
+import { SuppliesContext,SupplyAddContext,SupplyEditContext } from "../contexts/WarehouseProvider";
 import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
@@ -546,4 +546,59 @@ export const HandleSupplyAdd = () => {
     }
      // Retorno de la función del hook
      return handleSupplyAdd
+}
+//Hook para editar un insumo desde el modal
+export const HandleSupplyEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
+    const [isSupplies] = useContext(SuppliesContext);
+    const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    // Función del hook
+    const handleSupplyEdit = () => {
+        if(currentNView === 'Supplies' && currentSView === 'Warehouse' && currentMView === 'Supply-Edit'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupply.name === '' || isTextFieldsSupply.description === '' || isTextFieldsSupply.image === '' || isTextFieldsSupply.supplier === 0 || isTextFieldsSupply.type === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del insumo!...');
+                        };
+
+                        if(isTextFieldsSupply.name === isSelectedRow.nombre && isTextFieldsSupply.description === isSelectedRow.descripcion && isTextFieldsSupply.image === isSelectedRow.imagen && isTextFieldsSupply.supplier === isSelectedRow.idproveedor && isTextFieldsSupply.type === isSelectedRow.idtipo){
+                            setIsActionBlock(false);
+                            return reject('¡No hay información del insumo modificada!...')
+                        }
+
+                        if(isTextFieldsSupply.name !== isSelectedRow.nombre){
+                            const exists = isSupplies.some(supply => supply.nombre === isTextFieldsSupply.name && supply.idproveedor === isTextFieldsSupply.supplier);
+                        
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Insumo con el proveedor ya existente!...');
+                            }
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyEdit(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+     // Retorno de la función del hook
+     return handleSupplyEdit
 }

@@ -6,6 +6,7 @@ import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
 export const SuppliesContext = createContext(null);
 export const SupplyAddContext = createContext(null);
+export const SupplyEditContext = createContext(null);
 export const SupplyTypesContext = createContext(null);
 export const UnitsContext = createContext(null);
 export const SupplyPricesContext = createContext(null);
@@ -64,6 +65,17 @@ export const Supply_Add = ({ children }) => {
         <SupplyAddContext.Provider value={[isSupplyAdd,setIsSupplyAdd]}>
             {children}
         </SupplyAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de un insumo
+export const Supply_Edit = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplyEdit,setIsSupplyEdit] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <SupplyEditContext.Provider value={[isSupplyEdit,setIsSupplyEdit]}>
+            {children}
+        </SupplyEditContext.Provider>
     );
 }
 // ---------- INSUMOS

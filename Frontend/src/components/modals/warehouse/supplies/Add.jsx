@@ -9,7 +9,6 @@ import Select from "react-select";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
-import { UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
 import { SupplyTypesContext,SupplyAddContext } from "../../../../contexts/WarehouseProvider";
@@ -42,12 +41,8 @@ export default function Supply_Add(){
     const [isSuppliers] = useContext(SuppliersContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
-    const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
-    const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
     const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
     const [socket] = useContext(SocketContext);
-    const [isUsers] = useContext(UsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -59,9 +54,9 @@ export default function Supply_Add(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Status-Insert',isTextFieldsUser.iduser,isTextFieldsUser.status === 'Habilitado' ? 1:0,isTextFieldsUser.user);
+                        socket.emit('Supply-Insert',isTextFieldsSupply.name,isTextFieldsSupply.description,isTextFieldsSupply.image,isTextFieldsSupply.supplier,isTextFieldsSupply.type);
                         
-                        resolve('¡MEALSYNC agregó el status al usuario!...');
+                        resolve('¡MEALSYNC agregó el insumo!...');
 
                         const route = sessionStorage.getItem('Route');
 
@@ -70,40 +65,35 @@ export default function Supply_Add(){
                         setTimeout(() => {
                             setIsModal(false);
                             sessionStorage.setItem('Modal',false);
-                            setIsSubModal(false);
-                            sessionStorage.setItem('Sub-Modal',false);
-                            resetTextFieldsUser();
-                            resetTextFieldsPermissions();
-                            setIsAnimation(false);
-                            sessionStorage.removeItem('Animation');
+                            resetTextFieldsSupply();
                             setIsActionBlock(false);
-                            setIsStatusAdd(false);
+                            setIsSupplyAdd(false);
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
                 }catch(error){
                     setIsActionBlock(false);
-                        setIsStatusAdd(false);
-                        return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
+                    setIsSupplyAdd(false);
+                    return reject('¡Ocurrio un error inesperado agregando el insumo!...');
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando estatus al usuario!...');
+            Alert_Verification(promise,'¡Agregando un insumo!...');
         }
     },[isSupplyAdd]);
     // UseEffect para quitar la suscrpcion de socket
-        useEffect(() => {
-            const handleSupplyInsert = (message,user) => {
-                console.log(message,user);
-                socket.emit('Supplies');
-            };
-    
-            socket.on('Supply-Insert',handleSupplyInsert);
-            
-            return () => {
-                socket.off('Supply-Insert',handleSupplyInsert);
-            }
-        },[socket])
+    useEffect(() => {
+        const handleSupplyInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Supplies');
+        };
+
+        socket.on('Supply-Insert',handleSupplyInsert);
+        
+        return () => {
+            socket.off('Supply-Insert',handleSupplyInsert);
+        }
+    },[socket])
     // Estructura del componente
     return(
         <>

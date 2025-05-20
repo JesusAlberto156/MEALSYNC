@@ -251,6 +251,16 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 resetTextFieldsSupply();
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Supply-Edit' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
         }

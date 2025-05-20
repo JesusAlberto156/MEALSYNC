@@ -8,6 +8,9 @@ export const RefUsersContext = createContext(null);
 export const RefPermissionsContext = createContext(null);
 export const RefStatusContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
+export const RefSuppliesContext = createContext(null);
+export const RefSupplyTypesContext = createContext(null);
+export const RefUnitsContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar las alertas de bienvenida de la pagina
@@ -94,5 +97,53 @@ export const Ref_Suppliers = ({ children }) => {
         <RefSuppliersContext.Provider value={isSuppliers}>
             {children}
         </RefSuppliersContext.Provider>
+    );
+}
+// Función contexto para controlar la tabla de insumos
+export const Ref_Supplies = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isSupplies = {
+        Modal: useRef(null),
+        Form: useRef(null),
+        Button_Edit_Su: useRef(null),
+        Button_Delete_Su: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefSuppliesContext.Provider value={isSupplies}>
+            {children}
+        </RefSuppliesContext.Provider>
+    );
+}
+// Función contexto para controlar la tabla de tipos de insumos
+export const Ref_Supply_Types = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isSupplies = {
+        Modal_ST: useRef(null),
+        Form_ST: useRef(null),
+        Button_Edit_ST: useRef(null),
+        Button_Delete_ST: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefSupplyTypesContext.Provider value={isSupplies}>
+            {children}
+        </RefSupplyTypesContext.Provider>
+    );
+}
+// Función contexto para controlar la tabla de mediciones
+export const Ref_Units = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isUnits = {
+        Modal_Un: useRef(null),
+        Form_Un: useRef(null),
+        Button_Edit_Un: useRef(null),
+        Button_Delete_Un: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefUnitsContext.Provider value={isUnits}>
+            {children}
+        </RefUnitsContext.Provider>
     );
 }

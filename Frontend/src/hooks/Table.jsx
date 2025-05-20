@@ -3,7 +3,7 @@
 import { useState,useContext,useEffect } from "react";
 // Contextos
 import { UsersContext,PermissionsContext,StatusContext } from "../contexts/UsersProvider";
-import { SuppliesContext } from "../contexts/WarehouseProvider";
+import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
 import { SelectedRowContext,SearchTermContext } from "../contexts/VariablesProvider";
 //____________IMPORT/EXPORT____________
 
@@ -175,7 +175,7 @@ export const TableActionsStatus = () => {
              currentRecordsStatus,
              totalPagesStatus}
 }
-// Hook para realizar las acciones de la tabla de estatus
+// Hook para realizar las acciones de la tabla de insumos
 export const TableActionsSupplies = () => {
     // Constantes con el valor de los contextos
     const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
@@ -229,4 +229,114 @@ export const TableActionsSupplies = () => {
              nextPageSupplies,
              currentRecordsSupplies,
              totalPagesSupplies}
+}
+// Hook para realizar las acciones de la tabla de tipos de insumos
+export const TableActionsSupplyTypes = () => {
+    // Constantes con el valor de los contextos
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSupplyTypes] = useContext(SupplyTypesContext);
+    const [isSearchTerm] = useContext(SearchTermContext);
+    // Paginación de la tabla
+    const [currentPage, setCurrentPage] = useState(1);
+    // Filtrado de datos
+    const filteredRecordsSupplyTypes = isSupplyTypes.filter((data) => {
+        const supplyTypes = isSupplyTypes.find(supplyType => supplyType.idtipo === data.idtipo);
+        return supplyTypes && supplyTypes.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+    });
+    // Total de registros visibles de la tabla
+    const recordsPerPage = 8;
+    // Indices de los registros
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    // Total de páginas
+    const totalPagesSupplyTypes = Math.ceil(filteredRecordsSupplyTypes.length / recordsPerPage);
+    // Filtrado de datos por página
+    const currentRecordsSupplyTypes = filteredRecordsSupplyTypes.slice(indexOfFirstRecord, indexOfLastRecord);
+    // Función de selección de los renglones de la tabla
+    const handleRowClick = (supplyType) => {
+        setIsSelectedRow((prevSelected) => {
+            if (prevSelected === supplyType) {
+                // Retrasa el deseleccionado
+                setTimeout(() => setIsSelectedRow(null), 700);
+                return prevSelected; // mantener el estado actual mientras tanto
+            } else {
+                // Selección inmediata
+                return supplyType;
+            }
+        });
+    };
+    // Función de siguiente de registros de la tabla
+    const nextPageSupplyTypes = () => {
+        if (currentPage < totalPagesSupplyTypes) setCurrentPage(currentPage + 1);
+    };
+    // Función de retroceso de registros de la tabla
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesSupplyTypes){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
+    // Retorno de la función del hook
+    return { handleRowClick, prevPage, currentPage,
+             nextPageSupplyTypes,
+             currentRecordsSupplyTypes,
+             totalPagesSupplyTypes}
+}
+// Hook para realizar las acciones de la tabla de mediciones
+export const TableActionsUnits = () => {
+    // Constantes con el valor de los contextos
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isUnits] = useContext(UnitsContext);
+    const [isSearchTerm] = useContext(SearchTermContext);
+    // Paginación de la tabla
+    const [currentPage, setCurrentPage] = useState(1);
+    // Filtrado de datos
+    const filteredRecordsUnits = isUnits.filter((data) => {
+        const units = isUnits.find(units => units.idmedida === data.idmedida);
+        return units && isUnits.medida.toLowerCase().includes(isSearchTerm.toLowerCase());
+    });
+    // Total de registros visibles de la tabla
+    const recordsPerPage = 8;
+    // Indices de los registros
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    // Total de páginas
+    const totalPagesUnits = Math.ceil(filteredRecordsUnits.length / recordsPerPage);
+    // Filtrado de datos por página
+    const currentRecordsUnits = filteredRecordsUnits.slice(indexOfFirstRecord, indexOfLastRecord);
+    // Función de selección de los renglones de la tabla
+    const handleRowClick = (unit) => {
+        setIsSelectedRow((prevSelected) => {
+            if (prevSelected === unit) {
+                // Retrasa el deseleccionado
+                setTimeout(() => setIsSelectedRow(null), 700);
+                return prevSelected; // mantener el estado actual mientras tanto
+            } else {
+                // Selección inmediata
+                return unit;
+            }
+        });
+    };
+    // Función de siguiente de registros de la tabla
+    const nextPageUnits = () => {
+        if (currentPage < totalPagesUnits) setCurrentPage(currentPage + 1);
+    };
+    // Función de retroceso de registros de la tabla
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesUnits){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
+    // Retorno de la función del hook
+    return { handleRowClick, prevPage, currentPage,
+             nextPageUnits,
+             currentRecordsUnits,
+             totalPagesUnits}
 }

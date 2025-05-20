@@ -34,10 +34,7 @@ const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFiel
 const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
 const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
-const [isSelect,setIsSelect] = useContext(SelectContext);
-const [isRadioPermissions,setIsRadioPermissions] = useContext(RadioPermissionsContext);
-const [isRadioStatus,setIsRadioStatus] = useContext(RadioStatusContext);
-const [isCheckbox,setIsCheckbox] = useContext(CheckboxContext);
+const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
 //____________FORM____________
 //____________REF____________
 const isAlertGreeting = useContext(RefAlertGreetingContext);
@@ -46,6 +43,9 @@ const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
 const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
 const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
 const {Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
+const {Modal,Form,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
+const {Modal_ST,Form_ST,Button_Edit_ST,Button_Delete_ST} = useContext(RefSupplyTypesContext);
+const {Modal_Un,Form_Un,Button_Edit_Un,Button_Delete_Un} = useContext(RefUnitsContext);
 //____________REF____________
 //____________SESSION____________
 const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
@@ -102,6 +102,7 @@ const [isSubModal,setIsSubModal] = useContext(SubModalContext);
 //____________WAREHOUSE____________
 const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
 const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
+const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
 const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext);
 const [isUnits,setIsUnits] = useContext(UnitsContext);
 const [isSupplyPrices,setIsSupplyPrices] = useContext(SupplyPricesContext);

@@ -8,7 +8,7 @@ import { Tooltip } from "@mui/material";
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { SearchTermContext,SelectedRowContext,ViewPasswordContext } from "../../contexts/VariablesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
-import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext } from "../../contexts/RefsProvider";
+import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSuppliesContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../hooks/Views";
 import { HandleViewPassword } from "../../hooks/Form";
@@ -48,8 +48,9 @@ export default function Search_Bar (){
     const [isViewPassword] = useContext(ViewPasswordContext);
     const {Modal_U,Form_U,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
     const {Modal_P,Form_P,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
-    const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
+    const {Modal_S,Form_S,Button_Enable_S} = useContext(RefStatusContext);
     const {Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
+    const {Modal_Su,Form_Su,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -541,7 +542,7 @@ export default function Search_Bar (){
                                 </Tooltip>
                                 {isSelectedRow === null ? (
                                     <>
-                                        <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        <Button_Icon_Blue_60 ref={Button_Edit_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Supply-Edit');
@@ -549,7 +550,7 @@ export default function Search_Bar (){
                                         }}>
                                             <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
-                                        <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                        <Button_Icon_Red_60 ref={Button_Delete_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                         disabled={isSelectedRow === null}
                                         onClick={() => {
                                             handleModalView('Supply-Delete');
@@ -561,7 +562,7 @@ export default function Search_Bar (){
                                 ):(
                                     <>
                                         <Tooltip title='Editar' placement="top">
-                                            <Button_Icon_Blue_60 ref={Button_Edit_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            <Button_Icon_Blue_60 ref={Button_Edit_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('Supply-Edit');
                                                 navigate('/Administration/Supplies/Edit',{ replace: true });
@@ -570,7 +571,7 @@ export default function Search_Bar (){
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
                                         <Tooltip title='Eliminar' placement="top">
-                                            <Button_Icon_Red_60 ref={Button_Delete_S} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            <Button_Icon_Red_60 ref={Button_Delete_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
                                             onClick={() => {
                                                 handleModalView('Supply-Delete');
                                                 navigate('/Administration/Supplies/Delete',{ replace: true });

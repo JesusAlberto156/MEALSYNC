@@ -19,7 +19,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_100_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_140 } from "../../styled/Buttons";
 import { Icon_White_22 } from "../../styled/Icons";
-import { Text_A_16_Center } from "../../styled/Text";
+import { Text_A_16_Center,Text_Black_White_40_Center } from "../../styled/Text";
 import { Chart_90 } from "../../styled/Charts";
 //____________IMPORT/EXPORT____________
 
@@ -304,7 +304,15 @@ export default function Chart_Suppliers(){
     return(
         <>
             <Container_Row_100_Center>
-                <Chart_90 ThemeMode={themeMode} id="Chart-Suppliers"/>
+                {paginatedEntries.length === 0 ? (
+                    <>
+                        <Text_Black_White_40_Center ThemeMode={themeMode}>NO SE ENCONTRARON PROVEEDORES CON ESE NOMBRE</Text_Black_White_40_Center>
+                    </>
+                ):(
+                    <>
+                        <Chart_90 ThemeMode={themeMode} id="Chart-Suppliers"/>  
+                    </>
+                )}
             </Container_Row_100_Center>
             <Container_Row_100_Center>
                 <Tooltip title='Anterior' placement='top'>

@@ -2,6 +2,7 @@
 // Consultas de sql
 import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService } from "../services/warehouse.js";
 import { insertSupplyService } from "../services/warehouse.js";
+import { updateSupplyService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
@@ -95,7 +96,15 @@ export const Warehouse_INSERT = (socket) => {
 //______________UPDATE______________
 export const Warehouse_UPDATE = (socket) => {
     //---------- INSUMOS
-
+    socket.on('Supply-Update',async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo) => {
+      try{
+          await updateSupplyService(idinsumo,nombre,descripcion,imagen,idproveedor,idtipo);
+          io.emit('Supply-Update','Se actualizo el insumo ',nombre);
+      }catch(error){
+          console.error('Error al actualizar: ',error);
+          return error;
+      }
+  });
     //---------- INSUMOS
     //---------- TIPO DE INSUMOS
 

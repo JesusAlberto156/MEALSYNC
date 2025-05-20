@@ -91,6 +91,7 @@ export const ResetTextFieldsSupply = () => {
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     // Estados iniciales de los contextos
     const initialTextFieldsSupply = {
+        idsupply: 0,
         name: '',
         description: '',
         image: '',

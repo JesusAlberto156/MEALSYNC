@@ -21,8 +21,6 @@ import { FaWarehouse } from "react-icons/fa";
 import { FaBoxes } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa";
 import { IoStatsChart } from "react-icons/io5";
-import { FaTint } from "react-icons/fa";
-import { FaWeightHanging } from "react-icons/fa";
 
 import { RiRecordMailFill } from "react-icons/ri";
 //__________ICONOS__________
@@ -162,15 +160,6 @@ export default function Nav_Bar(){
                                     navigate('/Administration/Index/Supply-Types',{ replace: true });
                                 }}>
                                     <Icon_22><FaBoxOpen/></Icon_22>
-                                </Button_Icon_White_100>
-                            </Tooltip>
-                            <Tooltip title='Mediciones' placement="top">
-                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Units')
-                                    sessionStorage.setItem('Route','/Administration/Index/Units');
-                                    navigate('/Administration/Index/Units',{ replace: true });
-                                }}>
-                                    <Icon_22><FaTint/>/<FaWeightHanging/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
                             <Tooltip title='Estadísticas' placement="top">

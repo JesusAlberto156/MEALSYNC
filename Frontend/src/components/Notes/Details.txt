@@ -11,5 +11,5 @@
  - Falta verificar campos en la creacion y edicion de insumos
  - Falta agregar el metodo de eliminacion de insumos
  - Falta acomodar los detalles de todas las imagenes mostradas por URL, como poner una por default
-
+ 
  

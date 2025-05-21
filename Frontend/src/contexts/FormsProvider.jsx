@@ -8,6 +8,7 @@ export const TextFieldsStatusContext = createContext(null);
 export const TextFieldsSupplierContext = createContext(null);
 export const TextFieldsSupplyContext = createContext(null);
 export const TextFieldsSupplyTypesContext = createContext(null);
+export const TextFieldsUnitsContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar los campos de registro de un formulario de usuario
@@ -119,16 +120,16 @@ export const Text_Fields_Supply_Types = ({ children }) => {
 // Función contexto para controlar los campos de registro de un formulario de tipos de insumos
 export const Text_Fields_Units = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useState({
-        idtype: 0,
-        type: '',
-        description: '',
-        idunits: 0,
+    const [isTextFieldsUnits,setIsTextFieldsUnits] = useState({
+        idextent: 0,
+        extent: '',
+        unit: '',
+        amount: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <TextFieldsSupplyTypesContext.Provider value={[isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes]}> 
+        <TextFieldsUnitsContext.Provider value={[isTextFieldsUnits,setIsTextFieldsUnits]}> 
             {children}
-        </TextFieldsSupplyTypesContext.Provider>
+        </TextFieldsUnitsContext.Provider>
     );
 }

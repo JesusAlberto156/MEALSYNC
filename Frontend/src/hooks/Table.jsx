@@ -4,7 +4,7 @@ import { useState,useContext,useEffect } from "react";
 // Contextos
 import { UsersContext,PermissionsContext,StatusContext } from "../contexts/UsersProvider";
 import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
-import { SelectedRowContext,SearchTermContext } from "../contexts/VariablesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SearchTermContext } from "../contexts/VariablesProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para realizar las acciones de la tabla de usuarios
@@ -233,15 +233,14 @@ export const TableActionsSupplies = () => {
 // Hook para realizar las acciones de la tabla de tipos de insumos
 export const TableActionsSupplyTypes = () => {
     // Constantes con el valor de los contextos
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
     const [isSupplyTypes] = useContext(SupplyTypesContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsSupplyTypes = isSupplyTypes.filter((data) => {
-        const supplyTypes = isSupplyTypes.find(supplyType => supplyType.idtipo === data.idtipo);
-        return supplyTypes && supplyTypes.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+        return data.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
@@ -254,10 +253,10 @@ export const TableActionsSupplyTypes = () => {
     const currentRecordsSupplyTypes = filteredRecordsSupplyTypes.slice(indexOfFirstRecord, indexOfLastRecord);
     // Función de selección de los renglones de la tabla
     const handleRowClick = (supplyType) => {
-        setIsSelectedRow((prevSelected) => {
+        setIsSelectedRow1((prevSelected) => {
             if (prevSelected === supplyType) {
                 // Retrasa el deseleccionado
-                setTimeout(() => setIsSelectedRow(null), 700);
+                setTimeout(() => setIsSelectedRow1(null), 700);
                 return prevSelected; // mantener el estado actual mientras tanto
             } else {
                 // Selección inmediata
@@ -288,15 +287,14 @@ export const TableActionsSupplyTypes = () => {
 // Hook para realizar las acciones de la tabla de mediciones
 export const TableActionsUnits = () => {
     // Constantes con el valor de los contextos
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
     const [isUnits] = useContext(UnitsContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsUnits = isUnits.filter((data) => {
-        const units = isUnits.find(units => units.idmedida === data.idmedida);
-        return units && isUnits.medida.toLowerCase().includes(isSearchTerm.toLowerCase());
+        return data.medida.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
@@ -309,10 +307,10 @@ export const TableActionsUnits = () => {
     const currentRecordsUnits = filteredRecordsUnits.slice(indexOfFirstRecord, indexOfLastRecord);
     // Función de selección de los renglones de la tabla
     const handleRowClick = (unit) => {
-        setIsSelectedRow((prevSelected) => {
+        setIsSelectedRow2((prevSelected) => {
             if (prevSelected === unit) {
                 // Retrasa el deseleccionado
-                setTimeout(() => setIsSelectedRow(null), 700);
+                setTimeout(() => setIsSelectedRow2(null), 700);
                 return prevSelected; // mantener el estado actual mientras tanto
             } else {
                 // Selección inmediata

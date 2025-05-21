@@ -4,13 +4,13 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext } from "../../../contexts/VariablesProvider"
+import { SelectedRow1Context } from "../../../contexts/VariablesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsSupplyContext } from "../../../contexts/FormsProvider"
 import { RefSupplyTypesContext } from "../../../contexts/RefsProvider"
 import { UnitsContext } from "../../../contexts/WarehouseProvider"
 // Hooks personalizados
-import { ResetTextFieldsSupply } from "../../../hooks/Texts"
+import { ResetTextFieldsSupplyTypes } from "../../../hooks/Texts"
 import { TableActionsSupplyTypes } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos de la paginación
@@ -22,13 +22,15 @@ import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_A_16_Center,Text_Title_34_Center } from "../../styled/Text";
 import { Icon_White_18 } from "../../styled/Icons";
+
+import Table_Units from "./Units"
 //____________IMPORT/EXPORT____________
 
-// Tabla de los insumos
+// Tabla de los tipos de insumos
 export default function Table_Supply_Types(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
+    const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
     const {Modal_ST,Form_ST,Button_Edit_ST,Button_Delete_ST} = useContext(RefSupplyTypesContext);
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isUnits] = useContext(UnitsContext);
@@ -44,7 +46,7 @@ export default function Table_Supply_Types(){
             const isClickInsideDelete = Button_Delete_ST?.current?.contains(event.target);
     
             if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete) {
-                setIsSelectedRow(null);
+                setIsSelectedRow1(null);
             }
         };
     
@@ -53,23 +55,21 @@ export default function Table_Supply_Types(){
     },[Modal_ST,Form_ST,Button_Edit_ST,Button_Delete_ST]);
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
-        if(isSelectedRow !== null){
+        if(isSelectedRow1 !== null){
             setIsTextFieldsSupply(prev => ({
                 ...prev,
-                idsupply: isSelectedRow.idinsumo,
-                name: isSelectedRow.nombre,
-                description: isSelectedRow.descripcion,
-                image: isSelectedRow.imagen,
-                supplier: isSelectedRow.idproveedor,
-                type: isSelectedRow.idtipo,
+                idtype: isSelectedRow1.idtipo,
+                type: isSelectedRow1.tipo,
+                description: isSelectedRow1.descripcion,
+                idunits: isSelectedRow1.idmedida,
             }))
         }else{
-            resetTextFieldsSupply();
+            resetTextFieldsSupplyTypes();
         }
-    },[isSelectedRow])
+    },[isSelectedRow1])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClickST, nextPageSupplyTypes, prevPage, currentRecordsSupplyTypes, currentPage, totalPagesSupplyTypes} = TableActionsSupplyTypes();
-    const resetTextFieldsSupply = ResetTextFieldsSupply();
+    const {handleRowClick, nextPageSupplyTypes, prevPage, currentRecordsSupplyTypes, currentPage, totalPagesSupplyTypes} = TableActionsSupplyTypes();
+    const resetTextFieldsSupplyTypes = ResetTextFieldsSupplyTypes();
     // Estructura del componente
     return(
         <>  
@@ -80,17 +80,15 @@ export default function Table_Supply_Types(){
                         <Th>Tipo</Th>
                         <Th>Descripción</Th>
                         <Th>Tipo de Medición</Th>
-                        <Th>Unidad de Medida</Th>
-                        <Th>Cantidad</Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
                     {currentRecordsSupplyTypes.map((type) => (
                         <tr 
                             key={type.idtipo}
-                            onClick={() => handleRowClickST(type)}
+                            onClick={() => handleRowClick(type)}
                             style={{
-                                backgroundColor:  isSelectedRow === type ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
+                                backgroundColor:  isSelectedRow1 === type ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
                                 cursor: 'pointer',
                                 transition: 'background-color 0.5s ease',
                             }}
@@ -101,18 +99,6 @@ export default function Table_Supply_Types(){
                                 {(() => {
                                     const unit = isUnits.find(unit => unit.idmedida === type.idmedida);
                                     return unit?.medida || 'Desconocido';
-                                })()}
-                            </Td>
-                            <Td ThemeMode={themeMode}>
-                                {(() => {
-                                    const unit = isUnits.find(unit => unit.idmedida === type.idmedida);
-                                    return unit?.unidad || 'Desconocido';
-                                })()}
-                            </Td>
-                            <Td ThemeMode={themeMode}>
-                                {(() => {
-                                    const unit = isUnits.find(unit => unit.idmedida === type.idmedida);
-                                    return unit ? `${unit.cantidad} ${unit.unidad}` : 'Desconocido';
                                 })()}
                             </Td>
                         </tr>
@@ -134,6 +120,7 @@ export default function Table_Supply_Types(){
                     </Button_Icon_Blue_180>
                 </Tooltip>
             </Container_Row_90_Center>
+            <Table_Units/>
         </>
     );
 }

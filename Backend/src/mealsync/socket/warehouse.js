@@ -1,8 +1,8 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
 import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService } from "../services/warehouse.js";
-import { insertSupplyService } from "../services/warehouse.js";
-import { updateSupplyService } from "../services/warehouse.js";
+import { insertSupplyService,insertSupplyTypeService } from "../services/warehouse.js";
+import { updateSupplyService,updateSupplyTypeService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
@@ -80,7 +80,15 @@ export const Warehouse_INSERT = (socket) => {
     });
     //---------- INSUMOS
     //---------- TIPO DE INSUMOS
-
+    socket.on('Supply-Type-Insert',async (tipo,descripcion,idmedida) => {
+        try{
+            await insertSupplyTypeService(tipo,descripcion,idmedida);
+            io.emit('Supply-Type-Insert','Se inserto el tipo de insumo ',tipo);
+        }catch(error){
+            console.error('Error al insertar: ',error);
+            return error;
+        }
+    });
     //---------- TIPO DE INSUMOS
     //---------- MEDIDA
 
@@ -97,17 +105,25 @@ export const Warehouse_INSERT = (socket) => {
 export const Warehouse_UPDATE = (socket) => {
     //---------- INSUMOS
     socket.on('Supply-Update',async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo) => {
-      try{
-          await updateSupplyService(idinsumo,nombre,descripcion,imagen,idproveedor,idtipo);
-          io.emit('Supply-Update','Se actualizo el insumo ',nombre);
-      }catch(error){
-          console.error('Error al actualizar: ',error);
-          return error;
-      }
-  });
+        try{
+            await updateSupplyService(idinsumo,nombre,descripcion,imagen,idproveedor,idtipo);
+            io.emit('Supply-Update','Se actualizo el insumo ',nombre);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
+            return error;
+        }
+    });
     //---------- INSUMOS
     //---------- TIPO DE INSUMOS
-
+    socket.on('Supply-Type-Update',async (idtipo,tipo,descripcion,idmedida) => {
+        try{
+            await updateSupplyTypeService(idtipo,tipo,descripcion,idmedida);
+            io.emit('Supply-Type-Update','Se actualizo el tipo de insumo ',tipo);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
+            return error;
+        }
+    });
     //---------- TIPO DE INSUMOS
     //---------- MEDIDA
 

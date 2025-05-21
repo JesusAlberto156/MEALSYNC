@@ -35,6 +35,7 @@ const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusCo
 const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
 const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
+const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);
 //____________FORM____________
 //____________REF____________
 const isAlertGreeting = useContext(RefAlertGreetingContext);
@@ -80,6 +81,8 @@ const [isUserTypes,setIsUserTypes] = useContext(UserTypesContext);
 //____________USERS____________
 //____________VARIABLES____________
 const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
+const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
 const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
 const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
 const [isAnimation,setIsAnimation] = useContext(AnimationContext);
@@ -104,7 +107,11 @@ const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
 const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
 const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
 const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext);
+const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext);
+const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext);
 const [isUnits,setIsUnits] = useContext(UnitsContext);
+const [isUnitAdd,setIsUnitAdd] = useContext(UnitAddContext);
+const [isUnitEdit,setIsUnitEdit] = useContext(UnitEditContext);
 const [isSupplyPrices,setIsSupplyPrices] = useContext(SupplyPricesContext);
 const [isWarehouse,setIsWarehouse] = useContext(WarehouseContext);
 //____________WAREHOUSE____________

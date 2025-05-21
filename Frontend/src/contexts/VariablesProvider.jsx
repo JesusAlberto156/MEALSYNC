@@ -3,6 +3,8 @@
 import { createContext,useState } from "react"
 // Contextos
 export const SelectedRowContext = createContext(null);
+export const SelectedRow1Context = createContext(null);
+export const SelectedRow2Context = createContext(null);
 export const SearchTermContext = createContext(null);
 export const VerificationBlockContext = createContext(null);
 export const AnimationContext = createContext(null);
@@ -22,6 +24,28 @@ export const Selected_Row = ({ children }) => {
         <SelectedRowContext.Provider value={[isSelectedRow,setIsSelectedRow]}>
             {children}
         </SelectedRowContext.Provider>
+    );
+}
+// Función Contexto para controlar el renglon seleccionado de la tabla 1
+export const Selected_Row_1 = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSelectedRow1,setIsSelectedRow1] = useState(null);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SelectedRow1Context.Provider value={[isSelectedRow1,setIsSelectedRow1]}>
+            {children}
+        </SelectedRow1Context.Provider>
+    );
+}
+// Función Contexto para controlar el renglon seleccionado de la tabla 1
+export const Selected_Row_2 = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSelectedRow2,setIsSelectedRow2] = useState(null);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SelectedRow2Context.Provider value={[isSelectedRow2,setIsSelectedRow2]}>
+            {children}
+        </SelectedRow2Context.Provider>
     );
 }
 // Función Contexto para controlar el buscador

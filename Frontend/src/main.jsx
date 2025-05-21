@@ -51,7 +51,6 @@ import Supply_Add from './components/modals/warehouse/supplies/Add';
 import Supply_Edit from './components/modals/warehouse/supplies/Edit';
 import Table_Supply_Types from './components/tables/warehouse/SupplyTypes';
 
-import Table_Units from './components/tables/warehouse/Units';
 
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
@@ -176,10 +175,6 @@ const router = createHashRouter([
                   {
                     path: 'Supply-Types',
                     element: <Table_Supply_Types/>
-                  },
-                  {
-                    path: 'Units',
-                    element: <Table_Units/>
                   },
                 ]
               },

@@ -4,15 +4,16 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext } from "../../../contexts/VariablesProvider"
+import { SelectedRow2Context } from "../../../contexts/VariablesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
-import { TextFieldsSupplyContext } from "../../../contexts/FormsProvider"
+import { TextFieldsUnitsContext } from "../../../contexts/FormsProvider"
 import { RefUnitsContext } from "../../../contexts/RefsProvider"
-import { UnitsContext } from "../../../contexts/WarehouseProvider"
 // Hooks personalizados
-import { ResetTextFieldsSupply } from "../../../hooks/Texts"
+import { ResetTextFieldsUnits } from "../../../hooks/Texts"
 import { TableActionsUnits } from "../../../hooks/Table"
 //__________ICONOS__________
+import { FaTint } from "react-icons/fa";
+import { FaWeightHanging } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -24,14 +25,13 @@ import { Text_A_16_Center,Text_Title_34_Center } from "../../styled/Text";
 import { Icon_White_18 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
-// Tabla de los insumos
+// Tabla de las medicones
 export default function Table_Units(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
+    const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context); 
     const {Modal_Un,Form_Un,Button_Edit_Un,Button_Delete_Un} = useContext(RefUnitsContext);
-    const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
-    const [isUnits] = useContext(UnitsContext);
+    const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -44,7 +44,7 @@ export default function Table_Units(){
             const isClickInsideDelete = Button_Delete_Un?.current?.contains(event.target);
     
             if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete) {
-                setIsSelectedRow(null);
+                setIsSelectedRow2(null);
             }
         };
     
@@ -53,27 +53,25 @@ export default function Table_Units(){
     },[Modal_Un,Form_Un,Button_Edit_Un,Button_Delete_Un]);
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
-        if(isSelectedRow !== null){
-            setIsTextFieldsSupply(prev => ({
+        if(isSelectedRow2 !== null){
+            setIsTextFieldsUnits(prev => ({
                 ...prev,
-                idsupply: isSelectedRow.idinsumo,
-                name: isSelectedRow.nombre,
-                description: isSelectedRow.descripcion,
-                image: isSelectedRow.imagen,
-                supplier: isSelectedRow.idproveedor,
-                type: isSelectedRow.idtipo,
+                idextent: isSelectedRow2.idmedida,
+                extent: isSelectedRow2.medida,
+                unit: isSelectedRow2.unidad,
+                amount: isSelectedRow2.cantidad,
             }))
         }else{
-            resetTextFieldsSupply();
+            resetTextFieldsUnits();
         }
-    },[isSelectedRow])
+    },[isSelectedRow2]);
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageUnits, prevPage, currentRecordsUnits, currentPage, totalPagesUnits} = TableActionsUnits();
-    const resetTextFieldsSupply = ResetTextFieldsSupply();
+    const resetTextFieldsUnits = ResetTextFieldsUnits();
     // Estructura del componente
     return(
         <>  
-            <Text_Title_34_Center ThemeMode={themeMode}>MEDICIONES</Text_Title_34_Center>
+            <Text_Title_34_Center ThemeMode={themeMode}><FaTint/> MEDICIONES <FaWeightHanging/></Text_Title_34_Center>
             <Table id="Table-Units">
                 <Thead ThemeMode={themeMode}>
                     <tr>
@@ -88,7 +86,7 @@ export default function Table_Units(){
                             key={unit.idmedida}
                             onClick={() => handleRowClick(unit)}
                             style={{
-                                backgroundColor:  isSelectedRow === unit ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
+                                backgroundColor:  isSelectedRow2 === unit ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
                                 cursor: 'pointer',
                                 transition: 'background-color 0.5s ease',
                             }}

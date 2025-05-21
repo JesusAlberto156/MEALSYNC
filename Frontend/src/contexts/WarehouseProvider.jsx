@@ -8,7 +8,11 @@ export const SuppliesContext = createContext(null);
 export const SupplyAddContext = createContext(null);
 export const SupplyEditContext = createContext(null);
 export const SupplyTypesContext = createContext(null);
+export const SupplyTypeAddContext = createContext(null);
+export const SupplyTypeEditContext = createContext(null);
 export const UnitsContext = createContext(null);
+export const UnitAddContext = createContext(null);
+export const UnitEditContext = createContext(null);
 export const SupplyPricesContext = createContext(null);
 export const WarehouseContext = createContext(null);
 //__________IMAGES____________
@@ -114,6 +118,28 @@ export const Supply_Types = ({ children }) => {
         </SupplyTypesContext.Provider>
     );
 }
+// Función contexto para controlar los datos agregados de un tipo de insumo
+export const Supply_Type_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <SupplyTypeAddContext.Provider value={[isSupplyTypeAdd,setIsSupplyTypeAdd]}>
+            {children}
+        </SupplyTypeAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de un tipo de insumo
+export const Supply_Type_Edit = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <SupplyTypeEditContext.Provider value={[isSupplyTypeEdit,setIsSupplyTypeEdit]}>
+            {children}
+        </SupplyTypeEditContext.Provider>
+    );
+}
 // ---------- TIPOS DE INSUMOS
 // ---------- MEDIDA
 // Función contexto para controlar los datos de la base de datos de medidas
@@ -148,6 +174,28 @@ export const Units = ({ children }) => {
         <UnitsContext.Provider value={[isUnits,setIsUnits]}>
             {children}
         </UnitsContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de una medida
+export const Unit_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isUnitAdd,setIsUnitAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <UnitAddContext.Provider value={[isUnitAdd,setIsUnitAdd]}>
+            {children}
+        </UnitAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de una medida
+export const Unit_Edit = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isUnitEdit,setIsUnitEdit] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <UnitEditContext.Provider value={[isUnitEdit,setIsUnitEdit]}>
+            {children}
+        </UnitEditContext.Provider>
     );
 }
 // ---------- MEDIDA

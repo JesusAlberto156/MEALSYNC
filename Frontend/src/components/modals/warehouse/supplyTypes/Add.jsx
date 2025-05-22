@@ -1,0 +1,231 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
+import { useContext,useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
+// Componentes de React externos
+import { Tooltip } from "@mui/material";
+import Select from "react-select";
+// Contextos
+import { SocketContext } from "../../../../contexts/SocketProvider";
+import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
+import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
+import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { UnitsContext,SupplyTypeAddContext } from "../../../../contexts/WarehouseProvider";
+// Hooks personalizados
+import { ResetTextFieldsSupplyType } from "../../../../hooks/Texts";
+import { HandleModalView } from "../../../../hooks/Views";
+import { HandleSupplyTypeAdd } from "../../../../hooks/Form";
+//__________ICONOS__________
+// Icono para cerrar el modal
+import { MdCancel } from "react-icons/md";
+// Icono para realizar la función del modal
+import { IoIosAddCircle } from "react-icons/io";
+//__________ICONOS__________
+// Estilos personalizados
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
+import { Icon_White_22 } from "../../../styled/Icons";
+import { Input_Text_Black_100,Input_Radio_16 } from "../../../styled/Inputs";
+import { Alert_Verification } from "../../../styled/Alerts";
+import { Label_Text_16_Center } from "../../../styled/Labels";
+//____________IMPORT/EXPORT____________
+
+// Modal para agregar mediciones
+export default function Supply_Type_Add(){
+    // Constantes con el valor de los contextos
+    const [themeMode] = useContext(ThemeModeContext);
+    const [isModal,setIsModal] = useContext(ModalContext);
+    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext);
+    const [isUnits] = useContext(UnitsContext);
+    const [socket] = useContext(SocketContext);
+
+    const [estado,setEstado] = useState('');
+    // Constantes con la funcionalidad de los hooks
+    const navigate = useNavigate();
+    const handleModalView = HandleModalView();
+    const handleSupplyTypeAdd = HandleSupplyTypeAdd();
+    const resetTextFieldsSupplyType = ResetTextFieldsSupplyType();
+    // UseEffect para agregar datos a la base de datos
+    useEffect(() => {
+        if(isSupplyTypeAdd){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Supply-Type-Insert',isTextFieldsSupplyTypes.type,isTextFieldsSupplyTypes.description,isTextFieldsSupplyTypes.idunits);
+                        
+                        resolve('¡MEALSYNC agregó el tipo de insumo!...');
+
+                        const route = sessionStorage.getItem('Route');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Modal-View','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Modal',false);
+                            resetTextFieldsSupplyType();
+                            setIsActionBlock(false);
+                            setIsSupplyTypeAdd(false);
+                            navigate(route,{ replace: true });
+                        },750);
+                    },2000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    setIsSupplyTypeAdd(false);
+                    return reject('¡Ocurrio un error inesperado agregando el tipo de insumo!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Agregando un tipo de insumo!...');
+        }
+    },[isSupplyTypeAdd]);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleSupplyTypeInsert = (message,user) => {
+            console.log(message,user);
+            socket.emit('Supply-Types');
+        };
+
+        socket.on('Supply-Type-Insert',handleSupplyTypeInsert);
+        
+        return () => {
+            socket.off('Supply-Type-Insert',handleSupplyTypeInsert);
+        }
+    },[socket])
+    // Estructura del componente
+    return(
+        <>
+            {isModal ? (
+                <>
+                    <Container_Modal>
+                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Supply-Type-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                            <Container_Row_100_Center>
+                                <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR TIPO DE INSUMO</Text_Title_30_Center>
+                            </Container_Row_100_Center>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_100_Center>
+                                    {['Nuevo','Existente'].map((item,index) => (
+                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_16 ThemeMode={themeMode}
+                                                type="radio"
+                                                name="group"
+                                                value={item}
+                                                checked={estado === item}
+                                                onChange={(e) => setEstado(e.target.value)}
+                                            />
+                                            {item}
+                                        </Label_Text_16_Center>
+                                    ))};
+                                </Container_Row_100_Center>
+                                <Container_Row_100_Center>
+                                    <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
+                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                        placeholder="..."
+                                        type="text"
+                                        value={isTextFieldsSupplyTypes.type}
+                                        onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, type: e.target.value}))}
+                                    />
+                                </Container_Row_100_Center>
+                                <Container_Row_100_Center>
+                                    <Text_A_16_Left ThemeMode={themeMode}>Descripción:</Text_A_16_Left>
+                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                        placeholder="..."
+                                        type="text"
+                                        value={isTextFieldsSupplyTypes.description}
+                                        onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, description: e.target.value}))}
+                                    />
+                                </Container_Row_100_Center>
+                            </Container_Column_90_Center>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos de medición...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Select
+                                    options={isUnits.map((unit) => ({
+                                        value: unit.idmedida,
+                                        label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`
+                                    }))}
+                                    styles={{
+                                        control: (provided) => ({
+                                            ...provided,
+                                            width: '300px',
+                                            padding: '6px',
+                                            border: '2px solid black',
+                                            cursor: 'pointer',
+                                            borderRadius: '20px',
+                                            fontFamily: 'Century Gothic',
+                                            fontStyle: 'normal',
+                                            fontSize: '18px',
+                                            '@media (max-width: 768px)':{
+                                                width: '250px',
+                                                padding: '4px',
+                                                fontSize: '16px',
+                                            },
+                                            '@media (max-width: 480px)':{
+                                                width: '200px',
+                                                padding: '2px',
+                                                fontSize: '14px',
+                                            },
+                                        }),
+                                        menu: (provided) => ({
+                                            ...provided,
+                                            overflow: 'hidden',
+                                            borderRadius:'15px',
+                                        }),
+                                        menuList: (provided) => ({
+                                            ...provided,
+                                            maxHeight:175,
+                                            fontFamily: 'Century Gothic',
+                                            fontStyle: 'normal',
+                                            overflowY:'auto',
+                                            scrollbarWidth: 'none',
+                                            '&::-webkit-scrollbar': {
+                                                display:'none',
+                                            },
+                                            '@media (max-width: 768px)':{
+                                                maxHeight:150,
+                                            },
+                                            '@media (max-width: 480px)':{
+                                                maxHeight:125,
+                                            },
+                                        })
+                                    }}
+                                    placeholder='Seleccione uno...'
+                                    value={isUnits
+                                        .map(unit => ({ value: unit.idmedida, label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`}))
+                                        .find(option => option.value === isTextFieldsSupplyTypes.idunits)
+                                    }
+                                    onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, idunits: e.value}))}
+                                />
+                            </Container_Column_90_Center>
+                            <Container_Row_95_Center>
+                                <Tooltip title='Cancelar' placement='top'>
+                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        onClick={() => handleModalView('')}>
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Blue_210>
+                                </Tooltip>
+                                <Tooltip title='Agregar' placement='top'>
+                                    <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        onClick={() => handleSupplyTypeAdd()}>
+                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                    </Button_Icon_Green_210>
+                                </Tooltip>
+                            </Container_Row_95_Center>
+                        </Container_Form_500>
+                    </Container_Modal>
+                </>
+            ):(
+                <></>
+            )}
+        </>
+    );
+}

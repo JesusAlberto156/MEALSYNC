@@ -106,7 +106,7 @@ export const ResetTextFieldsSupply = () => {
     return resetTextFieldsSupply;
 }
 // Hook para reinciar los campos de texto de los tipos de insumos
-export const ResetTextFieldsSupplyTypes = () => {
+export const ResetTextFieldsSupplyType = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
     // Estados iniciales de los contextos
@@ -117,14 +117,14 @@ export const ResetTextFieldsSupplyTypes = () => {
         idunits: 0,
     };
     // Función del hook
-    const resetTextFieldsSupplyTypes = () => {
+    const resetTextFieldsSupplyType = () => {
         setIsTextFieldsSupplyTypes(initialTextFieldsSupplyTypes);
     }
     // Retorno de la función del hook
-    return resetTextFieldsSupplyTypes;
+    return resetTextFieldsSupplyType;
 }
 // Hook para reinciar los campos de texto de las mediciones
-export const ResetTextFieldsUnits = () => {
+export const ResetTextFieldsUnit = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);
     // Estados iniciales de los contextos
@@ -135,9 +135,9 @@ export const ResetTextFieldsUnits = () => {
         amount: 0,
     };
     // Función del hook
-    const resetTextFieldsUnits = () => {
+    const resetTextFieldsUnit = () => {
         setIsTextFieldsUnits(initialTextFieldsUnits);
     }
     // Retorno de la función del hook
-    return resetTextFieldsUnits;
+    return resetTextFieldsUnit;
 }

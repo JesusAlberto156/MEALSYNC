@@ -3,7 +3,7 @@
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 // Contextos
-import { ThemeModeContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext,NavbarViewContext } from "../../contexts/ViewsProvider";
 // Estilos personalizados
 import { Img_Logo_Horizontal_Hospital_400 } from "../../components/styled/Imgs";
 // Componentes personalizados
@@ -15,11 +15,18 @@ import Search_Bar from '../../components/navegation/SearchBar'
 export default function Administration_Index(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
+    const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
     // Estructura del componente
     return(
         <> 
             <Nav_Bar/> 
-            <Search_Bar/>  
+            {currentNView !== 'Supply-Types' ? (
+                <>
+                    <Search_Bar/>
+                </>
+            ):(
+                <></>
+            )}
             <Outlet/>
             <Img_Logo_Horizontal_Hospital_400 ThemeMode={themeMode} className='pulsate-image'/>
         </>

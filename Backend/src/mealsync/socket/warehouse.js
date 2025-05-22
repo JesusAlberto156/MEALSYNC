@@ -1,8 +1,8 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
 import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService } from "../services/warehouse.js";
-import { insertSupplyService,insertSupplyTypeService } from "../services/warehouse.js";
-import { updateSupplyService,updateSupplyTypeService } from "../services/warehouse.js";
+import { insertSupplyService,insertSupplyTypeService,insertUnitService } from "../services/warehouse.js";
+import { updateSupplyService,updateSupplyTypeService,updateUnitService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
@@ -91,7 +91,15 @@ export const Warehouse_INSERT = (socket) => {
     });
     //---------- TIPO DE INSUMOS
     //---------- MEDIDA
-
+    socket.on('Unit-Insert',async (medida,unidad,cantidad) => {
+        try{
+            await insertUnitService(medida,unidad,cantidad);
+            io.emit('Unit-Insert','Se inserto la medida ',medida);
+        }catch(error){
+            console.error('Error al insertar: ',error);
+            return error;
+        }
+    });
     //---------- MEDIDA
     //---------- PRECIO DEL INSUMO
 
@@ -126,7 +134,15 @@ export const Warehouse_UPDATE = (socket) => {
     });
     //---------- TIPO DE INSUMOS
     //---------- MEDIDA
-
+    socket.on('Unit-Update',async (idmedida,medida,unidad,cantidad) => {
+        try{
+            await updateUnitService(idmedida,medida,unidad,cantidad);
+            io.emit('Unit-Update','Se actualizo la medida ',medida);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
+            return error;
+        }
+    });
     //---------- MEDIDA
     //---------- PRECIO DEL INSUMO
 

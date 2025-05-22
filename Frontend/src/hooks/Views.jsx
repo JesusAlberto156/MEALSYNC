@@ -4,12 +4,12 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext,SubModalContext } from "../contexts/ViewsProvider";
-import { SearchTermContext,SelectedRowContext,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
+import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SelectedRowContext,SelectedRow1Context,SelectedRow2Context,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
 import { TextFieldsUserContext } from "../contexts/FormsProvider";
 import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply } from "./Texts";
+import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro)
@@ -63,10 +63,14 @@ export const HandleNavbarView = () => {
     // Constantes con el valor de los contextos 
     const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
+    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     // Función del hook
     const handleNavbarView = (View) => {
         setCurrentNView(View);
         setIsSearchTerm('');
+        setIsSearchTerm1('');
+        setIsSearchTerm2('');
         sessionStorage.setItem('Navbar-View',View);
     };
     // Retorno de la función del hook
@@ -77,10 +81,14 @@ export const HandleSidebarView = () => {
     // Constantes con el valor de los contextos 
     const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext)
+    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
+    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     // Función del hook
     const handleSidebarView = (View) => {
         setCurrentSView(View);
         setIsSearchTerm('');
+        setIsSearchTerm1('');
+        setIsSearchTerm2('');
         sessionStorage.setItem('Sidebar-View',View);
     };
     // Retorno de la función del hook
@@ -108,6 +116,8 @@ export const HandleModalView = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
+    const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [isSubModal,setIsSubModal] = useContext(SubModalContext);
@@ -118,6 +128,8 @@ export const HandleModalView = () => {
     const resetTextFieldsStatus = ResetTextFieldsStatus();
     const resetTextFieldsSupplier = ResetTextFieldsSupplier();
     const resetTextFieldsSupply = ResetTextFieldsSupply();
+    const resetTextFieldsSupplyType = ResetTextFieldsSupplyType();
+    const resetTextFieldsUnit = ResetTextFieldsUnit();
     // Función del hook
     const handleModalView = (View) => {
         setIsModal(true);
@@ -264,7 +276,42 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-        
+        if(currentMView === 'Supply-Type-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                resetTextFieldsSupplyType();
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Supply-Type-Edit' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow1(null);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Unit-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                resetTextFieldsUnit();
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Unit-Edit' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow2(null);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
         setCurrentMView(View);
         sessionStorage.setItem('Modal-View',View);
     }

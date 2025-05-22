@@ -50,7 +50,10 @@ import Table_Supplies from './components/tables/warehouse/Supplies';
 import Supply_Add from './components/modals/warehouse/supplies/Add';
 import Supply_Edit from './components/modals/warehouse/supplies/Edit';
 import Table_Supply_Types from './components/tables/warehouse/SupplyTypes';
-
+import Supply_Type_Add from './components/modals/warehouse/supplyTypes/Add';
+import Supply_Type_Edit from './components/modals/warehouse/supplyTypes/Edit';
+import Unit_Add from './components/modals/warehouse/units.jsx/Add';
+import Unit_Edit from './components/modals/warehouse/units.jsx/Edit';
 
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
@@ -131,6 +134,22 @@ const router = createHashRouter([
           {
             path: 'Administration/Supplies/Edit',
             element: <Supply_Edit/>,
+          },
+          {
+            path: 'Administration/Supply-Type/Add',
+            element: <Supply_Type_Add/>,
+          },
+          {
+            path: 'Administration/Supply-Type/Edit',
+            element: <Supply_Type_Edit/>,
+          },
+          {
+            path: 'Administration/Unit/Add',
+            element: <Unit_Add/>,
+          },
+          {
+            path: 'Administration/Unit/Edit',
+            element: <Unit_Edit/>,
           },
           {
             path: 'Administration',

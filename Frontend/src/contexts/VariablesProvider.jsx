@@ -6,6 +6,8 @@ export const SelectedRowContext = createContext(null);
 export const SelectedRow1Context = createContext(null);
 export const SelectedRow2Context = createContext(null);
 export const SearchTermContext = createContext(null);
+export const SearchTerm1Context = createContext(null);
+export const SearchTerm2Context = createContext(null);
 export const VerificationBlockContext = createContext(null);
 export const AnimationContext = createContext(null);
 export const ActionBlockContext = createContext(null);
@@ -37,7 +39,7 @@ export const Selected_Row_1 = ({ children }) => {
         </SelectedRow1Context.Provider>
     );
 }
-// Función Contexto para controlar el renglon seleccionado de la tabla 1
+// Función Contexto para controlar el renglon seleccionado de la tabla 2
 export const Selected_Row_2 = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSelectedRow2,setIsSelectedRow2] = useState(null);
@@ -57,6 +59,28 @@ export const Search_Term = ({ children }) => {
         <SearchTermContext.Provider value={[isSearchTerm,setIsSearchTerm]}>
             {children}
         </SearchTermContext.Provider>
+    );
+}
+// Función Contexto para controlar el buscador 1
+export const Search_Term_1 = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSearchTerm1,setIsSearchTerm1] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SearchTerm1Context.Provider value={[isSearchTerm1,setIsSearchTerm1]}>
+            {children}
+        </SearchTerm1Context.Provider>
+    );
+}
+// Función Contexto para controlar el buscador 2
+export const Search_Term_2 = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSearchTerm2,setIsSearchTerm2] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SearchTerm2Context.Provider value={[isSearchTerm2,setIsSearchTerm2]}>
+            {children}
+        </SearchTerm2Context.Provider>
     );
 }
 // Función Contexto para controlar la verificación de inicio de sesión

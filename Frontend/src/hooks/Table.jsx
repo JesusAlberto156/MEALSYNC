@@ -4,7 +4,7 @@ import { useState,useContext,useEffect } from "react";
 // Contextos
 import { UsersContext,PermissionsContext,StatusContext } from "../contexts/UsersProvider";
 import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SearchTermContext } from "../contexts/VariablesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/VariablesProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para realizar las acciones de la tabla de usuarios
@@ -235,12 +235,12 @@ export const TableActionsSupplyTypes = () => {
     // Constantes con el valor de los contextos
     const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
     const [isSupplyTypes] = useContext(SupplyTypesContext);
-    const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSearchTerm1] = useContext(SearchTerm1Context);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsSupplyTypes = isSupplyTypes.filter((data) => {
-        return data.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+        return data.tipo.toLowerCase().includes(isSearchTerm1.toLowerCase());
     });
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
@@ -277,7 +277,7 @@ export const TableActionsSupplyTypes = () => {
         if(currentPage > totalPagesSupplyTypes){
             setCurrentPage(1);
         }
-    },[isSearchTerm])
+    },[isSearchTerm1])
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageSupplyTypes,
@@ -289,12 +289,12 @@ export const TableActionsUnits = () => {
     // Constantes con el valor de los contextos
     const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
     const [isUnits] = useContext(UnitsContext);
-    const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSearchTerm2] = useContext(SearchTerm2Context);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsUnits = isUnits.filter((data) => {
-        return data.medida.toLowerCase().includes(isSearchTerm.toLowerCase());
+        return data.medida.toLowerCase().includes(isSearchTerm2.toLowerCase());
     });
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
@@ -331,7 +331,7 @@ export const TableActionsUnits = () => {
         if(currentPage > totalPagesUnits){
             setCurrentPage(1);
         }
-    },[isSearchTerm])
+    },[isSearchTerm2])
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageUnits,

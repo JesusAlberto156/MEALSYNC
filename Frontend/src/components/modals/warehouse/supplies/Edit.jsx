@@ -45,7 +45,7 @@ export default function Supply_Edit(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
     const [socket] = useContext(SocketContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();

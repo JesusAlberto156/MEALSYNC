@@ -4,11 +4,11 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
-import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext } from "../contexts/FormsProvider";
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
-import { SuppliesContext,SupplyAddContext,SupplyEditContext } from "../contexts/WarehouseProvider";
-import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,ViewPasswordContext } from "../contexts/VariablesProvider";
+import { SuppliesContext,SupplyAddContext,SupplyEditContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,UnitsContext,UnitAddContext,UnitEditContext } from "../contexts/WarehouseProvider";
+import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,SelectedRow1Context,SelectedRow2Context,ViewPasswordContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser } from "./Texts";
@@ -601,4 +601,187 @@ export const HandleSupplyEdit = () => {
     }
      // Retorno de la función del hook
      return handleSupplyEdit
+}
+//Hook para agregar un tipo de insumo desde el modal
+export const HandleSupplyTypeAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
+    const [isSupplyTypes] = useContext(SupplyTypesContext);
+    const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext);
+    // Función del hook
+    const handleSupplyTypeAdd = () => {
+        if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Supply-Type-Add'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupplyTypes.type === '' || isTextFieldsSupplyTypes.description === '' || isTextFieldsSupplyTypes.idunits === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del tipo de insumo!...');
+                        };
+
+                        const exists = isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyTypes.type);
+                        
+                        if(exists){
+                            setIsActionBlock(false);
+                            return reject('¡Tipo de insumo ya existente!...');
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyTypeAdd(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+     // Retorno de la función del hook
+     return handleSupplyTypeAdd
+}
+//Hook para editar un tipo de insumo desde el modal
+export const HandleSupplyTypeEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
+    const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext);
+    // Función del hook
+    const handleSupplyTypeEdit = () => {
+        if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Supply-Type-Edit'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupplyTypes.type === '' || isTextFieldsSupplyTypes.description === '' || isTextFieldsSupplyTypes.idunits === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del tipo de insumo!...');
+                        };
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyTypeEdit(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+     // Retorno de la función del hook
+     return handleSupplyTypeEdit
+}
+//Hook para agregar una medida desde el modal
+export const HandleUnitAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsUnits] = useContext(TextFieldsUnitsContext);
+    const [isUnits] = useContext(UnitsContext);
+    const [isUnitAdd,setIsUnitAdd] = useContext(UnitAddContext);
+    // Función del hook
+    const handleUnitAdd = () => {
+        if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Unit-Add'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsUnits.extent === '' || isTextFieldsUnits.unit === '' || isTextFieldsUnits.amount === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información de la medida!...');
+                        };
+
+                        const exists = isUnits.some(unit => unit.medida === isTextFieldsUnits.extent);
+                        
+                        if(exists){
+                            setIsActionBlock(false);
+                            return reject('¡Medida ya existente!...');
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsUnitAdd(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+     // Retorno de la función del hook
+     return handleUnitAdd
+}
+//Hook para editar una medida desde el modal
+export const HandleUnitEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsUnits] = useContext(TextFieldsUnitsContext);
+    const [isUnits] = useContext(UnitsContext);
+    const [isUnitEdit,setIsUnitEdit] = useContext(UnitEditContext);
+    const [isSelectedRow2] = useContext(SelectedRow2Context);
+    // Función del hook
+    const handleUnitEdit = () => {
+        if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Unit-Edit'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsUnits.extent === '' || isTextFieldsUnits.unit === '' || isTextFieldsUnits.amount === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información de la medida!...');
+                        };
+
+                        if(isTextFieldsUnits.extent !== isSelectedRow2.medida){
+                            const exists = isUnits.some(unit => unit.medida === isTextFieldsUnits.extent);
+                        
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Medida ya existente!...');
+                            }
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsUnitEdit(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+     // Retorno de la función del hook
+     return handleUnitEdit
 }

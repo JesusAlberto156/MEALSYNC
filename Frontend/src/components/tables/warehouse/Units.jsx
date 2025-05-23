@@ -30,7 +30,7 @@ import { MdDelete } from "react-icons/md";
 import { Container_Row_90_Center,Container_Row_100_Left,Container_Row_80_Right } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Green_60 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Title_34_Center } from "../../styled/Text";
+import { Text_A_16_Center,Text_Title_34_Center,Text_Fade_A_30_Center } from "../../styled/Text";
 import { Icon_White_18,Icon_26 } from "../../styled/Icons";
 import { Input_Text_White_20 } from "../../styled/Inputs"
 //____________IMPORT/EXPORT____________
@@ -198,21 +198,31 @@ export default function Table_Units(){
                     ))}
                 </Tbody>
             </Table>
-            <Container_Row_90_Center>
-                <Tooltip title='Página anterior' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={prevPage}>
-                        <Icon_White_18><GrPrevious/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesUnits}</Text_A_16_Center>
-                <Tooltip title='Página siguiente' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesUnits || totalPagesUnits === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={nextPageUnits}>
-                        <Icon_White_18><GrNext/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-            </Container_Row_90_Center>
+            {currentRecordsUnits.length !== 0 ? (
+                <>
+                    <Container_Row_90_Center>
+                        <Tooltip title='Página anterior' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={prevPage}>
+                                <Icon_White_18><GrPrevious/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesUnits}</Text_A_16_Center>
+                        <Tooltip title='Página siguiente' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesUnits || totalPagesUnits === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={nextPageUnits}>
+                                <Icon_White_18><GrNext/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                    </Container_Row_90_Center>
+                </>
+            ):(
+                <>
+                    <Container_Row_90_Center>
+                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
+                    </Container_Row_90_Center>
+                </>
+            )}
         </>
     );
 }

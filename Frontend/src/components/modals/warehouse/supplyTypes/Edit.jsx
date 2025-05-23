@@ -22,7 +22,7 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
@@ -53,7 +53,11 @@ export default function Supply_Type_Edit(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Supply-Type-Update',isTextFieldsSupplyTypes.idtype,isTextFieldsSupplyTypes.type,isTextFieldsSupplyTypes.description,isTextFieldsSupplyTypes.idunits);
+                        socket.emit('Supply-Type-Update',isTextFieldsSupplyTypes.idtype,isTextFieldsSupplyTypes.type.trim(),isTextFieldsSupplyTypes.description.trim(),isTextFieldsSupplyTypes.idunits);
+                        
+                        if(isTextFieldsSupplyTypes.type !== isSelectedRow1.tipo && isTextFieldsSupplyTypes.description !== isSelectedRow1.descripcion){
+                            socket.emit('Supply-Type-Update-Type',isTextFieldsSupplyTypes.type.trim(),isTextFieldsSupplyTypes.description.trim(),isSelectedRow1.tipo);
+                        }
                         
                         resolve('¡MEALSYNC actualizo el tipo de insumo!...');
 
@@ -87,10 +91,17 @@ export default function Supply_Type_Edit(){
             socket.emit('Supply-Types');
         };
 
+        const handleSupplyTypeTypeUpdate = (message,user) => {
+            console.log(message,user);
+            socket.emit('Supply-Types');
+        };
+
         socket.on('Supply-Type-Update',handleSupplyTypeUpdate);
+        socket.on('Supply-Type-Update-Type',handleSupplyTypeTypeUpdate);
         
         return () => {
             socket.off('Supply-Type-Update',handleSupplyTypeUpdate);
+            socket.off('Supply-Type-Update-Type',handleSupplyTypeTypeUpdate);
         }
     },[socket])
     // Estructura del componente
@@ -127,6 +138,9 @@ export default function Supply_Type_Edit(){
                                     />
                                 </Container_Row_100_Center>
                             </Container_Column_90_Center>
+                            <Container_Row_100_Center>
+                                <Text_A_12_Justify ThemeMode={themeMode}>Si editas los datos generales, se modificarán para todos los tipos de insumo que compartan el mismo nombre, incluso si cambias el nombre en uno de ellos.</Text_A_12_Justify>
+                            </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                                 <Text_A_16_Left ThemeMode={themeMode}>- Datos de medición...</Text_A_16_Left>

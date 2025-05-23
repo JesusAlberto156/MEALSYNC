@@ -602,7 +602,7 @@ export const HandleSupplyEdit = () => {
      // Retorno de la función del hook
      return handleSupplyEdit
 }
-//Hook para agregar un tipo de insumo desde el modal
+//Hook para agregar un tipo de insumo desde el modal ✔️
 export const HandleSupplyTypeAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -613,22 +613,56 @@ export const HandleSupplyTypeAdd = () => {
     const [isSupplyTypes] = useContext(SupplyTypesContext);
     const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext);
     // Función del hook
-    const handleSupplyTypeAdd = () => {
+    const handleSupplyTypeAdd = (state) => {
         if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Supply-Type-Add'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupplyTypes.type === '' || isTextFieldsSupplyTypes.description === '' || isTextFieldsSupplyTypes.idunits === 0){
+                        if(isTextFieldsSupplyTypes.type === '' || isTextFieldsSupplyTypes.idunits === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del tipo de insumo!...');
                         };
-
-                        const exists = isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyTypes.type);
                         
-                        if(exists){
+                        if(state === 'Nuevo'){
+                            const exists = isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyTypes.type);
+
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Tipo de insumo ya existente!...');
+                            }
+                        }
+
+                        if(state === 'Existente'){
+                            const exists = isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyTypes.type && type.idmedida === isTextFieldsSupplyTypes.idunits);
+                        
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Tipo de insumo ya existente!...');
+                            }
+                        }
+
+                        const regexType = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+                        const regexDescription = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(isTextFieldsSupplyTypes.type.length > 150){
                             setIsActionBlock(false);
-                            return reject('¡Tipo de insumo ya existente!...');
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexType.test(isTextFieldsSupplyTypes.type.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsSupplyTypes.description.length > 250){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexDescription.test(isTextFieldsSupplyTypes.description.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El descripción no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
                         }
 
                         resolve('¡Información verificada!...');
@@ -649,7 +683,7 @@ export const HandleSupplyTypeAdd = () => {
      // Retorno de la función del hook
      return handleSupplyTypeAdd
 }
-//Hook para editar un tipo de insumo desde el modal
+//Hook para editar un tipo de insumo desde el modal ✔️
 export const HandleSupplyTypeEdit = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -658,6 +692,8 @@ export const HandleSupplyTypeEdit = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
     const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext);
+    const [isSupplyTypes] = useContext(SupplyTypesContext);
+    const [isSelectedRow1] = useContext(SelectedRow1Context);
     // Función del hook
     const handleSupplyTypeEdit = () => {
         if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Supply-Type-Edit'){
@@ -665,10 +701,56 @@ export const HandleSupplyTypeEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupplyTypes.type === '' || isTextFieldsSupplyTypes.description === '' || isTextFieldsSupplyTypes.idunits === 0){
+                        if(isTextFieldsSupplyTypes.type === '' || isTextFieldsSupplyTypes.idunits === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del tipo de insumo!...');
                         };
+
+                        if(isSelectedRow1.tipo !== isTextFieldsSupplyTypes.type){
+                            const exists = isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyTypes.type);
+
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Tipo de insumo ya existente!...');
+                            }
+                        }
+
+                        if(isSelectedRow1.idmedida !== isTextFieldsSupplyTypes.idunits){
+                            const exists = isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyTypes.type && type.idmedida === isTextFieldsSupplyTypes.idunits);
+
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Tipo de insumo ya existente!...');
+                            }
+                        }
+
+                        const regexType = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+                        const regexDescription = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(isTextFieldsSupplyTypes.type.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexType.test(isTextFieldsSupplyTypes.type.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsSupplyTypes.description.length > 250){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexDescription.test(isTextFieldsSupplyTypes.description.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El descripción no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupplyTypes.type === isSelectedRow1.tipo && isTextFieldsSupplyTypes.description === isSelectedRow1.descripcion && isTextFieldsSupplyTypes.idunits === isSelectedRow1.idmedida){
+                            setIsActionBlock(false);
+                            return reject('¡No hay modificaciones en los datos!...');
+                        }
 
                         resolve('¡Información verificada!...');
                         
@@ -699,7 +781,7 @@ export const HandleUnitAdd = () => {
     const [isUnits] = useContext(UnitsContext);
     const [isUnitAdd,setIsUnitAdd] = useContext(UnitAddContext);
     // Función del hook
-    const handleUnitAdd = () => {
+    const handleUnitAdd = (state) => {
         if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Unit-Add'){
             const promise = new Promise(async (resolve,reject) => {
                 try{
@@ -710,11 +792,40 @@ export const HandleUnitAdd = () => {
                             return reject('¡Falta información de la medida!...');
                         };
 
-                        const exists = isUnits.some(unit => unit.medida === isTextFieldsUnits.extent);
+
+                        if(state === 'Nuevo'){
+                            const exists = isUnits.some(unit => unit.medida === isTextFieldsUnits.extent);
+                            
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Medida ya existente!...');
+                            }
+                        }
                         
-                        if(exists){
+                        if(state === 'Existente'){
+                            const exists = isUnits.some(unit => unit.medida === isTextFieldsUnits.extent && unit.cantidad === isTextFieldsUnits.amount);
+
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Medida ya existente!...');
+                            }
+                        }
+
+                        const regexExtent = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+
+                        if(isTextFieldsUnits.extent.length > 20){
                             setIsActionBlock(false);
-                            return reject('¡Medida ya existente!...');
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexExtent.test(isTextFieldsUnits.extent.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsUnits.amount <= 0){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es valida, debe ser mayor a 0!...');
                         }
 
                         resolve('¡Información verificada!...');

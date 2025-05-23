@@ -2,7 +2,7 @@
 // Consultas de sql
 import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService } from "../services/warehouse.js";
 import { insertSupplyService,insertSupplyTypeService,insertUnitService } from "../services/warehouse.js";
-import { updateSupplyService,updateSupplyTypeService,updateUnitService } from "../services/warehouse.js";
+import { updateSupplyService,updateSupplyTypeService,updateSupplyTypeTypeService,updateUnitService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
@@ -127,6 +127,15 @@ export const Warehouse_UPDATE = (socket) => {
         try{
             await updateSupplyTypeService(idtipo,tipo,descripcion,idmedida);
             io.emit('Supply-Type-Update','Se actualizo el tipo de insumo ',tipo);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
+            return error;
+        }
+    });
+    socket.on('Supply-Type-Update-Type',async (tipo,descripcion,tipoOriginal) => {
+        try{
+            await updateSupplyTypeTypeService(tipo,descripcion,tipoOriginal);
+            io.emit('Supply-Type-Update-Type','Se actualizo el tipo de insumo ',tipo);
         }catch(error){
             console.error('Error al actualizar: ',error);
             return error;

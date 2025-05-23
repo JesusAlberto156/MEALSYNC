@@ -1,15 +1,16 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
+import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUnitsContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
-import { UnitAddContext } from "../../../../contexts/WarehouseProvider";
+import { UnitAddContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
 import { ResetTextFieldsUnit } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
@@ -22,7 +23,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Radio_16,Input_Text_Black_100 } from "../../../styled/Inputs";
@@ -40,6 +41,10 @@ export default function Unit_Add(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isUnitAdd,setIsUnitAdd] = useContext(UnitAddContext);
     const [socket] = useContext(SocketContext);
+    const [isUnits] = useContext(UnitsContext);
+    // Constantes con el valor de los useState
+    const [isState,setIsState] = useState('');
+    const [filteredUnits,setFilteredUnits] = useState(null);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -51,7 +56,7 @@ export default function Unit_Add(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Unit-Insert',isTextFieldsUnits.extent,isTextFieldsUnits.unit,isTextFieldsUnits.amount);
+                        socket.emit('Unit-Insert',isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit,isTextFieldsUnits.amount);
                         
                         resolve('¡MEALSYNC agregó la medida!...');
 
@@ -91,6 +96,23 @@ export default function Unit_Add(){
             socket.off('Unit-Insert',handleUnitInsert);
         }
     },[socket])
+    // UseEffect para ver el estado de los datos generales
+    useEffect(() => {
+        if(isState === 'Nuevo' || isState === 'Existente'){
+            setIsTextFieldsUnits(prev => ({
+                ...prev, 
+                extent: '',
+                unit: '',
+            }));
+        }
+    },[isState])
+    // UseEffect para filtrar datos de los tipos de insumos 
+    useEffect(() => {
+        if(isUnits.length !== 0){
+            const filtered = isUnits.filter((item,index,self) => index === self.findIndex((t) => t.medida === item.medida))
+            setFilteredUnits(filtered);
+        }
+    },[isUnits]);
     // Estructura del componente
     return(
         <>
@@ -103,44 +125,165 @@ export default function Unit_Add(){
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Nombre...</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Nombre de la medición:</Text_A_16_Left>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
-                                        placeholder="..."
-                                        type="text"
-                                        value={isTextFieldsUnits.extent}
-                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.target.value}))}
-                                    />
+                                    {['Nuevo','Existente'].map((item,index) => (
+                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_16 ThemeMode={themeMode}
+                                                type="radio"
+                                                name="state"
+                                                value={item}
+                                                checked={isState === item}
+                                                onChange={(e) => setIsState(e.target.value)}
+                                            />
+                                            {item}
+                                        </Label_Text_16_Center>
+                                    ))};
                                 </Container_Row_100_Center>
+                                {isState === 'Nuevo' ? (
+                                    <>
+                                        <Container_Row_100_Center>
+                                            <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
+                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                                placeholder="..."
+                                                type="text"
+                                                value={isTextFieldsUnits.extent}
+                                                onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.target.value}))}
+                                            />
+                                        </Container_Row_100_Center>
+                                        <Container_Row_NG_95_Center>
+                                            <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                            <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
+                                        </Container_Row_NG_95_Center>
+                                        <Container_Row_95_Center>
+                                            {['Kilogramos','Litros'].map((item,index) => (
+                                                <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                                    <Input_Radio_16 ThemeMode={themeMode}
+                                                        type="radio"
+                                                        name="group"
+                                                        value={item}
+                                                        checked={isTextFieldsUnits.unit === item}
+                                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
+                                                    />
+                                                    {item}
+                                                </Label_Text_16_Center>
+                                            ))};
+                                        </Container_Row_95_Center>  
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {isState === 'Existente' ? (
+                                    filteredUnits !== null ? (
+                                        <>
+                                            <Select
+                                                options={filteredUnits.map((type) => ({
+                                                    valueI: type.idmedida,
+                                                    valueU: type.unidad,
+                                                    label: type.medida,
+                                                }))}
+                                                styles={{
+                                                    control: (provided) => ({
+                                                        ...provided,
+                                                        width: '300px',
+                                                        padding: '6px',
+                                                        border: '2px solid black',
+                                                        cursor: 'pointer',
+                                                        borderRadius: '20px',
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        fontSize: '18px',
+                                                        '@media (max-width: 768px)':{
+                                                            width: '250px',
+                                                            padding: '4px',
+                                                            fontSize: '16px',
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            width: '200px',
+                                                            padding: '2px',
+                                                            fontSize: '14px',
+                                                        },
+                                                    }),
+                                                    menu: (provided) => ({
+                                                        ...provided,
+                                                        overflow: 'hidden',
+                                                        borderRadius:'15px',
+                                                    }),
+                                                    menuList: (provided) => ({
+                                                        ...provided,
+                                                        maxHeight:175,
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        overflowY:'auto',
+                                                        scrollbarWidth: 'none',
+                                                        '&::-webkit-scrollbar': {
+                                                            display:'none',
+                                                        },
+                                                        '@media (max-width: 768px)':{
+                                                            maxHeight:150,
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            maxHeight:125,
+                                                        },
+                                                    })
+                                                }}
+                                                placeholder='Seleccione uno...'
+                                                value={filteredUnits
+                                                    .map(type => ({ valueI: type.idmedida, valueU: type.unidad, label: type.medida}))
+                                                    .find(option => option.valueI === isTextFieldsUnits.idextent)
+                                                }
+                                                onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.label, unit: e.valueU}))}
+                                            />
+                                            <Container_Row_100_Center>
+                                                <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
+                                                <Input_Text_Black_100 ThemeMode={themeMode}
+                                                    placeholder="..."
+                                                    type="text"
+                                                    value={isTextFieldsUnits.extent}
+                                                    onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.target.value}))}
+                                                    disabled={isState === 'Existente'}
+                                                />
+                                            </Container_Row_100_Center>
+                                            <Container_Row_NG_95_Center>
+                                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                                <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
+                                            </Container_Row_NG_95_Center>
+                                            <Container_Row_95_Center>
+                                                {['Kilogramos','Litros'].map((item,index) => (
+                                                    <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                                        <Input_Radio_16 ThemeMode={themeMode}
+                                                            type="radio"
+                                                            name="group"
+                                                            value={item}
+                                                            checked={isTextFieldsUnits.unit === item}
+                                                            onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
+                                                            disabled={isState === 'Existente'}
+                                                        />
+                                                        {item}
+                                                    </Label_Text_16_Center>
+                                                ))};
+                                            </Container_Row_95_Center>
+                                        </>
+                                    ):(
+                                        <>
+                                            <Container_Row_100_Center>
+                                                <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                            </Container_Row_100_Center>
+                                        </>
+                                    )
+                                ):(
+                                    <></>
+                                )}
                             </Container_Column_90_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
-                            </Container_Row_NG_95_Center>
-                            <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                {['Kilogramos','Litros'].map((item,index) => (
-                                    <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                        <Input_Radio_16 ThemeMode={themeMode}
-                                            type="radio"
-                                            name="group"
-                                            value={item}
-                                            checked={isTextFieldsUnits.unit === item}
-                                            onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
-                                        />
-                                        {item}
-                                    </Label_Text_16_Center>
-                                ))};
-                            </Container_Row_95_Center>
-                            <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Cantidad...</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Cantidad de la medición:</Text_A_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>Cantidad:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="number"
@@ -158,7 +301,7 @@ export default function Unit_Add(){
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
                                     <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUnitAdd()}>
+                                        onClick={() => handleUnitAdd(isState)}>
                                         <Icon_White_22><IoIosAddCircle/></Icon_White_22>
                                     </Button_Icon_Green_210>
                                 </Tooltip>

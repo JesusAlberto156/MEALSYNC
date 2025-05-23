@@ -1,6 +1,8 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
+// Estilos personalizados
+import { Fade_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
 //____________COLOR____________
@@ -2402,3 +2404,118 @@ export const Text_12_Right = styled.span`
 `;
 //---------- RIGHT
 //______________TEXT____________
+//______________FADE____________
+//-------------- A --------------
+//---------- CENTER
+export const Text_Fade_A_35_Center = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 35px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 33px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 31px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_30_Center = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_25_Center = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 23px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 21px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_20_Center = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
+//---------- CENTER
+//---------- JUSTIFY
+
+//---------- JUSTIFY
+//---------- LEFT
+
+//---------- LEFT
+//---------- RIGHT
+
+//---------- RIGHT
+//-------------- A --------------
+//______________FADE____________

@@ -103,3 +103,13 @@ SELECT * FROM almacen
 
 ALTER TABLE medida
 ADD cantidad DECIMAL(10,4) NULL 
+
+DELETE FROM tipoInsumo
+
+DELETE FROM insumos
+
+DELETE FROM medida
+
+DBCC CHECKIDENT (tipoInsumo, RESEED, 0);
+DBCC CHECKIDENT (insumos, RESEED, 0);
+DBCC CHECKIDENT (medida, RESEED, 0);

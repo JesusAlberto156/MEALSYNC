@@ -213,6 +213,25 @@ export const updateSupplyTypeService = async (idtipo,tipo,descripcion,idmedida) 
         throw error;
     }
 }
+export const updateSupplyTypeTypeService = async (tipo,descripcion,tipoOriginal) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+          .input('tipo',sql.VarChar(150),tipo)
+          .input('tipoOriginal',sql.VarChar(150),tipoOriginal)
+          .input('descripcion',sql.VarChar(250),descripcion)
+          .query('UPDATE tipoInsumo SET tipo = @tipo, descripcion = @descripcion WHERE tipo = @tipoOriginal');
+  
+        if(result.rowsAffected[0]>0){
+            return 'Tipo de insumo actualizado...'
+        }else{
+            return 'No pudo actualizar el tipo de insumo...'
+        }
+    }catch(error){
+        console.error('Error al actualizar el tipo de insumo: ',error.message);
+        throw error;
+    }
+}
 //---------- TIPO DE INSUMOS
 //---------- MEDIDA
 export const updateUnitService = async (idmedida,medida,unidad,cantidad) => {

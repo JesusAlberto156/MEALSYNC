@@ -22,28 +22,28 @@ ______ELIMINAR______
 - Diseño de la interfaz
 ______VISUALIZAR______
 - Detalles en la tabla ✔️
-- Diseño de la interfaz ✔️
+- Diseño de la interfaz
 - Detalles en el buscador ✔️
 -- TIPOS DE INSUMO --
 
 -- MEDICIONES --
 ______AGREGAR______
-- Verificación de los campos 
+- Verificación de los campos ✔️
 - Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______EDITAR______
-- Verificación de los campos 
+- Verificación de los campos ✔️ 
 - Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______ELIMINAR______
 - Verificación de los campos
 - Implementación del teclado
 - Funcionalidad
 - Diseño de la interfaz
 ______VISUALIZAR______
-- Detalles en la tabla 
-- Diseño de la interfaz 
-- Detalles en el buscador 
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
 -- MEDICIONES --

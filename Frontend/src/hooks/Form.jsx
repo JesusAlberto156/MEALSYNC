@@ -701,6 +701,11 @@ export const HandleSupplyTypeEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
+                        if(isTextFieldsSupplyTypes.type === isSelectedRow1.tipo && isTextFieldsSupplyTypes.description === isSelectedRow1.descripcion && isTextFieldsSupplyTypes.idunits === isSelectedRow1.idmedida){
+                            setIsActionBlock(false);
+                            return reject('¡No hay modificaciones en los datos!...');
+                        }
+                        
                         if(isTextFieldsSupplyTypes.type === '' || isTextFieldsSupplyTypes.idunits === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del tipo de insumo!...');
@@ -747,11 +752,6 @@ export const HandleSupplyTypeEdit = () => {
                             return reject('¡El descripción no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
                         }
 
-                        if(isTextFieldsSupplyTypes.type === isSelectedRow1.tipo && isTextFieldsSupplyTypes.description === isSelectedRow1.descripcion && isTextFieldsSupplyTypes.idunits === isSelectedRow1.idmedida){
-                            setIsActionBlock(false);
-                            return reject('¡No hay modificaciones en los datos!...');
-                        }
-
                         resolve('¡Información verificada!...');
                         
                         setTimeout(() => {
@@ -770,7 +770,7 @@ export const HandleSupplyTypeEdit = () => {
      // Retorno de la función del hook
      return handleSupplyTypeEdit
 }
-//Hook para agregar una medida desde el modal
+//Hook para agregar una medida desde el modal ✔️
 export const HandleUnitAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -846,7 +846,7 @@ export const HandleUnitAdd = () => {
      // Retorno de la función del hook
      return handleUnitAdd
 }
-//Hook para editar una medida desde el modal
+//Hook para editar una medida desde el modal ✔️
 export const HandleUnitEdit = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -864,6 +864,11 @@ export const HandleUnitEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
+                        if(isSelectedRow2.medida === isTextFieldsUnits.extent && isSelectedRow2.unidad === isTextFieldsUnits.unit && isSelectedRow2.cantidad === isTextFieldsUnits.amount){
+                            setIsActionBlock(false);
+                            return reject('¡No hay modificaciones en los datos!...');
+                        }
+
                         if(isTextFieldsUnits.extent === '' || isTextFieldsUnits.unit === '' || isTextFieldsUnits.amount === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la medida!...');
@@ -876,6 +881,32 @@ export const HandleUnitEdit = () => {
                                 setIsActionBlock(false);
                                 return reject('¡Medida ya existente!...');
                             }
+                        }
+
+                        if(isTextFieldsUnits.extent === isSelectedRow2.medida){
+                            const exists = isUnits.some(unit => unit.medida === isTextFieldsUnits.extent && unit.cantidad === isTextFieldsUnits.amount && unit.unidad === isTextFieldsUnits.unit);
+
+                            if(exists){
+                                setIsActionBlock(false);
+                                return reject('¡Medida ya existente!...');
+                            }
+                        }
+
+                        const regexExtent = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+
+                        if(isTextFieldsUnits.extent.length > 20){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexExtent.test(isTextFieldsUnits.extent.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsUnits.amount <= 0){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es valida, debe ser mayor a 0!...');
                         }
 
                         resolve('¡Información verificada!...');

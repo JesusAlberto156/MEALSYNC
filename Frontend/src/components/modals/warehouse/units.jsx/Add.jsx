@@ -288,7 +288,7 @@ export default function Unit_Add(){
                                         placeholder="..."
                                         type="number"
                                         value={isTextFieldsUnits.amount}
-                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: e.target.value}))}
+                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: parseFloat(e.target.value) || 0}))}
                                     />
                                 </Container_Row_100_Center>
                             </Container_Column_90_Center>

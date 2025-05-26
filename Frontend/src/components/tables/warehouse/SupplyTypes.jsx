@@ -180,6 +180,7 @@ export default function Table_Supply_Types(){
                         <Th>Tipo</Th>
                         <Th>Descripción</Th>
                         <Th>Tipo de Medición</Th>
+                        <Th>Unidad de consumo</Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
@@ -200,6 +201,12 @@ export default function Table_Supply_Types(){
                                     const unit = isUnits.find(unit => unit.idmedida === type.idmedida);
                                     return unit?.medida || 'Desconocido';
                                 })()}
+                            </Td>
+                            <Td ThemeMode={themeMode}>
+                                {(() => {
+                                    const unit = isUnits.find(unit => unit.idmedida === type.idmedida); 
+                                    return `${unit?.unidad} ${unit?.cantidad}` || 'Desconocido';
+                                })}
                             </Td>
                         </tr>
                     ))}

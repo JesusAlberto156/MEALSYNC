@@ -170,8 +170,8 @@ ALTER TABLE dbo.tipoInsumo
 ALTER COLUMN tipo VARCHAR(150) NOT NULL
 
 ALTER TABLE dbo.almacenPlatillo
-ALTER COLUMN cantidad INT NOT NULL
-
+ADD cantidad INT NOT NULL
+ 
 CREATE TABLE almacenBebida (
     idalmacen INT NOT NULL,
     idbebida INT NOT NULL,

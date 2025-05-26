@@ -2,7 +2,7 @@
 // Consultas de sql
 import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService } from "../services/warehouse.js";
 import { insertSupplyService,insertSupplyTypeService,insertUnitService } from "../services/warehouse.js";
-import { updateSupplyService,updateSupplyTypeService,updateSupplyTypeTypeService,updateUnitService } from "../services/warehouse.js";
+import { updateSupplyService,updateSupplyTypeService,updateSupplyTypeTypeService,updateUnitService,updateUnitsService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
@@ -147,6 +147,15 @@ export const Warehouse_UPDATE = (socket) => {
         try{
             await updateUnitService(idmedida,medida,unidad,cantidad);
             io.emit('Unit-Update','Se actualizo la medida ',medida);
+        }catch(error){
+            console.error('Error al actualizar: ',error);
+            return error;
+        }
+    });
+    socket.on('Units-Update',async (idmedida,medida,unidad) => {
+        try{
+            await updateUnitsService(idmedida,medida,unidad);
+            io.emit('Unit-Update','Se actualizo las medidas ',medida);
         }catch(error){
             console.error('Error al actualizar: ',error);
             return error;

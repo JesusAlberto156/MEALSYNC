@@ -21,7 +21,7 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Radio_16,Input_Text_Black_100 } from "../../../styled/Inputs";
@@ -52,7 +52,11 @@ export default function Unit_Edit(){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Unit-Update',isTextFieldsUnits.idextent,isTextFieldsUnits.extent,isTextFieldsUnits.unit,isTextFieldsUnits.amount);
+                        socket.emit('Unit-Update',isTextFieldsUnits.idextent,isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit,isTextFieldsUnits.amount);
+                        
+                        if(isSelectedRow2.medida !== isTextFieldsUnits.extent || isSelectedRow2.unidad !== isTextFieldsUnits.unit){
+                            socket.emit('Units-Update',isSelectedRow2.medida,isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit);
+                        }
                         
                         resolve('¡MEALSYNC actualizo la medida!...');
 
@@ -86,10 +90,17 @@ export default function Unit_Edit(){
             socket.emit('Units');
         };
 
+        const handleUnitsUpdate = (message,user) => {
+            console.log(message,user);
+            socket.emit('Units');
+        };
+
         socket.on('Unit-Update',handleUnitUpdate);
+        socket.on('Units-Update',handleUnitsUpdate);
         
         return () => {
             socket.off('Unit-Update',handleUnitUpdate);
+            socket.off('Units-Update',handleUnitsUpdate);
         }
     },[socket])
     // Estructura del componente
@@ -104,11 +115,11 @@ export default function Unit_Edit(){
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Nombre...</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Nombre de la medición:</Text_A_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
@@ -116,37 +127,40 @@ export default function Unit_Edit(){
                                         onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_95_Center>
+                                    {['Kilogramos','Litros'].map((item,index) => (
+                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_16 ThemeMode={themeMode}
+                                                type="radio"
+                                                name="group"
+                                                value={item}
+                                                checked={isTextFieldsUnits.unit === item}
+                                                onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
+                                            />
+                                            {item}
+                                        </Label_Text_16_Center>
+                                    ))};
+                                </Container_Row_95_Center>
                             </Container_Column_90_Center>
+                            <Container_Row_100_Center>
+                                <Text_A_12_Justify ThemeMode={themeMode}>Si editas los datos generales, se modificarán para todas las medidas que compartan el mismo nombre, incluso si cambias el nombre en una de ellas.</Text_A_12_Justify>
+                            </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
-                            </Container_Row_NG_95_Center>
-                            <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                {['Kilogramos','Litros'].map((item,index) => (
-                                    <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                        <Input_Radio_16 ThemeMode={themeMode}
-                                            type="radio"
-                                            name="group"
-                                            value={item}
-                                            checked={isTextFieldsUnits.unit === item}
-                                            onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
-                                        />
-                                        {item}
-                                    </Label_Text_16_Center>
-                                ))};
-                            </Container_Row_95_Center>
-                            <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Cantidad...</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Cantidad de la medición:</Text_A_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>Cantidad:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="number"
                                         value={isTextFieldsUnits.amount}
-                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: e.target.value}))}
+                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: parseFloat(e.target.value) || 0}))}
                                     />
                                 </Container_Row_100_Center>
                             </Container_Column_90_Center>

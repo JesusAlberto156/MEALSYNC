@@ -254,6 +254,25 @@ export const updateUnitService = async (idmedida,medida,unidad,cantidad) => {
         throw error;
     }
 }
+export const updateUnitsService = async (idmedida,medida,unidad) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('medida',sql.VarChar(20),medida)
+            .input('unidad',sql.VarChar(20),unidad)
+            .input('idmedida',sql.VarChar(20),idmedida)
+            .query('UPDATE medida SET medida = @medida, unidad = @unidad WHERE medida = @idmedida');
+  
+        if(result.rowsAffected[0]>0){
+            return 'Medidas actualizadas...'
+        }else{
+            return 'No pudo actualizar las medidas...'
+        }
+    }catch(error){
+        console.error('Error al actualizar las medidas: ',error.message);
+        throw error;
+    }
+}
 //---------- MEDIDA
 //---------- PRECIO DEL INSUMO
 

@@ -55,7 +55,7 @@ export default function Supply_Type_Edit(){
                     setTimeout(() => {
                         socket.emit('Supply-Type-Update',isTextFieldsSupplyTypes.idtype,isTextFieldsSupplyTypes.type.trim(),isTextFieldsSupplyTypes.description.trim(),isTextFieldsSupplyTypes.idunits);
                         
-                        if(isTextFieldsSupplyTypes.type !== isSelectedRow1.tipo && isTextFieldsSupplyTypes.description !== isSelectedRow1.descripcion){
+                        if(isTextFieldsSupplyTypes.type !== isSelectedRow1.tipo || isTextFieldsSupplyTypes.description !== isSelectedRow1.descripcion){
                             socket.emit('Supply-Type-Update-Type',isTextFieldsSupplyTypes.type.trim(),isTextFieldsSupplyTypes.description.trim(),isSelectedRow1.tipo);
                         }
                         

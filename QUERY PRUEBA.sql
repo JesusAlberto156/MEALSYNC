@@ -113,3 +113,118 @@ DELETE FROM medida
 DBCC CHECKIDENT (tipoInsumo, RESEED, 0);
 DBCC CHECKIDENT (insumos, RESEED, 0);
 DBCC CHECKIDENT (medida, RESEED, 0);
+/*MODIFICACIONES PARA LA BASE DE DATOS*/
+ALTER TABLE almacen
+ALTER COLUMN cantidad INT NOT NULL
+
+ALTER TABLE estatus
+ALTER COLUMN habilitado BIT NOT NULL
+ALTER TABLE estatus
+ALTER COLUMN activo BIT NOT NULL
+
+ALTER TABLE insumos
+ALTER COLUMN nombre VARCHAR(150) NOT NULL
+
+ALTER TABLE dbo.medida
+ALTER COLUMN medida VARCHAR(20) NOT NULL
+ALTER TABLE dbo.medida
+ALTER COLUMN unidad VARCHAR(20) NOT NULL
+ALTER TABLE dbo.medida
+ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
+
+ALTER TABLE dbo.observacionesProveedor
+ALTER COLUMN calificacion INT NOT NULL
+ALTER TABLE dbo.observacionesProveedor
+ALTER COLUMN fecha DATETIME NOT NULL
+ALTER TABLE dbo.observacionesProveedor
+ADD idusuario INT NOT NULL
+
+ALTER TABLE dbo.permisos
+ALTER COLUMN administrador BIT NOT NULL
+ALTER TABLE dbo.permisos
+ALTER COLUMN chef BIT NOT NULL
+ALTER TABLE dbo.permisos
+ALTER COLUMN almacenista BIT NOT NULL
+ALTER TABLE dbo.permisos
+ALTER COLUMN cocinero BIT NOT NULL
+ALTER TABLE dbo.permisos
+ALTER COLUMN nutriologo BIT NOT NULL
+ALTER TABLE dbo.permisos
+ALTER COLUMN medico BIT NOT NULL
+ALTER TABLE dbo.permisos
+ALTER COLUMN superadministrador BIT NOT NULL
+ALTER TABLE dbo.permisos
+ALTER COLUMN idusuario INT NOT NULL
+
+ALTER TABLE dbo.precioInsumo
+ALTER COLUMN precio INT NOT NULL
+ALTER TABLE dbo.precioInsumo
+ALTER COLUMN fecha DATETIME NOT NULL
+ALTER TABLE dbo.precioInsumo
+ALTER COLUMN estado VARCHAR(20) NOT NULL
+
+ALTER TABLE dbo.proveedores
+ALTER COLUMN nombre VARCHAR(150) NOT NULL
+
+ALTER TABLE dbo.tipoInsumo
+ALTER COLUMN tipo VARCHAR(150) NOT NULL
+
+ALTER TABLE dbo.almacenPlatillo
+ALTER COLUMN cantidad INT NOT NULL
+
+CREATE TABLE almacenBebida (
+    idalmacen INT NOT NULL,
+    idbebida INT NOT NULL,
+    cantidad INT NOT NULL,
+)
+
+CREATE TABLE almacenGuarnicion (
+    idalmacen INT NOT NULL,
+    idguarnicion INT NOT NULL,
+    cantidad INT NOT NULL,
+)
+
+CREATE TABLE especificacionesPlatillo (
+    idespecificacion INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    descripcion VARCHAR(250) NULL,
+    precio INT NOT NULL,
+	preparacion INT NOT NULL,
+	idplatillo INT NOT NULL
+)
+
+CREATE TABLE especificacionesBebida (
+    idespecificacion INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    descripcion VARCHAR(250) NULL,
+    precio INT NOT NULL,
+	preparacion INT NOT NULL,
+	idbebida INT NOT NULL
+)
+
+CREATE TABLE especificacionesGuarnicion (
+    idespecificacion INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    descripcion VARCHAR(250) NULL,
+    precio INT NOT NULL,
+	preparacion INT NOT NULL,
+	idguarnicion INT NOT NULL
+)
+
+CREATE TABLE tipoMenu (
+    idtipo INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    nombre VARCHAR(100) NOT NULL
+)
+
+CREATE TABLE tipoMenuPlatillo (
+    idtipo INT NOT NULL,
+    idplatillo INT NOT NULL,
+)
+
+CREATE TABLE tipoMenuBebida (
+    idtipo INT NOT NULL,
+    idbebida INT NOT NULL,
+)
+
+CREATE TABLE tipoMenuGuarnicion (
+    idtipo INT NOT NULL,
+    idguarnicion INT NOT NULL,
+)
+/*MODIFICACIONES PARA LA BASE DE DATOS*/

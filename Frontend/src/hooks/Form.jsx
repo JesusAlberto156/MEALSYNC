@@ -8,7 +8,7 @@ import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusCont
 import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
 import { SuppliesContext,SupplyAddContext,SupplyEditContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,UnitsContext,UnitAddContext,UnitEditContext } from "../contexts/WarehouseProvider";
-import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,SelectedRow1Context,SelectedRow2Context,ViewPasswordContext } from "../contexts/VariablesProvider";
+import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,SearchTerm2Context,SelectedRow1Context,SelectedRow2Context,ViewPasswordContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser } from "./Texts";
@@ -500,7 +500,7 @@ export const HandleSupplierEdit = () => {
     // Retorno de la función del hook
     return handleSupplierEdit;
 }
-//Hook para agregar un insumo desde el modal
+//Hook para agregar un insumo desde el modal ✔️
 export const HandleSupplyAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -517,7 +517,7 @@ export const HandleSupplyAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupply.name === '' || isTextFieldsSupply.description === '' || isTextFieldsSupply.image === '' || isTextFieldsSupply.supplier === 0 || isTextFieldsSupply.type === 0){
+                        if(isTextFieldsSupply.name === '' || isTextFieldsSupply.supplier === 0 || isTextFieldsSupply.type === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del insumo!...');
                         };
@@ -527,6 +527,38 @@ export const HandleSupplyAdd = () => {
                         if(exists){
                             setIsActionBlock(false);
                             return reject('¡Insumo con el proveedor ya existente!...');
+                        }
+
+                        const regexName = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,()-]+$/;
+                        const regexDescription = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(isTextFieldsSupply.name.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexName.test(isTextFieldsSupply.name.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupply.description.length > 250){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexDescription.test(isTextFieldsSupply.description.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupply.image){
+                            try{
+                                new URL(isTextFieldsSupply.image.trim());
+                            }catch(error){
+                                setIsActionBlock(false);
+                                return reject('¡La dirección URL de la imagen no es valida!...');
+                            }
                         }
 
                         resolve('¡Información verificada!...');
@@ -547,7 +579,7 @@ export const HandleSupplyAdd = () => {
      // Retorno de la función del hook
      return handleSupplyAdd
 }
-//Hook para editar un insumo desde el modal
+//Hook para editar un insumo desde el modal ✔️
 export const HandleSupplyEdit = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -565,15 +597,15 @@ export const HandleSupplyEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupply.name === '' || isTextFieldsSupply.description === '' || isTextFieldsSupply.image === '' || isTextFieldsSupply.supplier === 0 || isTextFieldsSupply.type === 0){
-                            setIsActionBlock(false);
-                            return reject('¡Falta información del insumo!...');
-                        };
-
                         if(isTextFieldsSupply.name === isSelectedRow.nombre && isTextFieldsSupply.description === isSelectedRow.descripcion && isTextFieldsSupply.image === isSelectedRow.imagen && isTextFieldsSupply.supplier === isSelectedRow.idproveedor && isTextFieldsSupply.type === isSelectedRow.idtipo){
                             setIsActionBlock(false);
                             return reject('¡No hay información del insumo modificada!...')
                         }
+
+                        if(isTextFieldsSupply.name === '' || isTextFieldsSupply.supplier === 0 || isTextFieldsSupply.type === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del insumo!...');
+                        };
 
                         if(isTextFieldsSupply.name !== isSelectedRow.nombre){
                             const exists = isSupplies.some(supply => supply.nombre === isTextFieldsSupply.name && supply.idproveedor === isTextFieldsSupply.supplier);
@@ -581,6 +613,38 @@ export const HandleSupplyEdit = () => {
                             if(exists){
                                 setIsActionBlock(false);
                                 return reject('¡Insumo con el proveedor ya existente!...');
+                            }
+                        }
+
+                        const regexName = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,()-]+$/;
+                        const regexDescription = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(isTextFieldsSupply.name.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexName.test(isTextFieldsSupply.name.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupply.description.length > 250){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexDescription.test(isTextFieldsSupply.description.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupply.image){
+                            try{
+                                new URL(isTextFieldsSupply.image.trim());
+                            }catch(error){
+                                setIsActionBlock(false);
+                                return reject('¡La dirección URL de la imagen no es valida!...');
                             }
                         }
 
@@ -682,6 +746,18 @@ export const HandleSupplyTypeAdd = () => {
     }
      // Retorno de la función del hook
      return handleSupplyTypeAdd
+}
+// Hook para filtrar los proveedores por su nombre ✔️
+export const FilteredRecordsSuppliers = () => {
+    // Constantes con el valor de los contextos
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isSearchTerm2] = useContext(SearchTerm2Context);
+    // Filtrado de datos
+    const filteredRecordsSuppliers = isSuppliers.filter((data) => {
+        return data.nombre.toLowerCase().includes(isSearchTerm2.toLowerCase());
+    });
+    // Retorno de la función del hook
+    return filteredRecordsSuppliers
 }
 //Hook para editar un tipo de insumo desde el modal ✔️
 export const HandleSupplyTypeEdit = () => {

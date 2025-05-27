@@ -45,6 +45,40 @@ export const Input_Text_Black_100 = styled.input.withConfig({
         }
     }
 `;
+export const Input_Text_Black_50 = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 50%;
+    height: auto;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+    font-size: 16px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
+
+    &::placeholder {
+        ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')}; 
+    }
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    &:focus {
+        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+    }
+`;
 //-------- Black
 //-------- White
 export const Input_Text_White_100 = styled.input.withConfig({

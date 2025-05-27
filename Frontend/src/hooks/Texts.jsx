@@ -3,8 +3,24 @@
 import { useContext } from "react";
 // Contextos
 import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext } from "../contexts/FormsProvider";
+import { SearchTerm1Context,SearchTerm2Context,SearchTermContext } from "../contexts/VariablesProvider";
 //____________IMPORT/EXPORT____________
 
+// Hook para reinciar los campos de texto de los usuarios
+export const ResetSearchTerms = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
+    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+    // Función del hook
+    const resetSearchTerms = () => {
+        setIsSearchTerm('');
+        setIsSearchTerm1('');
+        setIsSearchTerm2('');
+    }
+    // Retorno de la función del hook
+    return resetSearchTerms;
+}
 // Hook para reinciar los campos de texto de los usuarios
 export const ResetTextFieldsUser = () => {
     // Constantes con el valor de los contextos 
@@ -85,7 +101,7 @@ export const ResetTextFieldsSupplier = () => {
     // Retorno de la función del hook
     return resetTextFieldsSupplier;
 }
-// Hook para reinciar los campos de texto de los insumos
+// Hook para reinciar los campos de texto de los insumos ✔️
 export const ResetTextFieldsSupply = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);

@@ -130,6 +130,76 @@ export const Icon_Button_Black_18 = styled.button.withConfig({
     }
 `;
 //---------- Black
+//---------- Blue
+export const Icon_Button_Blue_30 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Button_Blue_26 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 26px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Button_Blue_22 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 22px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Button_Blue_18 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+//---------- Blue
 //____________BUTTON____________
 //____________ROTATE____________
 //---------- Gray

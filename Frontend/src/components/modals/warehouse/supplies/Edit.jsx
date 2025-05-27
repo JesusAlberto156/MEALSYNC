@@ -9,14 +9,16 @@ import Select from "react-select";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
-import { ActionBlockContext,SelectedRowContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,SelectedRowContext,SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { SupplyTypesContext,SupplyEditContext } from "../../../../contexts/WarehouseProvider";
+import { SupplyTypesContext,SupplyEditContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
-import { ResetTextFieldsSupply } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
-import { HandleSupplyEdit } from "../../../../hooks/Form";
+import { HandleSupplyEdit,FilteredRecordsSuppliers } from "../../../../hooks/Form";
+import { TableActionsSupplyTypes } from "../../../../hooks/Table";
 //__________ICONOS__________
+// Icon del buscador
+import { FcSearch } from "react-icons/fc";
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
@@ -24,10 +26,10 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
-import { Input_Text_Black_100 } from "../../../styled/Inputs";
+import { Icon_White_22,Icon_Button_Blue_18,Icon_22 } from "../../../styled/Icons";
+import { Input_Text_Black_100,Input_Text_Black_50 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
@@ -40,24 +42,26 @@ export default function Supply_Edit(){
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
-    const [isSuppliers] = useContext(SuppliersContext);
-    const [isSupplyTypes] = useContext(SupplyTypesContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
     const [socket] = useContext(SocketContext);
-    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isUnits] = useContext(UnitsContext);
+    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
+    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleSupplyEdit = HandleSupplyEdit();
-    const resetTextFieldsSupply = ResetTextFieldsSupply();
+    const {currentRecordsSupplyTypes} = TableActionsSupplyTypes();
+    const filteredRecordsSuppliers = FilteredRecordsSuppliers();
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isSupplyEdit){
             const promise = new Promise(async (resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Supply-Update',isTextFieldsSupply.idsupply,isTextFieldsSupply.name,isTextFieldsSupply.description,isTextFieldsSupply.image,isTextFieldsSupply.supplier,isTextFieldsSupply.type);
+                        socket.emit('Supply-Update',isTextFieldsSupply.idsupply,isTextFieldsSupply.name.trim(),isTextFieldsSupply.description.trim(),isTextFieldsSupply.image.trim(),isTextFieldsSupply.supplier,isTextFieldsSupply.type);
                         
                         resolve('¡MEALSYNC actualizo el insumo!...');
 
@@ -68,7 +72,7 @@ export default function Supply_Edit(){
                         setTimeout(() => {
                             setIsModal(false);
                             sessionStorage.setItem('Modal',false);
-                            resetTextFieldsSupply();
+                            setIsSelectedRow(null);
                             setIsActionBlock(false);
                             setIsSupplyEdit(false);
                             navigate(route,{ replace: true });
@@ -109,7 +113,7 @@ export default function Supply_Edit(){
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Datos del insumo...</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
@@ -129,6 +133,12 @@ export default function Supply_Edit(){
                                         value={isTextFieldsSupply.description}
                                         onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, description: e.target.value}))}
                                     />
+                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        onClick={() => {
+                                            setIsTextFieldsSupply(prev => ({...prev, description: ''}))
+                                        }}>
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_18>
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Imagen (URL):</Text_A_16_Left>
@@ -138,15 +148,44 @@ export default function Supply_Edit(){
                                         value={isTextFieldsSupply.image}
                                         onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, image: e.target.value}))}
                                     />
+                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        onClick={() => {
+                                            setIsTextFieldsSupply(prev => ({...prev, image: ''}))
+                                        }}>
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_18>
                                 </Container_Row_100_Center>
                             </Container_Column_90_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Proveedor...</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Proveedor...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_100_Center>
+                                    <Icon_22><FcSearch/></Icon_22>
+                                    <Input_Text_Black_50 
+                                        ThemeMode={themeMode}
+                                        type="text"
+                                        placeholder="Buscar..."
+                                        value={isSearchTerm2}
+                                        onChange={(e) => setIsSearchTerm2(e.target.value)}
+                                    />
+                                </Container_Row_100_Center>
+                                {filteredRecordsSuppliers.length === 0 ? (
+                                    <>
+                                        <Container_Row_100_Center>
+                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        </Container_Row_100_Center>
+                                    </>
+                                ):(
+                                    <></>
+                                )}
                                 <Select
-                                    options={isSuppliers.map((supplier) => ({
+                                    options={filteredRecordsSuppliers.map((supplier) => ({
                                         value: supplier.idproveedor,
                                         label: supplier.nombre
                                     }))}
@@ -196,23 +235,45 @@ export default function Supply_Edit(){
                                         })
                                     }}
                                     placeholder='Seleccione uno...'
-                                    value={isSuppliers
+                                    value={filteredRecordsSuppliers
                                         .map(supplier => ({ value: supplier.idproveedor, label: supplier.nombre }))
                                         .find(option => option.value === isTextFieldsSupply.supplier)
                                     }
                                     onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, supplier: e.value}))}
                                 />
-                            </Container_Column_90_Center>
-                            <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Tipo de insumo...</Text_A_16_Left>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Tipo de insumo...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_100_Center>
+                                    <Icon_22><FcSearch/></Icon_22>
+                                    <Input_Text_Black_50 
+                                        ThemeMode={themeMode}
+                                        type="text"
+                                        placeholder="Buscar..."
+                                        value={isSearchTerm1}
+                                        onChange={(e) => setIsSearchTerm1(e.target.value)}
+                                    />
+                                </Container_Row_100_Center>
+                                {currentRecordsSupplyTypes.length === 0 ? (
+                                    <>
+                                        <Container_Row_100_Center>
+                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        </Container_Row_100_Center>
+                                    </>
+                                ):(
+                                    <></>
+                                )}
                                 <Select
-                                    options={isSupplyTypes.map((type) => ({
-                                        value: type.idtipo,
-                                        label: type.tipo
-                                    }))}
+                                    options={currentRecordsSupplyTypes.map((type) => {
+                                            const unit = isUnits.find(unit => unit.idmedida === type.idmedida);
+                                            const label = `${type.tipo} - ${unit?.medida} - ${unit?.cantidad} ${unit?.unidad}` || 'Desconocido';
+                                            
+                                        return{
+                                            value: type.idtipo,
+                                            label: label
+                                        }
+                                    })}
                                     styles={{
                                         control: (provided) => ({
                                             ...provided,
@@ -259,7 +320,7 @@ export default function Supply_Edit(){
                                         })
                                     }}
                                     placeholder='Seleccione uno...'
-                                    value={isSupplyTypes
+                                    value={currentRecordsSupplyTypes
                                         .map(type => ({ value: type.idtipo, label: type.tipo }))
                                         .find(option => option.value === isTextFieldsSupply.type)
                                     }

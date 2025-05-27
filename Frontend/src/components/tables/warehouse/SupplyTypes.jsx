@@ -205,8 +205,8 @@ export default function Table_Supply_Types(){
                             <Td ThemeMode={themeMode}>
                                 {(() => {
                                     const unit = isUnits.find(unit => unit.idmedida === type.idmedida); 
-                                    return `${unit?.unidad} ${unit?.cantidad}` || 'Desconocido';
-                                })}
+                                    return `${unit?.cantidad} ${unit?.unidad}` || 'Desconocido';
+                                })()}
                             </Td>
                         </tr>
                     ))}

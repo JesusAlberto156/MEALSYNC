@@ -9,13 +9,15 @@ import Select from "react-select";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUnitsContext } from "../../../../contexts/FormsProvider";
-import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
 import { UnitAddContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
 import { ResetTextFieldsUnit } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUnitAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
+// Icono para el buscador
+import { FcSearch } from "react-icons/fc";
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
@@ -25,8 +27,8 @@ import { IoIosAddCircle } from "react-icons/io";
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
-import { Input_Radio_16,Input_Text_Black_100 } from "../../../styled/Inputs";
+import { Icon_White_22,Icon_22 } from "../../../styled/Icons";
+import { Input_Radio_16,Input_Text_Black_100,Input_Text_Black_50 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 //____________IMPORT/EXPORT____________
@@ -42,6 +44,7 @@ export default function Unit_Add(){
     const [isUnitAdd,setIsUnitAdd] = useContext(UnitAddContext);
     const [socket] = useContext(SocketContext);
     const [isUnits] = useContext(UnitsContext);
+    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     // Constantes con el valor de los useState
     const [isState,setIsState] = useState('');
     const [filteredUnits,setFilteredUnits] = useState(null);
@@ -109,10 +112,18 @@ export default function Unit_Add(){
     // UseEffect para filtrar datos de los tipos de insumos 
     useEffect(() => {
         if(isUnits.length !== 0){
-            const filtered = isUnits.filter((item,index,self) => index === self.findIndex((t) => t.medida === item.medida))
+            const uniqueByMedida = isUnits.filter(
+                (item, index, self) =>
+                    index === self.findIndex((t) => t.medida === item.medida)
+            );
+    
+            const filtered = uniqueByMedida.filter((item) =>
+                item.medida.toLowerCase().includes(isSearchTerm2.toLowerCase())
+            );
+    
             setFilteredUnits(filtered);
         }
-    },[isUnits]);
+    },[isUnits,isSearchTerm2]);
     // Estructura del componente
     return(
         <>
@@ -178,6 +189,25 @@ export default function Unit_Add(){
                                 {isState === 'Existente' ? (
                                     filteredUnits !== null ? (
                                         <>
+                                            <Container_Row_100_Center>
+                                                <Icon_22><FcSearch/></Icon_22>
+                                                <Input_Text_Black_50 
+                                                    ThemeMode={themeMode}
+                                                    type="text"
+                                                    placeholder="Buscar..."
+                                                    value={isSearchTerm2}
+                                                    onChange={(e) => setIsSearchTerm2(e.target.value)}
+                                                />
+                                            </Container_Row_100_Center>
+                                            {filteredUnits.length === 0 ? (
+                                                <>
+                                                    <Container_Row_100_Center>
+                                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                    </Container_Row_100_Center>
+                                                </>
+                                            ):(
+                                                <></>
+                                            )}
                                             <Select
                                                 options={filteredUnits.map((type) => ({
                                                     valueI: type.idmedida,

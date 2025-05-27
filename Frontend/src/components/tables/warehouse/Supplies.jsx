@@ -21,7 +21,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center } from "../../styled/Text";
+import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
 import { Icon_White_18,Icon_Image_Black_60 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
@@ -82,9 +82,9 @@ export default function Table_Supplies(){
                         <Th>Nombre</Th>
                         <Th>Descripción</Th>
                         <Th>Imagen</Th>
-                        <Th>Tipo</Th>
                         <Th>Proveedor</Th>
-                        <Th>Tipo de Medición</Th>
+                        <Th>Tipo</Th>
+                        <Th>Tipo de consumo</Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
@@ -101,34 +101,44 @@ export default function Table_Supplies(){
                             <Td ThemeMode={themeMode}>{supply.nombre}</Td>
                             <Td ThemeMode={themeMode}>{supply.descripcion}</Td>
                             <Td ThemeMode={themeMode}><Icon_Image_Black_60 ThemeMode={themeMode} src={supply.imagen}/></Td>
-                            <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo||'Desconocido'}</Td>
                             <Td ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Td>
+                            <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo||'Desconocido'}</Td>
                             <Td ThemeMode={themeMode}>
                                 {(() => {
                                     const supplyType = isSupplyTypes.find(type => type.idtipo === supply.idtipo);
                                     const unit = isUnits.find(unit => unit.idmedida === supplyType?.idmedida);
-                                    return unit?.medida || 'Desconocido';
+                                    return `${unit?.medida} - ${unit?.cantidad} ${unit?.unidad}` || 'Desconocido';
                                 })()}
                             </Td>
                         </tr>
                     ))}
                 </Tbody>
             </Table>
-            <Container_Row_90_Center>
-                <Tooltip title='Página anterior' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={prevPage}>
-                        <Icon_White_18><GrPrevious/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSupplies}</Text_A_16_Center>
-                <Tooltip title='Página siguiente' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSupplies || totalPagesSupplies === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={nextPageSupplies}>
-                        <Icon_White_18><GrNext/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-            </Container_Row_90_Center>
+            {currentRecordsSupplies.length !== 0 ? (
+               <>
+                    <Container_Row_90_Center>
+                        <Tooltip title='Página anterior' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={prevPage}>
+                                <Icon_White_18><GrPrevious/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSupplies}</Text_A_16_Center>
+                        <Tooltip title='Página siguiente' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSupplies || totalPagesSupplies === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={nextPageSupplies}>
+                                <Icon_White_18><GrNext/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                    </Container_Row_90_Center> 
+               </> 
+            ):(
+                <>
+                    <Container_Row_90_Center>
+                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
+                    </Container_Row_90_Center>
+                </>
+            )}
         </>
     );
 }

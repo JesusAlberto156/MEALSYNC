@@ -6,7 +6,7 @@ import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusCont
 import { SearchTerm1Context,SearchTerm2Context,SearchTermContext } from "../contexts/VariablesProvider";
 //____________IMPORT/EXPORT____________
 
-// Hook para reinciar los campos de texto de los usuarios
+// Hook para reinciar los campos de texto de los buscadores ✔️
 export const ResetSearchTerms = () => {
     // Constantes con el valor de los contextos 
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);

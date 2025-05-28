@@ -528,6 +528,25 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
+                    {currentSView === 'Warehouse' && currentNView === 'Warehouse' ? (
+                        isPermission.superadministrador ? (
+                            <>
+                                <Tooltip title='Agregar' placement="top">
+                                    <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                    onClick={() => {
+                                        handleModalView('Warehouse-Add');
+                                        navigate('/Administration/Warehouse/Add',{ replace: true });
+                                    }}>
+                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                    </Button_Icon_Green_60>
+                                </Tooltip>
+                            </>
+                        ):(
+                            <></>
+                        )
+                    ):(
+                        <></>
+                    )}
                     {currentSView === 'Warehouse' && currentNView === 'Supplies' ? (
                         isPermission.superadministrador ? (
                             <>

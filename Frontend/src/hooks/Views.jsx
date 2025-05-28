@@ -9,7 +9,7 @@ import { TextFieldsUserContext } from "../contexts/FormsProvider";
 import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
+import { ResetSearchTerms,ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro)
@@ -123,6 +123,7 @@ export const HandleModalView = () => {
     const [isSubModal,setIsSubModal] = useContext(SubModalContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
+    const resetSearchTerms = ResetSearchTerms();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
@@ -258,12 +259,22 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+        if(currentMView === 'Warehouse-Add' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+        
         if(currentMView === 'Supply-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
                 resetTextFieldsSupply();
                 setIsActionBlock(false);
+                resetSearchTerms();
                 navigate(route,{ replace: true });
             },750);
         }
@@ -273,6 +284,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 setIsSelectedRow(null);
                 setIsActionBlock(false);
+                resetSearchTerms();
                 navigate(route,{ replace: true });
             },750);
         }
@@ -282,6 +294,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 resetTextFieldsSupplyType();
                 setIsActionBlock(false);
+                resetSearchTerms();
                 navigate(route,{ replace: true });
             },750);
         }
@@ -291,6 +304,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 setIsSelectedRow1(null);
                 setIsActionBlock(false);
+                resetSearchTerms();
                 navigate(route,{ replace: true });
             },750);
         }
@@ -300,6 +314,7 @@ export const HandleModalView = () => {
                 sessionStorage.setItem('Modal',false);
                 resetTextFieldsUnit();
                 setIsActionBlock(false);
+                resetSearchTerms();
                 navigate(route,{ replace: true });
             },750);
         }

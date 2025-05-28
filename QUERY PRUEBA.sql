@@ -228,3 +228,5 @@ CREATE TABLE tipoMenuGuarnicion (
     idguarnicion INT NOT NULL,
 )
 /*MODIFICACIONES PARA LA BASE DE DATOS*/
+
+SELECT * FROM medicos

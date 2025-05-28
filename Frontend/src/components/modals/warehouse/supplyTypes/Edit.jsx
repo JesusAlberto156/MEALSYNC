@@ -15,6 +15,7 @@ import { UnitsContext,SupplyTypeEditContext } from "../../../../contexts/Warehou
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleSupplyTypeEdit } from "../../../../hooks/Form";
 import { TableActionsUnits } from "../../../../hooks/Table";
+import { ResetSearchTerms } from "../../../../hooks/Texts";
 //__________ICONOS__________
 // Icono para el buscador
 import { FcSearch } from "react-icons/fc";
@@ -51,6 +52,7 @@ export default function Supply_Type_Edit(){
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleSupplyTypeEdit = HandleSupplyTypeEdit();
+    const resetSearchTerms = ResetSearchTerms();
     const { currentRecordsUnits } = TableActionsUnits();
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
@@ -76,6 +78,7 @@ export default function Supply_Type_Edit(){
                             setIsActionBlock(false);
                             setIsSelectedRow1(null);
                             setIsSupplyTypeEdit(false);
+                            resetSearchTerms();
                             navigate(route,{ replace: true });
                         },750);
                     },2000);

@@ -10,12 +10,12 @@ import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,SelectedRowContext,SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
-import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { SupplyTypesContext,SupplyEditContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
+import { SupplyEditContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleSupplyEdit,FilteredRecordsSuppliers } from "../../../../hooks/Form";
 import { TableActionsSupplyTypes } from "../../../../hooks/Table";
+import { ResetSearchTerms } from "../../../../hooks/Texts";
 //__________ICONOS__________
 // Icon del buscador
 import { FcSearch } from "react-icons/fc";
@@ -54,6 +54,7 @@ export default function Supply_Edit(){
     const handleModalView = HandleModalView();
     const handleSupplyEdit = HandleSupplyEdit();
     const {currentRecordsSupplyTypes} = TableActionsSupplyTypes();
+    const resetSearchTerms = ResetSearchTerms();
     const filteredRecordsSuppliers = FilteredRecordsSuppliers();
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
@@ -75,6 +76,7 @@ export default function Supply_Edit(){
                             setIsSelectedRow(null);
                             setIsActionBlock(false);
                             setIsSupplyEdit(false);
+                            resetSearchTerms();
                             navigate(route,{ replace: true });
                         },750);
                     },2000);

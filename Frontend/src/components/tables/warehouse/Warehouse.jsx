@@ -96,14 +96,18 @@ export default function Table_Warehouse(){
             <Table id="Table-Users">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th>Tipo de Insumo</Th>
-                        <Th>Descripción</Th>
-                        <Th>Tipo de Medición</Th>
-                        <Th>Observación</Th>
-                        <Th>Precio Total</Th>
+                        <Th>Insumo</Th>
+                        <Th>Proveedor</Th>
+                        <Th>Fecha</Th>
                         <Th>Cantidad</Th>
+                        <Th>Precio total</Th>
+                        <Th>Estado</Th>
+                        <Th>Usuario encargado</Th>
                     </tr>
                 </Thead>
+                <Tbody>
+                    
+                </Tbody>
             </Table>
             <Container_Row_90_Center>
                 <Tooltip title='Página anterior' placement="top">

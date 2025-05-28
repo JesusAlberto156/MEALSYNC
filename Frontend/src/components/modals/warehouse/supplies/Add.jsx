@@ -13,7 +13,7 @@ import { ActionBlockContext,SearchTerm1Context,SearchTerm2Context } from "../../
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
 import { SupplyTypesContext,SupplyAddContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
-import { ResetTextFieldsSupply } from "../../../../hooks/Texts";
+import { ResetTextFieldsSupply,ResetSearchTerms } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleSupplyAdd,FilteredRecordsSuppliers } from "../../../../hooks/Form";
 import { TableActionsSupplyTypes } from "../../../../hooks/Table";
@@ -54,6 +54,7 @@ export default function Supply_Add(){
     const handleModalView = HandleModalView();
     const handleSupplyAdd = HandleSupplyAdd();
     const resetTextFieldsSupply = ResetTextFieldsSupply();
+    const resetSearchTerms = ResetSearchTerms();
     const {currentRecordsSupplyTypes} = TableActionsSupplyTypes();
     const filteredRecordsSuppliers = FilteredRecordsSuppliers();
     // UseEffect para agregar datos a la base de datos
@@ -76,6 +77,7 @@ export default function Supply_Add(){
                             resetTextFieldsSupply();
                             setIsActionBlock(false);
                             setIsSupplyAdd(false);
+                            resetSearchTerms();
                             navigate(route,{ replace: true });
                         },750);
                     },2000);

@@ -12,7 +12,7 @@ import { TextFieldsUnitsContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
 import { UnitAddContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
-import { ResetTextFieldsUnit } from "../../../../hooks/Texts";
+import { ResetTextFieldsUnit,ResetSearchTerms } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUnitAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
@@ -53,6 +53,7 @@ export default function Unit_Add(){
     const handleModalView = HandleModalView();
     const handleUnitAdd = HandleUnitAdd();
     const resetTextFieldsUnit = ResetTextFieldsUnit();
+    const resetSearchTerms = ResetSearchTerms();
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isUnitAdd){
@@ -73,6 +74,7 @@ export default function Unit_Add(){
                             resetTextFieldsUnit();
                             setIsActionBlock(false);
                             setIsUnitAdd(false);
+                            resetSearchTerms();
                             navigate(route,{ replace: true });
                         },750);
                     },2000);

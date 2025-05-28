@@ -162,15 +162,6 @@ export default function Nav_Bar(){
                                     <Icon_22><FaBoxOpen/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            <Tooltip title='Estadísticas' placement="top">
-                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Statistics')
-                                    sessionStorage.setItem('Route','/Administration/Index/Statistics');
-                                    navigate('/Administration/Index/Statistics',{ replace: true });
-                                }}>
-                                    <Icon_22><IoStatsChart/></Icon_22>
-                                </Button_Icon_White_100>
-                            </Tooltip>
                             {currentNView === 'Warehouse' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_26_Center>
                             ):(
@@ -184,11 +175,6 @@ export default function Nav_Bar(){
                             )}
                             {currentNView === 'Supply-Types' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>TIPOS DE INSUMOS</Text_Title_26_Center>
-                            ):(
-                                <></>
-                            )}
-                            {currentNView === 'Statistics' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>ESTADÍSTICAS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}

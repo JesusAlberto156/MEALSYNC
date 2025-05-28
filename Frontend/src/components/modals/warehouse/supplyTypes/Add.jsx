@@ -12,7 +12,7 @@ import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider
 import { ActionBlockContext,SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
 import { UnitsContext,SupplyTypesContext,SupplyTypeAddContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
-import { ResetTextFieldsSupplyType } from "../../../../hooks/Texts";
+import { ResetTextFieldsSupplyType,ResetSearchTerms } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleSupplyTypeAdd } from "../../../../hooks/Form";
 import { TableActionsUnits } from "../../../../hooks/Table";
@@ -56,6 +56,7 @@ export default function Supply_Type_Add(){
     const handleModalView = HandleModalView();
     const handleSupplyTypeAdd = HandleSupplyTypeAdd();
     const resetTextFieldsSupplyType = ResetTextFieldsSupplyType();
+    const resetSearchTerms = ResetSearchTerms();
     const { currentRecordsUnits } = TableActionsUnits();
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
@@ -77,6 +78,7 @@ export default function Supply_Type_Add(){
                             resetTextFieldsSupplyType();
                             setIsActionBlock(false);
                             setIsSupplyTypeAdd(false);
+                            resetSearchTerms();
                             navigate(route,{ replace: true });
                         },750);
                     },2000);

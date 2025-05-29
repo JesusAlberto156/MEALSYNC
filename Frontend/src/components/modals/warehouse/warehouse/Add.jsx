@@ -11,6 +11,7 @@ import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../cont
 import { TextFieldsUnitsContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
 import { UnitAddContext,UnitsContext,SuppliesContext } from "../../../../contexts/WarehouseProvider";
+import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
 // Hooks personalizados
 import { ResetTextFieldsUnit,ResetSearchTerms } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
@@ -46,7 +47,8 @@ export default function Warehouse_Add(){
     const [isUnitAdd,setIsUnitAdd] = useContext(UnitAddContext);
     const [socket] = useContext(SocketContext);
     const [isUnits] = useContext(UnitsContext);
-    const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
+    const [isSupplies] = useContext(SuppliesContext);
+    const [isSuppliers] = useContext(SuppliersContext);
     const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
     const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     // Constantes con el valor de los useState
@@ -216,111 +218,20 @@ export default function Warehouse_Add(){
                                             <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                                             <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
                                         </Container_Row_NG_95_Center>
-                                        <Text_A_16_Center ThemeMode={themeMode}>Proveedores...</Text_A_16_Center>
-                                        <Container_Row_100_Center>
-                                            <Icon_22><FcSearch/></Icon_22>
-                                            <Input_Text_Black_50
-                                                ThemeMode={themeMode}
-                                                type="text"
-                                                placeholder="Buscar..."
-                                                value={isSearchTerm2}
-                                                onChange={(e) => setIsSearchTerm2(e.target.value)}
-                                            />
-                                        </Container_Row_100_Center>
-                                        {filteredRecordsSuppliers.length === 0 ? (
+                                        {isSupplies.length !== 0 && isSuppliers.length !== 0 ? (
                                             <>
-                                                <Container_Row_100_Center>
-                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
-                                                </Container_Row_100_Center>
-                                            </>
-                                        ):(
-                                            <>
-                                                <Select
-                                                    options={filteredRecordsSuppliers.map((supplier) => ({
-                                                        value: supplier.idproveedor,
-                                                        label: supplier.nombre
-                                                    }))}
-                                                    styles={{
-                                                        control: (provided) => ({
-                                                            ...provided,
-                                                            width: '300px',
-                                                            padding: '6px',
-                                                            border: '2px solid black',
-                                                            cursor: 'pointer',
-                                                            borderRadius: '20px',
-                                                            fontFamily: 'Century Gothic',
-                                                            fontStyle: 'normal',
-                                                            fontSize: '18px',
-                                                            '@media (max-width: 768px)':{
-                                                                width: '250px',
-                                                                padding: '4px',
-                                                                fontSize: '16px',
-                                                            },
-                                                            '@media (max-width: 480px)':{
-                                                                width: '200px',
-                                                                padding: '2px',
-                                                                fontSize: '14px',
-                                                            },
-                                                        }),
-                                                        menu: (provided) => ({
-                                                            ...provided,
-                                                            overflow: 'hidden',
-                                                            borderRadius:'15px',
-                                                        }),
-                                                        menuList: (provided) => ({
-                                                            ...provided,
-                                                            maxHeight:175,
-                                                            fontFamily: 'Century Gothic',
-                                                            fontStyle: 'normal',
-                                                            overflowY:'auto',
-                                                            scrollbarWidth: 'none',
-                                                            '&::-webkit-scrollbar': {
-                                                                display:'none',
-                                                            },
-                                                            '@media (max-width: 768px)':{
-                                                                maxHeight:150,
-                                                            },
-                                                            '@media (max-width: 480px)':{
-                                                                maxHeight:125,
-                                                            },
-                                                        })
-                                                    }}
-                                                    placeholder='Seleccione uno...'
-                                                    value={filteredRecordsSuppliers
-                                                        .map(supplier => ({ value: supplier.idproveedor, label: supplier.nombre }))
-                                                        .find(option => option.value === supply.idsupply)
-                                                    }
-                                                    onChange={(e) => {
-                                                        const updatedSupplies = [...isListSupplies.supplies];
-                                                        updatedSupplies[index].idsupplier = e.value
-                                                        setIsListSupplies(prev => ({
-                                                            ...prev, 
-                                                            supplies: updatedSupplies,
-                                                        }));
-                                                    }}
-                                                />    
-                                            </>
-                                        )}
-                                        <Text_A_16_Center ThemeMode={themeMode}>Insumos...</Text_A_16_Center>
-                                        {isSupplies.filter(item => item.idproveedor === supply.idsupplier).length === 0 ? (
-                                            <>
-                                                <Container_Row_100_Center>
-                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
-                                                </Container_Row_100_Center>
-                                            </>
-                                        ):(
-                                            <>
+                                                <Text_A_16_Center ThemeMode={themeMode}>Proveedores...</Text_A_16_Center>
                                                 <Container_Row_100_Center>
                                                     <Icon_22><FcSearch/></Icon_22>
                                                     <Input_Text_Black_50
                                                         ThemeMode={themeMode}
                                                         type="text"
                                                         placeholder="Buscar..."
-                                                        value={isSearchTerm1}
-                                                        onChange={(e) => setIsSearchTerm1(e.target.value)}
+                                                        value={isSearchTerm2}
+                                                        onChange={(e) => setIsSearchTerm2(e.target.value)}
                                                     />
                                                 </Container_Row_100_Center>
-                                                {isSupplies.filter(item => item.idproveedor === supply.idsupplier && item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase())).length === 0 ? (
+                                                {filteredRecordsSuppliers.length === 0 ? (
                                                     <>
                                                         <Container_Row_100_Center>
                                                             <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
@@ -329,13 +240,9 @@ export default function Warehouse_Add(){
                                                 ):(
                                                     <>
                                                         <Select
-                                                            options={isSupplies
-                                                                .filter(item => item.idproveedor === supply.idsupplier &&
-                                                                        item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase())
-                                                                )
-                                                                .map((item) => ({
-                                                                value: item.idinsumo,
-                                                                label: item.nombre
+                                                            options={filteredRecordsSuppliers.map((supplier) => ({
+                                                                value: supplier.idproveedor,
+                                                                label: supplier.nombre
                                                             }))}
                                                             styles={{
                                                                 control: (provided) => ({
@@ -383,15 +290,120 @@ export default function Warehouse_Add(){
                                                                 })
                                                             }}
                                                             placeholder='Seleccione uno...'
-                                                            value={isSupplies
-                                                                .filter(item => item.idproveedor === supply.idsupplier && item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase()))
-                                                                .map(item => ({ value: item.idinsumo, label: item.nombre }))
+                                                            value={filteredRecordsSuppliers
+                                                                .map(supplier => ({ value: supplier.idproveedor, label: supplier.nombre }))
                                                                 .find(option => option.value === supply.idsupply)
                                                             }
-                                                            
-                                                        />  
+                                                            onChange={(e) => {
+                                                                const updatedSupplies = [...isListSupplies.supplies];
+                                                                updatedSupplies[index].idsupplier = e.value
+                                                                setIsListSupplies(prev => ({
+                                                                    ...prev, 
+                                                                    supplies: updatedSupplies,
+                                                                }));
+                                                            }}
+                                                        />    
                                                     </>
-                                                )}  
+                                                )}
+                                                <Text_A_16_Center ThemeMode={themeMode}>Insumos...</Text_A_16_Center>
+                                                {isSupplies.filter(item => item.idproveedor === supply.idsupplier).length === 0 ? (
+                                                    <>
+                                                        <Container_Row_100_Center>
+                                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                        </Container_Row_100_Center>
+                                                    </>
+                                                ):(
+                                                    <>
+                                                        <Container_Row_100_Center>
+                                                            <Icon_22><FcSearch/></Icon_22>
+                                                            <Input_Text_Black_50
+                                                                ThemeMode={themeMode}
+                                                                type="text"
+                                                                placeholder="Buscar..."
+                                                                value={isSearchTerm1}
+                                                                onChange={(e) => setIsSearchTerm1(e.target.value)}
+                                                            />
+                                                        </Container_Row_100_Center>
+                                                        {isSupplies.filter(item => item.idproveedor === supply.idsupplier && item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase())).length === 0 ? (
+                                                            <>
+                                                                <Container_Row_100_Center>
+                                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                                </Container_Row_100_Center>
+                                                            </>
+                                                        ):(
+                                                            <>
+                                                                <Select
+                                                                    options={isSupplies
+                                                                        .filter(item => item.idproveedor === supply.idsupplier &&
+                                                                                item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase())
+                                                                        )
+                                                                        .map((item) => ({
+                                                                        value: item.idinsumo,
+                                                                        label: item.nombre
+                                                                    }))}
+                                                                    styles={{
+                                                                        control: (provided) => ({
+                                                                            ...provided,
+                                                                            width: '300px',
+                                                                            padding: '6px',
+                                                                            border: '2px solid black',
+                                                                            cursor: 'pointer',
+                                                                            borderRadius: '20px',
+                                                                            fontFamily: 'Century Gothic',
+                                                                            fontStyle: 'normal',
+                                                                            fontSize: '18px',
+                                                                            '@media (max-width: 768px)':{
+                                                                                width: '250px',
+                                                                                padding: '4px',
+                                                                                fontSize: '16px',
+                                                                            },
+                                                                            '@media (max-width: 480px)':{
+                                                                                width: '200px',
+                                                                                padding: '2px',
+                                                                                fontSize: '14px',
+                                                                            },
+                                                                        }),
+                                                                        menu: (provided) => ({
+                                                                            ...provided,
+                                                                            overflow: 'hidden',
+                                                                            borderRadius:'15px',
+                                                                        }),
+                                                                        menuList: (provided) => ({
+                                                                            ...provided,
+                                                                            maxHeight:175,
+                                                                            fontFamily: 'Century Gothic',
+                                                                            fontStyle: 'normal',
+                                                                            overflowY:'auto',
+                                                                            scrollbarWidth: 'none',
+                                                                            '&::-webkit-scrollbar': {
+                                                                                display:'none',
+                                                                            },
+                                                                            '@media (max-width: 768px)':{
+                                                                                maxHeight:150,
+                                                                            },
+                                                                            '@media (max-width: 480px)':{
+                                                                                maxHeight:125,
+                                                                            },
+                                                                        })
+                                                                    }}
+                                                                    placeholder='Seleccione uno...'
+                                                                    value={isSupplies
+                                                                        .filter(item => item.idproveedor === supply.idsupplier && item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase()))
+                                                                        .map(item => ({ value: item.idinsumo, label: item.nombre }))
+                                                                        .find(option => option.value === supply.idsupply)
+                                                                    }
+                                                                    
+                                                                />  
+                                                            </>
+                                                        )}  
+                                                    </>
+                                                )}
+                                            </>
+                                        ):(
+                                            <>
+                                                <Container_Row_100_Center>
+                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                </Container_Row_100_Center>
                                             </>
                                         )}  
                                     </Container_Column_90_Center>
@@ -408,7 +420,11 @@ export default function Warehouse_Add(){
                                                 value={supply.amount}
                                                 onChange={(e) => {
                                                     const updatedSupplies = [...isListSupplies.supplies];
-                                                    updatedSupplies[index].amount = parseFloat(e.target.value)
+                                                    const unitprice = updatedSupplies[index].unitprice || 0;
+                                                    const quantity = parseFloat(e.target.value) || 0;
+
+                                                    updatedSupplies[index].price = parseFloat((quantity * unitprice).toFixed(4));
+                                                    updatedSupplies[index].amount = quantity
                                                     setIsListSupplies(prev => ({
                                                         ...prev, 
                                                         supplies: updatedSupplies,
@@ -420,7 +436,7 @@ export default function Warehouse_Add(){
                                             <Text_A_16_Left ThemeMode={themeMode}>Precio Unitario:</Text_A_16_Left>
                                             <Input_Text_Black_100 ThemeMode={themeMode}
                                                 placeholder="..."
-                                                type="number"
+                                                type="text"
                                                 value={supply.unitprice}
                                                 onChange={(e) => {
                                                     const updatedSupplies = [...isListSupplies.supplies];
@@ -448,20 +464,20 @@ export default function Warehouse_Add(){
                                         </Container_Row_100_Center>
                                     </Container_Column_90_Center>
                                     <Container_Column_Blue_Width_95_Center ThemeMode={themeMode}>
-                                <Container_Column_100_Center>
-                                    <Text_Span_24_Center>
-                                        Eliminar insumo
-                                    </Text_Span_24_Center>
-                                    <Tooltip title='Eliminar Insumo' placement="top">
-                                        <Button_Icon_Red_60 ThemeMode={themeMode}
-                                            onClick={() => deleteSupply()}>
-                                            <Icon_White_18>
-                                                <LuPackageMinus/>
-                                            </Icon_White_18>
-                                        </Button_Icon_Red_60>
-                                    </Tooltip>
-                                </Container_Column_100_Center>
-                            </Container_Column_Blue_Width_95_Center>
+                                        <Container_Column_100_Center>
+                                            <Text_Span_24_Center>
+                                                Eliminar insumo
+                                            </Text_Span_24_Center>
+                                            <Tooltip title='Eliminar Insumo' placement="top">
+                                                <Button_Icon_Red_60 ThemeMode={themeMode}
+                                                    onClick={() => deleteSupply()}>
+                                                    <Icon_White_18>
+                                                        <LuPackageMinus/>
+                                                    </Icon_White_18>
+                                                </Button_Icon_Red_60>
+                                            </Tooltip>
+                                        </Container_Column_100_Center>
+                                    </Container_Column_Blue_Width_95_Center>
                                 </Container_Column_Border_90_Center>
                             ))}
                             <Container_Column_Blue_Width_95_Center ThemeMode={themeMode}>

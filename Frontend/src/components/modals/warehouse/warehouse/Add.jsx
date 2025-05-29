@@ -8,7 +8,7 @@ import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsUnitsContext } from "../../../../contexts/FormsProvider";
+import { TextFieldsUnitsContext,TextFieldsWarehouseContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
 import { UnitAddContext,UnitsContext,SuppliesContext } from "../../../../contexts/WarehouseProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
@@ -28,7 +28,7 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Column_Border_90_Center,Container_Column_90_Center,Container_Column_Blue_Width_95_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Right,Container_Column_Border_90_Center,Container_Column_90_Center,Container_Column_Blue_Width_95_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center,Text_Span_24_Center,Text_A_16_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210,Button_Icon_Green_60,Button_Icon_Red_60 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_22, Icon_White_18 } from "../../../styled/Icons";
@@ -43,6 +43,7 @@ export default function Warehouse_Add(){
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);
+    const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useContext(TextFieldsWarehouseContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isUnitAdd,setIsUnitAdd] = useContext(UnitAddContext);
     const [socket] = useContext(SocketContext);
@@ -148,7 +149,9 @@ export default function Warehouse_Add(){
     // UseEffect para obtener la hora a tiepo real
     useEffect(() => {
         const interval = setInterval(() => {
-            setLiveDateTime(getFormattedDateTime());
+            setIsTextFieldsWarehouse((prev) => ({
+                ...prev,
+                date: getFormattedDateTime()}));
         }, 1000);
 
         return () => clearInterval(interval);
@@ -175,23 +178,20 @@ export default function Warehouse_Add(){
             unitprice: 0,
             price: 0,
         }
-        setIsListSupplies({
-            ...isListSupplies,
-            supplies: [...isListSupplies.supplies, newSupply],
+        setIsTextFieldsWarehouse({
+            ...isTextFieldsWarehouse,
+            supplies: [...isTextFieldsWarehouse.supplies, newSupply],
         })
     }
     // Funcion para eliminar un insumo de la lista
     const deleteSupply = (index) => {
-        const updatedSupplies = [...isListSupplies.supplies];
+        const updatedSupplies = [...isTextFieldsWarehouse.supplies];
         updatedSupplies.splice(index,1);
-        setIsListSupplies({
-            ...isListSupplies,
+        setIsTextFieldsWarehouse({
+            ...isTextFieldsWarehouse,
             supplies: updatedSupplies,
         })
     }
-    useEffect(() => {
-        console.log(isListSupplies);
-    },[isListSupplies])
     // Estructura del componente
     return(
         <>
@@ -207,20 +207,23 @@ export default function Warehouse_Add(){
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     placeholder="..."
                                     type="text"
-                                    value={liveDateTime}
+                                    value={isTextFieldsWarehouse.date}
                                     disabled
                                 />
                             </Container_Row_95_Center>
-                            {isListSupplies.supplies.map((supply,index) => (
+                            {isTextFieldsWarehouse.supplies.map((supply,index) => (
                                 <Container_Column_Border_90_Center key={index} ThemeMode={themeMode}>
+                                    <Container_Row_100_Right>
+                                        <Text_A_20_Center ThemeMode={themeMode}>INSUMO NO. {index+1}</Text_A_20_Center>
+                                    </Container_Row_100_Right>
                                     <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                         <Container_Row_NG_95_Center>
                                             <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                                             <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
                                         </Container_Row_NG_95_Center>
-                                        {isSupplies.length !== 0 && isSuppliers.length !== 0 ? (
+                                        <Text_A_16_Center ThemeMode={themeMode}>Proveedores...</Text_A_16_Center>
+                                        {isSuppliers.length !== 0 ? (
                                             <>
-                                                <Text_A_16_Center ThemeMode={themeMode}>Proveedores...</Text_A_16_Center>
                                                 <Container_Row_100_Center>
                                                     <Icon_22><FcSearch/></Icon_22>
                                                     <Input_Text_Black_50
@@ -295,9 +298,9 @@ export default function Warehouse_Add(){
                                                                 .find(option => option.value === supply.idsupply)
                                                             }
                                                             onChange={(e) => {
-                                                                const updatedSupplies = [...isListSupplies.supplies];
+                                                                const updatedSupplies = [...isTextFieldsWarehouse.supplies];
                                                                 updatedSupplies[index].idsupplier = e.value
-                                                                setIsListSupplies(prev => ({
+                                                                isTextFieldsWarehouse(prev => ({
                                                                     ...prev, 
                                                                     supplies: updatedSupplies,
                                                                 }));
@@ -305,7 +308,17 @@ export default function Warehouse_Add(){
                                                         />    
                                                     </>
                                                 )}
-                                                <Text_A_16_Center ThemeMode={themeMode}>Insumos...</Text_A_16_Center>
+                                            </>
+                                        ):(
+                                            <>
+                                                <Container_Row_100_Center>
+                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                </Container_Row_100_Center>
+                                            </>
+                                        )}  
+                                        <Text_A_16_Center ThemeMode={themeMode}>Insumos...</Text_A_16_Center>
+                                        {isSupplies.length !== 0 ? (
+                                            <>
                                                 {isSupplies.filter(item => item.idproveedor === supply.idsupplier).length === 0 ? (
                                                     <>
                                                         <Container_Row_100_Center>
@@ -392,7 +405,14 @@ export default function Warehouse_Add(){
                                                                         .map(item => ({ value: item.idinsumo, label: item.nombre }))
                                                                         .find(option => option.value === supply.idsupply)
                                                                     }
-                                                                    
+                                                                    onChange={(e) => {
+                                                                        const updatedSupplies = [...isTextFieldsWarehouse.supplies];
+                                                                        updatedSupplies[index].idsupply = e.value
+                                                                        isTextFieldsWarehouse(prev => ({
+                                                                            ...prev, 
+                                                                            supplies: updatedSupplies,
+                                                                        }));
+                                                                    }}
                                                                 />  
                                                             </>
                                                         )}  
@@ -405,7 +425,7 @@ export default function Warehouse_Add(){
                                                     <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
                                                 </Container_Row_100_Center>
                                             </>
-                                        )}  
+                                        )}
                                     </Container_Column_90_Center>
                                     <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                         <Container_Row_NG_95_Center>
@@ -421,11 +441,11 @@ export default function Warehouse_Add(){
                                                 onChange={(e) => {
                                                     const updatedSupplies = [...isListSupplies.supplies];
                                                     const unitprice = updatedSupplies[index].unitprice || 0;
-                                                    const quantity = parseFloat(e.target.value) || 0;
+                                                    const quantity = e.target.value > 0 ? parseFloat(e.target.value) : 0;
 
-                                                    updatedSupplies[index].price = parseFloat((quantity * unitprice).toFixed(4));
+                                                    updatedSupplies[index].price = quantity > 0 ? parseFloat((quantity * unitprice).toFixed(4)) : 0;
                                                     updatedSupplies[index].amount = quantity
-                                                    setIsListSupplies(prev => ({
+                                                    setIsTextFieldsWarehouse(prev => ({
                                                         ...prev, 
                                                         supplies: updatedSupplies,
                                                     }));
@@ -439,14 +459,14 @@ export default function Warehouse_Add(){
                                                 type="text"
                                                 value={supply.unitprice}
                                                 onChange={(e) => {
-                                                    const updatedSupplies = [...isListSupplies.supplies];
-                                                    const unitprice = parseFloat(e.target.value) || 0;
+                                                    const updatedSupplies = [...isTextFieldsWarehouse.supplies];
+                                                    const unitprice = e.target.value;
                                                     const quantity = updatedSupplies[index].amount || 0;
 
                                                     updatedSupplies[index].unitprice = unitprice;
-                                                    updatedSupplies[index].price = parseFloat((quantity * unitprice).toFixed(4));
+                                                    updatedSupplies[index].price = unitprice > 0 ? parseFloat((quantity * unitprice).toFixed(4)) : 0;
 
-                                                    setIsListSupplies(prev => ({
+                                                    setIsTextFieldsWarehouse(prev => ({
                                                         ...prev, 
                                                         supplies: updatedSupplies,
                                                     }));

@@ -501,7 +501,7 @@ export const HandleSupplierEdit = () => {
     return handleSupplierEdit;
 }
 //Hook para agregar un insumo desde el modal ✔️
-export const HandleSupplyAdd = () => {
+export const HandleWarehouseAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
@@ -511,9 +511,9 @@ export const HandleSupplyAdd = () => {
     const [isSupplies] = useContext(SuppliesContext);
     const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
     // Función del hook
-    const handleSupplyAdd = () => {
-        if(currentNView === 'Supplies' && currentSView === 'Warehouse' && currentMView === 'Supply-Add'){
-            const promise = new Promise(async (resolve,reject) => {
+    const handleWarehouseAdd = () => {
+        if(currentNView === 'Warehouse' && currentSView === 'Warehouse' && currentMView === 'Warehouse-Add'){
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -555,7 +555,7 @@ export const HandleSupplyAdd = () => {
                         if(isTextFieldsSupply.image){
                             try{
                                 new URL(isTextFieldsSupply.image.trim());
-                            }catch(error){
+                            }catch(e){
                                 setIsActionBlock(false);
                                 return reject('¡La dirección URL de la imagen no es valida!...');
                             }
@@ -567,7 +567,86 @@ export const HandleSupplyAdd = () => {
                             setIsSupplyAdd(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+     // Retorno de la función del hook
+     return handleWarehouseAdd
+}
+//Hook para agregar un insumo desde el modal ✔️
+export const HandleSupplyAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
+    const [isSupplies] = useContext(SuppliesContext);
+    const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
+    // Función del hook
+    const handleSupplyAdd = () => {
+        if(currentNView === 'Supplies' && currentSView === 'Warehouse' && currentMView === 'Supply-Add'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupply.name === '' || isTextFieldsSupply.supplier === 0 || isTextFieldsSupply.type === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del insumo!...');
+                        };
+
+                        const exists = isSupplies.some(supply => supply.nombre === isTextFieldsSupply.name && supply.idproveedor === isTextFieldsSupply.supplier);
+                        
+                        if(exists){
+                            setIsActionBlock(false);
+                            return reject('¡Insumo con el proveedor ya existente!...');
+                        }
+
+                        const regexName = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,()-]+$/;
+                        const regexDescription = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(isTextFieldsSupply.name.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexName.test(isTextFieldsSupply.name.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupply.description.length > 250){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexDescription.test(isTextFieldsSupply.description.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupply.image){
+                            try{
+                                new URL(isTextFieldsSupply.image.trim());
+                            }catch(e){
+                                setIsActionBlock(false);
+                                return reject('¡La dirección URL de la imagen no es valida!...');
+                            }
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyAdd(true);
+                        },500)
+                    },1000);
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -593,7 +672,7 @@ export const HandleSupplyEdit = () => {
     // Función del hook
     const handleSupplyEdit = () => {
         if(currentNView === 'Supplies' && currentSView === 'Warehouse' && currentMView === 'Supply-Edit'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -642,7 +721,7 @@ export const HandleSupplyEdit = () => {
                         if(isTextFieldsSupply.image){
                             try{
                                 new URL(isTextFieldsSupply.image.trim());
-                            }catch(error){
+                            }catch(e){
                                 setIsActionBlock(false);
                                 return reject('¡La dirección URL de la imagen no es valida!...');
                             }
@@ -654,7 +733,7 @@ export const HandleSupplyEdit = () => {
                             setIsSupplyEdit(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -679,7 +758,7 @@ export const HandleSupplyTypeAdd = () => {
     // Función del hook
     const handleSupplyTypeAdd = (state) => {
         if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Supply-Type-Add'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -735,7 +814,7 @@ export const HandleSupplyTypeAdd = () => {
                             setIsSupplyTypeAdd(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -773,7 +852,7 @@ export const HandleSupplyTypeEdit = () => {
     // Función del hook
     const handleSupplyTypeEdit = () => {
         if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Supply-Type-Edit'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -834,7 +913,7 @@ export const HandleSupplyTypeEdit = () => {
                             setIsSupplyTypeEdit(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -859,7 +938,7 @@ export const HandleUnitAdd = () => {
     // Función del hook
     const handleUnitAdd = (state) => {
         if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Unit-Add'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -888,7 +967,8 @@ export const HandleUnitAdd = () => {
                         }
 
                         const regexExtent = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
-
+                        const regexAmount = /^\d+\.\d+$/;
+                        
                         if(isTextFieldsUnits.extent.length > 20){
                             setIsActionBlock(false);
                             return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
@@ -899,9 +979,19 @@ export const HandleUnitAdd = () => {
                             return reject('¡El nombre no es válido, solo permite letras y espacios!...');
                         }
 
-                        if(isTextFieldsUnits.amount <= 0){
+                        if(parseFloat(isTextFieldsUnits.amount) <= 0){
                             setIsActionBlock(false);
-                            return reject('¡La cantidad no es valida, debe ser mayor a 0!...');
+                            return reject('¡La cantidad no es válida, debe ser mayor a 0!...');
+                        }
+
+                        if(isTextFieldsUnits.amount > 999999.9999){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, excede el valor máximo permitido!...')
+                        }
+
+                        if(!regexAmount.test(isTextFieldsUnits.amount)){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, solo permite números decimales!...')
                         }
 
                         resolve('¡Información verificada!...');
@@ -910,7 +1000,7 @@ export const HandleUnitAdd = () => {
                             setIsUnitAdd(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -936,7 +1026,7 @@ export const HandleUnitEdit = () => {
     // Función del hook
     const handleUnitEdit = () => {
         if(currentNView === 'Supply-Types' && currentSView === 'Warehouse' && currentMView === 'Unit-Edit'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -969,6 +1059,7 @@ export const HandleUnitEdit = () => {
                         }
 
                         const regexExtent = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+                        const regexAmount = /^\d+\.\d+$/;
 
                         if(isTextFieldsUnits.extent.length > 20){
                             setIsActionBlock(false);
@@ -980,9 +1071,19 @@ export const HandleUnitEdit = () => {
                             return reject('¡El nombre no es válido, solo permite letras y espacios!...');
                         }
 
-                        if(isTextFieldsUnits.amount <= 0){
+                        if(parseFloat(isTextFieldsUnits.amount) <= 0){
                             setIsActionBlock(false);
-                            return reject('¡La cantidad no es valida, debe ser mayor a 0!...');
+                            return reject('¡La cantidad no es válida, debe ser mayor a 0!...');
+                        }
+
+                        if(isTextFieldsUnits.amount > 999999.9999){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, excede el valor máximo permitido!...')
+                        }
+
+                        if(!regexAmount.test(isTextFieldsUnits.amount)){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, solo permite números decimales!...')
                         }
 
                         resolve('¡Información verificada!...');
@@ -991,7 +1092,7 @@ export const HandleUnitEdit = () => {
                             setIsUnitEdit(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }

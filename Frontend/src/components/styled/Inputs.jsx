@@ -25,6 +25,12 @@ export const Input_Text_Black_100 = styled.input.withConfig({
         color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(221, 223, 226)' : 'rgb(85, 85, 85)')};
+    }
+
     @media (max-width: 768px) {
         font-size: 14px;
         padding: 8px;

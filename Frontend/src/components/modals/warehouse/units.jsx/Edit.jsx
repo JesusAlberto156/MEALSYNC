@@ -49,10 +49,10 @@ export default function Unit_Edit(){
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isUnitEdit){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Unit-Update',isTextFieldsUnits.idextent,isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit,isTextFieldsUnits.amount);
+                        socket.emit('Unit-Update',isTextFieldsUnits.idextent,isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit,parseFloat(isTextFieldsUnits.amount));
                         
                         if(isSelectedRow2.medida !== isTextFieldsUnits.extent || isSelectedRow2.unidad !== isTextFieldsUnits.unit){
                             socket.emit('Units-Update',isSelectedRow2.medida,isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit);
@@ -73,7 +73,7 @@ export default function Unit_Edit(){
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsUnitEdit(false);
                     return reject('¡Ocurrio un error inesperado actualizando la medida!...');
@@ -158,9 +158,9 @@ export default function Unit_Edit(){
                                     <Text_A_16_Left ThemeMode={themeMode}>Cantidad:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
-                                        type="number"
+                                        type="text"
                                         value={isTextFieldsUnits.amount}
-                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: parseFloat(e.target.value) || 0}))}
+                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
                             </Container_Column_90_Center>

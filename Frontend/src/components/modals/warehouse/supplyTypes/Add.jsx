@@ -61,7 +61,7 @@ export default function Supply_Type_Add(){
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isSupplyTypeAdd){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
                         socket.emit('Supply-Type-Insert',isTextFieldsSupplyTypes.type.trim(),isTextFieldsSupplyTypes.description.trim(),isTextFieldsSupplyTypes.idunits);
@@ -82,7 +82,7 @@ export default function Supply_Type_Add(){
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsSupplyTypeAdd(false);
                     return reject('¡Ocurrio un error inesperado agregando el tipo de insumo!...');
@@ -190,7 +190,7 @@ export default function Supply_Type_Add(){
                                     <></>
                                 )}
                                 {isState === 'Existente' ? (
-                                    filteredSupplyTypes !== null ? (
+                                    isSupplyTypes.length !== 0 ? (
                                         <>
                                             <Container_Row_100_Center>
                                                 <Icon_22><FcSearch/></Icon_22>
@@ -209,86 +209,86 @@ export default function Supply_Type_Add(){
                                                     </Container_Row_100_Center>
                                                 </>
                                             ):(
-                                                <></>
+                                                <>
+                                                    <Select
+                                                        options={filteredSupplyTypes.map((type) => ({
+                                                            value: type.idtipo,
+                                                            label: type.tipo,
+                                                        }))}
+                                                        styles={{
+                                                            control: (provided) => ({
+                                                                ...provided,
+                                                                width: '300px',
+                                                                padding: '6px',
+                                                                border: '2px solid black',
+                                                                cursor: 'pointer',
+                                                                borderRadius: '20px',
+                                                                fontFamily: 'Century Gothic',
+                                                                fontStyle: 'normal',
+                                                                fontSize: '18px',
+                                                                '@media (max-width: 768px)':{
+                                                                    width: '250px',
+                                                                    padding: '4px',
+                                                                    fontSize: '16px',
+                                                                },
+                                                                '@media (max-width: 480px)':{
+                                                                    width: '200px',
+                                                                    padding: '2px',
+                                                                    fontSize: '14px',
+                                                                },
+                                                            }),
+                                                            menu: (provided) => ({
+                                                                ...provided,
+                                                                overflow: 'hidden',
+                                                                borderRadius:'15px',
+                                                            }),
+                                                            menuList: (provided) => ({
+                                                                ...provided,
+                                                                maxHeight:175,
+                                                                fontFamily: 'Century Gothic',
+                                                                fontStyle: 'normal',
+                                                                overflowY:'auto',
+                                                                scrollbarWidth: 'none',
+                                                                '&::-webkit-scrollbar': {
+                                                                    display:'none',
+                                                                },
+                                                                '@media (max-width: 768px)':{
+                                                                    maxHeight:150,
+                                                                },
+                                                                '@media (max-width: 480px)':{
+                                                                    maxHeight:125,
+                                                                },
+                                                            })
+                                                        }}
+                                                        placeholder='Seleccione uno...'
+                                                        value={filteredSupplyTypes
+                                                            .map(type => ({ value: type.idtipo, label: type.tipo}))
+                                                            .find(option => option.value === isTextFieldsSupplyTypes.idtipo)
+                                                        }
+                                                        onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, type: e.label, description: isSupplyTypes.find((type) => type.idtipo === e.value)?.descripcion || 'Desconocido'}))}
+                                                    />
+                                                    <Container_Row_100_Center>
+                                                        <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
+                                                        <Input_Text_Black_100 ThemeMode={themeMode}
+                                                            placeholder="..."
+                                                            type="text"
+                                                            disabled={isState === 'Existente'}
+                                                            value={isTextFieldsSupplyTypes.type}
+                                                            onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, type: e.target.value}))}
+                                                        />
+                                                    </Container_Row_100_Center>
+                                                    <Container_Row_100_Center>
+                                                        <Text_A_16_Left ThemeMode={themeMode}>Descripción:</Text_A_16_Left>
+                                                        <Input_Text_Black_100 ThemeMode={themeMode}
+                                                            placeholder="..."
+                                                            type="text"
+                                                            disabled={isState === 'Existente'}
+                                                            value={isTextFieldsSupplyTypes.description}
+                                                            onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, description: e.target.value}))}
+                                                        />
+                                                    </Container_Row_100_Center>  
+                                                </>
                                             )}
-                                            <Select
-                                                options={filteredSupplyTypes.map((type) => ({
-                                                    valueI: type.idtipo,
-                                                    valueD: type.descripcion,
-                                                    label: type.tipo,
-                                                }))}
-                                                styles={{
-                                                    control: (provided) => ({
-                                                        ...provided,
-                                                        width: '300px',
-                                                        padding: '6px',
-                                                        border: '2px solid black',
-                                                        cursor: 'pointer',
-                                                        borderRadius: '20px',
-                                                        fontFamily: 'Century Gothic',
-                                                        fontStyle: 'normal',
-                                                        fontSize: '18px',
-                                                        '@media (max-width: 768px)':{
-                                                            width: '250px',
-                                                            padding: '4px',
-                                                            fontSize: '16px',
-                                                        },
-                                                        '@media (max-width: 480px)':{
-                                                            width: '200px',
-                                                            padding: '2px',
-                                                            fontSize: '14px',
-                                                        },
-                                                    }),
-                                                    menu: (provided) => ({
-                                                        ...provided,
-                                                        overflow: 'hidden',
-                                                        borderRadius:'15px',
-                                                    }),
-                                                    menuList: (provided) => ({
-                                                        ...provided,
-                                                        maxHeight:175,
-                                                        fontFamily: 'Century Gothic',
-                                                        fontStyle: 'normal',
-                                                        overflowY:'auto',
-                                                        scrollbarWidth: 'none',
-                                                        '&::-webkit-scrollbar': {
-                                                            display:'none',
-                                                        },
-                                                        '@media (max-width: 768px)':{
-                                                            maxHeight:150,
-                                                        },
-                                                        '@media (max-width: 480px)':{
-                                                            maxHeight:125,
-                                                        },
-                                                    })
-                                                }}
-                                                placeholder='Seleccione uno...'
-                                                value={filteredSupplyTypes
-                                                    .map(type => ({ valueI: type.idtipo, valueD: type.descripcion, label: type.tipo}))
-                                                    .find(option => option.valueI === isTextFieldsSupplyTypes.idtipo)
-                                                }
-                                                onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, type: e.label, description: e.valueD}))}
-                                            />
-                                            <Container_Row_100_Center>
-                                                <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
-                                                <Input_Text_Black_100 ThemeMode={themeMode}
-                                                    placeholder="..."
-                                                    type="text"
-                                                    disabled={isState === 'Existente'}
-                                                    value={isTextFieldsSupplyTypes.type}
-                                                    onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, type: e.target.value}))}
-                                                />
-                                            </Container_Row_100_Center>
-                                            <Container_Row_100_Center>
-                                                <Text_A_16_Left ThemeMode={themeMode}>Descripción:</Text_A_16_Left>
-                                                <Input_Text_Black_100 ThemeMode={themeMode}
-                                                    placeholder="..."
-                                                    type="text"
-                                                    disabled={isState === 'Existente'}
-                                                    value={isTextFieldsSupplyTypes.description}
-                                                    onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, description: e.target.value}))}
-                                                />
-                                            </Container_Row_100_Center>  
                                         </>
                                     ):(
                                         <>
@@ -329,65 +329,66 @@ export default function Supply_Type_Add(){
                                                 </Container_Row_100_Center>
                                             </>
                                         ):(
-                                            <></>
+                                            <>
+                                                <Select
+                                                    options={currentRecordsUnits.map((unit) => ({
+                                                        value: unit.idmedida,
+                                                        label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`
+                                                    }))}
+                                                    styles={{
+                                                        control: (provided) => ({
+                                                            ...provided,
+                                                            width: '300px',
+                                                            padding: '6px',
+                                                            border: '2px solid black',
+                                                            cursor: 'pointer',
+                                                            borderRadius: '20px',
+                                                            fontFamily: 'Century Gothic',
+                                                            fontStyle: 'normal',
+                                                            fontSize: '18px',
+                                                            '@media (max-width: 768px)':{
+                                                                width: '250px',
+                                                                padding: '4px',
+                                                                fontSize: '16px',
+                                                            },
+                                                            '@media (max-width: 480px)':{
+                                                                width: '200px',
+                                                                padding: '2px',
+                                                                fontSize: '14px',
+                                                            },
+                                                        }),
+                                                        menu: (provided) => ({
+                                                            ...provided,
+                                                            overflow: 'hidden',
+                                                            borderRadius:'15px',
+                                                        }),
+                                                        menuList: (provided) => ({
+                                                            ...provided,
+                                                            maxHeight:175,
+                                                            fontFamily: 'Century Gothic',
+                                                            fontStyle: 'normal',
+                                                            overflowY:'auto',
+                                                            scrollbarWidth: 'none',
+                                                            '&::-webkit-scrollbar': {
+                                                                display:'none',
+                                                            },
+                                                            '@media (max-width: 768px)':{
+                                                                maxHeight:150,
+                                                            },
+                                                            '@media (max-width: 480px)':{
+                                                                maxHeight:125,
+                                                            },
+                                                        })
+                                                    }}
+                                                    placeholder='Seleccione uno...'
+                                                    value={currentRecordsUnits
+                                                        .map(unit => ({ value: unit.idmedida, label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`}))
+                                                        .find(option => option.value === isTextFieldsSupplyTypes.idunits)
+                                                    }
+                                                    onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, idunits: e.value}))}
+                                                />
+                                            </>
                                         )}
-                                        <Select
-                                            options={currentRecordsUnits.map((unit) => ({
-                                                value: unit.idmedida,
-                                                label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`
-                                            }))}
-                                            styles={{
-                                                control: (provided) => ({
-                                                    ...provided,
-                                                    width: '300px',
-                                                    padding: '6px',
-                                                    border: '2px solid black',
-                                                    cursor: 'pointer',
-                                                    borderRadius: '20px',
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    fontSize: '18px',
-                                                    '@media (max-width: 768px)':{
-                                                        width: '250px',
-                                                        padding: '4px',
-                                                        fontSize: '16px',
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        width: '200px',
-                                                        padding: '2px',
-                                                        fontSize: '14px',
-                                                    },
-                                                }),
-                                                menu: (provided) => ({
-                                                    ...provided,
-                                                    overflow: 'hidden',
-                                                    borderRadius:'15px',
-                                                }),
-                                                menuList: (provided) => ({
-                                                    ...provided,
-                                                    maxHeight:175,
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    overflowY:'auto',
-                                                    scrollbarWidth: 'none',
-                                                    '&::-webkit-scrollbar': {
-                                                        display:'none',
-                                                    },
-                                                    '@media (max-width: 768px)':{
-                                                        maxHeight:150,
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        maxHeight:125,
-                                                    },
-                                                })
-                                            }}
-                                            placeholder='Seleccione uno...'
-                                            value={currentRecordsUnits
-                                                .map(unit => ({ value: unit.idmedida, label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`}))
-                                                .find(option => option.value === isTextFieldsSupplyTypes.idunits)
-                                            }
-                                            onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, idunits: e.value}))}
-                                        />
                                     </>
                                 ):(
                                     <>

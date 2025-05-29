@@ -57,7 +57,7 @@ export default function Supply_Type_Edit(){
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isSupplyTypeEdit){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
                         socket.emit('Supply-Type-Update',isTextFieldsSupplyTypes.idtype,isTextFieldsSupplyTypes.type.trim(),isTextFieldsSupplyTypes.description.trim(),isTextFieldsSupplyTypes.idunits);
@@ -82,7 +82,7 @@ export default function Supply_Type_Edit(){
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsSupplyTypeEdit(false);
                     return reject('¡Ocurrio un error inesperado actualizando el tipo de insumo!...');
@@ -164,82 +164,93 @@ export default function Supply_Type_Edit(){
                                     <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>- Medidas...</Text_A_16_Left>
                                 </Container_Row_NG_95_Center>
-                                <Container_Row_100_Center>
-                                    <Icon_22><FcSearch/></Icon_22>
-                                    <Input_Text_Black_50 
-                                        ThemeMode={themeMode}
-                                        type="text"
-                                        placeholder="Buscar..."
-                                        value={isSearchTerm2}
-                                        onChange={(e) => setIsSearchTerm2(e.target.value)}
-                                    />
-                                </Container_Row_100_Center>
-                                {currentRecordsUnits.length === 0 ? (
+                                {isUnits.length !== 0 ? (
+                                    <>
+                                        <Container_Row_100_Center>
+                                            <Icon_22><FcSearch/></Icon_22>
+                                            <Input_Text_Black_50 
+                                                ThemeMode={themeMode}
+                                                type="text"
+                                                placeholder="Buscar..."
+                                                value={isSearchTerm2}
+                                                onChange={(e) => setIsSearchTerm2(e.target.value)}
+                                            />
+                                        </Container_Row_100_Center>
+                                        {currentRecordsUnits.length === 0 ? (
+                                            <>
+                                                <Container_Row_100_Center>
+                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                </Container_Row_100_Center>
+                                            </>
+                                        ):(
+                                            <>
+                                                <Select
+                                                    options={currentRecordsUnits.map((unit) => ({
+                                                        value: unit.idmedida,
+                                                        label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`
+                                                    }))}
+                                                    styles={{
+                                                        control: (provided) => ({
+                                                            ...provided,
+                                                            width: '300px',
+                                                            padding: '6px',
+                                                            border: '2px solid black',
+                                                            cursor: 'pointer',
+                                                            borderRadius: '20px',
+                                                            fontFamily: 'Century Gothic',
+                                                            fontStyle: 'normal',
+                                                            fontSize: '18px',
+                                                            '@media (max-width: 768px)':{
+                                                                width: '250px',
+                                                                padding: '4px',
+                                                                fontSize: '16px',
+                                                            },
+                                                            '@media (max-width: 480px)':{
+                                                                width: '200px',
+                                                                padding: '2px',
+                                                                fontSize: '14px',
+                                                            },
+                                                        }),
+                                                        menu: (provided) => ({
+                                                            ...provided,
+                                                            overflow: 'hidden',
+                                                            borderRadius:'15px',
+                                                        }),
+                                                        menuList: (provided) => ({
+                                                            ...provided,
+                                                            maxHeight:175,
+                                                            fontFamily: 'Century Gothic',
+                                                            fontStyle: 'normal',
+                                                            overflowY:'auto',
+                                                            scrollbarWidth: 'none',
+                                                            '&::-webkit-scrollbar': {
+                                                                display:'none',
+                                                            },
+                                                            '@media (max-width: 768px)':{
+                                                                maxHeight:150,
+                                                            },
+                                                            '@media (max-width: 480px)':{
+                                                                maxHeight:125,
+                                                            },
+                                                        })
+                                                    }}
+                                                    placeholder='Seleccione uno...'
+                                                    value={currentRecordsUnits
+                                                        .map(unit => ({ value: unit.idmedida, label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`}))
+                                                        .find(option => option.value === isTextFieldsSupplyTypes.idunits)
+                                                    }
+                                                    onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, idunits: e.value}))}
+                                                />
+                                            </>
+                                        )}  
+                                    </>
+                                ):(
                                     <>
                                         <Container_Row_100_Center>
                                             <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
                                         </Container_Row_100_Center>
                                     </>
-                                ):(
-                                    <></>
                                 )}
-                                <Select
-                                    options={currentRecordsUnits.map((unit) => ({
-                                        value: unit.idmedida,
-                                        label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`
-                                    }))}
-                                    styles={{
-                                        control: (provided) => ({
-                                            ...provided,
-                                            width: '300px',
-                                            padding: '6px',
-                                            border: '2px solid black',
-                                            cursor: 'pointer',
-                                            borderRadius: '20px',
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            fontSize: '18px',
-                                            '@media (max-width: 768px)':{
-                                                width: '250px',
-                                                padding: '4px',
-                                                fontSize: '16px',
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                width: '200px',
-                                                padding: '2px',
-                                                fontSize: '14px',
-                                            },
-                                        }),
-                                        menu: (provided) => ({
-                                            ...provided,
-                                            overflow: 'hidden',
-                                            borderRadius:'15px',
-                                        }),
-                                        menuList: (provided) => ({
-                                            ...provided,
-                                            maxHeight:175,
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            overflowY:'auto',
-                                            scrollbarWidth: 'none',
-                                            '&::-webkit-scrollbar': {
-                                                display:'none',
-                                            },
-                                            '@media (max-width: 768px)':{
-                                                maxHeight:150,
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                maxHeight:125,
-                                            },
-                                        })
-                                    }}
-                                    placeholder='Seleccione uno...'
-                                    value={currentRecordsUnits
-                                        .map(unit => ({ value: unit.idmedida, label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`}))
-                                        .find(option => option.value === isTextFieldsSupplyTypes.idunits)
-                                    }
-                                    onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, idunits: e.value}))}
-                                />
                             </Container_Column_90_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>

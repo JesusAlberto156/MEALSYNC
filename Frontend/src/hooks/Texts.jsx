@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext,TextFieldsWarehouseContext } from "../contexts/FormsProvider";
 import { SearchTerm1Context,SearchTerm2Context,SearchTermContext } from "../contexts/VariablesProvider";
 //____________IMPORT/EXPORT____________
 
@@ -101,6 +101,28 @@ export const ResetTextFieldsSupplier = () => {
     // Retorno de la función del hook
     return resetTextFieldsSupplier;
 }
+// Hook para reinciar los campos de texto de pedidos para el inventario ✔️
+export const ResetTextFieldsWarehouse = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useContext(TextFieldsWarehouseContext);
+    // Estados iniciales de los contextos
+    const initialTextFieldsWarehouse = {
+        date: '',
+        supplies: [{
+            idsupply: 0,
+            idsupplier: 0,
+            amount: 0,
+            unitprice: '',
+            price: 0, 
+        }]
+    };
+    // Función del hook
+    const resetTextFieldsWarehouse = () => {
+        setIsTextFieldsWarehouse(initialTextFieldsWarehouse);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsWarehouse;
+}
 // Hook para reinciar los campos de texto de los insumos ✔️
 export const ResetTextFieldsSupply = () => {
     // Constantes con el valor de los contextos 
@@ -148,7 +170,7 @@ export const ResetTextFieldsUnit = () => {
         idextent: 0,
         extent: '',
         unit: '',
-        amount: 0,
+        amount: '',
     };
     // Función del hook
     const resetTextFieldsUnit = () => {

@@ -57,10 +57,10 @@ export default function Unit_Add(){
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isUnitAdd){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Unit-Insert',isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit,isTextFieldsUnits.amount);
+                        socket.emit('Unit-Insert',isTextFieldsUnits.extent.trim(),isTextFieldsUnits.unit,parseFloat(isTextFieldsUnits.amount));
                         
                         resolve('¡MEALSYNC agregó la medida!...');
 
@@ -78,7 +78,7 @@ export default function Unit_Add(){
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsUnitAdd(false);
                     return reject('¡Ocurrio un error inesperado agregando la medida!...');
@@ -189,7 +189,7 @@ export default function Unit_Add(){
                                     <></>
                                 )}
                                 {isState === 'Existente' ? (
-                                    filteredUnits !== null ? (
+                                    isUnits.length !== 0 ? (
                                         <>
                                             <Container_Row_100_Center>
                                                 <Icon_22><FcSearch/></Icon_22>
@@ -208,95 +208,95 @@ export default function Unit_Add(){
                                                     </Container_Row_100_Center>
                                                 </>
                                             ):(
-                                                <></>
-                                            )}
-                                            <Select
-                                                options={filteredUnits.map((type) => ({
-                                                    valueI: type.idmedida,
-                                                    valueU: type.unidad,
-                                                    label: type.medida,
-                                                }))}
-                                                styles={{
-                                                    control: (provided) => ({
-                                                        ...provided,
-                                                        width: '300px',
-                                                        padding: '6px',
-                                                        border: '2px solid black',
-                                                        cursor: 'pointer',
-                                                        borderRadius: '20px',
-                                                        fontFamily: 'Century Gothic',
-                                                        fontStyle: 'normal',
-                                                        fontSize: '18px',
-                                                        '@media (max-width: 768px)':{
-                                                            width: '250px',
-                                                            padding: '4px',
-                                                            fontSize: '16px',
-                                                        },
-                                                        '@media (max-width: 480px)':{
-                                                            width: '200px',
-                                                            padding: '2px',
-                                                            fontSize: '14px',
-                                                        },
-                                                    }),
-                                                    menu: (provided) => ({
-                                                        ...provided,
-                                                        overflow: 'hidden',
-                                                        borderRadius:'15px',
-                                                    }),
-                                                    menuList: (provided) => ({
-                                                        ...provided,
-                                                        maxHeight:175,
-                                                        fontFamily: 'Century Gothic',
-                                                        fontStyle: 'normal',
-                                                        overflowY:'auto',
-                                                        scrollbarWidth: 'none',
-                                                        '&::-webkit-scrollbar': {
-                                                            display:'none',
-                                                        },
-                                                        '@media (max-width: 768px)':{
-                                                            maxHeight:150,
-                                                        },
-                                                        '@media (max-width: 480px)':{
-                                                            maxHeight:125,
-                                                        },
-                                                    })
-                                                }}
-                                                placeholder='Seleccione uno...'
-                                                value={filteredUnits
-                                                    .map(type => ({ valueI: type.idmedida, valueU: type.unidad, label: type.medida}))
-                                                    .find(option => option.valueI === isTextFieldsUnits.idextent)
-                                                }
-                                                onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.label, unit: e.valueU}))}
-                                            />
-                                            <Container_Row_100_Center>
-                                                <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
-                                                <Input_Text_Black_100 ThemeMode={themeMode}
-                                                    placeholder="..."
-                                                    type="text"
-                                                    value={isTextFieldsUnits.extent}
-                                                    onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.target.value}))}
-                                                    disabled={isState === 'Existente'}
-                                                />
-                                            </Container_Row_100_Center>
-                                            <Container_Row_NG_95_Center>
-                                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                                <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
-                                            </Container_Row_NG_95_Center>
-                                            <Container_Row_95_Center>
-                                                {['Kilogramos','Litros'].map((item,index) => (
-                                                    <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                                        <Input_Radio_16 ThemeMode={themeMode}
-                                                            type="radio"
-                                                            name="group"
-                                                            value={item}
-                                                            checked={isTextFieldsUnits.unit === item}
-                                                            onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
+                                                <>
+                                                    <Select
+                                                        options={filteredUnits.map((type) => ({
+                                                            value: type.idmedida,
+                                                            label: type.medida,
+                                                        }))}
+                                                        styles={{
+                                                            control: (provided) => ({
+                                                                ...provided,
+                                                                width: '300px',
+                                                                padding: '6px',
+                                                                border: '2px solid black',
+                                                                cursor: 'pointer',
+                                                                borderRadius: '20px',
+                                                                fontFamily: 'Century Gothic',
+                                                                fontStyle: 'normal',
+                                                                fontSize: '18px',
+                                                                '@media (max-width: 768px)':{
+                                                                    width: '250px',
+                                                                    padding: '4px',
+                                                                    fontSize: '16px',
+                                                                },
+                                                                '@media (max-width: 480px)':{
+                                                                    width: '200px',
+                                                                    padding: '2px',
+                                                                    fontSize: '14px',
+                                                                },
+                                                            }),
+                                                            menu: (provided) => ({
+                                                                ...provided,
+                                                                overflow: 'hidden',
+                                                                borderRadius:'15px',
+                                                            }),
+                                                            menuList: (provided) => ({
+                                                                ...provided,
+                                                                maxHeight:175,
+                                                                fontFamily: 'Century Gothic',
+                                                                fontStyle: 'normal',
+                                                                overflowY:'auto',
+                                                                scrollbarWidth: 'none',
+                                                                '&::-webkit-scrollbar': {
+                                                                    display:'none',
+                                                                },
+                                                                '@media (max-width: 768px)':{
+                                                                    maxHeight:150,
+                                                                },
+                                                                '@media (max-width: 480px)':{
+                                                                    maxHeight:125,
+                                                                },
+                                                            })
+                                                        }}
+                                                        placeholder='Seleccione uno...'
+                                                        value={filteredUnits
+                                                            .map(type => ({ value: type.idmedida, label: type.medida}))
+                                                            .find(option => option.value === isTextFieldsUnits.idextent)
+                                                        }
+                                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.label, unit: isUnits.find((unit) => unit.idmedida === e.value)?.unidad || 'Desnocido'}))}
+                                                    />
+                                                    <Container_Row_100_Center>
+                                                        <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
+                                                        <Input_Text_Black_100 ThemeMode={themeMode}
+                                                            placeholder="..."
+                                                            type="text"
+                                                            value={isTextFieldsUnits.extent}
+                                                            onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.target.value}))}
                                                             disabled={isState === 'Existente'}
                                                         />
-                                                        {item}
-                                                    </Label_Text_16_Center>
-                                                ))};
-                                            </Container_Row_95_Center>
+                                                    </Container_Row_100_Center>
+                                                    <Container_Row_NG_95_Center>
+                                                        <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                                        <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
+                                                    </Container_Row_NG_95_Center>
+                                                    <Container_Row_95_Center>
+                                                        {['Kilogramos','Litros'].map((item,index) => (
+                                                            <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                                                <Input_Radio_16 ThemeMode={themeMode}
+                                                                    type="radio"
+                                                                    name="group"
+                                                                    value={item}
+                                                                    checked={isTextFieldsUnits.unit === item}
+                                                                    onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
+                                                                    disabled={isState === 'Existente'}
+                                                                />
+                                                                {item}
+                                                            </Label_Text_16_Center>
+                                                        ))};
+                                                    </Container_Row_95_Center>  
+                                                </>
+                                            )}
                                         </>
                                     ):(
                                         <>
@@ -318,9 +318,9 @@ export default function Unit_Add(){
                                     <Text_A_16_Left ThemeMode={themeMode}>Cantidad:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
-                                        type="number"
+                                        type="text"
                                         value={isTextFieldsUnits.amount}
-                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: parseFloat(e.target.value) || 0}))}
+                                        onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
                             </Container_Column_90_Center>

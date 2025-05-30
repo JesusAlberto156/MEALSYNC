@@ -18,6 +18,7 @@ import '../src/components/styled/animations/Bounces.css';
 import '../src/components/styled/animations/Rotates.css';
 import 'animate.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import 'react-datepicker/dist/react-datepicker.css';
 // Componentes personalizados
 import Index_Main from './pages/Indexs/Main';
 import Error from './pages/general/Error';
@@ -60,6 +61,8 @@ import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
 import Index_Kitchen from './pages/Indexs/Kitchen';
 import Home_Kitchen from './pages/kitchen/Home';
+
+import Prueba from '../src/formats/ComandaMedica';
 //____________IMPORT/EXPORT____________
 
 const router = createHashRouter([
@@ -70,6 +73,10 @@ const router = createHashRouter([
   {
     path: '/Login',
     element: <Login/>
+  },
+  {
+    path: '/Prueba',
+    element: <Prueba/>
   },
   {
     path:'/',

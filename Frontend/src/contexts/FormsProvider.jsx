@@ -88,7 +88,8 @@ export const Text_Fields_Supplier = ({ children }) => {
 export const Text_Fields_Warehouse = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useState({
-        date: '',
+        dateA: '',
+        dateP: null,
         supplies: [{
             idsupply: 0,
             idsupplier: 0,

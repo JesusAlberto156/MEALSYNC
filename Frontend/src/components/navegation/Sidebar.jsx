@@ -30,8 +30,6 @@ import { Container_Column_White_Height_100_Center,Container_Column_80_Center,Con
 import { Icon_Image_Black_90,Icon_White_18 } from "../styled/Icons";
 import { Text_Title_22_Center,Text_Span_16_Left } from "../styled/Text";
 import { Button_Icon_Blue_200 } from '../styled/Buttons';
-// Componentes personalizados
-
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre las paginas en el lateral

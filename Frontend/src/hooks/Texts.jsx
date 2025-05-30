@@ -107,7 +107,7 @@ export const ResetTextFieldsWarehouse = () => {
     const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useContext(TextFieldsWarehouseContext);
     // Estados iniciales de los contextos
     const initialTextFieldsWarehouse = {
-        date: '',
+        date: new Date(),
         supplies: [{
             idsupply: 0,
             idsupplier: 0,

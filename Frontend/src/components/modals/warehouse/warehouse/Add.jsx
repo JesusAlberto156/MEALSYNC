@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
+import DatePicker from 'react-datepicker';
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
@@ -29,11 +30,15 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Right,Container_Column_Border_90_Center,Container_Column_90_Center,Container_Column_Blue_Width_95_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center,Text_Span_24_Center,Text_A_16_Center } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center,Text_Span_24_Center,Text_A_16_Center,Text_Title_22_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210,Button_Icon_Green_60,Button_Icon_Red_60 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_22, Icon_White_18 } from "../../../styled/Icons";
-import { Input_Text_Black_100,Input_Text_Black_50 } from "../../../styled/Inputs";
+import { Input_Text_Black_100,Input_Text_Black_50,Input_Radio_16 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
+import { Label_Text_16_Center } from "../../../styled/Labels";
+import { es } from "date-fns/locale";
+// Componentes personalizados
+import Calendar_Input_Custom from "../../../styled/Calendars";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar mediciones
@@ -53,20 +58,9 @@ export default function Warehouse_Add(){
     const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
     const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     // Constantes con el valor de los useState
-    const [liveDateTime,setLiveDateTime] = useState(getFormattedDateTime());
+    const [isStateDate,setIsStateDate] = useState('');
     const [isState,setIsState] = useState('');
     const [filteredUnits,setFilteredUnits] = useState(null);
-    const [isListSupplies,setIsListSupplies] = useState({
-        supplies: [
-            {
-                idsupply: 0,
-                idsupplier: 0,
-                amount: 0,
-                unitprice: 0,
-                price: 0, 
-            }
-        ]
-    })
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -148,14 +142,35 @@ export default function Warehouse_Add(){
     },[isUnits,isSearchTerm2]);
     // UseEffect para obtener la hora a tiepo real
     useEffect(() => {
-        const interval = setInterval(() => {
+        if(isStateDate === 'Automática'){
+            const interval = setInterval(() => {
+                setIsTextFieldsWarehouse((prev) => ({
+                    ...prev,
+                    dateA: getFormattedDateTime()
+                }));
+            }, 1000);
+
+            return () => clearInterval(interval);
+        }
+    },[isStateDate])
+
+    useEffect(() => {
+        if(isStateDate === 'Automática'){
             setIsTextFieldsWarehouse((prev) => ({
                 ...prev,
-                date: getFormattedDateTime()}));
-        }, 1000);
-
-        return () => clearInterval(interval);
-    },[])
+                dateP: null
+            }));
+        }
+        if(isStateDate === 'Personalizada'){
+            setIsTextFieldsWarehouse((prev) => ({
+                ...prev,
+                dateA: ''
+            }));
+        }
+    },[isStateDate])
+    useEffect(() => {
+        console.log(isTextFieldsWarehouse);
+    },[isTextFieldsWarehouse])
     // Funcion para formatear la fecha
     function getFormattedDateTime() {
         const now = new Date();
@@ -175,7 +190,7 @@ export default function Warehouse_Add(){
             idsupply: 0,
             idsupplier: 0,
             amount: 0,
-            unitprice: 0,
+            unitprice: '',
             price: 0,
         }
         setIsTextFieldsWarehouse({
@@ -193,7 +208,7 @@ export default function Warehouse_Add(){
         })
     }
     // Estructura del componente
-    return(
+    return (
         <>
             {isModal ? (
                 <>
@@ -202,15 +217,116 @@ export default function Warehouse_Add(){
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR PEDIDO PARA EL INVENTARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
-                            <Container_Row_95_Center>
-                                <Text_A_16_Left ThemeMode={themeMode}>Fecha:</Text_A_16_Left>
-                                <Input_Text_Black_100 ThemeMode={themeMode}
-                                    placeholder="..."
-                                    type="text"
-                                    value={isTextFieldsWarehouse.date}
-                                    disabled
-                                />
-                            </Container_Row_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Selección de fecha...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_100_Center>
+                                    {['Automática','Personalizada'].map((item,index) => (
+                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_16 ThemeMode={themeMode}
+                                                type="radio"
+                                                name="state"
+                                                value={item}
+                                                checked={isStateDate === item}
+                                                onChange={(e) => setIsStateDate(e.target.value)}
+                                            />
+                                            {item}
+                                        </Label_Text_16_Center>
+                                    ))};
+                                </Container_Row_100_Center>
+                                {isStateDate === 'Automática' ? (
+                                    <>
+                                        <Container_Row_95_Center>
+                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                                placeholder="..."
+                                                type="text"
+                                                value={isTextFieldsWarehouse.dateA}
+                                                disabled
+                                            />
+                                        </Container_Row_95_Center>
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {isStateDate === 'Personalizada' ? (
+                                    <>
+                                        <DatePicker
+                                            selected={isTextFieldsWarehouse.dateP instanceof Date ? isTextFieldsWarehouse.dateP : null}
+                                            onChange={(date) => {
+                                                if(isStateDate === 'Personalizada'){
+                                                    setIsTextFieldsWarehouse((prev) => ({
+                                                        ...prev,
+                                                        dateP:date,
+                                                    }))
+                                                }
+                                            }}
+                                            dateFormat={'dd/MM/yyyy HH:mm:ss'}
+                                            locale={es}
+                                            placeholderText="Seleccione una fecha"
+                                            showTimeSelect={true}
+                                            timeIntervals={15}
+                                            isClearable={true}
+                                            customInput={<Calendar_Input_Custom/>}
+                                            renderCustomHeader={({
+                                                date,
+                                                changeYear,
+                                                changeMonth,
+                                            }) => (
+                                                <div style={{
+                                                    background:'rgb(58,93,174)',
+                                                    border: '4px solid white',
+                                                    borderRadius: '30px',
+                                                }}>
+                                                    <Container_Column_90_Center>
+                                                        <Text_Title_22_Center ThemeMode={themeMode}>Selecciona Año y Mes</Text_Title_22_Center>
+                                                        <Container_Row_100_Center>
+                                                            <select
+                                                                value={date.getFullYear()}
+                                                                onChange={({ target: { value } }) => changeYear(value)}
+                                                                style={{
+                                                                    fontFamily: 'Century Gothic',
+                                                                    fontSize: '16px',
+                                                                    borderRadius: '15px',
+                                                                    padding:'5px',
+                                                                    background: 'white',
+                                                                    border: '1px solid black',
+                                                                }}
+                                                            >
+                                                                {Array.from({ length: 100 }, (_, i) => {
+                                                                const year = new Date().getFullYear() - 50 + i;
+                                                                return <option key={year} value={year}>{year}</option>;
+                                                                })}
+                                                            </select>
+                                                            <select
+                                                                value={date.getMonth()}
+                                                                onChange={({ target: { value } }) => changeMonth(value)}
+                                                                style={{
+                                                                    fontFamily: 'Century Gothic',
+                                                                    fontSize: '16px',
+                                                                    borderRadius: '15px',
+                                                                    padding:'5px',
+                                                                    background: 'white',
+                                                                    border: '1px solid black',
+                                                                }}
+                                                            >
+                                                                {Array.from({ length: 12 }, (_, i) => (
+                                                                <option key={i} value={i}>
+                                                                    {new Date(0, i).toLocaleString("es", { month: "long" }).toUpperCase()}
+                                                                </option>
+                                                                ))}
+                                                            </select>
+                                                        </Container_Row_100_Center>
+                                                    </Container_Column_90_Center>
+                                                </div>
+                                            )}
+                                        />
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                            </Container_Column_90_Center>
                             {isTextFieldsWarehouse.supplies.map((supply,index) => (
                                 <Container_Column_Border_90_Center key={index} ThemeMode={themeMode}>
                                     <Container_Row_100_Right>
@@ -439,11 +555,11 @@ export default function Warehouse_Add(){
                                                 type="text"
                                                 value={supply.amount}
                                                 onChange={(e) => {
-                                                    const updatedSupplies = [...isListSupplies.supplies];
-                                                    const unitprice = updatedSupplies[index].unitprice || 0;
+                                                    const updatedSupplies = [...isTextFieldsWarehouse.supplies];
+                                                    const unitprice = updatedSupplies[index].unitprice;
                                                     const quantity = e.target.value > 0 ? parseFloat(e.target.value) : 0;
 
-                                                    updatedSupplies[index].price = quantity > 0 ? parseFloat((quantity * unitprice).toFixed(4)) : 0;
+                                                    updatedSupplies[index].price = quantity > 0 && unitprice > 0 ? parseFloat((quantity * unitprice).toFixed(4)) : 0;
                                                     updatedSupplies[index].amount = quantity
                                                     setIsTextFieldsWarehouse(prev => ({
                                                         ...prev, 
@@ -490,7 +606,7 @@ export default function Warehouse_Add(){
                                             </Text_Span_24_Center>
                                             <Tooltip title='Eliminar Insumo' placement="top">
                                                 <Button_Icon_Red_60 ThemeMode={themeMode}
-                                                    onClick={() => deleteSupply()}>
+                                                    onClick={() => deleteSupply(index)}>
                                                     <Icon_White_18>
                                                         <LuPackageMinus/>
                                                     </Icon_White_18>

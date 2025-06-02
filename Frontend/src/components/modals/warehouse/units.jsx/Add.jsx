@@ -9,7 +9,8 @@ import Select from "react-select";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUnitsContext } from "../../../../contexts/FormsProvider";
-import { ActionBlockContext,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { SearchTerm2Context } from "../../../../contexts/SearchsProvider";
 import { UnitAddContext,UnitsContext } from "../../../../contexts/WarehouseProvider";
 // Hooks personalizados
 import { ResetTextFieldsUnit,ResetSearchTerms } from "../../../../hooks/Texts";

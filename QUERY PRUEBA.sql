@@ -6,6 +6,8 @@ SELECT * FROM observacionesProveedor;
 
 SELECT * FROM usuarios;
 
+SELECT * FROM usuariosEliminados
+
 SELECT * FROM permisos;
 
 SELECT * FROM tipoUsuario;
@@ -94,9 +96,12 @@ DELETE FROM insumos
 
 DELETE FROM proveedores
 
+DELETE FROM usuariosEliminados
+
 DBCC CHECKIDENT (proveedores, RESEED, 0);
 DBCC CHECKIDENT (insumos, RESEED, 0);
 DBCC CHECKIDENT (observacionesProveedor, RESEED, 0);
+DBCC CHECKIDENT (usuariosEliminados, RESEED, 0);
 
 SELECT * FROM proveedores
 SELECT * FROM almacen

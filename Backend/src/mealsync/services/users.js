@@ -25,6 +25,23 @@ export const getUsersService = async () => {
     }
 }
 //---------- USUARIOS
+//---------- USUARIOS ELIMINADOS
+export const getDeleteUsersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM usuariosEliminados');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los usuarios: ',error.message);
+        throw error;
+    }
+}
+//---------- USUARIOS ELIMINADOS
 //---------- PERMISOS
 export const getPermissionsService = async () => {
     try{
@@ -101,6 +118,25 @@ export const insertUsersService = async (id,nombre,nombrecorto,usuario,contrasen
     }
 }
 //---------- USUARIOS
+//---------- USUARIOS ELIMINADOS
+export const insertDeleteUsersService = async (id) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('id',sql.Int,id)
+            .query('INSERT INTO usuariosEliminados (idusuario) VALUES (@id)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Usuario Eliminado...';
+        }else{
+            return 'No se pudo eliminar el usuario...';
+        }
+    }catch(error){
+        console.error('Error al eliminar el usuario: ',error.message);
+        throw error;
+    }
+}
+//---------- USUARIOS ELIMINADOS
 //---------- PERMISOS
 export const insertPermissionsService = async (id,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
     try{

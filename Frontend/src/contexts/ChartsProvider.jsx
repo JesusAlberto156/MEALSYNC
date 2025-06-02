@@ -5,7 +5,16 @@ import { createContext,useState } from "react"
 export const ItemDateContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Función contexto para controlar la fecha seleccionada de un caledario de un grafico
+// Todos los contextos para las funcionalidades de las graficas ✔️
+export const Index_Charts = ({children}) => {
+    return(
+        <Item_Date>
+            {children}
+        </Item_Date>
+    );
+}
+
+// Función contexto para controlar la fecha seleccionada de un caledario de un grafico ✔️
 export const Item_Date = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isItemDate,setIsItemDate] = useState([]);

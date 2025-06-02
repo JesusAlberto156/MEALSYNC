@@ -1,30 +1,7 @@
-//____________IMPORT/EXPORT____________
-// Hooks de React
-
-// Servicios
-
-// Contextos
-
-// Contextos personalizados
-
-// Estilos personalizados
 350 - 120
 400 - 150
 450 - 180
 500 - 210
-//____________IMPORT/EXPORT____________
-
-// Función contexto para controlar
-
-// constantes con contextos perzonalizados
-
-// UseState para controlar el valor del contexto
-
-// UseEffect para obtener los datos desde la base de datos
-
-// UseEffect para verificar que los datos existan
-
-// Return para darle valor al contexto y heredarlo
 
 //____________CHARTS____________
 const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
@@ -49,6 +26,17 @@ const {Modal,Form,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesConte
 const {Modal_ST,Form_ST,Button_Edit_ST,Button_Delete_ST} = useContext(RefSupplyTypesContext);
 const {Modal_Un,Form_Un,Button_Edit_Un,Button_Delete_Un} = useContext(RefUnitsContext);
 //____________REF____________
+//____________SEARCH____________
+const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
+const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+//____________SEARCH____________
+//____________SELECTED____________
+const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
+const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
+const [isSelectedOption,setIsSelectedOption] = useContext(SelectedOptionContext);
+//____________SELECTED____________
 //____________SESSION____________
 const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
 const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
@@ -65,12 +53,14 @@ const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext);
 const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
 const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext);
 const [isObservations,setIsObservations] = useContext(ObservationsContext);
-
 //____________SUPPLIERS____________
 //____________USERS____________
 const [isUsers,setIsUsers] = useContext(UsersContext);
 const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
+const [isUserViewPassword,setIsUserViewPassword] = useContext(UserViewPasswordContext);
 const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
+const [isUsersDelete,setIsUsersDelete] = useContext(UsersDeleteContext);
+const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
 const [isPermissions,setIsPermissions] = useContext(PermissionsContext);
 const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
 const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
@@ -81,16 +71,9 @@ const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
 const [isUserTypes,setIsUserTypes] = useContext(UserTypesContext);
 //____________USERS____________
 //____________VARIABLES____________
-const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
-const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
-const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
-const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
-const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
 const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
 const [isAnimation,setIsAnimation] = useContext(AnimationContext);
 const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
 const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
 const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
 const [isTouch,setIsTouch] = useContext(TouchContext);

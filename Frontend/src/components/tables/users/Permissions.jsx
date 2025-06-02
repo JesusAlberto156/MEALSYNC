@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext } from "../../../contexts/VariablesProvider"
+import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
 import { UsersContext } from "../../../contexts/UsersProvider"
 import { LoggedPermissionsContext } from "../../../contexts/SessionProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"

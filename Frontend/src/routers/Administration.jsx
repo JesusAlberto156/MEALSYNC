@@ -5,7 +5,9 @@ import { Outlet,useNavigate,Navigate } from "react-router-dom";
 // Contextos
 import { SidebarContext,ThemeModeContext,SidebarViewContext,NavbarViewContext,LoginViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
-import { SearchTermContext,ActionBlockContext,SelectedRowContext } from "../contexts/VariablesProvider";
+import { ActionBlockContext } from "../contexts/VariablesProvider";
+import { SearchTermContext } from "../contexts/SearchsProvider";
+import { SelectedRowContext } from "../contexts/SelectedesProvider";
 import { RefAlertGreetingContext } from "../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleLoggedLog } from "../hooks/Form";

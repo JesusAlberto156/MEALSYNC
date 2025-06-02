@@ -4,7 +4,9 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext,SubModalContext } from "../contexts/ViewsProvider";
-import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SelectedRowContext,SelectedRow1Context,SelectedRow2Context,AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
+import { AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
+import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../contexts/SelectedesProvider";
 import { TextFieldsUserContext } from "../contexts/FormsProvider";
 import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
@@ -157,15 +159,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'User-Edit' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
         if(currentMView === 'User-View' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -178,6 +171,28 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+        if(currentMView === 'User-Edit' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'User-Delete' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Action-Block');
+                sessionStorage.removeItem('Verification-Block');
+                navigate(route,{ replace: true });
+            },750);
+        }
+        
         if(currentMView === 'Permissions-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);

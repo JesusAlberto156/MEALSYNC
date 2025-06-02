@@ -4,7 +4,8 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext } from "../../../contexts/ViewsProvider";
-import { ActionBlockContext,SelectedRowContext,VerificationBlockContext } from "../../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext } from "../../../contexts/VariablesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../../../contexts/SelectedesProvider";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Column_90_Center } from "../../styled/Containers";
@@ -17,6 +18,8 @@ export default function Error_Enable(){
     // Constantes con el valor de los contextos
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow1] = useContext(SelectedRow1Context);
+    const [isSelectedRow2] = useContext(SelectedRow2Context);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
@@ -26,9 +29,9 @@ export default function Error_Enable(){
     const navigate = useNavigate();
     // useEffect con cuenta regresiva para regresar
     useEffect(() => {
-        if(isSelectedRow === null){
+        if(isSelectedRow === null || isSelectedRow1 === null || isSelectedRow2 === null){
             if(contador === 0){
-                const promise = new Promise(async (resolve,reject) => {
+                const promise = new Promise((resolve,reject) => {
                     try{
                         const route = sessionStorage.getItem('Route');
                         setTimeout(() => {
@@ -45,7 +48,7 @@ export default function Error_Enable(){
                             sessionStorage.removeItem('Verification-Block');
                             navigate(route,{replace: true});
                         },2000);
-                    } catch (error) {
+                    } catch (e) {
                         return reject('¡Ocurrio un error inseperado!...');
                     }
                 });

@@ -3,7 +3,7 @@
 import { useContext } from "react";
 // Contextos
 import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext,TextFieldsWarehouseContext } from "../contexts/FormsProvider";
-import { SearchTerm1Context,SearchTerm2Context,SearchTermContext } from "../contexts/VariablesProvider";
+import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los buscadores ✔️
@@ -21,7 +21,7 @@ export const ResetSearchTerms = () => {
     // Retorno de la función del hook
     return resetSearchTerms;
 }
-// Hook para reinciar los campos de texto de los usuarios
+// Hook para reinciar los campos de texto de los usuarios ✔️
 export const ResetTextFieldsUser = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
@@ -43,7 +43,7 @@ export const ResetTextFieldsUser = () => {
     // Retorno de la función del hook
     return resetTextFieldsUser;
 }
-// Hook para reinciar los campos de texto de los permisos
+// Hook para reinciar los campos de texto de los permisos ✔️
 export const ResetTextFieldsPermissions = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
@@ -65,7 +65,7 @@ export const ResetTextFieldsPermissions = () => {
     // Retorno de la función del hook
     return resetTextFieldsPermissions;
 }
-// Hook para reinciar los campos de texto de los estatus
+// Hook para reinciar los campos de texto de los estatus ✔️
 export const ResetTextFieldsStatus = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
@@ -82,7 +82,7 @@ export const ResetTextFieldsStatus = () => {
     // Retorno de la función del hook
     return resetTextFieldsStatus;
 }
-// Hook para reinciar los campos de texto de los proveedores
+// Hook para reinciar los campos de texto de los proveedores ✔️
 export const ResetTextFieldsSupplier = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);

@@ -3,166 +3,44 @@
 import { Socket } from './SocketProvider';
 import { Index_Views } from './ViewsProvider';
 import { Index_Sessions } from './SessionProvider';
+import { Index_Selectedes } from './SelectedesProvider';
 import { Index_Searchs } from './SearchsProvider';
+import { Index_Variables } from './VariablesProvider';
 import { Index_Users } from './UsersProvider';
-import { Theme_Mode,Login_View,Navbar_View,Sidebar_View,Sidebar,Modal_View,Modal,Sub_Modal } from './ViewsProvider';
-import { Logged_User,Logged_Permissions,Logged_Status,Logged_Log,Logged_Logged,Logged_Type } from './SessionProvider';
-import { Selected_Row,Search_Term,Verification_Block,Animation,Action_Block,View_Password,Keyboard,Keyboard_View,Touch,Selected_Row_1,Selected_Row_2,Search_Term_1,Search_Term_2 } from './VariablesProvider';
-import { Users,Permissions,Status,User_Add,User_Edit,Permissions_Add,Permissions_Edit,Permissions_Enable,Status_Add,Status_Enable,User_Types } from './UsersProvider';
-import { Suppliers,Observations,Supplier_Add,Supplier_Edit } from './SuppliersProvider';
-import { Supplies,Supply_Types,Units,Supply_Prices,Warehouse,Supply_Add,Supply_Edit,Supply_Type_Add,Supply_Type_Edit,Unit_Add,Unit_Edit } from './WarehouseProvider';
-import { Text_Fields_User,Text_Fields_Permissions,Text_Fields_Status,Text_Fields_Supplier,Text_Fields_Warehouse,Text_Fields_Supply,Text_Fields_Supply_Types,Text_Fields_Units } from './FormsProvider';
-import { Item_Date } from './ChartsProvider';
-import { Ref_Alert_Greeting,Ref_Keyboard,Ref_Users,Ref_Permissions,Ref_Status,Ref_Suppliers,Ref_Supplies,Ref_Supply_Types,Ref_Units } from './RefsProvider';
+import { Index_Suppliers } from './SuppliersProvider';
+import { Index_Warehouse } from './WarehouseProvider';
+import { Index_Text_Fields } from './FormsProvider';
+import { Index_Charts } from './ChartsProvider';
+import { Index_Refs } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
 // Función general de contextos
 export const AppProviders = ({children}) => {
     return(
         <Socket>
-            <Theme_Mode>
-                <Login_View>
-                    <Navbar_View>
-                        <Sidebar_View>
-                            <Sidebar>
-                                <Modal_View>
-                                    <Modal>
-                                        <Sub_Modal>
-                                            <Logged_User>
-                                                <Logged_Permissions>
-                                                    <Logged_Status>
-                                                        <Logged_Log>
-                                                            <Logged_Logged>
-                                                                <Logged_Type>
-                                                                    <Selected_Row>
-                                                                        <Selected_Row_1>
-                                                                            <Selected_Row_2>
-                                                                                <Search_Term>
-                                                                                    <Search_Term_1>
-                                                                                        <Search_Term_2>
-                                                                                            <Verification_Block>
-                                                                                                <Animation>
-                                                                                                    <Action_Block>
-                                                                                                        <View_Password>
-                                                                                                            <Keyboard>
-                                                                                                                <Keyboard_View>
-                                                                                                                    <Touch>
-                                                                                                                        <Users>
-                                                                                                                            <Permissions>
-                                                                                                                                <Status>
-                                                                                                                                    <User_Types>
-                                                                                                                                        <Suppliers>
-                                                                                                                                            <Observations>
-                                                                                                                                                <Supplies>
-                                                                                                                                                    <Supply_Types>
-                                                                                                                                                        <Units>
-                                                                                                                                                            <Supply_Prices>
-                                                                                                                                                                <Warehouse>
-                                                                                                                                                                    <Text_Fields_User>
-                                                                                                                                                                        <Text_Fields_Permissions>
-                                                                                                                                                                            <Text_Fields_Status>
-                                                                                                                                                                                <Text_Fields_Supplier>
-                                                                                                                                                                                    <Text_Fields_Warehouse>
-                                                                                                                                                                                        <Text_Fields_Supply>
-                                                                                                                                                                                            <Text_Fields_Supply_Types>
-                                                                                                                                                                                                <Text_Fields_Units>
-                                                                                                                                                                                                    <Item_Date>
-                                                                                                                                                                                                        <User_Add>
-                                                                                                                                                                                                            <User_Edit>
-                                                                                                                                                                                                                <Permissions_Add>
-                                                                                                                                                                                                                    <Permissions_Edit>
-                                                                                                                                                                                                                        <Permissions_Enable>
-                                                                                                                                                                                                                            <Status_Add>
-                                                                                                                                                                                                                                <Status_Enable>
-                                                                                                                                                                                                                                    <Supplier_Add>
-                                                                                                                                                                                                                                        <Supplier_Edit>
-                                                                                                                                                                                                                                            <Supply_Add>
-                                                                                                                                                                                                                                                <Supply_Edit>
-                                                                                                                                                                                                                                                    <Supply_Type_Add>
-                                                                                                                                                                                                                                                        <Supply_Type_Edit>
-                                                                                                                                                                                                                                                            <Unit_Add>
-                                                                                                                                                                                                                                                                <Unit_Edit>
-                                                                                                                                                                                                                                                                    <Ref_Alert_Greeting>
-                                                                                                                                                                                                                                                                        <Ref_Keyboard>
-                                                                                                                                                                                                                                                                            <Ref_Users>
-                                                                                                                                                                                                                                                                                <Ref_Permissions>
-                                                                                                                                                                                                                                                                                    <Ref_Status>
-                                                                                                                                                                                                                                                                                        <Ref_Suppliers>
-                                                                                                                                                                                                                                                                                            <Ref_Supplies>
-                                                                                                                                                                                                                                                                                                <Ref_Supply_Types>
-                                                                                                                                                                                                                                                                                                    <Ref_Units>
-                                                                                                                                                                                                                                                                                                        {children}
-                                                                                                                                                                                                                                                                                                    </Ref_Units>
-                                                                                                                                                                                                                                                                                                </Ref_Supply_Types>
-                                                                                                                                                                                                                                                                                            </Ref_Supplies>
-                                                                                                                                                                                                                                                                                        </Ref_Suppliers>
-                                                                                                                                                                                                                                                                                    </Ref_Status>
-                                                                                                                                                                                                                                                                                </Ref_Permissions>
-                                                                                                                                                                                                                                                                            </Ref_Users>
-                                                                                                                                                                                                                                                                        </Ref_Keyboard>
-                                                                                                                                                                                                                                                                    </Ref_Alert_Greeting>
-                                                                                                                                                                                                                                                                </Unit_Edit>
-                                                                                                                                                                                                                                                            </Unit_Add>
-                                                                                                                                                                                                                                                        </Supply_Type_Edit>
-                                                                                                                                                                                                                                                    </Supply_Type_Add>
-                                                                                                                                                                                                                                                </Supply_Edit>
-                                                                                                                                                                                                                                            </Supply_Add>
-                                                                                                                                                                                                                                        </Supplier_Edit>
-                                                                                                                                                                                                                                    </Supplier_Add>
-                                                                                                                                                                                                                                </Status_Enable>
-                                                                                                                                                                                                                            </Status_Add>
-                                                                                                                                                                                                                        </Permissions_Enable>
-                                                                                                                                                                                                                    </Permissions_Edit>
-                                                                                                                                                                                                                </Permissions_Add>
-                                                                                                                                                                                                            </User_Edit>
-                                                                                                                                                                                                        </User_Add>
-                                                                                                                                                                                                    </Item_Date>
-                                                                                                                                                                                                </Text_Fields_Units>
-                                                                                                                                                                                            </Text_Fields_Supply_Types>
-                                                                                                                                                                                        </Text_Fields_Supply>
-                                                                                                                                                                                    </Text_Fields_Warehouse>
-                                                                                                                                                                                </Text_Fields_Supplier>
-                                                                                                                                                                            </Text_Fields_Status>
-                                                                                                                                                                        </Text_Fields_Permissions>
-                                                                                                                                                                    </Text_Fields_User>
-                                                                                                                                                                </Warehouse>
-                                                                                                                                                            </Supply_Prices>
-                                                                                                                                                        </Units>
-                                                                                                                                                    </Supply_Types>
-                                                                                                                                                </Supplies>
-                                                                                                                                            </Observations>
-                                                                                                                                        </Suppliers>
-                                                                                                                                    </User_Types>
-                                                                                                                                </Status>
-                                                                                                                            </Permissions>
-                                                                                                                        </Users>
-                                                                                                                    </Touch>
-                                                                                                                </Keyboard_View>
-                                                                                                            </Keyboard>
-                                                                                                        </View_Password>
-                                                                                                    </Action_Block>
-                                                                                                </Animation>
-                                                                                            </Verification_Block>
-                                                                                        </Search_Term_2>
-                                                                                    </Search_Term_1>
-                                                                                </Search_Term>
-                                                                            </Selected_Row_2>
-                                                                        </Selected_Row_1>
-                                                                    </Selected_Row>
-                                                                </Logged_Type>
-                                                            </Logged_Logged>
-                                                        </Logged_Log>
-                                                    </Logged_Status>
-                                                </Logged_Permissions>
-                                            </Logged_User>
-                                        </Sub_Modal>
-                                    </Modal>
-                                </Modal_View>
-                            </Sidebar>
-                        </Sidebar_View>
-                    </Navbar_View>
-                </Login_View>
-            </Theme_Mode>
+            <Index_Views>
+                <Index_Sessions>
+                    <Index_Selectedes>
+                        <Index_Searchs>
+                            <Index_Variables>
+                                <Index_Users>
+                                    <Index_Suppliers>
+                                        <Index_Warehouse>
+                                            <Index_Text_Fields>
+                                                <Index_Charts>
+                                                    <Index_Refs>
+                                                        {children}
+                                                    </Index_Refs>
+                                                </Index_Charts>
+                                            </Index_Text_Fields>
+                                        </Index_Warehouse>
+                                    </Index_Suppliers>
+                                </Index_Users>
+                            </Index_Variables>
+                        </Index_Searchs>
+                    </Index_Selectedes>
+                </Index_Sessions>
+            </Index_Views>
         </Socket>
     );
 }

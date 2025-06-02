@@ -10,7 +10,8 @@ import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserEditContext } from "../../../../contexts/UsersProvider";
-import { ActionBlockContext,SelectedRowContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefUsersContext } from '../../../../contexts/RefsProvider';
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";

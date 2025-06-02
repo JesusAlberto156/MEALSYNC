@@ -10,7 +10,8 @@ import DatePicker from 'react-datepicker';
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUnitsContext,TextFieldsWarehouseContext } from "../../../../contexts/FormsProvider";
-import { ActionBlockContext,SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/SearchsProvider";
 import { UnitAddContext,UnitsContext,SuppliesContext } from "../../../../contexts/WarehouseProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
 // Hooks personalizados

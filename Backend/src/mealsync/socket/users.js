@@ -1,7 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getUsersService,getPermissionsService,getStatusService,getUserTypesService } from "../services/users.js";
-import { insertUsersService,insertPermissionsService,insertStatusService } from "../services/users.js";
+import { getUsersService,getDeleteUsersService,getPermissionsService,getStatusService,getUserTypesService } from "../services/users.js";
+import { insertUsersService,insertDeleteUsersService,insertPermissionsService,insertStatusService } from "../services/users.js";
 import { updateUsersService,updatePermissionsService,updatePermissionService,updateStatusLogService,updateStatusEnableService } from "../services/users.js";
 // Servidor socket
 import { io } from "../../index.js";
@@ -20,6 +20,17 @@ export const Users_GET = (socket) => {
         }
     });
     //---------- USUARIOS
+    //---------- USUARIOS ELIMINADOS
+    socket.on('Delete-Users', async () => {
+        try {
+            const result = await getDeleteUsersService();
+            console.log('Usuarios Eliminados obtenidos...');
+            io.emit('Delete-Users', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- USUARIOS ELIMINADOS
     //---------- PERMISOS
     socket.on('Permissions', async () => {
         try {
@@ -68,6 +79,17 @@ export const Users_INSERT = (socket) => {
         }
     });
     //---------- USUARIOS
+    //---------- USUARIOS ELIMINADOS
+    socket.on('User-Delete-Insert',async (id,usuario) => {
+        try{
+            await insertDeleteUsersService(id);
+            io.emit('User-Delete-Insert','Se elimino el usuario ',usuario);
+        }catch(error){
+            console.error('Error al eliminar: ',error);
+            return error;
+        }
+    });
+    //---------- USUARIOS ELIMINADOS
     //---------- PERMISOS
     socket.on('Permissions-Insert',async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
         try{

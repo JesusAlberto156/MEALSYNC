@@ -7,7 +7,7 @@ export const SearchTerm1Context = createContext(null);
 export const SearchTerm2Context = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Todos los contextos para lo que se escribar en los buscadores  ✔️
+// Todos los contextos para lo que se escriba en los buscadores  ✔️
 export const Index_Searchs = ({children}) => {
     return(
         <Search_Term>

@@ -17,19 +17,19 @@ import { SocketContext } from "./SocketProvider";
 // Todos los contextos para controlar los aspectos de inicio de session ✔️
 export const Index_Sessions = ({children}) => {
     return(
-        <Logged_Log>
-            <Logged_Logged>
-                <Logged_Type>
-                    <Logged_User>
-                        <Logged_Permissions>
-                            <Logged_Status>
+        <Logged_Type>
+            <Logged_User>
+                <Logged_Permissions>
+                    <Logged_Status>
+                        <Logged_Log>
+                            <Logged_Logged>
                                 {children}
-                            </Logged_Status>
-                        </Logged_Permissions>
-                    </Logged_User>
-                </Logged_Type>
-            </Logged_Logged>
-        </Logged_Log>
+                            </Logged_Logged>
+                        </Logged_Log>
+                    </Logged_Status>
+                </Logged_Permissions>
+            </Logged_User>
+        </Logged_Type>
     );
 }
 

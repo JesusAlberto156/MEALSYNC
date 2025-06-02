@@ -12,7 +12,7 @@ export const ModalContext = createContext(null);
 export const SubModalContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Todos los contextos para controlar los ascpetos visuales del sistema ✔️
+// Todos los contextos para controlar los aspectos visuales del sistema ✔️
 export const Index_Views = ({children}) => {
     return(
         <Theme_Mode>

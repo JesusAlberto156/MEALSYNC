@@ -2,25 +2,51 @@
 // Hooks de React
 import { useState,useContext,useEffect } from "react";
 // Contextos
-import { UsersContext,PermissionsContext,StatusContext } from "../contexts/UsersProvider";
+import { UsersContext,UserTypesContext,PermissionsContext,StatusContext,UsersDeleteContext } from "../contexts/UsersProvider";
 import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/VariablesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionContext } from "../contexts/SelectedesProvider";
+import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 //____________IMPORT/EXPORT____________
 
-// Hook para realizar las acciones de la tabla de usuarios
+// Hook para realizar las acciones de la tabla de usuarios ✔️
 export const TableActionsUsers = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSelectedOption] = useContext(SelectedOptionContext);
+    const [isUserTypes] = useContext(UserTypesContext);
+    const [isUsersDelete] = useContext(UsersDeleteContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
-    const filteredRecordsUsers = isUsers.filter((data) =>
-        Object.values(data).some((value) =>
-          value.toString().toLowerCase().includes(isSearchTerm.toLowerCase())
-        )
-    );
+
+    const filteredRecordsUsers = isUsers.filter((data) => {
+        if(isSelectedOption === 'General'){
+            isUsersDelete.forEach((user) => {
+                if(user.idusuario === data.idusuario){
+                    return
+                }
+            });
+            const type = isUserTypes.find(type => type.idtipo === data.idtipo );
+            return type && Object.values(data).some(value =>
+                String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+            );
+        }
+        if(isSelectedOption === 'Nombre'){
+            return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+        }
+        if(isSelectedOption === 'Nombre corto'){
+            return data.nombrecorto.toLowerCase().includes(isSearchTerm.toLowerCase());
+        }
+        if(isSelectedOption === 'Usuario'){
+            return data.usuario.toLowerCase().includes(isSearchTerm.toLowerCase());
+        }
+        if(isSelectedOption === 'Tipo de usuario'){
+            const type = isUserTypes.find(type => type.idtipo === data.idtipo);
+            return type && type.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+        }
+    });
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
     // Indices de los registros
@@ -63,7 +89,7 @@ export const TableActionsUsers = () => {
              currentRecordsUsers,
              totalPagesUsers}
 }
-// Hook para realizar las acciones de la tabla de permisos
+// Hook para realizar las acciones de la tabla de permisos ✔️
 export const TableActionsPermissions = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
@@ -119,7 +145,7 @@ export const TableActionsPermissions = () => {
              currentRecordsPermissions,
              totalPagesPermissions }
 }
-// Hook para realizar las acciones de la tabla de estatus
+// Hook para realizar las acciones de la tabla de estatus ✔️
 export const TableActionsStatus = () => {
     // Constantes con el valor de los contextos
     const [isUsers] = useContext(UsersContext);

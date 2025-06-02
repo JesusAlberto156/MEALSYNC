@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRow2Context,SearchTerm2Context } from "../../../contexts/VariablesProvider"
+import { SearchTerm2Context } from "../../../contexts/SearchsProvider"
+import { SelectedRow2Context } from "../../../contexts/SelectedesProvider"
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsUnitsContext } from "../../../contexts/FormsProvider"
 import { RefUnitsContext } from "../../../contexts/RefsProvider"

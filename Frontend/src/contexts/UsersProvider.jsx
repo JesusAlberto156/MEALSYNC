@@ -6,8 +6,10 @@ import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
 export const UsersContext = createContext(null);
 export const UserAddContext = createContext(null);
-export const UserEditContext = createContext(null);
 export const UserViewPasswordContext = createContext(null);
+export const UserEditContext = createContext(null);
+export const UsersDeleteContext = createContext(null);
+export const UserDeleteContext = createContext(null);
 export const PermissionsContext = createContext(null);
 export const PermissionsAddContext = createContext(null);
 export const PermissionsEditContext = createContext(null);
@@ -33,27 +35,31 @@ export const Index_Users = ({children}) => {
     return(
         <Users>
             <User_Add>
-                <User_Edit>
-                    <User_View_Password>
-                        <Permissions>
-                            <Permissions_Add>
-                                <Permissions_Edit>
-                                    <Permissions_Enable>
-                                        <Status>
-                                            <Status_Add>
-                                                <Status_Enable>
-                                                    <User_Types>
-                                                        {children}
-                                                    </User_Types>
-                                                </Status_Enable>
-                                            </Status_Add>
-                                        </Status>
-                                    </Permissions_Enable>
-                                </Permissions_Edit>
-                            </Permissions_Add>
-                        </Permissions>
-                    </User_View_Password>
-                </User_Edit>
+                <User_View_Password>
+                    <User_Edit>
+                        <Users_Delete>
+                            <User_Delete>
+                                <Permissions>
+                                    <Permissions_Add>
+                                        <Permissions_Edit>
+                                            <Permissions_Enable>
+                                                <Status>
+                                                    <Status_Add>
+                                                        <Status_Enable>
+                                                            <User_Types>
+                                                                {children}
+                                                            </User_Types>
+                                                        </Status_Enable>
+                                                    </Status_Add>
+                                                </Status>
+                                            </Permissions_Enable>
+                                        </Permissions_Edit>
+                                    </Permissions_Add>
+                                </Permissions>
+                            </User_Delete>
+                        </Users_Delete>
+                    </User_Edit>
+                </User_View_Password>
             </User_Add>
         </Users>
     );
@@ -144,6 +150,17 @@ export const User_Add = ({ children }) => {
         </UserAddContext.Provider>
     );
 }
+// Función Contexto para controlar la vista de las contraseñas de los usuarios ✔️
+export const User_View_Password = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isUserViewPassword,setIsUserViewPassword] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <UserViewPasswordContext.Provider value={[isUserViewPassword,setIsUserViewPassword]}>
+            {children}
+        </UserViewPasswordContext.Provider>
+    );
+}
 // Función contexto para controlar los datos editados de un usuario ✔️
 export const User_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
@@ -155,18 +172,53 @@ export const User_Edit = ({ children }) => {
         </UserEditContext.Provider>
     );
 }
-// Función Contexto para controlar la vista de las contraseñas de los usuarios ✔️
-export const User_View_Password = ({children}) => {
+// ---------- USUARIOS
+// ---------- USUARIOS ELIMINADOS
+// Función contexto para controlar los datos de la base de datos de usuarios ✔️
+export const Users_Delete = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
-    const [isViewPassword,setIsViewPassword] = useState(false);
+    const [isUsersDelete,setIsUsersDelete] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        socket.emit('Delete-Users');
+
+        socket.on('Delete-Users',(result) => {
+            const decryptedData = decryptData(result);
+            if(decryptedData){
+                const parsedData = JSON.parse(decryptedData);
+                console.log('¡Usuarios eliminados obtenidos!...')
+                setIsUsersDelete(parsedData);
+            }else{
+                console.log('¡Error al desencriptar los usuarios eliminados!...');
+                setIsUsersDelete([]);
+            }
+        });
+
+        return () => {
+            socket.off('Delete-Users');
+        }
+    },[]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <UserViewPasswordContext.Provider value={[isViewPassword,setIsViewPassword]}>
+        <UsersDeleteContext.Provider value={[isUsersDelete,setIsUsersDelete]}>
             {children}
-        </UserViewPasswordContext.Provider>
+        </UsersDeleteContext.Provider>
     );
 }
-// ---------- USUARIOS
+// Función contexto para controlar los datos agregados de un usuario eliminado ✔️
+export const User_Delete = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isUserDelete,setIsUserDelete] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <UserDeleteContext.Provider value={[isUserDelete,setIsUserDelete]}>
+            {children}
+        </UserDeleteContext.Provider>
+    );
+}
+// ---------- USUARIOS ELIMINADOS
 // ---------- PERMISOS
 // Función contexto para controlar los datos de la base de datos de los permisos de los usuarios ✔️
 export const Permissions = ({ children }) => {

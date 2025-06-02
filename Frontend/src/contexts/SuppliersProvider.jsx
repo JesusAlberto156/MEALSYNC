@@ -12,8 +12,23 @@ export const ObservationsContext = createContext(null);
 import { SocketContext } from "./SocketProvider";
 //____________IMPORT/EXPORT____________
 
+// Todos los contextos para las funcionalidades de las tablas de proveedores ✔️
+export const Index_Suppliers = ({children}) => {
+    return(
+        <Suppliers>
+            <Supplier_Add>
+                <Supplier_Edit>
+                    <Observations>
+                        {children}
+                    </Observations>
+                </Supplier_Edit>
+            </Supplier_Add>
+        </Suppliers>
+    );
+}
+
 // ---------- PROVEEDORES
-// Función contexto para controlar los datos de la base de datos de los proveedores
+// Función contexto para controlar los datos de la base de datos de los proveedores ✔️
 export const Suppliers = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -46,7 +61,7 @@ export const Suppliers = ({ children }) => {
         </SuppliersContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de un proveedor
+// Función contexto para controlar los datos agregados de un proveedor ✔️
 export const Supplier_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplierAdd,setIsSupplierAdd] = useState(false);
@@ -57,7 +72,7 @@ export const Supplier_Add = ({ children }) => {
         </SupplierAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de un proveedor
+// Función contexto para controlar los datos editados de un proveedor ✔️
 export const Supplier_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplierEdit,setIsSupplierEdit] = useState(false);
@@ -70,7 +85,7 @@ export const Supplier_Edit = ({ children }) => {
 }
 // ---------- PROVEEDORES
 // ---------- OBSERVACIONES
-// Función contexto para controlar los datos de la base de datos de las observaciones a los proveedores
+// Función contexto para controlar los datos de la base de datos de las observaciones a los proveedores ✔️
 export const Observations = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);

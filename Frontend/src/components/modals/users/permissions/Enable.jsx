@@ -7,7 +7,8 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { UsersContext,PermissionsEnableContext } from "../../../../contexts/UsersProvider";
-import { ActionBlockContext,SelectedRowContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
+import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefPermissionsContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";

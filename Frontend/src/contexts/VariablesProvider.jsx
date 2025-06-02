@@ -10,6 +10,25 @@ export const KeyboardViewContext = createContext(null);
 export const TouchContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
+// Todos los contextos para las variables generales para funcionalidades ✔️
+export const Index_Variables = ({children}) => {
+    return(
+        <Verification_Block>
+            <Animation>
+                <Action_Block>
+                    <Keyboard>
+                        <Keyboard_View>
+                            <Touch>
+                                {children}
+                            </Touch>
+                        </Keyboard_View>
+                    </Keyboard>
+                </Action_Block>
+            </Animation>
+        </Verification_Block>
+    );
+}
+
 // Función Contexto para controlar la verificación de inicio de sesión ✔️
 export const Verification_Block = ({children}) => {
     // UseState para controlar el valor del contexto

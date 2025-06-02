@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { SelectedRowContext } from "../../../../contexts/VariablesProvider";
+import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsSupplierContext } from "../../../../contexts/FormsProvider";
 import { RefSuppliersContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados

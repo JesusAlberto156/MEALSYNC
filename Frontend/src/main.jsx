@@ -33,6 +33,7 @@ import User_Add from './components/modals/users/users/Add';
 import User_Permissions_Add from './components/modals/users/users/PermissionsAdd';
 import User_Edit from './components/modals/users/users/Edit';
 import User_View from './components/modals/users/users/View';
+import User_Delete from './components/modals/users/users/Delete';
 import Table_Permissions from './components/tables/users/Permissions';
 import Permissions_Add from './components/modals/users/permissions/Add';
 import Permissions_Edit from './components/modals/users/permissions/Edit';
@@ -101,6 +102,10 @@ const router = createHashRouter([
           {
             path: 'Administration/Users/View',
             element: <User_View/>,
+          },
+          {
+            path: 'Administration/Users/Delete',
+            element: <User_Delete/>,
           },
           {
             path: 'Administration/Permissions/Add',

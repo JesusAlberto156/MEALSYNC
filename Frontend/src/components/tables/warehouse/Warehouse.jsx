@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext,ViewPasswordContext } from "../../../contexts/VariablesProvider"
+import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
@@ -29,7 +29,6 @@ export default function Table_Warehouse(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
     const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     // UseEffect que determina la selección de la tabla
@@ -51,27 +50,6 @@ export default function Table_Warehouse(){
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     },[Modal,Form,Button_Edit_U, Button_Delete_U]);
-    // UseEffect para reiniciar la vista de contraseña
-    useEffect(() => {
-        if(isViewPassword){
-            setTimeout(() => {
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            resolve('¡Se ocultaron las contraseñas!...');
-                            setTimeout(() => {
-                                setIsViewPassword(false);
-                            },500);
-                        },1000);
-                    }catch(error){
-                        return reject('¡Ocurrio un error inesperado!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Ocultando contraseñas!...');
-            },30000);            
-        }
-    },[isViewPassword])
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
         if(isSelectedRow !== null){

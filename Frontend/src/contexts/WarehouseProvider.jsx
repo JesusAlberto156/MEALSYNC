@@ -25,8 +25,37 @@ import { SocketContext } from "./SocketProvider";
 import { Alert_Warning } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
+// Todos los contextos para las funcionalidades de las tablas de inventario ✔️
+export const Index_Warehouse = ({children}) => {
+    return(
+        <Supplies>
+            <Supply_Add>
+                <Supply_Edit>
+                    <Supply_Types>
+                        <Supply_Type_Add>
+                            <Supply_Type_Edit>
+                                <Units>
+                                    <Unit_Add>
+                                        <Unit_Edit>
+                                            <Supply_Prices>
+                                                <Warehouse>
+                                                    {children}
+                                                </Warehouse>
+                                            </Supply_Prices>
+                                        </Unit_Edit>
+                                    </Unit_Add>
+                                </Units>
+                            </Supply_Type_Edit>
+                        </Supply_Type_Add>
+                    </Supply_Types>
+                </Supply_Edit>
+            </Supply_Add>
+        </Supplies>
+    );
+}
+
 // ---------- INSUMOS
-// Función contexto para controlar los datos de la base de datos de insumos
+// Función contexto para controlar los datos de la base de datos de insumos ✔️
 export const Supplies = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -60,7 +89,7 @@ export const Supplies = ({ children }) => {
         </SuppliesContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de un insumo
+// Función contexto para controlar los datos agregados de un insumo ✔️
 export const Supply_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyAdd,setIsSupplyAdd] = useState(false);
@@ -71,7 +100,7 @@ export const Supply_Add = ({ children }) => {
         </SupplyAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de un insumo
+// Función contexto para controlar los datos editados de un insumo ✔️
 export const Supply_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyEdit,setIsSupplyEdit] = useState(false);
@@ -84,7 +113,7 @@ export const Supply_Edit = ({ children }) => {
 }
 // ---------- INSUMOS
 // ---------- TIPOS DE INSUMOS
-// Función contexto para controlar los datos de la base de datos de tipos de insumos
+// Función contexto para controlar los datos de la base de datos de tipos de insumos ✔️
 export const Supply_Types = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -118,7 +147,7 @@ export const Supply_Types = ({ children }) => {
         </SupplyTypesContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de un tipo de insumo
+// Función contexto para controlar los datos agregados de un tipo de insumo ✔️
 export const Supply_Type_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useState(false);
@@ -129,7 +158,7 @@ export const Supply_Type_Add = ({ children }) => {
         </SupplyTypeAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de un tipo de insumo
+// Función contexto para controlar los datos editados de un tipo de insumo ✔️
 export const Supply_Type_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useState(false);
@@ -142,7 +171,7 @@ export const Supply_Type_Edit = ({ children }) => {
 }
 // ---------- TIPOS DE INSUMOS
 // ---------- MEDIDA
-// Función contexto para controlar los datos de la base de datos de medidas
+// Función contexto para controlar los datos de la base de datos de medidas ✔️
 export const Units = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -176,7 +205,7 @@ export const Units = ({ children }) => {
         </UnitsContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de una medida
+// Función contexto para controlar los datos agregados de una medida ✔️
 export const Unit_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isUnitAdd,setIsUnitAdd] = useState(false);
@@ -187,7 +216,7 @@ export const Unit_Add = ({ children }) => {
         </UnitAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de una medida
+// Función contexto para controlar los datos editados de una medida ✔️
 export const Unit_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isUnitEdit,setIsUnitEdit] = useState(false);

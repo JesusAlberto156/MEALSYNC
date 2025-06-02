@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
 import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext } from "../contexts/FormsProvider";
-import { UsersContext,UserAddContext,UserEditContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { UsersContext,UserAddContext,UserEditContext,UserViewPasswordContext,UserDeleteContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
+import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../contexts/SelectedesProvider";
 import { SuppliesContext,SupplyAddContext,SupplyEditContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,UnitsContext,UnitAddContext,UnitEditContext } from "../contexts/WarehouseProvider";
-import { VerificationBlockContext,ActionBlockContext,SelectedRowContext,SearchTerm2Context,SelectedRow1Context,SelectedRow2Context,ViewPasswordContext } from "../contexts/VariablesProvider";
+import { VerificationBlockContext,ActionBlockContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser } from "./Texts";
@@ -27,7 +29,7 @@ export const HandleLoggedLog = () => {
     // Retorno de la función del hook
     return handleLoggedLog;
 }
-// Hook para comprobar el inicio de sesión
+// Hook para comprobar el inicio de sesión 
 export const HandleVerificationBlock = () => {
     // Constantes con el valor de los contextos 
     const [isLoggedUser] = useContext(LoggedUserContext);
@@ -114,58 +116,6 @@ export const HandleUserAdd = () => {
     // Retorno de la función del hook
     return handleUserAdd;
 }
-// Hook para editar un usuario desde el modal
-export const HandleUserEdit = () => {
-    // Constantes con el valor de los contextos 
-    const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
-    const [currentNView] = useContext(NavbarViewContext);
-    const [currentSView] = useContext(SidebarViewContext);
-    const [currentMView] = useContext(ModalViewContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
-    const [isSelectedRow] = useContext(SelectedRowContext);
-    const [isUsers] = useContext(UsersContext);
-    // Función del hook
-    const handleUserAdd = () => {
-        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Edit'){
-            const promise = new Promise(async (resolve,reject) => {
-                try{
-                    setIsActionBlock(true);
-                    setTimeout(() => {
-                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
-                            setIsActionBlock(false);
-                            return reject('¡Falta información del usuario!...')
-                        };
-                        if(isTextFieldsUser.name === isSelectedRow.nombre && isTextFieldsUser.shortName === isSelectedRow.nombrecorto &&  isTextFieldsUser.user === isSelectedRow.usuario && isTextFieldsUser.password === isSelectedRow.contrasena && isTextFieldsUser.userTypes === isSelectedRow.idtipo){
-                            setIsActionBlock(false);
-                            return reject('¡No hay información del usuario modificada!...')
-                        };
-
-                        if(isSelectedRow.usuario !== isTextFieldsUser.user){
-                            if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
-                                setIsActionBlock(false);
-                                return reject('¡Usuario ya existente!...');
-                            }
-                        }
-                        
-                        resolve('¡Información verificada!...');
-                        
-                        setTimeout(() => {
-                            setIsUserEdit(true);
-                        },500)
-                    },1000);
-                }catch(error){
-                    setIsActionBlock(false);
-                    return reject('¡Ocurrio un error inesperado!...');
-                }
-            });
-
-            Alert_Verification(promise,'¡Verificando información!...');
-        }
-    } 
-    // Retorno de la función del hook
-    return handleUserAdd;
-}
 // Hook para cambiar la vista de las contraseñas de los usuarios
 export const HandleViewPassword = () => {
     // Constantes con el valor de los contextos 
@@ -174,7 +124,7 @@ export const HandleViewPassword = () => {
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isViewPassword,setIsViewPassword] = useContext(ViewPasswordContext);
+    const [isViewPassword,setIsViewPassword] = useContext(UserViewPasswordContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
@@ -230,6 +180,98 @@ export const HandleViewPassword = () => {
     }
     // Retorno de la función del hook
     return handleViewPassword;
+}
+// Hook para editar un usuario desde el modal
+export const HandleUserEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isUsers] = useContext(UsersContext);
+    // Función del hook
+    const handleUserAdd = () => {
+        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Edit'){
+            const promise = new Promise(async (resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del usuario!...')
+                        };
+                        if(isTextFieldsUser.name === isSelectedRow.nombre && isTextFieldsUser.shortName === isSelectedRow.nombrecorto &&  isTextFieldsUser.user === isSelectedRow.usuario && isTextFieldsUser.password === isSelectedRow.contrasena && isTextFieldsUser.userTypes === isSelectedRow.idtipo){
+                            setIsActionBlock(false);
+                            return reject('¡No hay información del usuario modificada!...')
+                        };
+
+                        if(isSelectedRow.usuario !== isTextFieldsUser.user){
+                            if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
+                                setIsActionBlock(false);
+                                return reject('¡Usuario ya existente!...');
+                            }
+                        }
+                        
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsUserEdit(true);
+                        },500)
+                    },1000);
+                }catch(error){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    } 
+    // Retorno de la función del hook
+    return handleUserAdd;
+}
+// Hook para eliminar un usuario desde el modal ✔️
+export const HandleUserDelete = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isLoggedUser] = useContext(LoggedUserContext)
+    const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
+    // Función del hook
+    const handleUserAdd = () => {
+        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Delete'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(false);
+                    setTimeout(() => {
+                        if(isLoggedUser.idusuario  === isTextFieldsUser.iduser){
+                            setIsActionBlock(true);
+                            return reject('¡No puede eliminar el usuario de la sesión!...')
+                        };
+                        
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsUserDelete(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(true);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    } 
+    // Retorno de la función del hook
+    return handleUserAdd;
 }
 // Hook para filtrar los usuarios cuando no tiene permisos
 export const FilteredRecordsHasPermissions = () => {

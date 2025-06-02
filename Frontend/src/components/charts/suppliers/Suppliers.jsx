@@ -6,7 +6,8 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { SuppliersContext,ObservationsContext } from "../../../contexts/SuppliersProvider";
 import { ThemeModeContext } from "../../../contexts/ViewsProvider";
-import { SearchTermContext,SelectedRowContext } from "../../../contexts/VariablesProvider";
+import { SearchTermContext } from "../../../contexts/SearchsProvider";
+import { SelectedRowContext } from "../../../contexts/SelectedesProvider";
 import { TextFieldsSupplierContext } from "../../../contexts/FormsProvider";
 import { RefSuppliersContext } from "../../../contexts/RefsProvider";
 // Hooks personalizados

@@ -13,6 +13,31 @@ export const RefSupplyTypesContext = createContext(null);
 export const RefUnitsContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
+// Todos los contextos para los Ref ✔️
+export const Index_Refs = ({children}) => {
+    return(
+        <Ref_Alert_Greeting>
+            <Ref_Keyboard>
+                <Ref_Users>
+                    <Ref_Permissions>
+                        <Ref_Status>
+                            <Ref_Suppliers>
+                                <Ref_Supplies>
+                                    <Ref_Supply_Types>
+                                        <Ref_Units>
+                                            {children}
+                                        </Ref_Units>
+                                    </Ref_Supply_Types>
+                                </Ref_Supplies>
+                            </Ref_Suppliers>
+                        </Ref_Status>
+                    </Ref_Permissions>
+                </Ref_Users>
+            </Ref_Keyboard>
+        </Ref_Alert_Greeting>
+    );
+}
+
 // Función contexto para controlar las alertas de bienvenida de la pagina ✔️
 export const Ref_Alert_Greeting = ({ children }) => {
     // UseRef para controlar el valor del contexto
@@ -82,7 +107,7 @@ export const Ref_Status = ({ children }) => {
         </RefStatusContext.Provider>
     );
 }
-// Función contexto para controlar la grafica de proveedores 
+// Función contexto para controlar la grafica de proveedores ✔️
 export const Ref_Suppliers = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isSuppliers = {

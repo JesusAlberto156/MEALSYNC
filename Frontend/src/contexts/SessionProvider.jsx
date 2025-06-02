@@ -14,7 +14,26 @@ export const LoggedTypeContext = createContext(null);
 import { SocketContext } from "./SocketProvider";
 //____________IMPORT/EXPORT____________
 
-// Función contexto para controlar los datos del usuario activo
+// Todos los contextos para controlar los aspectos de inicio de session ✔️
+export const Index_Sessions = ({children}) => {
+    return(
+        <Logged_Log>
+            <Logged_Logged>
+                <Logged_Type>
+                    <Logged_User>
+                        <Logged_Permissions>
+                            <Logged_Status>
+                                {children}
+                            </Logged_Status>
+                        </Logged_Permissions>
+                    </Logged_User>
+                </Logged_Type>
+            </Logged_Logged>
+        </Logged_Log>
+    );
+}
+
+// Función contexto para controlar los datos del usuario activo ✔️
 export const Logged_User = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedUser,setIsLoggedUser] = useState(() => {
@@ -46,7 +65,7 @@ export const Logged_User = ({ children }) => {
         </LoggedUserContext.Provider>
     );
 }
-// Función contexto para controlar los datos de los permisos del usuario activo
+// Función contexto para controlar los datos de los permisos del usuario activo ✔️
 export const Logged_Permissions = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedPermissions,setIsLoggedPermissions] = useState(() => {
@@ -78,7 +97,7 @@ export const Logged_Permissions = ({ children }) => {
         </LoggedPermissionsContext.Provider>
     );
 }
-// Función contexto para controlar los datos del estatus del usuario activo
+// Función contexto para controlar los datos del estatus del usuario activo ✔️
 export const Logged_Status = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedStatus,setIsLoggedStatus] = useState(() => {
@@ -110,7 +129,7 @@ export const Logged_Status = ({ children }) => {
         </LoggedStatusContext.Provider>
     );
 }
-// Función contexto para controlarel el inicio de sesión en la página
+// Función contexto para controlarel el inicio de sesión en la página ✔️
 export const Logged_Log = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isLoggedLog,setIsLoggedLog] = useState(false);
@@ -121,7 +140,7 @@ export const Logged_Log = ({children}) => {
         </LoggedLogContext.Provider>
     );
 }
-// Función contexto para controlar el estado activo/inactivo de la sesión en la base de datos
+// Función contexto para controlar el estado activo/inactivo de la sesión en la base de datos ✔️
 export const Logged_Logged = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -168,7 +187,7 @@ export const Logged_Logged = ({ children }) => {
         </LoggedLoggedContext.Provider>
     );
 }
-// Función Contexto para controlar el tipo de usuario
+// Función Contexto para controlar el tipo de usuario ✔️
 export const Logged_Type = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedType,setIsLoggedType] = useState(() => {

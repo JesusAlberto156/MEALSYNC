@@ -29,8 +29,8 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Right,Container_Column_Border_90_Center,Container_Column_90_Center,Container_Column_Blue_Width_95_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center,Text_Span_24_Center,Text_A_16_Center,Text_Title_22_Center } from "../../../styled/Text";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Right,Container_Column_Border_90_Center,Container_Column_90_Center,Container_Column_Blue_Width_95_Center,Container_Row_95_Center,Container_Row_NG_95_Center, Container_Row_NG_100_Center } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center,Text_Span_24_Center,Text_A_16_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210,Button_Icon_Green_60,Button_Icon_Red_60 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_22, Icon_White_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Text_Black_50,Input_Radio_16 } from "../../../styled/Inputs";
@@ -153,12 +153,14 @@ export default function Warehouse_Add(){
             return () => clearInterval(interval);
         }
     },[isStateDate])
-
+    // UseEffect para reiniciar los campos de las fechas
     useEffect(() => {
         if(isStateDate === 'Automática'){
             setIsTextFieldsWarehouse((prev) => ({
                 ...prev,
-                dateP: null
+                dateP: null,
+                hour: '',
+                minutes: '',
             }));
         }
         if(isStateDate === 'Personalizada'){
@@ -168,9 +170,6 @@ export default function Warehouse_Add(){
             }));
         }
     },[isStateDate])
-    useEffect(() => {
-        console.log(isTextFieldsWarehouse);
-    },[isTextFieldsWarehouse])
     // Funcion para formatear la fecha
     function getFormattedDateTime() {
         const now = new Date();
@@ -252,76 +251,133 @@ export default function Warehouse_Add(){
                                 )}
                                 {isStateDate === 'Personalizada' ? (
                                     <>
-                                        <DatePicker
-                                            selected={isTextFieldsWarehouse.dateP instanceof Date ? isTextFieldsWarehouse.dateP : null}
-                                            onChange={(date) => {
-                                                if(isStateDate === 'Personalizada'){
+                                        <Container_Row_NG_100_Center>
+                                            <DatePicker
+                                                selected={isTextFieldsWarehouse.dateP instanceof Date ? isTextFieldsWarehouse.dateP : null}
+                                                onChange={(date) => {
+                                                    if(isStateDate === 'Personalizada'){
+                                                        setIsTextFieldsWarehouse((prev) => ({
+                                                            ...prev,
+                                                            dateP: date,
+                                                        }))
+                                                    }
+                                                }}
+                                                dateFormat={'dd/MM/yyyy'}
+                                                locale={es}
+                                                placeholderText="Seleccione una fecha"
+                                                timeIntervals={15}
+                                                isClearable={true}
+                                                popperPlacement="bottom-center"
+                                                customInput={<Calendar_Input_Custom/>}
+                                                renderCustomHeader={({
+                                                    date,
+                                                    changeYear,
+                                                    changeMonth,
+                                                }) => (
+                                                    <div style={{
+                                                        background:'rgb(58,93,174)',
+                                                        border: '4px solid white',
+                                                        borderRadius: '30px',
+                                                    }}>
+                                                        <Container_Column_90_Center>
+                                                            <Text_Span_24_Center>Selecciona Año y Mes</Text_Span_24_Center>
+                                                            <Container_Row_100_Center>
+                                                                <select
+                                                                    value={date.getFullYear()}
+                                                                    onChange={({ target: { value } }) => changeYear(value)}
+                                                                    style={{
+                                                                        fontFamily: 'Century Gothic',
+                                                                        fontSize: '16px',
+                                                                        borderRadius: '15px',
+                                                                        padding:'5px',
+                                                                        background: 'white',
+                                                                        border: '1px solid black',
+                                                                    }}
+                                                                >
+                                                                    {Array.from({ length: 100 }, (_, i) => {
+                                                                    const year = new Date().getFullYear() - 50 + i;
+                                                                    return <option key={year} value={year}>{year}</option>;
+                                                                    })}
+                                                                </select>
+                                                                <select
+                                                                    value={date.getMonth()}
+                                                                    onChange={({ target: { value } }) => changeMonth(value)}
+                                                                    style={{
+                                                                        fontFamily: 'Century Gothic',
+                                                                        fontSize: '16px',
+                                                                        borderRadius: '15px',
+                                                                        padding:'5px',
+                                                                        background: 'white',
+                                                                        border: '1px solid black',
+                                                                    }}
+                                                                >
+                                                                    {Array.from({ length: 12 }, (_, i) => (
+                                                                    <option key={i} value={i}>
+                                                                        {new Date(0, i).toLocaleString("es", { month: "long" }).toUpperCase()}
+                                                                    </option>
+                                                                    ))}
+                                                                </select>
+                                                            </Container_Row_100_Center>
+                                                        </Container_Column_90_Center>
+                                                    </div>
+                                                )}
+                                            />
+                                            <Text_A_16_Center ThemeMode={themeMode}>Hora: </Text_A_16_Center>
+                                            <select
+                                                style={{
+                                                    padding: '10px',
+                                                    borderRadius: '15px',
+                                                    border: themeMode ? '1px solid black' : '1px solid white',
+                                                    borderBottom: themeMode ? '3px solid black' : '3px solid white',
+                                                    fontFamily: 'Century Gothic',
+                                                    fontSize: '16px',
+                                                }}
+                                                value={isTextFieldsWarehouse.hour}
+                                                onChange={(e) => {
                                                     setIsTextFieldsWarehouse((prev) => ({
                                                         ...prev,
-                                                        dateP:date,
-                                                    }))
-                                                }
-                                            }}
-                                            dateFormat={'dd/MM/yyyy HH:mm:ss'}
-                                            locale={es}
-                                            placeholderText="Seleccione una fecha"
-                                            showTimeSelect={true}
-                                            timeIntervals={15}
-                                            isClearable={true}
-                                            customInput={<Calendar_Input_Custom/>}
-                                            renderCustomHeader={({
-                                                date,
-                                                changeYear,
-                                                changeMonth,
-                                            }) => (
-                                                <div style={{
-                                                    background:'rgb(58,93,174)',
-                                                    border: '4px solid white',
-                                                    borderRadius: '30px',
-                                                }}>
-                                                    <Container_Column_90_Center>
-                                                        <Text_Title_22_Center ThemeMode={themeMode}>Selecciona Año y Mes</Text_Title_22_Center>
-                                                        <Container_Row_100_Center>
-                                                            <select
-                                                                value={date.getFullYear()}
-                                                                onChange={({ target: { value } }) => changeYear(value)}
-                                                                style={{
-                                                                    fontFamily: 'Century Gothic',
-                                                                    fontSize: '16px',
-                                                                    borderRadius: '15px',
-                                                                    padding:'5px',
-                                                                    background: 'white',
-                                                                    border: '1px solid black',
-                                                                }}
-                                                            >
-                                                                {Array.from({ length: 100 }, (_, i) => {
-                                                                const year = new Date().getFullYear() - 50 + i;
-                                                                return <option key={year} value={year}>{year}</option>;
-                                                                })}
-                                                            </select>
-                                                            <select
-                                                                value={date.getMonth()}
-                                                                onChange={({ target: { value } }) => changeMonth(value)}
-                                                                style={{
-                                                                    fontFamily: 'Century Gothic',
-                                                                    fontSize: '16px',
-                                                                    borderRadius: '15px',
-                                                                    padding:'5px',
-                                                                    background: 'white',
-                                                                    border: '1px solid black',
-                                                                }}
-                                                            >
-                                                                {Array.from({ length: 12 }, (_, i) => (
-                                                                <option key={i} value={i}>
-                                                                    {new Date(0, i).toLocaleString("es", { month: "long" }).toUpperCase()}
-                                                                </option>
-                                                                ))}
-                                                            </select>
-                                                        </Container_Row_100_Center>
-                                                    </Container_Column_90_Center>
-                                                </div>
-                                            )}
-                                        />
+                                                        hour: e.target.value,
+                                                    }));
+                                                }}
+                                            >
+                                                {Array.from({ length: 24 }, (_, i) => {
+                                                    const hour = i.toString().padStart(2, '0');
+                                                    return (
+                                                        <option key={i} value={hour}>
+                                                            {hour}
+                                                        </option>
+                                                    );
+                                                })}
+                                            </select>
+                                            <Text_A_16_Center ThemeMode={themeMode}>:</Text_A_16_Center>
+                                            <select
+                                                style={{
+                                                    padding: '10px',
+                                                    borderRadius: '15px',
+                                                    border: themeMode ? '1px solid black' : '1px solid white',
+                                                    borderBottom: themeMode ? '3px solid black' : '3px solid white',
+                                                    fontFamily: 'Century Gothic',
+                                                    fontSize: '16px',
+                                                }}
+                                                value={isTextFieldsWarehouse.minutes}
+                                                onChange={(e) => {
+                                                    setIsTextFieldsWarehouse((prev) => ({
+                                                        ...prev,
+                                                        minutes: e.target.value,
+                                                    }));
+                                                }}
+                                            >
+                                                {Array.from({ length: 60 }, (_, i) => {
+                                                    const hour = i.toString().padStart(2, '0');
+                                                    return (
+                                                        <option key={i} value={hour}>
+                                                            {hour}
+                                                        </option>
+                                                    );
+                                                })}
+                                            </select>
+                                        </Container_Row_NG_100_Center>
+                                        
                                     </>
                                 ):(
                                     <></>
@@ -411,12 +467,12 @@ export default function Warehouse_Add(){
                                                             placeholder='Seleccione uno...'
                                                             value={filteredRecordsSuppliers
                                                                 .map(supplier => ({ value: supplier.idproveedor, label: supplier.nombre }))
-                                                                .find(option => option.value === supply.idsupply)
+                                                                .find(option => option.value === filteredRecordsSuppliers.idproveedor)
                                                             }
                                                             onChange={(e) => {
                                                                 const updatedSupplies = [...isTextFieldsWarehouse.supplies];
                                                                 updatedSupplies[index].idsupplier = e.value
-                                                                isTextFieldsWarehouse(prev => ({
+                                                                setIsTextFieldsWarehouse(prev => ({
                                                                     ...prev, 
                                                                     supplies: updatedSupplies,
                                                                 }));
@@ -519,12 +575,12 @@ export default function Warehouse_Add(){
                                                                     value={isSupplies
                                                                         .filter(item => item.idproveedor === supply.idsupplier && item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase()))
                                                                         .map(item => ({ value: item.idinsumo, label: item.nombre }))
-                                                                        .find(option => option.value === supply.idsupply)
+                                                                        .find(option => option.value === isSupplies.idinsumo)
                                                                     }
                                                                     onChange={(e) => {
                                                                         const updatedSupplies = [...isTextFieldsWarehouse.supplies];
                                                                         updatedSupplies[index].idsupply = e.value
-                                                                        isTextFieldsWarehouse(prev => ({
+                                                                        setIsTextFieldsWarehouse(prev => ({
                                                                             ...prev, 
                                                                             supplies: updatedSupplies,
                                                                         }));

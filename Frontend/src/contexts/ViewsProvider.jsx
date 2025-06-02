@@ -12,7 +12,30 @@ export const ModalContext = createContext(null);
 export const SubModalContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Función Contexto para controlar el modo de la página (Claro/Oscuro)
+// Todos los contextos para controlar los ascpetos visuales del sistema ✔️
+export const Index_Views = ({children}) => {
+    return(
+        <Theme_Mode>
+            <Login_View>
+                <Navbar_View>
+                    <Sidebar_View>
+                        <Sidebar>
+                            <Modal_View>
+                                <Modal>
+                                    <Sub_Modal>
+                                        {children}
+                                    </Sub_Modal>
+                                </Modal>
+                            </Modal_View>
+                        </Sidebar>
+                    </Sidebar_View>
+                </Navbar_View>
+            </Login_View>
+        </Theme_Mode>
+    );
+}
+
+// Función Contexto para controlar el modo de la página (Claro/Oscuro) ✔️
 export const Theme_Mode = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [themeMode,setThemeMode] = useState(true);
@@ -23,7 +46,7 @@ export const Theme_Mode = ({ children }) => {
         </ThemeModeContext.Provider>
     );
 }
-// Función contexto para controlar la vista del login
+// Función contexto para controlar la vista del login ✔️
 export const Login_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentLView,setCurrentLView] = useState('');
@@ -34,7 +57,7 @@ export const Login_View = ({ children }) => {
         </LoginViewContext.Provider>
     );
 }
-// Función contexto para controlar la vista del navbar
+// Función contexto para controlar la vista del navbar ✔️
 export const Navbar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentNView,setCurrentNView] = useState(() => {
@@ -48,7 +71,7 @@ export const Navbar_View = ({ children }) => {
         </NavbarViewContext.Provider>
     );
 }
-// Función contexto para controlar la vista del sidebar
+// Función contexto para controlar la vista del sidebar ✔️
 export const Sidebar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentSView,setCurrentSView] = useState(() => {
@@ -62,7 +85,7 @@ export const Sidebar_View = ({ children }) => {
         </SidebarViewContext.Provider>
     );
 }
-// Función contexto para controlar la visibilidad del sidebar
+// Función contexto para controlar la visibilidad del sidebar ✔️
 export const Sidebar = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSidebar,setIsSidebar] = useState(() => {
@@ -76,7 +99,7 @@ export const Sidebar = ({ children }) => {
         </SidebarContext.Provider>
     );
 }
-// Función contexto para controlar el modal
+// Función contexto para controlar el modal ✔️
 export const Modal_View = ({children}) => {
     // UseState para controlar el valor del contexto
     const [currentMView,setCurrentMView] = useState(() => {
@@ -90,7 +113,7 @@ export const Modal_View = ({children}) => {
         </ModalViewContext.Provider>
     );
 }
-// Función contexto para controlar la visibilidad del modal
+// Función contexto para controlar la visibilidad del modal ✔️
 export const Modal = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isModal,setIsModal] = useState(() => {
@@ -104,7 +127,7 @@ export const Modal = ({children}) => {
         </ModalContext.Provider>
     );
 }
-// Función contexto para controlar la visibilidad de un sub-modal
+// Función contexto para controlar la visibilidad de un sub-modal ✔️
 export const Sub_Modal = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isSubModal,setIsSubModal] = useState(() => {

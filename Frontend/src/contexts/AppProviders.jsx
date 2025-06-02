@@ -1,6 +1,10 @@
 //____________IMPORT/EXPORT____________
 // Importación de funciones contexto
 import { Socket } from './SocketProvider';
+import { Index_Views } from './ViewsProvider';
+import { Index_Sessions } from './SessionProvider';
+import { Index_Searchs } from './SearchsProvider';
+import { Index_Users } from './UsersProvider';
 import { Theme_Mode,Login_View,Navbar_View,Sidebar_View,Sidebar,Modal_View,Modal,Sub_Modal } from './ViewsProvider';
 import { Logged_User,Logged_Permissions,Logged_Status,Logged_Log,Logged_Logged,Logged_Type } from './SessionProvider';
 import { Selected_Row,Search_Term,Verification_Block,Animation,Action_Block,View_Password,Keyboard,Keyboard_View,Touch,Selected_Row_1,Selected_Row_2,Search_Term_1,Search_Term_2 } from './VariablesProvider';

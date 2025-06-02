@@ -7,6 +7,7 @@ import { decryptData,encryptData } from "../services/Crypto";
 export const UsersContext = createContext(null);
 export const UserAddContext = createContext(null);
 export const UserEditContext = createContext(null);
+export const UserViewPasswordContext = createContext(null);
 export const PermissionsContext = createContext(null);
 export const PermissionsAddContext = createContext(null);
 export const PermissionsEditContext = createContext(null);
@@ -27,8 +28,39 @@ import { ThemeModeContext } from "./ViewsProvider";
 import { Alert_Warning } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
+// Todos los contextos para las funcionalidades de las tablas de los usuarios  ✔️
+export const Index_Users = ({children}) => {
+    return(
+        <Users>
+            <User_Add>
+                <User_Edit>
+                    <User_View_Password>
+                        <Permissions>
+                            <Permissions_Add>
+                                <Permissions_Edit>
+                                    <Permissions_Enable>
+                                        <Status>
+                                            <Status_Add>
+                                                <Status_Enable>
+                                                    <User_Types>
+                                                        {children}
+                                                    </User_Types>
+                                                </Status_Enable>
+                                            </Status_Add>
+                                        </Status>
+                                    </Permissions_Enable>
+                                </Permissions_Edit>
+                            </Permissions_Add>
+                        </Permissions>
+                    </User_View_Password>
+                </User_Edit>
+            </User_Add>
+        </Users>
+    );
+}
+
 // ---------- USUARIOS
-// Función contexto para controlar los datos de la base de datos de usuarios
+// Función contexto para controlar los datos de la base de datos de usuarios ✔️
 export const Users = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -101,7 +133,7 @@ export const Users = ({ children }) => {
         </UsersContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de un usuario
+// Función contexto para controlar los datos agregados de un usuario ✔️
 export const User_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isUserAdd,setIsUserAdd] = useState(false);
@@ -112,7 +144,7 @@ export const User_Add = ({ children }) => {
         </UserAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de un usuario
+// Función contexto para controlar los datos editados de un usuario ✔️
 export const User_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isUserEdit,setIsUserEdit] = useState(false);
@@ -123,9 +155,20 @@ export const User_Edit = ({ children }) => {
         </UserEditContext.Provider>
     );
 }
+// Función Contexto para controlar la vista de las contraseñas de los usuarios ✔️
+export const User_View_Password = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isViewPassword,setIsViewPassword] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <UserViewPasswordContext.Provider value={[isViewPassword,setIsViewPassword]}>
+            {children}
+        </UserViewPasswordContext.Provider>
+    );
+}
 // ---------- USUARIOS
 // ---------- PERMISOS
-// Función contexto para controlar los datos de la base de datos de los permisos de los usuarios
+// Función contexto para controlar los datos de la base de datos de los permisos de los usuarios ✔️
 export const Permissions = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -215,7 +258,7 @@ export const Permissions = ({ children }) => {
         </PermissionsContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de los permisos de un usuario
+// Función contexto para controlar los datos agregados de los permisos de un usuario ✔️
 export const Permissions_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isPermissionsAdd,setIsPermissionsAdd] = useState(false);
@@ -226,7 +269,7 @@ export const Permissions_Add = ({ children }) => {
         </PermissionsAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de los permisos de un usuario
+// Función contexto para controlar los datos editados de los permisos de un usuario ✔️
 export const Permissions_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isPermissionsEdit,setIsPermissionsEdit] = useState(false);
@@ -237,7 +280,7 @@ export const Permissions_Edit = ({ children }) => {
         </PermissionsEditContext.Provider>
     );
 }
-// Función Contexto para controlar los datos habilitados en el permiso del superadministrador de un usuario
+// Función Contexto para controlar los datos habilitados en el permiso del superadministrador de un usuario ✔️
 export const Permissions_Enable = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isPermissionsEnable,setIsPermissionsEnable] = useState([]);
@@ -250,6 +293,7 @@ export const Permissions_Enable = ({ children }) => {
 }
 // ---------- PERMISOS
 // ---------- ESTATUS
+// Función contexto para controlar los datos de la base de datos de estatus ✔️
 export const Status = ({ children }) => {
     // constantes con contextos perzonalizados
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
@@ -304,7 +348,7 @@ export const Status = ({ children }) => {
         </StatusContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de los estatus de un usuario
+// Función contexto para controlar los datos agregados de los estatus de un usuario ✔️
 export const Status_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isStatusAdd,setIsStatusAdd] = useState(false);
@@ -315,7 +359,7 @@ export const Status_Add = ({ children }) => {
         </StatusAddContext.Provider>
     );
 }
-// Función contexto para controlar los usuarios habilitados/deshabilitados 
+// Función contexto para controlar los usuarios habilitados/deshabilitados ✔️
 export const Status_Enable = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isStatusEnable,setIsStatusEnable] = useState([]);
@@ -328,7 +372,7 @@ export const Status_Enable = ({ children }) => {
 }
 // ---------- ESTATUS
 // ---------- TIPOS DE USUARIOS
-// Función contexto para controlar los datos de la base de datos de tipos de usuarios
+// Función contexto para controlar los datos de la base de datos de tipos de usuarios ✔️
 export const User_Types = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);

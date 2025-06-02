@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 export const SocketContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Función contexto para controlar la conexión a la base de datos
+// Función contexto para controlar la conexión a la base de datos ✔️
 export const Socket = ({ children }) => {
     // Constante para controlar el valor del contexto
     const socket = io('http://localhost:3500/');

@@ -13,7 +13,7 @@ export const RefSupplyTypesContext = createContext(null);
 export const RefUnitsContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
-// Función contexto para controlar las alertas de bienvenida de la pagina
+// Función contexto para controlar las alertas de bienvenida de la pagina ✔️
 export const Ref_Alert_Greeting = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isAlertGreeting = useRef(null);
@@ -24,7 +24,7 @@ export const Ref_Alert_Greeting = ({ children }) => {
         </RefAlertGreetingContext.Provider>
     );
 }
-// Función contexto para controlar el teclado de la pagina
+// Función contexto para controlar el teclado de la pagina ✔️
 export const Ref_Keyboard = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isKeyboard = useRef(null);
@@ -35,7 +35,7 @@ export const Ref_Keyboard = ({ children }) => {
         </RefKeyboardContext.Provider>
     );
 }
-// Función contexto para controlar la tabla de usuarios
+// Función contexto para controlar la tabla de usuarios ✔️
 export const Ref_Users = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isUsers = {
@@ -51,7 +51,7 @@ export const Ref_Users = ({ children }) => {
         </RefUsersContext.Provider>
     );
 }
-// Función contexto para controlar la tabla de permisos
+// Función contexto para controlar la tabla de permisos ✔️
 export const Ref_Permissions = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isPermissions = {
@@ -67,7 +67,7 @@ export const Ref_Permissions = ({ children }) => {
         </RefPermissionsContext.Provider>
     );
 }
-// Función contexto para controlar la tabla de estatus
+// Función contexto para controlar la tabla de estatus ✔️
 export const Ref_Status = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isStatus = {
@@ -82,7 +82,7 @@ export const Ref_Status = ({ children }) => {
         </RefStatusContext.Provider>
     );
 }
-// Función contexto para controlar la grafica de proveedores
+// Función contexto para controlar la grafica de proveedores 
 export const Ref_Suppliers = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isSuppliers = {
@@ -99,7 +99,7 @@ export const Ref_Suppliers = ({ children }) => {
         </RefSuppliersContext.Provider>
     );
 }
-// Función contexto para controlar la tabla de insumos
+// Función contexto para controlar la tabla de insumos ✔️
 export const Ref_Supplies = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isSupplies = {
@@ -115,7 +115,7 @@ export const Ref_Supplies = ({ children }) => {
         </RefSuppliesContext.Provider>
     );
 }
-// Función contexto para controlar la tabla de tipos de insumos
+// Función contexto para controlar la tabla de tipos de insumos ✔️
 export const Ref_Supply_Types = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isSupplies = {
@@ -131,7 +131,7 @@ export const Ref_Supply_Types = ({ children }) => {
         </RefSupplyTypesContext.Provider>
     );
 }
-// Función contexto para controlar la tabla de mediciones
+// Función contexto para controlar la tabla de mediciones ✔️
 export const Ref_Units = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isUnits = {

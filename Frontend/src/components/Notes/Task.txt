@@ -1,8 +1,88 @@
+-------------------------------- USUARIOS --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______EDITAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______ELIMINAR______
+- Verificación de los campos
+- Implementación del teclado
+- Funcionalidad
+- Diseño de la interfaz
+______VISUALIZAR______
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+-------------------------------- USUARIOS --
+-------------------------------- PERMISOS --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______EDITAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______ELIMINAR______
+- Verificación de los campos
+- Implementación del teclado
+- Funcionalidad
+- Diseño de la interfaz
+______VISUALIZAR______
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+-------------------------------- PERMISOS --
+-------------------------------- ESTATUS --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______EDITAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______ELIMINAR______
+- Verificación de los campos
+- Implementación del teclado
+- Funcionalidad
+- Diseño de la interfaz
+______VISUALIZAR______
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+-------------------------------- ESTATUS --
 
-
-
-
-
+-------------------------------- INVENTARIO --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______EDITAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______ELIMINAR______
+- Verificación de los campos
+- Implementación del teclado
+- Funcionalidad
+- Diseño de la interfaz
+______VISUALIZAR______
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+-------------------------------- INVENTARIO --
 -------------------------------- INSUMO --
 ______AGREGAR______
 - Verificación de los campos ✔️

@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -27,10 +27,11 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_100_Left,Container_Row_80_Right } from "../styled/Containers";
-import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60 } from "../styled/Buttons";
+import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_92_Left } from "../styled/Containers";
+import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_26,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
 import { Input_Text_White_20 } from "../styled/Inputs";
+import { Text_Span_12_Center } from "../styled/Text";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -51,10 +52,17 @@ export default function Search_Bar (){
     const {Modal_S,Form_S,Button_Enable_S} = useContext(RefStatusContext);
     const {Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
     const {Modal_Su,Form_Su,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
+    // Constantes con valores de useState
+    const [isSelectedUsers,setIsSelectedUsers] = useState('General');
+    // Constante con las opciones de los buscadores
+    const isOptionUsers = ['General','Nombre','Nombre corto','Usuario','Tipo de usuario'];
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleViewPassword = HandleViewPassword();
+    useEffect(() => {
+        console.log(isSelectedUsers)
+    },[isSelectedUsers])
     // Estructura del componente
     return(
         <>
@@ -66,6 +74,24 @@ export default function Search_Bar (){
                     value={isSearchTerm}
                     onChange={(e) => setIsSearchTerm(e.target.value)}
                 />
+                <Container_Row_Blue_Width_92_Left ThemeMode={themeMode}>
+                    {currentSView === 'Users' && currentNView === 'Users' ? (
+                        isOptionUsers.map((option,index) => (
+                            <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                key={index}
+                                onClick={() => setIsSelectedUsers(option)}
+                                style={{
+                                    backgroundColor: isSelectedUsers === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                    color: isSelectedUsers === option ? 'white' : 'white',
+                                }}
+                            >
+                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                            </Button_Icon_Blue_140>
+                        ))
+                    ):(
+                        <></>
+                    )}
+                </Container_Row_Blue_Width_92_Left>
                 {isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? (
                     <>
                         <Tooltip title='Pedidos' placement="top">

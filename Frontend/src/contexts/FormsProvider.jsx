@@ -90,6 +90,8 @@ export const Text_Fields_Warehouse = ({ children }) => {
     const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useState({
         dateA: '',
         dateP: null,
+        hour: '',
+        minutes: '',
         supplies: [{
             idsupply: 0,
             idsupplier: 0,

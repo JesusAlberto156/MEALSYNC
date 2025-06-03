@@ -11,7 +11,7 @@ import { RefStatusContext } from "../../../contexts/RefsProvider"
 import { TextFieldsStatusContext } from "../../../contexts/FormsProvider"
 // Hooks personalizados
 import { TableActionsStatus } from "../../../hooks/Table"
-import { ResetTextFieldsStatus } from "../../../hooks/Texts"
+import { ResetTextFieldsStatus,ResetTextFieldsUser } from "../../../hooks/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaLockOpen } from "react-icons/fa";
@@ -23,7 +23,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center } from "../../styled/Text";
+import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
 import { Icon_Green_18,Icon_Red_18,Icon_White_18 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
@@ -33,7 +33,7 @@ export default function Table_Status(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isUsers] = useContext(UsersContext);
-    const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
+    const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);
     const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
@@ -41,9 +41,9 @@ export default function Table_Status(){
             const table = document.getElementById("Table-Status");
 
             const isClickInsideTable = table && table.contains(event.target);
-            const isClickInsideModal = Modal?.current?.contains(event.target);
-            const isClickInsideForm = Form?.current?.contains(event.target);
-            const isClickInsideEnable = Button_Enable_S?.current?.contains(event.target);
+            const isClickInsideModal = Modal_Status?.current?.contains(event.target);
+            const isClickInsideForm = Form_Status?.current?.contains(event.target);
+            const isClickInsideEnable = Button_Enable_Status?.current?.contains(event.target);
 
             if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEnable) {
                 setIsSelectedRow(null);
@@ -55,7 +55,7 @@ export default function Table_Status(){
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    },[Modal,Form,Button_Enable_S]);
+    },[Modal_Status,Form_Status,Button_Enable_Status]);
     // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -68,10 +68,12 @@ export default function Table_Status(){
 
         }else{
             resetTextFieldsStatus();
+            resetTextFieldsUser();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
     const resetTextFieldsStatus = ResetTextFieldsStatus();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus} = TableActionsStatus();
     // Estructura del componente
     return(
@@ -102,21 +104,31 @@ export default function Table_Status(){
                     ))}
                 </Tbody>
             </Table>
-            <Container_Row_90_Center>
-                <Tooltip title='Página anterior' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={prevPage}>
-                        <Icon_White_18><GrPrevious/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesStatus}</Text_A_16_Center>
-                <Tooltip title='Página siguiente' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesStatus || totalPagesStatus === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={nextPageStatus}>
-                        <Icon_White_18><GrNext/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-            </Container_Row_90_Center>
+            {currentRecordsStatus.length !== 0 ? (
+                <>
+                    <Container_Row_90_Center>
+                        <Tooltip title='Página anterior' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={prevPage}>
+                                <Icon_White_18><GrPrevious/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesStatus}</Text_A_16_Center>
+                        <Tooltip title='Página siguiente' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesStatus || totalPagesStatus === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={nextPageStatus}>
+                                <Icon_White_18><GrNext/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                    </Container_Row_90_Center>
+                </>
+            ):(
+                <>
+                    <Container_Row_90_Center>
+                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
+                    </Container_Row_90_Center>
+                </>
+            )}
         </>
     );
 }

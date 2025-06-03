@@ -20,14 +20,11 @@ export const TableActionsUsers = () => {
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
-
     const filteredRecordsUsers = isUsers.filter((data) => {
+        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        if (isDeleted) return false;
+        
         if(isSelectedOption === 'General'){
-            isUsersDelete.forEach((user) => {
-                if(user.idusuario === data.idusuario){
-                    return
-                }
-            });
             const type = isUserTypes.find(type => type.idtipo === data.idtipo );
             return type && Object.values(data).some(value =>
                 String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
@@ -59,14 +56,7 @@ export const TableActionsUsers = () => {
     // Función de selección de los renglones de la tabla
     const handleRowClick = (user) => {
         setIsSelectedRow((prevSelected) => {
-            if (prevSelected === user) {
-                // Retrasa el deseleccionado
-                setTimeout(() => setIsSelectedRow(null), 700);
-                return prevSelected; // mantener el estado actual mientras tanto
-            } else {
-                // Selección inmediata
-                return user;
-            }
+            return prevSelected?.idusuario === user.idusuario ? null : user;
         });
     };
     // Función de siguiente de registros de la tabla
@@ -96,10 +86,14 @@ export const TableActionsPermissions = () => {
     const [isPermissions] = useContext(PermissionsContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
+    const [isUsersDelete] = useContext(UsersDeleteContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsPermissions = isPermissions.filter((data) => {
+        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        if (isDeleted) return false;
+
         const user = isUsers.find(user => user.idusuario === data.idusuario);
         return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
@@ -115,14 +109,7 @@ export const TableActionsPermissions = () => {
     // Función de selección de los renglones de la tabla
     const handleRowClick = (permissions) => {
         setIsSelectedRow((prevSelected) => {
-            if (prevSelected === permissions) {
-                // Retrasa el deseleccionado
-                setTimeout(() => setIsSelectedRow(null), 700);
-                return prevSelected; // mantener el estado actual mientras tanto
-            } else {
-                // Selección inmediata
-                return permissions;
-            }
+            return prevSelected?.idusuario === permissions.idusuario ? null : permissions
         });
     };
     // Función de siguiente de registros de la tabla
@@ -152,10 +139,14 @@ export const TableActionsStatus = () => {
     const [isStatusAll] = useContext(StatusContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
+    const [isUsersDelete] = useContext(UsersDeleteContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsStatus = isStatusAll.filter((data) => {
+        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        if (isDeleted) return false;
+
         const user = isUsers.find(user => user.idusuario === data.idusuario);
         return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
     });
@@ -171,14 +162,7 @@ export const TableActionsStatus = () => {
     // Función de selección de los renglones de la tabla
     const handleRowClick = (status) => {
         setIsSelectedRow((prevSelected) => {
-            if (prevSelected === status) {
-                // Retrasa el deseleccionado
-                setTimeout(() => setIsSelectedRow(null), 700);
-                return prevSelected; // mantener el estado actual mientras tanto
-            } else {
-                // Selección inmediata
-                return status;
-            }
+            return prevSelected?.idusuario === status.idusuario ? null : status
         });
     };
     // Función de siguiente de registros de la tabla
@@ -201,6 +185,7 @@ export const TableActionsStatus = () => {
              currentRecordsStatus,
              totalPagesStatus}
 }
+
 // Hook para realizar las acciones de la tabla de insumos
 export const TableActionsSupplies = () => {
     // Constantes con el valor de los contextos

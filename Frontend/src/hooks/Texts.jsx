@@ -82,7 +82,8 @@ export const ResetTextFieldsStatus = () => {
     // Retorno de la función del hook
     return resetTextFieldsStatus;
 }
-// Hook para reinciar los campos de texto de los proveedores ✔️
+
+// Hook para reinciar los campos de texto de los proveedores 
 export const ResetTextFieldsSupplier = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
@@ -101,7 +102,7 @@ export const ResetTextFieldsSupplier = () => {
     // Retorno de la función del hook
     return resetTextFieldsSupplier;
 }
-// Hook para reinciar los campos de texto de pedidos para el inventario ✔️
+// Hook para reinciar los campos de texto de pedidos para el inventario 
 export const ResetTextFieldsWarehouse = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useContext(TextFieldsWarehouseContext);
@@ -126,7 +127,7 @@ export const ResetTextFieldsWarehouse = () => {
     // Retorno de la función del hook
     return resetTextFieldsWarehouse;
 }
-// Hook para reinciar los campos de texto de los insumos ✔️
+// Hook para reinciar los campos de texto de los insumos 
 export const ResetTextFieldsSupply = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
@@ -146,7 +147,7 @@ export const ResetTextFieldsSupply = () => {
     // Retorno de la función del hook
     return resetTextFieldsSupply;
 }
-// Hook para reinciar los campos de texto de los tipos de insumos ✔️
+// Hook para reinciar los campos de texto de los tipos de insumos 
 export const ResetTextFieldsSupplyType = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
@@ -164,7 +165,7 @@ export const ResetTextFieldsSupplyType = () => {
     // Retorno de la función del hook
     return resetTextFieldsSupplyType;
 }
-// Hook para reinciar los campos de texto de las mediciones ✔️
+// Hook para reinciar los campos de texto de las mediciones 
 export const ResetTextFieldsUnit = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);

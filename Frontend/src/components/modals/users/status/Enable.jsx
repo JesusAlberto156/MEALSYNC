@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useState } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -8,12 +8,11 @@ import { Tooltip } from "@mui/material";
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
-import { UsersContext,StatusEnableContext } from "../../../../contexts/UsersProvider";
+import { StatusEnableContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { RefStatusContext } from "../../../../contexts/RefsProvider";
 import { TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser } from "../../../../hooks/Texts";
 import { HandleStatusEnable } from "../../../../hooks/Form";
 import { HandleModalView } from "../../../../hooks/Views";
 //__________ICONOS__________
@@ -38,30 +37,28 @@ export default function Status_Enable(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isUsers] = useContext(UsersContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [socket] = useContext(SocketContext);
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
-    const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
+    const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);
     const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleStatusEnable = HandleStatusEnable();
-    const resetTextFieldsUser = ResetTextFieldsUser();
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
-        if(isStatusEnable.length !== 0){
-            const promise = new Promise(async (resolve,reject) => {
+        if(isStatusEnable){
+            const promise = new Promise((resolve,reject) => {
                 try{ 
                     setIsActionBlock(false); 
                     setTimeout(() => {
                         socket.emit('Status-Enable-Update',isTextFieldsStatus.iduser,isTextFieldsStatus.user,isTextFieldsStatus.status === 'Habilitado' ? 0:1);
 
-                        if(isStatusEnable.habilitado){
+                        if(isTextFieldsStatus.status === 'Habilitado'){
                             resolve('¡MEALSYNC deshabilito al usuario!...');
                         }else{
                             resolve('¡MEALSYNC habilito al usuario!...');
@@ -74,24 +71,23 @@ export default function Status_Enable(){
                         setTimeout(() => {
                             setIsModal(false);
                             sessionStorage.setItem('Modal',false);
-                            resetTextFieldsUser();
                             setIsActionBlock(false);
                             setIsVerificationBlock(false);
                             sessionStorage.removeItem('Action-Block');
                             sessionStorage.removeItem('Verification-Block');
-                            setIsStatusEnable([]);
+                            setIsStatusEnable(false);
                             setIsSelectedRow(null);
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(true);
-                    setIsStatusEnable([]);
+                    setIsStatusEnable(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,isStatusEnable.habilitado ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
+            Alert_Verification(promise,isTextFieldsStatus.status === 'Habilitado' ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
         }
     },[isStatusEnable]);
     // UseEffect para quitar la suscrpcion de socket
@@ -111,14 +107,14 @@ export default function Status_Enable(){
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal ref={Modal}>
-                    <Container_Form_450 ref={Form} ThemeMode={themeMode} className={currentMView === 'Status-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                <Container_Modal ref={Modal_Status}>
+                    <Container_Form_450 ref={Form_Status} ThemeMode={themeMode} className={currentMView === 'Status-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.habilitado ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_30_Center>
-                        <Container_Row_NG_90_Left className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        <Form_Verification/>
+                        <Container_Row_NG_90_Left>
                             <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                             <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsStatus.user}</Text_A_16_Left>
                         </Container_Row_NG_90_Left>
-                        <Form_Verification/>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement="top">
                                 <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'

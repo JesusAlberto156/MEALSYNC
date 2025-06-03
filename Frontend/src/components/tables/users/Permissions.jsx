@@ -24,7 +24,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center } from "../../styled/Text";
+import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
 import { Icon_Green_18,Icon_Red_18,Icon_White_18 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
@@ -36,17 +36,17 @@ export default function Table_Permissions(){
     const [isPermission] = useContext(LoggedPermissionsContext);
     const [isUsers] = useContext(UsersContext);
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
-    const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
+    const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
             const table = document.getElementById("Table-Permissions");
 
             const isClickInsideTable = table && table.contains(event.target);
-            const isClickInsideModal = Modal?.current?.contains(event.target);
-            const isClickInsideForm = Form?.current?.contains(event.target);
-            const isClickInsideEdit = Button_Edit_P?.current?.contains(event.target);
-            const isClickInsideEnable = Button_Enable_P?.current?.contains(event.target);
+            const isClickInsideModal = Modal_Permissions?.current?.contains(event.target);
+            const isClickInsideForm = Form_Permissions?.current?.contains(event.target);
+            const isClickInsideEdit = Button_Edit_Permissions?.current?.contains(event.target);
+            const isClickInsideEnable = Button_Enable_Permissions?.current?.contains(event.target);
 
             if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideEnable) {
                 setIsSelectedRow(null);
@@ -55,7 +55,7 @@ export default function Table_Permissions(){
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    },[Modal,Form,Button_Edit_P,Button_Enable_P]);
+    },[Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions]);
     // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -70,7 +70,6 @@ export default function Table_Permissions(){
                 nutritionist: isSelectedRow.nutriologo,
                 doctor: isSelectedRow.medico,
             }));
-
         }else{
             resetTextFieldsPermissions();
         }
@@ -127,21 +126,31 @@ export default function Table_Permissions(){
                     ))}
                 </Tbody>
             </Table>
-            <Container_Row_90_Center>
-                <Tooltip title='Página anterior' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={prevPage}>
-                        <Icon_White_18><GrPrevious/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesPermissions}</Text_A_16_Center>
-                <Tooltip title='Página siguiente' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesPermissions || totalPagesPermissions === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={nextPagePermissions}>
-                        <Icon_White_18><GrNext/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-            </Container_Row_90_Center>
+            {currentRecordsPermissions.length !== 0 ? (
+                <>
+                    <Container_Row_90_Center>
+                        <Tooltip title='Página anterior' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={prevPage}>
+                                <Icon_White_18><GrPrevious/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesPermissions}</Text_A_16_Center>
+                        <Tooltip title='Página siguiente' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesPermissions || totalPagesPermissions === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={nextPagePermissions}>
+                                <Icon_White_18><GrNext/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                    </Container_Row_90_Center>  
+                </>
+            ):(
+                <>
+                    <Container_Row_90_Center>
+                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
+                    </Container_Row_90_Center>
+                </>
+            )}
         </>
     );
 }

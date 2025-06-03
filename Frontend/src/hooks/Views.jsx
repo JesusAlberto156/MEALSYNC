@@ -14,7 +14,7 @@ import { LoggedTypeContext } from "../contexts/SessionProvider";
 import { ResetSearchTerms,ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
 //____________IMPORT/EXPORT____________
 
-// Hook para cambiar el modo de la página (Claro/Oscuro)
+// Hook para cambiar el modo de la página (Claro/Oscuro) ✔️
 export const ToggleThemeMode = () => {
     // Constantes con el valor de los contextos 
     const [themeMode,setThemeMode] = useContext(ThemeModeContext);
@@ -25,7 +25,7 @@ export const ToggleThemeMode = () => {
     // Retorno de la función del hook
     return toggleThemeMode;
 }
-// Hook para cambiar la vista del login
+// Hook para cambiar la vista del login ✔️
 export const HandleLoginView = () => {
     // Constantes con el valor de los contextos 
     const [currentLView,setCurrentLView] = useContext(LoginViewContext);
@@ -60,7 +60,7 @@ export const HandleLoginView = () => {
     // Retorno de la función del hook
     return handleLoginView;
 }
-// Hook para cambiar la vista del navbar
+// Hook para cambiar la vista del navbar ✔️
 export const HandleNavbarView = () => {
     // Constantes con el valor de los contextos 
     const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
@@ -78,7 +78,7 @@ export const HandleNavbarView = () => {
     // Retorno de la función del hook
     return handleNavbarView;
 }
-// Hook para cambiar la vista del sidebar
+// Hook para cambiar la vista del sidebar ✔️
 export const HandleSidebarView = () => {
     // Constantes con el valor de los contextos 
     const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
@@ -96,7 +96,7 @@ export const HandleSidebarView = () => {
     // Retorno de la función del hook
     return handleSidebarView;
 };
-// Hook para cambiar el sidebar (Ocultar/Mostrar)
+// Hook para cambiar el sidebar (Ocultar/Mostrar) ✔️
 export const ToggleSidebar = () => {
     // Constantes con el valor de los contextos 
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
@@ -192,7 +192,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-        
         if(currentMView === 'Permissions-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -225,6 +224,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+
         if(currentMView === 'Status-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -238,16 +238,15 @@ export const HandleModalView = () => {
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Modal',false);
-                resetTextFieldsUser();
                 setIsActionBlock(false);
                 setIsVerificationBlock(false);
-                setIsStatusEnable([]);
                 setIsSelectedRow(null);
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
                 navigate(route,{ replace: true });
             },750);
         }
+
         if(currentMView === 'Supplier-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);

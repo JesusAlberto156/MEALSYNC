@@ -16,6 +16,7 @@ import '../src/components/styled/animations/Slides.css';
 import '../src/components/styled/animations/Puffs.css';
 import '../src/components/styled/animations/Bounces.css';
 import '../src/components/styled/animations/Rotates.css';
+import '../src/components/styled/animations/Fades.css'
 import 'animate.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-datepicker/dist/react-datepicker.css';

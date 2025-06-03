@@ -18,9 +18,9 @@ const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsConte
 //____________REF____________
 const isAlertGreeting = useContext(RefAlertGreetingContext);
 const isKeyboard = useContext(RefKeyboardContext);
-const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
-const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
-const {Modal,Form,Button_Enable_S} = useContext(RefStatusContext);
+const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
+const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
+const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);
 const {Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
 const {Modal,Form,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
 const {Modal_ST,Form_ST,Button_Edit_ST,Button_Delete_ST} = useContext(RefSupplyTypesContext);

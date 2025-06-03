@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -49,9 +49,9 @@ export default function Search_Bar (){
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [isPermission] = useContext(LoggedPermissionsContext);
     const [isUserViewPassword] = useContext(UserViewPasswordContext);
-    const {Modal_U,Form_U,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
-    const {Modal_P,Form_P,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
-    const {Modal_S,Form_S,Button_Enable_S} = useContext(RefStatusContext);
+    const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
+    const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
+    const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);1
     const {Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
     const {Modal_Su,Form_Su,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
     const [isSelectedOption,setIsSelectedOption] = useContext(SelectedOptionContext);
@@ -103,7 +103,7 @@ export default function Search_Bar (){
                     {currentSView === 'Users' && currentNView === 'Users' ? (
                         <>
                             <Tooltip title='Agregar' placement="top">
-                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                 onClick={() => {
                                     handleModalView('User-Add');
                                     navigate('/Administration/Users/Add',{ replace: true });
@@ -111,46 +111,10 @@ export default function Search_Bar (){
                                     <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                 </Button_Icon_Green_60>
                             </Tooltip>
-                            {isUserViewPassword ? (
-                                <>
-                                    <Tooltip title='Ocultar contraseñas' placement="top">
-                                        <Button_Icon_Red_60 ThemeMode={themeMode} className={isUserViewPassword ? 'roll-in-button-left':'roll-out-button-left'} 
-                                        onClick={() => handleViewPassword()}>
-                                            <Icon_White_18><IoIosEyeOff/></Icon_White_18>
-                                        </Button_Icon_Red_60>
-                                    </Tooltip>
-                                </>
-                            ):(
-                                <>
-                                    <Tooltip title='Mostrar contraseñas' placement="top">
-                                        <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isUserViewPassword ? 'roll-in-button-left':'roll-out-button-left'}
-                                        onClick={() => {
-                                            handleModalView('User-View');
-                                            navigate('/Administration/Users/View',{ replace: true });
-                                        }}>
-                                            <Icon_White_18><FaEye/></Icon_White_18>
-                                        </Button_Icon_Green_60>
-                                    </Tooltip>
-                                </>
-                            )}
-                            {isSelectedRow === null ? (
-                                <>
-                                    <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    disabled={isSelectedRow === null}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        if (isSelectedRow !== null) {
-                                            handleModalView('User-Edit');
-                                            navigate('/Administration/Users/Edit',{ replace: true });
-                                        }
-                                    }}>
-                                        <Icon_White_18><MdEdit/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </>
-                            ):(
+                            {isSelectedRow !== null ? (
                                 <>
                                     <Tooltip title='Editar' placement="top">
-                                        <Button_Icon_Blue_60 ref={Button_Edit_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                        <Button_Icon_Blue_60 ref={Button_Edit_Users} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             if (isSelectedRow !== null) {
@@ -162,13 +126,14 @@ export default function Search_Bar (){
                                         </Button_Icon_Blue_60>
                                     </Tooltip> 
                                 </>
+                            ):(
+                                <></>
                             )}
                             {isPermission.superadministrador ? (
-                                <>
-                                    {isSelectedRow === null ? (
-                                        <>
-                                            <Button_Icon_Red_60 ref={Button_Delete_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                            disabled={isSelectedRow === null}
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_Users} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 if (isSelectedRow !== null) {
@@ -178,26 +143,35 @@ export default function Search_Bar (){
                                             }}>
                                                 <Icon_White_18><MdDelete/></Icon_White_18>
                                             </Button_Icon_Red_60>
-                                        </>
-                                    ):(
-                                        <>
-                                            <Tooltip title='Eliminar' placement="top">
-                                                <Button_Icon_Red_60 ref={Button_Delete_U} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    if (isSelectedRow !== null) {
-                                                        handleModalView('User-Delete');
-                                                        navigate('/Administration/Users/Delete',{ replace: true });
-                                                    }
-                                                }}>
-                                                    <Icon_White_18><MdDelete/></Icon_White_18>
-                                                </Button_Icon_Red_60>
-                                            </Tooltip>  
-                                        </>
-                                    )}
-                                </>
+                                        </Tooltip>  
+                                    </>
+                                ):(
+                                    <></>
+                                )
                             ):(
                                 <></>
+                            )}
+                            {isUserViewPassword ? (
+                                <>
+                                    <Tooltip title='Ocultar contraseñas' placement="top">
+                                        <Button_Icon_Red_60 ThemeMode={themeMode} className={isUserViewPassword ? 'fade-button-in':'fade-button-out'} 
+                                        onClick={() => handleViewPassword()}>
+                                            <Icon_White_18><IoIosEyeOff/></Icon_White_18>
+                                        </Button_Icon_Red_60>
+                                    </Tooltip>
+                                </>
+                            ):(
+                                <>
+                                    <Tooltip title='Mostrar contraseñas' placement="top">
+                                        <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isUserViewPassword ? 'fade-button-in':'fade-button-out'}
+                                        onClick={() => {
+                                            handleModalView('User-View');
+                                            navigate('/Administration/Users/View',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><FaEye/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </Tooltip>
+                                </>
                             )}
                         </>
                     ):(
@@ -206,7 +180,7 @@ export default function Search_Bar (){
                     {currentSView === 'Users' && currentNView === 'Permissions' ? (
                         <>
                             <Tooltip title='Agregar' placement="top">
-                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                 onClick={() => {
                                     handleModalView('Permissions-Add');
                                     navigate('/Administration/Permissions/Add',{ replace: true });
@@ -214,21 +188,10 @@ export default function Search_Bar (){
                                     <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                 </Button_Icon_Green_60>
                             </Tooltip>
-                            {isSelectedRow === null ? (
-                                <>
-                                    <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                    disabled={isSelectedRow === null}
-                                    onClick={() => {
-                                        handleModalView('Permissions-Edit');
-                                        navigate('/Administration/Permissions/Edit',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><MdEdit/></Icon_White_18>
-                                    </Button_Icon_Blue_60>
-                                </>
-                            ):(
+                            {isSelectedRow !== null ? (
                                 <>
                                     <Tooltip title='Editar' placement="top">
-                                        <Button_Icon_Blue_60 ref={Button_Edit_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                        <Button_Icon_Blue_60 ref={Button_Edit_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                         onClick={() => {
                                             handleModalView('Permissions-Edit');
                                             navigate('/Administration/Permissions/Edit',{ replace: true });
@@ -237,41 +200,41 @@ export default function Search_Bar (){
                                         </Button_Icon_Blue_60>
                                     </Tooltip>
                                 </>
+                            ):(
+                                <></>
                             )}
                             {isPermission.superadministrador ? (
-                                <>
-                                    {isSelectedRow !== null ? (
-                                        isSelectedRow.superadministrador ? (
-                                            <>
-                                                <Tooltip title='Deshabilitar' placement="top">
-                                                    <Button_Icon_Red_60 ref={Button_Enable_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                                    disabled={isSelectedRow === null}
-                                                    onClick={() => {
-                                                        handleModalView('Permissions-Enable');
-                                                        navigate('/Administration/Permissions/Enable',{ replace: true });
-                                                    }}>
-                                                        <Icon_White_18><FaUserTie/></Icon_White_18>
-                                                    </Button_Icon_Red_60>
-                                                </Tooltip>
-                                            </>
-                                        ):(
-                                            <>
-                                                <Tooltip title='Habilitar' placement="top">
-                                                    <Button_Icon_Green_60 ref={Button_Enable_P} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
-                                                    disabled={isSelectedRow === null}
-                                                    onClick={() => {
-                                                        handleModalView('Permissions-Enable');
-                                                        navigate('/Administration/Permissions/Enable',{ replace: true });
-                                                    }}>
-                                                        <Icon_White_18><FaUserTie/></Icon_White_18>
-                                                    </Button_Icon_Green_60>
-                                                </Tooltip>
-                                            </>
-                                        )
+                                isSelectedRow !== null ? (
+                                    isSelectedRow.superadministrador ? (
+                                        <>
+                                            <Tooltip title='Deshabilitar' placement="top">
+                                                <Button_Icon_Red_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
+                                                disabled={isSelectedRow === null}
+                                                onClick={() => {
+                                                    handleModalView('Permissions-Enable');
+                                                    navigate('/Administration/Permissions/Enable',{ replace: true });
+                                                }}>
+                                                    <Icon_White_18><FaUserTie/></Icon_White_18>
+                                                </Button_Icon_Red_60>
+                                            </Tooltip>
+                                        </>
                                     ):(
-                                        <></>
-                                    )}
-                                </>                                 
+                                        <>
+                                            <Tooltip title='Habilitar' placement="top">
+                                                <Button_Icon_Green_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
+                                                disabled={isSelectedRow === null}
+                                                onClick={() => {
+                                                    handleModalView('Permissions-Enable');
+                                                    navigate('/Administration/Permissions/Enable',{ replace: true });
+                                                }}>
+                                                    <Icon_White_18><FaUserTie/></Icon_White_18>
+                                                </Button_Icon_Green_60>
+                                            </Tooltip>
+                                        </>
+                                    )
+                                ):(
+                                    <></>
+                                )                               
                             ):(
                                 <></>
                             )}
@@ -282,7 +245,7 @@ export default function Search_Bar (){
                     {currentSView === 'Users' && currentNView === 'Status' ? (
                         <>
                             <Tooltip title='Agregar' placement="top">
-                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
+                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                 onClick={() => {
                                     handleModalView('Status-Add');
                                     navigate('/Administration/Status/Add',{ replace: true });
@@ -294,7 +257,7 @@ export default function Search_Bar (){
                                 isSelectedRow.habilitado ? (
                                     <>
                                         <Tooltip title='Deshabilitar' placement="top">
-                                            <Button_Icon_Red_60 ref={Button_Enable_S} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                            <Button_Icon_Red_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                             disabled={isSelectedRow === null}
                                             onClick={() => {
                                                 handleModalView('Status-Enable');
@@ -307,7 +270,7 @@ export default function Search_Bar (){
                                 ):(
                                     <>
                                         <Tooltip title='Habilitar' placement="top">
-                                            <Button_Icon_Green_60 ref={Button_Enable_S} ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-out-button-left':'roll-in-button-left'}
+                                            <Button_Icon_Green_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                             disabled={isSelectedRow === null}
                                             onClick={() => {
                                                 handleModalView('Status-Enable');

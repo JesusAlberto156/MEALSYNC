@@ -21,7 +21,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center } from "../../styled/Text";
+import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
 import { Icon_White_18 } from "../../styled/Icons";
 import { Alert_Verification } from "../../styled/Alerts"
 //____________IMPORT/EXPORT____________
@@ -32,7 +32,7 @@ export default function Table_Users(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isUserViewPassword,setIsUserViewPassword] = useContext(UserViewPasswordContext);
-    const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
+    const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isUserTypes] = useContext(UserTypesContext);
     // UseEffect que determina la selección de la tabla
@@ -41,10 +41,10 @@ export default function Table_Users(){
             const table = document.getElementById("Table-Users");
     
             const isClickInsideTable = table && table.contains(event.target);
-            const isClickInsideModal = Modal?.current?.contains(event.target);
-            const isClickInsideForm = Form?.current?.contains(event.target);
-            const isClickInsideEdit = Button_Edit_U?.current?.contains(event.target);
-            const isClickInsideDelete = Button_Delete_U?.current?.contains(event.target);
+            const isClickInsideModal = Modal_Users?.current?.contains(event.target);
+            const isClickInsideForm = Form_Users?.current?.contains(event.target);
+            const isClickInsideEdit = Button_Edit_Users?.current?.contains(event.target);
+            const isClickInsideDelete = Button_Delete_Users?.current?.contains(event.target);
     
             if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete) {
                 setIsSelectedRow(null);
@@ -53,14 +53,14 @@ export default function Table_Users(){
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    },[Modal,Form,Button_Edit_U, Button_Delete_U]);
+    },[Modal_Users,Form_Users,Button_Edit_Users, Button_Delete_Users]);
     // UseEffect para reiniciar la vista de contraseña
     useEffect(() => {
         let timeoutId;
 
         if(isUserViewPassword){
             timeoutId = setTimeout(() => {
-                const promise = new Promise(async (resolve,reject) => {
+                const promise = new Promise((resolve,reject) => {
                     try{
                         setTimeout(() => {
                             resolve('¡Se ocultaron las contraseñas!...');
@@ -68,7 +68,7 @@ export default function Table_Users(){
                                 setIsUserViewPassword(false);
                             },500);
                         },1000);
-                    }catch(error){
+                    }catch(e){
                         return reject('¡Ocurrio un error inesperado!...');
                     }
                 });
@@ -131,21 +131,31 @@ export default function Table_Users(){
                     ))}
                 </Tbody>
             </Table>
-            <Container_Row_90_Center>
-                <Tooltip title='Página anterior' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={prevPage}>
-                        <Icon_White_18><GrPrevious/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesUsers}</Text_A_16_Center>
-                <Tooltip title='Página siguiente' placement="top">
-                    <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesUsers || totalPagesUsers === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                        onClick={nextPageUsers}>
-                        <Icon_White_18><GrNext/></Icon_White_18>
-                    </Button_Icon_Blue_180>
-                </Tooltip>
-            </Container_Row_90_Center>
+            {currentRecordsUsers.length !== 0 ? (
+                <>
+                    <Container_Row_90_Center>
+                        <Tooltip title='Página anterior' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={prevPage}>
+                                <Icon_White_18><GrPrevious/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesUsers}</Text_A_16_Center>
+                        <Tooltip title='Página siguiente' placement="top">
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesUsers || totalPagesUsers === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={nextPageUsers}>
+                                <Icon_White_18><GrNext/></Icon_White_18>
+                            </Button_Icon_Blue_180>
+                        </Tooltip>
+                    </Container_Row_90_Center>
+                </>
+            ):(
+                <>
+                    <Container_Row_90_Center>
+                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
+                    </Container_Row_90_Center>
+                </>
+            )}
         </>
     );
 }

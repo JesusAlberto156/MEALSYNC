@@ -90,7 +90,7 @@ export const Text_Fields_Status = ({ children }) => {
         </TextFieldsStatusContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de proveedor ✔️
+// Función contexto para controlar los campos de registro de un formulario de proveedor 
 export const Text_Fields_Supplier = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useState({
@@ -107,7 +107,7 @@ export const Text_Fields_Supplier = ({ children }) => {
         </TextFieldsSupplierContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de pedidos para el inventario ✔️
+// Función contexto para controlar los campos de registro de un formulario de pedidos para el inventario 
 export const Text_Fields_Warehouse = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useState({
@@ -130,7 +130,7 @@ export const Text_Fields_Warehouse = ({ children }) => {
         </TextFieldsWarehouseContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de insumos ✔️
+// Función contexto para controlar los campos de registro de un formulario de insumos 
 export const Text_Fields_Supply = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useState({
@@ -148,7 +148,7 @@ export const Text_Fields_Supply = ({ children }) => {
         </TextFieldsSupplyContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de tipos de insumos ✔️
+// Función contexto para controlar los campos de registro de un formulario de tipos de insumos 
 export const Text_Fields_Supply_Types = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useState({
@@ -164,7 +164,7 @@ export const Text_Fields_Supply_Types = ({ children }) => {
         </TextFieldsSupplyTypesContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de tipos de insumos ✔️
+// Función contexto para controlar los campos de registro de un formulario de tipos de insumos 
 export const Text_Fields_Units = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsUnits,setIsTextFieldsUnits] = useState({

@@ -15,9 +15,9 @@ ______ELIMINAR______
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______VISUALIZAR______
-- Detalles en la tabla 
-- Diseño de la interfaz 
-- Detalles en el buscador 
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
 -------------------------------- USUARIOS --
 -------------------------------- PERMISOS --
 ______AGREGAR______
@@ -30,36 +30,29 @@ ______EDITAR______
 - Implementación del teclado
 - Funcionalidad 
 - Diseño de la interfaz 
-______ELIMINAR______
-- Verificación de los campos
+______HABILITAR/DESHABILITAR______
+- Verificación de los campos 
 - Implementación del teclado
-- Funcionalidad
-- Diseño de la interfaz
-______VISUALIZAR______
-- Detalles en la tabla 
+- Funcionalidad 
 - Diseño de la interfaz 
-- Detalles en el buscador 
+______VISUALIZAR______
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
 -------------------------------- PERMISOS --
 -------------------------------- ESTATUS --
 ______AGREGAR______
-- Verificación de los campos 
-- Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
-______EDITAR______
-- Verificación de los campos 
-- Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
-______ELIMINAR______
-- Verificación de los campos
-- Implementación del teclado
-- Funcionalidad
-- Diseño de la interfaz
+- Verificación de los campos ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
+______HABILITAR/DESHABILITAR______
+- Verificación de los campos ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______VISUALIZAR______
-- Detalles en la tabla 
-- Diseño de la interfaz 
-- Detalles en el buscador 
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
 -------------------------------- ESTATUS --
 
 -------------------------------- INVENTARIO --

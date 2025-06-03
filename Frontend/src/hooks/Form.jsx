@@ -366,7 +366,7 @@ export const HandlePermissionsEnable = () => {
     // Retorno de la función del hook
     return handlePermissionsEnable;
 }
-// Hook para filtrar los usuarios cuando no tiene estatus
+// Hook para filtrar los usuarios cuando no tiene estatus ✔️
 export const FilteredRecordsHasStatus = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
@@ -378,7 +378,7 @@ export const FilteredRecordsHasStatus = () => {
     // Retorno de la función del hook
     return filteredRecordsHasStatus;
 }
-// Hook para agregar un estatus a un usuario desde el modal
+// Hook para agregar un estatus a un usuario desde el modal ✔️
 export const HandleStatusSAdd = () => {
     // Constantes con el valor de los contextos 
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
@@ -390,58 +390,76 @@ export const HandleStatusSAdd = () => {
     // Función del hook
     const handleStatusSAdd = () => {
         if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Add'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsStatus.iduser === 0 && isTextFieldsStatus.user === ''){
+                        if(isTextFieldsStatus.iduser === 0 && isTextFieldsStatus.user === '' || isTextFieldsStatus.status === ''){
                             setIsActionBlock(false);
-                            return reject('¡No ha seleccionado un usuario!...')
-                        };
-                        if(isTextFieldsStatus.status === ''){
-                            setIsActionBlock(false);
-                            return reject('¡No ha seleccionado un estado!...')
+                            return reject('¡Falta información del estatus del usuario!...')
                         };
 
-                        resolve('¡Campos verificados!...');
+                        resolve('Información verificada!...');
                         
                         setTimeout(() => {
                             setIsStatusAdd(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando campos!...');
+            Alert_Verification(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
     return handleStatusSAdd;
 }
-// Hook para habilitar a un usuario desde el modal
+// Hook para habilitar a un usuario desde el modal ✔️
 export const HandleStatusEnable = () => {
     // Constantes con el valor de los contextos 
     const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     // Función del hook
     const handleStatusEnable = () => {
-        if(isSelectedRow !== null){
-            if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Enable'){
-                setIsStatusEnable(isSelectedRow);
-                setIsActionBlock(false);
-            }
+        if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Enable'){
+             const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(false);
+                    setTimeout(() => {
+                        if(isTextFieldsStatus.status === 'Habilitado'){
+                            if(isTextFieldsStatus.iduser === isLoggedUser.idusuario){
+                                setIsActionBlock(true);
+                                return reject('¡No se puede deshabilitar el usuario de la sesión!...')
+                            };
+                        }
+
+                        resolve('Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsStatusEnable(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(true);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
     return handleStatusEnable;
 }
+
 // Hook para agregar un porveedor desde el modal
 export const HandleSupplierAdd = () => {
     // Constantes con el valor de los contextos 

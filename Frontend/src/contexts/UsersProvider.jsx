@@ -414,7 +414,7 @@ export const Status_Add = ({ children }) => {
 // Función contexto para controlar los usuarios habilitados/deshabilitados ✔️
 export const Status_Enable = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isStatusEnable,setIsStatusEnable] = useState([]);
+    const [isStatusEnable,setIsStatusEnable] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
         <StatusEnableContext.Provider value={[isStatusEnable,setIsStatusEnable]}>

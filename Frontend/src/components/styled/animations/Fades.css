@@ -1,0 +1,57 @@
+/*________________ANIMATIONS______________*/
+/*---------- BUTTOM */
+/*------------ IN */
+.fade-button-in {
+	-webkit-animation: fade-button-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-button-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+/*------------ IN */
+/*------------ OUT */
+.fade-button-out {
+	-webkit-animation: fade-button-out 1s ease-out both;
+	        animation: fade-button-out 1s ease-out both;
+}
+/*------------ OUT */
+/*---------- BUTTOM */
+/*________________ANIMATIONS______________*/
+
+/*________________FADES______________*/
+/*---------- BUTTOM */
+/*------------ IN */
+@-webkit-keyframes fade-button-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fade-button-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+/*------------ IN */
+/*------------ OUT */
+@-webkit-keyframes fade-button-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fade-button-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+/*------------ OUT */
+/*---------- BUTTOM */
+/*________________FADES______________*/

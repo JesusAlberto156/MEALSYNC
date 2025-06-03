@@ -21,13 +21,16 @@ export const UserTypesContext = createContext(null);
 //__________IMAGES____________
 import Logo_Warning_Light from '../components/imgs/Logo-Warning-Light.png';
 import Logo_Warning_Dark from '../components/imgs/Logo-Warning-Dark.webp';
+import Logo_Success_Light from '../components/imgs/Logo-Success-Light.webp';
+import Logo_Success_Dark from '../components/imgs/Logo-Success-Dark.png';
 //__________IMAGES____________
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 import { LoggedLoggedContext,LoggedUserContext,LoggedTypeContext,LoggedLogContext,LoggedPermissionsContext } from "./SessionProvider";
 import { ThemeModeContext } from "./ViewsProvider";
+import { UserUpdatedContext } from "./VariablesProvider";
 // Estilos personalizados
-import { Alert_Warning } from "../components/styled/Alerts";
+import { Alert_Warning,Alert_Success } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para las funcionalidades de las tablas de los usuarios  ✔️
@@ -230,6 +233,7 @@ export const Permissions = ({ children }) => {
     const [isLoggedType] = useContext(LoggedTypeContext);
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext); 
+    const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     // UseRef para las alertas
     const alertShow = useRef(false);
     // UseState para controlar el valor del contexto
@@ -257,8 +261,10 @@ export const Permissions = ({ children }) => {
     // UseEffect para verificar que los datos existan
     useEffect(() => {
         if(isLoggedLogged && isPermissions.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current){
-            const user = isPermissions.find(user => user.idusuario === isLoggedUser.idusuario);
+            const user = isPermissions.find(user => user.idusuario === isLoggedUser.idusuario && isLoggedUser.usuario === isUserUpdated);
             if(user){
+                const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
+                const Image_Success = themeMode ? Logo_Success_Light : Logo_Success_Dark;
                 if(!user.superadministrador){
                     if(isLoggedType === 'Cook' && !user.cocinero || 
                         isLoggedType === 'Nutritionist' && !user.nutriologo ||
@@ -266,13 +272,14 @@ export const Permissions = ({ children }) => {
                         isLoggedType === 'Administrator' && !user.administrador ||
                         isLoggedType === 'Chef' && !user.chef ||
                         isLoggedType === 'Storekeeper' && !user.almacenista){
-                        const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                         alertShow.current = true;
                         Alert_Warning('MEALSYNC','¡Ha perdido su permiso de acceso, por un administrador!...',themeMode,Image_Warning);
                         setTimeout(() => {
                             setIsLoggedLog(true);
                         },3000);
                     }else{
+                        setIsUserUpdated('');
+                        Alert_Warning('MEALSYNC','¡El super administrador ha sido deshabilitado!...',themeMode,Image_Warning);
                         const jsonPermission = JSON.stringify(user);
                         const encryptedPermission = encryptData(jsonPermission);
                         if(encryptedPermission){
@@ -281,8 +288,13 @@ export const Permissions = ({ children }) => {
                         }else{
                             return console.log('¡Error al encriptar las credenciales!...');
                         }
+                        setTimeout(() => {
+                            setIsLoggedLog(true);
+                        },3000);
                     }
                 }else{
+                    setIsUserUpdated('');
+                    Alert_Success('MEALSYNC','¡El super administrador ha sido habilitado!...',themeMode,Image_Success);
                     const jsonPermission = JSON.stringify(user);
                     const encryptedPermission = encryptData(jsonPermission);
                     if(encryptedPermission){
@@ -291,7 +303,11 @@ export const Permissions = ({ children }) => {
                     }else{
                         return console.log('¡Error al encriptar las credenciales!...');
                     }
+                    setTimeout(() => {
+                        setIsLoggedLog(true);
+                    },3000);
                 }
+                
                 const jsonPermission = JSON.stringify(user);
                 const encryptedPermission = encryptData(jsonPermission);
                 if(encryptedPermission){
@@ -335,7 +351,7 @@ export const Permissions_Edit = ({ children }) => {
 // Función Contexto para controlar los datos habilitados en el permiso del superadministrador de un usuario ✔️
 export const Permissions_Enable = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isPermissionsEnable,setIsPermissionsEnable] = useState([]);
+    const [isPermissionsEnable,setIsPermissionsEnable] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return(
         <PermissionsEnableContext.Provider value={[isPermissionsEnable,setIsPermissionsEnable]}>

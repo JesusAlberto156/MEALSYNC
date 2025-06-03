@@ -8,7 +8,6 @@ import { AnimationContext,ActionBlockContext,VerificationBlockContext } from "..
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../contexts/SelectedesProvider";
 import { TextFieldsUserContext } from "../contexts/FormsProvider";
-import { PermissionsEnableContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
 import { ResetSearchTerms,ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
@@ -120,8 +119,6 @@ export const HandleModalView = () => {
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
     const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
-    const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext);
-    const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [isSubModal,setIsSubModal] = useContext(SubModalContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
@@ -192,6 +189,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+
         if(currentMView === 'Permissions-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -217,14 +215,11 @@ export const HandleModalView = () => {
                 setIsActionBlock(false);
                 setIsSelectedRow(null);
                 setIsVerificationBlock(false);
-                resetTextFieldsUser();
-                setIsPermissionsEnable([]);
                 sessionStorage.removeItem('Action-Block');
                 sessionStorage.removeItem('Verification-Block');
                 navigate(route,{ replace: true });
             },750);
         }
-
         if(currentMView === 'Status-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);

@@ -41,7 +41,7 @@ export default function Permissions_Edit(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
+    const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
     const [socket] = useContext(SocketContext);
     const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
@@ -52,11 +52,12 @@ export default function Permissions_Edit(){
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isPermissionsEdit){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
                         socket.emit('Permissions-Update',isTextFieldsPermissions.iduser,isTextFieldsPermissions.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor)
-
+                        socket.emit('Message-Permissions',isTextFieldsPermissions.user);
+                        
                         resolve('¡MEALSYNC edito los permisos al usuario!...')
                         
                         const route = sessionStorage.getItem('Route');
@@ -72,7 +73,7 @@ export default function Permissions_Edit(){
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsPermissionsEdit(false);
                     return reject('¡Ocurrio un error inesperado!...');
@@ -100,8 +101,8 @@ export default function Permissions_Edit(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal}>
-                        <Container_Form_450 ref={Form} ThemeMode={themeMode} className={currentMView === 'Permissions-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Modal ref={Modal_Permissions}>
+                        <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permissions-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_30_Center>
                             <Container_Row_NG_90_Left className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>

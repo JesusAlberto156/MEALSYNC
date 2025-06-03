@@ -1,19 +1,18 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useState } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { UsersContext,PermissionsEnableContext } from "../../../../contexts/UsersProvider";
+import { PermissionsEnableContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefPermissionsContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandlePermissionsEnable } from "../../../../hooks/Form";
 //__________ICONOS__________
@@ -39,28 +38,27 @@ export default function Permissions_Enable(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isUsers] = useContext(UsersContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const {Modal,Form,Button_Edit_P,Button_Enable_P} = useContext(RefPermissionsContext);
+    const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [socket] = useContext(SocketContext);
-    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handlePermissionsEnable = HandlePermissionsEnable();
-    const resetTextFieldsUser = ResetTextFieldsUser();
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
-        if(isPermissionsEnable.length !== 0){
-            const promise = new Promise(async (resolve,reject) => {
+        if(isPermissionsEnable){
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Permission-Update',isPermissionsEnable.idusuario,isTextFieldsPermissions.user,isPermissionsEnable.superadministrador ? 0:1);
+                        socket.emit('Permission-Update',isTextFieldsPermissions.iduser,isTextFieldsPermissions.user,isSelectedRow.superadministrador ? 0:1);
+                        socket.emit('Message-Permission',isTextFieldsPermissions.user);
 
-                        if(isPermissionsEnable.superadministrador){
+                        if(isSelectedRow.superadministrador){
                             resolve('¡MEALSYNC deshabilito el super administrador al usuario!...');
                         }else{
                             resolve('¡MEALSYNC Habilito el super administrador al usuario!...');
@@ -74,23 +72,22 @@ export default function Permissions_Enable(){
                             setIsModal(false);
                             sessionStorage.setItem('Modal',false);
                             setIsActionBlock(false);
-                            setIsPermissionsEnable([]);
+                            setIsPermissionsEnable(false);
                             setIsSelectedRow(null);
-                            resetTextFieldsUser();
                             sessionStorage.removeItem('Action-Block');
                             sessionStorage.removeItem('Verification-Block');
                             setIsVerificationBlock(false);
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(true);
-                    setIsPermissionsEnable([]);
+                    setIsPermissionsEnable(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             }); 
             
-            Alert_Verification(promise,isPermissionsEnable.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
+            Alert_Verification(promise,isSelectedRow.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
         }
     },[isPermissionsEnable]);
     // UseEffect para quitar la suscrpcion de socket
@@ -101,7 +98,7 @@ export default function Permissions_Enable(){
         };
 
         socket.on('Permission-Update',handlePermissionUpdate);
-        
+
         return () => {
             socket.off('Permission-Update',handlePermissionUpdate);
         }
@@ -111,14 +108,14 @@ export default function Permissions_Enable(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal}>
-                        <Container_Form_450 ref={Form} ThemeMode={themeMode} className={currentMView === 'Permissions-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Modal ref={Modal_Permissions}>
+                        <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permissions-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.superadministrador ? 'DESHABILITAR SUPER ADMINISTRADOR':'HABILITAR SUPER ADMINISTRADOR'}</Text_Title_30_Center>
-                            <Container_Row_NG_90_Left className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Form_Verification/>
+                            <Container_Row_NG_90_Left>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                                 <Text_P_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsPermissions.user}</Text_P_16_Left>
                             </Container_Row_NG_90_Left>
-                            <Form_Verification/>
                             <Container_Row_90_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'

@@ -21,18 +21,15 @@ ______VISUALIZAR______
 -------------------------------- USUARIOS --
 -------------------------------- PERMISOS --
 ______AGREGAR______
-- Verificación de los campos 
-- Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______EDITAR______
-- Verificación de los campos 
-- Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______HABILITAR/DESHABILITAR______
 - Verificación de los campos 
-- Implementación del teclado
 - Funcionalidad 
 - Diseño de la interfaz 
 ______VISUALIZAR______

@@ -11,6 +11,13 @@ import { io } from '../../index.js';
 export const socketEvents = () => {
   io.on('connection', (socket) => {
     console.log(`Cliente conectado: ${socket.id}`);
+    // Mensajes
+    socket.on('Message-Permission', (user) => {
+        io.emit('Message-Permission', '¡Permiso de super administrador actualizado a!...', user);
+    });
+    socket.on('Message-Permissions', (user) => {
+        io.emit('Message-Permissions', '¡Permisos actualizados a!...', user);
+    });
     // Usuarios
     Users_GET(socket);
     Users_INSERT(socket);

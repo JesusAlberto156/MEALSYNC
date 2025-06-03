@@ -51,6 +51,41 @@ export const Alert_Greeting = (Title,Message,ThemeMode,Image) => {
     });
 };
 //____________GREETING____________
+//____________GREETING____________
+export const Alert_Success = (Title,Message,ThemeMode,Image) => {
+    return Swal.fire({
+        title: Title,
+        text: Message,
+        showConfirmButton: false,
+        width: '400px',
+        heightAuto: true,
+        timer: 3000,
+        backdrop: false,
+        customClass: {
+            popup: ThemeMode ? 'success-theme-light' : 'success-theme-dark',
+            title: ThemeMode ? 'success-title-light' : 'success-title-dark',
+        },
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        imageUrl: Image,
+        imageWidth: 100,
+        imageHeight: 100,
+        position: 'center',
+    });
+};
+//____________GREETING____________
 //____________WARNING____________
 export const Alert_Warning = (Title,Message,ThemeMode,Image) => {
     return Swal.fire({

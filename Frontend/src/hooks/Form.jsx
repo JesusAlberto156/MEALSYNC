@@ -3,14 +3,14 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
-import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
+import { LoggedLogContext,LoggedUserContext,LoggedPermissionsContext } from "../contexts/SessionProvider";
 import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext } from "../contexts/FormsProvider";
-import { UsersContext,UserAddContext,UserEditContext,UserViewPasswordContext,UserDeleteContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { UsersContext,UsersDeleteContext,UserAddContext,UserEditContext,UserViewPasswordContext,UserDeleteContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../contexts/SelectedesProvider";
 import { SuppliesContext,SupplyAddContext,SupplyEditContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,UnitsContext,UnitAddContext,UnitEditContext } from "../contexts/WarehouseProvider";
-import { VerificationBlockContext,ActionBlockContext } from "../contexts/VariablesProvider";
+import { VerificationBlockContext,ActionBlockContext,UserUpdatedContext } from "../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser } from "./Texts";
@@ -233,7 +233,7 @@ export const HandleUserEdit = () => {
     // Retorno de la función del hook
     return handleUserAdd;
 }
-// Hook para eliminar un usuario desde el modal ✔️
+// Hook para eliminar un usuario desde el modal 
 export const HandleUserDelete = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -273,19 +273,23 @@ export const HandleUserDelete = () => {
     // Retorno de la función del hook
     return handleUserAdd;
 }
-// Hook para filtrar los usuarios cuando no tiene permisos
+// Hook para filtrar los usuarios cuando no tiene permisos ✔️
 export const FilteredRecordsHasPermissions = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
     const [isPermissions] = useContext(PermissionsContext);
+    const [isUsersDelete] = useContext(UsersDeleteContext);
     // Función del hook
     const filteredRecordsHasPermissions = isUsers.filter((data) => {
+        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        if (isDeleted) return false;
+
         return !isPermissions.some(permission => permission.idusuario === data.idusuario);
     });
     // Retorno de la función del hook
     return filteredRecordsHasPermissions;
 }
-// Hook para agregar los permisos a un usuario desde el modal
+// Hook para agregar los permisos a un usuario desde el modal ✔️
 export const HandlePermissionsAdd = () => {
     // Constantes con el valor de los contextos 
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
@@ -297,7 +301,7 @@ export const HandlePermissionsAdd = () => {
     // Función del hook
     const handlePermissionsAdd = () => {
         if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Add'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -306,25 +310,25 @@ export const HandlePermissionsAdd = () => {
                             return reject('¡No ha seleccionado un usuario!...')
                         };
 
-                        resolve('¡Usuario seleccionado!...');
+                        resolve('Información verificada!...');
                         
                         setTimeout(() => {
                             setIsPermissionsAdd(true);
                         },500);
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando usuario!...');
+            Alert_Verification(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
     return handlePermissionsAdd;
 }
-// Hook para editar los permisos a un usuario desde el modal
+// Hook para editar los permisos a un usuario desde el modal ✔️
 export const HandlePermissionsEdit = () => {
     // Constantes con el valor de los contextos 
     const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
@@ -332,20 +336,59 @@ export const HandlePermissionsEdit = () => {
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
+    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isPermissions] = useContext(PermissionsContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const handlePermissionsEdit = () => {
-        if(isSelectedRow !== null){
-            if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Edit'){
-                setIsActionBlock(true);
-                setIsPermissionsEdit(true);
-            }
+        if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Edit'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsPermissions.administrator === isSelectedRow.administrador && isTextFieldsPermissions.chef === isSelectedRow.chef && isTextFieldsPermissions.storekeeper === isSelectedRow.almacenista && isTextFieldsPermissions.cook === isSelectedRow.cocinero && isTextFieldsPermissions.nutritionist === isSelectedRow.nutriologo && isTextFieldsPermissions.doctor === isSelectedRow.medico){
+                            setIsActionBlock(false);
+                            return reject('¡No hay permisos modificados!...');
+                        }
+
+                        if(isTextFieldsPermissions.iduser === isLoggedUser.idusuario){
+                            setIsActionBlock(false);
+                            return reject('¡No se puede editar los permisos del usuario de la sesión!...');
+                        };
+
+                        
+                        if(!isLoggedPermissions.superadministrador){
+                            const exists = isPermissions.find((user) => user.idusuario === isTextFieldsPermissions.iduser)
+
+                            if(exists){
+                                if(exists.superadministrador){
+                                    setIsActionBlock(false);
+                                    return reject('¡No se puede editar los permisos a un usuario con permisos de mayor jerarquía!...')
+                                }
+                            }
+                        }
+
+                        resolve('Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsPermissionsEdit(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
     return handlePermissionsEdit;
 }
-// Hook para habilitar/deshabilitar el permiso de superadminitrador a un usuario desde el modal
+// Hook para habilitar/deshabilitar el permiso de superadminitrador a un usuario desde el modal ✔️
 export const HandlePermissionsEnable = () => {
     // Constantes con el valor de los contextos 
     const [isSelectedRow] = useContext(SelectedRowContext);
@@ -354,13 +397,34 @@ export const HandlePermissionsEnable = () => {
     const [currentMView] = useContext(ModalViewContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     // Función del hook
     const handlePermissionsEnable = () => {
-        if(isSelectedRow !== null){
-            if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Enable'){
-                setIsPermissionsEnable(isSelectedRow);
-                setIsActionBlock(false);
-            }
+        if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Enable'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(false);
+                    setTimeout(() => {
+                        if(isTextFieldsPermissions.iduser === isLoggedUser.idusuario){
+                            setIsActionBlock(true);
+                            return reject('¡No se puede deshabilitar el permiso de super administrador al usuario de la sesión!...');
+                        };
+
+                        resolve('Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsPermissionsEnable(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(true);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -371,8 +435,12 @@ export const FilteredRecordsHasStatus = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
     const [isStatusAll] = useContext(StatusContext);
+    const [isUsersDelete] = useContext(UsersDeleteContext);
     // Función del hook
     const filteredRecordsHasStatus = isUsers.filter((data) => {
+        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        if (isDeleted) return false;
+
         return !isStatusAll.some(status => status.idusuario === data.idusuario);
     });
     // Retorno de la función del hook
@@ -424,21 +492,35 @@ export const HandleStatusEnable = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
+    const [isPermissions] = useContext(PermissionsContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     // Función del hook
     const handleStatusEnable = () => {
         if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Enable'){
-             const promise = new Promise((resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(false);
                     setTimeout(() => {
                         if(isTextFieldsStatus.status === 'Habilitado'){
                             if(isTextFieldsStatus.iduser === isLoggedUser.idusuario){
                                 setIsActionBlock(true);
-                                return reject('¡No se puede deshabilitar el usuario de la sesión!...')
+                                return reject('¡No se puede deshabilitar el usuario de la sesión!...');
                             };
+
+                            
+                            if(!isLoggedPermissions.superadministrador){
+                                const exists = isPermissions.find((user) => user.idusuario === isTextFieldsStatus.iduser)
+
+                                if(exists){
+                                    if(exists.superadministrador){
+                                        setIsActionBlock(true);
+                                        return reject('¡No se puede deshabilitar a un usuario con permisos de mayor jerarquía!...')
+                                    }
+                                }
+                            }
                         }
 
                         resolve('Información verificada!...');

@@ -6,6 +6,8 @@ import { Outlet } from "react-router-dom";
 import { SidebarContext,ThemeModeContext } from "../../contexts/ViewsProvider";
 import { LoggedUserContext } from "../../contexts/SessionProvider";
 import { RefAlertGreetingContext } from "../../contexts/RefsProvider";
+import { SocketContext } from "../../contexts/SocketProvider";
+import { UserUpdatedContext } from "../../contexts/VariablesProvider";
 //__________IMAGES____________
 import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
 import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
@@ -24,6 +26,8 @@ export default function Index_Administration(){
     const [isSidebar] = useContext(SidebarContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
     const isAlertGreeting = useContext(RefAlertGreetingContext);
+    const [socket] = useContext(SocketContext);
+    const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC_Administración';
@@ -41,6 +45,26 @@ export default function Index_Administration(){
             isAlertGreeting.current = true;
         }
     },[]);
+    // useEffect para los eventos de socket
+    useEffect(() => {
+        const handleMessagePermission = (message,user) => {
+            setIsUserUpdated(user)
+            console.log(message,user);
+        };
+
+        const handleMessagePermissions = (message,user) => {
+            setIsUserUpdated(user)
+            console.log(message,user);
+        };
+
+        socket.on('Message-Permission',handleMessagePermission);
+        socket.on('Message-Permissions',handleMessagePermissions);
+
+        return () => {
+            socket.off('Message-Permission',handleMessagePermission);
+            socket.off('Message-Permissions',handleMessagePermissions);
+        }
+    },[socket]);
     // Estructura del componente
     return(
         <>

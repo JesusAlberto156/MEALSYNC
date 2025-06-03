@@ -34,6 +34,42 @@
     padding: 0px
 }
 /*____________GREETING____________*/
+/*____________SUCCESS____________*/
+.success-theme-light {
+    background-color: rgb(20, 165, 76);
+    color: rgb(255, 255, 255);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.success-theme-dark {
+    background-color: rgb(60, 188, 109);
+    color: rgb(0, 0, 0);
+    font-family: 'Century Gothic','Prompt';
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 50px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+.success-title-light {
+    color: rgb(60, 188, 109);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+.success-title-dark {
+    color: rgb(20, 165, 76);
+    font-family: 'Century Gothic','Prompt';
+    font-style: italic;
+    font-size: 30px;
+    padding: 0px
+}
+/*____________SUCCESS____________*/
 /*____________WARNING____________*/
 .warning-theme-light {
     background-color: rgb(250, 238, 66);
@@ -162,6 +198,24 @@
         font-size: 25px;
     }
     /*____________GREETING____________*/
+    /*____________SUCCESS____________*/
+    .success-theme-light {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .success-theme-dark {
+        font-size: 14px;
+        padding: 8px;
+        padding-bottom: 25px;
+    }
+    .success-title-light {
+        font-size: 25px;
+    }
+    .success-title-dark {
+        font-size: 25px;
+    }
+    /*____________SUCCESS____________*/
     /*____________WARNING____________*/
     .warning-theme-light {
         font-size: 14px;
@@ -237,6 +291,24 @@
         font-size: 20px;
     }
     /*____________GREETING____________*/
+    /*____________SUCCESS____________*/
+    .success-theme-light {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .success-theme-dark {
+        font-size: 12px;
+        padding: 6px; 
+        padding-bottom: 20px;
+    }
+    .success-title-light {
+        font-size: 20px;
+    }
+    .success-title-dark {
+        font-size: 20px;
+    }
+    /*____________SUCCESS____________*/
     /*____________WARNING____________*/
     .warning-theme-light {
         font-size: 12px;

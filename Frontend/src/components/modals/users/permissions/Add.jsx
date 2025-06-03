@@ -25,7 +25,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
 import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -50,7 +50,7 @@ export default function Permissions_Add(){
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isPermissionsAdd){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
                         socket.emit('Permissions-Insert',isTextFieldsPermissions.iduser,isTextFieldsPermissions.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
@@ -70,7 +70,7 @@ export default function Permissions_Add(){
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsPermissionsAdd(false);
                     return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
@@ -105,65 +105,75 @@ export default function Permissions_Add(){
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                                 <Text_A_16_Left ThemeMode={themeMode}>- Selecciona un usuario...</Text_A_16_Left>
                             </Container_Row_NG_95_Left>
-                            <Container_Row_95_Center>
-                                <Select
-                                    options={filteredRecordsHasPermissions.map((user) => ({
-                                        value: user.idusuario,
-                                        label: user.usuario
-                                    }))}
-                                    styles={{
-                                        control: (provided) => ({
-                                            ...provided,
-                                            width: '350px',
-                                            padding: '6px',
-                                            border: '2px solid black',
-                                            cursor: 'pointer',
-                                            borderRadius: '20px',
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            fontSize: '18px',
-                                            '@media (max-width: 768px)':{
-                                                width: '300px',
-                                                padding: '4px',
-                                                fontSize: '16px',
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                width: '250px',
-                                                padding: '2px',
-                                                fontSize: '14px',
-                                            },
-                                        }),
-                                        menu: (provided) => ({
-                                            ...provided,
-                                            overflow: 'hidden',
-                                            borderRadius:'15px',
-                                        }),
-                                        menuList: (provided) => ({
-                                            ...provided,
-                                            maxHeight:175,
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            overflowY:'auto',
-                                            scrollbarWidth: 'none',
-                                            '&::-webkit-scrollbar': {
-                                                display:'none',
-                                            },
-                                            '@media (max-width: 768px)':{
-                                                maxHeight:150,
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                maxHeight:125,
-                                            },
-                                        })
-                                    }}
-                                    placeholder='Seleccione uno...'
-                                    value={filteredRecordsHasPermissions
-                                        .map(user => ({ value: user.idusuario, label: user.usuario }))
-                                        .find(option => option.value === isTextFieldsPermissions.iduser)
-                                    }
-                                    onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, iduser: e.value, user: e.label}))}
-                                />
-                            </Container_Row_95_Center> 
+                            {filteredRecordsHasPermissions.length !== 0 ? (
+                                <>
+                                    <Container_Row_95_Center>
+                                        <Select
+                                            options={filteredRecordsHasPermissions.map((user) => ({
+                                                value: user.idusuario,
+                                                label: user.usuario
+                                            }))}
+                                            styles={{
+                                                control: (provided) => ({
+                                                    ...provided,
+                                                    width: '350px',
+                                                    padding: '6px',
+                                                    border: '2px solid black',
+                                                    cursor: 'pointer',
+                                                    borderRadius: '20px',
+                                                    fontFamily: 'Century Gothic',
+                                                    fontStyle: 'normal',
+                                                    fontSize: '18px',
+                                                    '@media (max-width: 768px)':{
+                                                        width: '300px',
+                                                        padding: '4px',
+                                                        fontSize: '16px',
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        width: '250px',
+                                                        padding: '2px',
+                                                        fontSize: '14px',
+                                                    },
+                                                }),
+                                                menu: (provided) => ({
+                                                    ...provided,
+                                                    overflow: 'hidden',
+                                                    borderRadius:'15px',
+                                                }),
+                                                menuList: (provided) => ({
+                                                    ...provided,
+                                                    maxHeight:175,
+                                                    fontFamily: 'Century Gothic',
+                                                    fontStyle: 'normal',
+                                                    overflowY:'auto',
+                                                    scrollbarWidth: 'none',
+                                                    '&::-webkit-scrollbar': {
+                                                        display:'none',
+                                                    },
+                                                    '@media (max-width: 768px)':{
+                                                        maxHeight:150,
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        maxHeight:125,
+                                                    },
+                                                })
+                                            }}
+                                            placeholder='Seleccione uno...'
+                                            value={filteredRecordsHasPermissions
+                                                .map(user => ({ value: user.idusuario, label: user.usuario }))
+                                                .find(option => option.value === isTextFieldsPermissions.iduser)
+                                            }
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, iduser: e.value, user: e.label}))}
+                                        />
+                                    </Container_Row_95_Center>
+                                </>
+                            ):(
+                                <>
+                                    <Container_Row_95_Center>
+                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                    </Container_Row_95_Center>
+                                </>
+                            )} 
                             <Container_Row_NG_95_Left>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
                                 <Text_A_16_Left ThemeMode={themeMode}>- Área de administración...</Text_A_16_Left>

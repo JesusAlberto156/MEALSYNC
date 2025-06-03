@@ -8,6 +8,7 @@ export const ActionBlockContext = createContext(null);
 export const KeyboardContext = createContext(null);
 export const KeyboardViewContext = createContext(null);
 export const TouchContext = createContext(null);
+export const UserUpdatedContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para las variables generales para funcionalidades ✔️
@@ -19,7 +20,9 @@ export const Index_Variables = ({children}) => {
                     <Keyboard>
                         <Keyboard_View>
                             <Touch>
-                                {children}
+                                <User_Updated>
+                                    {children}
+                                </User_Updated>
                             </Touch>
                         </Keyboard_View>
                     </Keyboard>
@@ -102,5 +105,16 @@ export const Touch = ({children}) => {
         <TouchContext.Provider value={[isTouch,setIsTouch]}>
             {children}
         </TouchContext.Provider>
+    );
+}
+// Función Contexto para controlar las alertas de los usuarios editados ✔️
+export const User_Updated = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isUserUpdated,setIsUserUpdated] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <UserUpdatedContext.Provider value={[isUserUpdated,setIsUserUpdated]}>
+            {children}
+        </UserUpdatedContext.Provider>
     );
 }

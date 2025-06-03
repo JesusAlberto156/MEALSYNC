@@ -12,7 +12,7 @@ import { TextFieldsPermissionsContext } from "../../../contexts/FormsProvider"
 import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
 import { TableActionsPermissions } from "../../../hooks/Table"
-import { ResetTextFieldsPermissions } from "../../../hooks/Texts"
+import { ResetTextFieldsPermissions,ResetTextFieldsUser } from "../../../hooks/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 // Iconos de la sección de Administración del login
@@ -72,10 +72,12 @@ export default function Table_Permissions(){
             }));
         }else{
             resetTextFieldsPermissions();
+            resetTextFieldsUser();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = TableActionsPermissions();
     // Estructura del componente
     return(

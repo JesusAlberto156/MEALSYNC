@@ -135,6 +135,7 @@ export const HandleModalView = () => {
         setIsModal(true);
         sessionStorage.setItem('Modal',true);
         const route = sessionStorage.getItem('Route');
+        // CERRAR SESIÓN
         if(currentMView === 'Out-Login' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -142,6 +143,8 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+        // CERRAR SESIÓN
+        // USUARIOS
         if(currentMView === 'User-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -156,6 +159,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+
         if(currentMView === 'User-View' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -189,7 +193,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-
         if(currentMView === 'Permissions-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -241,6 +244,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+        // USUARIOS
 
         if(currentMView === 'Supplier-Add' && View === ''){
             setTimeout(() => {

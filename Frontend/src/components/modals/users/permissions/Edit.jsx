@@ -116,6 +116,7 @@ export default function Permissions_Edit(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         checked={isTextFieldsPermissions.administrator}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
                                     />
@@ -124,6 +125,7 @@ export default function Permissions_Edit(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         checked={isTextFieldsPermissions.chef}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, chef: e.target.checked ? 1 : 0}))}
                                     />
@@ -132,6 +134,7 @@ export default function Permissions_Edit(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         checked={isTextFieldsPermissions.storekeeper}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
                                     />
@@ -146,6 +149,7 @@ export default function Permissions_Edit(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         checked={isTextFieldsPermissions.cook}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
                                     />
@@ -154,6 +158,7 @@ export default function Permissions_Edit(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         checked={isTextFieldsPermissions.nutritionist}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
                                     />
@@ -162,6 +167,7 @@ export default function Permissions_Edit(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         checked={isTextFieldsPermissions.doctor}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
                                     />
@@ -171,13 +177,17 @@ export default function Permissions_Edit(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Red_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleModalView('')}
+                                        disabled={isActionBlock}
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Red_180>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement='top'>
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handlePermissionsEdit()}>
+                                        onClick={() => handlePermissionsEdit()}
+                                        disabled={isActionBlock}
+                                    >
                                         <Icon_White_22><MdEdit/></Icon_White_22>
                                     </Button_Icon_Blue_180>
                                 </Tooltip>

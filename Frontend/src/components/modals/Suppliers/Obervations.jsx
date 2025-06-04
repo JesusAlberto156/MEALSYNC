@@ -12,7 +12,7 @@ import { itemDateContext } from "../../../contexts/ChartsProvider";
 import { observationsContext,suppliersContext } from "../../../contexts/SuppliersProvider";
 
 import { Container_Modal,Container_Form_450,Container_Form_Header,Container_Form_Content,Container_Column_90_Center,Container_Row_90_Center,Container_Row_100_Left,Container_Column_Border_90_Center } from "../../styled/Containers";
-import { Button_Icon_Blue_180,Button_Icon_Blue_40x100 } from "../../styled/Buttons";
+import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Icon_White_22,Icon_Red_16,Icon_Green_16,Icon_Button_Black_22 } from "../../styled/Icons";
 import { Text_Title_30,Text_Title_20,Text_A_16 } from "../../styled/Text";
 

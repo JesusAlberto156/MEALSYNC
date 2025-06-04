@@ -114,16 +114,18 @@ export default function Status_Add(){
                                                 label: user.usuario
                                             }))}
                                             styles={{
-                                                control: (provided) => ({
+                                                control: (provided,state) => ({
                                                     ...provided,
                                                     width: '300px',
                                                     padding: '6px',
                                                     border: '2px solid black',
-                                                    cursor: 'pointer',
                                                     borderRadius: '20px',
                                                     fontFamily: 'Century Gothic',
                                                     fontStyle: 'normal',
                                                     fontSize: '18px',
+                                                    cursor: state.isDisabled ? 'not-allowed' : 'pointer',
+                                                    backgroundColor: state.isDisabled ? '#f0f0f0' : 'white',
+                                                    opacity: state.isDisabled ? 0.8 : 1,
                                                     '@media (max-width: 768px)':{
                                                         width: '250px',
                                                         padding: '4px',
@@ -156,7 +158,15 @@ export default function Status_Add(){
                                                     '@media (max-width: 480px)':{
                                                         maxHeight:125,
                                                     },
-                                                })
+                                                }),
+                                                singleValue: (provided, state) => ({
+                                                    ...provided,
+                                                    color: state.isDisabled ? '#888' : 'black',
+                                                }),
+                                                placeholder: (provided, state) => ({
+                                                    ...provided,
+                                                    color: state.isDisabled ? '#aaa' : '#333',
+                                                }),
                                             }}
                                             placeholder='Seleccione uno...'
                                             value={filteredRecordsHasStatus
@@ -164,6 +174,7 @@ export default function Status_Add(){
                                                 .find(option => option.value === isTextFieldsStatus.iduser)
                                             }
                                             onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, iduser: e.value, user: e.label}))}
+                                            isDisabled={isActionBlock}
                                         />
                                     </Container_Row_95_Center>  
                                 </>
@@ -186,6 +197,7 @@ export default function Status_Add(){
                                             name="group"
                                             value={item}
                                             checked={isTextFieldsStatus.status === item}
+                                            disabled={isActionBlock}
                                             onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, status: e.target.value}))}
                                         />
                                         {item}
@@ -195,13 +207,17 @@ export default function Status_Add(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_150 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleModalView('')}
+                                        disabled={isActionBlock}
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Blue_150>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement="top">
                                     <Button_Icon_Green_150 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleStatusSAdd()}>
+                                        onClick={() => handleStatusSAdd()}
+                                        disabled={isActionBlock}
+                                    >
                                         <Icon_White_22><IoIosAddCircle/></Icon_White_22>
                                     </Button_Icon_Green_150>
                                 </Tooltip>

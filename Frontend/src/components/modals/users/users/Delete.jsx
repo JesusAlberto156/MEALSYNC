@@ -125,13 +125,17 @@ export default function User_Delete(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleModalView('')}
+                                        disabled={!isActionBlock && isVerificationBlock}  
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Blue_210>
                                 </Tooltip>
                                 <Tooltip title='Eliminar' placement='top'>
                                     <Button_Icon_Red_210 ThemeMode={themeMode} className={!isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUserDelete()}>
+                                        onClick={() => handleUserDelete()}
+                                        disabled={!isActionBlock}    
+                                    >
                                         <Icon_White_22><MdDelete/></Icon_White_22>
                                     </Button_Icon_Red_210>
                                 </Tooltip>

@@ -44,7 +44,7 @@ export default function Permissions_Enable(){
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext);
     const [socket] = useContext(SocketContext);
-    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -119,7 +119,9 @@ export default function Permissions_Enable(){
                             <Container_Row_90_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleModalView('')}
+                                        disabled={!isActionBlock && isVerificationBlock}
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Blue_180>
                                 </Tooltip>
@@ -127,7 +129,9 @@ export default function Permissions_Enable(){
                                     <>
                                         <Tooltip title='Deshabilitar' placement="top">
                                             <Button_Icon_Red_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                onClick={() => handlePermissionsEnable()}>
+                                                onClick={() => handlePermissionsEnable()}
+                                                disabled={!isActionBlock}    
+                                            >
                                                 <Icon_White_22><FaUserTie/></Icon_White_22>
                                             </Button_Icon_Red_180>
                                         </Tooltip>
@@ -136,7 +140,9 @@ export default function Permissions_Enable(){
                                     <>
                                         <Tooltip title='Habilitar' placement="top">
                                             <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                onClick={() => handlePermissionsEnable()}>
+                                                onClick={() => handlePermissionsEnable()}
+                                                disabled={!isActionBlock} 
+                                            >
                                                 <Icon_White_22><FaUserTie/></Icon_White_22>
                                             </Button_Icon_Green_180>
                                         </Tooltip>

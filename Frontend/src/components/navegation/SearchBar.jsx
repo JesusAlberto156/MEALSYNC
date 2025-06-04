@@ -29,7 +29,7 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_92_Left } from "../styled/Containers";
+import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_800_Left } from "../styled/Containers";
 import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_26,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
 import { Input_Text_White_20 } from "../styled/Inputs";
@@ -73,7 +73,7 @@ export default function Search_Bar (){
                     onChange={(e) => setIsSearchTerm(e.target.value)}
                 />
                 {currentSView === 'Users' && currentNView === 'Users' ? (
-                    <Container_Row_Blue_Width_92_Left ThemeMode={themeMode}>
+                    <Container_Row_Blue_Width_800_Left ThemeMode={themeMode}>
                         {isOptionUsers.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
                                 key={index}
@@ -86,7 +86,7 @@ export default function Search_Bar (){
                                 <Text_Span_12_Center>{option}</Text_Span_12_Center>
                             </Button_Icon_Blue_140>
                         ))}
-                    </Container_Row_Blue_Width_92_Left>
+                    </Container_Row_Blue_Width_800_Left>
                 ):(
                     <></>
                 )}
@@ -102,15 +102,6 @@ export default function Search_Bar (){
                 <Container_Row_80_Right>    
                     {currentSView === 'Users' && currentNView === 'Users' ? (
                         <>
-                            <Tooltip title='Agregar' placement="top">
-                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                onClick={() => {
-                                    handleModalView('User-Add');
-                                    navigate('/Administration/Users/Add',{ replace: true });
-                                }}>
-                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                </Button_Icon_Green_60>
-                            </Tooltip>
                             {isSelectedRow !== null ? (
                                 <>
                                     <Tooltip title='Editar' placement="top">
@@ -127,7 +118,18 @@ export default function Search_Bar (){
                                     </Tooltip> 
                                 </>
                             ):(
-                                <></>
+                                <>
+                                    <Tooltip title='Agregar' placement="top">
+                                        <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalView('User-Add');
+                                                navigate('/Administration/Users/Add',{ replace: true });
+                                            }}
+                                        >
+                                            <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </Tooltip>
+                                </>
                             )}
                             {isPermission.superadministrador ? (
                                 isSelectedRow !== null ? (
@@ -179,15 +181,6 @@ export default function Search_Bar (){
                     )}
                     {currentSView === 'Users' && currentNView === 'Permissions' ? (
                         <>
-                            <Tooltip title='Agregar' placement="top">
-                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                onClick={() => {
-                                    handleModalView('Permissions-Add');
-                                    navigate('/Administration/Permissions/Add',{ replace: true });
-                                }}>
-                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                </Button_Icon_Green_60>
-                            </Tooltip>
                             {isSelectedRow !== null ? (
                                 <>
                                     <Tooltip title='Editar' placement="top">
@@ -201,7 +194,17 @@ export default function Search_Bar (){
                                     </Tooltip>
                                 </>
                             ):(
-                                <></>
+                                <>
+                                    <Tooltip title='Agregar' placement="top">
+                                        <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                        onClick={() => {
+                                            handleModalView('Permissions-Add');
+                                            navigate('/Administration/Permissions/Add',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </Tooltip>      
+                                </>
                             )}
                             {isPermission.superadministrador ? (
                                 isSelectedRow !== null ? (
@@ -244,15 +247,6 @@ export default function Search_Bar (){
                     )}
                     {currentSView === 'Users' && currentNView === 'Status' ? (
                         <>
-                            <Tooltip title='Agregar' placement="top">
-                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                onClick={() => {
-                                    handleModalView('Status-Add');
-                                    navigate('/Administration/Status/Add',{ replace: true });
-                                }}>
-                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                </Button_Icon_Green_60>
-                            </Tooltip>
                             {isSelectedRow !== null ? (
                                 isSelectedRow.habilitado ? (
                                     <>
@@ -282,7 +276,17 @@ export default function Search_Bar (){
                                     </>
                                 )
                             ):(
-                                <></>
+                                <>
+                                    <Tooltip title='Agregar' placement="top">
+                                        <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                        onClick={() => {
+                                            handleModalView('Status-Add');
+                                            navigate('/Administration/Status/Add',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </Tooltip>
+                                </>
                             )}
                         </>   
                     ):(

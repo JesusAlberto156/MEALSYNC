@@ -18,7 +18,7 @@ import { ResetTextFieldsUser } from "./Texts";
 import { Alert_Verification } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
-// Hook para empezar el inicio de sesión en el formulario de login o cerrar sesión
+// Hook para empezar el inicio de sesión en el formulario de login o cerrar sesión ✔️
 export const HandleLoggedLog = () => {
     // Constantes con el valor de los contextos 
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
@@ -29,7 +29,7 @@ export const HandleLoggedLog = () => {
     // Retorno de la función del hook
     return handleLoggedLog;
 }
-// Hook para comprobar el inicio de sesión 
+// Hook para comprobar el inicio de sesión ✔️
 export const HandleVerificationBlock = () => {
     // Constantes con el valor de los contextos 
     const [isLoggedUser] = useContext(LoggedUserContext);
@@ -37,8 +37,8 @@ export const HandleVerificationBlock = () => {
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
-    const handleVerificationBlock = async () => {
-        const promise = new Promise(async (resolve,reject) => {
+    const handleVerificationBlock = () => {
+        const promise = new Promise((resolve,reject) => {
             try{
                 setIsVerificationBlock(true);
                 setTimeout(() => {
@@ -58,7 +58,7 @@ export const HandleVerificationBlock = () => {
                         }
                     }
                 },1000);
-            } catch (error) {
+            } catch (e) {
                 setIsVerificationBlock(false);
                 return reject('¡Ocurrio un error inseperado!...');
             }
@@ -116,7 +116,7 @@ export const HandleUserAdd = () => {
     // Retorno de la función del hook
     return handleUserAdd;
 }
-// Hook para cambiar la vista de las contraseñas de los usuarios
+// Hook para cambiar la vista de las contraseñas de los usuarios ✔️
 export const HandleViewPassword = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -132,7 +132,7 @@ export const HandleViewPassword = () => {
     // Función del hook
     const handleViewPassword = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-View'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(false);
                     setTimeout(() => {
@@ -151,7 +151,7 @@ export const HandleViewPassword = () => {
                             navigate('/Administration/Index/Users',{ replace: true });
                         },750);
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(true);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -159,7 +159,7 @@ export const HandleViewPassword = () => {
             
             Alert_Verification(promise,'¡Mostrando contraseñas!...');
         }else{
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 if(isViewPassword){
                     try{
                         setTimeout(() => {
@@ -168,7 +168,7 @@ export const HandleViewPassword = () => {
                                 setIsViewPassword(false);
                             },500);
                         },1000);
-                    }catch(error){
+                    }catch(e){
                         return reject('¡Ocurrio un error inesperado!...');
                     }
                 }
@@ -181,7 +181,7 @@ export const HandleViewPassword = () => {
     // Retorno de la función del hook
     return handleViewPassword;
 }
-// Hook para editar un usuario desde el modal
+// Hook para editar un usuario desde el modal ✔️
 export const HandleUserEdit = () => {
     // Constantes con el valor de los contextos 
     const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
@@ -195,17 +195,18 @@ export const HandleUserEdit = () => {
     // Función del hook
     const handleUserAdd = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Edit'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
-                            setIsActionBlock(false);
-                            return reject('¡Falta información del usuario!...')
-                        };
                         if(isTextFieldsUser.name === isSelectedRow.nombre && isTextFieldsUser.shortName === isSelectedRow.nombrecorto &&  isTextFieldsUser.user === isSelectedRow.usuario && isTextFieldsUser.password === isSelectedRow.contrasena && isTextFieldsUser.userTypes === isSelectedRow.idtipo){
                             setIsActionBlock(false);
                             return reject('¡No hay información del usuario modificada!...')
+                        };
+                        
+                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del usuario!...')
                         };
 
                         if(isSelectedRow.usuario !== isTextFieldsUser.user){
@@ -221,7 +222,7 @@ export const HandleUserEdit = () => {
                             setIsUserEdit(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -233,7 +234,7 @@ export const HandleUserEdit = () => {
     // Retorno de la función del hook
     return handleUserAdd;
 }
-// Hook para eliminar un usuario desde el modal 
+// Hook para eliminar un usuario desde el modal ✔️
 export const HandleUserDelete = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);

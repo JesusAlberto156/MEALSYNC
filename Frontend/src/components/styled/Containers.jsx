@@ -1017,6 +1017,36 @@ export const Container_Row_White_Width_98_Left = styled.div.withConfig({
 `;
 //-------- White
 //-------- Blue
+export const Container_Row_Blue_Width_800_Left = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 800px;
+    max-width: 90vw;
+    height: auto;
+    gap: 10px;
+    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    border-radius: 40px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')}; 
+    display: flex;            
+    align-items: left; 
+    padding: 4px; 
+    padding-left: 20px;
+    
+    overflow-x: auto;
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+        padding: 3px; 
+        padding-left: 15px;
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 2px; 
+        padding-left: 10px;
+        gap: 6px;
+    }
+`;
 export const Container_Row_Blue_Width_92_Left = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -1032,13 +1062,7 @@ export const Container_Row_Blue_Width_92_Left = styled.div.withConfig({
     padding-left: 20px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     white-space: nowrap;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
 
     @media (max-width: 768px) {
         padding: 3px; 

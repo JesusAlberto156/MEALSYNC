@@ -12,10 +12,11 @@ import { ThemeModeContext,LoginViewContext,ModalViewContext,ModalContext } from 
 import { TextFieldsUserContext } from "../../contexts/FormsProvider";
 import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext } from '../../contexts/VariablesProvider';
 import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
-import { UsersContext,PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
+import { PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
 import { HandleLoginView } from "../../hooks/Views";
 import { HandleLoggedLog } from "../../hooks/Form";
+import { TableActionsUsers } from "../../hooks/Table";
 //__________ICONOS__________
 // Iconos de la parte principal del login
 import { MdManageAccounts } from "react-icons/md";
@@ -55,7 +56,6 @@ export default function Login(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isAnimation] = useContext(AnimationContext);
-    const [isUsers] = useContext(UsersContext);
     const [isPermissions] = useContext(PermissionsContext);
     const [isStatus] = useContext(StatusContext);
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
@@ -101,11 +101,12 @@ export default function Login(){
     // useEffect con el inicio de sesión del login
     useEffect(() => {
         if(isLoggedLog && !isLoggedLogged){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        const existsUser = isUsers.find(user => user.usuario === isTextFieldsUser.user);
+                        
+                        const existsUser = currentRecordsUsers.find(user => user.usuario === isTextFieldsUser.user);
                         
                         if(existsUser && existsUser.contrasena === isTextFieldsUser.password){
                             let existsStatus = isStatus.find(user => user.idusuario === existsUser.idusuario);
@@ -257,7 +258,7 @@ export default function Login(){
                             return reject('¡Usuario o contraseña incorrectos!...');
                         }
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsLoggedLog(false);
                     setIsActionBlock(false);
                     setIsModal(false);
@@ -272,6 +273,7 @@ export default function Login(){
     const navigate = useNavigate();
     const handleLoginView = HandleLoginView();
     const handleLoggedLog = HandleLoggedLog();
+    const { currentRecordsUsers } = TableActionsUsers();
     // Estructura del componente
     return(
         <>

@@ -181,8 +181,14 @@ export const User_Edit = ({ children }) => {
 export const Users_Delete = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
+    const [isLoggedLogged] = useContext(LoggedLoggedContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
+    const [themeMode] = useContext(ThemeModeContext);
     // UseState para controlar el valor del contexto
     const [isUsersDelete,setIsUsersDelete] = useState([]);
+    // UseRef para las alertas
+    const alertShow = useRef(false);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
         socket.emit('Delete-Users');
@@ -203,6 +209,20 @@ export const Users_Delete = ({ children }) => {
             socket.off('Delete-Users');
         }
     },[]);
+    // UseEffect para verificar que los datos existan
+    useEffect(() => {
+        if(isLoggedLogged && isUsersDelete.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current){
+            const user = isUsersDelete.find(user => user.idusuario === isLoggedUser.idusuario);
+            if(user){
+                alertShow.current = true;
+                const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
+                Alert_Warning('MEALSYNC','¡Su usuario ha sido eliminado, por un administrador!...',themeMode,Image_Warning);
+                setTimeout(() => {
+                    setIsLoggedLog(true);
+                },3000);
+            }
+        }
+    },[isUsersDelete]);
     // Return para darle valor al contexto y heredarlo
     return (
         <UsersDeleteContext.Provider value={[isUsersDelete,setIsUsersDelete]}>

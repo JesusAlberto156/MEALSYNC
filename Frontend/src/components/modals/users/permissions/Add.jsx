@@ -114,16 +114,18 @@ export default function Permissions_Add(){
                                                 label: user.usuario
                                             }))}
                                             styles={{
-                                                control: (provided) => ({
+                                                control: (provided,state) => ({
                                                     ...provided,
                                                     width: '350px',
                                                     padding: '6px',
                                                     border: '2px solid black',
-                                                    cursor: 'pointer',
                                                     borderRadius: '20px',
                                                     fontFamily: 'Century Gothic',
                                                     fontStyle: 'normal',
                                                     fontSize: '18px',
+                                                    cursor: state.isDisabled ? 'not-allowed' : 'pointer',
+                                                    backgroundColor: state.isDisabled ? '#f0f0f0' : 'white',
+                                                    opacity: state.isDisabled ? 0.8 : 1,
                                                     '@media (max-width: 768px)':{
                                                         width: '300px',
                                                         padding: '4px',
@@ -156,7 +158,15 @@ export default function Permissions_Add(){
                                                     '@media (max-width: 480px)':{
                                                         maxHeight:125,
                                                     },
-                                                })
+                                                }),
+                                                singleValue: (provided, state) => ({
+                                                    ...provided,
+                                                    color: state.isDisabled ? '#888' : 'black',
+                                                }),
+                                                placeholder: (provided, state) => ({
+                                                    ...provided,
+                                                    color: state.isDisabled ? '#aaa' : '#333',
+                                                }),
                                             }}
                                             placeholder='Seleccione uno...'
                                             value={filteredRecordsHasPermissions
@@ -164,6 +174,7 @@ export default function Permissions_Add(){
                                                 .find(option => option.value === isTextFieldsPermissions.iduser)
                                             }
                                             onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, iduser: e.value, user: e.label}))}
+                                            isDisabled={isActionBlock}
                                         />
                                     </Container_Row_95_Center>
                                 </>
@@ -184,6 +195,7 @@ export default function Permissions_Add(){
                                         value={isTextFieldsPermissions.administrator}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                     />
                                     Administrador
                                 </Label_Text_16_Center>
@@ -192,12 +204,14 @@ export default function Permissions_Add(){
                                         value={isTextFieldsPermissions.chef}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, chef: e.target.checked ? 1 : 0}))}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                     />
                                     Chef
                                 </Label_Text_16_Center>
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsPermissions.storekeeper}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
                                     />
@@ -212,6 +226,7 @@ export default function Permissions_Add(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsPermissions.cook}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
                                     />
@@ -220,6 +235,7 @@ export default function Permissions_Add(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsPermissions.nutritionist}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
                                     />
@@ -228,6 +244,7 @@ export default function Permissions_Add(){
                                 <Label_Text_16_Center ThemeMode={themeMode}>
                                     <Input_Checkbox_16 ThemeMode={themeMode}
                                         type="checkbox"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsPermissions.doctor}
                                         onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
                                     />
@@ -237,13 +254,17 @@ export default function Permissions_Add(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleModalView('')}
+                                        disabled={isActionBlock}    
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Blue_180>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
                                     <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handlePermissionsAdd()}>
+                                        onClick={() => handlePermissionsAdd()}
+                                        disabled={isActionBlock}
+                                    >
                                         <Icon_White_22><IoIosAddCircle/></Icon_White_22>
                                     </Button_Icon_Green_180>
                                 </Tooltip>

@@ -1,3 +1,15 @@
+-------------------------------- FORMULARIOS --
+______LOGIN______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______VERIFICAR SESION______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+-------------------------------- FORMULARIOS --
 -------------------------------- USUARIOS --
 ______AGREGAR______
 - Verificación de los campos 
@@ -11,7 +23,10 @@ ______EDITAR______
 - Diseño de la interfaz 
 ______ELIMINAR______
 - Verificación de los campos ✔️
-- Implementación del teclado
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
+______VER CONTRASEÑAS______
+- Verificación de los campos ✔️
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______VISUALIZAR______
@@ -29,9 +44,9 @@ ______EDITAR______
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______HABILITAR/DESHABILITAR______
-- Verificación de los campos 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️

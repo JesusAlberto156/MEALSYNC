@@ -98,6 +98,8 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
+
+                    
                     {currentSView === 'Suppliers' ? (
                         <>
                         <Tooltip title='Proveedores' placement="top">

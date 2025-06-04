@@ -24,6 +24,12 @@ export const Button_Icon_Blue_220 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
+    }
+
     @media (max-width: 768px) {
         width: 190px;
         padding: 4px;
@@ -51,6 +57,12 @@ export const Button_Icon_Blue_210 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
     }
 
     @media (max-width: 768px) {
@@ -114,6 +126,12 @@ export const Button_Icon_Blue_190 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
+    }
+
     @media (max-width: 768px) {
         width: 160px;
         padding: 4px;
@@ -141,6 +159,12 @@ export const Button_Icon_Blue_180 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
     }
 
     @media (max-width: 768px) {
@@ -172,6 +196,12 @@ export const Button_Icon_Blue_170 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
+    }
+
     @media (max-width: 768px) {
         width: 140px;
         padding: 4px;
@@ -199,6 +229,12 @@ export const Button_Icon_Blue_160 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
     }
 
     @media (max-width: 768px) {
@@ -230,6 +266,12 @@ export const Button_Icon_Blue_150 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
+    }
+
     @media (max-width: 768px) {
         width: 120px;
         padding: 4px;
@@ -257,6 +299,12 @@ export const Button_Icon_Blue_140 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
     }
 
     @media (max-width: 768px) {
@@ -288,6 +336,12 @@ export const Button_Icon_Blue_120 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
+    }
+
     @media (max-width: 768px) {
         width: 100px;
         padding: 4px;
@@ -317,6 +371,12 @@ export const Button_Icon_Blue_100 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
+    }
+
     @media (max-width: 768px) {
         width: 80px;
         padding: 4px;
@@ -344,6 +404,12 @@ export const Button_Icon_Blue_80 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
     }
 
     @media (max-width: 768px) {
@@ -376,6 +442,12 @@ export const Button_Icon_Blue_60 = styled.button.withConfig({
     }
 
     &:disabled {
+        cursor: default;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)')};
+    }
+
+    &:disabled {
         pointer-events: none;
         cursor: not-allowed;
         opacity: 0.5;
@@ -388,64 +460,6 @@ export const Button_Icon_Blue_60 = styled.button.withConfig({
 
     @media (max-width: 480px) {
         width: 40px;    
-        padding: 2px;
-    }
-`;
-export const Button_Icon_Blue_40 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 40px;
-    height: auto;
-    padding: 6px;
-    border-radius: 10px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    
-    &:hover {
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 35px;
-        padding: 4px;
-    }
-
-    @media (max-width: 480px) {
-        width: 30px;    
-        padding: 2px;
-    }
-`;
-export const Button_Icon_Blue_40x100 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 40px;
-    height: 100px;
-    padding: 6px;
-    border-radius: 10px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    
-    &:hover {
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 35px;
-        padding: 4px;
-    }
-
-    @media (max-width: 480px) {
-        width: 30px;    
         padding: 2px;
     }
 `;
@@ -467,6 +481,12 @@ export const Button_Icon_Green_220 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {
@@ -496,6 +516,12 @@ export const Button_Icon_Green_210 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {
@@ -559,6 +585,12 @@ export const Button_Icon_Green_190 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
+    }
+
     @media (max-width: 768px) {
         width: 160px;
         padding: 4px;
@@ -586,6 +618,12 @@ export const Button_Icon_Green_180 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {
@@ -617,6 +655,12 @@ export const Button_Icon_Green_170 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
+    }
+
     @media (max-width: 768px) {
         width: 140px;
         padding: 4px;
@@ -644,6 +688,12 @@ export const Button_Icon_Green_160 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {
@@ -675,6 +725,12 @@ export const Button_Icon_Green_150 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
+    }
+
     @media (max-width: 768px) {
         width: 120px;
         padding: 4px;
@@ -702,6 +758,12 @@ export const Button_Icon_Green_140 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {
@@ -733,6 +795,12 @@ export const Button_Icon_Green_120 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
+    }
+
     @media (max-width: 768px) {
         width: 100px;
         padding: 4px;
@@ -762,6 +830,12 @@ export const Button_Icon_Green_100 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
+    }
+
     @media (max-width: 768px) {
         width: 80px;
         padding: 4px;
@@ -789,6 +863,12 @@ export const Button_Icon_Green_80 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {
@@ -821,9 +901,9 @@ export const Button_Icon_Green_60 = styled.button.withConfig({
     }
 
     &:disabled {
-        pointer-events: none;
-        cursor: not-allowed;
-        opacity: 0.5;
+        cursor: default;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {
@@ -833,35 +913,6 @@ export const Button_Icon_Green_60 = styled.button.withConfig({
 
     @media (max-width: 480px) {
         width: 40px;    
-        padding: 2px;
-    }
-`;
-export const Button_Icon_Green_40 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 40px;
-    height: auto;
-    padding: 6px;
-    border-radius: 10px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    
-    &:hover {
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 35px;
-        padding: 4px;
-    }
-
-    @media (max-width: 480px) {
-        width: 30px;    
         padding: 2px;
     }
 `;
@@ -883,6 +934,12 @@ export const Button_Icon_Red_220 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
     }
 
     @media (max-width: 768px) {
@@ -912,6 +969,12 @@ export const Button_Icon_Red_210 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
     }
 
     @media (max-width: 768px) {
@@ -975,6 +1038,12 @@ export const Button_Icon_Red_190 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
+    }
+
     @media (max-width: 768px) {
         width: 160px;
         padding: 4px;
@@ -1002,6 +1071,12 @@ export const Button_Icon_Red_180 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
     }
 
     @media (max-width: 768px) {
@@ -1033,6 +1108,12 @@ export const Button_Icon_Red_170 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
+    }
+
     @media (max-width: 768px) {
         width: 140px;
         padding: 4px;
@@ -1060,6 +1141,12 @@ export const Button_Icon_Red_160 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
     }
 
     @media (max-width: 768px) {
@@ -1091,6 +1178,12 @@ export const Button_Icon_Red_150 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
+    }
+
     @media (max-width: 768px) {
         width: 120px;
         padding: 4px;
@@ -1118,6 +1211,12 @@ export const Button_Icon_Red_140 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
     }
 
     @media (max-width: 768px) {
@@ -1149,6 +1248,12 @@ export const Button_Icon_Red_120 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
+    }
+
     @media (max-width: 768px) {
         width: 100px;
         padding: 4px;
@@ -1178,6 +1283,12 @@ export const Button_Icon_Red_100 = styled.button.withConfig({
         transform: scale(1.1);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
+    }
+
     @media (max-width: 768px) {
         width: 80px;
         padding: 4px;
@@ -1205,6 +1316,12 @@ export const Button_Icon_Red_80 = styled.button.withConfig({
     &:hover {
         background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
         transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
     }
 
     @media (max-width: 768px) {
@@ -1237,9 +1354,9 @@ export const Button_Icon_Red_60 = styled.button.withConfig({
     }
 
     &:disabled {
-        pointer-events: none;
-        cursor: not-allowed;
-        opacity: 0.5;
+        cursor: default;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)')};
     }
 
     @media (max-width: 768px) {
@@ -1249,35 +1366,6 @@ export const Button_Icon_Red_60 = styled.button.withConfig({
 
     @media (max-width: 480px) {
         width: 40px;    
-        padding: 2px;
-    }
-`;
-export const Button_Icon_Red_40 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 40px;
-    height: auto;
-    padding: 6px;
-    border-radius: 10px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    
-    &:hover {
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 35px;
-        padding: 4px;
-    }
-
-    @media (max-width: 480px) {
-        width: 30px;    
         padding: 2px;
     }
 `;
@@ -1704,38 +1792,6 @@ export const Button_Icon_White_60 = styled.button.withConfig({
 
     @media (max-width: 480px) {
         width: 40px;    
-        padding: 2px;
-    }
-`;
-export const Button_Icon_White_40 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 40px;
-    height: auto;
-    padding: 6px;
-    border-radius: 10px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')};
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    
-    &:hover {
-        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
-        border: ${({ ThemeMode }) => (ThemeMode ? '2px solid white' : '2px solid black')};
-        color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
-        transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-        width: 35px;
-        padding: 4px;
-    }
-
-    @media (max-width: 480px) {
-        width: 30px;    
         padding: 2px;
     }
 `;

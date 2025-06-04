@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleViewPassword } from '../../../../hooks/Form'; 
@@ -31,6 +31,7 @@ export default function User_View(){
     const [isActionBlock] = useContext(ActionBlockContext);
     const [isModal] = useContext(ModalContext);
     const [currentMView] = useContext(ModalViewContext);
+    const [isVerificationBlock] = useContext(VerificationBlockContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalView = HandleModalView();
     const handleViewPassword = HandleViewPassword();
@@ -48,17 +49,21 @@ export default function User_View(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => {
-                                        handleModalView('');
-                                    }}>
+                                        onClick={() => {
+                                            handleModalView('');
+                                        }}
+                                        disabled={!isActionBlock && isVerificationBlock}
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Blue_180>
                                 </Tooltip>
                                 <Tooltip title='Ver' placement="top">
                                     <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleViewPassword();
-                                    }}>
+                                        onClick={() => {
+                                            handleViewPassword();
+                                        }}
+                                        disabled={!isActionBlock}
+                                    >
                                         <Icon_White_22><FaEye/></Icon_White_22>
                                     </Button_Icon_Green_180>
                                 </Tooltip>

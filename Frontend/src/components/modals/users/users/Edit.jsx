@@ -24,7 +24,7 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_100_Left,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
@@ -45,7 +45,7 @@ export default function User_Edit(){
     const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
     const [socket] = useContext(SocketContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
+    const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -101,8 +101,8 @@ export default function User_Edit(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal}>
-                        <Container_Form_500 ref={Form} ThemeMode={themeMode} className={currentMView === 'User-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Modal ref={Modal_Users}>
+                        <Container_Form_500 ref={Form_Users} ThemeMode={themeMode} className={currentMView === 'User-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>EDITAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
@@ -117,6 +117,7 @@ export default function User_Edit(){
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsUser.name}
+                                        disabled={isActionBlock}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
@@ -126,6 +127,7 @@ export default function User_Edit(){
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsUser.shortName}
+                                        disabled={isActionBlock}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
@@ -135,6 +137,7 @@ export default function User_Edit(){
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsUser.user}
+                                        disabled={isActionBlock}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
@@ -144,77 +147,103 @@ export default function User_Edit(){
                                         placeholder="..."
                                         type="password"
                                         value={isTextFieldsUser.password}
+                                        disabled={isActionBlock}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
-                                <Select
-                                    options={isUserTypes.map((userTypes) => ({
-                                        value: userTypes.idtipo,
-                                        label: userTypes.tipo
-                                    }))}
-                                    styles={{
-                                        control: (provided) => ({
-                                            ...provided,
-                                            width: '300px',
-                                            padding: '6px',
-                                            border: '2px solid black',
-                                            cursor: 'pointer',
-                                            borderRadius: '20px',
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            fontSize: '18px',
-                                            '@media (max-width: 768px)':{
-                                                width: '250px',
-                                                padding: '4px',
-                                                fontSize: '16px',
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                width: '200px',
-                                                padding: '2px',
-                                                fontSize: '14px',
-                                            },
-                                        }),
-                                        menu: (provided) => ({
-                                            ...provided,
-                                            overflow: 'hidden',
-                                            borderRadius:'15px',
-                                        }),
-                                        menuList: (provided) => ({
-                                            ...provided,
-                                            maxHeight:175,
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            overflowY:'auto',
-                                            scrollbarWidth: 'none',
-                                            '&::-webkit-scrollbar': {
-                                                display:'none',
-                                            },
-                                            '@media (max-width: 768px)':{
-                                                maxHeight:150,
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                maxHeight:125,
-                                            },
-                                        })
-                                    }}
-                                    placeholder='Seleccione uno...'
-                                    value={isUserTypes
-                                        .map(user => ({ value: user.idtipo, label: user.tipo }))
-                                        .find(option => option.value === isTextFieldsUser.userTypes)
-                                    }
-                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
-                                />
+                                {isUserTypes.length !== 0 ? (
+                                    <>
+                                        <Select
+                                            options={isUserTypes.map((userTypes) => ({
+                                                value: userTypes.idtipo,
+                                                label: userTypes.tipo
+                                            }))}
+                                            styles={{
+                                                control: (provided,state) => ({
+                                                    ...provided,
+                                                    width: '300px',
+                                                    padding: '6px',
+                                                    border: '2px solid black',
+                                                    borderRadius: '20px',
+                                                    fontFamily: 'Century Gothic',
+                                                    fontStyle: 'normal',
+                                                    fontSize: '18px',
+                                                    cursor: state.isDisabled ? 'not-allowed' : 'pointer',
+                                                    backgroundColor: state.isDisabled ? '#f0f0f0' : 'white',
+                                                    opacity: state.isDisabled ? 0.8 : 1,
+                                                    '@media (max-width: 768px)':{
+                                                        width: '250px',
+                                                        padding: '4px',
+                                                        fontSize: '16px',
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        width: '200px',
+                                                        padding: '2px',
+                                                        fontSize: '14px',
+                                                    },
+                                                }),
+                                                menu: (provided) => ({
+                                                    ...provided,
+                                                    overflow: 'hidden',
+                                                    borderRadius:'15px',
+                                                }),
+                                                menuList: (provided) => ({
+                                                    ...provided,
+                                                    maxHeight:175,
+                                                    fontFamily: 'Century Gothic',
+                                                    fontStyle: 'normal',
+                                                    overflowY:'auto',
+                                                    scrollbarWidth: 'none',
+                                                    '&::-webkit-scrollbar': {
+                                                        display:'none',
+                                                    },
+                                                    '@media (max-width: 768px)':{
+                                                        maxHeight:150,
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        maxHeight:125,
+                                                    },
+                                                }),
+                                                singleValue: (provided, state) => ({
+                                                    ...provided,
+                                                    color: state.isDisabled ? '#888' : 'black',
+                                                }),
+                                                placeholder: (provided, state) => ({
+                                                    ...provided,
+                                                    color: state.isDisabled ? '#aaa' : '#333',
+                                                }),
+                                            }}
+                                            placeholder='Seleccione uno...'
+                                            value={isUserTypes
+                                                .map(user => ({ value: user.idtipo, label: user.tipo }))
+                                                .find(option => option.value === isTextFieldsUser.userTypes)
+                                            }
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
+                                            isDisabled={isActionBlock}
+                                        />  
+                                    </>
+                                ):(
+                                    <>
+                                        <Container_Row_95_Center>
+                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        </Container_Row_95_Center>
+                                    </>
+                                )}
                             </Container_Column_90_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleModalView('')}
+                                        disabled={isActionBlock}    
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Red_210>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUserEdit()}>
+                                        onClick={() => handleUserEdit()}
+                                        disabled={isActionBlock} 
+                                    >
                                         <Icon_White_22><MdEdit/></Icon_White_22>
                                     </Button_Icon_Blue_210>
                                 </Tooltip>

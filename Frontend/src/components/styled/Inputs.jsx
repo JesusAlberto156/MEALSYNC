@@ -174,6 +174,12 @@ export const Input_Radio_16 = styled.input.withConfig({
         accent-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        accent-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
+    }
+
     @media (max-width: 768px) {
         width: 14px;
         height: 14px;
@@ -196,6 +202,12 @@ export const Input_Checkbox_16 = styled.input.withConfig({
     
     &:checked {
         accent-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        accent-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(60, 188, 109)' : 'rgb(20, 165, 76)')};
     }
 
     @media (max-width: 768px) {

@@ -76,7 +76,7 @@ export const TableActionsUsers = () => {
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageUsers,
-             currentRecordsUsers,
+             currentRecordsUsers,filteredRecordsUsers,
              totalPagesUsers}
 }
 // Hook para realizar las acciones de la tabla de permisos ✔️
@@ -182,7 +182,7 @@ export const TableActionsStatus = () => {
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageStatus,
-             currentRecordsStatus,
+             currentRecordsStatus,filteredRecordsStatus,
              totalPagesStatus}
 }
 

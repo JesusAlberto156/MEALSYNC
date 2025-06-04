@@ -69,7 +69,7 @@ export const HandleVerificationBlock = () => {
     // Retorno de la función del hook
     return handleVerificationBlock;
 }
-// Hook para agregar un usuario desde el modal
+// Hook para agregar un usuario desde el modal ✔️
 export const HandleUserAdd = () => {
     // Constantes con el valor de los contextos 
     const [isUserAdd,setIsUserAdd] = useContext(UserAddContext);
@@ -78,10 +78,11 @@ export const HandleUserAdd = () => {
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isUsers] = useContext(UsersContext);
     // Función del hook
     const handleUserAdd = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Add'){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
@@ -89,22 +90,63 @@ export const HandleUserAdd = () => {
                             setIsActionBlock(false);
                             return reject('¡Falta información del usuario!...')
                         };
-                        if(isTextFieldsUser.permissions === ''){
-                            setIsActionBlock(false);
-                            return reject('¡Los permisos del usuario no han sido seleccionados!...')
-                        };
 
-                        if(isTextFieldsUser.status === ''){
+                        if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
                             setIsActionBlock(false);
-                            return reject('¡El estatus del usuario no han sido seleccionado!...')
-                        };
+                            setIsUserAdd(false);
+                            return reject('¡Usuario ya existente!...');
+                        }
+
+                        const regexNames = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+                        const regexCredentials = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(isTextFieldsUser.name.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexNames.test(isTextFieldsUser.name.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsUser.shortName.length > 50){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre corto sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexNames.test(isTextFieldsUser.shortName.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre corto no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsUser.user.length > 25){
+                            setIsActionBlock(false);
+                            return reject('¡El usuario sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexCredentials.test(isTextFieldsUser.user.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El usuario no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+                        
+                        if(isTextFieldsUser.password.length > 15){
+                            setIsActionBlock(false);
+                            return reject('¡La contraseña sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexCredentials.test(isTextFieldsUser.password.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La contraseña no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
                         resolve('¡Información verificada!...');
                         
                         setTimeout(() => {
                             setIsUserAdd(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -193,7 +235,7 @@ export const HandleUserEdit = () => {
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [isUsers] = useContext(UsersContext);
     // Función del hook
-    const handleUserAdd = () => {
+    const handleUserEdit = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Edit'){
             const promise = new Promise((resolve,reject) => {
                 try{
@@ -215,7 +257,50 @@ export const HandleUserEdit = () => {
                                 return reject('¡Usuario ya existente!...');
                             }
                         }
+
+                        const regexNames = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+                        const regexCredentials = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(isTextFieldsUser.name.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexNames.test(isTextFieldsUser.name.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsUser.shortName.length > 50){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre corto sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexNames.test(isTextFieldsUser.shortName.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre corto no es válido, solo permite letras y espacios!...');
+                        }
+
+                        if(isTextFieldsUser.user.length > 25){
+                            setIsActionBlock(false);
+                            return reject('¡El usuario sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexCredentials.test(isTextFieldsUser.user.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El usuario no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
                         
+                        if(isTextFieldsUser.password.length > 15){
+                            setIsActionBlock(false);
+                            return reject('¡La contraseña sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexCredentials.test(isTextFieldsUser.password.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La contraseña no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
                         resolve('¡Información verificada!...');
                         
                         setTimeout(() => {
@@ -232,7 +317,7 @@ export const HandleUserEdit = () => {
         }
     } 
     // Retorno de la función del hook
-    return handleUserAdd;
+    return handleUserEdit;
 }
 // Hook para eliminar un usuario desde el modal ✔️
 export const HandleUserDelete = () => {
@@ -245,7 +330,7 @@ export const HandleUserDelete = () => {
     const [isLoggedUser] = useContext(LoggedUserContext)
     const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
     // Función del hook
-    const handleUserAdd = () => {
+    const handleUserDelete = () => {
         if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Delete'){
             const promise = new Promise((resolve,reject) => {
                 try{
@@ -272,7 +357,7 @@ export const HandleUserDelete = () => {
         }
     } 
     // Retorno de la función del hook
-    return handleUserAdd;
+    return handleUserDelete;
 }
 // Hook para filtrar los usuarios cuando no tiene permisos ✔️
 export const FilteredRecordsHasPermissions = () => {

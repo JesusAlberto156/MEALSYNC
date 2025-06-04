@@ -22,7 +22,7 @@ import { MdCancel } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
@@ -118,26 +118,30 @@ export default function User_Delete(){
                                 <Text_Title_30_Center ThemeMode={themeMode}>ELIMINAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
                             <Form_Verification/>
-                            <Container_Row_NG_95_Left>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {isUsers.find(user => user.idusuario === isTextFieldsUser.iduser)?.usuario || 'Desconocido'}</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}> {isUsers.find(user => user.idusuario === isTextFieldsUser.iduser)?.usuario || 'Desconocido'}</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}
-                                        disabled={!isActionBlock && isVerificationBlock}  
-                                    >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Blue_210>
+                                    <span>
+                                        <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                            onClick={() => handleModalView('')}
+                                            disabled={!isActionBlock && isVerificationBlock}  
+                                        >
+                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                        </Button_Icon_Blue_210>
+                                    </span>
                                 </Tooltip>
                                 <Tooltip title='Eliminar' placement='top'>
-                                    <Button_Icon_Red_210 ThemeMode={themeMode} className={!isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUserDelete()}
-                                        disabled={!isActionBlock}    
-                                    >
-                                        <Icon_White_22><MdDelete/></Icon_White_22>
-                                    </Button_Icon_Red_210>
+                                    <span>
+                                        <Button_Icon_Red_210 ThemeMode={themeMode} className={!isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                            onClick={() => handleUserDelete()}
+                                            disabled={!isActionBlock}    
+                                        >
+                                            <Icon_White_22><MdDelete/></Icon_White_22>
+                                        </Button_Icon_Red_210>
+                                    </span>
                                 </Tooltip>
                             </Container_Row_95_Center>
                         </Container_Form_500>

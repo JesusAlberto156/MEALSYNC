@@ -1,5 +1,5 @@
  - Falta agregar el cerrado de sesion automatico si yo cierro la pestaña de forma forzada o bien navego a otra pagina y quiero regresar
-
+ - Falta agregar el ordenamiento por columnas en las tablas
 
  - Falta verificaion de campos a la hora de registrar y editar los proveedores
  - Falta la eliminacion de proveedores junto con sus observaciones

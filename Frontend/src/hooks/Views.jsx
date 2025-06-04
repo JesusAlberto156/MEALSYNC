@@ -112,7 +112,6 @@ export const HandleModalView = () => {
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
-    const [isLoggedType] = useContext(LoggedTypeContext);
     const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
@@ -159,7 +158,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-
         if(currentMView === 'User-View' && View === ''){
             setTimeout(() => {
                 setIsModal(false);

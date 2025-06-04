@@ -25,6 +25,7 @@
     "react-router-dom": "^7.0.2",
     "react-select": "^5.10.1",
     "react-simple-keyboard": "^3.8.69",
+    "recharts": "^2.15.3",
     "simple-keyboard-layouts": "^3.4.86",
     "socket.io-client": "^4.8.1",
     "sonner": "^2.0.1",

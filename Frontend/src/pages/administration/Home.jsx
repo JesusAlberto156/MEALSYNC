@@ -15,8 +15,9 @@ import { useContext,useEffect } from "react";
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Left,Container_Row_90_Center } from "../../components/styled/Containers";
+
 // Componentes personalizados
+import Administration_Users from "./Users";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de inicio en administración/cocina
@@ -26,12 +27,7 @@ export default function Administration_Home(){
     // Estructura del componente
     return(
         <> 
-            <Container_Row_90_Left>
-                <Container_Row_90_Center>
-                </Container_Row_90_Center>
-            </Container_Row_90_Left>
-            <Container_Row_90_Left>
-            </Container_Row_90_Left>    
+            <Administration_Users/>
         </>
     )
 }

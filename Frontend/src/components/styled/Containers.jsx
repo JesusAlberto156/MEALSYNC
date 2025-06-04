@@ -1017,10 +1017,10 @@ export const Container_Row_White_Width_98_Left = styled.div.withConfig({
 `;
 //-------- White
 //-------- Blue
-export const Container_Row_Blue_Width_800_Left = styled.div.withConfig({
+export const Container_Row_Blue_Width_2000_Left = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    width: 800px;
+    width: 2000px;
     max-width: 90vw;
     height: auto;
     gap: 10px;

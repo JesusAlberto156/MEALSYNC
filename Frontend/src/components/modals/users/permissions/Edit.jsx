@@ -22,7 +22,7 @@ import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_90_Left,Container_Row_NG_95_Left } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_90_Center,Container_Column_90_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Button_Icon_Red_180,Button_Icon_Blue_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
@@ -104,76 +104,86 @@ export default function Permissions_Edit(){
                     <Container_Modal ref={Modal_Permissions}>
                         <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permissions-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_30_Center>
-                            <Container_Row_NG_90_Left className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsPermissions.user}</Text_A_16_Left>
-                            </Container_Row_NG_90_Left>
-                            <Container_Row_NG_95_Left>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Área de administración...</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
-                            <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        checked={isTextFieldsPermissions.administrator}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Administrador
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        checked={isTextFieldsPermissions.chef}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, chef: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Chef
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        checked={isTextFieldsPermissions.storekeeper}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Almacenista
-                                </Label_Text_16_Center>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
                             </Container_Row_95_Center>
-                            <Container_Row_NG_95_Left>
+                            <Container_Row_NG_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>{isTextFieldsPermissions.user}</Text_A_16_Left>
+                            </Container_Row_NG_90_Center>
+                            <Container_Row_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>Área de cocina...</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
-                            <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        checked={isTextFieldsPermissions.cook}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Cocinero
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        checked={isTextFieldsPermissions.nutritionist}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Nutriólogo
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        checked={isTextFieldsPermissions.doctor}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Médico
-                                </Label_Text_16_Center>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
                             </Container_Row_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Área de administración...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_95_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            checked={isTextFieldsPermissions.administrator}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Administrador
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            checked={isTextFieldsPermissions.chef}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, chef: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Chef
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            checked={isTextFieldsPermissions.storekeeper}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Almacenista
+                                    </Label_Text_16_Center>
+                                </Container_Row_95_Center>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Área de cocina...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_95_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            checked={isTextFieldsPermissions.cook}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Cocinero
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            checked={isTextFieldsPermissions.nutritionist}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Nutriólogo
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            checked={isTextFieldsPermissions.doctor}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Médico
+                                    </Label_Text_16_Center>
+                                </Container_Row_95_Center>
+                            </Container_Column_90_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Red_180 ThemeMode={themeMode} className='pulsate-buttom'

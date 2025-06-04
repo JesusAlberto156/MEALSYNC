@@ -22,7 +22,7 @@ import { MdCancel } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Row_90_Center,Container_Row_NG_90_Left } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_450,Container_Row_90_Center,Container_Row_NG_90_Center } from "../../../styled/Containers";
 import { Text_P_16_Left,Text_Title_30_Center,Text_Blue_16_Left } from "../../../styled/Text";
 import { Button_Icon_Blue_180,Button_Icon_Red_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
@@ -112,39 +112,45 @@ export default function Permissions_Enable(){
                         <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permissions-Enable' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>{isSelectedRow.superadministrador ? 'DESHABILITAR SUPER ADMINISTRADOR':'HABILITAR SUPER ADMINISTRADOR'}</Text_Title_30_Center>
                             <Form_Verification/>
-                            <Container_Row_NG_90_Left>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_P_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsPermissions.user}</Text_P_16_Left>
-                            </Container_Row_NG_90_Left>
+                            <Container_Row_NG_90_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
+                                <Text_P_16_Left ThemeMode={themeMode}> {isTextFieldsPermissions.user}</Text_P_16_Left>
+                            </Container_Row_NG_90_Center>
                             <Container_Row_90_Center>
                                 <Tooltip title='Cancelar' placement="top">
-                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}
-                                        disabled={!isActionBlock && isVerificationBlock}
-                                    >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Blue_180>
+                                    <span>
+                                        <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
+                                            onClick={() => handleModalView('')}
+                                            disabled={!isActionBlock && isVerificationBlock}
+                                        >
+                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                        </Button_Icon_Blue_180>
+                                    </span>
                                 </Tooltip>
                                 {isSelectedRow.superadministrador ? (
                                     <>
                                         <Tooltip title='Deshabilitar' placement="top">
-                                            <Button_Icon_Red_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                onClick={() => handlePermissionsEnable()}
-                                                disabled={!isActionBlock}    
-                                            >
-                                                <Icon_White_22><FaUserTie/></Icon_White_22>
-                                            </Button_Icon_Red_180>
+                                            <span>
+                                                <Button_Icon_Red_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handlePermissionsEnable()}
+                                                    disabled={!isActionBlock}    
+                                                >
+                                                    <Icon_White_22><FaUserTie/></Icon_White_22>
+                                                </Button_Icon_Red_180>
+                                            </span>
                                         </Tooltip>
                                     </>
                                 ):(
                                     <>
                                         <Tooltip title='Habilitar' placement="top">
-                                            <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                onClick={() => handlePermissionsEnable()}
-                                                disabled={!isActionBlock} 
-                                            >
-                                                <Icon_White_22><FaUserTie/></Icon_White_22>
-                                            </Button_Icon_Green_180>
+                                            <span>
+                                                <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                                    onClick={() => handlePermissionsEnable()}
+                                                    disabled={!isActionBlock} 
+                                                >
+                                                    <Icon_White_22><FaUserTie/></Icon_White_22>
+                                                </Button_Icon_Green_180>
+                                            </span>
                                         </Tooltip>
                                     </>
                                 )}

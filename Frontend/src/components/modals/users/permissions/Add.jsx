@@ -22,7 +22,7 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_95_Center,Container_Column_90_Center } from "../../../styled/Containers";
 import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
@@ -101,156 +101,158 @@ export default function Permissions_Add(){
                     <Container_Modal>
                         <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'Permissions-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR PERMISOS</Text_Title_30_Center>
-                            <Container_Row_NG_95_Left>
+                            <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Selecciona un usuario...</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
-                            {filteredRecordsHasPermissions.length !== 0 ? (
-                                <>
-                                    <Container_Row_95_Center>
-                                        <Select
-                                            options={filteredRecordsHasPermissions.map((user) => ({
-                                                value: user.idusuario,
-                                                label: user.usuario
-                                            }))}
-                                            styles={{
-                                                control: (provided,state) => ({
-                                                    ...provided,
-                                                    width: '350px',
-                                                    padding: '6px',
-                                                    border: '2px solid black',
-                                                    borderRadius: '20px',
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    fontSize: '18px',
-                                                    cursor: state.isDisabled ? 'not-allowed' : 'pointer',
-                                                    backgroundColor: state.isDisabled ? '#f0f0f0' : 'white',
-                                                    opacity: state.isDisabled ? 0.8 : 1,
-                                                    '@media (max-width: 768px)':{
-                                                        width: '300px',
-                                                        padding: '4px',
-                                                        fontSize: '16px',
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        width: '250px',
-                                                        padding: '2px',
-                                                        fontSize: '14px',
-                                                    },
-                                                }),
-                                                menu: (provided) => ({
-                                                    ...provided,
-                                                    overflow: 'hidden',
-                                                    borderRadius:'15px',
-                                                }),
-                                                menuList: (provided) => ({
-                                                    ...provided,
-                                                    maxHeight:175,
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    overflowY:'auto',
-                                                    scrollbarWidth: 'none',
-                                                    '&::-webkit-scrollbar': {
-                                                        display:'none',
-                                                    },
-                                                    '@media (max-width: 768px)':{
-                                                        maxHeight:150,
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        maxHeight:125,
-                                                    },
-                                                }),
-                                                singleValue: (provided, state) => ({
-                                                    ...provided,
-                                                    color: state.isDisabled ? '#888' : 'black',
-                                                }),
-                                                placeholder: (provided, state) => ({
-                                                    ...provided,
-                                                    color: state.isDisabled ? '#aaa' : '#333',
-                                                }),
-                                            }}
-                                            placeholder='Seleccione uno...'
-                                            value={filteredRecordsHasPermissions
-                                                .map(user => ({ value: user.idusuario, label: user.usuario }))
-                                                .find(option => option.value === isTextFieldsPermissions.iduser)
-                                            }
-                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, iduser: e.value, user: e.label}))}
-                                            isDisabled={isActionBlock}
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                    <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Usuarios...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                {filteredRecordsHasPermissions.length !== 0 ? (
+                                    <>
+                                        <Container_Row_95_Center>
+                                            <Select
+                                                options={filteredRecordsHasPermissions.map((user) => ({
+                                                    value: user.idusuario,
+                                                    label: user.usuario
+                                                }))}
+                                                styles={{
+                                                    control: (provided) => ({
+                                                        ...provided,
+                                                        width: '350px',
+                                                        padding: '6px',
+                                                        border: '2px solid black',
+                                                        borderRadius: '20px',
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        fontSize: '18px',
+                                                        cursor: 'pointer',
+                                                        '@media (max-width: 768px)':{
+                                                            width: '300px',
+                                                            padding: '4px',
+                                                            fontSize: '16px',
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            width: '250px',
+                                                            padding: '2px',
+                                                            fontSize: '14px',
+                                                        },
+                                                    }),
+                                                    menu: (provided) => ({
+                                                        ...provided,
+                                                        overflow: 'hidden',
+                                                        borderRadius:'15px',
+                                                    }),
+                                                    menuList: (provided) => ({
+                                                        ...provided,
+                                                        maxHeight:175,
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        overflowY:'auto',
+                                                        scrollbarWidth: 'none',
+                                                        '&::-webkit-scrollbar': {
+                                                            display:'none',
+                                                        },
+                                                        '@media (max-width: 768px)':{
+                                                            maxHeight:150,
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            maxHeight:125,
+                                                        },
+                                                    })
+                                                }}
+                                                placeholder='Seleccione uno...'
+                                                value={filteredRecordsHasPermissions
+                                                    .map(user => ({ value: user.idusuario, label: user.usuario }))
+                                                    .find(option => option.value === isTextFieldsPermissions.iduser)
+                                                }
+                                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, iduser: e.value, user: e.label}))}
+                                                isDisabled={isActionBlock}
+                                            />
+                                        </Container_Row_95_Center>
+                                    </>
+                                ):(
+                                    <>
+                                        <Container_Row_95_Center>
+                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        </Container_Row_95_Center>
+                                    </>
+                                )} 
+                            </Container_Column_90_Center>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Área de administración...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_95_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            value={isTextFieldsPermissions.administrator}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
                                         />
-                                    </Container_Row_95_Center>
-                                </>
-                            ):(
-                                <>
-                                    <Container_Row_95_Center>
-                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
-                                    </Container_Row_95_Center>
-                                </>
-                            )} 
-                            <Container_Row_NG_95_Left>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Área de administración...</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
-                            <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        value={isTextFieldsPermissions.administrator}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                    />
-                                    Administrador
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        value={isTextFieldsPermissions.chef}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, chef: e.target.checked ? 1 : 0}))}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                    />
-                                    Chef
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsPermissions.storekeeper}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Almacenista
-                                </Label_Text_16_Center>
-                            </Container_Row_95_Center>
-                            <Container_Row_NG_95_Left>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Área de cocina...</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
-                            <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsPermissions.cook}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Cocinero
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsPermissions.nutritionist}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Nutriólogo
-                                </Label_Text_16_Center>
-                                <Label_Text_16_Center ThemeMode={themeMode}>
-                                    <Input_Checkbox_16 ThemeMode={themeMode}
-                                        type="checkbox"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsPermissions.doctor}
-                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
-                                    />
-                                    Médico
-                                </Label_Text_16_Center>
-                            </Container_Row_95_Center>
+                                        Administrador
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            value={isTextFieldsPermissions.chef}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, chef: e.target.checked ? 1 : 0}))}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                        />
+                                        Chef
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsPermissions.storekeeper}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Almacenista
+                                    </Label_Text_16_Center>
+                                </Container_Row_95_Center>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Área de cocina...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_95_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsPermissions.cook}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Cocinero
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsPermissions.nutritionist}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Nutriólogo
+                                    </Label_Text_16_Center>
+                                    <Label_Text_16_Center ThemeMode={themeMode}>
+                                        <Input_Checkbox_16 ThemeMode={themeMode}
+                                            type="checkbox"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsPermissions.doctor}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
+                                        />
+                                        Médico
+                                    </Label_Text_16_Center>
+                                </Container_Row_95_Center>
+                            </Container_Column_90_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'

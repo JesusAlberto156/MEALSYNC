@@ -22,7 +22,7 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Row_NG_95_Left,Container_Row_95_Center } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_400,Container_Row_95_Center, Container_Row_NG_95_Center, Container_Column_90_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Green_150 } from "../../../styled/Buttons";
 import { Label_Text_16_Center } from "../../../styled/Labels";
@@ -101,109 +101,111 @@ export default function Status_Add(){
                     <Container_Modal>
                         <Container_Form_400 ThemeMode={themeMode} className={currentMView === 'Status-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR STATUS</Text_Title_30_Center>
-                            <Container_Row_NG_95_Left>
+                            <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Selecciona un usuario...</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
-                            {filteredRecordsHasStatus.length !== 0 ? (
-                                <>
-                                    <Container_Row_95_Center>
-                                        <Select
-                                            options={filteredRecordsHasStatus.map((user) => ({
-                                                value: user.idusuario,
-                                                label: user.usuario
-                                            }))}
-                                            styles={{
-                                                control: (provided,state) => ({
-                                                    ...provided,
-                                                    width: '300px',
-                                                    padding: '6px',
-                                                    border: '2px solid black',
-                                                    borderRadius: '20px',
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    fontSize: '18px',
-                                                    cursor: state.isDisabled ? 'not-allowed' : 'pointer',
-                                                    backgroundColor: state.isDisabled ? '#f0f0f0' : 'white',
-                                                    opacity: state.isDisabled ? 0.8 : 1,
-                                                    '@media (max-width: 768px)':{
-                                                        width: '250px',
-                                                        padding: '4px',
-                                                        fontSize: '16px',
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        width: '200px',
-                                                        padding: '2px',
-                                                        fontSize: '14px',
-                                                    },
-                                                }),
-                                                menu: (provided) => ({
-                                                    ...provided,
-                                                    overflow: 'hidden',
-                                                    borderRadius:'15px',
-                                                }),
-                                                menuList: (provided) => ({
-                                                    ...provided,
-                                                    maxHeight:175,
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    overflowY:'auto',
-                                                    scrollbarWidth: 'none',
-                                                    '&::-webkit-scrollbar': {
-                                                        display:'none',
-                                                    },
-                                                    '@media (max-width: 768px)':{
-                                                        maxHeight:150,
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        maxHeight:125,
-                                                    },
-                                                }),
-                                                singleValue: (provided, state) => ({
-                                                    ...provided,
-                                                    color: state.isDisabled ? '#888' : 'black',
-                                                }),
-                                                placeholder: (provided, state) => ({
-                                                    ...provided,
-                                                    color: state.isDisabled ? '#aaa' : '#333',
-                                                }),
-                                            }}
-                                            placeholder='Seleccione uno...'
-                                            value={filteredRecordsHasStatus
-                                                .map(user => ({ value: user.idusuario, label: user.usuario }))
-                                                .find(option => option.value === isTextFieldsStatus.iduser)
-                                            }
-                                            onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, iduser: e.value, user: e.label}))}
-                                            isDisabled={isActionBlock}
-                                        />
-                                    </Container_Row_95_Center>  
-                                </>
-                            ):(
-                                <>
-                                    <Container_Row_95_Center>
-                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
-                                    </Container_Row_95_Center>
-                                </>
-                            )}
-                            <Container_Row_NG_95_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Usuarios...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                {filteredRecordsHasStatus.length !== 0 ? (
+                                    <>
+                                        <Container_Row_95_Center>
+                                            <Select
+                                                options={filteredRecordsHasStatus.map((user) => ({
+                                                    value: user.idusuario,
+                                                    label: user.usuario
+                                                }))}
+                                                styles={{
+                                                    control: (provided) => ({
+                                                        ...provided,
+                                                        width: '300px',
+                                                        padding: '6px',
+                                                        border: '2px solid black',
+                                                        borderRadius: '20px',
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        fontSize: '18px',
+                                                        cursor: 'pointer',
+                                                        '@media (max-width: 768px)':{
+                                                            width: '250px',
+                                                            padding: '4px',
+                                                            fontSize: '16px',
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            width: '200px',
+                                                            padding: '2px',
+                                                            fontSize: '14px',
+                                                        },
+                                                    }),
+                                                    menu: (provided) => ({
+                                                        ...provided,
+                                                        overflow: 'hidden',
+                                                        borderRadius:'15px',
+                                                    }),
+                                                    menuList: (provided) => ({
+                                                        ...provided,
+                                                        maxHeight:175,
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        overflowY:'auto',
+                                                        scrollbarWidth: 'none',
+                                                        '&::-webkit-scrollbar': {
+                                                            display:'none',
+                                                        },
+                                                        '@media (max-width: 768px)':{
+                                                            maxHeight:150,
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            maxHeight:125,
+                                                        },
+                                                    })
+                                                }}
+                                                placeholder='Seleccione uno...'
+                                                value={filteredRecordsHasStatus
+                                                    .map(user => ({ value: user.idusuario, label: user.usuario }))
+                                                    .find(option => option.value === isTextFieldsStatus.iduser)
+                                                }
+                                                onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, iduser: e.value, user: e.label}))}
+                                                isDisabled={isActionBlock}
+                                            />
+                                        </Container_Row_95_Center>  
+                                    </>
+                                ):(
+                                    <>
+                                        <Container_Row_95_Center>
+                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        </Container_Row_95_Center>
+                                    </>
+                                )}
+                            </Container_Column_90_Center>
+                            <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>Selecciona un estado...</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
-                            <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                {['Habilitado','Deshabilitado'].map((item,index) => (
-                                    <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                        <Input_Radio_16 ThemeMode={themeMode}
-                                            type="radio"
-                                            name="group"
-                                            value={item}
-                                            checked={isTextFieldsStatus.status === item}
-                                            disabled={isActionBlock}
-                                            onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, status: e.target.value}))}
-                                        />
-                                        {item}
-                                    </Label_Text_16_Center>
-                                ))};
-                            </Container_Row_95_Center>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
+                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Left ThemeMode={themeMode}>- Estado...</Text_A_16_Left>
+                                </Container_Row_NG_95_Center>
+                                <Container_Row_95_Center>
+                                    {['Habilitado','Deshabilitado'].map((item,index) => (
+                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_16 ThemeMode={themeMode}
+                                                type="radio"
+                                                name="group"
+                                                value={item}
+                                                checked={isTextFieldsStatus.status === item}
+                                                disabled={isActionBlock}
+                                                onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, status: e.target.value}))}
+                                            />
+                                            {item}
+                                        </Label_Text_16_Center>
+                                    ))};
+                                </Container_Row_95_Center>
+                            </Container_Column_90_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_150 ThemeMode={themeMode} className='pulsate-buttom'

@@ -84,11 +84,17 @@ DELETE FROM permisos
 DELETE FROM estatus
 
 DELETE FROM usuarios 
-WHERE idusuario >= 27
+WHERE idusuario >= 33
 
-DBCC CHECKIDENT (permisos, RESEED, 0);
-DBCC CHECKIDENT (estatus, RESEED, 0);
-DBCC CHECKIDENT (usuarios, RESEED, 26);
+DELETE FROM permisos 
+WHERE idusuario >= 33
+
+DELETE FROM estatus
+WHERE idusuario >= 32
+
+DBCC CHECKIDENT (permisos, RESEED, 8);
+DBCC CHECKIDENT (estatus, RESEED, 7);
+DBCC CHECKIDENT (usuarios, RESEED, 32);
 
 DELETE FROM observacionesProveedor
 

@@ -105,8 +105,7 @@ export default function Login(){
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        
-                        const existsUser = currentRecordsUsers.find(user => user.usuario === isTextFieldsUser.user);
+                        const existsUser = filteredRecordsUsers.find(user => user.usuario === isTextFieldsUser.user);
                         
                         if(existsUser && existsUser.contrasena === isTextFieldsUser.password){
                             let existsStatus = isStatus.find(user => user.idusuario === existsUser.idusuario);
@@ -273,7 +272,7 @@ export default function Login(){
     const navigate = useNavigate();
     const handleLoginView = HandleLoginView();
     const handleLoggedLog = HandleLoggedLog();
-    const { currentRecordsUsers } = TableActionsUsers();
+    const { filteredRecordsUsers } = TableActionsUsers();
     // Estructura del componente
     return(
         <>
@@ -294,13 +293,17 @@ export default function Login(){
                                         <>  
                                             <Tooltip title='Administración' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                                    onClick={() => handleLoginView('Administration','')}>
+                                                    onClick={() => handleLoginView('Administration','')}
+                                                    disabled={isAnimation}
+                                                >
                                                     <Icon_White_22><MdManageAccounts/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip>
                                             <Tooltip title='Cocina' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                                    onClick={() => handleLoginView('Kitchen','')}>
+                                                    onClick={() => handleLoginView('Kitchen','')}
+                                                    disabled={isAnimation}
+                                                >
                                                     <Icon_White_22><GiRiceCooker/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip>
@@ -312,25 +315,33 @@ export default function Login(){
                                         <>
                                             <Tooltip title='Administrador' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Administrator')}>
+                                                    onClick={() => handleLoginView('Login','Administrator')}
+                                                    disabled={!isAnimation}
+                                                >
                                                     <Icon_White_22><FaUserTie/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip>
                                             <Tooltip title='Chef' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Chef')}>
+                                                    onClick={() => handleLoginView('Login','Chef')}
+                                                    disabled={!isAnimation}
+                                                >
                                                     <Icon_White_22><GiChefToque/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip>    
                                             <Tooltip title='Almacenista' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Storekeeper')}>
+                                                    onClick={() => handleLoginView('Login','Storekeeper')}
+                                                    disabled={!isAnimation}
+                                                >
                                                     <Icon_White_22><FaWarehouse/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip> 
                                             <Tooltip title='Atrás' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('','')}>
+                                                    onClick={() => handleLoginView('','')}
+                                                    disabled={!isAnimation}    
+                                                >
                                                     <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip>
@@ -342,25 +353,33 @@ export default function Login(){
                                         <>
                                             <Tooltip title='Cocinero' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Cook')}>
+                                                    onClick={() => handleLoginView('Login','Cook')}
+                                                    disabled={!isAnimation}
+                                                >
                                                     <Icon_White_22><GiCook/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip>  
                                             <Tooltip title='Nutriólogo' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Nutritionist')}>
+                                                    onClick={() => handleLoginView('Login','Nutritionist')}
+                                                    disabled={!isAnimation}    
+                                                >
                                                     <Icon_White_22><IoNutrition/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip> 
                                             <Tooltip title='Médico' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Doctor')}>
+                                                    onClick={() => handleLoginView('Login','Doctor')}
+                                                    disabled={!isAnimation}    
+                                                >
                                                     <Icon_White_22><FaUserDoctor/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip> 
                                             <Tooltip title='Atrás' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('','')}> 
+                                                    onClick={() => handleLoginView('','')}
+                                                    disabled={!isAnimation}    
+                                                > 
                                                     <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
                                                 </Button_Icon_Blue_220>
                                             </Tooltip> 
@@ -379,13 +398,17 @@ export default function Login(){
                                 <Container_Row_95_Center>
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_150 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleLoginView(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}>
+                                            onClick={() => handleLoginView(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}
+                                            disabled={isActionBlock}
+                                        >
                                             <Icon_White_22><IoArrowBackCircle/></Icon_White_22>
                                         </Button_Icon_Blue_150>
                                     </Tooltip>
                                     <Tooltip title='Iniciar sesión' placement="top">
                                         <Button_Icon_Green_150 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleLoggedLog()}>
+                                            onClick={() => handleLoggedLog()}
+                                            disabled={isActionBlock}
+                                        >
                                             <Icon_White_22><MdLogin/></Icon_White_22>
                                         </Button_Icon_Green_150>
                                     </Tooltip>

@@ -5,7 +5,7 @@ import { useRef } from "react";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../contexts/FormsProvider";
-import { AnimationContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../contexts/VariablesProvider";
+import { AnimationContext,KeyboardContext,KeyboardViewContext,TouchContext,ActionBlockContext } from "../../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../../contexts/RefsProvider";
 // Estilos personalizados
 import { Container_Row_100_Center,Container_Column_90_Center,Container_Row_NG_95_Left } from "../styled/Containers";
@@ -19,6 +19,7 @@ export default function Form_Login(){
     const [themeMode] = useContext(ThemeModeContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isAnimation] = useContext(AnimationContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
@@ -108,6 +109,7 @@ export default function Form_Login(){
                                 setIsKeyboardView('User');
                             }
                         }}
+                        disabled={isActionBlock}
                     />
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
@@ -124,6 +126,7 @@ export default function Form_Login(){
                                 setIsKeyboardView('Password');
                             }
                         }}
+                        disabled={isActionBlock}
                     />
                 </Container_Row_100_Center>
             </Container_Column_90_Center>

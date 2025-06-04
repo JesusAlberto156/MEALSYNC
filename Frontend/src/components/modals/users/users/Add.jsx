@@ -22,10 +22,10 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_A_16_Center,Text_Blue_16_Left } from "../../../styled/Text";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Left,Text_A_16_Center,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
+import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Radio_16 } from "../../../styled/Inputs";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -74,23 +74,43 @@ export default function User_Add(){
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isUserAdd){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
-                            setIsActionBlock(false);
-                            setIsUserAdd(false);
-                            return reject('¡Usuario ya existente!...');
-                        }
-                        socket.emit('User-Insert',isTextFieldsUser.userTypes,isTextFieldsUser.name,isTextFieldsUser.shortName,isTextFieldsUser.user,isTextFieldsUser.password)
+                        socket.emit('User-Insert',isTextFieldsUser.userTypes,isTextFieldsUser.name.trim(),isTextFieldsUser.shortName.trim(),isTextFieldsUser.user.trim(),isTextFieldsUser.password.trim())
 
                         resolve('¡MEALSYNC agrego al usuario!...');
 
                         setIsUserAdd(false);
-                        setIsPermissionsAdd(true);
-                        
+
+                        if(isTextFieldsUser.permissions !== ''){
+                            setIsPermissionsAdd(true);
+                        }
+
+                        if(isTextFieldsUser.status !== '' && isTextFieldsUser.permissions === ''){
+                            setIsStatusAdd(true);
+                        }
+
+                        if(isTextFieldsUser.permissions === '' && isTextFieldsUser.status === ''){
+                            const route = sessionStorage.getItem('Route');
+
+                            setCurrentMView('');
+                            sessionStorage.setItem('Modal-View','');
+                            setTimeout(() => {
+                                setIsModal(false);
+                                sessionStorage.setItem('Modal',false);
+                                setIsSubModal(false);
+                                sessionStorage.setItem('Sub-Modal',false);
+                                resetTextFieldsUser();
+                                resetTextFieldsPermissions();
+                                setIsAnimation(false);
+                                sessionStorage.removeItem('Animation');
+                                setIsActionBlock(false);
+                                navigate(route,{ replace: true });
+                            },750);
+                        }
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsUserAdd(false);
                     return reject('¡Ocurrio un error inesperado!...');
@@ -99,19 +119,41 @@ export default function User_Add(){
 
             Alert_Verification(promise,'¡Agregando un usuario!...');
         }
-        if(isPermissionsAdd){
+        if(isPermissionsAdd && isTextFieldsUser.permissions !== ''){
             if(isTextFieldsUser.iduser !== 0){
-                const promise = new Promise(async (resolve,reject) => {
+                const promise = new Promise((resolve,reject) => {
                     try{
                         setTimeout(() => {
-                            socket.emit('Permissions-Insert',isTextFieldsUser.iduser,isTextFieldsUser.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
+                            socket.emit('Permissions-Insert',isTextFieldsUser.iduser,isTextFieldsUser.user.trim(),isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
                             
                             resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
                             setIsPermissionsAdd(false);
-                            setIsStatusAdd(true);
+
+                            if(isTextFieldsUser.status !== ''){
+                                setIsStatusAdd(true);
+                            }
+
+                            if(isTextFieldsUser.status === ''){
+                                const route = sessionStorage.getItem('Route');
+
+                                setCurrentMView('');
+                                sessionStorage.setItem('Modal-View','');
+                                setTimeout(() => {
+                                    setIsModal(false);
+                                    sessionStorage.setItem('Modal',false);
+                                    setIsSubModal(false);
+                                    sessionStorage.setItem('Sub-Modal',false);
+                                    resetTextFieldsUser();
+                                    resetTextFieldsPermissions();
+                                    setIsAnimation(false);
+                                    sessionStorage.removeItem('Animation');
+                                    setIsActionBlock(false);
+                                    navigate(route,{ replace: true });
+                                },750);
+                            }
                         },2000);
-                    }catch(error){
+                    }catch(e){
                         setIsActionBlock(false);
                         setIsPermissionsAdd(false);
                         return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
@@ -127,12 +169,12 @@ export default function User_Add(){
                 setIsPermissionsAdd(true);
             }
         }
-        if(isStatusAdd){
+        if(isStatusAdd && isTextFieldsUser.status !== ''){
             if(isTextFieldsUser.iduser !== 0){
-                const promise = new Promise(async (resolve,reject) => {
+                const promise = new Promise((resolve,reject) => {
                     try{
                         setTimeout(() => {
-                            socket.emit('Status-Insert',isTextFieldsUser.iduser,isTextFieldsUser.status === 'Habilitado' ? 1:0,isTextFieldsUser.user);
+                            socket.emit('Status-Insert',isTextFieldsUser.iduser,isTextFieldsUser.status === 'Habilitado' ? 1:0,isTextFieldsUser.user.trim());
                             
                             resolve('¡MEALSYNC agregó el status al usuario!...');
 
@@ -154,7 +196,7 @@ export default function User_Add(){
                                 navigate(route,{ replace: true });
                             },750);
                         },2000);
-                    }catch(error){               
+                    }catch(e){               
                         setIsActionBlock(false);
                         setIsStatusAdd(false);
                         return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
@@ -162,6 +204,12 @@ export default function User_Add(){
                 });
 
                 Alert_Verification(promise,'¡Agregando estatus al usuario!...');
+            }else{
+                setIsTextFieldsUser(prev => ({
+                    ...prev,
+                    iduser: isUsers.find(user => user.usuario === isTextFieldsUser.user)?.idusuario || 0,
+                }));
+                setIsPermissionsAdd(true);
             }
         }
     },[isUserAdd,isPermissionsAdd,isStatusAdd,isUsers,isTextFieldsUser])
@@ -200,34 +248,53 @@ export default function User_Add(){
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Left>
+                            <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Center ThemeMode={themeMode}>Datos del usuario...</Text_A_16_Center>
-                            </Container_Row_NG_95_Left>
+                                <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                            </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsUser.name}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
                                     />
+                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        onClick={() => {
+                                            setIsTextFieldsUser(prev => ({...prev, name: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_18>
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre corto:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsUser.shortName}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
                                     />
+                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        onClick={() => {
+                                            setIsTextFieldsUser(prev => ({...prev, shortName: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_18>
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsUser.user}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
                                     />
@@ -237,79 +304,96 @@ export default function User_Add(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="password"
+                                        disabled={isActionBlock}
                                         value={isTextFieldsUser.password}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
-                                <Select
-                                    options={isUserTypes.map((userTypes) => ({
-                                        value: userTypes.idtipo,
-                                        label: userTypes.tipo
-                                    }))}
-                                    styles={{
-                                        control: (provided) => ({
-                                            ...provided,
-                                            width: '300px',
-                                            padding: '6px',
-                                            border: '2px solid black',
-                                            cursor: 'pointer',
-                                            borderRadius: '20px',
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            fontSize: '18px',
-                                            '@media (max-width: 768px)':{
-                                                width: '250px',
-                                                padding: '4px',
-                                                fontSize: '16px',
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                width: '200px',
-                                                padding: '2px',
-                                                fontSize: '14px',
-                                            },
-                                        }),
-                                        menu: (provided) => ({
-                                            ...provided,
-                                            overflow: 'hidden',
-                                            borderRadius:'15px',
-                                        }),
-                                        menuList: (provided) => ({
-                                            ...provided,
-                                            maxHeight:175,
-                                            fontFamily: 'Century Gothic',
-                                            fontStyle: 'normal',
-                                            overflowY:'auto',
-                                            scrollbarWidth: 'none',
-                                            '&::-webkit-scrollbar': {
-                                                display:'none',
-                                            },
-                                            '@media (max-width: 768px)':{
-                                                maxHeight:150,
-                                            },
-                                            '@media (max-width: 480px)':{
-                                                maxHeight:125,
-                                            },
-                                        })
-                                    }}
-                                    placeholder='Seleccione uno...'
-                                    value={isUserTypes
-                                        .map(user => ({ value: user.idtipo, label: user.tipo }))
-                                        .find(option => option.value === isTextFieldsUser.userTypes)
-                                    }
-                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
-                                />
+                                {isUserTypes.length !== 0 ? (
+                                    <>
+                                        <Select
+                                            options={isUserTypes.map((userTypes) => ({
+                                                value: userTypes.idtipo,
+                                                label: userTypes.tipo
+                                            }))}
+                                            styles={{
+                                                control: (provided) => ({
+                                                    ...provided,
+                                                    width: '300px',
+                                                    padding: '6px',
+                                                    border: '2px solid black',
+                                                    cursor: 'pointer',
+                                                    borderRadius: '20px',
+                                                    fontFamily: 'Century Gothic',
+                                                    fontStyle: 'normal',
+                                                    fontSize: '18px',
+                                                    '@media (max-width: 768px)':{
+                                                        width: '250px',
+                                                        padding: '4px',
+                                                        fontSize: '16px',
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        width: '200px',
+                                                        padding: '2px',
+                                                        fontSize: '14px',
+                                                    },
+                                                }),
+                                                menu: (provided) => ({
+                                                    ...provided,
+                                                    overflow: 'hidden',
+                                                    borderRadius:'15px',
+                                                }),
+                                                menuList: (provided) => ({
+                                                    ...provided,
+                                                    maxHeight:175,
+                                                    fontFamily: 'Century Gothic',
+                                                    fontStyle: 'normal',
+                                                    overflowY:'auto',
+                                                    scrollbarWidth: 'none',
+                                                    '&::-webkit-scrollbar': {
+                                                        display:'none',
+                                                    },
+                                                    '@media (max-width: 768px)':{
+                                                        maxHeight:150,
+                                                    },
+                                                    '@media (max-width: 480px)':{
+                                                        maxHeight:125,
+                                                    },
+                                                })
+                                            }}
+                                            placeholder='Seleccione uno...'
+                                            value={isUserTypes
+                                                .map(user => ({ value: user.idtipo, label: user.tipo }))
+                                                .find(option => option.value === isTextFieldsUser.userTypes)
+                                            }
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
+                                            isDisabled={isActionBlock}
+                                        />  
+                                    </>
+                                ):(
+                                    <>
+                                        <Container_Row_95_Center>
+                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        </Container_Row_95_Center>
+                                    </>
+                                )}
                             </Container_Column_90_Center>
-                            <Container_Row_NG_95_Left>
+                            <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Center ThemeMode={themeMode}>Permisos...</Text_A_16_Center>
-                            </Container_Row_NG_95_Left>
+                                <Text_A_16_Center ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Center>
+                            </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Center ThemeMode={themeMode}>- Permisos...</Text_A_16_Center>
+                                </Container_Row_NG_95_Center>
                                 <Container_Row_100_Center>
                                     {['Default','Personalizado'].map((item,index) => (
                                         <Label_Text_16_Center ThemeMode={themeMode} key={index}>
                                             <Input_Radio_16 ThemeMode={themeMode}
                                                 type="radio"
                                                 name="permissions"
+                                                disabled={isActionBlock}
                                                 value={item}
                                                 checked={isTextFieldsUser.permissions === item}
                                                 onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permissions: e.target.value}))}
@@ -318,18 +402,17 @@ export default function User_Add(){
                                         </Label_Text_16_Center>
                                     ))};
                                 </Container_Row_100_Center>
-                            </Container_Column_90_Center>
-                            <Container_Row_NG_95_Left>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Center ThemeMode={themeMode}>Estatus...</Text_A_16_Center>
-                            </Container_Row_NG_95_Left>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_95_Center>
+                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                    <Text_A_16_Center ThemeMode={themeMode}>- Estatus...</Text_A_16_Center>
+                                </Container_Row_NG_95_Center>
                                 <Container_Row_100_Center>
                                     {['Habilitado','Deshabilitado'].map((item,index) => (
                                         <Label_Text_16_Center ThemeMode={themeMode} key={index}>
                                             <Input_Radio_16 ThemeMode={themeMode}
                                                 type="radio"
                                                 name="status"
+                                                disabled={isActionBlock}
                                                 value={item}
                                                 checked={isTextFieldsUser.status === item}
                                                 onChange={(e) => setIsTextFieldsUser(prev => ({...prev, status: e.target.value}))}
@@ -342,13 +425,17 @@ export default function User_Add(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}>
+                                        onClick={() => handleModalView('')}
+                                        disabled={isActionBlock}    
+                                    >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
                                     </Button_Icon_Blue_210>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
                                     <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUserAdd()}>
+                                        onClick={() => handleUserAdd()}
+                                        disabled={isActionBlock}    
+                                    >
                                         <Icon_White_22><IoIosAddCircle/></Icon_White_22>
                                     </Button_Icon_Green_210>
                                 </Tooltip>

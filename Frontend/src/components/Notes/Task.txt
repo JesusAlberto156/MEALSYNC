@@ -1,7 +1,7 @@
 -------------------------------- FORMULARIOS --
 ______LOGIN______
 - Verificación de los campos 
-- Implementación del teclado
+- Implementación del teclado 
 - Funcionalidad 
 - Diseño de la interfaz 
 ______VERIFICAR SESION______
@@ -12,15 +12,15 @@ ______VERIFICAR SESION______
 -------------------------------- FORMULARIOS --
 -------------------------------- USUARIOS --
 ______AGREGAR______
-- Verificación de los campos 
+- Verificación de los campos ✔️
 - Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______EDITAR______
-- Verificación de los campos 
+- Verificación de los campos ✔️
 - Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______ELIMINAR______
 - Verificación de los campos ✔️
 - Funcionalidad ✔️

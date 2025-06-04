@@ -23,10 +23,10 @@ import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_100_Left,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_100_Left,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
+import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
@@ -53,10 +53,10 @@ export default function User_Edit(){
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isUserEdit){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('User-Update',isTextFieldsUser.userTypes,isSelectedRow.idusuario,isTextFieldsUser.name,isTextFieldsUser.shortName,isTextFieldsUser.user,isTextFieldsUser.password)
+                        socket.emit('User-Update',isTextFieldsUser.userTypes,isSelectedRow.idusuario,isTextFieldsUser.name.trim(),isTextFieldsUser.shortName.trim(),isTextFieldsUser.user.trim(),isTextFieldsUser.password.trim())
 
                         resolve('¡MEALSYNC actualizo al usuario!...');
 
@@ -73,7 +73,7 @@ export default function User_Edit(){
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsUserEdit(false);
                     return reject('¡Ocurrio un error inesperado!...');
@@ -106,10 +106,10 @@ export default function User_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>EDITAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Left>
+                            <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Usuario: {isTextFieldsUser.user}</Text_A_16_Left>
-                            </Container_Row_NG_95_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales</Text_A_16_Left>
+                            </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
@@ -120,6 +120,14 @@ export default function User_Edit(){
                                         disabled={isActionBlock}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
                                     />
+                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        onClick={() => {
+                                            setIsTextFieldsUser(prev => ({...prev, name: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_18>
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre corto:</Text_A_16_Left>
@@ -130,6 +138,14 @@ export default function User_Edit(){
                                         disabled={isActionBlock}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
                                     />
+                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        onClick={() => {
+                                            setIsTextFieldsUser(prev => ({...prev, shortName: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_18>
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
                                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>

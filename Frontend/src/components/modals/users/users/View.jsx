@@ -48,24 +48,28 @@ export default function User_View(){
                             <Form_Verification/>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">
-                                    <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => {
-                                            handleModalView('');
-                                        }}
-                                        disabled={!isActionBlock && isVerificationBlock}
-                                    >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Blue_180>
+                                    <span>
+                                        <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
+                                            onClick={() => {
+                                                handleModalView('');
+                                            }}
+                                            disabled={!isActionBlock && isVerificationBlock}
+                                        >
+                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                        </Button_Icon_Blue_180>
+                                    </span>
                                 </Tooltip>
                                 <Tooltip title='Ver' placement="top">
-                                    <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                        onClick={() => {
-                                            handleViewPassword();
-                                        }}
-                                        disabled={!isActionBlock}
-                                    >
-                                        <Icon_White_22><FaEye/></Icon_White_22>
-                                    </Button_Icon_Green_180>
+                                    <span>
+                                        <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
+                                            onClick={() => {
+                                                handleViewPassword();
+                                            }}
+                                            disabled={!isActionBlock}
+                                        >
+                                            <Icon_White_22><FaEye/></Icon_White_22>
+                                        </Button_Icon_Green_180>
+                                    </span>
                                 </Tooltip>
                             </Container_Row_95_Center>
                         </Container_Form_450>

@@ -117,19 +117,19 @@ export default function Chart_Suppliers(){
                         if(themeMode){
                             color = 'rgb(235, 108, 23)';
                         }else{
-                            color = 'rgb(189, 91, 11)';
+                            color = 'rgb(207, 122, 52)';
                         }
                     }else if(promedio <= 3){
                         if(themeMode){
                             color = 'rgb(250, 207, 66)';
                         }else{
-                            color = 'rgb(250, 184, 3)';
+                            color = 'rgb(235, 191, 71)';
                         }
                     }else if(promedio <= 4){
                         if(themeMode){
                             color = 'rgb(160, 187, 39)';
                         }else{
-                            color = 'rgb(116, 136, 25)';
+                            color = 'rgb(174, 190, 100)';
                         }
                     }else if(promedio <= 5){
                         if(themeMode){

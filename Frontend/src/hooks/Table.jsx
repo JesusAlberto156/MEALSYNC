@@ -4,7 +4,7 @@ import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
 import { UsersContext,UserTypesContext,StatusContext,UsersDeleteContext,PermissionsContext } from "../contexts/UsersProvider";
 import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderPlusContext,SelectedOptionOrderContext } from "../contexts/SelectedesProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 //____________IMPORT/EXPORT____________
 
@@ -231,7 +231,7 @@ export const TableActionsPermissions = () => {
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPagePermissions,
-             currentRecordsPermissions,ToggleOrderDirection,ToggleOrder,
+             currentRecordsPermissions,ToggleOrderDirection,ToggleOrder,filteredRecordsPermissions,
              totalPagesPermissions }
 }
 // Hook para realizar las acciones de la tabla de estatus ✔️
@@ -242,16 +242,83 @@ export const TableActionsStatus = () => {
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
-    const filteredRecordsStatus = isStatusAll.filter((data) => {
-        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
-        if (isDeleted) return false;
+    const filteredRecordsStatus = useMemo(() => {
+        const filtered = isStatusAll.filter((data) => {
+            const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+            if (isDeleted) return false;
 
-        const user = isUsers.find(user => user.idusuario === data.idusuario);
-        return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
-    });
+            const user = isUsers.find(user => user.idusuario === data.idusuario);
+            return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+        });
+
+        return [...filtered].sort((a, b) => {
+            if(isSelectedOptionOrderPlus === 'Normal'){
+                if(isSelectedOptionOrder === 'Nombre'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? isUsers.find(user => user.idusuario === a.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombre, 'es', { sensitivity: 'base' })
+                    : isUsers.find(user => user.idusuario === b.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombre, 'es', { sensitivity: 'base' });
+                }
+
+                if(isSelectedOptionOrder === 'Habilitado'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? b.habilitado - a.habilitado
+                    : a.habilitado - b.habilitado
+                }
+            }
+
+            if(isSelectedOptionOrderPlus === 'Activo'){
+                const active = b.activo - a.activo
+                
+                if(active !== 0)return active
+
+                if(isSelectedOptionOrder === 'Nombre'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? isUsers.find(user => user.idusuario === a.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombre, 'es', { sensitivity: 'base' })
+                    : isUsers.find(user => user.idusuario === b.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombre, 'es', { sensitivity: 'base' });
+                }
+
+                if(isSelectedOptionOrder === 'Habilitado'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? b.habilitado - a.habilitado
+                    : a.habilitado - b.habilitado
+                }
+            }
+
+            if(isSelectedOptionOrderPlus === 'Inactivo'){
+                const active = a.activo - b.activo
+                
+                if(active !== 0)return active
+
+                if(isSelectedOptionOrder === 'Nombre'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? isUsers.find(user => user.idusuario === a.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombre, 'es', { sensitivity: 'base' })
+                    : isUsers.find(user => user.idusuario === b.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombre, 'es', { sensitivity: 'base' });
+                }
+
+                if(isSelectedOptionOrder === 'Habilitado'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? b.habilitado - a.habilitado
+                    : a.habilitado - b.habilitado
+                }
+            }
+
+            return 0
+        });
+    }, [isUsers, isUsersDelete, isStatusAll, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus]);
+    // Cambio de direccion del ordenamiento
+    const ToggleOrderDirection = () => {
+        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
+    };
+    // Cambio de lo que quiere ordenar
+    const ToggleOrder = (option) => {
+        setIsSelectedOptionOrder(option);
+    };
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
     // Indices de los registros
@@ -284,7 +351,7 @@ export const TableActionsStatus = () => {
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageStatus,
-             currentRecordsStatus,filteredRecordsStatus,
+             currentRecordsStatus,filteredRecordsStatus,ToggleOrderDirection,ToggleOrder,
              totalPagesStatus}
 }
 

@@ -22,7 +22,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
+import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
 import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
@@ -109,27 +109,51 @@ export default function Table_Users(){
             <Table id="Table-Users">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Nombre')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre completo</Icon_Button_Black_14></Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Nombre-Corto')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre-Corto' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre corto</Icon_Button_Black_14></Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Usuario')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Usuario' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Usuario</Icon_Button_Black_14></Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Nombre')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre completo
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Nombre-Corto')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre-Corto' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre corto
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Usuario')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Usuario' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Usuario
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
                         <Th>Contraseña</Th>
-                        <Th> <Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Tipo')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Tipo de usuario</Icon_Button_Black_14></Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Tipo')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Tipo de usuario
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>

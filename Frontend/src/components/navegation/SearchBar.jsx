@@ -7,7 +7,7 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
-import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderContext } from "../../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 import { UserViewPasswordContext } from "../../contexts/UsersProvider";
 import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSuppliesContext } from "../../contexts/RefsProvider";
@@ -17,6 +17,7 @@ import { HandleViewPassword } from "../../hooks/Form";
 //__________ICONOS__________
 // Icono para la seccion del buscador
 import { FcSearch } from "react-icons/fc";
+import { IoSearch } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { LuArrowDownUp } from "react-icons/lu";
 // Iconos para un crud
@@ -30,7 +31,7 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left,Container_Row_80_Center } from "../styled/Containers";
+import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
 import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_26,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
 import { Input_Text_White_20 } from "../styled/Inputs";
@@ -56,7 +57,7 @@ export default function Search_Bar (){
     const {Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
     const {Modal_Su,Form_Su,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
     const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // Constante con las opciones de los buscadores
     const isOptionUsers = ['General','Nombre','Nombre corto','Usuario','Tipo de usuario'];
     const isOptionStatus = ['Normal','Activo','Inactivo'];
@@ -89,6 +90,7 @@ export default function Search_Bar (){
                                 <Text_Span_12_Center>{option}</Text_Span_12_Center>
                             </Button_Icon_Blue_140>
                         ))}
+                        <Icon_White_18><IoSearch/></Icon_White_18>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>
@@ -98,10 +100,10 @@ export default function Search_Bar (){
                         {isOptionStatus.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
                                 key={index}
-                                onClick={() => setIsSelectedOptionOrder(option)}
+                                onClick={() => setIsSelectedOptionOrderPlus(option)}
                                 style={{
-                                    backgroundColor: isSelectedOptionOrder === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
-                                    color: isSelectedOptionOrder === option ? 'white' : 'white',
+                                    backgroundColor: isSelectedOptionOrderPlus === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                    color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
                                 }}
                             >
                                 <Text_Span_12_Center>{option}</Text_Span_12_Center>

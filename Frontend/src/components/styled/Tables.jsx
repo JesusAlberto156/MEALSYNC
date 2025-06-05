@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 //____________IMPORT/EXPORT____________
 
+
 export const Table = styled.table`
     border-collapse: separate;
     border-spacing: 0 15px;
@@ -21,11 +22,7 @@ export const Th = styled.th`
     text-align: center;
     padding: 10px;
     color: white;
-    display: flex;
-    flex-direction: row; 
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+    white-space: nowrap;
 
     @media (max-width: 768px) {
         font-size: 12px; 
@@ -41,6 +38,12 @@ export const Tbody = styled.tbody.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     background-color: transparent;    
+    box-shadow: 0 ${({ ThemeMode }) => (ThemeMode ?'8px 10px -4px rgba(0, 0, 0, 0.88)':'2px 14px 2px rgb(255, 255, 255)')};
+`;
+export const Tbody_White = styled.tbody.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    background-color: ${({ ThemeMode }) => (ThemeMode ?'white':'black')};
     box-shadow: 0 ${({ ThemeMode }) => (ThemeMode ?'8px 10px -4px rgba(0, 0, 0, 0.88)':'2px 14px 2px rgb(255, 255, 255)')};
 `;
 export const Td = styled.td.withConfig({
@@ -62,4 +65,21 @@ export const Td = styled.td.withConfig({
         font-size: 8px; 
         padding: 6px; 
     }
+`;
+export const TContainer_Center = styled.div`
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+`;
+export const TContainer_Icon = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
 `;

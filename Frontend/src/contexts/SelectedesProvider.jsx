@@ -7,6 +7,7 @@ export const SelectedRow1Context = createContext(null);
 export const SelectedRow2Context = createContext(null);
 export const SelectedOptionSearchContext = createContext(null);
 export const SelectedOptionOrderContext = createContext(null);
+export const SelectedOptionOrderPlusContext = createContext(null);
 export const SelectedOptionOrderDirectionContext = createContext(null);
 //____________IMPORT/EXPORT____________
 // Todos los contextos para lo que se seleccione de varias opciones ✔️
@@ -17,9 +18,11 @@ export const Index_Selectedes = ({children}) => {
                 <Selected_Row_2>
                     <Selected_Option_Search>
                         <Selected_Option_Order>
-                            <Selected_Option_Order_Direction>
-                                {children}
-                            </Selected_Option_Order_Direction>
+                            <Selected_Option_Order_Plus>
+                                <Selected_Option_Order_Direction>
+                                    {children}
+                                </Selected_Option_Order_Direction>
+                            </Selected_Option_Order_Plus>
                         </Selected_Option_Order>
                     </Selected_Option_Search>
                 </Selected_Row_2>
@@ -75,12 +78,23 @@ export const Selected_Option_Search = ({ children }) => {
 // Función Contexto para controlar la opcion seleccionada en el ordenamiento ✔️
 export const Selected_Option_Order = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useState('Normal');
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useState('');
     // Return para darle valor al contexto y heredarlo
     return (
         <SelectedOptionOrderContext.Provider value={[isSelectedOptionOrder,setIsSelectedOptionOrder]}>
             {children}
         </SelectedOptionOrderContext.Provider>
+    );
+}
+// Función Contexto para controlar la opcion seleccionada en el ordenamiento mas especifico ✔️
+export const Selected_Option_Order_Plus = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useState('Normal');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SelectedOptionOrderPlusContext.Provider value={[isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus]}>
+            {children}
+        </SelectedOptionOrderPlusContext.Provider>
     );
 }
 // Función Contexto para controlar la direccion en el ordenamiento ✔️

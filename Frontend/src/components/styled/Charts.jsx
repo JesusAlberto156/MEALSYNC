@@ -26,11 +26,11 @@ export const Chart_90 = styled.button.withConfig({
 `;
 //____________CONTAINER____________
 //---------- Blanco
-export const Chart_Container_White_800x500 = styled.button.withConfig({
+export const Chart_Container_White_420x450 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    width: 800px;
-    height: 500px;
+    width: 420px;
+    height: 450px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
     border-radius: 40px;
     background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)')};
@@ -41,15 +41,15 @@ export const Chart_Container_White_800x500 = styled.button.withConfig({
     @media (max-width: 768px) {
         padding: 15px;
         border-radius: 35px;
-        width: 600px;
+        width: 280px;
         height: 350px;
     }
 
     @media (max-width: 480px) {
         padding: 10px;
         border-radius: 30px;
-        width: 400px;
-        height: 200px;
+        width: 140px;
+        height: 250px;
     }
 `;
 //---------- Blanco

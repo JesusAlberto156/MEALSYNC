@@ -2957,6 +2957,31 @@ export const Text_Fade_A_20_Center = styled.a.withConfig({
         padding: 6px;
     }
 `;
+export const Text_Fade_A_15_Center = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 11px;
+        padding: 6px;
+    }
+`;
 //---------- CENTER
 //---------- JUSTIFY
 export const Text_Fade_A_35_Justify = styled.a.withConfig({
@@ -3056,6 +3081,31 @@ export const Text_Fade_A_20_Justify = styled.a.withConfig({
 
     @media (max-width: 480px) {
         font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_15_Justify = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 15px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 11px;
         padding: 6px;
     }
 `;
@@ -3161,6 +3211,31 @@ export const Text_Fade_A_20_Left = styled.a.withConfig({
         padding: 6px;
     }
 `;
+export const Text_Fade_A_15_Left = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 15px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 11px;
+        padding: 6px;
+    }
+`;
 //---------- LEFT
 //---------- RIGHT
 export const Text_Fade_A_35_Right = styled.a.withConfig({
@@ -3260,6 +3335,31 @@ export const Text_Fade_A_20_Right = styled.a.withConfig({
 
     @media (max-width: 480px) {
         font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_15_Right = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 15px;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 11px;
         padding: 6px;
     }
 `;

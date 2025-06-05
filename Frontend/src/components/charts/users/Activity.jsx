@@ -1,28 +1,37 @@
+//____________IMPORT/EXPORT____________
+// Hooks de React
 import { useContext } from 'react';
+// Componentes de React externos
 import { PieChart,Pie,Cell,Tooltip,Legend,ResponsiveContainer } from 'recharts';
-import { Container_Row_90_Center } from '../../styled/Containers';
-import { Text_Fade_A_30_Center,Text_Blue_24_Center } from '../../styled/Text';
+// Contextos
 import { ThemeModeContext } from '../../../contexts/ViewsProvider';
+// Hooks personalizados
 import { TableActionsStatus } from '../../../hooks/Table';
-import { Chart_Container_White_800x500,Chart_Tooltip_Custom_Name_Value } from '../../styled/Charts';
+// Estilos personalizados
+import { Container_Row_90_Center } from '../../styled/Containers';
+import { Text_P_16_Center,Text_Fade_A_30_Center } from '../../styled/Text';
+import { Chart_Container_White_420x450,Chart_Tooltip_Custom_Name_Value } from '../../styled/Charts';
+//____________IMPORT/EXPORT____________
+
+// Grafico para mostrar la actividad de los usuarios
 export default function Chart_Activity() {
-
-    const { filteredRecordsStatus } = TableActionsStatus();
+    // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
+    // Constantes con la funcionalidad de los hooks
+    const { filteredRecordsStatus } = TableActionsStatus();
+    // Constantes para detalles de la grafica
     const active = filteredRecordsStatus.filter((status) => status.activo === true).length;
-
     const data = [
         { name: `Activo`, value: active },
         { name: `Inactivo`, value: filteredRecordsStatus.length - active },
         { name: `Total de usuarios`, value: filteredRecordsStatus.length},
     ];
-    
     const COLORS = [themeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)', themeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)',  themeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)'];
-    
+    // Estructura del componente
     return (
         <>
-            <Chart_Container_White_800x500 ThemeMode={themeMode}>
-                <Text_Blue_24_Center ThemeMode={themeMode}>ACTIVIDAD DE USUARIOS</Text_Blue_24_Center>
+            <Chart_Container_White_420x450 ThemeMode={themeMode}>
+                <Text_P_16_Center ThemeMode={themeMode}>ACTIVIDAD DE USUARIOS</Text_P_16_Center>
                 {filteredRecordsStatus.length !== 0 ? (
                     <>
                         <ResponsiveContainer width={'100%'} height={'80%'}>
@@ -67,7 +76,7 @@ export default function Chart_Activity() {
                         </Container_Row_90_Center>
                     </>
                 )}
-            </Chart_Container_White_800x500>     
+            </Chart_Container_White_420x450>     
         </>
     );
 }

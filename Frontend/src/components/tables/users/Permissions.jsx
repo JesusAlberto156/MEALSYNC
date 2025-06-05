@@ -26,7 +26,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
+import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
 import { Icon_Green_18,Icon_Red_18,Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
@@ -91,47 +91,95 @@ export default function Table_Permissions(){
             <Table id="Table-Permissions">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Nombre')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>}</Icon_Button_Black_14> Usuario (Nombre completo)</Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Administrador')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Administrador' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Administrador</Icon_Button_Black_14></Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Chef')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Chef' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Chef</Icon_Button_Black_14></Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Almacenista')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Almacenista' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Almacenista</Icon_Button_Black_14></Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Cocinero')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cocinero' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cocinero</Icon_Button_Black_14></Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Nutriologo')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nutriologo' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Nutriólogo</Icon_Button_Black_14></Th>
-                        <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Medico')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Medico' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Médico</Icon_Button_Black_14></Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Nombre')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Usuario
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Administrador')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Administrador' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Administrador
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Chef')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Chef' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Chef
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Almacenista')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Almacenista' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Almacenista
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Cocinero')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cocinero' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cocinero
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Nutriologo')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nutriologo' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Nutriólogo
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Medico')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Medico' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Médico
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
                         {isPermission.superadministrador ? (
-                            <Th><Icon_Button_Black_14 onClick={() => {
-                                    ToggleOrder('Super-Administrador')
-                                    ToggleOrderDirection()
-                                }}
-                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Super-Administrador' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Super Administrador</Icon_Button_Black_14></Th>
+                            <Th>
+                                <TContainer_Center>
+                                    <Icon_Button_Black_14 onClick={() => {
+                                            ToggleOrder('Super-Administrador')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Super-Administrador' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Super Administrador
+                                    </Icon_Button_Black_14>
+                                </TContainer_Center>
+                            </Th>
                         ):(
                             <></>
                         )}

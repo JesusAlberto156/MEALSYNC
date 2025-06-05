@@ -15,7 +15,7 @@ import Search_Bar from '../../components/navegation/SearchBar'
 export default function Administration_Index(){
     // Constantes con el valor de los contextos 
     const [themeMode] = useContext(ThemeModeContext);
-    const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
+    const [currentNView] = useContext(NavbarViewContext);
     // Estructura del componente
     return(
         <> 

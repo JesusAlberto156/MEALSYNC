@@ -647,6 +647,9 @@ export const Icon_Blue_30 = styled.div.withConfig({
 })`
     font-size: 30px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -661,6 +664,9 @@ export const Icon_Blue_26 = styled.div.withConfig({
 })`
     font-size: 26px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 24px;
@@ -675,6 +681,9 @@ export const Icon_Blue_22 = styled.div.withConfig({
 })`
     font-size: 22px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 20px;
@@ -689,6 +698,9 @@ export const Icon_Blue_18 = styled.div.withConfig({
 })`
     font-size: 18px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 16px;
@@ -705,6 +717,9 @@ export const Icon_Green_30 = styled.div.withConfig({
 })`
     font-size: 30px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -719,6 +734,9 @@ export const Icon_Green_26 = styled.div.withConfig({
 })`
     font-size: 26px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 24px;
@@ -733,6 +751,9 @@ export const Icon_Green_22 = styled.div.withConfig({
 })`
     font-size: 22px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 20px;
@@ -747,6 +768,9 @@ export const Icon_Green_18 = styled.div.withConfig({
 })`
     font-size: 18px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 16px;
@@ -763,6 +787,9 @@ export const Icon_Red_30 = styled.div.withConfig({
 })`
     font-size: 30px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -777,6 +804,9 @@ export const Icon_Red_26 = styled.div.withConfig({
 })`
     font-size: 26px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 24px;
@@ -791,6 +821,9 @@ export const Icon_Red_22 = styled.div.withConfig({
 })`
     font-size: 22px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 20px;
@@ -805,6 +838,9 @@ export const Icon_Red_18 = styled.div.withConfig({
 })`
     font-size: 18px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 16px;
@@ -821,6 +857,9 @@ export const Icon_Yellow_250 = styled.div.withConfig({
 })`
     font-size: 250px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(245, 223, 31)' : 'rgb(255, 210, 10)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 200px;
@@ -835,6 +874,9 @@ export const Icon_Yellow_30 = styled.div.withConfig({
 })`
     font-size: 30px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -849,6 +891,9 @@ export const Icon_Yellow_26 = styled.div.withConfig({
 })`
     font-size: 26px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 24px;
@@ -863,6 +908,9 @@ export const Icon_Yellow_22 = styled.div.withConfig({
 })`
     font-size: 22px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 20px;
@@ -877,6 +925,9 @@ export const Icon_Yellow_18 = styled.div.withConfig({
 })`
     font-size: 18px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 16px;
@@ -893,6 +944,9 @@ export const Icon_Orange_30 = styled.div.withConfig({
 })`
     font-size: 30px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -907,6 +961,9 @@ export const Icon_Orange_26 = styled.div.withConfig({
 })`
     font-size: 26px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 24px;
@@ -921,6 +978,9 @@ export const Icon_Orange_22 = styled.div.withConfig({
 })`
     font-size: 22px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 20px;
@@ -935,6 +995,9 @@ export const Icon_Orange_18 = styled.div.withConfig({
 })`
     font-size: 18px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 16px;
@@ -951,6 +1014,9 @@ export const Icon_Lime_Green_30 = styled.div.withConfig({
 })`
     font-size: 30px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -965,6 +1031,9 @@ export const Icon_Lime_Green_26 = styled.div.withConfig({
 })`
     font-size: 26px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 24px;
@@ -979,6 +1048,9 @@ export const Icon_Lime_Green_22 = styled.div.withConfig({
 })`
     font-size: 22px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 20px;
@@ -993,6 +1065,9 @@ export const Icon_Lime_Green_18 = styled.div.withConfig({
 })`
     font-size: 18px;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 768px) {
         font-size: 16px;

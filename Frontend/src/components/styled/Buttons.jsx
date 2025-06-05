@@ -1797,18 +1797,20 @@ export const Button_Icon_White_60 = styled.button.withConfig({
 `;
 //____________ICON____________
 //____________LINK____________
-export const Button_Link_Blue = styled.button`
+export const Button_Link_Blue = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
     width: auto;
     padding: 6px;
     background-color: transparent;
-    color: rgb(58,93,174);
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(141, 171, 240)')};
     border: none;
     text-align: center;
     cursor: pointer;
     box-sizing: border-box;
     
     &:hover {
-        color: rgb(82, 126, 231);
+        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(82, 129, 240)')};
         transform: translateY(-2px);
         text-decoration: underline;
         transform: scale(1.2);

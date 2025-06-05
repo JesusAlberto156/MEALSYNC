@@ -52,7 +52,7 @@ ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️
 - Detalles en el buscador ✔️
-- Ordenamiento de la tabla
+- Ordenamiento de la tabla ✔️
 -------------------------------- PERMISOS --
 -------------------------------- ESTATUS --
 ______AGREGAR______
@@ -67,7 +67,7 @@ ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️
 - Detalles en el buscador ✔️
-- Ordenamiento de la tabla
+- Ordenamiento de la tabla ✔️
 -------------------------------- ESTATUS --
 
 -------------------------------- INVENTARIO --

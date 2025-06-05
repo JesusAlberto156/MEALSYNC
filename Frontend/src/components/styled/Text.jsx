@@ -5,6 +5,456 @@ import styled from 'styled-components';
 import { Fade_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
+//____________BACKGROUND____________
+//---------- BLUE
+//------ CENTER
+export const Text_Background_Blue_24_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Blue_20_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Blue_16_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Blue_12_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        padding: 6px;
+    }
+`;
+//------ CENTER
+//---------- BLUE
+//---------- RED
+//------ CENTER
+export const Text_Background_Red_24_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(208, 31, 31)' : '3px solid rgb(155, 9, 9)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Red_20_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(208, 31, 31)' : '3px solid rgb(155, 9, 9)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Red_16_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(208, 31, 31)' : '3px solid rgb(155, 9, 9)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Red_12_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(208, 31, 31)' : '3px solid rgb(155, 9, 9)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        padding: 6px;
+    }
+`;
+//------ CENTER
+//---------- RED
+//---------- GREEN
+//------ CENTER
+export const Text_Background_Green_24_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(60, 188, 109)' : '3px solid rgb(20, 165, 76)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Green_20_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(60, 188, 109)' : '3px solid rgb(20, 165, 76)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Green_16_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(60, 188, 109)' : '3px solid rgb(20, 165, 76)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Green_12_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(60, 188, 109)' : '3px solid rgb(20, 165, 76)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        padding: 6px;
+    }
+`;
+//------ CENTER
+//---------- GREEN
+//---------- YELLOW
+//------ CENTER
+export const Text_Background_Yellow_24_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Yellow_20_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Yellow_16_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Yellow_12_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        padding: 6px;
+    }
+`;
+//------ CENTER
+//---------- YELLOW
+//____________BACKGROUND____________
 //____________COLOR____________
 //---------- BLUE
 //-------- CENTER
@@ -2509,13 +2959,310 @@ export const Text_Fade_A_20_Center = styled.a.withConfig({
 `;
 //---------- CENTER
 //---------- JUSTIFY
+export const Text_Fade_A_35_Justify = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 35px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
 
+    @media (max-width: 768px) {
+        font-size: 33px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 31px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_30_Justify = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 30px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_25_Justify = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 25px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 23px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 21px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_20_Justify = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
 //---------- JUSTIFY
 //---------- LEFT
+export const Text_Fade_A_35_Left = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 35px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
 
+    @media (max-width: 768px) {
+        font-size: 33px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 31px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_30_Left = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 30px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_25_Left = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 25px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 23px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 21px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_20_Left = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
 //---------- LEFT
 //---------- RIGHT
+export const Text_Fade_A_35_Right = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 35px;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
 
+    @media (max-width: 768px) {
+        font-size: 33px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 31px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_30_Right = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 30px;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_25_Right = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 25px;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 23px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 21px;
+        padding: 6px;
+    }
+`;
+export const Text_Fade_A_20_Right = styled.a.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+    animation: ${Fade_Animation} 2.5s infinite;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
 //---------- RIGHT
 //-------------- A --------------
 //______________FADE____________

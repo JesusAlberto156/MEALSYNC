@@ -10,7 +10,7 @@ import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../c
 import { TextFieldsUserContext } from "../contexts/FormsProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetSearchTerms,ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
+import { ResetSearchTerms,ResetSelectedOptions,ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro) ✔️
@@ -63,15 +63,14 @@ export const HandleLoginView = () => {
 export const HandleNavbarView = () => {
     // Constantes con el valor de los contextos 
     const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
-    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
-    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+    // Constantes con la funcionalidad de los hooks
+    const resetSearchTerms = ResetSearchTerms();
+    const resetSelectedOptions = ResetSelectedOptions();
     // Función del hook
     const handleNavbarView = (View) => {
         setCurrentNView(View);
-        setIsSearchTerm('');
-        setIsSearchTerm1('');
-        setIsSearchTerm2('');
+        resetSearchTerms();
+        resetSelectedOptions();
         sessionStorage.setItem('Navbar-View',View);
     };
     // Retorno de la función del hook
@@ -81,15 +80,14 @@ export const HandleNavbarView = () => {
 export const HandleSidebarView = () => {
     // Constantes con el valor de los contextos 
     const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
-    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext)
-    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
-    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+    // Constantes con la funcionalidad de los hooks
+    const resetSearchTerms = ResetSearchTerms();
+    const resetSelectedOptions = ResetSelectedOptions();
     // Función del hook
     const handleSidebarView = (View) => {
         setCurrentSView(View);
-        setIsSearchTerm('');
-        setIsSearchTerm1('');
-        setIsSearchTerm2('');
+        resetSearchTerms();
+        resetSelectedOptions();
         sessionStorage.setItem('Sidebar-View',View);
     };
     // Retorno de la función del hook
@@ -122,6 +120,7 @@ export const HandleModalView = () => {
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
+    const resetSelectedOptions = ResetSelectedOptions();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
@@ -340,6 +339,7 @@ export const HandleModalView = () => {
         }
         setCurrentMView(View);
         sessionStorage.setItem('Modal-View',View);
+        resetSelectedOptions();
     }
     // Retorno de la función del hook
     return handleModalView;

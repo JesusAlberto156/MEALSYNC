@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
+import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
 import { UserViewPasswordContext } from "../../../contexts/UsersProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
@@ -14,6 +14,9 @@ import { UserTypesContext } from "../../../contexts/UsersProvider"
 import { ResetTextFieldsUser } from "../../../hooks/Texts"
 import { TableActionsUsers } from "../../../hooks/Table"
 //__________ICONOS__________
+// Iconos de las tablas
+import { FaSortAlphaDown } from "react-icons/fa";
+import { FaSortAlphaDownAlt } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -22,7 +25,7 @@ import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
-import { Icon_White_18 } from "../../styled/Icons";
+import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
 import { Alert_Verification } from "../../styled/Alerts"
 //____________IMPORT/EXPORT____________
 
@@ -35,6 +38,8 @@ export default function Table_Users(){
     const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isUserTypes] = useContext(UserTypesContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -96,7 +101,7 @@ export default function Table_Users(){
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers} = TableActionsUsers();
+    const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers, ToggleOrder, ToggleOrderDirection} = TableActionsUsers();
     const resetTextFieldsUser = ResetTextFieldsUser();
     // Estructura del componente
     return(
@@ -104,11 +109,27 @@ export default function Table_Users(){
             <Table id="Table-Users">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th>Nombre completo</Th>
-                        <Th>Nombre corto</Th>
-                        <Th>Usuario</Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Nombre')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre completo</Icon_Button_Black_14></Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Nombre-Corto')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre-Corto' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre corto</Icon_Button_Black_14></Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Usuario')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Usuario' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Usuario</Icon_Button_Black_14></Th>
                         <Th>Contraseña</Th>
-                        <Th>Tipo de usuario</Th>
+                        <Th> <Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Tipo')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Tipo de usuario</Icon_Button_Black_14></Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>

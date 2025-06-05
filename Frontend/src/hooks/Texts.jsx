@@ -4,6 +4,7 @@ import { useContext } from "react";
 // Contextos
 import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext,TextFieldsWarehouseContext } from "../contexts/FormsProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
+import { SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext } from "../contexts/SelectedesProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los buscadores ✔️
@@ -20,6 +21,21 @@ export const ResetSearchTerms = () => {
     }
     // Retorno de la función del hook
     return resetSearchTerms;
+}
+// Hook para reinciar los campos de los selected para las opciones ✔️
+export const ResetSelectedOptions = () => {
+    // Constantes con el valor de los contextos 
+    const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    // Función del hook
+    const resetSelectedOptions = () => {
+        setIsSelectedOptionSearch('General');
+        setIsSelectedOptionOrder('Normal');
+        setIsSelectedOptionOrderDirection('Asc');
+    }
+    // Retorno de la función del hook
+    return resetSelectedOptions;
 }
 // Hook para reinciar los campos de texto de los usuarios ✔️
 export const ResetTextFieldsUser = () => {

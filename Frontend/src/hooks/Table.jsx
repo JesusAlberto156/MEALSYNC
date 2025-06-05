@@ -1,10 +1,10 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useState,useContext,useEffect } from "react";
+import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
-import { UsersContext,UserTypesContext,PermissionsContext,StatusContext,UsersDeleteContext } from "../contexts/UsersProvider";
+import { UsersContext,UserTypesContext,StatusContext,UsersDeleteContext,PermissionsContext } from "../contexts/UsersProvider";
 import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionContext } from "../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../contexts/SelectedesProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 //____________IMPORT/EXPORT____________
 
@@ -14,36 +14,73 @@ export const TableActionsUsers = () => {
     const [isUsers] = useContext(UsersContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
-    const [isSelectedOption] = useContext(SelectedOptionContext);
+    const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isUserTypes] = useContext(UserTypesContext);
     const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
-    const filteredRecordsUsers = isUsers.filter((data) => {
-        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
-        if (isDeleted) return false;
-        
-        if(isSelectedOption === 'General'){
-            const type = isUserTypes.find(type => type.idtipo === data.idtipo );
-            return type && Object.values(data).some(value =>
-                String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
-            );
-        }
-        if(isSelectedOption === 'Nombre'){
-            return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
-        }
-        if(isSelectedOption === 'Nombre corto'){
-            return data.nombrecorto.toLowerCase().includes(isSearchTerm.toLowerCase());
-        }
-        if(isSelectedOption === 'Usuario'){
-            return data.usuario.toLowerCase().includes(isSearchTerm.toLowerCase());
-        }
-        if(isSelectedOption === 'Tipo de usuario'){
-            const type = isUserTypes.find(type => type.idtipo === data.idtipo);
-            return type && type.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
-        }
-    });
+    const filteredRecordsUsers = useMemo(() => {
+        const filtered = isUsers.filter((data) => {
+            const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+            if (isDeleted) return false;
+            
+            if(isSelectedOptionSearch === 'General'){
+                const type = isUserTypes.find(type => type.idtipo === data.idtipo );
+                return type && Object.values(data).some(value =>
+                    String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                );
+            }
+            if(isSelectedOptionSearch === 'Nombre'){
+                return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Nombre corto'){
+                return data.nombrecorto.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Usuario'){
+                return data.usuario.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Tipo de usuario'){
+                const type = isUserTypes.find(type => type.idtipo === data.idtipo);
+                return type && type.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+        });
+
+        return [...filtered].sort((a, b) => {
+            if(isSelectedOptionOrder === 'Nombre'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.nombre.localeCompare(b.nombre,'es', { sensitivity: 'base' })
+                : b.nombre.localeCompare(a.nombre,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Nombre-Corto'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.nombrecorto.localeCompare(b.nombrecorto,'es', { sensitivity: 'base' })
+                : b.nombrecorto.localeCompare(a.nombrecorto,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Usuario'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.usuario.localeCompare(b.usuario,'es', { sensitivity: 'base' })
+                : b.usuario.localeCompare(a.usuario,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Tipo'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? isUserTypes.find(type => type.idtipo === a.idtipo)?.tipo.localeCompare(isUserTypes.find(type => type.idtipo === b.idtipo)?.tipo,'es', { sensitivity: 'base' })
+                : isUserTypes.find(type => type.idtipo === b.idtipo)?.tipo.localeCompare(isUserTypes.find(type => type.idtipo === a.idtipo)?.tipo,'es', { sensitivity: 'base' })
+            }
+
+            return 0
+        });
+    }, [isUsers, isUsersDelete, isUserTypes, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
+    // Cambio de direccion del ordenamiento
+    const ToggleOrderDirection = () => {
+        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
+    };
+    // Cambio de lo que quiere ordenar
+    const ToggleOrder = (option) => {
+        setIsSelectedOptionOrder(option);
+    };
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
     // Indices de los registros
@@ -76,7 +113,7 @@ export const TableActionsUsers = () => {
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPageUsers,
-             currentRecordsUsers,filteredRecordsUsers,
+             currentRecordsUsers,filteredRecordsUsers,ToggleOrder,ToggleOrderDirection,
              totalPagesUsers}
 }
 // Hook para realizar las acciones de la tabla de permisos ✔️
@@ -87,16 +124,81 @@ export const TableActionsPermissions = () => {
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
-    const filteredRecordsPermissions = isPermissions.filter((data) => {
-        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
-        if (isDeleted) return false;
+    // Filtrado de datos
+    const filteredRecordsPermissions = useMemo(() => {
+        const filtered = isPermissions.filter((data) => {
+            const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+            if (isDeleted) return false;
 
-        const user = isUsers.find(user => user.idusuario === data.idusuario);
-        return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
-    });
+            const user = isUsers.find(user => user.idusuario === data.idusuario);
+            return user && user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+        });
+
+        return [...filtered].sort((a, b) => {
+            if(isSelectedOptionOrder === 'Nombre'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? isUsers.find(user => user.idusuario === a.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombre, 'es', { sensitivity: 'base' })
+                : isUsers.find(user => user.idusuario === b.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombre, 'es', { sensitivity: 'base' });
+            }
+            
+            if(isSelectedOptionOrder === 'Administrador'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? b.administrador - a.administrador
+                : a.administrador - b.administrador
+            }
+
+            if(isSelectedOptionOrder === 'Chef'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? b.chef - a.chef
+                : a.chef - b.chef
+            }
+
+            if(isSelectedOptionOrder === 'Almacenista'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? b.almacenista - a.almacenista
+                : a.almacenista - b.almacenista
+            }
+
+            if(isSelectedOptionOrder === 'Cocinero'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? b.cocinero - a.cocinero
+                : a.cocinero - b.cocinero
+            }
+
+            if(isSelectedOptionOrder === 'Nutriologo'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? b.nutriologo - a.nutriologo
+                : a.nutriologo - b.nutriologo
+            }
+
+            if(isSelectedOptionOrder === 'Medico'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? b.medico - a.medico
+                : a.medico - b.medico
+            }
+
+            if(isSelectedOptionOrder === 'Super-Administrador'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? b.superadministrador - a.superadministrador
+                : a.superadministrador - b.superadministrador
+            }
+
+            return 0
+        });
+    }, [isUsers, isUsersDelete, isPermissions, isSearchTerm, isSelectedOptionOrderDirection]);
+    // Cambio de direccion del ordenamiento
+    const ToggleOrderDirection = () => {
+        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
+    };
+    // Cambio de lo que quiere ordenar
+    const ToggleOrder = (option) => {
+        setIsSelectedOptionOrder(option);
+    };
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;
     // Indices de los registros
@@ -129,7 +231,7 @@ export const TableActionsPermissions = () => {
     // Retorno de la función del hook
     return { handleRowClick, prevPage, currentPage,
              nextPagePermissions,
-             currentRecordsPermissions,
+             currentRecordsPermissions,ToggleOrderDirection,ToggleOrder,
              totalPagesPermissions }
 }
 // Hook para realizar las acciones de la tabla de estatus ✔️

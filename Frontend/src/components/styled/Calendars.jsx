@@ -1,11 +1,16 @@
-
+//____________IMPORT/EXPORT____________
+// Componentes de React
 import { forwardRef,useContext } from "react";
+// Contextos
+import { ThemeModeContext } from "../../contexts/ViewsProvider";
+// Estilos personalizados
 import { Input_Text_Black_100 } from "./Inputs";
 import { Container_Row_95_Center } from "./Containers";
+//____________IMPORT/EXPORT____________
 
-import { ThemeModeContext } from "../../contexts/ViewsProvider";
-
-const Calendar_Input_Custom = forwardRef(({value,onClick},ref) => {
+//____________INPUT____________
+//---------- Negro
+export const Calendar_Input_Custom_Black = forwardRef(({value,onClick},ref) => {
     const [themeMode] = useContext(ThemeModeContext);
 
     return(
@@ -23,5 +28,5 @@ const Calendar_Input_Custom = forwardRef(({value,onClick},ref) => {
         </>
     );
 });
-
-export default Calendar_Input_Custom;
+//---------- Negro
+//____________INPUT____________

@@ -7,7 +7,7 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
-import { SelectedRowContext,SelectedOptionContext } from "../../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderContext } from "../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 import { UserViewPasswordContext } from "../../contexts/UsersProvider";
 import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSuppliesContext } from "../../contexts/RefsProvider";
@@ -18,6 +18,7 @@ import { HandleViewPassword } from "../../hooks/Form";
 // Icono para la seccion del buscador
 import { FcSearch } from "react-icons/fc";
 import { FaShoppingCart } from "react-icons/fa";
+import { LuArrowDownUp } from "react-icons/lu";
 // Iconos para un crud
 import { IoIosAddCircle } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
@@ -29,7 +30,7 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
+import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left,Container_Row_80_Center } from "../styled/Containers";
 import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_26,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
 import { Input_Text_White_20 } from "../styled/Inputs";
@@ -54,9 +55,11 @@ export default function Search_Bar (){
     const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);1
     const {Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
     const {Modal_Su,Form_Su,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
-    const [isSelectedOption,setIsSelectedOption] = useContext(SelectedOptionContext);
+    const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Constante con las opciones de los buscadores
     const isOptionUsers = ['General','Nombre','Nombre corto','Usuario','Tipo de usuario'];
+    const isOptionStatus = ['Normal','Activo','Inactivo'];
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -77,15 +80,34 @@ export default function Search_Bar (){
                         {isOptionUsers.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
                                 key={index}
-                                onClick={() => setIsSelectedOption(option)}
+                                onClick={() => setIsSelectedOptionSearch(option)}
                                 style={{
-                                    backgroundColor: isSelectedOption === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
-                                    color: isSelectedOption === option ? 'white' : 'white',
+                                    backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                    color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
                                 <Text_Span_12_Center>{option}</Text_Span_12_Center>
                             </Button_Icon_Blue_140>
                         ))}
+                    </Container_Row_Blue_Width_2000_Left>
+                ):(
+                    <></>
+                )}
+                {currentSView === 'Users' && currentNView === 'Status' ? (
+                    <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
+                        {isOptionStatus.map((option,index) => (
+                            <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                key={index}
+                                onClick={() => setIsSelectedOptionOrder(option)}
+                                style={{
+                                    backgroundColor: isSelectedOptionOrder === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                    color: isSelectedOptionOrder === option ? 'white' : 'white',
+                                }}
+                            >
+                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                            </Button_Icon_Blue_140>
+                        ))}
+                        <Icon_White_18><LuArrowDownUp/></Icon_White_18>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>

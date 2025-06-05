@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext } from "react";
 // Componentes de React externos
 
 // Servicios
@@ -19,7 +19,7 @@ import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { Container_Column_100_Center,Container_Row_100_Center } from "../../components/styled/Containers";
 import { Text_Title_30_Center } from "../../components/styled/Text";
 // Componentes personalizados
-import Chart_Activity from "../../components/charts/users/A";
+import Chart_Activity from "../../components/charts/users/Activity";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de inicio en administración/cocina

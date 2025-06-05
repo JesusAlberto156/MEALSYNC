@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 import DatePicker from 'react-datepicker';
+import { es } from "date-fns/locale";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
@@ -37,9 +38,7 @@ import { Icon_White_22,Icon_22, Icon_White_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Text_Black_50,Input_Radio_16 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 import { Label_Text_16_Center } from "../../../styled/Labels";
-import { es } from "date-fns/locale";
-// Componentes personalizados
-import Calendar_Input_Custom from "../../../styled/Calendars";
+import { Calendar_Input_Custom_Black } from "../../../styled/Calendars";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar mediciones
@@ -269,7 +268,7 @@ export default function Warehouse_Add(){
                                                 timeIntervals={15}
                                                 isClearable={true}
                                                 popperPlacement="bottom-center"
-                                                customInput={<Calendar_Input_Custom/>}
+                                                customInput={<Calendar_Input_Custom_Black/>}
                                                 renderCustomHeader={({
                                                     date,
                                                     changeYear,

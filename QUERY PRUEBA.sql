@@ -12,7 +12,7 @@ SELECT * FROM permisos;
 
 SELECT * FROM tipoUsuario;
 
-INSERT INTO tipoUsuario (tipo) VALUES ('Prueba');
+INSERT INTO tipoUsuario (tipo) VALUES ('Ti');
 
 INSERT INTO usuarios (nombre,nombrecorto,usuario,contrasena,idtipo) 
 VALUES ('JESUS ALBERTO PARTIDA MICHEL','JESUS PARTIDA','U.Partida04','Legendario156',4);

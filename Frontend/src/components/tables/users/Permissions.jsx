@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
+import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
 import { UsersContext } from "../../../contexts/UsersProvider"
 import { LoggedPermissionsContext } from "../../../contexts/SessionProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
@@ -15,6 +15,10 @@ import { TableActionsPermissions } from "../../../hooks/Table"
 import { ResetTextFieldsPermissions,ResetTextFieldsUser } from "../../../hooks/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
+import { FaSortAlphaDown } from "react-icons/fa";
+import { FaSortAlphaDownAlt } from "react-icons/fa";
+import { FaLongArrowAltUp } from "react-icons/fa";
+import { FaLongArrowAltDown } from "react-icons/fa";
 // Iconos de la sección de Administración del login
 import { FaShieldAlt,FaUserTie } from "react-icons/fa";
 // Iconos de la paginación
@@ -25,7 +29,7 @@ import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
-import { Icon_Green_18,Icon_Red_18,Icon_White_18 } from "../../styled/Icons";
+import { Icon_Green_18,Icon_Red_18,Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los permisos de usuarios
@@ -37,6 +41,8 @@ export default function Table_Permissions(){
     const [isUsers] = useContext(UsersContext);
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -78,53 +84,83 @@ export default function Table_Permissions(){
     // Constantes con la funcionalidad de los hooks
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsUser = ResetTextFieldsUser();
-    const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions} = TableActionsPermissions();
+    const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions, ToggleOrder, ToggleOrderDirection} = TableActionsPermissions();
     // Estructura del componente
     return(
         <>
             <Table id="Table-Permissions">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th>Usuario (nombre completo)</Th>
-                        <Th>Administrador</Th>
-                        <Th>Chef</Th>
-                        <Th>Almacenista</Th>
-                        <Th>Cocinero</Th>
-                        <Th>Nutriologo</Th>
-                        <Th>Medico</Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Nombre')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>}</Icon_Button_Black_14> Usuario (Nombre completo)</Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Administrador')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Administrador' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Administrador</Icon_Button_Black_14></Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Chef')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Chef' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Chef</Icon_Button_Black_14></Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Almacenista')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Almacenista' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Almacenista</Icon_Button_Black_14></Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Cocinero')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cocinero' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cocinero</Icon_Button_Black_14></Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Nutriologo')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nutriologo' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Nutriólogo</Icon_Button_Black_14></Th>
+                        <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Medico')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Medico' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Médico</Icon_Button_Black_14></Th>
                         {isPermission.superadministrador ? (
-                            <Th>Super Administrador</Th>
+                            <Th><Icon_Button_Black_14 onClick={() => {
+                                    ToggleOrder('Super-Administrador')
+                                    ToggleOrderDirection()
+                                }}
+                            >{isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Super-Administrador' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Super Administrador</Icon_Button_Black_14></Th>
                         ):(
                             <></>
                         )}
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
-                    {isUsers.map((user) => (
-                        currentRecordsPermissions.filter((permission) => user.idusuario === permission.idusuario).map((permission) => (
-                            <tr
-                                key={permission.idpermiso}
-                                onClick={() => handleRowClick(permission)}
-                                style={{
-                                    backgroundColor: isSelectedRow === permission ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                    cursor: 'pointer',
-                                    transition: 'background-color 0.5s ease',
-                                }}
-                            >
-                                <Td ThemeMode={themeMode}>{user.nombre}</Td>
-                                <Td ThemeMode={themeMode}>{permission.administrador ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.chef ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.almacenista ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.cocinero ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.nutriologo ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.medico ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
-                                {isPermission.superadministrador ? (
-                                    <Td ThemeMode={themeMode}>{permission.superadministrador ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Red_18>}</Td>
-                                ):(
-                                    <></>
-                                )}
-                            </tr>
-                        ))
+                    {currentRecordsPermissions.map((permission) => (
+                        <tr
+                            key={permission.idpermiso}
+                            onClick={() => handleRowClick(permission)}
+                            style={{
+                                backgroundColor: isSelectedRow === permission ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
+                                cursor: 'pointer',
+                                transition: 'background-color 0.5s ease',
+                            }}
+                        >
+                            <Td ThemeMode={themeMode}>{isUsers.find(user => user.idusuario === permission.idusuario)?.nombre || 'Desconocido'}</Td>
+                            <Td ThemeMode={themeMode}>{permission.administrador ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
+                            <Td ThemeMode={themeMode}>{permission.chef ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
+                            <Td ThemeMode={themeMode}>{permission.almacenista ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
+                            <Td ThemeMode={themeMode}>{permission.cocinero ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
+                            <Td ThemeMode={themeMode}>{permission.nutriologo ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
+                            <Td ThemeMode={themeMode}>{permission.medico ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_18>}</Td>
+                            {isPermission.superadministrador ? (
+                                <Td ThemeMode={themeMode}>{permission.superadministrador ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Green_18>:<Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Red_18>}</Td>
+                            ):(
+                                <></>
+                            )}
+                        </tr>
                     ))}
                 </Tbody>
             </Table>

@@ -16,6 +16,7 @@ import { ResetTextFieldsStatus,ResetTextFieldsUser } from "../../../hooks/Texts"
 // Iconos utilizados en las tablas
 import { FaLockOpen } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+import { FaSortAlphaUp } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -23,8 +24,8 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
-import { Icon_Green_18,Icon_Red_18,Icon_White_18 } from "../../styled/Icons";
+import { Text_A_16_Center,Text_Fade_A_30_Center,Text_Background_Red_12_Center,Text_Background_Green_12_Center } from "../../styled/Text";
+import { Icon_Green_18,Icon_Red_18,Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los estatus de usuarios
@@ -81,7 +82,7 @@ export default function Table_Status(){
             <Table id="Table-Status">
                 <Thead ThemeMode={themeMode}>
                     <tr>
-                        <Th>Usuario (nombre completo)</Th>
+                        <Th><Icon_Button_Black_14><FaSortAlphaUp/> Usuario (nombre completo)</Icon_Button_Black_14></Th>
                         <Th>Habilitado</Th>
                     </tr>
                 </Thead>
@@ -97,7 +98,7 @@ export default function Table_Status(){
                                     transition: 'background-color 0.5s ease',
                                 }}
                             >
-                                <Td ThemeMode={themeMode}>{user.nombre}</Td>
+                                <Td ThemeMode={themeMode}>{status.activo ? <Text_Background_Green_12_Center ThemeMode={themeMode}>{user.nombre}</Text_Background_Green_12_Center>:<Text_Background_Red_12_Center ThemeMode={themeMode}>{user.nombre}</Text_Background_Red_12_Center>}</Td>
                                 <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaLockOpen/></Icon_Green_18> : <Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaLock/></Icon_Red_18>}</Td>
                             </tr>
                         ))

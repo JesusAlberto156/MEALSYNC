@@ -21,6 +21,11 @@ export const Th = styled.th`
     text-align: center;
     padding: 10px;
     color: white;
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 
     @media (max-width: 768px) {
         font-size: 12px; 

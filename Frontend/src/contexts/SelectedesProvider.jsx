@@ -5,7 +5,9 @@ import { createContext,useState } from "react"
 export const SelectedRowContext = createContext(null);
 export const SelectedRow1Context = createContext(null);
 export const SelectedRow2Context = createContext(null);
-export const SelectedOptionContext = createContext(null);
+export const SelectedOptionSearchContext = createContext(null);
+export const SelectedOptionOrderContext = createContext(null);
+export const SelectedOptionOrderDirectionContext = createContext(null);
 //____________IMPORT/EXPORT____________
 // Todos los contextos para lo que se seleccione de varias opciones ✔️
 export const Index_Selectedes = ({children}) => {
@@ -13,9 +15,13 @@ export const Index_Selectedes = ({children}) => {
         <Selected_Row>
             <Selected_Row_1>
                 <Selected_Row_2>
-                    <Selected_Option>
-                        {children}
-                    </Selected_Option>
+                    <Selected_Option_Search>
+                        <Selected_Option_Order>
+                            <Selected_Option_Order_Direction>
+                                {children}
+                            </Selected_Option_Order_Direction>
+                        </Selected_Option_Order>
+                    </Selected_Option_Search>
                 </Selected_Row_2>
             </Selected_Row_1>
         </Selected_Row>
@@ -56,13 +62,35 @@ export const Selected_Row_2 = ({ children }) => {
     );
 }
 // Función Contexto para controlar la opcion seleccionada en el buscador ✔️
-export const Selected_Option = ({ children }) => {
+export const Selected_Option_Search = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isSelectedOption,setIsSelectedOption] = useState('General');
+    const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useState('General');
     // Return para darle valor al contexto y heredarlo
     return (
-        <SelectedOptionContext.Provider value={[isSelectedOption,setIsSelectedOption]}>
+        <SelectedOptionSearchContext.Provider value={[isSelectedOptionSearch,setIsSelectedOptionSearch]}>
             {children}
-        </SelectedOptionContext.Provider>
+        </SelectedOptionSearchContext.Provider>
+    );
+}
+// Función Contexto para controlar la opcion seleccionada en el ordenamiento ✔️
+export const Selected_Option_Order = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useState('Normal');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SelectedOptionOrderContext.Provider value={[isSelectedOptionOrder,setIsSelectedOptionOrder]}>
+            {children}
+        </SelectedOptionOrderContext.Provider>
+    );
+}
+// Función Contexto para controlar la direccion en el ordenamiento ✔️
+export const Selected_Option_Order_Direction = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useState('Asc');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SelectedOptionOrderDirectionContext.Provider value={[isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection]}>
+            {children}
+        </SelectedOptionOrderDirectionContext.Provider>
     );
 }

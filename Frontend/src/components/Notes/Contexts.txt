@@ -35,7 +35,9 @@ const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
 const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
 const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
 const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
-const [isSelectedOption,setIsSelectedOption] = useContext(SelectedOptionContext);
+const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
 //____________SELECTED____________
 //____________SESSION____________
 const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);

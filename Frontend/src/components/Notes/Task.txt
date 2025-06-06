@@ -90,6 +90,7 @@ ______VISUALIZAR______
 - Detalles en la tabla 
 - Diseño de la interfaz 
 - Detalles en el buscador 
+- Ordenamiento de la tabla
 -------------------------------- INVENTARIO --
 -------------------------------- INSUMO --
 ______AGREGAR______
@@ -111,6 +112,7 @@ ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️
 - Detalles en el buscador ✔️
+- Ordenamiento de la tabla
 -------------------------------- INSUMO --
 -------------------------------- TIPOS DE INSUMO --
 ______AGREGAR______
@@ -132,6 +134,7 @@ ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️
 - Detalles en el buscador ✔️
+- Ordenamiento de la tabla
 -------------------------------- TIPOS DE INSUMO --
 -------------------------------- MEDICIONES --
 ______AGREGAR______
@@ -153,4 +156,5 @@ ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️
 - Detalles en el buscador ✔️
+- Ordenamiento de la tabla
 -------------------------------- MEDICIONES --

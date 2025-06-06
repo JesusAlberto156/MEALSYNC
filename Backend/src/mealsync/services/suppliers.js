@@ -42,10 +42,27 @@ export const getObservationsService = async () => {
     }
 }
 //---------- OBSERVACIONES
+//---------- PROVEEDORES ELIMINADOS
+export const getDeletedSuppliersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM proveedoresEliminados');
+    
+        const jsonData = JSON.stringify(result.recordset);
+    
+        const encryptedData = encryptData(jsonData);
+    
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los proveedores eliminados: ',error.message);
+        throw error;
+    }
+}
+//---------- PROVEEDORES ELIMINADOS
 //______________GET______________
 //______________INSERT______________
 //---------- PROVEEDORES
-export const insertSuppliersService = async (nombre,rfc,domicilio,telefono,correo) => {
+export const insertSupplierService = async (nombre,rfc,domicilio,telefono,correo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -68,12 +85,50 @@ export const insertSuppliersService = async (nombre,rfc,domicilio,telefono,corre
 }
 //---------- PROVEEDORES
 //---------- OBSERVACIONES
+export const insertObservationService = async (observacion,calificacion,fecha,idproveedor) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('observacion',sql.VarChar(250),observacion)
+            .input('calificacion',sql.Int,calificacion)
+            .input('fecha',sql.DateTime,fecha)
+            .input('idproveedor',sql.Int,idproveedor)
+            .query('INSERT INTO observacionesProveedor (observacion,calificacion,fecha,idproveedor) VALUES (@observacion,@calificacion,@domicilio,@fecha,@idproveedor)');
 
+        if(result.rowsAffected[0]>0){
+            return 'Observación del proveedor insertada...';
+        }else{
+            return 'No se pudo insertar la observación...';
+        }
+    }catch(error){
+        console.error('Error al insertar la observación: ',error.message);
+        throw error;
+    }
+}
 //---------- OBSERVACIONES
+//---------- PROVEEDORES ELIMINADOS
+export const insertDeletedSupplierService = async (idproveedor) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idproveedor',sql.Int,idproveedor)
+            .query('INSERT INTO proveedoresEliminados (idproveedor) VALUES (@idproveedor)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Proveedor eliminado...';
+        }else{
+            return 'No se pudo eliminar al proveedor...';
+        }
+    }catch(error){
+        console.error('Error al eliminar al proveedor: ',error.message);
+        throw error;
+    }
+}
+//---------- PROVEEDORES ELIMINADOS
 //______________INSERT______________
 //______________UPDATE______________
 //---------- PROVEEDORES
-export const updateSuppliersService = async (idproveedor,nombre,rfc,domicilio,telefono,correo) => {
+export const updateSupplierService = async (idproveedor,nombre,rfc,domicilio,telefono,correo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -96,7 +151,25 @@ export const updateSuppliersService = async (idproveedor,nombre,rfc,domicilio,te
     }
 }
 //---------- PROVEEDORES
-//---------- OBSERVACIONES
-
-//---------- OBSERVACIONES
 //______________UPDATE______________
+//______________DELETE______________
+//---------- PROVEEDORES ELIMINADOS
+export const deleteDeletedSupplierService = async (idproveedor) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idproveedor',sql.Int,idproveedor)
+            .query('DELETE FROM proveedoresEliminados WHERE idproveedor = @idproveedor');
+
+        if(result.rowsAffected[0]>0){
+            return 'Proveedor recuperado...';
+        }else{
+            return 'No se pudo recuperar al proveedor...';
+        }
+    }catch(error){
+        console.error('Error al recuperar al proveedor: ',error.message);
+        throw error;
+    }
+}
+//---------- PROVEEDORES ELIMINADOS
+//______________DELETE______________

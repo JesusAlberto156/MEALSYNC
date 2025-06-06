@@ -92,6 +92,12 @@ WHERE idusuario >= 33
 DELETE FROM estatus
 WHERE idusuario >= 32
 
+ALTER TABLE observacionesProveedor
+DROP COLUMN idusuario;
+
+ALTER TABLE precioInsumo
+DROP COLUMN idusuario;
+
 DBCC CHECKIDENT (permisos, RESEED, 8);
 DBCC CHECKIDENT (estatus, RESEED, 7);
 DBCC CHECKIDENT (usuarios, RESEED, 32);
@@ -244,3 +250,5 @@ SELECT * FROM medicos
 
 ALTER TABLE dbo.precioInsumo
 ALTER COLUMN precio DECIMAL(12,4) NOT NULL
+
+EXEC sp_rename 'medida.medida', 'nombre', 'COLUMN';

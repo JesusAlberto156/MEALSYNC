@@ -37,7 +37,7 @@ export const getSupplyTypesService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener los tipos de insumos: ',error.message);
+        console.error('Error al obtener los tipos de insumo: ',error.message);
         throw error;
     }
 }
@@ -54,7 +54,7 @@ export const getUnitsService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener las medidas de los insumos: ',error.message);
+        console.error('Error al obtener las medidas de los tipos de insumo: ',error.message);
         throw error;
     }
 }
@@ -71,7 +71,7 @@ export const getSupplyPricesService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener los precios de los insumos: ',error.message);
+        console.error('Error al obtener los precios del almacén por insumo: ',error.message);
         throw error;
     }
 }
@@ -88,11 +88,28 @@ export const getWarehouseService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener el almacen: ',error.message);
+        console.error('Error al obtener el almacén: ',error.message);
         throw error;
     }
 }
 //---------- ALMACEN
+//---------- INSUMOS ELIMINADOS
+export const getDeletedSuppliesService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM insumosEliminados');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los insumos eliminados: ',error.message);
+        throw error;
+    }
+}
+//---------- INSUMOS ELIMINADOS
 //______________GET______________
 //______________INSERT______________
 //---------- INSUMOS
@@ -110,10 +127,10 @@ export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,
         if(result.rowsAffected[0]>0){
             return 'Insumo insertado...';
         }else{
-            return 'No se pudo insertar el insumo...';
+            return 'No se pudo insertar al insumo...';
         }
     }catch(error){
-        console.error('Error al insertar el insumo: ',error.message);
+        console.error('Error al insertar al insumo: ',error.message);
         throw error;
     }
 }
@@ -131,23 +148,23 @@ export const insertSupplyTypeService = async (tipo,descripcion,idmedida) => {
         if(result.rowsAffected[0]>0){
             return 'Tipo de insumo insertado...';
         }else{
-            return 'No se pudo insertar el tipo de insumo...';
+            return 'No se pudo insertar al tipo de insumo...';
         }
     }catch(error){
-        console.error('Error al insertar el tipo de insumo: ',error.message);
+        console.error('Error al insertar al tipo de insumo: ',error.message);
         throw error;
     }
 }
 //---------- TIPO DE INSUMOS
 //---------- MEDIDA
-export const insertUnitService = async (medida,unidad,cantidad) => {
+export const insertUnitService = async (nombre,unidad,cantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('medida',sql.VarChar(20),medida)
+            .input('nombre',sql.VarChar(20),nombre)
             .input('unidad',sql.VarChar(20),unidad)
             .input('cantidad',sql.Decimal(10,4),cantidad)
-            .query('INSERT INTO medida (medida,unidad,cantidad) VALUES (@medida,@unidad,@cantidad)');
+            .query('INSERT INTO medida (nombre,unidad,cantidad) VALUES (@nombre,@unidad,@cantidad)');
 
         if(result.rowsAffected[0]>0){
             return 'Medida insertado...';
@@ -161,11 +178,84 @@ export const insertUnitService = async (medida,unidad,cantidad) => {
 }
 //---------- MEDIDA
 //---------- PRECIO DEL INSUMO
+export const insertSupplyPriceService = async (precio,fecha,idinsumo,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('precio',sql.Decimal(12,4),precio)
+            .input('fecha',sql.DateTime,fecha)
+            .input('idinsumo',sql.Int,idinsumo)
+            .input('estado',sql.VarChar(20),estado)
+            .query('INSERT INTO precioInsumo (precio,fecha,idinsumo,estado) VALUES (@precio,@fecha,@idinsumo,@estado)');
 
+        if(result.rowsAffected[0]>0){
+            return 'Precio del almacén por insumo insertado...';
+        }else{
+            return 'No se pudo insertar al precio del almacén por insumo...';
+        }
+    }catch(error){
+        console.error('Error al insertar al precio del almacén por insumo: ',error.message);
+        throw error;
+    }
+}
 //---------- PRECIO DEL INSUMO
 //---------- ALMACEN
+export const insertWarehouseService = async (cantidad,observacion,idprecio) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('cantidad',sql.Int,cantidad)
+            .input('observacion',sql.VarChar(250),observacion)
+            .input('idprecio',sql.Int,idprecio)
+            .query('INSERT INTO almacen (cantidad,observacion,idprecio) VALUES (@cantidad,@observacion,@idprecio)');
 
+        if(result.rowsAffected[0]>0){
+            return 'Cantidad del almacén por insumo insertado...';
+        }else{
+            return 'No se pudo insertar la cantidad del almacén por insumo...';
+        }
+    }catch(error){
+        console.error('Error al insertar la cantidad del almacén por insumo: ',error.message);
+        throw error;
+    }
+}
 //---------- ALMACEN
+//---------- INSUMOS ELIMINADOS
+export const insertDeletedSupplyService = async (tabla,idtabla) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla',sql.VarChar(20),tabla)
+            .input('idtabla',sql.Int,idtabla)
+            .query('INSERT INTO insumosEliminados (idtabla,tabla) VALUES (@idtabla,@tabla)');
+
+        if(result.rowsAffected[0]>0){
+            if(tabla === 'INSUMOS'){
+                return 'Insumo Eliminado...';
+            }
+            if(tabla === 'TIPOS DE INSUMO'){
+                return 'Tipo de insumo Eliminado...';
+            }
+            if(tabla === 'MEDIDAS'){
+                return 'Medida Eliminada...';
+            }
+        }else{
+            if(tabla === 'INSUMOS'){
+                return 'No se pudo eliminar al insumo...';
+            }
+            if(tabla === 'TIPOS DE INSUMO'){
+                return 'No se pudo eliminar al tipo de insumo...';
+            }
+            if(tabla === 'MEDIDAS'){
+                return 'No se pudo eliminar la medida...';
+            }
+        }
+    }catch(error){
+        console.error('Error al insertar la cantidad del almacén por insumo: ',error.message);
+        throw error;
+    }
+}
+//---------- INSUMOS ELIMINADOS
 //______________INSERT______________
 //______________UPDATE______________
 //---------- INSUMOS
@@ -281,3 +371,8 @@ export const updateUnitsService = async (idmedida,medida,unidad) => {
 
 //---------- ALMACEN
 //______________UPDATE______________
+//______________DELETE______________
+//---------- INSUMOS ELIMINADOS
+
+//---------- INSUMOS ELIMINADOS
+//______________DELETE______________

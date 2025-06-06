@@ -1,179 +1,195 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getUsersService,getDeleteUsersService,getPermissionsService,getStatusService,getUserTypesService } from "../services/users.js";
-import { insertUsersService,insertDeleteUsersService,insertPermissionsService,insertStatusService } from "../services/users.js";
-import { updateUsersService,updatePermissionsService,updatePermissionService,updateStatusLogService,updateStatusEnableService } from "../services/users.js";
+import { getUsersService,getPermissionsService,getStatusService,getUserTypesService,getDeletedUsersService } from "../services/users.js";
+import { insertUserService,insertPermissionsService,insertStatusService,insertDeletedUserService } from "../services/users.js";
+import { updateUserService,updatePermissionsService,updatePermissionService,updateStatusLogService,updateStatusEnableService } from "../services/users.js";
+import { deleteDeletedUserService } from "../services/users.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
 
-//____________GET____________
+//______________GET______________
 export const Users_GET = (socket) => {
     //---------- USUARIOS
-    socket.on('Users', async () => {
+    socket.on('Get-Users', async () => {
         try {
             const result = await getUsersService();
             console.log('Usuarios obtenidos...');
-            io.emit('Users', result);
+            io.emit('Get-Users', result);
         } catch (error) {
             console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- USUARIOS
-    //---------- USUARIOS ELIMINADOS
-    socket.on('Delete-Users', async () => {
-        try {
-            const result = await getDeleteUsersService();
-            console.log('Usuarios Eliminados obtenidos...');
-            io.emit('Delete-Users', result);
-        } catch (error) {
-            console.error('Error al obtener los datos: ', error);
-        }
-    });
-    //---------- USUARIOS ELIMINADOS
     //---------- PERMISOS
-    socket.on('Permissions', async () => {
+    socket.on('Get-Permissions', async () => {
         try {
             const result = await getPermissionsService();
-            console.log('Permisos de usuarios obtenidos...');
-            io.emit('Permissions', result);
+            console.log('Permisos de los usuarios obtenidos...');
+            io.emit('Get-Permissions', result);
         } catch (error) {
             console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- PERMISOS
     //---------- ESTATUS
-    socket.on('Status', async () => {
+    socket.on('Get-Status', async () => {
         try {
             const result = await getStatusService();
-            console.log('Estatus de usuarios obtenidos...');
-            io.emit('Status', result);
+            console.log('Estatus de los usuarios obtenidos...');
+            io.emit('Get-Status', result);
         } catch (error) {
             console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- ESTATUS
     //---------- TIPOS DE USUARIOS
-    socket.on('User-Types', async () => {
+    socket.on('Get-User-Types', async () => {
         try {
             const result = await getUserTypesService();
-            console.log('Tipos de usuarios obtenidos...');
-            io.emit('User-Types', result);
+            console.log('Tipos de usuario obtenidos...');
+            io.emit('Get-User-Types', result);
         } catch (error) {
             console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- TIPOS DE USUARIOS
+    //---------- USUARIOS ELIMINADOS
+    socket.on('Get-Deleted-Users', async () => {
+        try {
+            const result = await getDeletedUsersService();
+            console.log('Usuarios Eliminados obtenidos...');
+            io.emit('Get-Deleted-Users', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- USUARIOS ELIMINADOS
 };
-//____________GET____________
+//______________GET______________
 //______________INSERT______________
 export const Users_INSERT = (socket) => {
     //---------- USUARIOS
-    socket.on('User-Insert',async (id,nombre,nombrecorto,usuario,contrasena) => {
+    socket.on('Insert-User',async (Usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
         try{
-            await insertUsersService(id,nombre,nombrecorto,usuario,contrasena);
-            io.emit('User-Insert','Se inserto el usuario ',usuario);
+            await insertUserService(nombre,nombrecorto,usuario,contrasena,idtipo);
+            io.emit('Insert-User',`${Usuario} agregó al usuario `,usuario);
         }catch(error){
-            console.error('Error al insertar: ',error);
+            console.error('Error al agregar: ',error);
             return error;
         }
     });
     //---------- USUARIOS
-    //---------- USUARIOS ELIMINADOS
-    socket.on('User-Delete-Insert',async (id,usuario) => {
+    //---------- PERMISOS
+    socket.on('Insert-Permissions',async (Usuario,usuario,administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
         try{
-            await insertDeleteUsersService(id);
-            io.emit('User-Delete-Insert','Se elimino el usuario ',usuario);
+            await insertPermissionsService(administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario);
+            io.emit('Insert-Permissions',`${Usuario} agregó permisos al usuario `,usuario);
+        }catch(error){
+            console.error('Error al agregar: ',error);
+            return error;
+        }
+    });
+    //---------- PERMISOS
+    //---------- ESTATUS
+    socket.on('Insert-Status',async (Usuario,usuario,habilitado,idusuario) => {
+        try{
+            await insertStatusService(habilitado,idusuario);
+            io.emit('Insert-Status',`${Usuario} agregó un estatus al usuario `,usuario);
+        }catch(error){
+            console.error('Error al agregar: ',error);
+            return error;
+        }
+    });
+    //---------- ESTATUS
+    //---------- USUARIOS ELIMINADOS
+    socket.on('Insert-Deleted-User',async (Usuario,usuario,idusuario) => {
+        try{
+            await insertDeletedUserService(idusuario);
+            io.emit('Insert-Deleted-User',`${Usuario} eliminó al usuario `,usuario);
         }catch(error){
             console.error('Error al eliminar: ',error);
             return error;
         }
     });
     //---------- USUARIOS ELIMINADOS
-    //---------- PERMISOS
-    socket.on('Permissions-Insert',async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
-        try{
-            await insertPermissionsService(id,administrador,chef,almacenista,cocinero,nutriologo,medico);
-            io.emit('Permissions-Insert','Se inserto los permisos a ',user);
-        }catch(error){
-            console.error('Error al insertar: ',error);
-            return error;
-        }
-    });
-    //---------- PERMISOS
-    //---------- ESTATUS
-    socket.on('Status-Insert',async (id,habilitado,user) => {
-        try{
-            await insertStatusService(id,habilitado);
-            io.emit('Status-Insert','Se inserto el estatus a ',user);
-        }catch(error){
-            console.error('Error al insertar: ',error);
-            return error;
-        }
-    });
-    //---------- ESTATUS
 }
 //______________INSERT______________
 //______________UPDATE______________
 export const Users_UPDATE = (socket) => {
     //---------- USUARIOS
-    socket.on('User-Update',async (id,idusuario,nombre,nombrecorto,usuario,contrasena) => {
+    socket.on('Update-User',async (Usuario,idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
         try{
-            await updateUsersService(id,idusuario,nombre,nombrecorto,usuario,contrasena);
-            io.emit('User-Update','Se actualizo el usuario ',usuario);
+            await updateUserService(idusuario,nombre,nombrecorto,usuario,contrasena,idtipo);
+            io.emit('Update-User',`${Usuario} editó al usuario `,usuario);
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error('Error al editar: ',error);
             return error;
         }
     });
     //---------- USUARIOS
     //---------- PERMISOS
-    socket.on('Permissions-Update', async (id,user,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
+    socket.on('Update-Permissions', async (Usuario,usuario,idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
         try{
-            await updatePermissionsService(id,administrador,chef,almacenista,cocinero,nutriologo,medico);
-            io.emit('Permissions-Update','Se actualizarón los permisos a ',user);
+            await updatePermissionsService(idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico);
+            io.emit('Update-Permissions',`${Usuario} editó los permisos al usuario `,usuario);
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error('Error al editar: ',error);
             return error;
         }
     });
-    socket.on('Permission-Update', async (id,user,superadministrador) => {
+    socket.on('Update-Permission', async (Usuario,usuario,idusuario,superadministrador) => {
         try{
-            await updatePermissionService(id,superadministrador);
-            io.emit('Permission-Update','Se actualizo el permiso a ',user);
+            await updatePermissionService(idusuario,superadministrador);
+            io.emit('Update-Permission',`${Usuario} editó el permiso de super administrador al usuario `,usuario);
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error('Error al editar: ',error);
             return error;
         }
     });
     //---------- PERMISOS
     //---------- ESTATUS
-    socket.on('Status-Log-Update', async (id,user,activo) => {
+    socket.on('Update-Status-Log', async (usuario,idusuario,activo) => {
         try{
-            await updateStatusLogService(id,activo);
+            await updateStatusLogService(idusuario,activo);
             if(activo){
-                io.emit('Status-Log-Update','Inicio sesión ',user);
+                io.emit('Update-Status-Log',`${usuario} inició sesión`);
             }else{
-                io.emit('Status-Log-Update','Cerró sesión ',user);
+                io.emit('Update-Status-Log',`${usuario} cerró sesión`);
             }
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error(`Error al ${activo ? 'iniciar sesión':'cerrar sesión'} el usuario: `,error);
             return error;
         }
     });
-    socket.on('Status-Enable-Update', async (id,user,habilitado) => {
+    socket.on('Update-Status-Enable', async (usuario,idusuario,habilitado) => {
         try{
-            await updateStatusEnableService(id,habilitado);
+            await updateStatusEnableService(idusuario,habilitado);
             if(habilitado){
-                io.emit('Status-Enable-Update','Se habilito a ',user);
+                io.emit('Update-Status-Enable',`${usuario} habilitado`);
             }else{
-                io.emit('Status-Enable-Update','Se deshabilito a ',user);
+                io.emit('Update-Status-Enable',`${usuario} deshabilitado`);
             }
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error(`Error al ${habilitado ? 'habilitar':'deshabilitar'} el usuario: `,error);
             return error;
         }
     });
     //---------- ESTATUS
 }
 //______________UPDATE______________
+//______________DELETE______________
+export const Users_DELETE = (socket) => {
+    //---------- USUARIOS ELIMINADOS
+    socket.on('Delete-Deleted-User',async (Usuario,usuario,idusuario) => {
+        try{
+            await deleteDeletedUserService(idusuario);
+            io.emit('Delete-Deleted-User',`${Usuario} recuperó al usuario `,usuario);
+        }catch(error){
+            console.error('Error al recuperar: ',error);
+            return error;
+        }
+    });
+    //---------- USUARIOS ELIMINADOS
+}
+//______________DELETE______________

@@ -42,8 +42,8 @@ export default function Form_Verification(){
                     <Input_Text_Black_100 ThemeMode={themeMode}
                         placeholder="..."
                         type="text"
-                        value={isTextFieldsUser.user}
-                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
+                        value={isTextFieldsUser.usuario}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
                         disabled={isVerificationBlock}
                     />
                 </Container_Row_100_Center>
@@ -52,8 +52,8 @@ export default function Form_Verification(){
                     <Input_Text_Black_100 ThemeMode={themeMode}
                         placeholder="..."
                         type="password"
-                        value={isTextFieldsUser.password}
-                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
+                        value={isTextFieldsUser.contrasena}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
                         disabled={isVerificationBlock}
                     />
                 </Container_Row_100_Center>

@@ -7,7 +7,7 @@ import { SidebarContext,ThemeModeContext } from "../../contexts/ViewsProvider";
 import { LoggedUserContext } from "../../contexts/SessionProvider";
 import { RefAlertGreetingContext } from "../../contexts/RefsProvider";
 import { SocketContext } from "../../contexts/SocketProvider";
-import { UserUpdatedContext } from "../../contexts/VariablesProvider";
+import { StatusContext } from "../../contexts/UsersProvider";
 //__________IMAGES____________
 import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
 import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
@@ -26,12 +26,25 @@ export default function Index_Administration(){
     const [isSidebar] = useContext(SidebarContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
     const isAlertGreeting = useContext(RefAlertGreetingContext);
+    const [isStatus] = useContext(StatusContext);
     const [socket] = useContext(SocketContext);
-    const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC_Administración';
-
+        if(sessionStorage.getItem('Login') === 'true') return
         const showAlerts = async () => {
             const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
             
@@ -39,32 +52,18 @@ export default function Index_Administration(){
 
             await Alert_Greeting('MEALSYNC','¡Le ofrece las siguientes funcionaidades!',themeMode,Image);
         }
-
         if(!isAlertGreeting.current){
             showAlerts();
             isAlertGreeting.current = true;
         }
     },[]);
-    // useEffect para los eventos de socket
     useEffect(() => {
-        const handleMessagePermission = (message,user) => {
-            setIsUserUpdated(user)
-            console.log(message,user);
-        };
-
-        const handleMessagePermissions = (message,user) => {
-            setIsUserUpdated(user)
-            console.log(message,user);
-        };
-
-        socket.on('Message-Permission',handleMessagePermission);
-        socket.on('Message-Permissions',handleMessagePermissions);
-
-        return () => {
-            socket.off('Message-Permission',handleMessagePermission);
-            socket.off('Message-Permissions',handleMessagePermissions);
+        if(isStatus.length !== 0){
+            if(sessionStorage.getItem('Login') === 'true') return
+            socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isStatus.find(status => status.idusuario === isLoggedUser.idusuario)?.idestatus,isLoggedUser.idusuario,'','1','');
+            sessionStorage.setItem('Login','true');
         }
-    },[socket]);
+    },[isStatus])
     // Estructura del componente
     return(
         <>

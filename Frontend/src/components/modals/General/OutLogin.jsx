@@ -39,7 +39,7 @@ export default function Out_Login(){
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_350 className={currentMView === 'Out-Login' ? 'slide-in-container-top' : 'slide-out-container-top'} ThemeMode={themeMode}>
+                        <Container_Form_350 className={currentMView === 'Cerrar-Sesión' ? 'slide-in-container-top' : 'slide-out-container-top'} ThemeMode={themeMode}>
                                 <Container_Row_100_Center>
                                     <Text_Title_30_Center ThemeMode={themeMode}>¿ESTAS SEGURO?</Text_Title_30_Center>
                                 </Container_Row_100_Center>

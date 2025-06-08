@@ -46,22 +46,22 @@ export default function Side_Bar() {
     if(isLoggedPermissions.superadministrador){
       return setProfileImage('https://blog.edipro.cl/wp-content/uploads/2020/02/cropped-superjefe.3-681x352.jpg');
     }
-    if(isLoggedType === 'Administrator'){
+    if(isLoggedType === 'Administrador'){
       return setProfileImage('https://cmsresources.elempleo.com/co/assets/backend/styles/770x513/public/fotos/noticias/administradores-min.jpg');
     }
     if(isLoggedType === 'Chef'){
       return setProfileImage('https://img.freepik.com/foto-gratis/expertos-gastronomia-espalda-espalda-pie-cocina-profesional-restaurante-mientras-posan-camara-chefs-vistiendo-uniformes-cocina-mientras-estan-pie-cocina-gourmet-brazos-cruzados_482257-41991.jpg?t=st=1745432760~exp=1745436360~hmac=d779bdc838a09b980fee6122e72ca035cb0cd068ee322468866d9103be104733&w=740');
     }
-    if(isLoggedType === 'Storekeeper'){
+    if(isLoggedType === 'Almacenista'){
       return setProfileImage('https://previews.123rf.com/images/kzenon/kzenon1301/kzenon130100553/17620188-el-trabajo-en-equipo-de-trabajo-o-almacenista-con-esc%C3%A1ner-y-su-compa%C3%B1ero-de-trabajo-con-el.jpg');
     }
-    if(isLoggedType === 'Cook'){
+    if(isLoggedType === 'Cocinero'){
       return setProfileImage('https://chefejecutivo.com/wp-content/uploads/2022/05/food-truck-restaurantes.jpg');
     }
-    if(isLoggedType === 'Nutritionist'){
+    if(isLoggedType === 'Nutriólogo'){
       return setProfileImage('https://saludnutricional.com.mx/wp-content/uploads/2024/09/Diferencia-entre-nutriologo-CDMX-y-bariatra.jpg');
     }
-    if(isLoggedType === 'Doctor'){
+    if(isLoggedType === 'Médico'){
       return setProfileImage('https://staticnew-common-prod.topdoctors.mx/assets/imageCloud/home-page/doctor-main-banner.webp?width=375/height=300/format=avif');
     }
   },[isLoggedPermissions]);
@@ -82,35 +82,35 @@ export default function Side_Bar() {
           </Container_Row_100_Center>
           <Tooltip title='Inicio' placement="right">
             <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-              handleSidebarView('Home');
-              sessionStorage.setItem('Route',isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home');
-              navigate(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
+              handleSidebarView('Inicio');
+              sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home');
+              navigate(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
             }}>
               <Text_Span_16_Left>Inicio</Text_Span_16_Left><Icon_White_18><IoHome/></Icon_White_18>
             </Button_Icon_Blue_200>
           </Tooltip>
-          {isLoggedType === 'Cook' ? (
+          {isLoggedType === 'Cocinero' ? (
             <></>
           ):(
             <></>
           )}
-          {isLoggedType === 'Nutritionist' ? (
+          {isLoggedType === 'Nutriólogo' ? (
             <></>
           ):(
             <></>
           )}
-          {isLoggedType === 'Doctor' ? (
+          {isLoggedType === 'Médico' ? (
             <></>
           ):(
             <></>
           )}
-          {isLoggedType === 'Administrator' ? (
+          {isLoggedType === 'Administrador' ? (
             <>
               <Tooltip title='Usuarios' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleSidebarView('Users');
-                  handleNavbarView('Users');
-                  sessionStorage.setItem('Route','/Administration/Index/Users');
+                  handleSidebarView('Usuarios');
+                  handleNavbarView('Usuarios');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Users');
                   navigate('/Administration/Index/Users',{ replace: true });
                 }}>
                   <Text_Span_16_Left>Usuarios</Text_Span_16_Left><Icon_White_18><FaCircleUser/></Icon_White_18>
@@ -159,7 +159,7 @@ export default function Side_Bar() {
           ):(
             <></>
           )}
-          {isLoggedType === 'Storekeeper' ? (
+          {isLoggedType === 'Almacenista' ? (
             <></>
           ):(
             <></>

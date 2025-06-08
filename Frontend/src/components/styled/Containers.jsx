@@ -70,11 +70,11 @@ export const Container_Page_Login = styled.div.withConfig({
 export const Container_Page_Logged = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode' && prop !== 'TypeUser' && prop !== 'Logged',
 })`
-    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Administrator' || TypeUser === 'Chef' || TypeUser === 'Storekeeper') && Logged ? 
+    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && Logged ? 
         `background-image: url(${ ThemeMode ? Background_Administration_Light : Background_Administration_Dark});` : 
         ''
     }
-    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Cook' || TypeUser === 'Nutritionist' || TypeUser === 'Doctor') && Logged ?
+    ${({ TypeUser,ThemeMode,Logged }) => (TypeUser === 'Cocinero' || TypeUser === 'Nutriólogo' || TypeUser === 'Médico') && Logged ?
         `background-image: url(${ ThemeMode ? Background_Kitchen_Light : Background_Kitchen_Dark});`:
         ''
     }

@@ -6,9 +6,9 @@ import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
 export const UsersContext = createContext(null);
 export const UserAddContext = createContext(null);
-export const UserViewPasswordContext = createContext(null);
+export const UsersViewPasswordContext = createContext(null);
 export const UserEditContext = createContext(null);
-export const UsersDeleteContext = createContext(null);
+export const DeletedUsersContext = createContext(null);
 export const UserDeleteContext = createContext(null);
 export const PermissionsContext = createContext(null);
 export const PermissionsAddContext = createContext(null);
@@ -38,9 +38,9 @@ export const Index_Users = ({children}) => {
     return(
         <Users>
             <User_Add>
-                <User_View_Password>
+                <Users_View_Password>
                     <User_Edit>
-                        <Users_Delete>
+                        <Deleted_Users>
                             <User_Delete>
                                 <Permissions>
                                     <Permissions_Add>
@@ -60,9 +60,9 @@ export const Index_Users = ({children}) => {
                                     </Permissions_Add>
                                 </Permissions>
                             </User_Delete>
-                        </Users_Delete>
+                        </Deleted_Users>
                     </User_Edit>
-                </User_View_Password>
+                </Users_View_Password>
             </User_Add>
         </Users>
     );
@@ -83,23 +83,28 @@ export const Users = ({ children }) => {
     const alertShow = useRef(false);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Users');
-
-        socket.on('Users',(result) => {
-            const decryptedData = decryptData(result);
-            if(decryptedData){
-                const parsedData = JSON.parse(decryptedData);
-                console.log('¡Usuarios obtenidos!...')
-                setIsUsers(parsedData);
-                
-            }else{
-                console.log('¡Error al desencriptar los usuarios!...');
+        const handleUsers = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if (decryptedData) {
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Usuarios obtenidos!...');
+                    setIsUsers(parsedData);
+                } else {
+                    console.warn('¡Error al desencriptar los usuarios!...');
+                    setIsUsers([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los usuarios:', error);
                 setIsUsers([]);
             }
-        });
+        }
+
+        socket.emit('Get-Users');
+        socket.on('Get-Users',handleUsers);
 
         return () => {
-            socket.off('Users');
+            socket.off('Get-Users',handleUsers);
         }
     },[]);
     // UseEffect para verificar que los datos existan
@@ -107,30 +112,27 @@ export const Users = ({ children }) => {
         if(isLoggedLogged  && isLoggedUser.length !== 0 && !alertShow.current){
             const user = isUsers.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
-                if(user.usuario !== isLoggedUser.usuario || user.contrasena !== isLoggedUser.contrasena){
+                const userHasChanged = (
+                    user.usuario !== isLoggedUser.usuario ||
+                    user.contrasena !== isLoggedUser.contrasena
+                );
+                if (userHasChanged) {
                     const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                     alertShow.current = true;
                     Alert_Warning('MEALSYNC','¡Se han modificado los datos para iniciar sesión, por un administrador!...',themeMode,Image_Warning);
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     },3000);
-                }else{
+                }
+                if (!userHasChanged) {
                     const jsonUser = JSON.stringify(user);
                     const encryptedUser = encryptData(jsonUser);
                     if(encryptedUser){
-                        sessionStorage.setItem('User',encryptedUser);
+                        sessionStorage.setItem('Usuario',encryptedUser);
                         setIsLoggedUser(JSON.parse(jsonUser));
                     }else{
                         return console.log('¡Error al encriptar las credenciales!...');
                     }
-                }
-                const jsonUser = JSON.stringify(user);
-                const encryptedUser = encryptData(jsonUser);
-                if(encryptedUser){
-                    sessionStorage.setItem('User',encryptedUser);
-                    setIsLoggedUser(JSON.parse(jsonUser));
-                }else{
-                    return console.log('¡Error al encriptar las credenciales!...');
                 }
             }
         }
@@ -144,8 +146,29 @@ export const Users = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de un usuario ✔️
 export const User_Add = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserAdd,setIsUserAdd] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleInsertUser = (message) => {
+            console.log(message);
+            socket.emit('Get-Users');
+        };
+        const handleInsertLog = (message) => {
+            console.log(message);
+            socket.emit('Get-Logs');
+        };
+
+        socket.on('Insert-User',handleInsertUser);
+        socket.on('Insert-Log-User',handleInsertLog);
+        
+        return () => {
+            socket.off('Insert-User',handleInsertUser);
+            socket.off('Insert-Log-User',handleInsertLog);
+        }
+    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <UserAddContext.Provider value={[isUserAdd,setIsUserAdd]}>
@@ -154,14 +177,14 @@ export const User_Add = ({ children }) => {
     );
 }
 // Función Contexto para controlar la vista de las contraseñas de los usuarios ✔️
-export const User_View_Password = ({children}) => {
+export const Users_View_Password = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isUserViewPassword,setIsUserViewPassword] = useState(false);
+    const [isUsersViewPassword,setIsUsersViewPassword] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
-        <UserViewPasswordContext.Provider value={[isUserViewPassword,setIsUserViewPassword]}>
+        <UsersViewPasswordContext.Provider value={[isUsersViewPassword,setIsUsersViewPassword]}>
             {children}
-        </UserViewPasswordContext.Provider>
+        </UsersViewPasswordContext.Provider>
     );
 }
 // Función contexto para controlar los datos editados de un usuario ✔️
@@ -178,7 +201,7 @@ export const User_Edit = ({ children }) => {
 // ---------- USUARIOS
 // ---------- USUARIOS ELIMINADOS
 // Función contexto para controlar los datos de la base de datos de usuarios ✔️
-export const Users_Delete = ({ children }) => {
+export const Deleted_Users = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
@@ -186,33 +209,39 @@ export const Users_Delete = ({ children }) => {
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     const [themeMode] = useContext(ThemeModeContext);
     // UseState para controlar el valor del contexto
-    const [isUsersDelete,setIsUsersDelete] = useState([]);
+    const [isDeletedUsers,setIsDeletedUsers] = useState([]);
     // UseRef para las alertas
     const alertShow = useRef(false);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Delete-Users');
-
-        socket.on('Delete-Users',(result) => {
-            const decryptedData = decryptData(result);
-            if(decryptedData){
-                const parsedData = JSON.parse(decryptedData);
-                console.log('¡Usuarios eliminados obtenidos!...')
-                setIsUsersDelete(parsedData);
-            }else{
-                console.log('¡Error al desencriptar los usuarios eliminados!...');
-                setIsUsersDelete([]);
+        const handleDeletedUsers = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if (decryptedData) {
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Usuarios eliminados obtenidos!...');
+                    setIsDeletedUsers(parsedData);
+                } else {
+                    console.warn('¡Error al desencriptar los usuarios eliminados!...');
+                    setIsDeletedUsers([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los usuarios eliminados:', error);
+                setIsDeletedUsers([]);
             }
-        });
+        }
+
+        socket.emit('Get-Deleted-Users');
+        socket.on('Get-Deleted-Users',handleDeletedUsers);
 
         return () => {
-            socket.off('Delete-Users');
+            socket.off('Get-Deleted-Users',handleDeletedUsers);
         }
     },[]);
     // UseEffect para verificar que los datos existan
     useEffect(() => {
-        if(isLoggedLogged && isUsersDelete.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current){
-            const user = isUsersDelete.find(user => user.idusuario === isLoggedUser.idusuario);
+        if(isLoggedLogged && isDeletedUsers.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current){
+            const user = isDeletedUsers.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
                 alertShow.current = true;
                 const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
@@ -222,12 +251,12 @@ export const Users_Delete = ({ children }) => {
                 },3000);
             }
         }
-    },[isUsersDelete]);
+    },[isDeletedUsers]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <UsersDeleteContext.Provider value={[isUsersDelete,setIsUsersDelete]}>
+        <DeletedUsersContext.Provider value={[isDeletedUsers,setIsDeletedUsers]}>
             {children}
-        </UsersDeleteContext.Provider>
+        </DeletedUsersContext.Provider>
     );
 }
 // Función contexto para controlar los datos agregados de un usuario eliminado ✔️
@@ -260,22 +289,28 @@ export const Permissions = ({ children }) => {
     const [isPermissions,setIsPermissions] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Permissions');
-
-        socket.on('Permissions',(result) => {
-            const decryptedData = decryptData(result);
-            if(decryptedData){
-                const parsedData = JSON.parse(decryptedData);
-                console.log('¡Permisos de usuarios obtenidos!...')
-                setIsPermissions(parsedData);
-            }else{
-                console.log('¡Error al desencriptar los permisos!...');
+        const handlePermissions = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Permisos de usuarios obtenidos!...')
+                    setIsPermissions(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los permisos!...');
+                    setIsPermissions([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los permisos de los usuarios:', error);
                 setIsPermissions([]);
             }
-        });
+        }
+
+        socket.emit('Get-Permissions');
+        socket.on('Get-Permissions',handlePermissions);
 
         return () => {
-            socket.off('Permissions');
+            socket.off('Get-Permissions',handlePermissions);
         }
     },[]);
     // UseEffect para verificar que los datos existan
@@ -286,12 +321,12 @@ export const Permissions = ({ children }) => {
                 const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                 const Image_Success = themeMode ? Logo_Success_Light : Logo_Success_Dark;
                 if(!user.superadministrador){
-                    if(isLoggedType === 'Cook' && !user.cocinero || 
-                        isLoggedType === 'Nutritionist' && !user.nutriologo ||
-                        isLoggedType === 'Doctor' && !user.medico ||
-                        isLoggedType === 'Administrator' && !user.administrador ||
+                    if(isLoggedType === 'Cocinero' && !user.cocinero || 
+                        isLoggedType === 'Nutriólogo' && !user.nutriologo ||
+                        isLoggedType === 'Médico' && !user.medico ||
+                        isLoggedType === 'Administrador' && !user.administrador ||
                         isLoggedType === 'Chef' && !user.chef ||
-                        isLoggedType === 'Storekeeper' && !user.almacenista){
+                        isLoggedType === 'Almacenista' && !user.almacenista){
                         alertShow.current = true;
                         Alert_Warning('MEALSYNC','¡Ha perdido su permiso de acceso, por un administrador!...',themeMode,Image_Warning);
                         setTimeout(() => {
@@ -348,8 +383,29 @@ export const Permissions = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de los permisos de un usuario ✔️
 export const Permissions_Add = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsAdd,setIsPermissionsAdd] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleInsertPermissions = (message) => {
+            console.log(message);
+            socket.emit('Get-Permissions');
+        };
+        const handleInsertLog = (message) => {
+            console.log(message);
+            socket.emit('Get-Logs');
+        };
+
+        socket.on('Insert-Permissions',handleInsertPermissions);
+        socket.on('Insert-Log-Permissions',handleInsertLog);
+        
+        return () => {
+            socket.off('Insert-Permissions',handleInsertPermissions);
+            socket.off('Insert-Log-Permissions',handleInsertLog);
+        }
+    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <PermissionsAddContext.Provider value={[isPermissionsAdd,setIsPermissionsAdd]}>
@@ -395,22 +451,28 @@ export const Status = ({ children }) => {
     const [isStatus,setIsStatus] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Status');
-
-        socket.on('Status',(result) => {
-            const decryptedData = decryptData(result);
-            if(decryptedData){
-                const parsedData = JSON.parse(decryptedData);
-                console.log('¡Estatus de usuarios obtenidos!....')
-                setIsStatus(parsedData);
-            }else{
-                console.log('¡Error al desencriptar los estatus!...');
+        const handleStatus = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Estatus de usuarios obtenidos!....')
+                    setIsStatus(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los estatus!...');
+                    setIsStatus([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los estatus de los usuario:', error);
                 setIsStatus([]);
             }
-        });
+        }
+
+        socket.emit('Get-Status');
+        socket.on('Get-Status',handleStatus);
 
         return () => {
-            socket.off('Status');
+            socket.off('Get-Status',handleStatus);
         }
     },[]);
     // UseEffect para verificar que los datos existan
@@ -438,8 +500,29 @@ export const Status = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de los estatus de un usuario ✔️
 export const Status_Add = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isStatusAdd,setIsStatusAdd] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleInsertStatus = (message) => {
+            console.log(message);
+            socket.emit('Get-Status');
+        };
+        const handleInsertLog = (message) => {
+            console.log(message);
+            socket.emit('Get-Logs');
+        };
+
+        socket.on('Insert-Status',handleInsertStatus);
+        socket.on('Insert-Log-Status',handleInsertStatus);
+        
+        return () => {
+            socket.off('Insert-Status',handleInsertStatus);
+            socket.off('Insert-Log-Status',handleInsertLog);
+        }
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <StatusAddContext.Provider value={[isStatusAdd,setIsStatusAdd]}>
@@ -468,23 +551,29 @@ export const User_Types = ({ children }) => {
     const [isUserTypes,setIsUserTypes] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('User-Types');
-
-        socket.on('User-Types',(result) => {
-            const decryptedData = decryptData(result);
-            if(decryptedData){
-                const parsedData = JSON.parse(decryptedData);
-                console.log('¡Tipos de Usuarios obtenidos!...')
-                setIsUserTypes(parsedData);
-                
-            }else{
-                console.log('¡Error al desencriptar los usuarios!...');
+        const handleUserTypes = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Tipos de usuario obtenidos!...')
+                    setIsUserTypes(parsedData);
+                    
+                }else{
+                    console.log('¡Error al desencriptar los tipos de usuario!...');
+                    setIsUserTypes([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los tipos de usuario:', error);
                 setIsUserTypes([]);
             }
-        });
+        }
+
+        socket.emit('Get-User-Types');
+        socket.on('Get-User-Types',handleUserTypes);
 
         return () => {
-            socket.off('User-Types');
+            socket.off('Get-User-Types',handleUserTypes);
         }
     },[]);
     // Return para darle valor al contexto y heredarlo

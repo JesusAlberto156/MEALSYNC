@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Importación de funciones contexto
-import { Socket } from './SocketProvider';
+import { Socket,Logs,Log_Add } from './SocketProvider';
 import { Index_Views } from './ViewsProvider';
 import { Index_Sessions } from './SessionProvider';
 import { Index_Selectedes } from './SelectedesProvider';
@@ -18,29 +18,33 @@ import { Index_Refs } from './RefsProvider';
 export const AppProviders = ({children}) => {
     return(
         <Socket>
-            <Index_Views>
-                <Index_Sessions>
-                    <Index_Selectedes>
-                        <Index_Searchs>
-                            <Index_Variables>
-                                <Index_Users>
-                                    <Index_Suppliers>
-                                        <Index_Warehouse>
-                                            <Index_Text_Fields>
-                                                <Index_Charts>
-                                                    <Index_Refs>
-                                                        {children}
-                                                    </Index_Refs>
-                                                </Index_Charts>
-                                            </Index_Text_Fields>
-                                        </Index_Warehouse>
-                                    </Index_Suppliers>
-                                </Index_Users>
-                            </Index_Variables>
-                        </Index_Searchs>
-                    </Index_Selectedes>
-                </Index_Sessions>
-            </Index_Views>
+            <Logs>
+                <Log_Add>
+                    <Index_Views>
+                        <Index_Sessions>
+                            <Index_Selectedes>
+                                <Index_Searchs>
+                                    <Index_Variables>
+                                        <Index_Users>
+                                            <Index_Suppliers>
+                                                <Index_Warehouse>
+                                                    <Index_Text_Fields>
+                                                        <Index_Charts>
+                                                            <Index_Refs>
+                                                                {children}
+                                                            </Index_Refs>
+                                                        </Index_Charts>
+                                                    </Index_Text_Fields>
+                                                </Index_Warehouse>
+                                            </Index_Suppliers>
+                                        </Index_Users>
+                                    </Index_Variables>
+                                </Index_Searchs>
+                            </Index_Selectedes>
+                        </Index_Sessions>
+                    </Index_Views>
+                </Log_Add>
+            </Logs>
         </Socket>
     );
 }

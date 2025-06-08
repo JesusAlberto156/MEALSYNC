@@ -49,8 +49,8 @@ export default function User_Permissions_Add(){
                     <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                         <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
-                                value={isTextFieldsPermissions.administrator}
-                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
+                                value={isTextFieldsPermissions.administrador}
+                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrador: e.target.checked ? 1 : 0}))}
                                 type="checkbox"
                             />
                             Administrador
@@ -66,8 +66,8 @@ export default function User_Permissions_Add(){
                         <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
-                                value={isTextFieldsPermissions.storekeeper}
-                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
+                                value={isTextFieldsPermissions.almacenista}
+                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, almacenista: e.target.checked ? 1 : 0}))}
                             />
                             Almacenista
                         </Label_Text_16_Center>
@@ -80,24 +80,24 @@ export default function User_Permissions_Add(){
                         <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
-                                value={isTextFieldsPermissions.cook}
-                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
+                                value={isTextFieldsPermissions.cocinero}
+                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cocinero: e.target.checked ? 1 : 0}))}
                             />
                             Cocinero
                         </Label_Text_16_Center>
                         <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
-                                value={isTextFieldsPermissions.nutritionist}
-                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
+                                value={isTextFieldsPermissions.nutriologo}
+                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutriologo: e.target.checked ? 1 : 0}))}
                             />
                             Nutriólogo
                         </Label_Text_16_Center>
                         <Label_Text_16_Center ThemeMode={themeMode}>
                             <Input_Checkbox_16 ThemeMode={themeMode}
                                 type="checkbox"
-                                value={isTextFieldsPermissions.doctor}
-                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
+                                value={isTextFieldsPermissions.medico}
+                                onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, medico: e.target.checked ? 1 : 0}))}
                             />
                             Médico
                         </Label_Text_16_Center>
@@ -106,13 +106,13 @@ export default function User_Permissions_Add(){
                         <Tooltip title='Cancelar' placement='top'>
                             <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                                 setIsAnimation(false);
-                                sessionStorage.setItem('Animation',false);
+                                sessionStorage.removeItem('Animación',false);
                                 setIsSubModal(false);
-                                sessionStorage.setItem('Sub-Modal',false);
+                                sessionStorage.removeItem('Estado del Sub-Modal',false);
                                 resetTextFieldsPermissions();
                                 setIsTextFieldsUser(prev => ({
                                     ...prev,
-                                    permissions: 'Default'
+                                    permisos: 'Default'
                                 }))
                                 setTimeout(() => {
                                     navigate('/Administration/Users/Add',{ replace: true });
@@ -124,10 +124,10 @@ export default function User_Permissions_Add(){
                         <Tooltip title='Agregar' placement='top'>
                             <Button_Icon_Green_180 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
                                 setIsSubModal(false);
-                                sessionStorage.setItem('Sub-Modal',false);
+                                sessionStorage.removeItem('Estado del Sub-Modal',false);
                                 setIsTextFieldsUser(prev => ({
                                     ...prev,
-                                    permissions: 'Personalizado'
+                                    permisos: 'Personalizado'
                                 }))
                                 setTimeout(() => {
                                     navigate('/Administration/Users/Add',{ replace: true });

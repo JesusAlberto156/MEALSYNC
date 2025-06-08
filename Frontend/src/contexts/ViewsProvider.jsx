@@ -61,7 +61,7 @@ export const Login_View = ({ children }) => {
 export const Navbar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentNView,setCurrentNView] = useState(() => {
-        const navbarView = sessionStorage.getItem('Navbar-View');
+        const navbarView = sessionStorage.getItem('Vista del Navbar');
         return navbarView || '';
     });
     // Return para darle valor al contexto y heredarlo
@@ -75,7 +75,7 @@ export const Navbar_View = ({ children }) => {
 export const Sidebar_View = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [currentSView,setCurrentSView] = useState(() => {
-        const sidebarView = sessionStorage.getItem('Sidebar-View');
+        const sidebarView = sessionStorage.getItem('Vista del Sidebar');
         return sidebarView || '';
     });
     // Return para darle valor al contexto y heredarlo
@@ -89,7 +89,7 @@ export const Sidebar_View = ({ children }) => {
 export const Sidebar = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSidebar,setIsSidebar] = useState(() => {
-        const sidebar = sessionStorage.getItem('Sidebar') === 'true';
+        const sidebar = sessionStorage.getItem('Estado del Sidebar') === 'true';
         return sidebar;
     });
     // UseState para controlar el valor del contexto
@@ -103,7 +103,7 @@ export const Sidebar = ({ children }) => {
 export const Modal_View = ({children}) => {
     // UseState para controlar el valor del contexto
     const [currentMView,setCurrentMView] = useState(() => {
-        const modalView = sessionStorage.getItem('Modal-View');
+        const modalView = sessionStorage.getItem('Vista del Modal');
         return modalView || '';
     });
     // UseState para controlar el valor del contexto
@@ -117,7 +117,7 @@ export const Modal_View = ({children}) => {
 export const Modal = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isModal,setIsModal] = useState(() => {
-        const modal = sessionStorage.getItem('Modal') === 'true';
+        const modal = sessionStorage.getItem('Estado del Modal') === 'true';
         return modal;
     });
     // UseState para controlar el valor del contexto
@@ -131,7 +131,7 @@ export const Modal = ({children}) => {
 export const Sub_Modal = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isSubModal,setIsSubModal] = useState(() => {
-        const subModal = sessionStorage.getItem('Sub-Modal') === 'true';
+        const subModal = sessionStorage.getItem('Estado del Sub-Modal') === 'true';
         return subModal;
     });
     // UseState para controlar el valor del contexto

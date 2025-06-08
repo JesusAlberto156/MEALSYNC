@@ -101,8 +101,8 @@ export default function Form_Login(){
                         placeholder="..."
                         type="text"
                         id="Input-User"
-                        value={isTextFieldsUser.user}
-                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
+                        value={isTextFieldsUser.usuario}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
                         onFocus={() => {
                             if(isTouchRef.current){
                                 setIsKeyboard(true);
@@ -118,8 +118,8 @@ export default function Form_Login(){
                         placeholder="..."
                         type="password"
                         id="Input-Password"
-                        value={isTextFieldsUser.password}
-                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
+                        value={isTextFieldsUser.contrasena}
+                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
                         onFocus={() => {
                             if(isTouchRef.current){
                                 setIsKeyboard(true);

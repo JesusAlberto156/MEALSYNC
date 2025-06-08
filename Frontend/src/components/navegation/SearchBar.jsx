@@ -7,9 +7,9 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
-import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
-import { UserViewPasswordContext } from "../../contexts/UsersProvider";
+import { UsersViewPasswordContext } from "../../contexts/UsersProvider";
 import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSuppliesContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../hooks/Views";
@@ -50,7 +50,7 @@ export default function Search_Bar (){
     const [isTypeUser] = useContext(LoggedTypeContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [isPermission] = useContext(LoggedPermissionsContext);
-    const [isUserViewPassword] = useContext(UserViewPasswordContext);
+    const [isUsersViewPassword] = useContext(UsersViewPasswordContext);
     const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
     const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
     const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);1
@@ -76,7 +76,7 @@ export default function Search_Bar (){
                     value={isSearchTerm}
                     onChange={(e) => setIsSearchTerm(e.target.value)}
                 />
-                {currentSView === 'Users' && currentNView === 'Users' ? (
+                {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
                     <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
                         {isOptionUsers.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
@@ -95,7 +95,7 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-                {currentSView === 'Users' && currentNView === 'Status' ? (
+                {currentSView === 'Usuarios' && currentNView === 'Estatus' ? (
                     <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
                         {isOptionStatus.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
@@ -114,17 +114,8 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-                {isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? (
-                    <>
-                        <Tooltip title='Pedidos' placement="top">
-                            <Icon_Button_Black_30 ThemeMode={themeMode}><FaShoppingCart/></Icon_Button_Black_30>
-                        </Tooltip>  
-                    </>
-                ):(
-                    <></>
-                )}
                 <Container_Row_80_Right>    
-                    {currentSView === 'Users' && currentNView === 'Users' ? (
+                    {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
                         <>
                             {isSelectedRow !== null ? (
                                 <>
@@ -133,7 +124,7 @@ export default function Search_Bar (){
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             if (isSelectedRow !== null) {
-                                                handleModalView('User-Edit');
+                                                handleModalView('Usuario-Editar');
                                                 navigate('/Administration/Users/Edit',{ replace: true });
                                             }
                                         }}>
@@ -146,7 +137,7 @@ export default function Search_Bar (){
                                     <Tooltip title='Agregar' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                             onClick={() => {
-                                                handleModalView('User-Add');
+                                                handleModalView('Usuario-Agregar');
                                                 navigate('/Administration/Users/Add',{ replace: true });
                                             }}
                                         >
@@ -163,7 +154,7 @@ export default function Search_Bar (){
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 if (isSelectedRow !== null) {
-                                                    handleModalView('User-Delete');
+                                                    handleModalView('Usuario-Eliminar');
                                                     navigate('/Administration/Users/Delete',{ replace: true });
                                                 }
                                             }}>
@@ -177,10 +168,10 @@ export default function Search_Bar (){
                             ):(
                                 <></>
                             )}
-                            {isUserViewPassword ? (
+                            {isUsersViewPassword ? (
                                 <>
                                     <Tooltip title='Ocultar contraseñas' placement="top">
-                                        <Button_Icon_Red_60 ThemeMode={themeMode} className={isUserViewPassword ? 'fade-button-in':'fade-button-out'} 
+                                        <Button_Icon_Red_60 ThemeMode={themeMode} className={isUsersViewPassword ? 'fade-button-in':'fade-button-out'} 
                                         onClick={() => handleViewPassword()}>
                                             <Icon_White_18><IoIosEyeOff/></Icon_White_18>
                                         </Button_Icon_Red_60>
@@ -189,9 +180,9 @@ export default function Search_Bar (){
                             ):(
                                 <>
                                     <Tooltip title='Mostrar contraseñas' placement="top">
-                                        <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isUserViewPassword ? 'fade-button-in':'fade-button-out'}
+                                        <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isUsersViewPassword ? 'fade-button-in':'fade-button-out'}
                                         onClick={() => {
-                                            handleModalView('User-View');
+                                            handleModalView('Usuario-Ver-Contraseña');
                                             navigate('/Administration/Users/View',{ replace: true });
                                         }}>
                                             <Icon_White_18><FaEye/></Icon_White_18>
@@ -203,14 +194,14 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Users' && currentNView === 'Permissions' ? (
+                    {currentSView === 'Usuarios' && currentNView === 'Permisos' ? (
                         <>
                             {isSelectedRow !== null ? (
                                 <>
                                     <Tooltip title='Editar' placement="top">
                                         <Button_Icon_Blue_60 ref={Button_Edit_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                         onClick={() => {
-                                            handleModalView('Permissions-Edit');
+                                            handleModalView('Permisos-Editar');
                                             navigate('/Administration/Permissions/Edit',{ replace: true });
                                         }}>
                                             <Icon_White_18><MdEdit/></Icon_White_18>
@@ -222,7 +213,7 @@ export default function Search_Bar (){
                                     <Tooltip title='Agregar' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                         onClick={() => {
-                                            handleModalView('Permissions-Add');
+                                            handleModalView('Permisos-Agregar');
                                             navigate('/Administration/Permissions/Add',{ replace: true });
                                         }}>
                                             <Icon_White_18><IoIosAddCircle/></Icon_White_18>
@@ -238,7 +229,7 @@ export default function Search_Bar (){
                                                 <Button_Icon_Red_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
-                                                    handleModalView('Permissions-Enable');
+                                                    handleModalView('Permiso-Super-Administrador');
                                                     navigate('/Administration/Permissions/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaUserTie/></Icon_White_18>
@@ -251,7 +242,7 @@ export default function Search_Bar (){
                                                 <Button_Icon_Green_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
-                                                    handleModalView('Permissions-Enable');
+                                                    handleModalView('Permiso-Super-Administrador');
                                                     navigate('/Administration/Permissions/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaUserTie/></Icon_White_18>
@@ -269,7 +260,7 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Users' && currentNView === 'Status' ? (
+                    {currentSView === 'Usuarios' && currentNView === 'Estatus' ? (
                         <>
                             {isSelectedRow !== null ? (
                                 isSelectedRow.habilitado ? (
@@ -278,7 +269,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Red_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                             disabled={isSelectedRow === null}
                                             onClick={() => {
-                                                handleModalView('Status-Enable');
+                                                handleModalView('Estatus-Habilitar');
                                                 navigate('/Administration/Status/Enable',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaLock/></Icon_White_18>
@@ -291,7 +282,7 @@ export default function Search_Bar (){
                                             <Button_Icon_Green_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                             disabled={isSelectedRow === null}
                                             onClick={() => {
-                                                handleModalView('Status-Enable');
+                                                handleModalView('Estatus-Habilitar');
                                                 navigate('/Administration/Status/Enable',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaLockOpen/></Icon_White_18>
@@ -304,7 +295,7 @@ export default function Search_Bar (){
                                     <Tooltip title='Agregar' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                         onClick={() => {
-                                            handleModalView('Status-Add');
+                                            handleModalView('Estatus-Agregar');
                                             navigate('/Administration/Status/Add',{ replace: true });
                                         }}>
                                             <Icon_White_18><IoIosAddCircle/></Icon_White_18>

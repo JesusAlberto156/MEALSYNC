@@ -3,12 +3,14 @@
 import { useContext,useEffect,useRef } from "react";
 import { Outlet,useNavigate,Navigate } from "react-router-dom";
 // Contextos
-import { SidebarContext,ThemeModeContext,SidebarViewContext,NavbarViewContext,LoginViewContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
+import { SidebarContext,ThemeModeContext,SidebarViewContext,NavbarViewContext,LoginViewContext,ModalViewContext,ModalContext,SubModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
-import { ActionBlockContext } from "../contexts/VariablesProvider";
-import { SearchTermContext } from "../contexts/SearchsProvider";
-import { SelectedRowContext } from "../contexts/SelectedesProvider";
+import { ActionBlockContext,UserUpdatedContext } from "../contexts/VariablesProvider";
+import { StatusContext } from "../contexts/UsersProvider";
+import { SearchTermContext,SearchTerm2Context,SearchTerm1Context } from "../contexts/SearchsProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionSearchContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderDirectionContext } from "../contexts/SelectedesProvider";
 import { RefAlertGreetingContext } from "../contexts/RefsProvider";
+import { SocketContext } from "../contexts/SocketProvider";
 // Hooks personalizados
 import { HandleLoggedLog } from "../hooks/Form";
 //__________IMAGES____________
@@ -41,12 +43,37 @@ export const PrivateRouteAdministration = () => {
     const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const isAlertGreeting = useContext(RefAlertGreetingContext);
+    const [socket] = useContext(SocketContext);
+    const [isStatus] = useContext(StatusContext);
+    const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
+    const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
+    const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
+    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+    const [isSubModal,setIsSubModal] = useContext(SubModalContext);
+    const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     // Constantes con el valor de los useRef
     const isLoggedLoggedRef = useRef(isLoggedLogged);
     const logoutInitiatedRef = useRef(false);
     const inactividadTimer = useRef(null);
     // Constantes
     const tiempoInactivoParaAccion = 900000;
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // Reiniciar temporizador de inactividad
     const ejecutarAccionFinal = () => {
         if(!isLoggedLoggedRef.current || logoutInitiatedRef.current) return;
@@ -102,7 +129,7 @@ export const PrivateRouteAdministration = () => {
     useEffect(() => {
         if(isLoggedLog && isLoggedLogged){
             document.title = "Cargando...";
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{       
                     setIsActionBlock(true);         
                     setTimeout(() => {
@@ -116,24 +143,35 @@ export const PrivateRouteAdministration = () => {
                             setIsSidebar(true);
                             setIsLoggedType('');
                             setIsSearchTerm('');
+                            setIsSearchTerm1('');
+                            setIsSearchTerm2('');
                             setIsLoggedPermissions([]);
                             setIsLoggedStatus([]);
                             setIsLoggedLog(false);
                             setIsLoggedLogged(false);
                             setIsSelectedRow(null);
+                            setIsSelectedRow1(null);
+                            setIsSelectedRow2(null);
+                            setIsSelectedOptionSearch('General');
+                            setIsSelectedOptionOrder('');
+                            setIsSelectedOptionOrderPlus('Normal');
+                            setIsSelectedOptionOrderDirection('Asc');
+                            setIsUserUpdated('');
 
                             setTimeout(() => {
                                 sessionStorage.clear();
                                 setIsLoggedUser([]);
                                 setIsActionBlock(false);
                                 setIsModal(false);
+                                setIsSubModal(false)
                                 logoutInitiatedRef.current = false;
                                 isAlertGreeting.current = false;
+                                socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isStatus.find(status => status.idusuario === isLoggedUser.idusuario)?.idestatus,isLoggedUser.idusuario,'','0','');
                                 navigate("/",{replace: true});
                             },700);
                         },750)
                     },2000);
-                }catch(error){
+                }catch(e){
                     setIsLoggedLog(false);
                     setIsActionBlock(false);
                     reject('¡Ocurrio un error inesperado!...');
@@ -148,5 +186,5 @@ export const PrivateRouteAdministration = () => {
     const handleLoggedLog = HandleLoggedLog();
     // Función del componente
     if(!isLoggedLogged) return <Navigate to={'/'}/>;
-    return isLoggedType==='Administrator' || isLoggedType==='Chef' || isLoggedType==='Storekeeper' ? <Outlet/> : <Navigate to={'/'}/>;
+    return isLoggedType==='Administrador' || isLoggedType==='Chef' || isLoggedType==='Almacenista' ? <Outlet/> : <Navigate to={'/'}/>;
 }

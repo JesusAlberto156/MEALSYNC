@@ -39,14 +39,14 @@ export const Index_Text_Fields = ({children}) => {
 export const Text_Fields_User = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsUser,setIsTextFieldsUser] = useState({
-        iduser: 0,
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-        permissions: '',
-        status: '',
+        idusuario: 0,
+        nombre: '',
+        nombrecorto: '',
+        usuario: '',
+        contrasena: '',
+        idtipo: 0,
+        permisos: '',
+        estatus: '',
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -59,14 +59,16 @@ export const Text_Fields_User = ({ children }) => {
 export const Text_Fields_Permissions = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useState({
-        iduser: 0,
-        user: '',
-        administrator: 0,
+        idpermiso: 0,
+        administrador: 0,
         chef: 0,
-        storekeeper: 0,
-        cook: 0,
-        nutritionist: 0,
-        doctor: 0,
+        almacenista: 0,
+        cocinero: 0,
+        nutriologo: 0,
+        medico: 0,
+        superadministrador: 0,
+        idusuario: 0,
+        usuario: '',
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -79,9 +81,10 @@ export const Text_Fields_Permissions = ({ children }) => {
 export const Text_Fields_Status = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsStatus,setIsTextFieldsStatus] = useState({
-        iduser: 0,
-        user: '',
-        status: '',
+        idusuario: 0,
+        usuario: '',
+        idestatus: 0,
+        estatus: '',
     });
     // Return para darle valor al contexto y heredarlo
     return(

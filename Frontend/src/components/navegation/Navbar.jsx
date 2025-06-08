@@ -50,12 +50,12 @@ export default function Nav_Bar(){
             <Container_Row_White_Width_98_Left ThemeMode={themeMode}> 
                 <Img_Logo_Hospital_70 ThemeMode={themeMode}/> 
                 <Container_Row_Blue_Width_92_Left ThemeMode={themeMode}>
-                    {currentSView === 'Users' ? (
+                    {currentSView === 'Usuarios' ? (
                         <>
                             <Tooltip title='Usuarios' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Users');
-                                    sessionStorage.setItem('Route','/Administration/Index/Users');
+                                    handleNavbarView('Usuarios');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Users');
                                     navigate('/Administration/Index/Users',{ replace: true });
                                 }}>
                                     <Icon_22><FaUser/></Icon_22>
@@ -63,8 +63,8 @@ export default function Nav_Bar(){
                             </Tooltip>
                             <Tooltip title='Permisos' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Permissions')
-                                    sessionStorage.setItem('Route','/Administration/Index/Permissions');
+                                    handleNavbarView('Permisos')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Permissions');
                                     navigate('/Administration/Index/Permissions',{ replace: true });
                                 }}>
                                     <Icon_22><IoShieldHalfSharp/></Icon_22>
@@ -72,24 +72,24 @@ export default function Nav_Bar(){
                             </Tooltip>
                             <Tooltip title='Estatus' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Status')
-                                    sessionStorage.setItem('Route','/Administration/Index/Status');
+                                    handleNavbarView('Estatus')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Status');
                                     navigate('/Administration/Index/Status',{ replace: true });
                                 }}>
                                     <Icon_22><IoIosLock/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            {currentNView === 'Users' ? (
+                            {currentNView === 'Usuarios' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>USUARIOS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}
-                            {currentNView === 'Permissions' ? (
+                            {currentNView === 'Permisos' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>PERMISOS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}
-                            {currentNView === 'Status' ? (
+                            {currentNView === 'Estatus' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>ESTATUS</Text_Title_26_Center>
                             ):(
                                 <></>

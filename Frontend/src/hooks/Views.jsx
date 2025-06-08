@@ -43,8 +43,8 @@ export const HandleLoginView = () => {
         if(option === 'Administration' || option === 'Kitchen'){
             setIsTextFieldsUser(prev => ({
                 ...prev,             
-                user: '',      
-                password: '',       
+                usuario: '',      
+                contrasena: '',       
             }));
             setIsLoggedType('');
             setIsAnimation(true);
@@ -71,7 +71,7 @@ export const HandleNavbarView = () => {
         setCurrentNView(View);
         resetSearchTerms();
         resetSelectedOptions();
-        sessionStorage.setItem('Navbar-View',View);
+        sessionStorage.setItem('Vista del Navbar',View);
     };
     // Retorno de la función del hook
     return handleNavbarView;
@@ -88,7 +88,7 @@ export const HandleSidebarView = () => {
         setCurrentSView(View);
         resetSearchTerms();
         resetSelectedOptions();
-        sessionStorage.setItem('Sidebar-View',View);
+        sessionStorage.setItem('Vista del Sidebar',View);
     };
     // Retorno de la función del hook
     return handleSidebarView;
@@ -100,7 +100,7 @@ export const ToggleSidebar = () => {
     // Función del hook
     const toggleSidebar = () => {
         setIsSidebar(!isSidebar);
-        sessionStorage.setItem('Sidebar',!isSidebar);
+        sessionStorage.setItem('Estado del Sidebar',!isSidebar);
     };
     // Retorno de la función del hook
     return toggleSidebar;
@@ -131,113 +131,113 @@ export const HandleModalView = () => {
     // Función del hook
     const handleModalView = (View) => {
         setIsModal(true);
-        sessionStorage.setItem('Modal',true);
-        const route = sessionStorage.getItem('Route');
+        sessionStorage.setItem('Estado del Modal',true);
+        const route = sessionStorage.getItem('Ruta');
         // CERRAR SESIÓN
-        if(currentMView === 'Out-Login' && View === ''){
+        if(currentMView === 'Cerrar-Sesión' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 navigate(route,{ replace: true });
             },750);
         }
         // CERRAR SESIÓN
         // USUARIOS
-        if(currentMView === 'User-Add' && View === ''){
+        if(currentMView === 'Usuario-Agregar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsUser();
                 setIsSubModal(false);
-                sessionStorage.setItem('Sub-Modal',false);
+                sessionStorage.removeItem('Estado del Sub-Modal');
                 setIsAnimation(false);
-                sessionStorage.removeItem('Animation');
+                sessionStorage.removeItem('Animación');
                 resetTextFieldsPermissions();
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'User-View' && View === ''){
+        if(currentMView === 'Usuario-Ver-Contraseña' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsUser();
                 setIsActionBlock(false);
                 setIsVerificationBlock(false);
-                sessionStorage.removeItem('Action-Block');
-                sessionStorage.removeItem('Verification-Block');
+                sessionStorage.removeItem('Acción del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'User-Edit' && View === ''){
+        if(currentMView === 'Usuario-Editar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsSelectedRow(null);
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'User-Delete' && View === ''){
+        if(currentMView === 'Usuario-Eliminar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsSelectedRow(null);
                 setIsActionBlock(false);
                 setIsVerificationBlock(false);
-                sessionStorage.removeItem('Action-Block');
-                sessionStorage.removeItem('Verification-Block');
+                sessionStorage.removeItem('Acción del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Permissions-Add' && View === ''){
+        if(currentMView === 'Permisos-Agregar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsPermissions();
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Permissions-Edit' && View === ''){
+        if(currentMView === 'Permisos-Editar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsActionBlock(false);
                 setIsSelectedRow(null);
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Permissions-Enable' && View === ''){
+        if(currentMView === 'Permiso-Super-Administrador' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsActionBlock(false);
                 setIsSelectedRow(null);
                 setIsVerificationBlock(false);
-                sessionStorage.removeItem('Action-Block');
-                sessionStorage.removeItem('Verification-Block');
+                sessionStorage.removeItem('Acción del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Status-Add' && View === ''){
+        if(currentMView === 'Estatus-Agregar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsActionBlock(false);
                 resetTextFieldsStatus();
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Status-Enable' && View === ''){
+        if(currentMView === 'Estatus-Habilitar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsActionBlock(false);
                 setIsVerificationBlock(false);
                 setIsSelectedRow(null);
-                sessionStorage.removeItem('Action-Block');
-                sessionStorage.removeItem('Verification-Block');
+                sessionStorage.removeItem('Acción del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
                 navigate(route,{ replace: true });
             },750);
         }
@@ -246,7 +246,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Supplier-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsSupplier();
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
@@ -255,7 +255,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Supplier-Edit' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsSelectedRow(null);
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
@@ -264,7 +264,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Supplier-Details' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsSelectedRow(null);
                 navigate(route,{ replace: true });
             },750);
@@ -272,7 +272,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Warehouse-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
@@ -281,7 +281,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Supply-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsSupply();
                 setIsActionBlock(false);
                 resetSearchTerms();
@@ -291,7 +291,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Supply-Edit' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsSelectedRow(null);
                 setIsActionBlock(false);
                 resetSearchTerms();
@@ -301,7 +301,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Supply-Type-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsSupplyType();
                 setIsActionBlock(false);
                 resetSearchTerms();
@@ -311,7 +311,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Supply-Type-Edit' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsSelectedRow1(null);
                 setIsActionBlock(false);
                 resetSearchTerms();
@@ -321,7 +321,7 @@ export const HandleModalView = () => {
         if(currentMView === 'Unit-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsUnit();
                 setIsActionBlock(false);
                 resetSearchTerms();
@@ -331,14 +331,14 @@ export const HandleModalView = () => {
         if(currentMView === 'Unit-Edit' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
-                sessionStorage.setItem('Modal',false);
+                sessionStorage.setItem('Estado del Modal',false);
                 setIsSelectedRow2(null);
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
         }
         setCurrentMView(View);
-        sessionStorage.setItem('Modal-View',View);
+        sessionStorage.setItem('Vista del Modal',View);
         resetSelectedOptions();
     }
     // Retorno de la función del hook

@@ -73,7 +73,7 @@ export const Users_INSERT = (socket) => {
     socket.on('Insert-User',async (Usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
         try{
             await insertUserService(nombre,nombrecorto,usuario,contrasena,idtipo);
-            io.emit('Insert-User',`${Usuario} agregó al usuario `,usuario);
+            io.emit('Insert-User',`${Usuario} agregó al usuario ${usuario}`);
         }catch(error){
             console.error('Error al agregar: ',error);
             return error;
@@ -84,7 +84,7 @@ export const Users_INSERT = (socket) => {
     socket.on('Insert-Permissions',async (Usuario,usuario,administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
         try{
             await insertPermissionsService(administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario);
-            io.emit('Insert-Permissions',`${Usuario} agregó permisos al usuario `,usuario);
+            io.emit('Insert-Permissions',`${Usuario} agregó permisos al usuario ${usuario}`);
         }catch(error){
             console.error('Error al agregar: ',error);
             return error;
@@ -95,7 +95,7 @@ export const Users_INSERT = (socket) => {
     socket.on('Insert-Status',async (Usuario,usuario,habilitado,idusuario) => {
         try{
             await insertStatusService(habilitado,idusuario);
-            io.emit('Insert-Status',`${Usuario} agregó un estatus al usuario `,usuario);
+            io.emit('Insert-Status',`${Usuario} agregó un estatus al usuario ${usuario}`);
         }catch(error){
             console.error('Error al agregar: ',error);
             return error;
@@ -106,7 +106,7 @@ export const Users_INSERT = (socket) => {
     socket.on('Insert-Deleted-User',async (Usuario,usuario,idusuario) => {
         try{
             await insertDeletedUserService(idusuario);
-            io.emit('Insert-Deleted-User',`${Usuario} eliminó al usuario `,usuario);
+            io.emit('Insert-Deleted-User',`${Usuario} eliminó al usuario ${usuario}`);
         }catch(error){
             console.error('Error al eliminar: ',error);
             return error;
@@ -121,7 +121,7 @@ export const Users_UPDATE = (socket) => {
     socket.on('Update-User',async (Usuario,idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
         try{
             await updateUserService(idusuario,nombre,nombrecorto,usuario,contrasena,idtipo);
-            io.emit('Update-User',`${Usuario} editó al usuario `,usuario);
+            io.emit('Update-User',`${Usuario} editó al usuario ${usuario}`);
         }catch(error){
             console.error('Error al editar: ',error);
             return error;
@@ -184,7 +184,7 @@ export const Users_DELETE = (socket) => {
     socket.on('Delete-Deleted-User',async (Usuario,usuario,idusuario) => {
         try{
             await deleteDeletedUserService(idusuario);
-            io.emit('Delete-Deleted-User',`${Usuario} recuperó al usuario `,usuario);
+            io.emit('Delete-Deleted-User',`${Usuario} recuperó al usuario ${usuario}`);
         }catch(error){
             console.error('Error al recuperar: ',error);
             return error;

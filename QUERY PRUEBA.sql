@@ -1,7 +1,18 @@
 USE ComandaMedicaTepic
 
-SELECT * FROM estatus;
+SELECT * FROM logComandaMedicaTepic;
 
+DELETE FROM logComandaMedicaTepic;
+DELETE FROM usuarios WHERE idusuario > 2
+DELETE FROM permisos WHERE idusuario > 1
+DELETE FROM estatus WHERE idusuario > 1
+DBCC CHECKIDENT (logComandaMedicaTepic, RESEED, 0);
+DBCC CHECKIDENT (usuarios, RESEED, 2);
+DBCC CHECKIDENT (permisos, RESEED, 1);
+DBCC CHECKIDENT (estatus, RESEED, 1);
+
+SELECT * FROM estatus;
+SELECT SYSDATETIMEOFFSET() AS FechaConZonaHoraria;
 SELECT * FROM observacionesProveedor;
 
 SELECT * FROM usuarios;

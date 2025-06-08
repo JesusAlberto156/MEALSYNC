@@ -37,7 +37,7 @@ export default function Error(){
     // useEffect con cuenta regresiva para regresar
     useEffect(() => {
         if(contador === 0){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
                         resolve('¡Página encontrada!...');
@@ -45,7 +45,7 @@ export default function Error(){
                     setTimeout(() => {
                         navigate('/',{replace: true});
                     },2000);
-                } catch (error) {
+                } catch (e) {
                     return reject('¡Ocurrio un error inseperado!...');
                 }
             });

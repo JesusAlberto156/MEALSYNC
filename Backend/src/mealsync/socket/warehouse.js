@@ -1,172 +1,304 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService } from "../services/warehouse.js";
-import { insertSupplyService,insertSupplyTypeService,insertUnitService } from "../services/warehouse.js";
-import { updateSupplyService,updateSupplyTypeService,updateSupplyTypeTypeService,updateUnitService,updateUnitsService } from "../services/warehouse.js";
+import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService,getDeletedSuppliesService,getDeletedWarehouseService } from "../services/warehouse.js";
+import { insertSupplyService,insertSupplyTypeService,insertUnitService,insertSupplyPriceService,insertWarehouseService,insertDeletedSupplyService,insertDeletedWarehouseService } from "../services/warehouse.js";
+import { updateSupplyService,updateSupplyTypeService,updateSupplyTypeTypeDescriptionService,updateUnitService,updateUnitNameUnitService,updateSupplyPricePriceService,updateSupplyPriceStateService,updateWarehouseQuantityService,updateWarehouseObservationService,updateDeletedWarehouseService } from "../services/warehouse.js";
+import { deleteDeletedSupplyService,deleteDeletedWarehouseService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 //____________IMPORT/EXPORT____________
 
-//____________GET____________
+//______________GET______________
 export const Warehouse_GET = (socket) => {
     //---------- INSUMOS
-    socket.on('Supplies', async () => {
+    socket.on('Get-Supplies', async () => {
         try {
-          const result = await getSuppliesService();
-          console.log('Insumos obtenidos...');
-          io.emit('Supplies', result);
+            const result = await getSuppliesService();
+            console.log('Insumos obtenidos...');
+            io.emit('Get-Supplies', result);
         } catch (error) {
-          console.error('Error al obtener los datos: ', error);
+            console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- INSUMOS
     //---------- TIPO DE INSUMOS
-    socket.on('Supply-Types', async () => {
+    socket.on('Get-Supply-Types', async () => {
         try {
-          const result = await getSupplyTypesService();
-          console.log('Tipos de Insumos obtenidos...');
-          io.emit('Supply-Types', result);
+            const result = await getSupplyTypesService();
+            console.log('Tipos de Insumo obtenidos...');
+            io.emit('Get-Supply-Types', result);
         } catch (error) {
-          console.error('Error al obtener los datos: ', error);
+            console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- TIPO DE INSUMOS
     //---------- MEDIDA
-    socket.on('Units', async () => {
+    socket.on('Get-Units', async () => {
         try {
-          const result = await getUnitsService();
-          console.log('Medidas obtenidos...');
-          io.emit('Units', result);
+            const result = await getUnitsService();
+            console.log('Medidas obtenidas...');
+            io.emit('Get-Units', result);
         } catch (error) {
-          console.error('Error al obtener los datos: ', error);
+            console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- MEDIDA
     //---------- PRECIO DEL INSUMO
-    socket.on('Supply-Prices', async () => {
+    socket.on('Get-Supply-Prices', async () => {
         try {
-          const result = await getSupplyPricesService();
-          console.log('Precios de Insumos obtenidos...');
-          io.emit('Supply-Prices', result);
+            const result = await getSupplyPricesService();
+            console.log('Precios del almacén por insumo obtenidos...');
+            io.emit('Get-Supply-Prices', result);
         } catch (error) {
-          console.error('Error al obtener los datos: ', error);
+            console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- PRECIO DEL INSUMO
     //---------- ALMACEN
-    socket.on('Warehouse', async () => {
+    socket.on('Get-Warehouse', async () => {
         try {
-          const result = await getWarehouseService();
-          console.log('Almacén obtenido...');
-          io.emit('Warehouse', result);
+            const result = await getWarehouseService();
+            console.log('Almacén obtenido...');
+            io.emit('Get-Warehouse', result);
         } catch (error) {
-          console.error('Error al obtener los datos: ', error);
+            console.error('Error al obtener los datos: ', error);
         }
     });
     //---------- ALMACEN
+    //---------- INSUMOS ELIMINADOS
+    socket.on('Get-Deleted-Supplies', async () => {
+        try {
+            const result = await getDeletedSuppliesService();
+            console.log('Insumos, Tipos de insumo y Medidas eliminadas obtenidas...');
+            io.emit('Get-Deleted-Supplies', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- INSUMOS ELIMINADOS
+    //---------- TIPOS DE INSUMO ELIMINADOS
+    socket.on('Get-Deleted-Warehouse', async () => {
+        try {
+            const result = await getDeletedWarehouseService();
+            console.log('Insumos eliminados del almacén obtenidos...');
+            io.emit('Get-Deleted-Warehouse', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- TIPOS DE INSUMO ELIMINADOS
 };
-//____________GET____________
+//______________GET______________
 //______________INSERT______________
 export const Warehouse_INSERT = (socket) => {
     //---------- INSUMOS
-    socket.on('Supply-Insert',async (nombre,descripcion,imagen,idproveedor,idtipo) => {
+    socket.on('Insert-Supply',async (usuario,nombre,descripcion,imagen,idproveedor,idtipo) => {
         try{
             await insertSupplyService(nombre,descripcion,imagen,idproveedor,idtipo);
-            io.emit('Supply-Insert','Se inserto el insumo ',nombre);
+            io.emit('Insert-Supply',`${usuario} agregó al insumo ${nombre}`);
         }catch(error){
-            console.error('Error al insertar: ',error);
+            console.error('Error al agregar: ',error);
             return error;
         }
     });
     //---------- INSUMOS
     //---------- TIPO DE INSUMOS
-    socket.on('Supply-Type-Insert',async (tipo,descripcion,idmedida) => {
+    socket.on('Insert-Supply-Type',async (usuario,nombre,unidad,cantidad,tipo,descripcion,idmedida) => {
         try{
             await insertSupplyTypeService(tipo,descripcion,idmedida);
-            io.emit('Supply-Type-Insert','Se inserto el tipo de insumo ',tipo);
+            io.emit('Insert-Supply-Type',`${usuario} agregó al tipo de insumo ${tipo} con ${nombre} de ${cantidad} ${unidad}`);
         }catch(error){
-            console.error('Error al insertar: ',error);
+            console.error('Error al agregar: ',error);
             return error;
         }
     });
     //---------- TIPO DE INSUMOS
     //---------- MEDIDA
-    socket.on('Unit-Insert',async (medida,unidad,cantidad) => {
+    socket.on('Insert-Unit',async (usuario,nombre,cantidad,unidad) => {
         try{
-            await insertUnitService(medida,unidad,cantidad);
-            io.emit('Unit-Insert','Se inserto la medida ',medida);
+            await insertUnitService(nombre,cantidad,unidad);
+            io.emit('Insert-Unit',`${usuario} agregó la medida ${nombre} de ${cantidad} ${unidad}`);
         }catch(error){
-            console.error('Error al insertar: ',error);
+            console.error('Error al agregar: ',error);
             return error;
         }
     });
     //---------- MEDIDA
     //---------- PRECIO DEL INSUMO
-
+    socket.on('Insert-Supply-Price',async (usuario,insumo,precio,fecha,idinsumo,estado) => {
+        try{
+            await insertSupplyPriceService(precio,fecha,idinsumo,estado);
+            io.emit('Insert-Supply-Price',`${usuario} agregó $${precio} del insumo ${insumo} al almacén`);
+        }catch(error){
+            console.error('Error al agregar: ',error);
+            return error;
+        }
+    });
     //---------- PRECIO DEL INSUMO
     //---------- ALMACEN
-
+    socket.on('Insert-Warehouse',async (usuario,insumo,cantidad,observacion,idprecio) => {
+        try{
+            await insertWarehouseService(cantidad,observacion,idprecio);
+            io.emit('Insert-Warehouse',`${usuario} agregó la cantidad ${cantidad} al almacén del insumo ${insumo}`);
+        }catch(error){
+            console.error('Error al agregar: ',error);
+            return error;
+        }
+    });
     //---------- ALMACEN
+    //---------- INSUMOS ELIMINADOS
+    socket.on('Insert-Deleted-Supply',async (usuario,nombre,tabla,idtabla) => {
+        try{
+            await insertDeletedSupplyService(tabla,idtabla);
+            io.emit('Insert-Deleted-Supply',`${usuario} eliminó ${nombre} a ${tabla === 'INSUMOS' || tabla === 'TIPOS DE INSUMO' ? 'los' : 'las'} ${tabla} `);
+        }catch(error){
+            console.error('Error al eliminar: ',error);
+            return error;
+        }
+    });
+    //---------- INSUMOS ELIMINADOS
+    //---------- TIPOS DE INSUMO ELIMINADOS
+    socket.on('Insert-Deleted-Warehouse',async (usuario,tipo,idtipo,cantidad) => {
+        try{
+            await insertDeletedWarehouseService(idtipo,cantidad);
+            io.emit('Insert-Deleted-Warehouse',`${usuario} eliminó del insumo ${tipo} al almacén la cantidad de ${cantidad} Kg/Lt.`);
+        }catch(error){
+            console.error('Error al eliminar: ',error);
+            return error;
+        }
+    });
+    //---------- TIPOS DE INSUMO ELIMINADOS
 }
 //______________INSERT______________
 //______________UPDATE______________
 export const Warehouse_UPDATE = (socket) => {
     //---------- INSUMOS
-    socket.on('Supply-Update',async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo) => {
+    socket.on('Update-Supply',async (usuario,idinsumo,nombre,descripcion,imagen,idproveedor,idtipo) => {
         try{
             await updateSupplyService(idinsumo,nombre,descripcion,imagen,idproveedor,idtipo);
-            io.emit('Supply-Update','Se actualizo el insumo ',nombre);
+            io.emit('Update-Supply',`${usuario} editó al insumo ${nombre}`);
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error('Error al editar: ',error);
             return error;
         }
     });
     //---------- INSUMOS
     //---------- TIPO DE INSUMOS
-    socket.on('Supply-Type-Update',async (idtipo,tipo,descripcion,idmedida) => {
+    socket.on('Update-Supply-Type',async (usuario,cantidad,unidad,idtipo,tipo,descripcion,idmedida) => {
         try{
             await updateSupplyTypeService(idtipo,tipo,descripcion,idmedida);
-            io.emit('Supply-Type-Update','Se actualizo el tipo de insumo ',tipo);
-        }catch(error){
-            console.error('Error al actualizar: ',error);
+            io.emit('Update-Supply-Type',`${usuario} editó al tipo de insumo ${tipo} de ${cantidad} ${unidad}`);
+        }catch(error){ 
+            console.error('Error al editar: ',error);
             return error;
         }
     });
-    socket.on('Supply-Type-Update-Type',async (tipo,descripcion,tipoOriginal) => {
+    socket.on('Update-Supply-Type-Type-Description',async (usuario,tipoOriginal,tipo,descripcion) => {
         try{
-            await updateSupplyTypeTypeService(tipo,descripcion,tipoOriginal);
-            io.emit('Supply-Type-Update-Type','Se actualizo el tipo de insumo ',tipo);
+            await updateSupplyTypeTypeDescriptionService(tipoOriginal,tipo,descripcion);
+            io.emit('Update-Supply-Type-Type-Description',`${usuario} editó al tipo de insumo ${tipoOriginal} a ${tipo}`);
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error('Error al editar: ',error);
             return error;
         }
     });
     //---------- TIPO DE INSUMOS
     //---------- MEDIDA
-    socket.on('Unit-Update',async (idmedida,medida,unidad,cantidad) => {
+    socket.on('Update-Unit',async (usuario,idmedida,nombre,unidad,cantidad) => {
         try{
-            await updateUnitService(idmedida,medida,unidad,cantidad);
-            io.emit('Unit-Update','Se actualizo la medida ',medida);
+            await updateUnitService(idmedida,nombre,unidad,cantidad);
+            io.emit('Update-Unit',`${usuario} editó la medida ${nombre} a ${cantidad} ${unidad}`);
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error('Error al editar: ',error);
             return error;
         }
     });
-    socket.on('Units-Update',async (idmedida,medida,unidad) => {
+    socket.on('Update-Unit-Name-Unit',async (usuario,nombreOriginal,nombre,unidad) => {
         try{
-            await updateUnitsService(idmedida,medida,unidad);
-            io.emit('Unit-Update','Se actualizo las medidas ',medida);
+            await updateUnitNameUnitService(nombreOriginal,nombre,unidad);
+            io.emit('Update-Unit-Name-Unit',`${usuario} editó la medida ${nombreOriginal} a ${nombre}`);
         }catch(error){
-            console.error('Error al actualizar: ',error);
+            console.error('Error al editar: ',error);
             return error;
         }
     });
     //---------- MEDIDA
     //---------- PRECIO DEL INSUMO
-
+    socket.on('Update-Supply-Price-Price',async (usuario,insumo,idprecio,precio) => {
+        try{
+            await updateSupplyPricePriceService(idprecio,precio);
+            io.emit('Update-Supply-Price-Price',`${usuario} editó el precio al almacén por el insumo ${insumo} a $${precio}`);
+        }catch(error){
+            console.error('Error al editar: ',error);
+            return error;
+        }
+    });
+    socket.on('Update-Supply-Price-State',async (usuario,insumo,idprecio,estado) => {
+        try{
+            await updateSupplyPriceStateService(idprecio,estado);
+            io.emit('Update-Supply-Price-State',`${usuario} editó el estado al almacén por el insumo ${insumo} a ${estado}`);
+        }catch(error){
+            console.error('Error al editar: ',error);
+            return error;
+        }
+    });
     //---------- PRECIO DEL INSUMO
     //---------- ALMACEN
-
+    socket.on('Update-Warehouse-Quantity',async (usuario,insumo,idalmacen,cantidad) => {
+        try{
+            await updateWarehouseQuantityService(idalmacen,cantidad);
+            io.emit('Update-Warehouse-Quantity',`${usuario} editó la cantidad a ${cantidad} del almacén por el insumo ${insumo}`);
+        }catch(error){
+            console.error('Error al editar: ',error);
+            return error;
+        }
+    });
+    socket.on('Update-Warehouse-Observation',async (usuario,insumo,idalmacen,observacion) => {
+        try{
+            await updateWarehouseObservationService(idalmacen,observacion);
+            io.emit('Update-Warehouse-Observation',`${usuario} editó la observación del almacén por el insumo ${insumo}`);
+        }catch(error){
+            console.error('Error al editar: ',error);
+            return error;
+        }
+    });
     //---------- ALMACEN
+    //---------- TIPOS DE INSUMO ELIMINADOS
+    socket.on('Update-Deleted-Warehouse',async (usuario,insumo,ideliminado,idtipo,cantidad) => {
+        try{
+            await updateDeletedWarehouseService(ideliminado,idtipo,cantidad);
+            io.emit('Update-Deleted-Warehouse',`${usuario} editó la cantidad a ${cantidad} del insumo ${insumo} al almacén`);
+        }catch(error){
+            console.error('Error al editar: ',error);
+            return error;
+        }
+    });
+    //---------- TIPOS DE INSUMO ELIMINADOS
 }
 //______________UPDATE______________
+//______________DELETE______________
+export const Warehouse_DELETE = (socket) =>  {
+    //---------- INSUMOS ELIMINADOS
+    socket.on('Delete-Deleted-Supply',async (usuario,ideliminado,tabla) => {
+        try{
+            await deleteDeletedSupplyService(ideliminado,tabla);
+            io.emit('Delete-Deleted-Supply',`${usuario} recuperó un elemento a ${tabla === 'INSUMOS' || tabla === 'TIPOS DE INSUMO' ? 'los':'las'} ${tabla}`);
+        }catch(error){
+            console.error('Error al recuperar: ',error);
+            return error;
+        }
+    });
+    //---------- INSUMOS ELIMINADOS
+    //---------- TIPOS DE INSUMO ELIMINADOS
+    socket.on('Delete-Deleted-Warehouse',async (usuario,idtipo) => {
+        try{
+            await deleteDeletedWarehouseService(idtipo);
+            io.emit('Delete-Deleted-Warehouse',`${usuario} recuperó un insumo al almacén`);
+        }catch(error){
+            console.error('Error al recuperar: ',error);
+            return error;
+        }
+    });
+    //---------- TIPOS DE INSUMO ELIMINADOS
+}
+//______________DELETE______________

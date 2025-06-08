@@ -36,7 +36,7 @@ export const Index_Variables = ({children}) => {
 export const Verification_Block = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isVerificationBlock,setIsVerificationBlock] = useState(() => {
-        const verificationBlock = sessionStorage.getItem('Verification-Block') === 'true';
+        const verificationBlock = sessionStorage.getItem('Verificación del Bloqueo') === 'true';
         return verificationBlock;
     });
     // Return para darle valor al contexto y heredarlo
@@ -50,7 +50,7 @@ export const Verification_Block = ({children}) => {
 export const Animation = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isAnimation,setIsAnimation] = useState(() => {
-        const animation = sessionStorage.getItem('Animation') === 'true';
+        const animation = sessionStorage.getItem('Animación') === 'true';
         return animation;
     });
     // Return para darle valor al contexto y heredarlo
@@ -64,7 +64,7 @@ export const Animation = ({children}) => {
 export const Action_Block = ({children}) => {
     // UseState para controlar el valor del contexto
     const [isActiveBlock,setIsActiveBlock] = useState(() => {
-        const activeBlock = sessionStorage.getItem('Action-Block') === 'true';
+        const activeBlock = sessionStorage.getItem('Acción del Bloqueo') === 'true';
         return activeBlock;
     });
     // Return para darle valor al contexto y heredarlo

@@ -67,9 +67,9 @@ export default function Table_Status(){
         if(isSelectedRow !== null){
             setIsTextFieldsStatus(prev => ({
                 ...prev,
-                iduser: isSelectedRow.idusuario,
-                user: isUsers.find(user => user.idusuario === isSelectedRow.idusuario)?.usuario || 'Desconocido',
-                status: isSelectedRow.habilitado ? 'Habilitado' : 'Deshabilitado',
+                idusuario: isSelectedRow.idusuario,
+                usuario: isUsers.find(user => user.idusuario === isSelectedRow.idusuario)?.usuario || 'Desconocido',
+                estatus: isSelectedRow.habilitado ? 'Habilitado' : 'Deshabilitado',
             }));
 
         }else{

@@ -89,12 +89,12 @@ export default function Login(){
         if(isKeyboardView === 'User' ){
             setIsTextFieldsUser(prev => ({
                 ...prev,
-                user: newValue, 
+                usuario: newValue, 
             }));
         }else{
             setIsTextFieldsUser(prev => ({
                 ...prev,
-                password: newValue,
+                contrasena: newValue,
             }));
         }
     };
@@ -105,9 +105,9 @@ export default function Login(){
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        const existsUser = filteredRecordsUsers.find(user => user.usuario === isTextFieldsUser.user);
+                        const existsUser = filteredRecordsUsers.find(user => user.usuario === isTextFieldsUser.usuario);
                         
-                        if(existsUser && existsUser.contrasena === isTextFieldsUser.password){
+                        if(existsUser && existsUser.contrasena === isTextFieldsUser.contrasena){
                             let existsStatus = isStatus.find(user => user.idusuario === existsUser.idusuario);
                             const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
 
@@ -133,36 +133,36 @@ export default function Login(){
                                         const encryptedStatus = encryptData(jsonStatus);
                 
                                         if(encryptedStatus){
-                                            sessionStorage.setItem('User',encryptedUser);
-                                            sessionStorage.setItem('Permissions',encryptedPermission);
-                                            sessionStorage.setItem('Status',encryptedStatus);
-                                            sessionStorage.setItem('Logged',true);
-                                            sessionStorage.setItem('Type',isLoggedType);
+                                            sessionStorage.setItem('Usuario',encryptedUser);
+                                            sessionStorage.setItem('Permisos',encryptedPermission);
+                                            sessionStorage.setItem('Estatus',encryptedStatus);
+                                            sessionStorage.setItem('Sesión',true);
+                                            sessionStorage.setItem('Tipo de usuario',isLoggedType);
                                             
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));
                                             setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            if(isLoggedType === 'Doctor'){
-                                                setCurrentMView('Alert-Doctor');
-                                                sessionStorage.setItem('Modal-View','Alert-Doctor');
+                                            if(isLoggedType === 'Médico'){
+                                                setCurrentMView('Alerta-Médico');
+                                                sessionStorage.setItem('Vista del Modal','Alerta-Médico');
                                             }
                                             
                                             resolve('¡SESIÓN INICIADA!...');
 
                                             setIsModal(true);
-                                            sessionStorage.setItem('Modal',true);
+                                            sessionStorage.setItem('Estado del Modal',true);
 
                                             setTimeout(() => {
                                                 setIsTextFieldsUser(prev => ({
                                                     ...prev,             
-                                                    user: '',      
-                                                    password: '',       
+                                                    usuario: '',      
+                                                    contrasena: '',       
                                                 }));
                                                 setIsLoggedLog(false);
                                                 setIsLoggedLogged(true);
                                                 setIsActionBlock(false);
-                                                sessionStorage.setItem('Route',isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home');
+                                                sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home');
                                                 return navigate('/',{ replace: true });
                                             },1000);
                                         }else{
@@ -179,12 +179,12 @@ export default function Login(){
                                     return reject('¡Error al encriptar las credenciales!...');
                                 }
                             }else{
-                                if(isLoggedType === 'Cook' && !existsPermission.cocinero || 
-                                    isLoggedType === 'Nutritionist' && !existsPermission.nutriologo ||
-                                    isLoggedType === 'Doctor' && !existsPermission.medico ||
-                                    isLoggedType === 'Administrator' && !existsPermission.administrador ||
+                                if (isLoggedType === 'Cocinero' && !existsPermission.cocinero || 
+                                    isLoggedType === 'Nutriólogo' && !existsPermission.nutriologo ||
+                                    isLoggedType === 'Médico' && !existsPermission.medico ||
+                                    isLoggedType === 'Administrador' && !existsPermission.administrador ||
                                     isLoggedType === 'Chef' && !existsPermission.chef ||
-                                    isLoggedType === 'Storekeeper' && !existsPermission.almacenista){
+                                    isLoggedType === 'Almacenista' && !existsPermission.almacenista){
                                     setIsLoggedLog(false);
                                     setIsActionBlock(false);
                                     return reject('¡Tu usuario no cuenta con los permisos necesarios para acceder!...');
@@ -204,36 +204,36 @@ export default function Login(){
                                         const encryptedStatus = encryptData(jsonStatus);
                 
                                         if(encryptedStatus){
-                                            sessionStorage.setItem('User',encryptedUser);
-                                            sessionStorage.setItem('Permissions',encryptedPermission);
-                                            sessionStorage.setItem('Status',encryptedStatus);
-                                            sessionStorage.setItem('Logged',true);
-                                            sessionStorage.setItem('Type',isLoggedType);
+                                            sessionStorage.setItem('Usuario',encryptedUser);
+                                            sessionStorage.setItem('Permisos',encryptedPermission);
+                                            sessionStorage.setItem('Estatus',encryptedStatus);
+                                            sessionStorage.setItem('Sesión',true);
+                                            sessionStorage.setItem('Tipo de usuario',isLoggedType);
                                             
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));
                                             setIsLoggedStatus(JSON.parse(jsonStatus));
 
-                                            if(isLoggedType === 'Doctor'){
-                                                setCurrentMView('Alert-Doctor');
-                                                sessionStorage.setItem('Modal-View','Alert-Doctor');
+                                            if(isLoggedType === 'Médico'){
+                                                setCurrentMView('Alerta-Médico');
+                                                sessionStorage.setItem('Vista del Modal','Alerta-Médico');
                                             }
                                             
                                             resolve('¡SESIÓN INICIADA!...');
-
+                                  
                                             setIsModal(true);
-                                            sessionStorage.setItem('Modal',true);
+                                            sessionStorage.setItem('Estado del Modal',true);
 
                                             setTimeout(() => {
                                                 setIsTextFieldsUser(prev => ({
                                                     ...prev,             
-                                                    user: '',      
-                                                    password: '',       
+                                                    usuario: '',      
+                                                    contrasena: '',       
                                                 }));
                                                 setIsLoggedLogged(true);
                                                 setIsLoggedLog(false);
                                                 setIsActionBlock(false);
-                                                sessionStorage.setItem('Route',isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? '/Kitchen/Home' : '/Administration/Home');
+                                                sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home');
                                                 return navigate('/',{ replace: true });
                                             },2500);
                                         }else{
@@ -315,7 +315,7 @@ export default function Login(){
                                         <>
                                             <Tooltip title='Administrador' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Administrator')}
+                                                    onClick={() => handleLoginView('Login','Administrador')}
                                                     disabled={!isAnimation}
                                                 >
                                                     <Icon_White_22><FaUserTie/></Icon_White_22>
@@ -331,7 +331,7 @@ export default function Login(){
                                             </Tooltip>    
                                             <Tooltip title='Almacenista' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Storekeeper')}
+                                                    onClick={() => handleLoginView('Login','Almacenista')}
                                                     disabled={!isAnimation}
                                                 >
                                                     <Icon_White_22><FaWarehouse/></Icon_White_22>
@@ -353,7 +353,7 @@ export default function Login(){
                                         <>
                                             <Tooltip title='Cocinero' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Cook')}
+                                                    onClick={() => handleLoginView('Login','Cocinero')}
                                                     disabled={!isAnimation}
                                                 >
                                                     <Icon_White_22><GiCook/></Icon_White_22>
@@ -361,7 +361,7 @@ export default function Login(){
                                             </Tooltip>  
                                             <Tooltip title='Nutriólogo' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Nutritionist')}
+                                                    onClick={() => handleLoginView('Login','Nutriólogo')}
                                                     disabled={!isAnimation}    
                                                 >
                                                     <Icon_White_22><IoNutrition/></Icon_White_22>
@@ -369,7 +369,7 @@ export default function Login(){
                                             </Tooltip> 
                                             <Tooltip title='Médico' placement="top">
                                                 <Button_Icon_Blue_220 ThemeMode={themeMode} className={isAnimation ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                                    onClick={() => handleLoginView('Login','Doctor')}
+                                                    onClick={() => handleLoginView('Login','Médico')}
                                                     disabled={!isAnimation}    
                                                 >
                                                     <Icon_White_22><FaUserDoctor/></Icon_White_22>
@@ -398,7 +398,7 @@ export default function Login(){
                                 <Container_Row_95_Center>
                                     <Tooltip title='Atrás' placement="top">
                                         <Button_Icon_Blue_150 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                            onClick={() => handleLoginView(isLoggedType === 'Cook' || isLoggedType === 'Nutritionist' || isLoggedType === 'Doctor' ? 'Kitchen' : 'Administration','')}
+                                            onClick={() => handleLoginView(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? 'Kitchen' : 'Administration','')}
                                             disabled={isActionBlock}
                                         >
                                             <Icon_White_22><IoArrowBackCircle/></Icon_White_22>

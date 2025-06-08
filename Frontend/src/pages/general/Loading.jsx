@@ -32,7 +32,7 @@ export default function Loading(){
         Alert_Greeting("MEALSYNC",'¡Cargando!...',themeMode,Image);
 
         setTimeout(() => {
-            const route = sessionStorage.getItem('Route');
+            const route = sessionStorage.getItem('Ruta');
                 
             if(route){
                 navigate(route,{ replace: true });

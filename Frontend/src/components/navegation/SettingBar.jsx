@@ -45,8 +45,8 @@ export default function Setting_Bar(){
                     <>  
                         <Tooltip title='Salir' placement="bottom">
                             <Button_Icon_Red_80 ThemeMode={themeMode} onClick={() => {
-                                handleModalView('Out-Login');
-                                navigate(isTypeUser === 'Cook' || isTypeUser === 'Nutritionist' || isTypeUser === 'Doctor' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
+                                handleModalView('Cerrar-Sesión');
+                                navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
                             }}>
                                 <Icon_White_18><ImExit/></Icon_White_18>
                             </Button_Icon_Red_80>

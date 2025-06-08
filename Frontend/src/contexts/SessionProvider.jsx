@@ -37,7 +37,7 @@ export const Index_Sessions = ({children}) => {
 export const Logged_User = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedUser,setIsLoggedUser] = useState(() => {
-        const StoredData = sessionStorage.getItem('User');
+        const StoredData = sessionStorage.getItem('Usuario');
 
         if(StoredData){
             try{
@@ -69,7 +69,7 @@ export const Logged_User = ({ children }) => {
 export const Logged_Permissions = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedPermissions,setIsLoggedPermissions] = useState(() => {
-        const StoredData = sessionStorage.getItem('Permissions');
+        const StoredData = sessionStorage.getItem('Permisos');
 
         if(StoredData){
             try{
@@ -101,7 +101,7 @@ export const Logged_Permissions = ({ children }) => {
 export const Logged_Status = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedStatus,setIsLoggedStatus] = useState(() => {
-        const StoredData = sessionStorage.getItem('Status');
+        const StoredData = sessionStorage.getItem('Estatus');
 
         if(StoredData){
             try{
@@ -147,7 +147,7 @@ export const Logged_Logged = ({ children }) => {
     const [isLoggedUser] = useContext(LoggedUserContext);
     // UseState para controlar el valor del contexto
     const [isLoggedLogged,setIsLoggedLogged] = useState(() => {
-        const logged = sessionStorage.getItem('Logged') === 'true';
+        const logged = sessionStorage.getItem('Sesión') === 'true';
         if(logged){
             console.log('¡Inicio de sesión cargado correctamente!...');
         }
@@ -156,30 +156,32 @@ export const Logged_Logged = ({ children }) => {
     // UseEffect para actualizar datos en la base de datos de la sesión activa/inactiva
     useEffect(() => {
         if(isLoggedLogged && isLoggedUser.length !== 0){
-            socket.emit('Status-Log-Update',isLoggedUser.idusuario,isLoggedUser.usuario,1);
-
-            socket.on('Status-Log-Update',(mensaje,usuario) => {
-                console.log(mensaje,usuario);
-                socket.emit('Status');
-            });
-
-            return () => {
-                socket.off('Status-Log-Update');
-            }
+            if(sessionStorage.getItem('Login') === 'true') return
+            socket.emit('Update-Status-Log',isLoggedUser.usuario,isLoggedUser.idusuario,1);
         }
         if(!isLoggedLogged && isLoggedUser.length !== 0){
-            socket.emit('Status-Log-Update',isLoggedUser.idusuario,isLoggedUser.usuario,0);
-
-            socket.on('Status-Log-Update',(mensaje,usuario) => {
-                console.log(mensaje,usuario);
-                socket.emit('Status');
-            });
-
-            return () => {
-                socket.off('Status-Log-Update');
-            }
+            socket.emit('Update-Status-Log',isLoggedUser.usuario,isLoggedUser.idusuario,0);
         }
     },[isLoggedLogged]);
+    // useEffect para los eventos de socket de inicio de sesión
+    useEffect(() => {
+        const handleSession = (message) => {
+            socket.emit('Get-Status');
+            console.log(message);
+        };
+        const handleLogStatus = (message) => {
+            socket.emit('Get-Logs');
+            console.log(message);
+        };
+
+        socket.on('Update-Status-Log',handleSession);
+        socket.on('Insert-Log-Status',handleLogStatus);
+
+        return () => {
+            socket.off('Update-Status-Log',handleSession);
+            socket.off('Insert-Log-Status',handleLogStatus);
+        }
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <LoggedLoggedContext.Provider value={[isLoggedLogged,setIsLoggedLogged]}>
@@ -191,7 +193,7 @@ export const Logged_Logged = ({ children }) => {
 export const Logged_Type = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isLoggedType,setIsLoggedType] = useState(() => {
-        const type = sessionStorage.getItem('Type');
+        const type = sessionStorage.getItem('Tipo de usuario');
         if(type !== null){
             console.log('¡Tipo de usuario cargado correctamente!...');
         }

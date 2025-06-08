@@ -1,16 +1,17 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { SocketContext } from "../../../../contexts/SocketProvider";
+import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,SubModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsUserContext,TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
-import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
+import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext,PermissionsContext,StatusContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser,ResetTextFieldsPermissions } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
@@ -38,7 +39,8 @@ export default function User_Add(){
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
-    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
     const [isUserTypes] = useContext(UserTypesContext);
     const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -47,69 +49,63 @@ export default function User_Add(){
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
     const [socket] = useContext(SocketContext);
     const [isUsers] = useContext(UsersContext);
+    const [isPermissions] = useContext(PermissionsContext);
+    const [isStatus] = useContext(StatusContext);
     const [isSubModal,setIsSubModal] = useContext(SubModalContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
+    // Constantes con los valores de useRef
+    const User = useRef(false);
+    const Permissions = useRef('');
+    const Status = useRef('');
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleUserAdd = HandleUserAdd();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // UseEffect para abrir modal de los permisos
     useEffect(() => {
-        if(isTextFieldsUser.permissions === 'Personalizado' && !isAnimation && !isSubModal){
+        if(isTextFieldsUser.permisos === 'Personalizado' && !isAnimation && !isSubModal){
             setIsSubModal(true);
-            sessionStorage.setItem('Sub-Modal',true);
+            sessionStorage.setItem('Estado del Sub-Modal',true);
             setIsAnimation(true);
-            sessionStorage.setItem('Animation',true);
+            sessionStorage.setItem('Animación',true);
             setTimeout(() => {
                 navigate('/Administration/Users/Add/Permissions',{ replace: true });
             },200);
-        }if(isTextFieldsUser.permissions === 'Default'){
+        }if(isTextFieldsUser.permisos === 'Default'){
             setIsAnimation(false);
-            sessionStorage.setItem('Animation',false);
+            sessionStorage.removeItem('Animación',false);
             setIsSubModal(false);
-            sessionStorage.setItem('Sub-Modal',false);
+            sessionStorage.removeItem('Estado del Sub-Modal',false);
         }
     },[isTextFieldsUser]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isUserAdd){
+        if(isUserAdd && isUsers.length !== 0){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('User-Insert',isTextFieldsUser.userTypes,isTextFieldsUser.name.trim(),isTextFieldsUser.shortName.trim(),isTextFieldsUser.user.trim(),isTextFieldsUser.password.trim())
+                        socket.emit('Insert-User',isLoggedUser.usuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),isTextFieldsUser.idtipo)
 
-                        resolve('¡MEALSYNC agrego al usuario!...');
+                        resolve('¡MEALSYNC agregó al usuario!...');
 
                         setIsUserAdd(false);
-
-                        if(isTextFieldsUser.permissions !== ''){
-                            setIsPermissionsAdd(true);
-                        }
-
-                        if(isTextFieldsUser.status !== '' && isTextFieldsUser.permissions === ''){
-                            setIsStatusAdd(true);
-                        }
-
-                        if(isTextFieldsUser.permissions === '' && isTextFieldsUser.status === ''){
-                            const route = sessionStorage.getItem('Route');
-
-                            setCurrentMView('');
-                            sessionStorage.setItem('Modal-View','');
-                            setTimeout(() => {
-                                setIsModal(false);
-                                sessionStorage.setItem('Modal',false);
-                                setIsSubModal(false);
-                                sessionStorage.setItem('Sub-Modal',false);
-                                resetTextFieldsUser();
-                                resetTextFieldsPermissions();
-                                setIsAnimation(false);
-                                sessionStorage.removeItem('Animation');
-                                setIsActionBlock(false);
-                                navigate(route,{ replace: true });
-                            },750);
-                        }
-                    },2000);
+                    },1000);
                 }catch(e){
                     setIsActionBlock(false);
                     setIsUserAdd(false);
@@ -119,132 +115,173 @@ export default function User_Add(){
 
             Alert_Verification(promise,'¡Agregando un usuario!...');
         }
-        if(isPermissionsAdd && isTextFieldsUser.permissions !== ''){
-            if(isTextFieldsUser.iduser !== 0){
-                const promise = new Promise((resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            socket.emit('Permissions-Insert',isTextFieldsUser.iduser,isTextFieldsUser.user.trim(),isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor);
-                            
-                            resolve('¡MEALSYNC agregó los permisos al usuario!...')
+        if(isUsers.find(user => user.usuario === isTextFieldsUser.usuario)){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                idusuario: isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario,
+            }));
+            setIsLogAdd(true);
+        }
+        if(isLogAdd && !User.current){
+            User.current = true
+            if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === ''){
+                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
+                setIsLogAdd(false);
 
-                            setIsPermissionsAdd(false);
+                const route = sessionStorage.getItem('Ruta');
 
-                            if(isTextFieldsUser.status !== ''){
-                                setIsStatusAdd(true);
-                            }
-
-                            if(isTextFieldsUser.status === ''){
-                                const route = sessionStorage.getItem('Route');
-
-                                setCurrentMView('');
-                                sessionStorage.setItem('Modal-View','');
-                                setTimeout(() => {
-                                    setIsModal(false);
-                                    sessionStorage.setItem('Modal',false);
-                                    setIsSubModal(false);
-                                    sessionStorage.setItem('Sub-Modal',false);
-                                    resetTextFieldsUser();
-                                    resetTextFieldsPermissions();
-                                    setIsAnimation(false);
-                                    sessionStorage.removeItem('Animation');
-                                    setIsActionBlock(false);
-                                    navigate(route,{ replace: true });
-                                },750);
-                            }
-                        },2000);
-                    }catch(e){
-                        setIsActionBlock(false);
-                        setIsPermissionsAdd(false);
-                        return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Agregando permisos al usuario!...');
-            }else{
-                setIsTextFieldsUser(prev => ({
-                    ...prev,
-                    iduser: isUsers.find(user => user.usuario === isTextFieldsUser.user)?.idusuario || 0,
-                }));
+                setCurrentMView('');
+                sessionStorage.setItem('Vista del Modal','');
+                setTimeout(() => {
+                    setIsModal(false);
+                    sessionStorage.setItem('Estado del Modal',false);
+                    setIsSubModal(false);
+                    sessionStorage.removeItem('Estado del Sub-Modal');
+                    resetTextFieldsUser();
+                    resetTextFieldsPermissions();
+                    setIsAnimation(false);
+                    sessionStorage.removeItem('Animación');
+                    setIsActionBlock(false);
+                    navigate(route,{ replace: true });
+                },750);
+            }
+            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === ''){
+                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
+                setIsLogAdd(false);
+                setIsPermissionsAdd(true);
+            }
+            if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus !== ''){
+                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
+                setIsLogAdd(false);
+                setIsStatusAdd(true);
+            }
+            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== ''){
+                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
+                setIsLogAdd(false);
                 setIsPermissionsAdd(true);
             }
         }
-        if(isStatusAdd && isTextFieldsUser.status !== ''){
-            if(isTextFieldsUser.iduser !== 0){
-                const promise = new Promise((resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            socket.emit('Status-Insert',isTextFieldsUser.iduser,isTextFieldsUser.status === 'Habilitado' ? 1:0,isTextFieldsUser.user.trim());
-                            
-                            resolve('¡MEALSYNC agregó el status al usuario!...');
-
-                            const route = sessionStorage.getItem('Route');
-
-                            setCurrentMView('');
-                            sessionStorage.setItem('Modal-View','');
-                            setTimeout(() => {
-                                setIsModal(false);
-                                sessionStorage.setItem('Modal',false);
-                                setIsSubModal(false);
-                                sessionStorage.setItem('Sub-Modal',false);
-                                resetTextFieldsUser();
-                                resetTextFieldsPermissions();
-                                setIsAnimation(false);
-                                sessionStorage.removeItem('Animation');
-                                setIsActionBlock(false);
-                                setIsStatusAdd(false);
-                                navigate(route,{ replace: true });
-                            },750);
-                        },2000);
-                    }catch(e){               
-                        setIsActionBlock(false);
-                        setIsStatusAdd(false);
-                        return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Agregando estatus al usuario!...');
-            }else{
-                setIsTextFieldsUser(prev => ({
-                    ...prev,
-                    iduser: isUsers.find(user => user.usuario === isTextFieldsUser.user)?.idusuario || 0,
-                }));
-                setIsPermissionsAdd(true);
-            }
-        }
-    },[isUserAdd,isPermissionsAdd,isStatusAdd,isUsers,isTextFieldsUser])
-    // UseEffect para quitar la suscrpcion de socket
+    },[isUserAdd,isUsers,isTextFieldsUser.idusuario]);
     useEffect(() => {
-        const handleUserInsert = (message,user) => {
-            console.log(message,user);
-            socket.emit('Users');
-        };
-        const handlePermissionsInsert = (message,user) => {
-            console.log(message,user);
-            socket.emit('Permissions');
-        };
-        const handleStatusInsert = (message,user) => {
-            console.log(message,user);
-            socket.emit('Status');
-        };
+        if(isPermissionsAdd && isPermissions.length !== 0 && Permissions.current !== 'PERMISSIONS'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Insert-Permissions',isLoggedUser.usuario,isTextFieldsUser.usuario.trim(),isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico,isTextFieldsUser.idusuario);
+                        
+                        resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
-        socket.on('User-Insert',handleUserInsert);
-        socket.on('Permissions-Insert',handlePermissionsInsert);
-        socket.on('Status-Insert',handleStatusInsert);
-        
-        return () => {
-            socket.off('User-Insert',handleUserInsert);
-            socket.off('Permissions-Insert',handlePermissionsInsert);
-            socket.off('Status-Insert',handleStatusInsert);
+                        setIsPermissionsAdd(false);
+                    },2000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    setIsPermissionsAdd(false);
+                    return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
+                }
+            });
+
+            Permissions.current = 'PERMISSIONS'
+
+            Alert_Verification(promise,'¡Agregando permisos al usuario!...');
         }
-    },[socket])
+        if(isPermissions.find(permission => permission.idusuario === isTextFieldsUser.idusuario)){
+            setIsTextFieldsPermissions(prev => ({
+                ...prev,
+                idpermiso: isPermissions.find(permission => permission.idusuario === isTextFieldsUser.idusuario)?.idpermiso
+            }));
+            setIsLogAdd(true);
+        }
+        if(isLogAdd && isTextFieldsPermissions.idpermiso !== 0 && Permissions.current !== 'LOG'){
+            Permissions.current = 'LOG';
+            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === ''){
+                socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
+        
+                setIsLogAdd(false);
+
+                const route = sessionStorage.getItem('Ruta');
+
+                setCurrentMView('');
+                sessionStorage.setItem('Vista del Modal','');
+                setTimeout(() => {
+                    setIsModal(false);
+                    sessionStorage.setItem('Estado del Modal',false);
+                    setIsSubModal(false);
+                    sessionStorage.removeItem('Estado del Sub-Modal');
+                    resetTextFieldsUser();
+                    resetTextFieldsPermissions();
+                    setIsAnimation(false);
+                    sessionStorage.removeItem('Animación');
+                    setIsActionBlock(false);
+                    navigate(route,{ replace: true });
+                },750);
+            }
+            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== ''){
+                socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
+                setIsLogAdd(false);
+                setIsStatusAdd(true);
+            }
+        }
+    },[isPermissionsAdd,isPermissions,isLogAdd]);
+    useEffect(() => {
+        if(isStatusAdd && isStatus.length !== 0 && Status.current !== 'STATUS'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Insert-Status',isLoggedUser.usuario,isTextFieldsUser.usuario.trim(),isTextFieldsUser.estatus === 'Habilitado' ? 1:0,isTextFieldsUser.idusuario);
+
+                        resolve('¡MEALSYNC agregó el estatus al usuario!...');
+
+                        setIsStatusAdd(false);
+                    },2000);
+                }catch(e){               
+                    setIsActionBlock(false);
+                    setIsStatusAdd(false);
+                    return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
+                }
+            });
+
+            Status.current = 'STATUS';
+
+            Alert_Verification(promise,'¡Agregando estatus al usuario!...');
+        }
+        if(isStatus.find(status => status.idusuario === isTextFieldsUser.idusuario)){
+            setIsTextFieldsStatus(prev => ({
+                ...prev,
+                idestatus: isStatus.find(status => status.idusuario === isTextFieldsUser.idusuario)?.idestatus
+            }))
+            setIsLogAdd(true);
+        }
+        if(isLogAdd && isTextFieldsStatus.idestatus !== 0 && Status.current !== 'LOG'){
+            Status.current = 'LOG';
+            socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsStatus.idestatus,isLoggedUser.idusuario,isTextFieldsUser.estatus === 'Habilitado' ? '1':'0','0',String(isTextFieldsUser.idusuario));
+        
+            setIsLogAdd(false);
+
+            const route = sessionStorage.getItem('Ruta');
+
+            setCurrentMView('');
+            sessionStorage.setItem('Vista del Modal','');
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSubModal(false);
+                sessionStorage.removeItem('Estado del Sub-Modal');
+                resetTextFieldsUser();
+                resetTextFieldsPermissions();
+                setIsAnimation(false);
+                sessionStorage.removeItem('Animación');
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+    },[isStatusAdd,isStatus,isTextFieldsStatus.idestatus]);
     // Estructura del componente
     return(
         <>
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'User-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Usuario-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
@@ -259,12 +296,12 @@ export default function User_Add(){
                                         placeholder="..."
                                         type="text"
                                         disabled={isActionBlock}
-                                        value={isTextFieldsUser.name}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
+                                        value={isTextFieldsUser.nombre}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
                                     />
                                     <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
-                                            setIsTextFieldsUser(prev => ({...prev, name: ''}))
+                                            setIsTextFieldsUser(prev => ({...prev, nombre: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >
@@ -277,12 +314,12 @@ export default function User_Add(){
                                         placeholder="..."
                                         type="text"
                                         disabled={isActionBlock}
-                                        value={isTextFieldsUser.shortName}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
+                                        value={isTextFieldsUser.nombrecorto}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
                                     />
                                     <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
-                                            setIsTextFieldsUser(prev => ({...prev, shortName: ''}))
+                                            setIsTextFieldsUser(prev => ({...prev, nombrecorto: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >
@@ -295,8 +332,8 @@ export default function User_Add(){
                                         placeholder="..."
                                         type="text"
                                         disabled={isActionBlock}
-                                        value={isTextFieldsUser.user}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
+                                        value={isTextFieldsUser.usuario}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
@@ -305,8 +342,8 @@ export default function User_Add(){
                                         placeholder="..."
                                         type="password"
                                         disabled={isActionBlock}
-                                        value={isTextFieldsUser.password}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
+                                        value={isTextFieldsUser.contrasena}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
                                 {isUserTypes.length !== 0 ? (
@@ -364,9 +401,9 @@ export default function User_Add(){
                                             placeholder='Seleccione uno...'
                                             value={isUserTypes
                                                 .map(user => ({ value: user.idtipo, label: user.tipo }))
-                                                .find(option => option.value === isTextFieldsUser.userTypes)
+                                                .find(option => option.value === isTextFieldsUser.idtipo)
                                             }
-                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, idtipo: e.value}))}
                                             isDisabled={isActionBlock}
                                         />  
                                     </>
@@ -395,8 +432,8 @@ export default function User_Add(){
                                                 name="permissions"
                                                 disabled={isActionBlock}
                                                 value={item}
-                                                checked={isTextFieldsUser.permissions === item}
-                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permissions: e.target.value}))}
+                                                checked={isTextFieldsUser.permisos === item}
+                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permisos: e.target.value}))}
                                             />
                                             {item}
                                         </Label_Text_16_Center>
@@ -414,8 +451,8 @@ export default function User_Add(){
                                                 name="status"
                                                 disabled={isActionBlock}
                                                 value={item}
-                                                checked={isTextFieldsUser.status === item}
-                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, status: e.target.value}))}
+                                                checked={isTextFieldsUser.estatus === item}
+                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, estatus: e.target.value}))}
                                             />
                                             {item}
                                         </Label_Text_16_Center>

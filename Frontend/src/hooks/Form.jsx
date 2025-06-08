@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedLogContext,LoggedUserContext,LoggedPermissionsContext } from "../contexts/SessionProvider";
 import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext } from "../contexts/FormsProvider";
-import { UsersContext,UsersDeleteContext,UserAddContext,UserEditContext,UserViewPasswordContext,UserDeleteContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
+import { UsersContext,DeletedUsersContext,UserAddContext,UserEditContext,UsersViewPasswordContext,UserDeleteContext,PermissionsContext,StatusContext,PermissionsAddContext,PermissionsEditContext,PermissionsEnableContext,StatusAddContext,StatusEnableContext } from "../contexts/UsersProvider";
 import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../contexts/SuppliersProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../contexts/SelectedesProvider";
@@ -43,11 +43,11 @@ export const HandleVerificationBlock = () => {
                 setIsVerificationBlock(true);
                 setTimeout(() => {
                     if(isLoggedUser.length !== 0){
-                        if(isTextFieldsUser.user === '' || isTextFieldsUser.password === ''){
+                        if(isTextFieldsUser.usuario === '' || isTextFieldsUser.contrasena === ''){
                             setIsVerificationBlock(false);
                             return reject('¡Falta escribir el nombre de usuario o la contraseña del usuario!...');
                         }
-                        if(isTextFieldsUser.user === isLoggedUser.usuario && isTextFieldsUser.password === isLoggedUser.contrasena){
+                        if(isTextFieldsUser.usuario === isLoggedUser.usuario && isTextFieldsUser.contrasena === isLoggedUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsActionBlock(true);
                             sessionStorage.setItem('Verification-Block',true);
@@ -81,17 +81,17 @@ export const HandleUserAdd = () => {
     const [isUsers] = useContext(UsersContext);
     // Función del hook
     const handleUserAdd = () => {
-        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Add'){
+        if(currentNView === 'Usuarios' && currentSView === 'Usuarios' && currentMView === 'Usuario-Agregar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
+                        if(isTextFieldsUser.nombre === '' || isTextFieldsUser.nombrecorto === '' || isTextFieldsUser.usuario === '' || isTextFieldsUser.contrasena === '' || isTextFieldsUser.idtipo === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del usuario!...')
                         };
 
-                        if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
+                        if(isUsers.some(user => user.usuario === isTextFieldsUser.usuario)){
                             setIsActionBlock(false);
                             setIsUserAdd(false);
                             return reject('¡Usuario ya existente!...');
@@ -100,42 +100,42 @@ export const HandleUserAdd = () => {
                         const regexNames = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
                         const regexCredentials = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
 
-                        if(isTextFieldsUser.name.length > 150){
+                        if(isTextFieldsUser.nombre.length > 150){
                             setIsActionBlock(false);
                             return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexNames.test(isTextFieldsUser.name.trim())){
+                        if(!regexNames.test(isTextFieldsUser.nombre.trim())){
                             setIsActionBlock(false);
                             return reject('¡El nombre no es válido, solo permite letras y espacios!...');
                         }
 
-                        if(isTextFieldsUser.shortName.length > 50){
+                        if(isTextFieldsUser.nombrecorto.length > 50){
                             setIsActionBlock(false);
                             return reject('¡El nombre corto sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexNames.test(isTextFieldsUser.shortName.trim())){
+                        if(!regexNames.test(isTextFieldsUser.nombrecorto.trim())){
                             setIsActionBlock(false);
                             return reject('¡El nombre corto no es válido, solo permite letras y espacios!...');
                         }
 
-                        if(isTextFieldsUser.user.length > 25){
+                        if(isTextFieldsUser.usuario.length > 25){
                             setIsActionBlock(false);
                             return reject('¡El usuario sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexCredentials.test(isTextFieldsUser.user.trim())){
+                        if(!regexCredentials.test(isTextFieldsUser.usuario.trim())){
                             setIsActionBlock(false);
                             return reject('¡El usuario no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
                         }
                         
-                        if(isTextFieldsUser.password.length > 15){
+                        if(isTextFieldsUser.contrasena.length > 15){
                             setIsActionBlock(false);
                             return reject('¡La contraseña sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexCredentials.test(isTextFieldsUser.password.trim())){
+                        if(!regexCredentials.test(isTextFieldsUser.contrasena.trim())){
                             setIsActionBlock(false);
                             return reject('¡La contraseña no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
                         }
@@ -166,14 +166,14 @@ export const HandleViewPassword = () => {
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isViewPassword,setIsViewPassword] = useContext(UserViewPasswordContext);
+    const [isUsersViewPassword,setIsUsersViewPassword] = useContext(UsersViewPasswordContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetTextFieldsUser = ResetTextFieldsUser();
     // Función del hook
     const handleViewPassword = () => {
-        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-View'){
+        if(currentNView === 'Usuarios' && currentSView === 'Usuarios' && currentMView === 'Usuario-Ver-Contraseña'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(false);
@@ -181,12 +181,12 @@ export const HandleViewPassword = () => {
                         resolve('¡Puedes ver las contraseñas!...');
                         setCurrentMView('');
                         setTimeout(() => {
-                            setIsViewPassword(true);
+                            setIsUsersViewPassword(true);
                             setIsVerificationBlock(false);
-                            sessionStorage.removeItem('Action-Block');
-                            sessionStorage.removeItem('Verification-Block');
-                            sessionStorage.setItem('Modal-View','');
-                            sessionStorage.setItem('Modal',false);
+                            sessionStorage.removeItem('Acción del Bloqueo');
+                            sessionStorage.removeItem('Verificación del Bloqueo');
+                            sessionStorage.setItem('Vista del Modal','');
+                            sessionStorage.setItem('Estado del Modal',false);
                             
                             resetTextFieldsUser();
                             setIsModal(false);
@@ -202,12 +202,12 @@ export const HandleViewPassword = () => {
             Alert_Verification(promise,'¡Mostrando contraseñas!...');
         }else{
             const promise = new Promise((resolve,reject) => {
-                if(isViewPassword){
+                if(isUsersViewPassword){
                     try{
                         setTimeout(() => {
                             resolve('¡Se ocultaron las contraseñas!...');
                             setTimeout(() => {
-                                setIsViewPassword(false);
+                                setIsUsersViewPassword(false);
                             },500);
                         },1000);
                     }catch(e){
@@ -215,7 +215,7 @@ export const HandleViewPassword = () => {
                     }
                 }
             })
-            if(isViewPassword){
+            if(isUsersViewPassword){
                 Alert_Verification(promise,'¡Ocultando contraseñas!...');
             }
         }
@@ -223,7 +223,7 @@ export const HandleViewPassword = () => {
     // Retorno de la función del hook
     return handleViewPassword;
 }
-// Hook para editar un usuario desde el modal ✔️
+// Hook para editar un usuario desde el modal 
 export const HandleUserEdit = () => {
     // Constantes con el valor de los contextos 
     const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
@@ -319,7 +319,7 @@ export const HandleUserEdit = () => {
     // Retorno de la función del hook
     return handleUserEdit;
 }
-// Hook para eliminar un usuario desde el modal ✔️
+// Hook para eliminar un usuario desde el modal 
 export const HandleUserDelete = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -359,12 +359,12 @@ export const HandleUserDelete = () => {
     // Retorno de la función del hook
     return handleUserDelete;
 }
-// Hook para filtrar los usuarios cuando no tiene permisos ✔️
+// Hook para filtrar los usuarios cuando no tiene permisos 
 export const FilteredRecordsHasPermissions = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
     const [isPermissions] = useContext(PermissionsContext);
-    const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isUsersDelete] = useContext(DeletedUsersContext);
     // Función del hook
     const filteredRecordsHasPermissions = isUsers.filter((data) => {
         const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
@@ -375,7 +375,7 @@ export const FilteredRecordsHasPermissions = () => {
     // Retorno de la función del hook
     return filteredRecordsHasPermissions;
 }
-// Hook para agregar los permisos a un usuario desde el modal ✔️
+// Hook para agregar los permisos a un usuario desde el modal 
 export const HandlePermissionsAdd = () => {
     // Constantes con el valor de los contextos 
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
@@ -414,7 +414,7 @@ export const HandlePermissionsAdd = () => {
     // Retorno de la función del hook
     return handlePermissionsAdd;
 }
-// Hook para editar los permisos a un usuario desde el modal ✔️
+// Hook para editar los permisos a un usuario desde el modal 
 export const HandlePermissionsEdit = () => {
     // Constantes con el valor de los contextos 
     const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
@@ -521,7 +521,7 @@ export const FilteredRecordsHasStatus = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
     const [isStatusAll] = useContext(StatusContext);
-    const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isUsersDelete] = useContext(DeletedUsersContext);
     // Función del hook
     const filteredRecordsHasStatus = isUsers.filter((data) => {
         const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);

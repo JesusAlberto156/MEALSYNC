@@ -45,14 +45,14 @@ export const ResetTextFieldsUser = () => {
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     // Estados iniciales de los contextos
     const initialTextFieldsUser = {
-        iduser: 0,
-        name: '',
-        shortName: '',
-        user: '',
-        password: '',
-        userTypes: 0,
-        permissions: '',
-        status: '',
+        idusuario: 0,
+        nombre: '',
+        nombrecorto: '',
+        usuario: '',
+        contrasena: '',
+        idtipo: 0,
+        permisos: '',
+        estatus: '',
     };
     // Función del hook
     const resetTextFieldsUser = () => {
@@ -67,14 +67,16 @@ export const ResetTextFieldsPermissions = () => {
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     // Estados iniciales de los contextos
     const initialTextFieldsPermissions = {
-        iduser: 0,
-        user: '',
-        administrator: 0,
+        idpermiso: 0,
+        administrador: 0,
         chef: 0,
-        storekeeper: 0,
-        cook: 0,
-        nutritionist: 0,
-        doctor: 0,
+        almacenista: 0,
+        cocinero: 0,
+        nutriologo: 0,
+        medico: 0,
+        superadministrador: 0,
+        idusuario: 0,
+        usuario: '',
     };
     // Función del hook
     const resetTextFieldsPermissions = () => {
@@ -89,9 +91,10 @@ export const ResetTextFieldsStatus = () => {
     const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
     // Estados iniciales de los contextos
     const initialTextFieldsStatus = {
-        iduser: 0,
-        user: '',
-        status: '',
+        idusuario: 0,
+        usuario: '',
+        idestatus: 0,
+        estatus: '',
     };
     // Función del hook
     const resetTextFieldsStatus = () => {

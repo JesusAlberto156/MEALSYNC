@@ -2,7 +2,7 @@
 // Hooks de React
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
-import { UsersContext,UserTypesContext,StatusContext,UsersDeleteContext,PermissionsContext } from "../contexts/UsersProvider";
+import { UsersContext,UserTypesContext,StatusContext,DeletedUsersContext,PermissionsContext } from "../contexts/UsersProvider";
 import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderPlusContext,SelectedOptionOrderContext } from "../contexts/SelectedesProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
@@ -16,7 +16,7 @@ export const TableActionsUsers = () => {
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isUserTypes] = useContext(UserTypesContext);
-    const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Paginación de la tabla
@@ -24,7 +24,7 @@ export const TableActionsUsers = () => {
     // Filtrado de datos
     const filteredRecordsUsers = useMemo(() => {
         const filtered = isUsers.filter((data) => {
-            const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+            const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
             if (isDeleted) return false;
             
             if(isSelectedOptionSearch === 'General'){
@@ -72,7 +72,7 @@ export const TableActionsUsers = () => {
 
             return 0
         });
-    }, [isUsers, isUsersDelete, isUserTypes, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
+    }, [isUsers, isDeletedUsers, isUserTypes, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
@@ -123,7 +123,7 @@ export const TableActionsPermissions = () => {
     const [isPermissions] = useContext(PermissionsContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
-    const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Paginación de la tabla
@@ -132,7 +132,7 @@ export const TableActionsPermissions = () => {
     // Filtrado de datos
     const filteredRecordsPermissions = useMemo(() => {
         const filtered = isPermissions.filter((data) => {
-            const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+            const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
             if (isDeleted) return false;
 
             const user = isUsers.find(user => user.idusuario === data.idusuario);
@@ -190,7 +190,7 @@ export const TableActionsPermissions = () => {
 
             return 0
         });
-    }, [isUsers, isUsersDelete, isPermissions, isSearchTerm, isSelectedOptionOrderDirection]);
+    }, [isUsers, isDeletedUsers, isPermissions, isSearchTerm, isSelectedOptionOrderDirection]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
@@ -238,10 +238,10 @@ export const TableActionsPermissions = () => {
 export const TableActionsStatus = () => {
     // Constantes con el valor de los contextos
     const [isUsers] = useContext(UsersContext);
-    const [isStatusAll] = useContext(StatusContext);
+    const [isStatus] = useContext(StatusContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
-    const [isUsersDelete] = useContext(UsersDeleteContext);
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
@@ -249,8 +249,8 @@ export const TableActionsStatus = () => {
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsStatus = useMemo(() => {
-        const filtered = isStatusAll.filter((data) => {
-            const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        const filtered = isStatus.filter((data) => {
+            const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
             if (isDeleted) return false;
 
             const user = isUsers.find(user => user.idusuario === data.idusuario);
@@ -310,7 +310,7 @@ export const TableActionsStatus = () => {
 
             return 0
         });
-    }, [isUsers, isUsersDelete, isStatusAll, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus]);
+    }, [isUsers, isDeletedUsers, isStatus, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');

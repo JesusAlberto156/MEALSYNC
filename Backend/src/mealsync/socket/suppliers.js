@@ -51,7 +51,7 @@ export const Suppliers_INSERT = (socket) => {
     socket.on('Insert-Supplier',async (usuario,nombre,rfc,domicilio,telefono,correo) => {
         try{
             await insertSupplierService(nombre,rfc,domicilio,telefono,correo);
-            io.emit('Insert-Supplier',`${usuario} agregó al proveedor `,nombre);
+            io.emit('Insert-Supplier',`${usuario} agregó al proveedor ${nombre}`);
         }catch(error){
             console.error('Error al agregar: ',error);
             return error;
@@ -62,7 +62,7 @@ export const Suppliers_INSERT = (socket) => {
     socket.on('Insert-Observation',async (usuario,proveedor,observacion,calificacion,fecha,idproveedor) => {
         try{
             await insertObservationService(observacion,calificacion,fecha,idproveedor);
-            io.emit('Insert-Observation',`${usuario} agregó una observación al proveedor `,proveedor);
+            io.emit('Insert-Observation',`${usuario} agregó una observación al proveedor ${proveedor}`);
         }catch(error){
             console.error('Error al agregar: ',error);
             return error;
@@ -73,7 +73,7 @@ export const Suppliers_INSERT = (socket) => {
     socket.on('Insert-Deleted-Supplier',async (usuario,proveedor,idproveedor) => {
         try{
             await insertDeletedSupplierService(idproveedor);
-            io.emit('Insert-Deleted-Supplier',`${usuario} eliminó al proveedor `,proveedor);
+            io.emit('Insert-Deleted-Supplier',`${usuario} eliminó al proveedor ${proveedor}`);
         }catch(error){
             console.error('Error al eliminar: ',error);
             return error;
@@ -88,7 +88,7 @@ export const Suppliers_UPDATE = (socket) => {
     socket.on('Update-Supplier',async (usuario,idproveedor,nombre,rfc,domicilio,telefono,correo) => {
         try{
             await updateSupplierService(idproveedor,nombre,rfc,domicilio,telefono,correo);
-            io.emit('Update-Supplier',`${usuario} editó al proveedor `,nombre);
+            io.emit('Update-Supplier',`${usuario} editó al proveedor ${nombre}`);
         }catch(error){
             console.error('Error al editar: ',error);
             return error;
@@ -103,7 +103,7 @@ export const Suppliers_DELETE = (socket) => {
     socket.on('Delete-Deleted-Supplier',async (usuario,proveedor,idproveedor) => {
         try{
             await deleteDeletedSupplierService(idproveedor);
-            io.emit('Delete-Deleted-Supplier',`${usuario} recuperó al proveedor `,proveedor);
+            io.emit('Delete-Deleted-Supplier',`${usuario} recuperó al proveedor ${proveedor}`);
         }catch(error){
             console.error('Error al recuperar: ',error);
             return error;

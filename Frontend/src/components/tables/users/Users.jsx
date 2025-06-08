@@ -5,7 +5,7 @@ import { useContext,useEffect } from "react"
 import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
-import { UserViewPasswordContext } from "../../../contexts/UsersProvider"
+import { UsersViewPasswordContext } from "../../../contexts/UsersProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
@@ -34,7 +34,7 @@ export default function Table_Users(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isUserViewPassword,setIsUserViewPassword] = useContext(UserViewPasswordContext);
+    const [isUsersViewPassword,setIsUsersViewPassword] = useContext(UsersViewPasswordContext);
     const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isUserTypes] = useContext(UserTypesContext);
@@ -63,14 +63,14 @@ export default function Table_Users(){
     useEffect(() => {
         let timeoutId;
 
-        if(isUserViewPassword){
+        if(isUsersViewPassword){
             timeoutId = setTimeout(() => {
                 const promise = new Promise((resolve,reject) => {
                     try{
                         setTimeout(() => {
                             resolve('¡Se ocultaron las contraseñas!...');
                             setTimeout(() => {
-                                setIsUserViewPassword(false);
+                                setIsUsersViewPassword(false);
                             },500);
                         },1000);
                     }catch(e){
@@ -83,18 +83,18 @@ export default function Table_Users(){
         }
 
         return () => clearTimeout(timeoutId);
-    },[isUserViewPassword])
+    },[isUsersViewPassword])
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
         if(isSelectedRow !== null){
             setIsTextFieldsUser(prev => ({
                 ...prev,
-                iduser: isSelectedRow.idusuario,
-                name: isSelectedRow.nombre,
-                shortName: isSelectedRow.nombrecorto,
-                user: isSelectedRow.usuario,
-                password: isSelectedRow.contrasena,
-                userTypes: isSelectedRow.idtipo,
+                idusuario: isSelectedRow.idusuario,
+                nombre: isSelectedRow.nombre,
+                nombrecorto: isSelectedRow.nombrecorto,
+                usuario: isSelectedRow.usuario,
+                contrasena: isSelectedRow.contrasena,
+                idtipo: isSelectedRow.idtipo,
             }))
         }else{
             resetTextFieldsUser();
@@ -170,7 +170,7 @@ export default function Table_Users(){
                             <Td ThemeMode={themeMode}>{user.nombre}</Td>
                             <Td ThemeMode={themeMode}>{user.nombrecorto}</Td>
                             <Td ThemeMode={themeMode}>{user.usuario}</Td>
-                            <Td ThemeMode={themeMode}>{isUserViewPassword ? user.contrasena : '•'.repeat(8)}</Td>
+                            <Td ThemeMode={themeMode}>{isUsersViewPassword ? user.contrasena : '•'.repeat(8)}</Td>
                             <Td ThemeMode={themeMode}>{isUserTypes.find(type => type.idtipo === user.idtipo)?.tipo || 'Desconocido'}</Td>
                         </tr>
                     ))}

@@ -150,7 +150,7 @@ export const insertStatusService = async (habilitado,idusuario) => {
         const result = await pool.request()
             .input('habilitado',sql.Bit,habilitado)
             .input('idusuario',sql.Int,idusuario)
-            .query('INSERT INTO estatus (habilitado,activo,idusuario) VALUES (@habilitado,0,@id)');
+            .query('INSERT INTO estatus (habilitado,activo,idusuario) VALUES (@habilitado,0,@idusuario)');
 
         if(result.rowsAffected[0]>0){
             return 'Estatus del usuario insertado...'

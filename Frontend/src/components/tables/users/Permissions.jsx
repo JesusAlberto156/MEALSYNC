@@ -67,14 +67,14 @@ export default function Table_Permissions(){
         if(isSelectedRow !== null){
             setIsTextFieldsPermissions(prev => ({
                 ...prev,
-                iduser: isSelectedRow.idusuario,
-                user: isUsers.find(user => user.idusuario === isSelectedRow.idusuario)?.usuario || 'Desconocido',
-                administrator: isSelectedRow.administrador,
+                idusuario: isSelectedRow.idusuario,
+                usuario: isUsers.find(user => user.idusuario === isSelectedRow.idusuario)?.usuario || 'Desconocido',
+                administrador: isSelectedRow.administrador,
                 chef: isSelectedRow.chef,
-                storekeeper: isSelectedRow.almacenista,
-                cook: isSelectedRow.cocinero,
-                nutritionist: isSelectedRow.nutriologo,
-                doctor: isSelectedRow.medico,
+                almacenista: isSelectedRow.almacenista,
+                cocinero: isSelectedRow.cocinero,
+                nutriologo: isSelectedRow.nutriologo,
+                medico: isSelectedRow.medico,
             }));
         }else{
             resetTextFieldsPermissions();

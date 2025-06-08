@@ -1,17 +1,18 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { SocketContext } from "../../../../contexts/SocketProvider";
+import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
-import { UserDeleteContext,UsersContext } from "../../../../contexts/UsersProvider";
+import { UserDeleteContext,UsersContext,DeletedUsersContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefUsersContext } from '../../../../contexts/RefsProvider';
+import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUserDelete } from "../../../../hooks/Form";
@@ -43,38 +44,42 @@ export default function User_Delete(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [socket] = useContext(SocketContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const {Modal,Form,Button_Edit_U,Button_Delete_U} = useContext(RefUsersContext);
+    const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
     const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
+    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
+    // Constantes con los valores de useRef
+    const User = useRef(false);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleUserDelete = HandleUserDelete();
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isUserDelete){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('User-Delete-Insert',isTextFieldsUser.iduser,isSelectedRow.usuario)
+                        socket.emit('Insert-Deleted-User',isLoggedUser.usuario,isTextFieldsUser.usuario,isTextFieldsUser.idusuario)
 
-                        resolve('¡MEALSYNC elimino al usuario!...');
+                        resolve('¡MEALSYNC eliminó al usuario!...');
 
-                        const route = sessionStorage.getItem('Route');
-
-                        setCurrentMView('');
-                        sessionStorage.setItem('Modal-View','');
-                        setTimeout(() => {
-                            setIsModal(false);
-                            sessionStorage.setItem('Modal',false);
-                            sessionStorage.removeItem('Action-Block');
-                            sessionStorage.removeItem('Verification-Block');
-                            setIsVerificationBlock(false);
-                            setIsActionBlock(false);
-                            setIsUserDelete(false)
-                            setIsSelectedRow(null);
-                            navigate(route,{ replace: true });
-                        },750);
+                        setIsUserDelete(false);
                     },2000);
                 }catch(e){
                     setIsActionBlock(true);
@@ -85,42 +90,56 @@ export default function User_Delete(){
 
             Alert_Verification(promise,'Eliminando un usuario!...');
         }
-    },[isUserDelete])
+        if(isDeletedUsers.some(user => user.idusuario === isTextFieldsUser.idusuario)){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                ideliminado: isDeletedUsers.find(user => user.idusuario === isTextFieldsUser.idusuario)?.ideliminado
+            }));
+            setIsLogAdd(true);
+        }
+        if(isLogAdd && isTextFieldsUser.ideliminado !== 0 && !User.current){
+            User.current = true;
+            socket.emit('Insert-Log-Deleted-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.ideliminado,isLoggedUser.idusuario,String(isTextFieldsUser.idusuario));
+            setIsLogAdd(false);
+
+            const route = sessionStorage.getItem('Ruta');
+
+            setCurrentMView('');
+            sessionStorage.setItem('Vista del Modal','');
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                sessionStorage.removeItem('Acción del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
+                setIsVerificationBlock(false);
+                setIsActionBlock(false);
+                setIsSelectedRow(null);
+                navigate(route,{ replace: true });
+            },750);
+        }
+    },[isUserDelete,isDeletedUsers,isTextFieldsUser.ideliminado]);
     // UseEffect para resetiar campos para el registro de verificación
     useEffect(() => {
         setIsTextFieldsUser((prev) => ({
             ...prev,
-            user: '',
-            password: '',
+            usuario: '',
+            contrasena: '',
         }))
-    },[])
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleUserDeleteInsert = (message,user) => {
-            console.log(message,user);
-            socket.emit('Delete-Users');
-        };
-
-        socket.on('User-Delete-Insert',handleUserDeleteInsert);
-        
-        return () => {
-            socket.off('User-Delete-Insert',handleUserDeleteInsert);
-        }
-    },[socket])
+    },[]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal}>
-                        <Container_Form_500 ref={Form} ThemeMode={themeMode} className={currentMView === 'User-Delete' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Modal ref={Modal_Users}>
+                        <Container_Form_500 ref={Form_Users} ThemeMode={themeMode} className={currentMView === 'Usuario-Eliminar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>ELIMINAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
                             <Form_Verification/>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}> {isUsers.find(user => user.idusuario === isTextFieldsUser.iduser)?.usuario || 'Desconocido'}</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}> {isUsers.find(user => user.idusuario === isTextFieldsUser.idusuario)?.usuario || 'Desconocido'}</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
@@ -148,7 +167,7 @@ export default function User_Delete(){
                     </Container_Modal>
                 </>
             ):(
-                currentMView === 'User-Delete' ? (
+                currentMView === 'Usuario-Eliminar' ? (
                     <>
                         <Error_Delete/>
                     </>

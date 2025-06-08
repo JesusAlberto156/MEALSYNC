@@ -12,7 +12,7 @@ import { TextFieldsPermissionsContext } from "../../../contexts/FormsProvider"
 import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
 import { TableActionsPermissions } from "../../../hooks/Table"
-import { ResetTextFieldsPermissions,ResetTextFieldsUser } from "../../../hooks/Texts"
+import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../hooks/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
@@ -67,6 +67,7 @@ export default function Table_Permissions(){
         if(isSelectedRow !== null){
             setIsTextFieldsPermissions(prev => ({
                 ...prev,
+                idpermiso: isSelectedRow.idpermiso,
                 idusuario: isSelectedRow.idusuario,
                 usuario: isUsers.find(user => user.idusuario === isSelectedRow.idusuario)?.usuario || 'Desconocido',
                 administrador: isSelectedRow.administrador,
@@ -75,15 +76,18 @@ export default function Table_Permissions(){
                 cocinero: isSelectedRow.cocinero,
                 nutriologo: isSelectedRow.nutriologo,
                 medico: isSelectedRow.medico,
+                superadministrador: isSelectedRow.superadministrador,
             }));
         }else{
-            resetTextFieldsPermissions();
             resetTextFieldsUser();
+            resetTextFieldsPermissions();
+            resetTextFieldsStatus();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsUser = ResetTextFieldsUser();
+    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
+    const resetTextFieldsStatus = ResetTextFieldsStatus();
     const {handleRowClick, nextPagePermissions, prevPage, currentRecordsPermissions, currentPage, totalPagesPermissions, ToggleOrder, ToggleOrderDirection} = TableActionsPermissions();
     // Estructura del componente
     return(

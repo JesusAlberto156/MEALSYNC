@@ -41,7 +41,7 @@ export default function User_View(){
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'User-View' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'Usuario-Ver-Contraseña' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>VER CONTRASEÑAS</Text_Title_30_Center>
                             </Container_Row_100_Center>

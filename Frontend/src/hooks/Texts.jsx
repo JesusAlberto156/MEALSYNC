@@ -53,6 +53,7 @@ export const ResetTextFieldsUser = () => {
         idtipo: 0,
         permisos: '',
         estatus: '',
+        ideliminado: 0,
     };
     // Función del hook
     const resetTextFieldsUser = () => {

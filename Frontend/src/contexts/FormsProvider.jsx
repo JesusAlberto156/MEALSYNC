@@ -47,6 +47,7 @@ export const Text_Fields_User = ({ children }) => {
         idtipo: 0,
         permisos: '',
         estatus: '',
+        ideliminado: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(

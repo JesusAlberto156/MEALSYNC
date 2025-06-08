@@ -30,15 +30,15 @@ export default function Error_Edit(){
             if(contador === 0){
                 const promise = new Promise((resolve,reject) => {
                     try{
-                        const route = sessionStorage.getItem('Route');
+                        const route = sessionStorage.getItem('Ruta');
                         setTimeout(() => {
                             resolve('¡Página encontrada!...');
                         },1000);
                         setTimeout(() => {
                             setIsModal(false);
-                            sessionStorage.setItem('Modal',false);
+                            sessionStorage.setItem('Estado del Modal',false);
                             setCurrentMView('');
-                            sessionStorage.setItem('Modal-View','');
+                            sessionStorage.setItem('Vista del Modal','');
                             navigate(route,{replace: true});
                         },2000);
                     } catch (e) {

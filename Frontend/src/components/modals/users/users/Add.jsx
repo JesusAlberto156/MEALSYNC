@@ -13,7 +13,7 @@ import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetTextFieldsUser,ResetTextFieldsPermissions } from "../../../../hooks/Texts";
+import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/Texts";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUserAdd } from "../../../../hooks/Form";
 //__________ICONOS__________
@@ -64,6 +64,7 @@ export default function User_Add(){
     const handleUserAdd = HandleUserAdd();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
+    const resetTextFieldsStatus = ResetTextFieldsStatus();
     // Función para obtener la hora exacta del sistema
     function getLocalDateTimeOffset(hoursOffset = -7) {
         const now = new Date();
@@ -115,7 +116,7 @@ export default function User_Add(){
 
             Alert_Verification(promise,'¡Agregando un usuario!...');
         }
-        if(isUsers.find(user => user.usuario === isTextFieldsUser.usuario)){
+        if(isUsers.some(user => user.usuario === isTextFieldsUser.usuario)){
             setIsTextFieldsUser(prev => ({
                 ...prev,
                 idusuario: isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario,
@@ -139,7 +140,11 @@ export default function User_Add(){
                     sessionStorage.removeItem('Estado del Sub-Modal');
                     resetTextFieldsUser();
                     resetTextFieldsPermissions();
+                    resetTextFieldsStatus();
                     setIsAnimation(false);
+                    setIsUserAdd(false);
+                    setIsPermissionsAdd(false);
+                    setIsStatusAdd(false);
                     sessionStorage.removeItem('Animación');
                     setIsActionBlock(false);
                     navigate(route,{ replace: true });
@@ -184,7 +189,7 @@ export default function User_Add(){
 
             Alert_Verification(promise,'¡Agregando permisos al usuario!...');
         }
-        if(isPermissions.find(permission => permission.idusuario === isTextFieldsUser.idusuario)){
+        if(isPermissions.some(permission => permission.idusuario === isTextFieldsUser.idusuario)){
             setIsTextFieldsPermissions(prev => ({
                 ...prev,
                 idpermiso: isPermissions.find(permission => permission.idusuario === isTextFieldsUser.idusuario)?.idpermiso
@@ -194,7 +199,7 @@ export default function User_Add(){
         if(isLogAdd && isTextFieldsPermissions.idpermiso !== 0 && Permissions.current !== 'LOG'){
             Permissions.current = 'LOG';
             if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === ''){
-                socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
+                socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'',String(isTextFieldsUser.idusuario));
         
                 setIsLogAdd(false);
 
@@ -209,7 +214,11 @@ export default function User_Add(){
                     sessionStorage.removeItem('Estado del Sub-Modal');
                     resetTextFieldsUser();
                     resetTextFieldsPermissions();
+                    resetTextFieldsStatus();
                     setIsAnimation(false);
+                    setIsUserAdd(false);
+                    setIsPermissionsAdd(false);
+                    setIsStatusAdd(false);
                     sessionStorage.removeItem('Animación');
                     setIsActionBlock(false);
                     navigate(route,{ replace: true });
@@ -244,7 +253,7 @@ export default function User_Add(){
 
             Alert_Verification(promise,'¡Agregando estatus al usuario!...');
         }
-        if(isStatus.find(status => status.idusuario === isTextFieldsUser.idusuario)){
+        if(isStatus.some(status => status.idusuario === isTextFieldsUser.idusuario)){
             setIsTextFieldsStatus(prev => ({
                 ...prev,
                 idestatus: isStatus.find(status => status.idusuario === isTextFieldsUser.idusuario)?.idestatus
@@ -268,7 +277,11 @@ export default function User_Add(){
                 sessionStorage.removeItem('Estado del Sub-Modal');
                 resetTextFieldsUser();
                 resetTextFieldsPermissions();
+                resetTextFieldsStatus();
                 setIsAnimation(false);
+                setIsUserAdd(false);
+                setIsPermissionsAdd(false);
+                setIsStatusAdd(false);
                 sessionStorage.removeItem('Animación');
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });

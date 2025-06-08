@@ -189,8 +189,23 @@ export const Users_View_Password = ({children}) => {
 }
 // Función contexto para controlar los datos editados de un usuario ✔️
 export const User_Edit = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserEdit,setIsUserEdit] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleUpdateUser = (message) => {
+            console.log(message);
+            socket.emit('Get-Users');
+        };
+
+        socket.on('Update-User',handleUpdateUser);
+        
+        return () => {
+            socket.off('Update-User',handleUpdateUser);
+        }
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <UserEditContext.Provider value={[isUserEdit,setIsUserEdit]}>
@@ -261,8 +276,29 @@ export const Deleted_Users = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de un usuario eliminado ✔️
 export const User_Delete = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserDelete,setIsUserDelete] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleInsertDeletedUser = (message) => {
+            console.log(message);
+            socket.emit('Get-Deleted-Users');
+        };
+        const handleInsertLog = (message) => {
+            console.log(message);
+            socket.emit('Get-Logs');
+        };
+
+        socket.on('Insert-Deleted-User',handleInsertDeletedUser);
+        socket.on('Insert-Log-Deleted-User',handleInsertLog);
+
+        return () => {
+            socket.off('Insert-Deleted-User',handleInsertDeletedUser);
+            socket.off('Insert-Log-Deleted-User',handleInsertLog);
+        }
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <UserDeleteContext.Provider value={[isUserDelete,setIsUserDelete]}>
@@ -315,65 +351,51 @@ export const Permissions = ({ children }) => {
     },[]);
     // UseEffect para verificar que los datos existan
     useEffect(() => {
-        if(isLoggedLogged && isPermissions.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current){
+        if (isLoggedLogged && isPermissions.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current) {
             const user = isPermissions.find(user => user.idusuario === isLoggedUser.idusuario && isLoggedUser.usuario === isUserUpdated);
-            if(user){
+            if (user) {
                 const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                 const Image_Success = themeMode ? Logo_Success_Light : Logo_Success_Dark;
-                if(!user.superadministrador){
-                    if(isLoggedType === 'Cocinero' && !user.cocinero || 
-                        isLoggedType === 'Nutriólogo' && !user.nutriologo ||
-                        isLoggedType === 'Médico' && !user.medico ||
-                        isLoggedType === 'Administrador' && !user.administrador ||
-                        isLoggedType === 'Chef' && !user.chef ||
-                        isLoggedType === 'Almacenista' && !user.almacenista){
+
+                if (!user.superadministrador) {
+                    if (
+                        (isLoggedType === 'Cocinero' && !user.cocinero) ||
+                        (isLoggedType === 'Nutriólogo' && !user.nutriologo) ||
+                        (isLoggedType === 'Médico' && !user.medico) ||
+                        (isLoggedType === 'Administrador' && !user.administrador) ||
+                        (isLoggedType === 'Chef' && !user.chef) ||
+                        (isLoggedType === 'Almacenista' && !user.almacenista)
+                    ) {
                         alertShow.current = true;
-                        Alert_Warning('MEALSYNC','¡Ha perdido su permiso de acceso, por un administrador!...',themeMode,Image_Warning);
+                        Alert_Warning('MEALSYNC', '¡Ha perdido su permiso de acceso, por un administrador!...', themeMode, Image_Warning);
                         setTimeout(() => {
                             setIsLoggedLog(true);
-                        },3000);
-                    }else{
+                        }, 3000);
+                        return;
+                    } else {
                         setIsUserUpdated('');
-                        Alert_Warning('MEALSYNC','¡El super administrador ha sido deshabilitado!...',themeMode,Image_Warning);
-                        const jsonPermission = JSON.stringify(user);
-                        const encryptedPermission = encryptData(jsonPermission);
-                        if(encryptedPermission){
-                            sessionStorage.setItem('Permissions',encryptedPermission);
-                            setIsLoggedPermissions(JSON.parse(jsonPermission));
-                        }else{
-                            return console.log('¡Error al encriptar las credenciales!...');
-                        }
-                        setTimeout(() => {
-                            setIsLoggedLog(true);
-                        },3000);
+                        Alert_Warning('MEALSYNC', '¡El super administrador ha sido deshabilitado!...', themeMode, Image_Warning);
                     }
-                }else{
+                } else {
                     setIsUserUpdated('');
-                    Alert_Success('MEALSYNC','¡El super administrador ha sido habilitado!...',themeMode,Image_Success);
-                    const jsonPermission = JSON.stringify(user);
-                    const encryptedPermission = encryptData(jsonPermission);
-                    if(encryptedPermission){
-                        sessionStorage.setItem('Permissions',encryptedPermission);
-                        setIsLoggedPermissions(JSON.parse(jsonPermission));
-                    }else{
-                        return console.log('¡Error al encriptar las credenciales!...');
-                    }
-                    setTimeout(() => {
-                        setIsLoggedLog(true);
-                    },3000);
+                    Alert_Success('MEALSYNC', '¡El super administrador ha sido habilitado!...', themeMode, Image_Success);
                 }
-                
+
                 const jsonPermission = JSON.stringify(user);
                 const encryptedPermission = encryptData(jsonPermission);
-                if(encryptedPermission){
-                    sessionStorage.setItem('Permissions',encryptedPermission);
+                if (encryptedPermission) {
+                    sessionStorage.setItem('Permisos', encryptedPermission);
                     setIsLoggedPermissions(JSON.parse(jsonPermission));
-                }else{
+                } else {
                     return console.log('¡Error al encriptar las credenciales!...');
                 }
+
+                setTimeout(() => {
+                    setIsLoggedLog(true);
+                }, 3000);
             }
         }
-    },[isPermissions]);
+    }, [isPermissions]);
     // Return para darle valor al contexto y heredarlo
     return (
         <PermissionsContext.Provider value={[isPermissions,setIsPermissions]}>
@@ -415,8 +437,25 @@ export const Permissions_Add = ({ children }) => {
 }
 // Función contexto para controlar los datos editados de los permisos de un usuario ✔️
 export const Permissions_Edit = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
+    const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsEdit,setIsPermissionsEdit] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleUpdatePermissions = (message,user) => {
+            console.log(message,user);
+            setIsUserUpdated(user);
+            socket.emit('Get-Permissions');
+        };
+
+        socket.on('Update-Permissions',handleUpdatePermissions);
+        
+        return () => {
+            socket.off('Update-Permissions',handleUpdatePermissions);
+        }
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return(
         <PermissionsEditContext.Provider value={[isPermissionsEdit,setIsPermissionsEdit]}>
@@ -426,8 +465,25 @@ export const Permissions_Edit = ({ children }) => {
 }
 // Función Contexto para controlar los datos habilitados en el permiso del superadministrador de un usuario ✔️
 export const Permissions_Enable = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
+    const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsEnable,setIsPermissionsEnable] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleUpdatePermission = (message,user) => {
+            console.log(message,user);
+            setIsUserUpdated(user);
+            socket.emit('Get-Permissions');
+        };
+
+        socket.on('Update-Permission',handleUpdatePermission);
+
+        return () => {
+            socket.off('Update-Permission',handleUpdatePermission);
+        }
+    },[socket])
     // Return para darle valor al contexto y heredarlo
     return(
         <PermissionsEnableContext.Provider value={[isPermissionsEnable,setIsPermissionsEnable]}>
@@ -532,8 +588,23 @@ export const Status_Add = ({ children }) => {
 }
 // Función contexto para controlar los usuarios habilitados/deshabilitados ✔️
 export const Status_Enable = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isStatusEnable,setIsStatusEnable] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleUpdateStatusEnable = (message) => {
+            console.log(message);
+            socket.emit('Get-Status');
+        };
+
+        socket.on('Update-Status-Enable',handleUpdateStatusEnable);
+        
+        return () => {
+            socket.off('Update-Status-Enable',handleUpdateStatusEnable);
+        }
+    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <StatusEnableContext.Provider value={[isStatusEnable,setIsStatusEnable]}>

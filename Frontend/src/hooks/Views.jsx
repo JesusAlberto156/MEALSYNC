@@ -147,12 +147,13 @@ export const HandleModalView = () => {
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsUser();
                 setIsSubModal(false);
                 sessionStorage.removeItem('Estado del Sub-Modal');
                 setIsAnimation(false);
                 sessionStorage.removeItem('Animación');
+                resetTextFieldsUser();
                 resetTextFieldsPermissions();
+                resetTextFieldsStatus();
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
@@ -162,6 +163,8 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
                 resetTextFieldsUser();
+                resetTextFieldsPermissions();
+                resetTextFieldsStatus();
                 setIsActionBlock(false);
                 setIsVerificationBlock(false);
                 sessionStorage.removeItem('Acción del Bloqueo');
@@ -194,7 +197,9 @@ export const HandleModalView = () => {
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
+                resetTextFieldsUser();
                 resetTextFieldsPermissions();
+                resetTextFieldsStatus();
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
@@ -225,6 +230,8 @@ export const HandleModalView = () => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
                 setIsActionBlock(false);
+                resetTextFieldsUser();
+                resetTextFieldsPermissions();
                 resetTextFieldsStatus();
                 navigate(route,{ replace: true });
             },750);

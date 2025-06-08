@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { SocketContext } from "../../../../contexts/SocketProvider";
+import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserEditContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefUsersContext } from '../../../../contexts/RefsProvider';
+import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleUserEdit } from "../../../../hooks/Form";
@@ -46,32 +47,37 @@ export default function User_Edit(){
     const [socket] = useContext(SocketContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
+    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
+    const [isLoggedUser] = useContext(LoggedUserContext); 
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleUserEdit = HandleUserEdit();
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isUserEdit){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('User-Update',isTextFieldsUser.userTypes,isSelectedRow.idusuario,isTextFieldsUser.name.trim(),isTextFieldsUser.shortName.trim(),isTextFieldsUser.user.trim(),isTextFieldsUser.password.trim())
+                        socket.emit('Update-User',isLoggedUser.usuario,isTextFieldsUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),isTextFieldsUser.idtipo)
 
-                        resolve('¡MEALSYNC actualizo al usuario!...');
+                        resolve('¡MEALSYNC editó al usuario!...');
 
-                        const route = sessionStorage.getItem('Route');
-
-                        setCurrentMView('');
-                        sessionStorage.setItem('Modal-View','');
-                        setTimeout(() => {
-                            setIsModal(false);
-                            sessionStorage.setItem('Modal',false);
-                            setIsActionBlock(false);
-                            setIsUserEdit(false);
-                            setIsSelectedRow(null);
-                            navigate(route,{ replace: true });
-                        },750);
+                        setIsUserEdit(false);
+                        setIsLogAdd(true);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -80,29 +86,32 @@ export default function User_Edit(){
                 }
             });
 
-            Alert_Verification(promise,'¡Actualizado un usuario!...');
+            Alert_Verification(promise,'Editando un usuario!...');
         }
-    },[isUserEdit])
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handlePermissionUpdate = (message,user) => {
-            console.log(message,user);
-            socket.emit('Users');
-        };
+        if(isLogAdd){
+            socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
+            setIsLogAdd(false);
 
-        socket.on('User-Update',handlePermissionUpdate);
-        
-        return () => {
-            socket.off('User-Update',handlePermissionUpdate);
+            const route = sessionStorage.getItem('Ruta');
+
+            setCurrentMView('');
+            sessionStorage.setItem('Vista del Modal','');
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                setIsSelectedRow(null);
+                navigate(route,{ replace: true });
+            },750);
         }
-    },[socket])
+    },[isUserEdit,isLogAdd])
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
                     <Container_Modal ref={Modal_Users}>
-                        <Container_Form_500 ref={Form_Users} ThemeMode={themeMode} className={currentMView === 'User-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Form_500 ref={Form_Users} ThemeMode={themeMode} className={currentMView === 'Usuario-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_30_Center ThemeMode={themeMode}>EDITAR USUARIO</Text_Title_30_Center>
                             </Container_Row_100_Center>
@@ -116,13 +125,13 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
-                                        value={isTextFieldsUser.name}
+                                        value={isTextFieldsUser.nombre}
                                         disabled={isActionBlock}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, name: e.target.value}))}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
                                     />
                                     <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
-                                            setIsTextFieldsUser(prev => ({...prev, name: ''}))
+                                            setIsTextFieldsUser(prev => ({...prev, nombre: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >
@@ -134,13 +143,13 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
-                                        value={isTextFieldsUser.shortName}
+                                        value={isTextFieldsUser.nombrecorto}
                                         disabled={isActionBlock}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, shortName: e.target.value}))}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
                                     />
                                     <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
-                                            setIsTextFieldsUser(prev => ({...prev, shortName: ''}))
+                                            setIsTextFieldsUser(prev => ({...prev, nombrecorto: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >
@@ -152,9 +161,9 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
-                                        value={isTextFieldsUser.user}
+                                        value={isTextFieldsUser.usuario}
                                         disabled={isActionBlock}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, user: e.target.value}))}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
@@ -162,9 +171,9 @@ export default function User_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="password"
-                                        value={isTextFieldsUser.password}
+                                        value={isTextFieldsUser.contrasena}
                                         disabled={isActionBlock}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, password: e.target.value}))}
+                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
                                     />
                                 </Container_Row_100_Left>
                                 {isUserTypes.length !== 0 ? (
@@ -232,9 +241,9 @@ export default function User_Edit(){
                                             placeholder='Seleccione uno...'
                                             value={isUserTypes
                                                 .map(user => ({ value: user.idtipo, label: user.tipo }))
-                                                .find(option => option.value === isTextFieldsUser.userTypes)
+                                                .find(option => option.value === isTextFieldsUser.idtipo)
                                             }
-                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, userTypes: e.value}))}
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, idtipo: e.value}))}
                                             isDisabled={isActionBlock}
                                         />  
                                     </>
@@ -268,7 +277,7 @@ export default function User_Edit(){
                     </Container_Modal>
                 </>
             ):(
-                currentMView === 'User-Edit' ? (
+                currentMView === 'Usuario-Editar' ? (
                     <>
                         <Error_Edit/>
                     </>

@@ -11,7 +11,7 @@ import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
 import { UserTypesContext } from "../../../contexts/UsersProvider"
 // Hooks personalizados
-import { ResetTextFieldsUser } from "../../../hooks/Texts"
+import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus } from "../../../hooks/Texts"
 import { TableActionsUsers } from "../../../hooks/Table"
 //__________ICONOS__________
 // Iconos de las tablas
@@ -98,11 +98,15 @@ export default function Table_Users(){
             }))
         }else{
             resetTextFieldsUser();
+            resetTextFieldsPermissions();
+            resetTextFieldsStatus();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
     const {handleRowClick, nextPageUsers, prevPage, currentRecordsUsers, currentPage, totalPagesUsers, ToggleOrder, ToggleOrderDirection} = TableActionsUsers();
     const resetTextFieldsUser = ResetTextFieldsUser();
+    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
+    const resetTextFieldsStatus = ResetTextFieldsStatus();
     // Estructura del componente
     return(
         <>

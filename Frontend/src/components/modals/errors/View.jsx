@@ -4,7 +4,7 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext } from "../../../contexts/ViewsProvider";
-import { SelectedRowContext } from "../../../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../../../contexts/SelectedesProvider";
 // Estilos personalizados
 import { Container_Modal,Container_Column_90_Center } from "../../styled/Containers";
 import { Text_White_40_Center,Text_White_50_Center } from "../../styled/Text";
@@ -15,6 +15,8 @@ import { Alert_Verification } from "../../styled/Alerts";
 export default function Error_View(){
     // Constantes con el valor de los contextos
     const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow1] = useContext(SelectedRow1Context);
+    const [isSelectedRow2] = useContext(SelectedRow2Context);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     // Constantes con el valor de los useState
@@ -23,22 +25,22 @@ export default function Error_View(){
     const navigate = useNavigate();
     // useEffect con cuenta regresiva para regresar
     useEffect(() => {
-        if(isSelectedRow === null){
+        if(isSelectedRow === null || isSelectedRow1 === null || isSelectedRow2 === null){
             if(contador === 0){
-                const promise = new Promise(async (resolve,reject) => {
+                const promise = new Promise((resolve,reject) => {
                     try{
-                        const route = sessionStorage.getItem('Route');
+                        const route = sessionStorage.getItem('Ruta');
                         setTimeout(() => {
                             resolve('¡Página encontrada!...');
                         },1000);
                         setTimeout(() => {
                             setIsModal(false);
-                            sessionStorage.setItem('Modal',false);
+                            sessionStorage.setItem('Estado del Modal',false);
                             setCurrentMView('');
-                            sessionStorage.setItem('Modal-View','');
+                            sessionStorage.setItem('Vista del Modal','');
                             navigate(route,{replace: true});
                         },2000);
-                    } catch (error) {
+                    } catch (e) {
                         return reject('¡Ocurrio un error inseperado!...');
                     }
                 });

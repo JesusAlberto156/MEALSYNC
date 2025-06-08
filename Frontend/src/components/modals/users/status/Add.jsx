@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -9,12 +9,13 @@ import Select from "react-select";
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
-import { StatusAddContext } from "../../../../contexts/UsersProvider";
-import { SocketContext } from "../../../../contexts/SocketProvider";
+import { StatusAddContext,StatusContext } from "../../../../contexts/UsersProvider";
+import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleStatusSAdd,FilteredRecordsHasStatus } from "../../../../hooks/Form";
-import { ResetTextFieldsStatus } from "../../../../hooks/Texts";
+import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/Texts";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -41,34 +42,43 @@ export default function Status_Add(){
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
     const [socket] = useContext(SocketContext);
     const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
+    const [isStatus] = useContext(StatusContext);
+    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    // Constantes con los valores de useRef
+    const Status = useRef('');
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const filteredRecordsHasStatus = FilteredRecordsHasStatus();
     const handleStatusSAdd = HandleStatusSAdd();
+    const resetTextFieldsUser = ResetTextFieldsUser();
+    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isStatusAdd){
+        if(isStatusAdd && isStatus.length !== 0 && Status.current !== 'STATUS'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Status-Insert',isTextFieldsStatus.iduser,isTextFieldsStatus.status === 'Habilitado' ? 1:0,isTextFieldsStatus.user);
+                        socket.emit('Insert-Status',isLoggedUser.usuario,isTextFieldsStatus.usuario,isTextFieldsStatus.estatus === 'Habilitado' ? 1:0,isTextFieldsStatus.idusuario);
 
                         resolve('¡MEALSYNC agregó el status al usuario!...');
 
-                        const route = sessionStorage.getItem('Route');
-
-                        setCurrentMView('');
-                        sessionStorage.setItem('Modal-View','');
-                        setTimeout(() => {
-                            setIsModal(false);
-                            sessionStorage.setItem('Modal',false);
-                            setIsActionBlock(false);
-                            setIsStatusAdd(false);
-                            resetTextFieldsStatus();
-                            navigate(route,{ replace: true });
-                        },750);
+                        setIsStatusAdd(false);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -77,29 +87,46 @@ export default function Status_Add(){
                 }
             });
 
+            Status.current = 'STATUS';
+
             Alert_Verification(promise,'¡Agregando estatus al usuario!...');
         }
-    },[isStatusAdd]);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleStatusInsert = (message,user) => {
-            console.log(message,user);
-            socket.emit('Status');
-        };
-
-        socket.on('Status-Insert',handleStatusInsert);
-        
-        return () => {
-            socket.off('Status-Insert',handleStatusInsert);
+        if(isStatus.some(status => status.idusuario === isTextFieldsStatus.idusuario)){
+            setIsTextFieldsStatus(prev => ({
+                ...prev,
+                idestatus: isStatus.find(status => status.idusuario === isTextFieldsStatus.idusuario)?.idestatus
+            }))
+            setIsLogAdd(true);
         }
-    },[socket])
+        if(isLogAdd && isTextFieldsStatus.idestatus !== 0 && Status.current !== 'LOG'){
+            Status.current = 'LOG';
+            socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsStatus.idestatus,isLoggedUser.idusuario,isTextFieldsStatus.estatus === 'Habilitado' ? '1':'0','0',String(isTextFieldsStatus.idusuario));
+        
+            setIsLogAdd(false);
+
+            const route = sessionStorage.getItem('Ruta');
+
+            setCurrentMView('');
+            sessionStorage.setItem('Vista del Modal','');
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                resetTextFieldsUser();
+                resetTextFieldsPermissions();
+                resetTextFieldsStatus();
+                setIsStatusAdd(false);
+                navigate(route,{ replace: true });
+            },750);
+        }
+    },[isStatusAdd,isStatus,isTextFieldsStatus.idestatus]);
     // Estructura del componente
     return(
         <>
             {isModal ? (
                 <>
                     <Container_Modal>
-                        <Container_Form_400 ThemeMode={themeMode} className={currentMView === 'Status-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Form_400 ThemeMode={themeMode} className={currentMView === 'Estatus-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR STATUS</Text_Title_30_Center>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
@@ -166,9 +193,9 @@ export default function Status_Add(){
                                                 placeholder='Seleccione uno...'
                                                 value={filteredRecordsHasStatus
                                                     .map(user => ({ value: user.idusuario, label: user.usuario }))
-                                                    .find(option => option.value === isTextFieldsStatus.iduser)
+                                                    .find(option => option.value === isTextFieldsStatus.idusuario)
                                                 }
-                                                onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, iduser: e.value, user: e.label}))}
+                                                onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, idusuario: e.value, usuario: e.label}))}
                                                 isDisabled={isActionBlock}
                                             />
                                         </Container_Row_95_Center>  
@@ -197,9 +224,9 @@ export default function Status_Add(){
                                                 type="radio"
                                                 name="group"
                                                 value={item}
-                                                checked={isTextFieldsStatus.status === item}
+                                                checked={isTextFieldsStatus.estatus === item}
                                                 disabled={isActionBlock}
-                                                onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, status: e.target.value}))}
+                                                onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, estatus: e.target.value}))}
                                             />
                                             {item}
                                         </Label_Text_16_Center>

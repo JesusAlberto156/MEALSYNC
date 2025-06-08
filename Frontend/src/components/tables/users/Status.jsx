@@ -11,7 +11,7 @@ import { RefStatusContext } from "../../../contexts/RefsProvider"
 import { TextFieldsStatusContext } from "../../../contexts/FormsProvider"
 // Hooks personalizados
 import { TableActionsStatus } from "../../../hooks/Table"
-import { ResetTextFieldsStatus,ResetTextFieldsUser } from "../../../hooks/Texts"
+import { ResetTextFieldsStatus,ResetTextFieldsUser,ResetTextFieldsPermissions } from "../../../hooks/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaLockOpen } from "react-icons/fa";
@@ -69,17 +69,20 @@ export default function Table_Status(){
                 ...prev,
                 idusuario: isSelectedRow.idusuario,
                 usuario: isUsers.find(user => user.idusuario === isSelectedRow.idusuario)?.usuario || 'Desconocido',
+                idestatus: isSelectedRow.idestatus,
                 estatus: isSelectedRow.habilitado ? 'Habilitado' : 'Deshabilitado',
             }));
 
         }else{
-            resetTextFieldsStatus();
             resetTextFieldsUser();
+            resetTextFieldsPermissions();
+            resetTextFieldsStatus();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const resetTextFieldsStatus = ResetTextFieldsStatus();
     const resetTextFieldsUser = ResetTextFieldsUser();
+    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
+    const resetTextFieldsStatus = ResetTextFieldsStatus();
     const {handleRowClick, nextPageStatus, prevPage, currentRecordsStatus, currentPage, totalPagesStatus, ToggleOrder, ToggleOrderDirection} = TableActionsStatus();
     // Estructura del componente
     return(

@@ -50,8 +50,8 @@ export const HandleVerificationBlock = () => {
                         if(isTextFieldsUser.usuario === isLoggedUser.usuario && isTextFieldsUser.contrasena === isLoggedUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
                             setIsActionBlock(true);
-                            sessionStorage.setItem('Verification-Block',true);
-                            sessionStorage.setItem('Action-Block',true);
+                            sessionStorage.setItem('Verificación del Bloqueo',true);
+                            sessionStorage.setItem('Acción del Bloqueo',true);
                         }else{
                             setIsVerificationBlock(false);
                             return reject('¡Nombre de usuario o contraseña incorrectos!...');
@@ -223,7 +223,7 @@ export const HandleViewPassword = () => {
     // Retorno de la función del hook
     return handleViewPassword;
 }
-// Hook para editar un usuario desde el modal 
+// Hook para editar un usuario desde el modal ✔️
 export const HandleUserEdit = () => {
     // Constantes con el valor de los contextos 
     const [isUserEdit,setIsUserEdit] = useContext(UserEditContext);
@@ -234,25 +234,31 @@ export const HandleUserEdit = () => {
     const [isTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [isUsers] = useContext(UsersContext);
+    const [isLoggedUser] = useContext(LoggedUserContext)
     // Función del hook
     const handleUserEdit = () => {
-        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Edit'){
+        if(currentNView === 'Usuarios' && currentSView === 'Usuarios' && currentMView === 'Usuario-Editar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsUser.name === isSelectedRow.nombre && isTextFieldsUser.shortName === isSelectedRow.nombrecorto &&  isTextFieldsUser.user === isSelectedRow.usuario && isTextFieldsUser.password === isSelectedRow.contrasena && isTextFieldsUser.userTypes === isSelectedRow.idtipo){
+                        if(isLoggedUser.idusuario  === isTextFieldsUser.idusuario){
+                            setIsActionBlock(false);
+                            return reject('¡No puede editar el usuario de la sesión!...')
+                        };
+
+                        if(isTextFieldsUser.nombre === isSelectedRow.nombre && isTextFieldsUser.nombrecorto === isSelectedRow.nombrecorto &&  isTextFieldsUser.usuario === isSelectedRow.usuario && isTextFieldsUser.contrasena === isSelectedRow.contrasena && isTextFieldsUser.idtipo === isSelectedRow.idtipo){
                             setIsActionBlock(false);
                             return reject('¡No hay información del usuario modificada!...')
                         };
                         
-                        if(isTextFieldsUser.name === '' || isTextFieldsUser.shortName === '' || isTextFieldsUser.user === '' || isTextFieldsUser.password === '' || isTextFieldsUser.userTypes === 0){
+                        if(isTextFieldsUser.nombre === '' || isTextFieldsUser.nombrecorto === '' || isTextFieldsUser.usuario === '' || isTextFieldsUser.contrasena === '' || isTextFieldsUser.idtipo === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del usuario!...')
                         };
 
-                        if(isSelectedRow.usuario !== isTextFieldsUser.user){
-                            if(isUsers.some(user => user.usuario === isTextFieldsUser.user)){
+                        if(isSelectedRow.usuario !== isTextFieldsUser.usuario){
+                            if(isUsers.some(user => user.usuario === isTextFieldsUser.usuario)){
                                 setIsActionBlock(false);
                                 return reject('¡Usuario ya existente!...');
                             }
@@ -261,42 +267,42 @@ export const HandleUserEdit = () => {
                         const regexNames = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
                         const regexCredentials = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
 
-                        if(isTextFieldsUser.name.length > 150){
+                        if(isTextFieldsUser.nombre.length > 150){
                             setIsActionBlock(false);
                             return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexNames.test(isTextFieldsUser.name.trim())){
+                        if(!regexNames.test(isTextFieldsUser.nombre.trim())){
                             setIsActionBlock(false);
                             return reject('¡El nombre no es válido, solo permite letras y espacios!...');
                         }
 
-                        if(isTextFieldsUser.shortName.length > 50){
+                        if(isTextFieldsUser.nombrecorto.length > 50){
                             setIsActionBlock(false);
                             return reject('¡El nombre corto sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexNames.test(isTextFieldsUser.shortName.trim())){
+                        if(!regexNames.test(isTextFieldsUser.nombrecorto.trim())){
                             setIsActionBlock(false);
                             return reject('¡El nombre corto no es válido, solo permite letras y espacios!...');
                         }
 
-                        if(isTextFieldsUser.user.length > 25){
+                        if(isTextFieldsUser.usuario.length > 25){
                             setIsActionBlock(false);
                             return reject('¡El usuario sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexCredentials.test(isTextFieldsUser.user.trim())){
+                        if(!regexCredentials.test(isTextFieldsUser.usuario.trim())){
                             setIsActionBlock(false);
                             return reject('¡El usuario no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
                         }
                         
-                        if(isTextFieldsUser.password.length > 15){
+                        if(isTextFieldsUser.contrasena.length > 15){
                             setIsActionBlock(false);
                             return reject('¡La contraseña sobrepasa el límite de caracteres permitido!...');
                         }
 
-                        if(!regexCredentials.test(isTextFieldsUser.password.trim())){
+                        if(!regexCredentials.test(isTextFieldsUser.contrasena.trim())){
                             setIsActionBlock(false);
                             return reject('¡La contraseña no es válida, solo permite letras, números, espacios y algunos caracteres especiales!...');
                         }
@@ -319,7 +325,7 @@ export const HandleUserEdit = () => {
     // Retorno de la función del hook
     return handleUserEdit;
 }
-// Hook para eliminar un usuario desde el modal 
+// Hook para eliminar un usuario desde el modal ✔️
 export const HandleUserDelete = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -331,12 +337,12 @@ export const HandleUserDelete = () => {
     const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
     // Función del hook
     const handleUserDelete = () => {
-        if(currentNView === 'Users' && currentSView === 'Users' && currentMView === 'User-Delete'){
+        if(currentNView === 'Usuarios' && currentSView === 'Usuarios' && currentMView === 'Usuario-Eliminar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(false);
                     setTimeout(() => {
-                        if(isLoggedUser.idusuario  === isTextFieldsUser.iduser){
+                        if(isLoggedUser.idusuario  === isTextFieldsUser.idusuario){
                             setIsActionBlock(true);
                             return reject('¡No puede eliminar el usuario de la sesión!...')
                         };
@@ -359,15 +365,15 @@ export const HandleUserDelete = () => {
     // Retorno de la función del hook
     return handleUserDelete;
 }
-// Hook para filtrar los usuarios cuando no tiene permisos 
+// Hook para filtrar los usuarios cuando no tiene permisos ✔️
 export const FilteredRecordsHasPermissions = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
     const [isPermissions] = useContext(PermissionsContext);
-    const [isUsersDelete] = useContext(DeletedUsersContext);
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     // Función del hook
     const filteredRecordsHasPermissions = isUsers.filter((data) => {
-        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
         if (isDeleted) return false;
 
         return !isPermissions.some(permission => permission.idusuario === data.idusuario);
@@ -375,7 +381,7 @@ export const FilteredRecordsHasPermissions = () => {
     // Retorno de la función del hook
     return filteredRecordsHasPermissions;
 }
-// Hook para agregar los permisos a un usuario desde el modal 
+// Hook para agregar los permisos a un usuario desde el modal ✔️
 export const HandlePermissionsAdd = () => {
     // Constantes con el valor de los contextos 
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
@@ -386,12 +392,12 @@ export const HandlePermissionsAdd = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const handlePermissionsAdd = () => {
-        if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Add'){
+        if(currentNView === 'Permisos' && currentSView === 'Usuarios' && currentMView === 'Permisos-Agregar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsPermissions.iduser === 0 && isTextFieldsPermissions.user === ''){
+                        if(isTextFieldsPermissions.idusuario === 0 && isTextFieldsPermissions.usuario === ''){
                             setIsActionBlock(false);
                             return reject('¡No ha seleccionado un usuario!...')
                         };
@@ -414,7 +420,7 @@ export const HandlePermissionsAdd = () => {
     // Retorno de la función del hook
     return handlePermissionsAdd;
 }
-// Hook para editar los permisos a un usuario desde el modal 
+// Hook para editar los permisos a un usuario desde el modal ✔️
 export const HandlePermissionsEdit = () => {
     // Constantes con el valor de los contextos 
     const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
@@ -429,24 +435,24 @@ export const HandlePermissionsEdit = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
     const handlePermissionsEdit = () => {
-        if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Edit'){
+        if(currentNView === 'Permisos' && currentSView === 'Usuarios' && currentMView === 'Permisos-Editar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsPermissions.administrator === isSelectedRow.administrador && isTextFieldsPermissions.chef === isSelectedRow.chef && isTextFieldsPermissions.storekeeper === isSelectedRow.almacenista && isTextFieldsPermissions.cook === isSelectedRow.cocinero && isTextFieldsPermissions.nutritionist === isSelectedRow.nutriologo && isTextFieldsPermissions.doctor === isSelectedRow.medico){
+                        if(isTextFieldsPermissions.administrador === isSelectedRow.administrador && isTextFieldsPermissions.chef === isSelectedRow.chef && isTextFieldsPermissions.almacenista === isSelectedRow.almacenista && isTextFieldsPermissions.cocinero === isSelectedRow.cocinero && isTextFieldsPermissions.nutriologo === isSelectedRow.nutriologo && isTextFieldsPermissions.medico === isSelectedRow.medico){
                             setIsActionBlock(false);
                             return reject('¡No hay permisos modificados!...');
                         }
 
-                        if(isTextFieldsPermissions.iduser === isLoggedUser.idusuario){
+                        if(isTextFieldsPermissions.idusuario === isLoggedUser.idusuario){
                             setIsActionBlock(false);
                             return reject('¡No se puede editar los permisos del usuario de la sesión!...');
                         };
 
                         
                         if(!isLoggedPermissions.superadministrador){
-                            const exists = isPermissions.find((user) => user.idusuario === isTextFieldsPermissions.iduser)
+                            const exists = isPermissions.find((user) => user.idusuario === isTextFieldsPermissions.idusuario)
 
                             if(exists){
                                 if(exists.superadministrador){
@@ -488,12 +494,12 @@ export const HandlePermissionsEnable = () => {
     const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     // Función del hook
     const handlePermissionsEnable = () => {
-        if(currentNView === 'Permissions' && currentSView === 'Users' && currentMView === 'Permissions-Enable'){
+        if(currentNView === 'Permisos' && currentSView === 'Usuarios' && currentMView === 'Permiso-Super-Administrador'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(false);
                     setTimeout(() => {
-                        if(isTextFieldsPermissions.iduser === isLoggedUser.idusuario){
+                        if(isTextFieldsPermissions.idusuario === isLoggedUser.idusuario){
                             setIsActionBlock(true);
                             return reject('¡No se puede deshabilitar el permiso de super administrador al usuario de la sesión!...');
                         };
@@ -520,14 +526,14 @@ export const HandlePermissionsEnable = () => {
 export const FilteredRecordsHasStatus = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
-    const [isStatusAll] = useContext(StatusContext);
-    const [isUsersDelete] = useContext(DeletedUsersContext);
+    const [isStatus] = useContext(StatusContext);
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     // Función del hook
     const filteredRecordsHasStatus = isUsers.filter((data) => {
-        const isDeleted = isUsersDelete.some(user => user.idusuario === data.idusuario);
+        const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
         if (isDeleted) return false;
 
-        return !isStatusAll.some(status => status.idusuario === data.idusuario);
+        return !isStatus.some(status => status.idusuario === data.idusuario);
     });
     // Retorno de la función del hook
     return filteredRecordsHasStatus;
@@ -542,13 +548,13 @@ export const HandleStatusSAdd = () => {
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Función del hook
-    const handleStatusSAdd = () => {
-        if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Add'){
+    const handleStatusAdd = () => {
+        if(currentNView === 'Estatus' && currentSView === 'Usuarios' && currentMView === 'Estatus-Agregar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsStatus.iduser === 0 && isTextFieldsStatus.user === '' || isTextFieldsStatus.status === ''){
+                        if(isTextFieldsStatus.idusuario === 0 && isTextFieldsStatus.usuario === '' || isTextFieldsStatus.estatus === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información del estatus del usuario!...')
                         };
@@ -569,7 +575,7 @@ export const HandleStatusSAdd = () => {
         }
     } 
     // Retorno de la función del hook
-    return handleStatusSAdd;
+    return handleStatusAdd;
 }
 // Hook para habilitar a un usuario desde el modal ✔️
 export const HandleStatusEnable = () => {
@@ -585,20 +591,20 @@ export const HandleStatusEnable = () => {
     const [currentMView] = useContext(ModalViewContext);
     // Función del hook
     const handleStatusEnable = () => {
-        if(currentNView === 'Status' && currentSView === 'Users' && currentMView === 'Status-Enable'){
+        if(currentNView === 'Estatus' && currentSView === 'Usuarios' && currentMView === 'Estatus-Habilitar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(false);
                     setTimeout(() => {
-                        if(isTextFieldsStatus.status === 'Habilitado'){
-                            if(isTextFieldsStatus.iduser === isLoggedUser.idusuario){
+                        if(isTextFieldsStatus.estatus === 'Habilitado'){
+                            if(isTextFieldsStatus.idusuario === isLoggedUser.idusuario){
                                 setIsActionBlock(true);
                                 return reject('¡No se puede deshabilitar el usuario de la sesión!...');
                             };
 
                             
                             if(!isLoggedPermissions.superadministrador){
-                                const exists = isPermissions.find((user) => user.idusuario === isTextFieldsStatus.iduser)
+                                const exists = isPermissions.find((user) => user.idusuario === isTextFieldsStatus.idusuario)
 
                                 if(exists){
                                     if(exists.superadministrador){
@@ -728,7 +734,7 @@ export const HandleSupplierEdit = () => {
     // Retorno de la función del hook
     return handleSupplierEdit;
 }
-//Hook para agregar un insumo desde el modal ✔️
+//Hook para agregar un insumo desde el modal 
 export const HandleWarehouseAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -807,7 +813,7 @@ export const HandleWarehouseAdd = () => {
      // Retorno de la función del hook
      return handleWarehouseAdd
 }
-//Hook para agregar un insumo desde el modal ✔️
+//Hook para agregar un insumo desde el modal 
 export const HandleSupplyAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -886,7 +892,7 @@ export const HandleSupplyAdd = () => {
      // Retorno de la función del hook
      return handleSupplyAdd
 }
-//Hook para editar un insumo desde el modal ✔️
+//Hook para editar un insumo desde el modal 
 export const HandleSupplyEdit = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -973,7 +979,7 @@ export const HandleSupplyEdit = () => {
      // Retorno de la función del hook
      return handleSupplyEdit
 }
-//Hook para agregar un tipo de insumo desde el modal ✔️
+//Hook para agregar un tipo de insumo desde el modal 
 export const HandleSupplyTypeAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);

@@ -11,7 +11,8 @@ import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefPermissionsContext } from "../../../../contexts/RefsProvider";
 import { PermissionsEditContext } from "../../../../contexts/UsersProvider";
-import { SocketContext } from "../../../../contexts/SocketProvider";
+import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandlePermissionsEdit } from "../../../../hooks/Form";
@@ -45,33 +46,37 @@ export default function Permissions_Edit(){
     const [socket] = useContext(SocketContext);
     const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handlePermissionsEdit = HandlePermissionsEdit();
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isPermissionsEdit){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Permissions-Update',isTextFieldsPermissions.iduser,isTextFieldsPermissions.user,isTextFieldsPermissions.administrator,isTextFieldsPermissions.chef,isTextFieldsPermissions.storekeeper,isTextFieldsPermissions.cook,isTextFieldsPermissions.nutritionist,isTextFieldsPermissions.doctor)
-                        socket.emit('Message-Permissions',isTextFieldsPermissions.user);
+                        socket.emit('Update-Permissions',isLoggedUser.usuario,isTextFieldsPermissions.usuario,isTextFieldsPermissions.idusuario,isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico)
                         
-                        resolve('¡MEALSYNC edito los permisos al usuario!...')
+                        resolve('¡MEALSYNC editó los permisos al usuario!...')
                         
-                        const route = sessionStorage.getItem('Route');
-
-                        setCurrentMView('');
-                        sessionStorage.setItem('Modal-View','');
-                        setTimeout(() => {
-                            setIsModal(false);
-                            sessionStorage.setItem('Modal',false);
-                            setIsActionBlock(false);
-                            setIsPermissionsEdit(false);
-                            setIsSelectedRow(null);
-                            navigate(route,{ replace: true });
-                        },750);
+                        setIsPermissionsEdit(false);
+                        setIsLogAdd(true);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -82,27 +87,30 @@ export default function Permissions_Edit(){
             
             Alert_Verification(promise,'¡Editando permisos a un usuario!...');
         }
-    },[isPermissionsEdit]);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handlePermissionsUpdate = (message,user) => {
-            console.log(message,user);
-            socket.emit('Permissions');
-        };
+        if(isLogAdd){
+            socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'',String(isTextFieldsPermissions.idusuario));
+            setIsLogAdd(false);
 
-        socket.on('Permissions-Update',handlePermissionsUpdate);
-        
-        return () => {
-            socket.off('Permissions-Update',handlePermissionsUpdate);
+            const route = sessionStorage.getItem('Ruta');
+
+            setCurrentMView('');
+            sessionStorage.setItem('Vista del Modal','');
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                setIsSelectedRow(null);
+                navigate(route,{ replace: true });
+            },750);
         }
-    },[socket])
+    },[isPermissionsEdit,isLogAdd]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
                     <Container_Modal ref={Modal_Permissions}>
-                        <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permissions-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permisos-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_30_Center>
                             <Container_Row_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
@@ -110,7 +118,7 @@ export default function Permissions_Edit(){
                             </Container_Row_95_Center>
                             <Container_Row_NG_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>{isTextFieldsPermissions.user}</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}>{isTextFieldsPermissions.usuario}</Text_A_16_Left>
                             </Container_Row_NG_90_Center>
                             <Container_Row_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
@@ -126,8 +134,8 @@ export default function Permissions_Edit(){
                                         <Input_Checkbox_16 ThemeMode={themeMode}
                                             type="checkbox"
                                             disabled={isActionBlock}
-                                            checked={isTextFieldsPermissions.administrator}
-                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrator: e.target.checked ? 1 : 0}))}
+                                            checked={isTextFieldsPermissions.administrador}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrador: e.target.checked ? 1 : 0}))}
                                         />
                                         Administrador
                                     </Label_Text_16_Center>
@@ -144,8 +152,8 @@ export default function Permissions_Edit(){
                                         <Input_Checkbox_16 ThemeMode={themeMode}
                                             type="checkbox"
                                             disabled={isActionBlock}
-                                            checked={isTextFieldsPermissions.storekeeper}
-                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, storekeeper: e.target.checked ? 1 : 0}))}
+                                            checked={isTextFieldsPermissions.almacenista}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, almacenista: e.target.checked ? 1 : 0}))}
                                         />
                                         Almacenista
                                     </Label_Text_16_Center>
@@ -159,8 +167,8 @@ export default function Permissions_Edit(){
                                         <Input_Checkbox_16 ThemeMode={themeMode}
                                             type="checkbox"
                                             disabled={isActionBlock}
-                                            checked={isTextFieldsPermissions.cook}
-                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cook: e.target.checked ? 1 : 0}))}
+                                            checked={isTextFieldsPermissions.cocinero}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cocinero: e.target.checked ? 1 : 0}))}
                                         />
                                         Cocinero
                                     </Label_Text_16_Center>
@@ -168,8 +176,8 @@ export default function Permissions_Edit(){
                                         <Input_Checkbox_16 ThemeMode={themeMode}
                                             type="checkbox"
                                             disabled={isActionBlock}
-                                            checked={isTextFieldsPermissions.nutritionist}
-                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutritionist: e.target.checked ? 1 : 0}))}
+                                            checked={isTextFieldsPermissions.nutriologo}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutriologo: e.target.checked ? 1 : 0}))}
                                         />
                                         Nutriólogo
                                     </Label_Text_16_Center>
@@ -177,8 +185,8 @@ export default function Permissions_Edit(){
                                         <Input_Checkbox_16 ThemeMode={themeMode}
                                             type="checkbox"
                                             disabled={isActionBlock}
-                                            checked={isTextFieldsPermissions.doctor}
-                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, doctor: e.target.checked ? 1 : 0}))}
+                                            checked={isTextFieldsPermissions.medico}
+                                            onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, medico: e.target.checked ? 1 : 0}))}
                                         />
                                         Médico
                                     </Label_Text_16_Center>
@@ -206,7 +214,7 @@ export default function Permissions_Edit(){
                     </Container_Modal>  
                 </>
             ):(
-                currentMView === 'Permissions-Edit' ? (
+                currentMView === 'Permisos-Editar' ? (
                     <>
                         <Error_Edit/>
                     </>

@@ -5,23 +5,54 @@
 
 //____________CHARTS____________
 const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
+//____________DISHES____________
+const [isDishes,setIsDishes] = useContext(DishesContext);
+const [isDishAdd,setIsDishAdd] = useContext(DishAddContext);
+const [isDishEdit,setIsDishEdit] = useContext(DishEditContext);
+const [isDeletedDishes,setIsDeletedDishes] = useContext(DeletedDishesContext);
+const [isDishDelete,setIsDishDelete] = useContext(DishDeleteContext);
+const [isDishSpecifications,setIsDishSpecifications] = useContext(DishSpecificationsContext);
+const [isDishSpecificationsAdd,setIsDishSpecificationsAdd] = useContext(DishSpecificationsAddContext);
+const [isDishSpecificationsEdit,setIsDishSpecificationsEdit] = useContext(DishSpecificationsEditContext);
+const [isDishWarehouse,setIsDishWarehouse] = useContext(DishWarehouseContext);
+const [isDishWarehouseAdd,setIsDishWarehouseAdd] = useContext(DishWarehouseAddContext);
+const [isDishWarehouseEdit,setIsDishWarehouseEdit] = useContext(DishWarehouseEditContext);
+const [isDishWarehouseDelete,setIsDishWarehouseDelete] = useContext(DishWarehouseDeleteContext);
+const [isMealTypes,setIsMealTypes] = useContext(MealTypesContext);
+const [isMealTypeAdd,setIsMealTypeAdd] = useContext(MealTypeAddContext);
+const [isMealTypeDelete,setIsMealTypeDelete] = useContext(MealTypeDeleteContext);
+//____________DISHES____________
 //____________FORM____________
 const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext); ✔️
 const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext); ✔️
 const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext); ✔️
-const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
+const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext); ✔️
+const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext); ✔️
 const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useContext(TextFieldsWarehouseContext);
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
 const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
 const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);
+const [isTextFieldsMenuTypes,setIsTextFieldsMenuTypes] = useContext(TextFieldsMenuTypesContext); ✔️
+const [isTextFieldsDishes,setIsTextFieldsDishes] = useContext(TextFieldsDishesContext); ✔️
 //____________FORM____________
+//____________MENUS____________
+const [isMenus,setIsMenus] = useContext(MenusContext);
+const [isMenuTypes,setIsMenuTypes] = useContext(MenuTypesContext);
+const [isMenuTypeAdd,setIsMenuTypeAdd] = useContext(MenuTypeAddContext);
+const [isMenuTypeEdit,setIsMenuTypeEdit] = useContext(MenuTypeEditContext);
+const [isDeletedMenuTypes,setIsDeletedMenuTypes] = useContext(DeletedMenuTypesContext);
+const [isMenuTypeDelete,setIsMenuTypeDelete] = useContext(MenuTypeDeleteContext);
+const [isMenuTypeLocation,setIsMenuTypeLocation] = useContext(MenuTypeLocationContext);
+const [isMenuLocations,setIsMenuLocations] = useContext(MenuLocationsContext);
+//____________MENUS____________
 //____________REF____________
 const isAlertGreeting = useContext(RefAlertGreetingContext);
 const isKeyboard = useContext(RefKeyboardContext);
 const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext); ✔️
 const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext); ✔️
 const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext); ✔️
-const {Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
+const {Modal_Suppliers,Form_Suppliers,Button_Edit_Suppliers,Button_Delete_Suppliers} = useContext(RefSuppliersContext); ✔️
+const {Modal_Observations,Form_Observations,Button_Detail_Observations} = useContext(RefObservationsContext); ✔️
 const {Modal,Form,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
 const {Modal_ST,Form_ST,Button_Edit_ST,Button_Delete_ST} = useContext(RefSupplyTypesContext);
 const {Modal_Un,Form_Un,Button_Edit_Un,Button_Delete_Un} = useContext(RefUnitsContext);
@@ -54,10 +85,13 @@ const [isLogs,setIsLogs] = useContext(LogsContext); ✔️
 const [isLogAdd,setIsLogAdd] = useContext(LogAddContext); ✔️
 //____________SOCKET____________
 //____________SUPPLIERS____________
-const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext);
-const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
-const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext);
-const [isObservations,setIsObservations] = useContext(ObservationsContext);
+const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext); ✔️
+const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext); ✔️
+const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext); ✔️
+const [isDeletedSuppliers,setIsDeletedSuppliers] = useContext(DeletedSuppliersContext); ✔️
+const [isSupplierDelete,setIsSupplierDelete] = useContext(SupplierDeleteContext); ✔️
+const [isObservations,setIsObservations] = useContext(ObservationsContext); ✔️
+const [isObservationAdd,setIsObservationAdd] = useContext(ObservationAddContext); ✔️
 //____________SUPPLIERS____________
 //____________USERS____________
 const [isUsers,setIsUsers] = useContext(UsersContext); ✔️
@@ -76,23 +110,23 @@ const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext); ✔�
 const [isUserTypes,setIsUserTypes] = useContext(UserTypesContext); ✔️
 //____________USERS____________
 //____________VARIABLES____________
-const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-const [isAnimation,setIsAnimation] = useContext(AnimationContext);
-const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
-const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
-const [isTouch,setIsTouch] = useContext(TouchContext);
-const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
+const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext); ✔️
+const [isAnimation,setIsAnimation] = useContext(AnimationContext); ✔️
+const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext); ✔️
+const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext); ✔️
+const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext); ✔️
+const [isTouch,setIsTouch] = useContext(TouchContext); ✔️
+const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext); ✔️
 //____________VARIABLES____________
 //____________VIEWS____________
-const [themeMode,setThemeMode] = useContext(ThemeModeContext);
-const [currentLView,setCurrentLView] = useContext(LoginViewContext);
-const [currentNView,setCurrentNView] = useContext(NavbarViewContext);
-const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
-const [isSidebar,setIsSidebar] = useContext(SidebarContext);
-const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-const [isModal,setIsModal] = useContext(ModalContext);
-const [isSubModal,setIsSubModal] = useContext(SubModalContext);
+const [themeMode,setThemeMode] = useContext(ThemeModeContext); ✔️
+const [currentLView,setCurrentLView] = useContext(LoginViewContext); ✔️
+const [currentNView,setCurrentNView] = useContext(NavbarViewContext); ✔️
+const [currentSView,setCurrentSView] = useContext(SidebarViewContext); ✔️
+const [isSidebar,setIsSidebar] = useContext(SidebarContext); ✔️
+const [currentMView,setCurrentMView] = useContext(ModalViewContext); ✔️
+const [isModal,setIsModal] = useContext(ModalContext); ✔️
+const [isSubModal,setIsSubModal] = useContext(SubModalContext); ✔️
 //____________VIEWS____________
 //____________WAREHOUSE____________
 const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
@@ -107,320 +141,3 @@ const [isUnitEdit,setIsUnitEdit] = useContext(UnitEditContext);
 const [isSupplyPrices,setIsSupplyPrices] = useContext(SupplyPricesContext);
 const [isWarehouse,setIsWarehouse] = useContext(WarehouseContext);
 //____________WAREHOUSE____________
-
-
-    if(isTextFieldsUser.permisos !== ''){
-        setIsPermissionsAdd(true);
-        setIsLogAdd(true);
-    }
-
-    if(isTextFieldsUser.estatus !== '' && isTextFieldsUser.permisos === ''){
-        setIsStatusAdd(true);
-        setIsLogAdd(true);
-
-    }
-
-    if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === ''){
-        setIsLogAdd(true);
-    }
-
-    if(isTextFieldsUser.estatus !== '' && isTextFieldsUser.idusuario !== 0 && isStatus.length !== 0 && !isPermissionsAdd && !isUserAdd){
-        socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isStatus.find((status) => status.idusuario === isTextFieldsUser.idusuario)?.idestatus,isLoggedUser.idusuario,isTextFieldsUser.estatus === 'Habilitado' ? '1':'0','0',String(isTextFieldsUser.idusuario));
-        
-        setIsLogAdd(false);
-
-        const route = sessionStorage.getItem('Ruta');
-
-        setCurrentMView('');
-        sessionStorage.setItem('Vista del Modal','');
-        setTimeout(() => {
-            setIsModal(false);
-            sessionStorage.setItem('Estado del Modal',false);
-            setIsSubModal(false);
-            sessionStorage.setItem('Estado del Sub-Modal',false);
-            resetTextFieldsUser();
-            resetTextFieldsPermissions();
-            setIsAnimation(false);
-            sessionStorage.removeItem('Animación');
-            setIsActionBlock(false);
-            navigate(route,{ replace: true });
-        },750);
-    }
-    if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === '' && isTextFieldsUser.idusuario !== 0 && isPermissions.length !== 0 && !isUserAdd && !isStatusAdd){
-        socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isPermissions.find((permission) => permission.idusuario === isTextFieldsUser.idusuario)?.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
-        
-        setIsLogAdd(false);
-
-        const route = sessionStorage.getItem('Ruta');
-
-        setCurrentMView('');
-        sessionStorage.setItem('Vista del Modal','');
-        setTimeout(() => {
-            setIsModal(false);
-            sessionStorage.setItem('Estado del Modal',false);
-            setIsSubModal(false);
-            sessionStorage.setItem('Estado del Sub-Modal',false);
-            resetTextFieldsUser();
-            resetTextFieldsPermissions();
-            setIsAnimation(false);
-            sessionStorage.removeItem('Animación');
-            setIsActionBlock(false);
-            navigate(route,{ replace: true });
-        },750);
-    }else{
-        if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== '' && isTextFieldsUser.idusuario !== 0 && isPermissions.length !== 0){
-            socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isPermissions.find((permission) => permission.idusuario === isTextFieldsUser.idusuario)?.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
-            setIsLogAdd(false);
-        }
-    }
-    if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === '' && isUsers.length !== 0 && !isPermissionsAdd && !isStatusAdd){
-        socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-        
-        setIsLogAdd(false);
-
-        const route = sessionStorage.getItem('Ruta');
-
-        setCurrentMView('');
-        sessionStorage.setItem('Vista del Modal','');
-        setTimeout(() => {
-            setIsModal(false);
-            sessionStorage.setItem('Estado del Modal',false);
-            setIsSubModal(false);
-            sessionStorage.setItem('Estado del Sub-Modal',false);
-            resetTextFieldsUser();
-            resetTextFieldsPermissions();
-            setIsAnimation(false);
-            sessionStorage.removeItem('Animación');
-            setIsActionBlock(false);
-            navigate(route,{ replace: true });
-        },750);
-    }else{
-        socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-        setIsLogAdd(false);
-    }
-
-
-        useEffect(() => {
-        if(isUserAdd){
-            const promise = new Promise((resolve,reject) => {
-                try{
-                    setTimeout(() => {
-                        socket.emit('Insert-User',isLoggedUser.usuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),isTextFieldsUser.idtipo)
-
-                        resolve('¡MEALSYNC agrego al usuario!...');
-
-                        setIsUserAdd(false);
-
-                        if(isTextFieldsUser.permisos !== ''){
-                            setIsPermissionsAdd(true);
-                            setIsLogAdd(true);
-                        }
-
-                        if(isTextFieldsUser.estatus !== '' && isTextFieldsUser.permisos === ''){
-                            setIsStatusAdd(true);
-                            setIsLogAdd(true);
-
-                        }
-
-                        if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === ''){
-                            setIsLogAdd(true);
-                        }
-                    },2000);
-                }catch(e){
-                    setIsActionBlock(false);
-                    setIsUserAdd(false);
-                    return reject('¡Ocurrio un error inesperado!...');
-                }
-            });
-
-            Alert_Verification(promise,'¡Agregando un usuario!...');
-        }
-        if(isPermissionsAdd && isTextFieldsUser.permisos !== ''){
-            if(isTextFieldsUser.idusuario !== 0){
-                const promise = new Promise((resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            socket.emit('Insert-Permissions',isLoggedUser.usuario,isTextFieldsUser.usuario.trim(),isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico,isTextFieldsUser.idusuario);
-                            
-                            resolve('¡MEALSYNC agregó los permisos al usuario!...')
-
-                            setIsPermissionsAdd(false);
-
-                            if(isTextFieldsUser.estatus !== ''){
-                                setIsStatusAdd(true);
-                                setIsLogAdd(true);
-                            }
-
-                            if(isTextFieldsUser.estatus === ''){
-                                setIsLogAdd(true);
-                            }
-                        },2000);
-                    }catch(e){
-                        setIsActionBlock(false);
-                        setIsPermissionsAdd(false);
-                        return reject('¡Ocurrio un error inesperado agregando los permisos al usuario!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Agregando permisos al usuario!...');
-            }else{
-                setIsTextFieldsUser(prev => ({
-                    ...prev,
-                    idusuario: isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario || 0,
-                }));
-                setIsPermissionsAdd(true);
-            }
-        }
-        if(isStatusAdd && isTextFieldsUser.estatus !== ''){
-            if(isTextFieldsUser.idusuario !== 0){
-                const promise = new Promise((resolve,reject) => {
-                    try{
-                        setTimeout(() => {
-                            socket.emit('Insert-Status',isLoggedUser.usuario,isTextFieldsUser.usuario.trim(),isTextFieldsUser.estatus === 'Habilitado' ? 1:0,isTextFieldsUser.idusuario);
-                            
-                            setIsLogAdd(true);
-
-                            resolve('¡MEALSYNC agregó el estatus al usuario!...');
-
-                            setIsStatusAdd(false);
-                        },2000);
-                    }catch(e){               
-                        setIsActionBlock(false);
-                        setIsStatusAdd(false);
-                        return reject('¡Ocurrio un error inesperado agregando el estatus al usuario!...');
-                    }
-                });
-
-                Alert_Verification(promise,'¡Agregando estatus al usuario!...');
-            }else{
-                setIsTextFieldsUser(prev => ({
-                    ...prev,
-                    idusuario: isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario || 0,
-                }));
-                setIsPermissionsAdd(true);
-            }
-        }
-        if(isLogAdd){
-            if(isTextFieldsUser.estatus !== '' && isTextFieldsUser.idusuario !== 0 && isStatus.length !== 0 && !isPermissionsAdd && !isUserAdd){
-                socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isStatus.find((status) => status.idusuario === isTextFieldsUser.idusuario)?.idestatus,isLoggedUser.idusuario,isTextFieldsUser.estatus === 'Habilitado' ? '1':'0','0',String(isTextFieldsUser.idusuario));
-                
-                setIsLogAdd(false);
-
-                const route = sessionStorage.getItem('Ruta');
-
-                setCurrentMView('');
-                sessionStorage.setItem('Vista del Modal','');
-                setTimeout(() => {
-                    setIsModal(false);
-                    sessionStorage.setItem('Estado del Modal',false);
-                    setIsSubModal(false);
-                    sessionStorage.setItem('Estado del Sub-Modal',false);
-                    resetTextFieldsUser();
-                    resetTextFieldsPermissions();
-                    setIsAnimation(false);
-                    sessionStorage.removeItem('Animación');
-                    setIsActionBlock(false);
-                    navigate(route,{ replace: true });
-                },750);
-            }
-            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === '' && isTextFieldsUser.idusuario !== 0 && isPermissions.length !== 0 && !isUserAdd && !isStatusAdd){
-                socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isPermissions.find((permission) => permission.idusuario === isTextFieldsUser.idusuario)?.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
-                
-                setIsLogAdd(false);
-
-                const route = sessionStorage.getItem('Ruta');
-
-                setCurrentMView('');
-                sessionStorage.setItem('Vista del Modal','');
-                setTimeout(() => {
-                    setIsModal(false);
-                    sessionStorage.setItem('Estado del Modal',false);
-                    setIsSubModal(false);
-                    sessionStorage.setItem('Estado del Sub-Modal',false);
-                    resetTextFieldsUser();
-                    resetTextFieldsPermissions();
-                    setIsAnimation(false);
-                    sessionStorage.removeItem('Animación');
-                    setIsActionBlock(false);
-                    navigate(route,{ replace: true });
-                },750);
-            }else{
-                if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== '' && isTextFieldsUser.idusuario !== 0 && isPermissions.length !== 0){
-                    socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isPermissions.find((permission) => permission.idusuario === isTextFieldsUser.idusuario)?.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
-                    setIsLogAdd(false);
-                }
-            }
-            if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === '' && isUsers.length !== 0 && !isPermissionsAdd && !isStatusAdd){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                
-                setIsLogAdd(false);
-
-                const route = sessionStorage.getItem('Ruta');
-
-                setCurrentMView('');
-                sessionStorage.setItem('Vista del Modal','');
-                setTimeout(() => {
-                    setIsModal(false);
-                    sessionStorage.setItem('Estado del Modal',false);
-                    setIsSubModal(false);
-                    sessionStorage.setItem('Estado del Sub-Modal',false);
-                    resetTextFieldsUser();
-                    resetTextFieldsPermissions();
-                    setIsAnimation(false);
-                    sessionStorage.removeItem('Animación');
-                    setIsActionBlock(false);
-                    navigate(route,{ replace: true });
-                },750);
-            }else{
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
-            }
-        }
-    },[isUserAdd,isPermissionsAdd,isStatusAdd,isUsers,isPermissions,isLogAdd,isTextFieldsUser])
-    
-
-
-    if(isUserAdd && isLogAdd && isTextFieldsUser.idusuario !== 0){
-            if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
-
-                const route = sessionStorage.getItem('Ruta');
-
-                setCurrentMView('');
-                sessionStorage.setItem('Vista del Modal','');
-                setTimeout(() => {
-                    setIsModal(false);
-                    sessionStorage.setItem('Estado del Modal',false);
-                    setIsSubModal(false);
-                    sessionStorage.setItem('Estado del Sub-Modal',false);
-                    resetTextFieldsUser();
-                    resetTextFieldsPermissions();
-                    setIsAnimation(false);
-                    sessionStorage.removeItem('Animación');
-                    setIsActionBlock(false);
-                    navigate(route,{ replace: true });
-                },750);
-            }
-            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
-                setIsPermissionsAdd(true);
-            }
-            if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus !== ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
-                setIsStatusAdd(true);
-            }
-            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isUsers.find((user) => user.usuario === isTextFieldsUser.usuario)?.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
-                setIsPermissionsAdd(true);
-            }
-        }else{
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                idusuario: isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario || 0,
-            }));
-            setIsPermissionsAdd(true);
-        }

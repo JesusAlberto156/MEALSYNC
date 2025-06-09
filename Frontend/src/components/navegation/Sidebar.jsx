@@ -118,9 +118,9 @@ export default function Side_Bar() {
               </Tooltip>
               <Tooltip title='Proveedores' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleSidebarView('Suppliers');
-                  handleNavbarView('Suppliers');
-                  sessionStorage.setItem('Route','/Administration/Index/Suppliers');
+                  handleSidebarView('Proveedores');
+                  handleNavbarView('Proveedores');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Suppliers');
                   navigate('/Administration/Index/Suppliers',{ replace: true });
                 }}>
                   <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><GiHandTruck/></Icon_White_18>
@@ -128,9 +128,9 @@ export default function Side_Bar() {
               </Tooltip>
               <Tooltip title='Inventario' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  handleSidebarView('Warehouse');
-                  handleNavbarView('Warehouse');
-                  sessionStorage.setItem('Route','/Administration/Index/Warehouse');
+                  handleSidebarView('Inventario');
+                  handleNavbarView('Inventario');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Warehouse');
                   navigate('/Administration/Index/Warehouse',{ replace: true });
                 }}>
                   <Text_Span_16_Left>Inventario</Text_Span_16_Left><Icon_White_18><FaWarehouse/></Icon_White_18>
@@ -155,12 +155,54 @@ export default function Side_Bar() {
             <></>
           )}
           {isLoggedType === 'Chef' ? (
-            <></>
+            <>
+              <Tooltip title='Proveedores' placement="right">
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
+                  handleSidebarView('Proveedores');
+                  handleNavbarView('Proveedores');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Suppliers');
+                  navigate('/Administration/Index/Suppliers',{ replace: true });
+                }}>
+                  <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><GiHandTruck/></Icon_White_18>
+                </Button_Icon_Blue_200>
+              </Tooltip>
+              <Tooltip title='Inventario' placement="right">
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
+                  handleSidebarView('Inventario');
+                  handleNavbarView('Inventario');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Warehouse');
+                  navigate('/Administration/Index/Warehouse',{ replace: true });
+                }}>
+                  <Text_Span_16_Left>Inventario</Text_Span_16_Left><Icon_White_18><FaWarehouse/></Icon_White_18>
+                </Button_Icon_Blue_200>
+              </Tooltip>
+            </>
           ):(
             <></>
           )}
           {isLoggedType === 'Almacenista' ? (
-            <></>
+            <>
+              <Tooltip title='Proveedores' placement="right">
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
+                  handleSidebarView('Proveedores');
+                  handleNavbarView('Proveedores');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Suppliers');
+                  navigate('/Administration/Index/Suppliers',{ replace: true });
+                }}>
+                  <Text_Span_16_Left>Proveedores</Text_Span_16_Left><Icon_White_18><GiHandTruck/></Icon_White_18>
+                </Button_Icon_Blue_200>
+              </Tooltip>
+              <Tooltip title='Inventario' placement="right">
+                <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
+                  handleSidebarView('Inventario');
+                  handleNavbarView('Inventario');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Warehouse');
+                  navigate('/Administration/Index/Warehouse',{ replace: true });
+                }}>
+                  <Text_Span_16_Left>Inventario</Text_Span_16_Left><Icon_White_18><FaWarehouse/></Icon_White_18>
+                </Button_Icon_Blue_200>
+              </Tooltip>
+            </>
           ):(
             <></>
           )}

@@ -20,7 +20,7 @@ export default function Administration_Index(){
     return(
         <> 
             <Nav_Bar/> 
-            {currentNView !== 'Supply-Types' ? (
+            {currentNView !== 'Tipos-Insumo' ? (
                 <>
                     <Search_Bar/>
                 </>

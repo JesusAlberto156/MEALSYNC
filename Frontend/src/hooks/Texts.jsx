@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext,TextFieldsWarehouseContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext,TextFieldsSupplierContext,TextFieldsMenuTypesContext,TextFieldsObservationContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsUnitsContext,TextFieldsWarehouseContext } from "../contexts/FormsProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
 import { SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../contexts/SelectedesProvider";
 //____________IMPORT/EXPORT____________
@@ -104,18 +104,20 @@ export const ResetTextFieldsStatus = () => {
     // Retorno de la función del hook
     return resetTextFieldsStatus;
 }
-
-// Hook para reinciar los campos de texto de los proveedores 
+// Hook para reinciar los campos de texto de los proveedores ✔️
 export const ResetTextFieldsSupplier = () => {
     // Constantes con el valor de los contextos 
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
     // Estados iniciales de los contextos
     const initialTextFieldsSupplier = {
-        name: '',
+        idproveedor: 0,
+        nombre: '',
         rfc: '',
-        address: '',
-        phone: '',
-        email: '',
+        domicilio: '',
+        telefono: '',
+        correo: '',
+        calificacion: 0,
+        ideliminado: 0,
     };
     // Función del hook
     const resetTextFieldsSupplier = () => {
@@ -124,6 +126,26 @@ export const ResetTextFieldsSupplier = () => {
     // Retorno de la función del hook
     return resetTextFieldsSupplier;
 }
+// Hook para reinciar los campos de texto de las observaciones a proveedor ✔️
+export const ResetTextFieldsObservation = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext);
+    // Estados iniciales de los contextos
+    const initialTextFieldsObservation = {
+        idobservacion: 0,
+        observacion: '',
+        calificacion: 0,
+        fecha: '',
+        idproveedor: 0,
+    };
+    // Función del hook
+    const resetTextFieldsObservation = () => {
+        setIsTextFieldsObservation(initialTextFieldsObservation);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsObservation;
+}
+
 // Hook para reinciar los campos de texto de pedidos para el inventario 
 export const ResetTextFieldsWarehouse = () => {
     // Constantes con el valor de los contextos 
@@ -204,4 +226,23 @@ export const ResetTextFieldsUnit = () => {
     }
     // Retorno de la función del hook
     return resetTextFieldsUnit;
+}
+
+// Hook para reinciar los campos de texto de los tipos de menu ✔️
+export const ResetTextFieldsMenuTypes = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsMenuTypes,setIsTextFieldsMenuTypes] = useContext(TextFieldsMenuTypesContext);
+    // Estados iniciales de los contextos
+    const initialTextFieldsMenuTypes = {
+        idtipo: 0,
+        nombre: '',
+        ideliminado: 0,
+        idubicacion: 0,
+    };
+    // Función del hook
+    const resetTextFieldsMenuTypes = () => {
+        setIsTextFieldsMenuTypes(initialTextFieldsMenuTypes);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsMenuTypes;
 }

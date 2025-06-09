@@ -873,7 +873,7 @@ export const Icon_Yellow_30 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 30px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -890,7 +890,7 @@ export const Icon_Yellow_26 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 26px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -907,7 +907,7 @@ export const Icon_Yellow_22 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 22px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -924,7 +924,7 @@ export const Icon_Yellow_18 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 18px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(250, 184, 3)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -943,7 +943,7 @@ export const Icon_Orange_30 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 30px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -960,7 +960,7 @@ export const Icon_Orange_26 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 26px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -977,7 +977,7 @@ export const Icon_Orange_22 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 22px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -994,7 +994,7 @@ export const Icon_Orange_18 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 18px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(189, 91, 11)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1013,7 +1013,7 @@ export const Icon_Lime_Green_30 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 30px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1030,7 +1030,7 @@ export const Icon_Lime_Green_26 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 26px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1047,7 +1047,7 @@ export const Icon_Lime_Green_22 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 22px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1064,7 +1064,7 @@ export const Icon_Lime_Green_18 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     font-size: 18px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(116, 136, 25)')};
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
     display: flex;
     justify-content: center;
     align-items: center;

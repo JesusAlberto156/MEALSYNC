@@ -7,7 +7,10 @@ import { decryptData } from "../services/Crypto";
 export const SuppliersContext = createContext(null);
 export const SupplierAddContext = createContext(null);
 export const SupplierEditContext = createContext(null);
+export const DeletedSuppliersContext = createContext(null);
+export const SupplierDeleteContext = createContext(null);
 export const ObservationsContext = createContext(null);
+export const ObservationAddContext = createContext(null);
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 //____________IMPORT/EXPORT____________
@@ -18,9 +21,15 @@ export const Index_Suppliers = ({children}) => {
         <Suppliers>
             <Supplier_Add>
                 <Supplier_Edit>
-                    <Observations>
-                        {children}
-                    </Observations>
+                    <Deleted_Suppliers>
+                        <Supplier_Delete>
+                            <Observations>
+                                <Observation_Add>
+                                    {children}
+                                </Observation_Add>
+                            </Observations>
+                        </Supplier_Delete>
+                    </Deleted_Suppliers>
                 </Supplier_Edit>
             </Supplier_Add>
         </Suppliers>
@@ -36,22 +45,28 @@ export const Suppliers = ({ children }) => {
     const [isSuppliers,setIsSuppliers] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Suppliers');
-
-        socket.on('Suppliers',(result) => {
-            const decryptedData = decryptData(result);
-            if(decryptedData){
-                const parsedData = JSON.parse(decryptedData);
-                console.log('¡Proveedores obtenidos!....')
-                setIsSuppliers(parsedData);
-            }else{
-                console.log('¡Error al desencriptar los estatus!...');
+        const handleSuppliers = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Proveedores obtenidos!....')
+                    setIsSuppliers(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los proveedores!...');
+                    setIsSuppliers([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los proveedores:', error);
                 setIsSuppliers([]);
             }
-        });
+        }
+
+        socket.emit('Get-Suppliers');
+        socket.on('Get-Suppliers',handleSuppliers);
 
         return () => {
-            socket.off('Suppliers');
+            socket.off('Get-Suppliers',handleSuppliers);
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
@@ -63,8 +78,29 @@ export const Suppliers = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de un proveedor ✔️
 export const Supplier_Add = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isSupplierAdd,setIsSupplierAdd] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleInsertSupplier = (message) => {
+            console.log(message);
+            socket.emit('Get-Suppliers');
+        };
+        const handleInsertLog = (message) => {
+            console.log(message);
+            socket.emit('Get-Logs');
+        };
+
+        socket.on('Insert-Supplier',handleInsertSupplier);
+        socket.on('Insert-Log-Supplier',handleInsertLog);
+        
+        return () => {
+            socket.off('Insert-Supplier',handleInsertSupplier);
+            socket.off('Insert-Log-Supplier',handleInsertLog);
+        }
+    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <SupplierAddContext.Provider value={[isSupplierAdd,setIsSupplierAdd]}>
@@ -74,8 +110,23 @@ export const Supplier_Add = ({ children }) => {
 }
 // Función contexto para controlar los datos editados de un proveedor ✔️
 export const Supplier_Edit = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isSupplierEdit,setIsSupplierEdit] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleUpdateSupplier = (message) => {
+            console.log(message);
+            socket.emit('Get-Suppliers');
+        };
+
+        socket.on('Update-Supplier',handleUpdateSupplier);
+        
+        return () => {
+            socket.off('Update-Supplier',handleUpdateSupplier);
+        }
+    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <SupplierEditContext.Provider value={[isSupplierEdit,setIsSupplierEdit]}>
@@ -84,6 +135,79 @@ export const Supplier_Edit = ({ children }) => {
     );
 }
 // ---------- PROVEEDORES
+// ---------- PROVEEDORES ELIMINADOS
+// Función contexto para controlar los datos de la base de datos de los proveedores eliminados ✔️
+export const Deleted_Suppliers = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isDeletedSuppliers,setIsDeletedSuppliers] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        const handleDeletedSuppliers = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Proveedores eliminados obtenidos!....')
+                    setIsDeletedSuppliers(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los proveedores eliminados!...');
+                    setIsDeletedSuppliers([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los proveedores eliminados:', error);
+                setIsDeletedSuppliers([]);
+            }
+        }
+
+        socket.emit('Get-Deleted-Suppliers');
+        socket.on('Get-Deleted-Suppliers',handleDeletedSuppliers);
+
+        return () => {
+            socket.off('Get-Deleted-Suppliers',handleDeletedSuppliers);
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <DeletedSuppliersContext.Provider value={[isDeletedSuppliers,setIsDeletedSuppliers]}>
+            {children}
+        </DeletedSuppliersContext.Provider>
+    );
+}
+// Función contexto para controlar los datos eliminados de un proveedor ✔️
+export const Supplier_Delete = ({ children }) => {
+    // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isSupplierDelete,setIsSupplierDelete] = useState(false);
+    // UseEffect para quitar la suscrpcion de socket
+    useEffect(() => {
+        const handleInsertDeletedSupplier = (message) => {
+            console.log(message);
+            socket.emit('Get-Deleted-Suppliers');
+        };
+        const handleInsertLog = (message) => {
+            console.log(message);
+            socket.emit('Get-Logs');
+        };
+
+        socket.on('Insert-Deleted-Supplier',handleInsertDeletedSupplier);
+        socket.on('Insert-Log-Deleted-Supplier',handleInsertLog);
+
+        return () => {
+            socket.off('Insert-Deleted-Supplier',handleInsertDeletedSupplier);
+            socket.off('Insert-Log-Deleted-Supplier',handleInsertLog);
+        }
+    },[socket]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SupplierDeleteContext.Provider value={[isSupplierDelete,setIsSupplierDelete]}>
+            {children}
+        </SupplierDeleteContext.Provider>
+    );
+}
+// ---------- PROVEEDORES ELIMINADOS
 // ---------- OBSERVACIONES
 // Función contexto para controlar los datos de la base de datos de las observaciones a los proveedores ✔️
 export const Observations = ({ children }) => {
@@ -93,22 +217,28 @@ export const Observations = ({ children }) => {
     const [isObservations,setIsObservations] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Observations');
-
-        socket.on('Observations',(result) => {
-            const decryptedData = decryptData(result);
-            if(decryptedData){
-                const parsedData = JSON.parse(decryptedData);
-                console.log('¡Observaciones de proveedores obtenidos!....')
-                setIsObservations(parsedData);
-            }else{
-                console.log('¡Error al desencriptar los estatus!...');
+        const handleObservations = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Observaciones de proveedores obtenidas!....')
+                    setIsObservations(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar las observaciones de proveedores!...');
+                    setIsObservations([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar las observaciones de proveedores:', error);
                 setIsObservations([]);
             }
-        });
+        }
+
+        socket.emit('Get-Observations');
+        socket.on('Get-Observations',handleObservations);
 
         return () => {
-            socket.off('Observations');
+            socket.off('Get-Observations',handleObservations);
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
@@ -116,6 +246,17 @@ export const Observations = ({ children }) => {
         <ObservationsContext.Provider value={[isObservations,setIsObservations]}>
             {children}
         </ObservationsContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de las observaciones a los proveedores ✔️
+export const Observation_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isObservationAdd,setIsObservationAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <ObservationAddContext.Provider value={[isObservationAdd,setIsObservationAdd]}>
+            {children}
+        </ObservationAddContext.Provider>
     );
 }
 // ---------- OBSERVACIONES

@@ -8,6 +8,7 @@ export const RefUsersContext = createContext(null);
 export const RefPermissionsContext = createContext(null);
 export const RefStatusContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
+export const RefObservationsContext = createContext(null);
 export const RefSuppliesContext = createContext(null);
 export const RefSupplyTypesContext = createContext(null);
 export const RefUnitsContext = createContext(null);
@@ -22,13 +23,15 @@ export const Index_Refs = ({children}) => {
                     <Ref_Permissions>
                         <Ref_Status>
                             <Ref_Suppliers>
-                                <Ref_Supplies>
-                                    <Ref_Supply_Types>
-                                        <Ref_Units>
-                                            {children}
-                                        </Ref_Units>
-                                    </Ref_Supply_Types>
-                                </Ref_Supplies>
+                                <Ref_Observations>
+                                    <Ref_Supplies>
+                                        <Ref_Supply_Types>
+                                            <Ref_Units>
+                                                {children}
+                                            </Ref_Units>
+                                        </Ref_Supply_Types>
+                                    </Ref_Supplies>
+                                </Ref_Observations>
                             </Ref_Suppliers>
                         </Ref_Status>
                     </Ref_Permissions>
@@ -38,7 +41,7 @@ export const Index_Refs = ({children}) => {
     );
 }
 
-// Función contexto para controlar las alertas de bienvenida de la pagina 
+// Función contexto para controlar las alertas de bienvenida de la pagina ✔️
 export const Ref_Alert_Greeting = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isAlertGreeting = useRef(null);
@@ -107,15 +110,14 @@ export const Ref_Status = ({ children }) => {
         </RefStatusContext.Provider>
     );
 }
-// Función contexto para controlar la grafica de proveedores 
+// Función contexto para controlar la tabla de proveedores con referencias ✔️
 export const Ref_Suppliers = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isSuppliers = {
-        Modal: useRef(null),
-        Form: useRef(null),
-        Button_Edit_S: useRef(null),
-        Button_Delete_S: useRef(null),
-        Button_Details_S: useRef(null),
+        Modal_Suppliers: useRef(null),
+        Form_Suppliers: useRef(null),
+        Button_Edit_Suppliers: useRef(null),
+        Button_Delete_Suppliers: useRef(null),
     };
     // Return para darle valor al contexto y heredarlo
     return(
@@ -124,6 +126,23 @@ export const Ref_Suppliers = ({ children }) => {
         </RefSuppliersContext.Provider>
     );
 }
+// Función contexto para controlar la tabla de las observaciones a proveedor con referencias ✔️
+export const Ref_Observations = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isObservations = {
+        Modal_Observations: useRef(null),
+        Form_Observations: useRef(null),
+        Button_Detail_Observations: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefObservationsContext.Provider value={isObservations}>
+            {children}
+        </RefObservationsContext.Provider>
+    );
+}
+
+
 // Función contexto para controlar la tabla de insumos 
 export const Ref_Supplies = ({ children }) => {
     // UseRef para controlar el valor del contexto

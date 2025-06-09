@@ -1,5 +1,33 @@
 USE ComandaMedicaTepic
 
+INSERT INTO menu (nombre) 
+VALUES ('Desayuno');
+INSERT INTO menu (nombre) 
+VALUES ('Comida');
+INSERT INTO menu (nombre) 
+VALUES ('Cena');
+
+INSERT INTO ubicacionMenu(nombre) 
+VALUES ('Cocina');
+INSERT INTO ubicacionMenu(nombre) 
+VALUES ('Nutriólogia');
+INSERT INTO ubicacionMenu(nombre) 
+VALUES ('Área médica');
+
+ALTER TABLE especificacionesPlatillo
+ALTER COLUMN precio DECIMAL(12,4) NOT NULL
+ALTER TABLE especificacionesBebida
+ALTER COLUMN precio DECIMAL(12,4) NOT NULL
+ALTER TABLE especificacionesGuarnicion
+ALTER COLUMN precio DECIMAL(12,4) NOT NULL
+
+ALTER TABLE almacenPlatillo
+ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
+ALTER TABLE almacenBebida
+ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
+ALTER TABLE almacenGuarnicion
+ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
+
 SELECT * FROM logComandaMedicaTepic;
 
 DELETE FROM logComandaMedicaTepic;
@@ -41,7 +69,7 @@ INSERT INTO proveedores(nombre,rfc,domicilio,telefono,correo)
 VALUES ('PROVEEDOR DE PRUEBA 10','040903PRUEBA','AV. PRUEBA 10','3221023945','prueba10@gmail.com');
 
 INSERT INTO observacionesProveedor(observacion,calificacion,fecha,idproveedor)
-VALUES ('Observacion de prueba',3,GETDATE(),2);
+VALUES ('Observacion de prueba',2,GETDATE(),2);
 
 INSERT INTO estatus(habilitado,activo,idusuario) 
 VALUES (1,0,28);

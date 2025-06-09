@@ -6,10 +6,13 @@ export const TextFieldsUserContext = createContext(null);
 export const TextFieldsPermissionsContext = createContext(null);
 export const TextFieldsStatusContext = createContext(null);
 export const TextFieldsSupplierContext = createContext(null);
+export const TextFieldsObservationContext = createContext(null);
 export const TextFieldsWarehouseContext = createContext(null);
 export const TextFieldsSupplyContext = createContext(null);
 export const TextFieldsSupplyTypesContext = createContext(null);
 export const TextFieldsUnitsContext = createContext(null);
+export const TextFieldsMenuTypesContext = createContext(null);
+export const TextFieldsDishesContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los campos de texto para los formularios ✔️
@@ -19,15 +22,19 @@ export const Index_Text_Fields = ({children}) => {
             <Text_Fields_Permissions>
                 <Text_Fields_Status>
                     <Text_Fields_Supplier>
-                        <Text_Fields_Warehouse>
-                            <Text_Fields_Supply>
-                                <Text_Fields_Supply_Types>
-                                    <Text_Fields_Units>
-                                        {children}
-                                    </Text_Fields_Units>
-                                </Text_Fields_Supply_Types>
-                            </Text_Fields_Supply>
-                        </Text_Fields_Warehouse>
+                        <Text_Fields_Observation>
+                            <Text_Fields_Warehouse>
+                                <Text_Fields_Supply>
+                                    <Text_Fields_Supply_Types>
+                                        <Text_Fields_Units>
+                                            <Text_Fields_Menu_Types>
+                                                {children}
+                                            </Text_Fields_Menu_Types>
+                                        </Text_Fields_Units>
+                                    </Text_Fields_Supply_Types>
+                                </Text_Fields_Supply>
+                            </Text_Fields_Warehouse>
+                        </Text_Fields_Observation>
                     </Text_Fields_Supplier>
                 </Text_Fields_Status>
             </Text_Fields_Permissions>
@@ -94,15 +101,18 @@ export const Text_Fields_Status = ({ children }) => {
         </TextFieldsStatusContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de proveedor 
+// Función contexto para controlar los campos de registro de un formulario de proveedor ✔️
 export const Text_Fields_Supplier = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useState({
-        name: '',
+        idproveedor: 0,
+        nombre: '',
         rfc: '',
-        address: '',
-        phone: '',
-        email: '',
+        domicilio: '',
+        telefono: '',
+        correo: '',
+        calificacion: 0,
+        ideliminado: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -111,6 +121,24 @@ export const Text_Fields_Supplier = ({ children }) => {
         </TextFieldsSupplierContext.Provider>
     );
 }
+// Función contexto para controlar los campos de registro de un formulario de la observacion a proveedor ✔️
+export const Text_Fields_Observation = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsObservation,setIsTextFieldsObservation] = useState({
+        idobservacion: 0,
+        observacion: '',
+        calificacion: 0,
+        fecha: '',
+        idproveedor: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsObservationContext.Provider value={[isTextFieldsObservation,setIsTextFieldsObservation]}> 
+            {children}
+        </TextFieldsObservationContext.Provider>
+    );
+}
+
 // Función contexto para controlar los campos de registro de un formulario de pedidos para el inventario 
 export const Text_Fields_Warehouse = ({ children }) => {
     // UseState para controlar el valor del contexto
@@ -182,5 +210,41 @@ export const Text_Fields_Units = ({ children }) => {
         <TextFieldsUnitsContext.Provider value={[isTextFieldsUnits,setIsTextFieldsUnits]}> 
             {children}
         </TextFieldsUnitsContext.Provider>
+    );
+}
+
+// Función contexto para controlar los campos de registro de un formulario de los tipos de menu ✔️
+export const Text_Fields_Menu_Types = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsMenuTypes,setIsTextFieldsMenuTypes] = useState({
+        idtipo: 0,
+        nombre: '',
+        ideliminado: 0,
+        idubicacion: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsMenuTypesContext.Provider value={[isTextFieldsMenuTypes,setIsTextFieldsMenuTypes]}> 
+            {children}
+        </TextFieldsMenuTypesContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de los  platillos ✔️
+export const Text_Fields_Dishes = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsDishes,setIsTextFieldsDishes] = useState({
+        idplatillo: 0,
+        nombre: '',
+        descripcion: '',
+        precio: 0,
+        preparacion: 0,
+        ideliminado: 0,
+        
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsDishesContext.Provider value={[isTextFieldsDishes,setIsTextFieldsDishes]}> 
+            {children}
+        </TextFieldsDishesContext.Provider>
     );
 }

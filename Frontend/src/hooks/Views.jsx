@@ -249,8 +249,8 @@ export const HandleModalView = () => {
             },750);
         }
         // USUARIOS
-
-        if(currentMView === 'Supplier-Add' && View === ''){
+        // PROVEEDORES
+        if(currentMView === 'Proveedor-Agregar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
@@ -259,7 +259,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Supplier-Edit' && View === ''){
+        if(currentMView === 'Proveedor-Editar' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
@@ -268,7 +268,19 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Supplier-Details' && View === ''){
+        if(currentMView === 'Proveedor-Eliminar' && View === ''){
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Acción del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
+                navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Observacion-Detalles' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
@@ -276,6 +288,8 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+        // PROVEEDORES
+        // INVENTARIO
         if(currentMView === 'Warehouse-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -284,7 +298,6 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
-        
         if(currentMView === 'Supply-Add' && View === ''){
             setTimeout(() => {
                 setIsModal(false);
@@ -344,6 +357,7 @@ export const HandleModalView = () => {
                 navigate(route,{ replace: true });
             },750);
         }
+        // INVENTARIO
         setCurrentMView(View);
         sessionStorage.setItem('Vista del Modal',View);
         resetSelectedOptions();

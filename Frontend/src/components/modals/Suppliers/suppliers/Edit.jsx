@@ -11,7 +11,8 @@ import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsSupplierContext } from "../../../../contexts/FormsProvider";
 import { SupplierEditContext } from "../../../../contexts/SuppliersProvider";
 import { RefSuppliersContext } from "../../../../contexts/RefsProvider";
-import { SocketContext } from "../../../../contexts/SocketProvider";
+import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleSupplierEdit } from "../../../../hooks/Form";
@@ -21,11 +22,11 @@ import { MdEdit } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Column_90_Center,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Container_Modal,Container_Form_500,Container_Column_90_Center,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
-import { Icon_White_22,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_White_30 } from "../../../styled/Icons";
+import { Icon_White_22,Icon_Button_Blue_18,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_White_30 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
@@ -40,146 +41,189 @@ export default function Suppliers_Edit(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext);
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
-    const {Modal,Form,Button_Edit_S,Button_Delete_S,Button_Details_S} = useContext(RefSuppliersContext);
+    const {Modal_Suppliers,Form_Suppliers,Button_Edit_Suppliers,Button_Delete_Suppliers} = useContext(RefSuppliersContext);
     const [socket] = useContext(SocketContext);
+    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleSupplierEdit = HandleSupplierEdit();
+    // Función para obtener la hora exacta del sistema
+    function getLocalDateTimeOffset(hoursOffset = -7) {
+        const now = new Date();
+        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isSupplierEdit){
-            const promise = new Promise(async (resolve,reject) => {
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Supplier-Update',isSelectedRow.idproveedor,isTextFieldsSupplier.name,isTextFieldsSupplier.rfc,isTextFieldsSupplier.address,isTextFieldsSupplier.phone,isTextFieldsSupplier.email)
-                    
-                        socket.on('Supplier-Update',(message,user) => {
-                            console.log(message,user);
-                            socket.emit('Suppliers');
-                        });
+                        socket.emit('Update-Supplier',isLoggedUser.usuario,isTextFieldsSupplier.idproveedor,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim())
 
-                        resolve('¡MEALSYNC actualizo al proveedor!...');
+                        resolve('¡MEALSYNC editó al proveedor!...');
 
-                        const route = sessionStorage.getItem('Route');
-
-                        setCurrentMView('');
-                        sessionStorage.setItem('Modal-View','');
-                        setTimeout(() => {
-                            setIsModal(false);
-                            sessionStorage.setItem('Modal',false);
-                            setIsActionBlock(false);
-                            setIsSupplierEdit(false);
-                            setIsSelectedRow(null);
-                            navigate(route,{ replace: true });
-                        },750);
-
-                        return () => {
-                            socket.off('Supplier-Update');
-                        }
+                        setIsSupplierEdit(false);
+                        setIsLogAdd(true);
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     setIsSupplierEdit(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'¡Actualizado un proveedor!...');
+            Alert_Verification(promise,'Editando un proveedor!...');
         }
-    },[isSupplierEdit]);
+        if(isLogAdd){
+            socket.emit('Insert-Log-Supplier',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsSupplier.idproveedor,isLoggedUser.idusuario,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim());
+            setIsLogAdd(false);
+
+            const route = sessionStorage.getItem('Ruta');
+
+            setCurrentMView('');
+            sessionStorage.setItem('Vista del Modal','');
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                setIsSelectedRow(null);
+                navigate(route,{ replace: true });
+            },750);
+        }
+    },[isSupplierEdit,isLogAdd]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal ref={Modal}>
-                    <Container_Form_500 ref={Form} ThemeMode={themeMode} className={currentMView === 'Supplier-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                        <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PROVEEDOR</Text_Title_30_Center>
-                        <Container_Row_NG_95_Left>
-                            <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                            <Text_A_16_Left ThemeMode={themeMode}>- Datos del proveedor...</Text_A_16_Left>
-                        </Container_Row_NG_95_Left>
+                <Container_Modal ref={Modal_Suppliers}>
+                    <Container_Form_500 ref={Form_Suppliers} ThemeMode={themeMode} className={currentMView === 'Proveedor-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Row_100_Center>
+                            <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PROVEEDOR</Text_Title_30_Center>
+                        </Container_Row_100_Center>
+                        <Container_Row_NG_95_Center>
+                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
+                            <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                        </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
-                                <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
+                                <Text_A_16_Center ThemeMode={themeMode}>Nombre:</Text_A_16_Center>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Name"
-                                    placeholder="Nombre del proveedor..."
+                                    placeholder="..."
                                     type="text"
-                                    value={isTextFieldsSupplier.name}
-                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, name: e.target.value}))}
+                                    disabled={isActionBlock}
+                                    value={isTextFieldsSupplier.nombre}
+                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, nombre: e.target.value}))}
                                 />
+                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                    onClick={() => {
+                                        setIsTextFieldsSupplier(prev => ({...prev, nombre: ''}))
+                                    }}
+                                    disabled={isActionBlock}
+                                >
+                                    <MdCancel/>
+                                </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Left ThemeMode={themeMode}>RFC:</Text_A_16_Left>
+                                <Text_A_16_Center ThemeMode={themeMode}>RFC:</Text_A_16_Center>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Rfc"
-                                    placeholder="RFC del proveedor..."
+                                    placeholder="..."
                                     type="text"
+                                    disabled={isActionBlock}
                                     value={isTextFieldsSupplier.rfc}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, rfc: e.target.value}))}
                                 />
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Left ThemeMode={themeMode}>Domicilio:</Text_A_16_Left>
+                                <Text_A_16_Center ThemeMode={themeMode}>Domicilio:</Text_A_16_Center>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Address"
-                                    placeholder="Domicilio del proveedor..."
+                                    placeholder="..."
                                     type="text"
-                                    value={isTextFieldsSupplier.address}
-                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, address: e.target.value}))}
+                                    disabled={isActionBlock}
+                                    value={isTextFieldsSupplier.domicilio}
+                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, domicilio: e.target.value}))}
                                 />
+                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                    onClick={() => {
+                                        setIsTextFieldsSupplier(prev => ({...prev, domicilio: ''}))
+                                    }}
+                                    disabled={isActionBlock}
+                                >
+                                    <MdCancel/>
+                                </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Left ThemeMode={themeMode}>Teléfono:</Text_A_16_Left>
+                                <Text_A_16_Center ThemeMode={themeMode}>Teléfono:</Text_A_16_Center>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Phone"
-                                    placeholder="Telefono del proveedor..."
-                                    type="tel"
-                                    value={isTextFieldsSupplier.phone}
-                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, phone: e.target.value}))}
+                                    placeholder="..."
+                                    type="text"
+                                    disabled={isActionBlock}
+                                    value={isTextFieldsSupplier.telefono}
+                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, telefono: e.target.value}))}
                                 />
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Left ThemeMode={themeMode}>Correo:</Text_A_16_Left>
+                                <Text_A_16_Center ThemeMode={themeMode}>Correo:</Text_A_16_Center>
                                 <Input_Text_Black_100 ThemeMode={themeMode}
                                     id="Input-Email"
-                                    placeholder="Correo del proveedor..."
-                                    type="email"
-                                    value={isTextFieldsSupplier.email}
-                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, email: e.target.value}))}
+                                    placeholder="..."
+                                    type="text"
+                                    disabled={isActionBlock}
+                                    value={isTextFieldsSupplier.correo}
+                                    onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, correo: e.target.value}))}
                                 />
+                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                    onClick={() => {
+                                        setIsTextFieldsSupplier(prev => ({...prev, correo: ''}))
+                                    }}
+                                    disabled={isActionBlock}
+                                >
+                                    <MdCancel/>
+                                </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                         </Container_Column_90_Center>
                         <Container_Row_95_Center>
-                        {isSelectedRow.calificacion <= 1 ? (
+                            {isTextFieldsSupplier.calificacion === 0 ? (
                                 <>
-                                    <Icon_Red_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Red_30>
-                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_White_30>
-                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_White_30>
+                                    <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_30>
+                                    <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_30>
+                                    <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_30>
                                     <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
                                     <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
                                 </>
                             ):(
-                                isSelectedRow.calificacion <=2 ? (
+                                isTextFieldsSupplier.calificacion <= 1 ? (
                                     <>
-                                        <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Orange_30>
-                                        <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Orange_30>
+                                        <Icon_Red_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Red_30>
+                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_White_30>
                                         <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_White_30>
                                         <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
                                         <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
                                     </>
                                 ):(
-                                    isSelectedRow.calificacion <=3 ? (
-                                        isSelectedRow.calificacion === 3 && isSelectedRow.cantidad === 0 ? (
-                                            <>
-                                                <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_30>
-                                                <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_30>
-                                                <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
-                                            </>
-                                        ):(
+                                    isTextFieldsSupplier.calificacion <=2 ? (
+                                        <>
+                                            <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Orange_30>
+                                            <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Orange_30>
+                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_White_30>
+                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
+                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                        </>
+                                    ):(
+                                        isTextFieldsSupplier.calificacion <=3 ? (
                                             <>
                                                 <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Yellow_30>
                                                 <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Yellow_30>
@@ -187,27 +231,27 @@ export default function Suppliers_Edit(){
                                                 <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
                                                 <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
                                             </>
-                                        )
-                                    ):(
-                                        isSelectedRow.calificacion <=4 ? (
-                                            <>
-                                                <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Lime_Green_30>
-                                                <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Lime_Green_30>
-                                                <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Lime_Green_30>
-                                                <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Lime_Green_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
-                                            </>
                                         ):(
-                                            isSelectedRow.calificacion <=5 ? (
+                                            isTextFieldsSupplier.calificacion <=4 ? (
                                                 <>
-                                                    <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Green_30>
-                                                    <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Green_30>
-                                                    <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Green_30>
-                                                    <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Green_30>
-                                                    <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Green_30>
+                                                    <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Lime_Green_30>
+                                                    <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Lime_Green_30>
+                                                    <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Lime_Green_30>
+                                                    <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Lime_Green_30>
+                                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
                                                 </>
                                             ):(
-                                                <></>
+                                                isTextFieldsSupplier.calificacion <=5 ? (
+                                                    <>
+                                                        <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Green_30>
+                                                        <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Green_30>
+                                                        <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Green_30>
+                                                        <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Green_30>
+                                                        <Icon_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Green_30>
+                                                    </>
+                                                ):(
+                                                    <></>
+                                                )
                                             )
                                         )
                                     )
@@ -217,13 +261,17 @@ export default function Suppliers_Edit(){
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleModalView('')}>
+                                    onClick={() => handleModalView('')}
+                                    disabled={isActionBlock}    
+                                >
                                     <Icon_White_22><MdCancel/></Icon_White_22>
                                 </Button_Icon_Red_210>
                             </Tooltip>
                             <Tooltip title='Editar' placement='top'>
                                 <Button_Icon_Blue_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                    onClick={() => handleSupplierEdit()}>
+                                    onClick={() => handleSupplierEdit()}
+                                    disabled={isActionBlock}    
+                                >
                                     <Icon_White_22><MdEdit/></Icon_White_22>
                                 </Button_Icon_Blue_210>
                             </Tooltip>
@@ -231,7 +279,7 @@ export default function Suppliers_Edit(){
                     </Container_Form_500>
                 </Container_Modal>
             ):(
-                currentMView === 'Supplier-Edit' ? (
+                currentMView === 'Proveedor-Editar' ? (
                     <>
                         <Error_Edit/>
                     </>

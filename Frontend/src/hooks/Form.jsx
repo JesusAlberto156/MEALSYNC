@@ -633,8 +633,7 @@ export const HandleStatusEnable = () => {
     // Retorno de la función del hook
     return handleStatusEnable;
 }
-
-// Hook para agregar un porveedor desde el modal
+// Hook para agregar un proveedor desde el modal ✔️
 export const HandleSupplierAdd = () => {
     // Constantes con el valor de los contextos 
     const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
@@ -646,19 +645,74 @@ export const HandleSupplierAdd = () => {
     const [isSuppliers] = useContext(SuppliersContext);
     // Función del hook
     const handleSupplierAdd = () => {
-        if(currentNView === 'Suppliers' && currentSView === 'Suppliers' && currentMView === 'Supplier-Add'){
-            const promise = new Promise(async (resolve,reject) => {
+        if(currentNView === 'Proveedores' && currentSView === 'Proveedores' && currentMView === 'Proveedor-Agregar'){
+            const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupplier.name === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.address === '' || isTextFieldsSupplier.phone === '' || isTextFieldsSupplier.email === ''){
+                        if(isTextFieldsSupplier.nombre === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.domicilio === '' || isTextFieldsSupplier.telefono === '' || isTextFieldsSupplier.correo === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información del proveedor!...')
                         };
 
-                        if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.name)){
+                        if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.nombre)){
                             setIsActionBlock(false);
                             return reject('¡Proveedor ya existente!...');
+                        }
+
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]*$/
+                        const regexRFC = /^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/
+                        const regexAddress = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9\s.,#\-\/°()]+$/
+                        const regexPhone = /^\d{7}$|^\d{8}$|^\d{10}$/
+                        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                        if(isTextFieldsSupplier.nombre.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexNames.test(isTextFieldsSupplier.nombre.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupplier.rfc.length > 30){
+                            setIsActionBlock(false);
+                            return reject('¡El RFC sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexRFC.test(isTextFieldsSupplier.rfc.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El RFC no es válido, solo acepta un RFC que inicia con 3 o 4 letras mayúsculas (incluye Ñ y &), seguido de 6 dígitos para la fecha, y termina con 3 caracteres alfanuméricos en mayúsculas o números!...');
+                        }
+
+                        if(isTextFieldsSupplier.domicilio.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El domicilio sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexAddress.test(isTextFieldsSupplier.domicilio.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El domicilio no es válido, solo acepta letras (mayúsculas y minúsculas, incluidas vocales con acentos y la Ñ), números, espacios y los caracteres especiales: punto, coma, numeral (#), guion, barra, símbolo de grado (°) y paréntesis!...');
+                        }
+
+                        if(isTextFieldsSupplier.telefono.length > 20){
+                            setIsActionBlock(false);
+                            return reject('¡El teléfono sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexPhone.test(isTextFieldsSupplier.telefono.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El teléfono no es válido, solo permite números de 7, 8 o 10 dígitos!...');
+                        }
+                        if(isTextFieldsSupplier.correo.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El correo sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexEmail.test(isTextFieldsSupplier.correo.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El correo no es válido, solo acepta una cadena sin espacios ni arrobas en la parte antes del @, seguida de un @, luego otra cadena sin espacios ni arrobas, un punto y finalmente otra cadena sin espacios ni arrobas!...');
                         }
 
                         resolve('¡Información verificada!...');
@@ -667,7 +721,7 @@ export const HandleSupplierAdd = () => {
                             setIsSupplierAdd(true);
                         },500)
                     },1000);
-                }catch(error){
+                }catch(e){
                     setIsActionBlock(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
@@ -679,7 +733,7 @@ export const HandleSupplierAdd = () => {
     // Retorno de la función del hook
     return handleSupplierAdd;
 }
-// Hook para editar un porveedor desde el modal
+// Hook para editar un porveedor desde el modal ✔️
 export const HandleSupplierEdit = () => {
     // Constantes con el valor de los contextos 
     const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext);
@@ -692,48 +746,137 @@ export const HandleSupplierEdit = () => {
     const [isSuppliers] = useContext(SuppliersContext);
     // Función del hook
     const handleSupplierEdit = () => {
-        if(isSelectedRow !== null){
-            if(currentNView === 'Suppliers' && currentSView === 'Suppliers' && currentMView === 'Supplier-Edit'){
-                const promise = new Promise(async (resolve,reject) => {
-                    try{
-                        setIsActionBlock(true);
-                        setTimeout(() => {
-                            if(isTextFieldsSupplier.name === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.address === '' || isTextFieldsSupplier.phone === '' || isTextFieldsSupplier.email === ''){
-                                setIsActionBlock(false);
-                                return reject('¡Falta información del proveedor!...')
-                            };
-    
-                            if(isTextFieldsSupplier.name === isSelectedRow.nombre && isTextFieldsSupplier.rfc === isSelectedRow.rfc &&  isTextFieldsSupplier.address === isSelectedRow.domicilio && isTextFieldsSupplier.phone === isSelectedRow.telefono && isTextFieldsSupplier.email === isSelectedRow.correo){
-                                setIsActionBlock(false);
-                                return reject('¡No hay información del proveedor modificada!...')
-                            };
+        if(currentNView === 'Proveedores' && currentSView === 'Proveedores' && currentMView === 'Proveedor-Editar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupplier.nombre === isSelectedRow.nombre && isTextFieldsSupplier.rfc === isSelectedRow.rfc &&  isTextFieldsSupplier.domicilio === isSelectedRow.domicilio && isTextFieldsSupplier.telefono === isSelectedRow.telefono && isTextFieldsSupplier.correo === isSelectedRow.correo){
+                            setIsActionBlock(false);
+                            return reject('¡No hay información del proveedor modificada!...')
+                        };
 
-                            if(isSelectedRow.nombre !== isTextFieldsSupplier.name){
-                                if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.name)){
-                                    setIsActionBlock(false);
-                                    return reject('¡Proveedor ya existente!...');
-                                }
+                        if(isTextFieldsSupplier.nombre === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.domicilio === '' || isTextFieldsSupplier.telefono === '' || isTextFieldsSupplier.correo === ''){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del proveedor!...')
+                        };
+
+                        if(isSelectedRow.nombre !== isTextFieldsSupplier.nombre){
+                            if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.nombre)){
+                                setIsActionBlock(false);
+                                return reject('¡Proveedor ya existente!...');
                             }
-                            
-                            resolve('¡Información verificada!...');
-                            
-                            setTimeout(() => {
-                                setIsSupplierEdit(true);
-                            },500)
-                        },1000);
-                    }catch(error){
-                        setIsActionBlock(false);
-                        return reject('¡Ocurrio un error inesperado!...');
-                    }
-                });
-    
-                Alert_Verification(promise,'¡Verificando información!...');
-            }
+                        }
+
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]*$/
+                        const regexRFC = /^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/
+                        const regexAddress = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9\s.,#\-\/°()]+$/
+                        const regexPhone = /^\d{7}$|^\d{8}$|^\d{10}$/
+                        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                        if(isTextFieldsSupplier.nombre.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexNames.test(isTextFieldsSupplier.nombre.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
+                        }
+
+                        if(isTextFieldsSupplier.rfc.length > 30){
+                            setIsActionBlock(false);
+                            return reject('¡El RFC sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexRFC.test(isTextFieldsSupplier.rfc.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El RFC no es válido, solo acepta un RFC que inicia con 3 o 4 letras mayúsculas (incluye Ñ y &), seguido de 6 dígitos para la fecha, y termina con 3 caracteres alfanuméricos en mayúsculas o números!...');
+                        }
+
+                        if(isTextFieldsSupplier.domicilio.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El domicilio sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexAddress.test(isTextFieldsSupplier.domicilio.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El domicilio no es válido, solo acepta letras (mayúsculas y minúsculas, incluidas vocales con acentos y la Ñ), números, espacios y los caracteres especiales: punto, coma, numeral (#), guion, barra, símbolo de grado (°) y paréntesis!...');
+                        }
+
+                        if(isTextFieldsSupplier.telefono.length > 20){
+                            setIsActionBlock(false);
+                            return reject('¡El teléfono sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexPhone.test(isTextFieldsSupplier.telefono.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El teléfono no es válido, solo permite números de 7, 8 o 10 dígitos!...');
+                        }
+                        if(isTextFieldsSupplier.correo.length > 150){
+                            setIsActionBlock(false);
+                            return reject('¡El correo sobrepasa el límite de caracteres permitido!...');
+                        }
+
+                        if(!regexEmail.test(isTextFieldsSupplier.correo.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El correo no es válido, solo acepta una cadena sin espacios ni arrobas en la parte antes del @, seguida de un @, luego otra cadena sin espacios ni arrobas, un punto y finalmente otra cadena sin espacios ni arrobas!...');
+                        }
+                        
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplierEdit(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
     return handleSupplierEdit;
 }
+// Hook para eliminar un proveedor desde el modal 
+export const HandleSupplierDelete = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
+    // Función del hook
+    const handleSupplierDelete = () => {
+        if(currentNView === 'Proveedores' && currentSView === 'Proveedores' && currentMView === 'Proveedor-Eliminar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(false);
+                    setTimeout(() => {
+                        
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsUserDelete(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(true);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    } 
+    // Retorno de la función del hook
+    return handleSupplierDelete;
+}
+// Hook para agregar una onservación de proveedor desde el modal 
+
 //Hook para agregar un insumo desde el modal 
 export const HandleWarehouseAdd = () => {
     // Constantes con el valor de los contextos 

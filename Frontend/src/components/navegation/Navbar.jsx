@@ -98,14 +98,12 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
-
-                    
-                    {currentSView === 'Suppliers' ? (
+                    {currentSView === 'Proveedores' ? (
                         <>
                         <Tooltip title='Proveedores' placement="top">
                             <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                handleNavbarView('Suppliers');
-                                sessionStorage.setItem('Route','/Administration/Index/Suppliers');
+                                handleNavbarView('Proveedores');
+                                sessionStorage.setItem('Ruta','/Administration/Index/Suppliers');
                                 navigate('/Administration/Index/Suppliers',{ replace: true });
                             }}>
                                 <Icon_22><FaStore/></Icon_22>
@@ -113,20 +111,20 @@ export default function Nav_Bar(){
                         </Tooltip>
                         <Tooltip title='Observaciones' placement="top">
                             <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                handleNavbarView('Observations');
-                                sessionStorage.setItem('Route','/Administration/Index/Observations');
+                                handleNavbarView('Observaciones');
+                                sessionStorage.setItem('Ruta','/Administration/Index/Observations');
                                 navigate('/Administration/Index/Observations',{ replace: true });
                             }}>
                                 <Icon_22><MdSpeakerNotes/></Icon_22>
                             </Button_Icon_White_100>
                         </Tooltip>
-                        {currentNView === 'Suppliers' ? (
+                        {currentNView === 'Proveedores' ? (
                             <Text_Title_26_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_26_Center>
                         ):(
                             <></>
                             
                         )}
-                        {currentNView === 'Observations' ? (
+                        {currentNView === 'Observaciones' ? (
                             <Text_Title_26_Center ThemeMode={themeMode}>OBSERVACIONES</Text_Title_26_Center>
                         ):(
                             <></>
@@ -135,12 +133,12 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Warehouse' ? (
+                    {currentSView === 'Inventario' ? (
                         <>
                             <Tooltip title='Inventario' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Warehouse');
-                                    sessionStorage.setItem('Route','/Administration/Index/Warehouse');
+                                    handleNavbarView('Inventario');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Warehouse');
                                     navigate('/Administration/Index/Warehouse',{ replace: true });
                                 }}>
                                     <Icon_22><FaWarehouse/></Icon_22>
@@ -148,8 +146,8 @@ export default function Nav_Bar(){
                             </Tooltip>
                             <Tooltip title='Insumos' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Supplies')
-                                    sessionStorage.setItem('Route','/Administration/Index/Supplies');
+                                    handleNavbarView('Insumos')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Supplies');
                                     navigate('/Administration/Index/Supplies',{ replace: true });
                                 }}>
                                     <Icon_22><FaBoxes/></Icon_22>
@@ -157,25 +155,25 @@ export default function Nav_Bar(){
                             </Tooltip>
                             <Tooltip title='Tipos de Insumo' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Supply-Types')
-                                    sessionStorage.setItem('Route','/Administration/Index/Supply-Types');
+                                    handleNavbarView('Tipos-Insumo')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Supply-Types');
                                     navigate('/Administration/Index/Supply-Types',{ replace: true });
                                 }}>
                                     <Icon_22><FaBoxOpen/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            {currentNView === 'Warehouse' ? (
+                            {currentNView === 'Inventario' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_26_Center>
                             ):(
                                 <></>
                                 
                             )}
-                            {currentNView === 'Supplies' ? (
+                            {currentNView === 'Insumos' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>INSUMOS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}
-                            {currentNView === 'Supply-Types' ? (
+                            {currentNView === 'Tipos-Insumo' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>TIPOS DE INSUMOS</Text_Title_26_Center>
                             ):(
                                 <></>

@@ -3,6 +3,7 @@
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
 import { UsersContext,UserTypesContext,StatusContext,DeletedUsersContext,PermissionsContext } from "../contexts/UsersProvider";
+import { SuppliersContext,DeletedSuppliersContext,ObservationsContext } from "../contexts/SuppliersProvider";
 import { SuppliesContext,SupplyTypesContext,UnitsContext } from "../contexts/WarehouseProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderPlusContext,SelectedOptionOrderContext } from "../contexts/SelectedesProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
@@ -353,6 +354,227 @@ export const TableActionsStatus = () => {
              nextPageStatus,
              currentRecordsStatus,filteredRecordsStatus,ToggleOrderDirection,ToggleOrder,
              totalPagesStatus}
+}
+// Hook para realizar las acciones de la tabla de proveedores ✔️
+export const TableActionsSuppliers = () => {
+    // Constantes con el valor de los contextos 
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    // Paginación de la tabla
+    const [currentPage, setCurrentPage] = useState(1);
+    // Filtrado de datos
+    const filteredRecordsSuppliers = useMemo(() => {
+        const filtered = isSuppliers.filter((data) => {
+            const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
+            if (isDeleted) return false;
+            
+            if(isSelectedOptionSearch === 'General'){
+                return [data.nombre, data.rfc, data.domicilio, data.telefono, data.correo].some(value =>
+                    String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                );
+            }
+            if(isSelectedOptionSearch === 'Nombre'){
+                return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'RFC'){
+                return data.rfc.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Domicilio'){
+                return data.domicilio.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Teléfono'){
+                return data.telefono.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Correo'){
+                return data.correo.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+        });
+        return [...filtered].sort((a, b) => {
+            if(isSelectedOptionOrder === 'Nombre'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.nombre.localeCompare(b.nombre,'es', { sensitivity: 'base' })
+                : b.nombre.localeCompare(a.nombre,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'RFC'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.rfc.localeCompare(b.rfc,'es', { sensitivity: 'base' })
+                : b.rfc.localeCompare(a.rfc,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Domicilio'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.domicilio.localeCompare(b.domicilio,'es', { sensitivity: 'base' })
+                : b.domicilio.localeCompare(a.domicilio,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Teléfono'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? Number(a.telefono) - Number(b.telefono)
+                : Number(b.telefono) - Number(a.telefono)
+            }
+            if(isSelectedOptionOrder === 'Correo'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.correo.localeCompare(b.correo,'es', { sensitivity: 'base' })
+                : b.correo.localeCompare(a.correo,'es', { sensitivity: 'base' })
+            }
+
+            return 0
+        });
+    }, [isSuppliers, isDeletedSuppliers, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
+    // Cambio de direccion del ordenamiento
+    const ToggleOrderDirection = () => {
+        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
+    };
+    // Cambio de lo que quiere ordenar
+    const ToggleOrder = (option) => {
+        setIsSelectedOptionOrder(option);
+    };
+    // Total de registros visibles de la tabla
+    const recordsPerPage = 8;
+    // Indices de los registros
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    // Total de páginas 
+    const totalPagesSuppliers = Math.ceil(filteredRecordsSuppliers.length / recordsPerPage);
+    // Filtrado de datos por página
+    const currentRecordsSuppliers = filteredRecordsSuppliers.slice(indexOfFirstRecord, indexOfLastRecord);
+    // Función de selección de los renglones de la tabla
+    const handleRowClick = (supplier) => {
+        setIsSelectedRow((prevSelected) => {
+            return prevSelected?.idproveedor === supplier.idproveedor ? null : supplier;
+        });
+    };
+    // Función de siguiente de registros de la tabla
+    const nextPageUsers = () => {
+        if (currentPage < totalPagesSuppliers) setCurrentPage(currentPage + 1);
+    };
+    // Función de retroceso de registros de la tabla
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesSuppliers){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
+    // Retorno de la función del hook
+    return { handleRowClick, prevPage, currentPage,
+             nextPageUsers,
+             currentRecordsSuppliers,filteredRecordsSuppliers,ToggleOrder,ToggleOrderDirection,
+             totalPagesSuppliers}
+}
+// Hook para realizar las acciones de la tabla de las observaciones a proveedor ✔️
+export const TableActionsObservations = () => {
+    // Constantes con el valor de los contextos 
+    const [isObservations] = useContext(ObservationsContext);
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    // Paginación de la tabla
+    const [currentPage, setCurrentPage] = useState(1);
+    // Funcion para dar formato a la fecha
+    function formatoCompletoLegible(fechaInput) {
+        const fecha = new Date(fechaInput);
+
+        fecha.setHours(fecha.getHours() + 7);
+        
+        const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };
+        const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: false };
+
+        const fechaLegible = fecha.toLocaleDateString('es-MX', opcionesFecha);
+        const horaLegible = fecha.toLocaleTimeString('es-MX', opcionesHora);
+
+        return `${fechaLegible}, ${horaLegible}`;
+    }
+    // Filtrado de datos
+    const filteredRecordsObservations = useMemo(() => {
+        const filtered = isObservations.filter((data) => {
+            const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
+            if (isDeleted) return false;
+            
+            if(isSelectedOptionSearch === 'Proveedor' || isSelectedOptionSearch === 'General'){
+                const supplier = isSuppliers.find(type => type.idproveedor === data.idproveedor);
+                return supplier && supplier.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Fecha'){
+                const fechaFormateada = formatoCompletoLegible(data.fecha);
+                return fechaFormateada.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Calificación'){
+                return String(data.calificacion).toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+        });
+        return [...filtered].sort((a, b) => {
+            if(isSelectedOptionOrder === 'Proveedor'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? isSuppliers.find(supplier => supplier.idproveedor === a.idproveedor)?.nombre.localeCompare(isSuppliers.find(supplier => supplier.idproveedor === b.idproveedor)?.nombre,'es', { sensitivity: 'base' })
+                : isSuppliers.find(supplier => supplier.idproveedor === b.idproveedor)?.nombre.localeCompare(isSuppliers.find(supplier => supplier.idproveedor === a.idproveedor)?.nombre,'es', { sensitivity: 'base' })
+            
+            }
+            if(isSelectedOptionOrder === 'Fecha'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? new Date(a.fecha) - new Date(b.fecha)
+                : new Date(b.fecha) - new Date(a.fecha) 
+            }
+            if(isSelectedOptionOrder === 'Calificación'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.calificacion - b.calificacion
+                : b.calificacion - a.calificacion
+            }
+
+            return 0
+        });
+    }, [isObservations,isSuppliers, isDeletedSuppliers, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
+    // Cambio de direccion del ordenamiento
+    const ToggleOrderDirection = () => {
+        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
+    };
+    // Cambio de lo que quiere ordenar
+    const ToggleOrder = (option) => {
+        setIsSelectedOptionOrder(option);
+    };
+    // Total de registros visibles de la tabla
+    const recordsPerPage = 8;
+    // Indices de los registros
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    // Total de páginas 
+    const totalPagesObservations = Math.ceil(filteredRecordsObservations.length / recordsPerPage);
+    // Filtrado de datos por página
+    const currentRecordsObservations = filteredRecordsObservations.slice(indexOfFirstRecord, indexOfLastRecord);
+    // Función de selección de los renglones de la tabla
+    const handleRowClick = (supplier) => {
+        setIsSelectedRow((prevSelected) => {
+            return prevSelected?.idproveedor === supplier.idproveedor ? null : supplier;
+        });
+    };
+    // Función de siguiente de registros de la tabla
+    const nextPageUsers = () => {
+        if (currentPage < totalPagesObservations) setCurrentPage(currentPage + 1);
+    };
+    // Función de retroceso de registros de la tabla
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesObservations){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
+    // Retorno de la función del hook
+    return { handleRowClick, prevPage, currentPage,
+             nextPageUsers,
+             currentRecordsObservations,filteredRecordsObservations,ToggleOrder,ToggleOrderDirection,
+             totalPagesObservations}
 }
 
 // Hook para realizar las acciones de la tabla de insumos

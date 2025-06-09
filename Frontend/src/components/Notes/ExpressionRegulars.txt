@@ -8,3 +8,13 @@ EXPRESIÓN REGULAR PARA QUE ACEPTE SOLO NUMEROS DECIMALES
 const regex = /^\d+\.\d+$/;
 EXPRESIÓN REGULAR PARA QUE ACEPTE SOLO NUMEROS ENTEROS
 const regex = /^[0-9]\d*$/;
+EXPRESIÓN REGULAR PARA QUE ACEPTE LETRAS, NUMEROS, ESPACIOS Y CARACTERES COMUNES
+const regex = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]*$/
+EXPRESIÓN REGULAR PARA QUE ACEPTE RFCS
+const regex = /^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/
+EXPRESIÓN REGULAR PARA QUE ACEPTE DOMICILIOS
+const regex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9\s.,#\-\/°()]+$/
+EXPRESIÓN REGULAR PARA QUE ACEPTE TELEFONOS
+const regex = /^\d{7}$|^\d{8}$|^\d{10}$/
+EXPRESIÓN REGULAR PARA QUE ACEPTE CORREOS
+const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

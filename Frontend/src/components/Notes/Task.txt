@@ -69,7 +69,42 @@ ______VISUALIZAR______
 - Detalles en el buscador ✔️
 - Ordenamiento de la tabla ✔️
 -------------------------------- ESTATUS --
-
+-------------------------------- PROVEEDORES --
+______AGREGAR______
+- Verificación de los campos ✔️
+- Implementación del teclado
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
+______EDITAR______
+- Verificación de los campos ✔️
+- Implementación del teclado
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
+______ELIMINAR______
+- Verificación de los campos 
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
+______VISUALIZAR______
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
+- Ordenamiento de la tabla ✔️
+-------------------------------- PROVEEDORES --
+-------------------------------- ONSERVACIONES --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado
+- Funcionalidad 
+- Diseño de la interfaz 
+______VER DETALLES______
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
+______VISUALIZAR______
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
+- Ordenamiento de la tabla ✔️
+-------------------------------- ONSERVACIONES --
 -------------------------------- INVENTARIO --
 ______AGREGAR______
 - Verificación de los campos 

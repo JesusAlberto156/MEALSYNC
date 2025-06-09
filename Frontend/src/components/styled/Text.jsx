@@ -347,9 +347,9 @@ export const Text_Background_Green_12_Center = styled.p.withConfig({
 export const Text_Background_Yellow_24_Center = styled.p.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
     border-radius: 15px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
@@ -374,9 +374,9 @@ export const Text_Background_Yellow_24_Center = styled.p.withConfig({
 export const Text_Background_Yellow_20_Center = styled.p.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
     border-radius: 15px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
@@ -401,9 +401,9 @@ export const Text_Background_Yellow_20_Center = styled.p.withConfig({
 export const Text_Background_Yellow_16_Center = styled.p.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
     border-radius: 15px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
@@ -428,9 +428,9 @@ export const Text_Background_Yellow_16_Center = styled.p.withConfig({
 export const Text_Background_Yellow_12_Center = styled.p.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 238, 66)' : 'rgb(250, 184, 3)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(250, 184, 3)' : '3px solid rgb(250, 238, 66)')};
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
     border-radius: 15px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
@@ -454,6 +454,226 @@ export const Text_Background_Yellow_12_Center = styled.p.withConfig({
 `;
 //------ CENTER
 //---------- YELLOW
+//---------- ORANGE
+export const Text_Background_Orange_24_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Orange_20_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Orange_16_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Orange_12_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        padding: 6px;
+    }
+`;
+//---------- ORANGE
+//---------- LIME GREEN
+export const Text_Background_Lime_Green_24_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Lime_Green_20_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Lime_Green_16_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 6px;
+    }
+`;
+export const Text_Background_Lime_Green_12_Center = styled.p.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    color: white;
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
+    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
+    border-radius: 15px;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: auto;
+    margin: 0px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        padding: 6px;
+    }
+`;
+//---------- LIME GREEN
 //____________BACKGROUND____________
 //____________COLOR____________
 //---------- BLUE

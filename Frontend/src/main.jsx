@@ -42,12 +42,12 @@ import Permissions_Enable from './components/modals/users/permissions/Enable';
 import Table_Status from './components/tables/users/Status';
 import Status_Add from './components/modals/users/status/Add';
 import Status_Enable from './components/modals/users/status/Enable';
-import Chart_Suppliers from './components/charts/suppliers/Suppliers';
+import Table_Suppliers from './components/tables/suppliers/suppliers';
 import Suppliers_Add from './components/modals/Suppliers/suppliers/Add';
 import Suppliers_Edit from './components/modals/Suppliers/suppliers/Edit';
-import Suppliers_Details from './components/modals/Suppliers/suppliers/Details';
-import Chart_Observations from './components/charts/suppliers/Observations';
-
+import Supplier_Delete from './components/modals/Suppliers/suppliers/Delete';
+import Table_Observations from './components/tables/suppliers/observations';
+import Observations_View from './components/modals/Suppliers/observations/View';
 import Table_Warehouse from './components/tables/warehouse/Warehouse';
 import Warehouse_Add from './components/modals/warehouse/warehouse/Add';
 import Table_Supplies from './components/tables/warehouse/Supplies';
@@ -137,14 +137,17 @@ const router = createHashRouter([
             element: <Suppliers_Edit/>,
           },
           {
-            path: 'Administration/Suppliers/Details',
-            element: <Suppliers_Details/>,
+            path: 'Administration/Suppliers/Delete',
+            element: <Supplier_Delete/>,
+          },
+          {
+            path: 'Administration/Observations/View',
+            element: <Observations_View/>,
           },
           {
             path: 'Administration/Warehouse/Add',
             element: <Warehouse_Add/>,
           },
-          
           {
             path: 'Administration/Supplies/Add',
             element: <Supply_Add/>,
@@ -195,11 +198,11 @@ const router = createHashRouter([
                   },
                   {
                     path: 'Suppliers',
-                    element: <Chart_Suppliers/>
+                    element: <Table_Suppliers/>
                   },
                   {
                     path: 'Observations',
-                    element: <Chart_Observations/>
+                    element: <Table_Observations/>
                   },
                   {
                     path: 'Warehouse',

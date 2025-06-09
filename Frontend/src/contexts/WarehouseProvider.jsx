@@ -55,7 +55,7 @@ export const Index_Warehouse = ({children}) => {
 }
 
 // ---------- INSUMOS
-// Función contexto para controlar los datos de la base de datos de insumos ✔️
+// Función contexto para controlar los datos de la base de datos de insumos 
 export const Supplies = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -63,9 +63,9 @@ export const Supplies = ({ children }) => {
     const [isSupplies,setIsSupplies] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Supplies');
+        socket.emit('Get-Supplies');
 
-        socket.on('Supplies',(result) => {
+        socket.on('Get-Supplies',(result) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
@@ -79,7 +79,7 @@ export const Supplies = ({ children }) => {
         });
 
         return () => {
-            socket.off('Supplies');
+            socket.off('Get-Supplies');
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
@@ -89,7 +89,7 @@ export const Supplies = ({ children }) => {
         </SuppliesContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de un insumo ✔️
+// Función contexto para controlar los datos agregados de un insumo 
 export const Supply_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyAdd,setIsSupplyAdd] = useState(false);
@@ -100,7 +100,7 @@ export const Supply_Add = ({ children }) => {
         </SupplyAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de un insumo ✔️
+// Función contexto para controlar los datos editados de un insumo 
 export const Supply_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyEdit,setIsSupplyEdit] = useState(false);
@@ -113,7 +113,7 @@ export const Supply_Edit = ({ children }) => {
 }
 // ---------- INSUMOS
 // ---------- TIPOS DE INSUMOS
-// Función contexto para controlar los datos de la base de datos de tipos de insumos ✔️
+// Función contexto para controlar los datos de la base de datos de tipos de insumos 
 export const Supply_Types = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -121,9 +121,9 @@ export const Supply_Types = ({ children }) => {
     const [isSupplyTypes,setIsSupplyTypes] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Supply-Types');
+        socket.emit('Get-Supply-Types');
 
-        socket.on('Supply-Types',(result) => {
+        socket.on('Get-Supply-Types',(result) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
@@ -137,7 +137,7 @@ export const Supply_Types = ({ children }) => {
         });
 
         return () => {
-            socket.off('Supply-Types');
+            socket.off('Get-Supply-Types');
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
@@ -147,7 +147,7 @@ export const Supply_Types = ({ children }) => {
         </SupplyTypesContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de un tipo de insumo ✔️
+// Función contexto para controlar los datos agregados de un tipo de insumo 
 export const Supply_Type_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useState(false);
@@ -158,7 +158,7 @@ export const Supply_Type_Add = ({ children }) => {
         </SupplyTypeAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de un tipo de insumo ✔️
+// Función contexto para controlar los datos editados de un tipo de insumo 
 export const Supply_Type_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useState(false);
@@ -171,7 +171,7 @@ export const Supply_Type_Edit = ({ children }) => {
 }
 // ---------- TIPOS DE INSUMOS
 // ---------- MEDIDA
-// Función contexto para controlar los datos de la base de datos de medidas ✔️
+// Función contexto para controlar los datos de la base de datos de medidas 
 export const Units = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
@@ -179,9 +179,9 @@ export const Units = ({ children }) => {
     const [isUnits,setIsUnits] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Units');
+        socket.emit('Get-Units');
 
-        socket.on('Units',(result) => {
+        socket.on('Get-Units',(result) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
@@ -195,7 +195,7 @@ export const Units = ({ children }) => {
         });
 
         return () => {
-            socket.off('Units');
+            socket.off('Get-Units');
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
@@ -205,7 +205,7 @@ export const Units = ({ children }) => {
         </UnitsContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de una medida ✔️
+// Función contexto para controlar los datos agregados de una medida 
 export const Unit_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isUnitAdd,setIsUnitAdd] = useState(false);
@@ -216,7 +216,7 @@ export const Unit_Add = ({ children }) => {
         </UnitAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos editados de una medida ✔️
+// Función contexto para controlar los datos editados de una medida 
 export const Unit_Edit = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isUnitEdit,setIsUnitEdit] = useState(false);
@@ -236,9 +236,9 @@ export const Supply_Prices = ({ children }) => {
     const [isSupplyPrices,setIsSupplyPrices] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Supply-Prices');
+        socket.emit('Get-Supply-Prices');
 
-        socket.on('Supply-Prices',(result) => {
+        socket.on('Get-Supply-Prices',(result) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
@@ -252,7 +252,7 @@ export const Supply_Prices = ({ children }) => {
         });
 
         return () => {
-            socket.off('Supply-Prices');
+            socket.off('Get-Supply-Prices');
         }
     },[]);
     // Return para darle valor al contexto y heredarlo
@@ -271,9 +271,9 @@ export const Warehouse = ({ children }) => {
     const [isWarehouse,setIsWarehouse] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
-        socket.emit('Warehouse');
+        socket.emit('Get-Warehouse');
 
-        socket.on('Warehouse',(result) => {
+        socket.on('Get-Warehouse',(result) => {
             const decryptedData = decryptData(result);
             if(decryptedData){
                 const parsedData = JSON.parse(decryptedData);
@@ -287,7 +287,7 @@ export const Warehouse = ({ children }) => {
         });
 
         return () => {
-            socket.off('Warehouse');
+            socket.off('Get-Warehouse');
         }
     },[]);
     // Return para darle valor al contexto y heredarlo

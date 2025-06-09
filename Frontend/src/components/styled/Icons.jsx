@@ -712,6 +712,23 @@ export const Icon_Blue_18 = styled.div.withConfig({
 `;
 //---------- Blue
 //---------- Green
+export const Icon_Green_100 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 100px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
 export const Icon_Green_30 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`

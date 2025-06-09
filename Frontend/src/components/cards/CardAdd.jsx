@@ -6,12 +6,16 @@ export const Card_Menu = styled.div`
   padding: 20px;
   margin: 20px;
   width: 280px;
-  height: auto;
+  height: 285px;
   text-align: center;
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
@@ -20,21 +24,20 @@ export const Card_Menu = styled.div`
 import { ThemeModeContext } from '../../contexts/ViewsProvider';
 import { Text_Title_30_Center } from '../styled/Text';
 import { Icon_Image_90 } from '../styled/Icons';
-import { Button_Icon_Blue_220 } from '../styled/Buttons';
+import { Button_Icon_Blue_200 } from '../styled/Buttons';
 import { Container_Row_90_Center } from '../styled/Containers';
-import { Text_Span_20_Center } from '../styled/Text';
-export default function Card_Dish(){
+import { IoIosAddCircle } from "react-icons/io";
+import { Icon_Green_100 } from '../styled/Icons';
+export default function Card_Add(){
 
   const [themeMode,setThemeMode] = useContext(ThemeModeContext);
 
     return(
         <>
           <Card_Menu>
-            <Text_Title_30_Center ThemeMode={themeMode}>Huevos revueltos</Text_Title_30_Center>
-            <Icon_Image_90 ThemeMode={themeMode} src='https://imag.bonviveur.com/fotografia-de-unos-huevos-revueltos.jpg'/>
-            <Container_Row_90_Center>
-              <Button_Icon_Blue_220 ThemeMode={themeMode}><Text_Span_20_Center>Ver detalles</Text_Span_20_Center></Button_Icon_Blue_220>
-            </Container_Row_90_Center>
+            <Icon_Green_100 ThemeMode={themeMode}>
+                <IoIosAddCircle/>
+            </Icon_Green_100>
           </Card_Menu>
         </>
     );

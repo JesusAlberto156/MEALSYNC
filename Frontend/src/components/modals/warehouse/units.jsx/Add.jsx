@@ -121,7 +121,7 @@ export default function Unit_Add(){
             );
     
             const filtered = uniqueByMedida.filter((item) =>
-                item.medida.toLowerCase().includes(isSearchTerm2.toLowerCase())
+                item.nombre.toLowerCase().includes(isSearchTerm2.toLowerCase())
             );
     
             setFilteredUnits(filtered);
@@ -213,7 +213,7 @@ export default function Unit_Add(){
                                                     <Select
                                                         options={filteredUnits.map((type) => ({
                                                             value: type.idmedida,
-                                                            label: type.medida,
+                                                            label: type.nombre,
                                                         }))}
                                                         styles={{
                                                             control: (provided) => ({
@@ -262,7 +262,7 @@ export default function Unit_Add(){
                                                         }}
                                                         placeholder='Seleccione uno...'
                                                         value={filteredUnits
-                                                            .map(type => ({ value: type.idmedida, label: type.medida}))
+                                                            .map(type => ({ value: type.idmedida, label: type.nombre}))
                                                             .find(option => option.value === isTextFieldsUnits.idextent)
                                                         }
                                                         onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.label, unit: isUnits.find((unit) => unit.idmedida === e.value)?.unidad || 'Desnocido'}))}

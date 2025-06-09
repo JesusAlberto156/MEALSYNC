@@ -423,7 +423,7 @@ export default function Search_Bar (){
                         <></>
                     )}
 
-                    {currentSView === 'Warehouse' && currentNView === 'Warehouse' ? (
+                    {currentSView === 'Inventario' && currentNView === 'Inventario' ? (
                         isPermission.superadministrador ? (
                             <>
                                 <Tooltip title='Agregar' placement="top">
@@ -442,7 +442,7 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Warehouse' && currentNView === 'Supplies' ? (
+                    {currentSView === 'Inventario' && currentNView === 'Insumos' ? (
                         isPermission.superadministrador ? (
                             <>
                                 <Tooltip title='Agregar' placement="top">

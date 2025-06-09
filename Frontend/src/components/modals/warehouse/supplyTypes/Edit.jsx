@@ -189,7 +189,7 @@ export default function Supply_Type_Edit(){
                                                 <Select
                                                     options={currentRecordsUnits.map((unit) => ({
                                                         value: unit.idmedida,
-                                                        label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`
+                                                        label: `${unit.nombre} - ${unit.cantidad} - ${unit.unidad}`
                                                     }))}
                                                     styles={{
                                                         control: (provided) => ({
@@ -238,7 +238,7 @@ export default function Supply_Type_Edit(){
                                                     }}
                                                     placeholder='Seleccione uno...'
                                                     value={currentRecordsUnits
-                                                        .map(unit => ({ value: unit.idmedida, label: `${unit.medida} - ${unit.cantidad} - ${unit.unidad}`}))
+                                                        .map(unit => ({ value: unit.idmedida, label: `${unit.nombre} - ${unit.cantidad} - ${unit.unidad}`}))
                                                         .find(option => option.value === isTextFieldsSupplyTypes.idunits)
                                                     }
                                                     onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, idunits: e.value}))}

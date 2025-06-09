@@ -696,7 +696,7 @@ export const TableActionsUnits = () => {
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsUnits = isUnits.filter((data) => {
-        return data.medida.toLowerCase().includes(isSearchTerm2.toLowerCase());
+        return data.nombre.toLowerCase().includes(isSearchTerm2.toLowerCase());
     });
     // Total de registros visibles de la tabla
     const recordsPerPage = 8;

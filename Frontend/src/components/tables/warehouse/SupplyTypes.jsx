@@ -99,7 +99,7 @@ export default function Table_Supply_Types(){
                     onChange={(e) => setIsSearchTerm1(e.target.value)}
                 />
                 <Container_Row_80_Right>
-                    {currentSView === 'Warehouse' && currentNView === 'Supply-Types' ? (
+                    {currentSView === 'Inventario' && currentNView === 'Tipos-Insumo' ? (
                         isLoggedPermissions.superadministrador ? (
                             <>
                                 <Tooltip title='Agregar' placement="top">
@@ -200,7 +200,7 @@ export default function Table_Supply_Types(){
                             <Td ThemeMode={themeMode}>
                                 {(() => {
                                     const unit = isUnits.find(unit => unit.idmedida === type.idmedida);
-                                    return unit?.medida || 'Desconocido';
+                                    return unit?.nombre || 'Desconocido';
                                 })()}
                             </Td>
                             <Td ThemeMode={themeMode}>

@@ -72,7 +72,7 @@ export default function Table_Units(){
             setIsTextFieldsUnits(prev => ({
                 ...prev,
                 idextent: isSelectedRow2.idmedida,
-                extent: isSelectedRow2.medida,
+                extent: isSelectedRow2.nombre,
                 unit: isSelectedRow2.unidad,
                 amount: isSelectedRow2.cantidad,
             }))
@@ -97,7 +97,7 @@ export default function Table_Units(){
                     onChange={(e) => setIsSearchTerm2(e.target.value)}
                 />
                 <Container_Row_80_Right>
-                    {currentSView === 'Warehouse' && currentNView === 'Supply-Types' ? (
+                    {currentSView === 'Inventario' && currentNView === 'Tipos-Insumo' ? (
                         isLoggedPermissions.superadministrador ? (
                             <>
                                 <Tooltip title='Agregar' placement="top">
@@ -192,7 +192,7 @@ export default function Table_Units(){
                                 transition: 'background-color 0.5s ease',
                             }}
                         >
-                            <Td ThemeMode={themeMode}>{unit.medida}</Td>
+                            <Td ThemeMode={themeMode}>{unit.nombre}</Td>
                             <Td ThemeMode={themeMode}>{unit.unidad}</Td>
                             <Td ThemeMode={themeMode}>{unit.cantidad}</Td>
                         </tr>

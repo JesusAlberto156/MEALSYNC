@@ -36,7 +36,7 @@ export default function Administration_Users(){
     // Estructura del componente
     return(
         <> 
-            {isLoggedType === 'Administrator' ? (
+            {isLoggedType === 'Administrador' ? (
                 <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                     <Container_Row_100_Center>
                         <Text_Title_30_Center ThemeMode={themeMode}>SECCIÓN DE USUARIOS</Text_Title_30_Center>
@@ -47,8 +47,8 @@ export default function Administration_Users(){
                             <Container_Row_100_Center>
                                 <Button_Link_Blue ThemeMode={themeMode}
                                     onClick={() => {
-                                        handleSidebarView('Users');
-                                        handleNavbarView('Status')
+                                        handleSidebarView('Usuarios');
+                                        handleNavbarView('Estatus')
                                         sessionStorage.setItem('Route','/Administration/Index/Status');
                                         navigate('/Administration/Index/Status',{ replace: true });
                                     }}
@@ -57,8 +57,8 @@ export default function Administration_Users(){
                                 </Button_Link_Blue>
                                 <Button_Link_Blue ThemeMode={themeMode}
                                     onClick={() => {
-                                        handleSidebarView('Users');
-                                        handleNavbarView('Users')
+                                        handleSidebarView('Usuarios');
+                                        handleNavbarView('Usuarios')
                                         sessionStorage.setItem('Route','/Administration/Index/Users');
                                         navigate('/Administration/Index/Users',{ replace: true });
                                     }}
@@ -88,8 +88,8 @@ export default function Administration_Users(){
                             </Container_Row_NG_100_Center>
                             <Button_Link_Blue ThemeMode={themeMode}
                                 onClick={() => {
-                                    handleSidebarView('Users');
-                                    handleNavbarView('Permissions')
+                                    handleSidebarView('Usuarios');
+                                    handleNavbarView('Permisos')
                                     sessionStorage.setItem('Route','/Administration/Index/Permissions');
                                     navigate('/Administration/Index/Permissions',{ replace: true });
                                 }}

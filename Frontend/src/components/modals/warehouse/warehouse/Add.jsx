@@ -130,11 +130,11 @@ export default function Warehouse_Add(){
         if(isUnits.length !== 0){
             const uniqueByMedida = isUnits.filter(
                 (item, index, self) =>
-                    index === self.findIndex((t) => t.medida === item.medida)
+                    index === self.findIndex((t) => t.nombre === item.medida)
             );
     
             const filtered = uniqueByMedida.filter((item) =>
-                item.medida.toLowerCase().includes(isSearchTerm2.toLowerCase())
+                item.nombre.toLowerCase().includes(isSearchTerm2.toLowerCase())
             );
     
             setFilteredUnits(filtered);

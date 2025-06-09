@@ -138,7 +138,10 @@ export default function Side_Bar() {
               </Tooltip>
               <Tooltip title='Menús' placement="right">
                 <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {
-                  
+                  handleSidebarView('Menus');
+                  handleNavbarView('Menus');
+                  sessionStorage.setItem('Ruta','/Administration/Index/Menus');
+                  navigate('/Administration/Index/Menus',{ replace: true });
                 }}>
                   <Text_Span_16_Left>Menús</Text_Span_16_Left><Icon_White_18><MdOutlineMenuBook/></Icon_White_18>
                 </Button_Icon_Blue_200>

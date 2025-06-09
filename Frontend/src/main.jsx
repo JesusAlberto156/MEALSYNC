@@ -58,7 +58,8 @@ import Supply_Type_Add from './components/modals/warehouse/supplyTypes/Add';
 import Supply_Type_Edit from './components/modals/warehouse/supplyTypes/Edit';
 import Unit_Add from './components/modals/warehouse/units.jsx/Add';
 import Unit_Edit from './components/modals/warehouse/units.jsx/Edit';
-
+import Table_Menus from './components/tables/menus/Menus';
+import Menu_Breakfasts from './components/menus/Breakfasts';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
 import Index_Kitchen from './pages/Indexs/Kitchen';
@@ -215,6 +216,14 @@ const router = createHashRouter([
                   {
                     path: 'Supply-Types',
                     element: <Table_Supply_Types/>
+                  },
+                  {
+                    path: 'Menus',
+                    element: <Table_Menus/>
+                  },
+                  {
+                    path: 'Breakfasts',
+                    element: <Menu_Breakfasts/>
                   },
                 ]
               },

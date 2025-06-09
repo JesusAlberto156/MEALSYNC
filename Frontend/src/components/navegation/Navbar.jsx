@@ -20,7 +20,11 @@ import { MdSpeakerNotes } from "react-icons/md";
 import { FaWarehouse } from "react-icons/fa";
 import { FaBoxes } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa";
-import { IoStatsChart } from "react-icons/io5";
+// Iconos para la seccion de menus del navbar
+import { MdOutlineMenuBook } from "react-icons/md";
+import { MdFreeBreakfast } from "react-icons/md";
+import { GiMeal } from "react-icons/gi";
+import { MdDinnerDining } from "react-icons/md";
 
 import { RiRecordMailFill } from "react-icons/ri";
 //__________ICONOS__________
@@ -175,6 +179,69 @@ export default function Nav_Bar(){
                             )}
                             {currentNView === 'Tipos-Insumo' ? (
                                 <Text_Title_26_Center ThemeMode={themeMode}>TIPOS DE INSUMOS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Menus' ? (
+                        <>
+                            <Tooltip title='Menus' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Menus');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Menus');
+                                    navigate('/Administration/Index/Menus',{ replace: true });
+                                }}>
+                                    <Icon_22><MdOutlineMenuBook/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Desayunos' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Desayunos')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Breakfasts');
+                                    navigate('/Administration/Index/Breakfasts',{ replace: true });
+                                }}>
+                                    <Icon_22><MdFreeBreakfast/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Comidas' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Comidas')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Meals');
+                                    navigate('/Administration/Index/Meals',{ replace: true });
+                                }}>
+                                    <Icon_22><GiMeal/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Cenas' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Cenas')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Dinners');
+                                    navigate('/Administration/Index/Dinners',{ replace: true });
+                                }}>
+                                    <Icon_22><MdDinnerDining/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            {currentNView === 'Menus' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>MENÚS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                                
+                            )}
+                            {currentNView === 'Desayunos' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>DESAYUNOS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                            {currentNView === 'Comidas' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>COMIDAS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                            {currentNView === 'Cenas' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>CENAS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}

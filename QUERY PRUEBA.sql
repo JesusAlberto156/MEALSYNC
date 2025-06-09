@@ -69,7 +69,7 @@ INSERT INTO proveedores(nombre,rfc,domicilio,telefono,correo)
 VALUES ('PROVEEDOR DE PRUEBA 10','040903PRUEBA','AV. PRUEBA 10','3221023945','prueba10@gmail.com');
 
 INSERT INTO observacionesProveedor(observacion,calificacion,fecha,idproveedor)
-VALUES ('Observacion de prueba',2,GETDATE(),2);
+VALUES ('Observacion de prueba',5,GETDATE(),2);
 
 INSERT INTO estatus(habilitado,activo,idusuario) 
 VALUES (1,0,28);

@@ -1,5 +1,27 @@
 USE ComandaMedicaTepic
 
+ALTER TABLE tipoInsumo
+ALTER COLUMN descripcion VARCHAR(250) NULL
+
+
+ALTER TABLE categoriasInsumo
+ALTER COLUMN descripcion VARCHAR(250) NULL
+ALTER TABLE categoriasInsumo
+ALTER COLUMN cantidad INT NULL
+ALTER TABLE categoriasInsumo
+ALTER COLUMN precio DECIMAL(12,4) NULL
+ALTER TABLE categoriasInsumo
+ALTER COLUMN idalmacen INT NULL
+
+ALTER TABLE almacenCategorias
+ADD idcategoria INT NOT NULL 
+ALTER TABLE categoriasInsumo
+DROP COLUMN cantidad;
+ALTER TABLE categoriasInsumo
+DROP COLUMN precio;
+ALTER TABLE categoriasInsumo
+DROP COLUMN idalmacen;
+
 INSERT INTO menu (nombre) 
 VALUES ('Desayuno');
 INSERT INTO menu (nombre) 

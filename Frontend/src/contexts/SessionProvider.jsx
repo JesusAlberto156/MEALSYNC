@@ -157,28 +157,22 @@ export const Logged_Logged = ({ children }) => {
     useEffect(() => {
         if(isLoggedLogged && isLoggedUser.length !== 0){
             if(sessionStorage.getItem('Login') === 'true') return
-            socket.emit('Update-Status-Log',isLoggedUser.usuario,isLoggedUser.idusuario,1);
+            socket.emit('Update-Status-Log',isLoggedUser.idusuario,1);
         }
         if(!isLoggedLogged && isLoggedUser.length !== 0){
-            socket.emit('Update-Status-Log',isLoggedUser.usuario,isLoggedUser.idusuario,0);
+            socket.emit('Update-Status-Log',isLoggedUser.idusuario,0);
         }
     },[isLoggedLogged]);
     // useEffect para los eventos de socket de inicio de sesión
     useEffect(() => {
-        const handleSession = (message) => {
-            socket.emit('Get-Status');
-            console.log(message);
-        };
         const handleLogStatus = (message) => {
             socket.emit('Get-Logs');
             console.log(message);
         };
 
-        socket.on('Update-Status-Log',handleSession);
         socket.on('Insert-Log-Status',handleLogStatus);
 
         return () => {
-            socket.off('Update-Status-Log',handleSession);
             socket.off('Insert-Log-Status',handleLogStatus);
         }
     },[socket]);

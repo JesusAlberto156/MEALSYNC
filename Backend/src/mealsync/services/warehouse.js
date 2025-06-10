@@ -8,57 +8,6 @@ import { encryptData } from "../../config/crypto.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
-//---------- INSUMOS
-export const getSuppliesService = async () => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM insumos');
-
-        const jsonData = JSON.stringify(result.recordset);
-
-        const encryptedData = encryptData(jsonData);
-
-        return encryptedData;
-    }catch(error){
-        console.error('Error al obtener los insumos: ',error.message);
-        throw error;
-    }
-}
-//---------- INSUMOS
-//---------- TIPO DE INSUMOS
-export const getSupplyTypesService = async () => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM tipoInsumo');
-
-        const jsonData = JSON.stringify(result.recordset);
-
-        const encryptedData = encryptData(jsonData);
-
-        return encryptedData;
-    }catch(error){
-        console.error('Error al obtener los tipos de insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- TIPO DE INSUMOS
-//---------- MEDIDA
-export const getUnitsService = async () => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM medida');
-
-        const jsonData = JSON.stringify(result.recordset);
-
-        const encryptedData = encryptData(jsonData);
-
-        return encryptedData;
-    }catch(error){
-        console.error('Error al obtener las medidas de los tipos de insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- MEDIDA
 //---------- PRECIO DEL INSUMO
 export const getSupplyPricesService = async () => {
     try{
@@ -129,71 +78,6 @@ export const getDeletedWarehouseService = async () => {
 //---------- TIPOS DE INSUMO ELIMINADOS
 //______________GET______________
 //______________INSERT______________
-//---------- INSUMOS
-export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,idtipo) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('nombre',sql.VarChar(150),nombre)
-            .input('descripcion',sql.VarChar(250),descripcion)
-            .input('imagen',sql.VarChar(sql.MAX),imagen)
-            .input('idproveedor',sql.Int,idproveedor)
-            .input('idtipo',sql.Int,idtipo)
-            .query('INSERT INTO insumos (nombre,descripcion,imagen,idproveedor,idtipo) VALUES (@nombre,@descripcion,@imagen,@idproveedor,@idtipo)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Insumo insertado...';
-        }else{
-            return 'No se pudo insertar al insumo...';
-        }
-    }catch(error){
-        console.error('Error al insertar al insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- INSUMOS
-//---------- TIPO DE INSUMOS
-export const insertSupplyTypeService = async (tipo,descripcion,idmedida) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tipo',sql.VarChar(150),tipo)
-            .input('descripcion',sql.VarChar(250),descripcion)
-            .input('idmedida',sql.Int,idmedida)
-            .query('INSERT INTO tipoInsumo (tipo,descripcion,idmedida) VALUES (@tipo,@descripcion,@idmedida)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Tipo de insumo insertado...';
-        }else{
-            return 'No se pudo insertar al tipo de insumo...';
-        }
-    }catch(error){
-        console.error('Error al insertar al tipo de insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- TIPO DE INSUMOS
-//---------- MEDIDA
-export const insertUnitService = async (nombre,cantidad,unidad) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('nombre',sql.VarChar(20),nombre)
-            .input('cantidad',sql.Decimal(10,4),cantidad)
-            .input('unidad',sql.VarChar(20),unidad)
-            .query('INSERT INTO medida (nombre,cantidad,unidad) VALUES (@nombre,@cantidad,@unidad)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Medida insertado...';
-        }else{
-            return 'No se pudo insertar la medida...';
-        }
-    }catch(error){
-        console.error('Error al insertar la medida: ',error.message);
-        throw error;
-    }
-}
-//---------- MEDIDA
 //---------- PRECIO DEL INSUMO
 export const insertSupplyPriceService = async (precio,fecha,idinsumo,estado) => {
     try{

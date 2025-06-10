@@ -27,7 +27,7 @@ export const Logs_INSERT = (socket) => {
     socket.on('Insert-Log-User',async (usuario,fecha,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) => {
         try{
             await insertLogService('Usuarios',fecha,operacion,idtabla,idusuario,'',campo2,campo3,campo4,campo5,campo6,'','','','');
-            io.emit('Insert-Log-User',`${usuario} realizó un ${operacion} a la tabla de Usuarios`);
+            io.emit('Get-Logs');
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;
@@ -36,7 +36,7 @@ export const Logs_INSERT = (socket) => {
     socket.on('Insert-Log-Permissions',async (usuario,fecha,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9) => {
         try{
             await insertLogService('Permisos',fecha,operacion,idtabla,idusuario,'',campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,'');
-            io.emit('Insert-Log-Permissions',`${usuario} realizó un ${operacion} a la tabla de Permisos`);
+            io.emit('Get-Logs');    
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;
@@ -45,7 +45,7 @@ export const Logs_INSERT = (socket) => {
     socket.on('Insert-Log-Status',async (usuario,fecha,operacion,idtabla,idusuario,campo2,campo3,campo4) => {
         try{
             await insertLogService('Estatus',fecha,operacion,idtabla,idusuario,'',campo2,campo3,campo4,'','','','','','');
-            io.emit('Insert-Log-Status',`${usuario} realizó un ${operacion} a la tabla de Estatus`);
+            io.emit('Get-Logs');
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;
@@ -54,7 +54,7 @@ export const Logs_INSERT = (socket) => {
     socket.on('Insert-Log-Deleted-User',async (usuario,fecha,operacion,idtabla,idusuario,campo2) => {
         try{
             await insertLogService('Usuarios Eliminados',fecha,operacion,idtabla,idusuario,'',campo2,'','','','','','','','');
-            io.emit('Insert-Log-Deleted-User',`${usuario} realizó un ${operacion} a la tabla de Usuarios Eliminados`);
+            io.emit('Get-Logs');
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;
@@ -63,25 +63,25 @@ export const Logs_INSERT = (socket) => {
     socket.on('Insert-Log-Supplier',async (usuario,fecha,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) => {
         try{
             await insertLogService('Proveedores',fecha,operacion,idtabla,idusuario,'',campo2,campo3,campo4,campo5,campo6,'','','','');
-            io.emit('Insert-Log-Supplier',`${usuario} realizó un ${operacion} a la tabla de Proveedores`);
+            io.emit('Get-Logs');
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;
         }
     });// ✔️
-     socket.on('Insert-Log-Observation',async (usuario,fecha,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) => {
+    socket.on('Insert-Log-Observation',async (usuario,fecha,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) => {
         try{
             await insertLogService('Observaciones Proveedor',fecha,operacion,idtabla,idusuario,'',campo2,campo3,campo4,campo5,'','','','','');
-            io.emit('Insert-Log-Observation',`${usuario} realizó un ${operacion} a la tabla de Observaciones Proveedor`);
+            io.emit('Get-Logs');
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;
         }
     });
-     socket.on('Insert-Log-Deleted-Supplier',async (usuario,fecha,operacion,idtabla,idusuario,campo2) => {
+    socket.on('Insert-Log-Deleted-Supplier',async (usuario,fecha,operacion,idtabla,idusuario,campo2) => {
         try{
             await insertLogService('Proveedores Eliminados',fecha,operacion,idtabla,idusuario,'',campo2,'','','','','','','','');
-            io.emit('Insert-Log-Deleted-Supplier',`${usuario} realizó un ${operacion} a la tabla de Proveedores Eliminados`);
+            io.emit('Get-Logs');
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;
@@ -90,7 +90,7 @@ export const Logs_INSERT = (socket) => {
      socket.on('Insert-Log',async (usuario,fecha,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,campo10) => {
         try{
             await insertLogService('',fecha,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,campo10);
-            io.emit('Insert-Log',`${usuario} realizó un ${operacion} a la tabla de `);
+            io.emit('Get-Logs');    
         }catch(error){
             console.error('Error al realizar la operación: ',error);
             return error;

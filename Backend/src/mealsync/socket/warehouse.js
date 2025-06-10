@@ -1,7 +1,7 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getSuppliesService,getSupplyTypesService,getUnitsService,getSupplyPricesService,getWarehouseService,getDeletedSuppliesService,getDeletedWarehouseService } from "../services/warehouse.js";
-import { insertSupplyService,insertSupplyTypeService,insertUnitService,insertSupplyPriceService,insertWarehouseService,insertDeletedSupplyService,insertDeletedWarehouseService } from "../services/warehouse.js";
+import { getSupplyPricesService,getWarehouseService,getDeletedSuppliesService,getDeletedWarehouseService } from "../services/warehouse.js";
+import { insertSupplyPriceService,insertWarehouseService,insertDeletedSupplyService,insertDeletedWarehouseService } from "../services/warehouse.js";
 import { updateSupplyService,updateSupplyTypeService,updateSupplyTypeTypeDescriptionService,updateUnitService,updateUnitNameUnitService,updateSupplyPricePriceService,updateSupplyPriceStateService,updateWarehouseQuantityService,updateWarehouseObservationService,updateDeletedWarehouseService } from "../services/warehouse.js";
 import { deleteDeletedSupplyService,deleteDeletedWarehouseService } from "../services/warehouse.js";
 // Servidor socket
@@ -10,39 +10,6 @@ import { io } from "../../index.js";
 
 //______________GET______________
 export const Warehouse_GET = (socket) => {
-    //---------- INSUMOS
-    socket.on('Get-Supplies', async () => {
-        try {
-            const result = await getSuppliesService();
-            console.log('Insumos obtenidos...');
-            io.emit('Get-Supplies', result);
-        } catch (error) {
-            console.error('Error al obtener los datos: ', error);
-        }
-    });
-    //---------- INSUMOS
-    //---------- TIPO DE INSUMOS
-    socket.on('Get-Supply-Types', async () => {
-        try {
-            const result = await getSupplyTypesService();
-            console.log('Tipos de Insumo obtenidos...');
-            io.emit('Get-Supply-Types', result);
-        } catch (error) {
-            console.error('Error al obtener los datos: ', error);
-        }
-    });
-    //---------- TIPO DE INSUMOS
-    //---------- MEDIDA
-    socket.on('Get-Units', async () => {
-        try {
-            const result = await getUnitsService();
-            console.log('Medidas obtenidas...');
-            io.emit('Get-Units', result);
-        } catch (error) {
-            console.error('Error al obtener los datos: ', error);
-        }
-    });
-    //---------- MEDIDA
     //---------- PRECIO DEL INSUMO
     socket.on('Get-Supply-Prices', async () => {
         try {
@@ -91,39 +58,6 @@ export const Warehouse_GET = (socket) => {
 //______________GET______________
 //______________INSERT______________
 export const Warehouse_INSERT = (socket) => {
-    //---------- INSUMOS
-    socket.on('Insert-Supply',async (usuario,nombre,descripcion,imagen,idproveedor,idtipo) => {
-        try{
-            await insertSupplyService(nombre,descripcion,imagen,idproveedor,idtipo);
-            io.emit('Insert-Supply',`${usuario} agregó al insumo ${nombre}`);
-        }catch(error){
-            console.error('Error al agregar: ',error);
-            return error;
-        }
-    });
-    //---------- INSUMOS
-    //---------- TIPO DE INSUMOS
-    socket.on('Insert-Supply-Type',async (usuario,nombre,unidad,cantidad,tipo,descripcion,idmedida) => {
-        try{
-            await insertSupplyTypeService(tipo,descripcion,idmedida);
-            io.emit('Insert-Supply-Type',`${usuario} agregó al tipo de insumo ${tipo} con ${nombre} de ${cantidad} ${unidad}`);
-        }catch(error){
-            console.error('Error al agregar: ',error);
-            return error;
-        }
-    });
-    //---------- TIPO DE INSUMOS
-    //---------- MEDIDA
-    socket.on('Insert-Unit',async (usuario,nombre,cantidad,unidad) => {
-        try{
-            await insertUnitService(nombre,cantidad,unidad);
-            io.emit('Insert-Unit',`${usuario} agregó la medida ${nombre} de ${cantidad} ${unidad}`);
-        }catch(error){
-            console.error('Error al agregar: ',error);
-            return error;
-        }
-    });
-    //---------- MEDIDA
     //---------- PRECIO DEL INSUMO
     socket.on('Insert-Supply-Price',async (usuario,insumo,precio,fecha,idinsumo,estado) => {
         try{

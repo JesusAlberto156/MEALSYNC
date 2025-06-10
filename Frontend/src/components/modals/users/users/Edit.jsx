@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserEditContext } from "../../../../contexts/UsersProvider";
@@ -47,7 +47,6 @@ export default function User_Edit(){
     const [socket] = useContext(SocketContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
     const [isLoggedUser] = useContext(LoggedUserContext); 
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
@@ -72,12 +71,23 @@ export default function User_Edit(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Update-User',isLoggedUser.usuario,isTextFieldsUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),isTextFieldsUser.idtipo)
+                        socket.emit('Update-User',getLocalDateTimeOffset(),isLoggedUser.idusuario,isTextFieldsUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),isTextFieldsUser.idtipo)
 
                         resolve('¡MEALSYNC editó al usuario!...');
 
                         setIsUserEdit(false);
-                        setIsLogAdd(true);
+                        
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -88,23 +98,7 @@ export default function User_Edit(){
 
             Alert_Verification(promise,'Editando un usuario!...');
         }
-        if(isLogAdd){
-            socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isUserEdit,isLogAdd])
+    },[isUserEdit])
     // Estructura del componente
     return(
         <>

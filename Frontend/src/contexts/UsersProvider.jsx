@@ -189,23 +189,8 @@ export const Users_View_Password = ({children}) => {
 }
 // Función contexto para controlar los datos editados de un usuario ✔️
 export const User_Edit = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserEdit,setIsUserEdit] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleUpdateUser = (message) => {
-            console.log(message);
-            socket.emit('Get-Users');
-        };
-
-        socket.on('Update-User',handleUpdateUser);
-        
-        return () => {
-            socket.off('Update-User',handleUpdateUser);
-        }
-    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <UserEditContext.Provider value={[isUserEdit,setIsUserEdit]}>
@@ -529,6 +514,7 @@ export const Status = ({ children }) => {
 
         return () => {
             socket.off('Get-Status',handleStatus);
+            socket.off('Update-Status-Log');
         }
     },[]);
     // UseEffect para verificar que los datos existan

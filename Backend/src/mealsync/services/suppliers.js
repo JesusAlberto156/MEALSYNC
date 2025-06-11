@@ -202,6 +202,31 @@ export const insertSupplierService = async (nombre,rfc,domicilio,telefono,correo
         throw error;
     }
 }
+export const insertLogSupplierService = async (idproveedor,idusuario,nombre,rfc,domicilio,telefono,correo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Proveedores')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idproveedor)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),rfc)
+            .input('campo4',sql.VarChar(500),domicilio)
+            .input('campo5',sql.VarChar(500),telefono)
+            .input('campo6',sql.VarChar(500),correo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- PROVEEDORES
 //---------- OBSERVACIONES
 export const insertObservationService = async (observacion,calificacion,fecha,idproveedor) => {
@@ -224,6 +249,30 @@ export const insertObservationService = async (observacion,calificacion,fecha,id
         throw error;
     }
 }
+export const insertLogObservationService = async (idobservacion,idusuario,observacion,calificacion,fecha,idproveedor) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Observaciones Proveedor')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idobservacion)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),observacion)
+            .input('campo3',sql.VarChar(500),calificacion)
+            .input('campo4',sql.VarChar(500),fecha)
+            .input('campo5',sql.VarChar(500),idproveedor)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- OBSERVACIONES
 //---------- PROVEEDORES ELIMINADOS
 export const insertDeletedSupplierService = async (idproveedor) => {
@@ -240,6 +289,27 @@ export const insertDeletedSupplierService = async (idproveedor) => {
         }
     }catch(error){
         console.error('Error al eliminar al proveedor: ',error.message);
+        throw error;
+    }
+}
+export const insertLogDeletedSupplierService = async (ideliminado,idusuario,idproveedor) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Proveedores Eliminados')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idproveedor)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -267,6 +337,32 @@ export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,
         throw error;
     }
 }
+export const insertLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Insumos')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idinsumo)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo1',sql.VarChar(500),imagen)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),descripcion)
+            .input('campo4',sql.VarChar(500),idproveedor)
+            .input('campo5',sql.VarChar(500),idtipo)
+            .input('campo6',sql.VarChar(500),idcategoria)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- INSUMOS
 //---------- INSUMOS ELIMINADOS
 export const insertDeletedSupplyService = async (idinsumo) => {
@@ -283,6 +379,27 @@ export const insertDeletedSupplyService = async (idinsumo) => {
         }
     }catch(error){
         console.error('Error al eliminar al insumo: ',error.message);
+        throw error;
+    }
+}
+export const insertLogDeletedSupplyService = async (ideliminado,idusuario,idinsumo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Insumos Eliminados')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idinsumo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -308,6 +425,30 @@ export const insertSupplyTypeService = async (tipo,descripcion,unidad,idcategori
         throw error;
     }
 }
+export const insertLogSupplyTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Tipos de Insumo')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idtipo)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),tipo)
+            .input('campo3',sql.VarChar(500),descripcion)
+            .input('campo4',sql.VarChar(500),unidad)
+            .input('campo5',sql.VarChar(500),idcategoria)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- TIPOS DE INSUMO
 //---------- CANTIDAD DE TIPOS DE INSUMO
 export const insertCountSupplyTypeService = async (cantidad,idtipo) => {
@@ -328,6 +469,28 @@ export const insertCountSupplyTypeService = async (cantidad,idtipo) => {
         throw error;
     }
 }
+export const insertLogCountSupplyTypeService = async (idcantidad,idusuario,cantidad,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50),'Cantidad de Tipos de Insumo')
+            .input('operacion', sql.VarChar(20),'INSERT')
+            .input('idtabla',sql.Int,idcantidad)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),cantidad)
+            .input('campo3',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- CANTIDAD DE TIPOS DE INSUMO
 //---------- TIPOS DE INSUMO ELIMINADOS
 export const insertDeletedSupplyTypeService = async (idtipo) => {
@@ -344,6 +507,27 @@ export const insertDeletedSupplyTypeService = async (idtipo) => {
         }
     }catch(error){
         console.error('Error al eliminar al tipo de insumo: ',error.message);
+        throw error;
+    }
+}
+export const insertLogDeletedSupplyTypeService = async (ideliminado,idusuario,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Tipos de Insumo Eliminados')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -367,6 +551,28 @@ export const insertSupplyCategoryService = async (nombre,descripcion) => {
         throw error;
     }
 }
+export const insertLogSupplyCategoryService = async (idcategoria,idusuario,nombre,descripcion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50),'Categorias de Insumo')
+            .input('operacion', sql.VarChar(20),'INSERT')
+            .input('idtabla',sql.Int,idcategoria)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),descripcion)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- CATEGORIAS DE INSUMO
 //---------- CATEGORIAS DE INSUMO ELIMINADAS
 export const insertDeletedSupplyCategoryService = async (idcategoria) => {
@@ -383,6 +589,27 @@ export const insertDeletedSupplyCategoryService = async (idcategoria) => {
         }
     }catch(error){
         console.error('Error al eliminar la categoría del insumo: ',error.message);
+        throw error;
+    }
+}
+export const insertLogDeletedSupplyCategoryService = async (ideliminado,idusuario,idcategoria) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Categorias de Insumo Eliminadas')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idcategoria)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -412,6 +639,31 @@ export const updateSupplierService = async (idproveedor,nombre,rfc,domicilio,tel
         throw error;
     }
 }
+export const updateLogSupplierService = async (idproveedor,idusuario,nombre,rfc,domicilio,telefono,correo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Proveedores')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idproveedor)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),rfc)
+            .input('campo4',sql.VarChar(500),domicilio)
+            .input('campo5',sql.VarChar(500),telefono)
+            .input('campo6',sql.VarChar(500),correo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- PROVEEDORES
 //---------- INSUMOS
 export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
@@ -434,6 +686,32 @@ export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idp
         }
     }catch(error){
         console.error('Error al actualizar al insumo: ',error.message);
+        throw error;
+    }
+}
+export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Insumos')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idinsumo)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo1',sql.VarChar(500),imagen)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),descripcion)
+            .input('campo4',sql.VarChar(500),idproveedor)
+            .input('campo5',sql.VarChar(500),idtipo)
+            .input('campo6',sql.VarChar(500),idcategoria)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -460,27 +738,31 @@ export const updateSupplyTypeService = async (idtipo,tipo,descripcion,unidad,idc
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO
-//---------- CANTIDAD DE TIPOS DE INSUMO
-export const updateCountSupplyTypeService = async (idcantidad,cantidad) => {
+export const updateLogSupplyTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('idcantidad',sql.Int,idcantidad)
-            .input('cantidad',sql.Decimal(10,4),cantidad)
-            .query('UPDATE tipoInsumo SET cantidad = @cantidad WHERE idcantidad = @idcantidad');
+            .input('tabla', sql.VarChar(50), 'Tipos de Insumo')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idtipo)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),tipo)
+            .input('campo3',sql.VarChar(500),descripcion)
+            .input('campo4',sql.VarChar(500),unidad)
+            .input('campo5',sql.VarChar(500),idcategoria)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
 
         if(result.rowsAffected[0]>0){
-            return 'Cantidad al tipo de insumo actualizada...';
+            return 'Operación regisrada...';
         }else{
-            return 'No se pudo actualizar la cantidad al tipo de insumo...';
+            return 'No se pudo registrar la operación...';
         }
     }catch(error){
-        console.error('Error al actualizar la cantidad al tipo de insumo: ',error.message);
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
-//---------- CANTIDAD DE TIPOS DE INSUMO
+//---------- TIPOS DE INSUMO
 //---------- CATEGORIAS DE INSUMO
 export const updateSupplyCategoryService = async (idcategoria,nombre,descripcion) => {
     try{
@@ -498,6 +780,28 @@ export const updateSupplyCategoryService = async (idcategoria,nombre,descripcion
         }
     }catch(error){
         console.error('Error al actualizar la categoría del insumo: ',error.message);
+        throw error;
+    }
+}
+export const updateLogSupplyCategoryService = async (idcategoria,idusuario,nombre,descripcion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50),'Categorias de Insumo')
+            .input('operacion', sql.VarChar(20),'UPDATE')
+            .input('idtabla',sql.Int,idcategoria)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),descripcion)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -522,5 +826,146 @@ export const deleteDeletedSupplierService = async (idproveedor) => {
         throw error;
     }
 }
+export const deleteLogDeletedSupplierService = async (ideliminado,idusuario,idproveedor) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Proveedores Eliminados')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idproveedor)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- PROVEEDORES ELIMINADOS
+//---------- INSUMOS ELIMINADOS
+export const deleteDeletedSupplyService = async (idinsumo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idinsumo',sql.Int,idinsumo)
+            .query('DELETE FROM insumosEliminados WHERE idinsumo = @idinsumo');
+
+        if(result.rowsAffected[0]>0){
+            return 'Insumo recuperado...';
+        }else{
+            return 'No se pudo recuperar al insumo...';
+        }
+    }catch(error){
+        console.error('Error al recuperar al insumo: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogDeletedSupplyService = async (ideliminado,idusuario,idinsumo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Insumos Eliminados')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idinsumo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- INSUMOS ELIMINADOS
+//---------- TIPOS DE INSUMO ELIMINADOS
+export const deleteDeletedSupplyTypeService = async (idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idtipo',sql.Int,idtipo)
+            .query('DELETE FROM tipoInsumoEliminado WHERE idtipo = @idtipo');
+
+        if(result.rowsAffected[0]>0){
+            return 'Tipo de insumo recuperado...';
+        }else{
+            return 'No se pudo recuperar al tipo de insumo...';
+        }
+    }catch(error){
+        console.error('Error al recuperar al tipo de insumo: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogDeletedSupplyTypeService = async (ideliminado,idusuario,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Tipos de Insumo Eliminados')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- TIPOS DE INSUMO ELIMINADOS
+//---------- CATEGORIAS DE INSUMO ELIMINADAS
+export const deleteDeletedSupplyCategoryService = async (idcategoria) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idcategoria',sql.Int,idcategoria)
+            .query('DELETE FROM categoriasInsumoEliminadas WHERE idcategoria = @idcategoria');
+
+        if(result.rowsAffected[0]>0){
+            return 'Categoría de insumo recuperada...';
+        }else{
+            return 'No se pudo recuperar la categoría de insumo...';
+        }
+    }catch(error){
+        console.error('Error al recuperar la categoría de insumo: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogDeletedSupplyCategoryService = async (ideliminado,idusuario,idcategoria) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Categorias de Insumo Eliminadas')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idcategoria)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- CATEGORIAS DE INSUMO ELIMINADAS
 //______________DELETE______________

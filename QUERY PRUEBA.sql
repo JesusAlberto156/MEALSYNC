@@ -50,6 +50,9 @@ ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
 ALTER TABLE almacenGuarnicion
 ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
 
+ALTER TABLE logComandaMedicaTepic
+ADD CONSTRAINT DF_logCamandaMedicaTepic_Fecha DEFAULT GETDATE() FOR fecha;
+
 SELECT * FROM logComandaMedicaTepic;
 
 DELETE FROM logComandaMedicaTepic;

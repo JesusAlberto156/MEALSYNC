@@ -16,6 +16,7 @@ import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandleSupplierAdd } from "../../../../hooks/Form";
 import { ResetTextFieldsSupplier } from "../../../../hooks/Texts";
+import { Dates } from "../../../../hooks/Dates";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
@@ -50,30 +51,31 @@ export default function Suppliers_Add(){
     const handleModalView = HandleModalView();
     const handleSupplierAdd = HandleSupplierAdd();
     const resetTextFieldsSupplier = ResetTextFieldsSupplier();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
+    const { insertDate } = Dates();
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
-        if(isSupplierAdd && isSuppliers.length !== 0){
+        if(isSupplierAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Supplier',isLoggedUser.usuario,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim())
+                        socket.emit('Insert-Supplier',isLoggedUser.idusuario,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim())
 
                         resolve('¡MEALSYNC agregó al proveedor!...');
 
                         setIsSupplierAdd(false)
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsSupplierAdd(false);
+                            resetTextFieldsSupplier();
+                            setIsActionBlock(false);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -84,33 +86,7 @@ export default function Suppliers_Add(){
 
             Alert_Verification(promise,'Agregando un proveedor!...');
         }
-        if(isSuppliers.some(supplier => supplier.nombre === isTextFieldsSupplier.nombre)){
-            setIsTextFieldsSupplier(prev => ({
-                ...prev,
-                idproveedor: isSuppliers.find(supplier => supplier.nombre === isTextFieldsSupplier.nombre)?.idproveedor
-            }))
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && !Supplier.current){
-            Supplier.current = true;
-            socket.emit('Insert-Log-Supplier',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsSupplier.idproveedor,isLoggedUser.idusuario,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim());
-        
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSupplierAdd(false);
-                resetTextFieldsSupplier();
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isSupplierAdd,isSuppliers,isTextFieldsSupplier.idproveedor]);
+    },[isSupplierAdd]);
     // Estructura del componente
     return(
         <>

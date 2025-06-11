@@ -117,6 +117,31 @@ export const insertUserService = async (nombre,nombrecorto,usuario,contrasena,id
         throw error;
     }
 }
+export const insertLogUserService = async (idusuario,usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Usuarios')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idusuario)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),nombrecorto)
+            .input('campo4',sql.VarChar(500),usuario)
+            .input('campo5',sql.VarChar(500),contrasena)
+            .input('campo6',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- USUARIOS
 //---------- PERMISOS
 export const insertPermissionsService = async (administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
@@ -142,6 +167,34 @@ export const insertPermissionsService = async (administrador,chef,almacenista,co
         throw error;
     }
 }
+export const insertLogPermissionsService = async (idpermiso,usuario,administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Permisos')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idpermiso)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),administrador)
+            .input('campo3',sql.VarChar(500),chef)
+            .input('campo4',sql.VarChar(500),almacenista)
+            .input('campo5',sql.VarChar(500),cocinero)
+            .input('campo6',sql.VarChar(500),nutriologo)
+            .input('campo7',sql.VarChar(500),medico)
+            .input('campo8',sql.VarChar(500),'0')
+            .input('campo9',sql.VarChar(500),idusuario)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8,@campo9)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- PERMISOS
 //---------- ESTATUS
 export const insertStatusService = async (habilitado,idusuario) => {
@@ -162,6 +215,29 @@ export const insertStatusService = async (habilitado,idusuario) => {
         throw error;
     }
 }
+export const insertLogStatusService = async (idestatus,usuario,habilitado,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Estatus')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idestatus)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),habilitado)
+            .input('campo3',sql.VarChar(500),'0')
+            .input('campo4',sql.VarChar(500),idusuario)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- ESTATUS
 //---------- USUARIOS ELIMINADOS
 export const insertDeletedUserService = async (idusuario) => {
@@ -178,6 +254,27 @@ export const insertDeletedUserService = async (idusuario) => {
         }
     }catch(error){
         console.error('Error al eliminar al usuario: ',error.message);
+        throw error;
+    }
+}
+export const insertLogDeletedUserService = async (ideliminado,usuario,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Usuarios Eliminados')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),idusuario)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -207,6 +304,31 @@ export const updateUserService = async (idusuario,nombre,nombrecorto,usuario,con
         throw error;
     }
 }
+export const updateLogUserService = async (idusuario,usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Usuarios')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idusuario)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),nombre)
+            .input('campo3',sql.VarChar(500),nombrecorto)
+            .input('campo4',sql.VarChar(500),usuario)
+            .input('campo5',sql.VarChar(500),contrasena)
+            .input('campo6',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- USUARIOS
 //---------- PERMISOS
 export const updatePermissionsService = async (idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
@@ -232,6 +354,32 @@ export const updatePermissionsService = async (idusuario,administrador,chef,alma
       throw error;
   }
 }
+export const updateLogPermissionsService = async (idpermiso,idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Permisos')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpermiso)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),administrador)
+            .input('campo3',sql.VarChar(500),chef)
+            .input('campo4',sql.VarChar(500),almacenista)
+            .input('campo5',sql.VarChar(500),cocinero)
+            .input('campo6',sql.VarChar(500),nutriologo)
+            .input('campo7',sql.VarChar(500),medico)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 export const updatePermissionService = async (idusuario,superadministrador) => {
   try{
       const pool = await conexionDB();
@@ -249,6 +397,27 @@ export const updatePermissionService = async (idusuario,superadministrador) => {
       console.error('Error al actualizar el permiso de super administrador al usuario: ',error.message);
       throw error;
   }
+}
+export const updateLogPermissionService = async (idpermiso,idusuario,superadministrador) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Permisos')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpermiso)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo8',sql.VarChar(500),superadministrador)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo8)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
 }
 //---------- PERMISOS
 //---------- ESTATUS
@@ -274,6 +443,27 @@ export const updateStatusLogService = async (idusuario,activo) => {
         throw error;
     }
 }
+export const updateLogStatusLogService = async (idestatus,usuario,activo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Estatus')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idestatus)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo3',sql.VarChar(500),activo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo3)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 export const updateStatusEnableService = async (idusuario,habilitado) => {
     try {
         const pool = await conexionDB();
@@ -293,6 +483,27 @@ export const updateStatusEnableService = async (idusuario,habilitado) => {
         }
     }catch(error){
         console.error('Error al actualizar el estatus al usuario: ',error.message);
+        throw error;
+    }
+}
+export const updateLogStatusEnableService = async (idestatus,usuario,habilitado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Estatus')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idestatus)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),habilitado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }

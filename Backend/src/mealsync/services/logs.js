@@ -28,12 +28,11 @@ export const getLogsService = async () => {
 //______________GET______________
 //______________INSERT______________
 //---------- LOG
-export const insertLogService = async (tabla,fecha,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,campo10) => {
+export const insertLogService = async (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,campo10) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('tabla',sql.VarChar(50),tabla)
-            .input('fecha',sql.DateTime,fecha)
             .input('operacion',sql.VarChar(20),operacion)
             .input('idtabla',sql.Int,idtabla)
             .input('idusuario',sql.Int,idusuario)
@@ -47,7 +46,7 @@ export const insertLogService = async (tabla,fecha,operacion,idtabla,idusuario,c
             .input('campo8',sql.VarChar(500),campo8)
             .input('campo9',sql.VarChar(500),campo9)
             .input('campo10',sql.VarChar(500),campo10)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,fecha,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,campo10) VALUES (@tabla,@fecha,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8,@campo9,@campo10)');
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,campo10) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8,@campo9,@campo10)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';

@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Eventos socket
-import { Logs_GET,Logs_INSERT } from './logs.js';
+import { Logs_GET } from './logs.js';
 import { Users_GET,Users_INSERT,Users_UPDATE,Users_DELETE } from './users.js';
 import { Suppliers_GET,Suppliers_INSERT,Suppliers_UPDATE,Suppliers_DELETE } from './suppliers.js';
 import { Warehouse_GET,Warehouse_INSERT,Warehouse_UPDATE,Warehouse_DELETE } from './warehouse.js';
@@ -14,7 +14,6 @@ export const socketEvents = () => {
         console.log(`Cliente conectado: ${socket.id}`);
         // Registros
         Logs_GET(socket)
-        Logs_INSERT(socket)
         // Usuarios
         Users_GET(socket);
         Users_INSERT(socket);

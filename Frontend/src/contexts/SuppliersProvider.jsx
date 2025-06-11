@@ -78,29 +78,8 @@ export const Suppliers = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de un proveedor ✔️
 export const Supplier_Add = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isSupplierAdd,setIsSupplierAdd] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleInsertSupplier = (message) => {
-            console.log(message);
-            socket.emit('Get-Suppliers');
-        };
-        const handleInsertLog = (message) => {
-            console.log(message);
-            socket.emit('Get-Logs');
-        };
-
-        socket.on('Insert-Supplier',handleInsertSupplier);
-        socket.on('Insert-Log-Supplier',handleInsertLog);
-        
-        return () => {
-            socket.off('Insert-Supplier',handleInsertSupplier);
-            socket.off('Insert-Log-Supplier',handleInsertLog);
-        }
-    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <SupplierAddContext.Provider value={[isSupplierAdd,setIsSupplierAdd]}>
@@ -110,23 +89,8 @@ export const Supplier_Add = ({ children }) => {
 }
 // Función contexto para controlar los datos editados de un proveedor ✔️
 export const Supplier_Edit = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isSupplierEdit,setIsSupplierEdit] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleUpdateSupplier = (message) => {
-            console.log(message);
-            socket.emit('Get-Suppliers');
-        };
-
-        socket.on('Update-Supplier',handleUpdateSupplier);
-        
-        return () => {
-            socket.off('Update-Supplier',handleUpdateSupplier);
-        }
-    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <SupplierEditContext.Provider value={[isSupplierEdit,setIsSupplierEdit]}>
@@ -177,29 +141,8 @@ export const Deleted_Suppliers = ({ children }) => {
 }
 // Función contexto para controlar los datos eliminados de un proveedor ✔️
 export const Supplier_Delete = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isSupplierDelete,setIsSupplierDelete] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleInsertDeletedSupplier = (message) => {
-            console.log(message);
-            socket.emit('Get-Deleted-Suppliers');
-        };
-        const handleInsertLog = (message) => {
-            console.log(message);
-            socket.emit('Get-Logs');
-        };
-
-        socket.on('Insert-Deleted-Supplier',handleInsertDeletedSupplier);
-        socket.on('Insert-Log-Deleted-Supplier',handleInsertLog);
-
-        return () => {
-            socket.off('Insert-Deleted-Supplier',handleInsertDeletedSupplier);
-            socket.off('Insert-Log-Deleted-Supplier',handleInsertLog);
-        }
-    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <SupplierDeleteContext.Provider value={[isSupplierDelete,setIsSupplierDelete]}>

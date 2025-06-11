@@ -2,15 +2,21 @@
 // Consultas de sql
 import { getSuppliersService,getObservationsService,getDeletedSuppliersService,getSuppliesService,getDeletedSuppliesService,getSupplyTypesService,getCountSupplyTypesService,getDeletedSupplyTypesService,getSupplyCategoriesService,getDeletedSupplyCategoriesService } from "../services/suppliers.js";
 import { insertSupplierService,insertObservationService,insertDeletedSupplierService,insertSupplyService,insertDeletedSupplyService,insertSupplyTypeService,insertCountSupplyTypeService,insertDeletedSupplyTypeService,insertSupplyCategoryService,insertDeletedSupplyCategoryService } from "../services/suppliers.js";
-import { updateSupplierService,updateSupplyService,updateSupplyTypeService,updateCountSupplyTypeService,updateSupplyCategoryService } from "../services/suppliers.js";
-import { deleteDeletedSupplierService } from "../services/suppliers.js";
+import { updateSupplierService,updateSupplyService,updateSupplyTypeService,updateSupplyCategoryService } from "../services/suppliers.js";
+import { deleteDeletedSupplierService,deleteDeletedSupplyService,deleteDeletedSupplyTypeService,deleteDeletedSupplyCategoryService } from "../services/suppliers.js";
+import { getLogsService } from "../services/logs.js";
+import { insertLogSupplierService,insertLogObservationService,insertLogDeletedSupplierService,insertLogSupplyService,insertLogDeletedSupplyService,insertLogSupplyTypeService,insertLogCountSupplyTypeService,insertLogDeletedSupplyTypeService,insertLogSupplyCategoryService,insertLogDeletedSupplyCategoryService } from "../services/suppliers.js";
+import { updateLogSupplierService,updateLogSupplyService,updateLogSupplyTypeService,updateLogSupplyCategoryService } from "../services/suppliers.js";
+import { deleteLogDeletedSupplierService,deleteLogDeletedSupplyService,deleteLogDeletedSupplyTypeService,deleteLogDeletedSupplyCategoryService } from "../services/suppliers.js";
 // Servidor socket
 import { io } from "../../index.js";
+// Servicios
+import { decryptData } from "../../config/crypto.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
 export const Suppliers_GET = (socket) => {
-    //---------- PROVEEDORES  
+    //---------- PROVEEDORES ✔️
     socket.on('Get-Suppliers', async () => {
         try {
           const result = await getSuppliersService();
@@ -20,8 +26,7 @@ export const Suppliers_GET = (socket) => {
           console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- PROVEEDORES
-    //---------- OBSERVACIONES
+    //---------- OBSERVACIONES ✔️
     socket.on('Get-Observations', async () => {
         try {
           const result = await getObservationsService();
@@ -31,8 +36,7 @@ export const Suppliers_GET = (socket) => {
           console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- OBSERVACIONES
-    //---------- PROVEEDORES ELIMINADOS
+    //---------- PROVEEDORES ELIMINADOS ✔️
     socket.on('Get-Deleted-Suppliers', async () => {
         try {
           const result = await getDeletedSuppliersService();
@@ -42,8 +46,7 @@ export const Suppliers_GET = (socket) => {
           console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- PROVEEDORES ELIMINADOS
-    //---------- INSUMOS
+    //---------- INSUMOS ✔️
     socket.on('Get-Supplies', async () => {
         try {
             const result = await getSuppliesService();
@@ -53,8 +56,7 @@ export const Suppliers_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- INSUMOS
-    //---------- INSUMOS ELIMINADOS
+    //---------- INSUMOS ELIMINADOS ✔️
     socket.on('Get-Deleted-Supplies', async () => {
         try {
             const result = await getDeletedSuppliesService();
@@ -64,8 +66,7 @@ export const Suppliers_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- INSUMOS ELIMINADOS
-    //---------- TIPO DE INSUMOS
+    //---------- TIPO DE INSUMOS ✔️
     socket.on('Get-Supply-Types', async () => {
         try {
             const result = await getSupplyTypesService();
@@ -75,8 +76,7 @@ export const Suppliers_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- TIPO DE INSUMOS
-    //---------- CANTIDAD DE TIPOS DE INSUMO
+    //---------- CANTIDAD DE TIPOS DE INSUMO ✔️
     socket.on('Get-Count-Supply-Types', async () => {
         try {
             const result = await getCountSupplyTypesService();
@@ -86,8 +86,7 @@ export const Suppliers_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- CANTIDAD DE TIPOS DE INSUMO
-    //---------- TIPOS DE INSUMO ELIMINADOS
+    //---------- TIPOS DE INSUMO ELIMINADOS ✔️
     socket.on('Get-Deleted-Supply-Types', async () => {
         try {
             const result = await getDeletedSupplyTypesService();
@@ -97,8 +96,7 @@ export const Suppliers_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- TIPOS DE INSUMO ELIMINADOS
-    //---------- CATEGORIAS DE INSUMO
+    //---------- CATEGORIAS DE INSUMO ✔️
     socket.on('Get-Supply-Categories', async () => {
         try {
             const result = await getSupplyCategoriesService();
@@ -108,8 +106,7 @@ export const Suppliers_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- CATEGORIAS DE INSUMO
-    //---------- CATEGORIAS DE INSUMO ELIMINADAS
+    //---------- CATEGORIAS DE INSUMO ELIMINADAS ✔️
     socket.on('Get-Deleted-Supply-Categories', async () => {
         try {
             const result = await getDeletedSupplyCategoriesService();
@@ -119,170 +116,289 @@ export const Suppliers_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- CATEGORIAS DE INSUMO ELIMINADAS
 };
 //______________GET______________
 //______________INSERT______________
 export const Suppliers_INSERT = (socket) => {
-    //---------- PROVEEDORES
-    socket.on('Insert-Supplier',async (usuario,nombre,rfc,domicilio,telefono,correo) => {
+    //---------- PROVEEDORES ✔️
+    socket.on('Insert-Supplier',async (idusuario,nombre,rfc,domicilio,telefono,correo) => {
         try{
             await insertSupplierService(nombre,rfc,domicilio,telefono,correo);
-            io.emit('Insert-Supplier',`${usuario} agregó al proveedor ${nombre}`);
+            const resultSuppliers = await getSuppliersService();
+            const decryptedData = decryptData(resultSuppliers);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogSupplierService(parsedData.find(data => data.nombre === nombre)?.idproveedor,idusuario,nombre,rfc,domicilio,telefono,correo);
+            const resultLogs = await getLogsService();
+            io.emit('Get-Suppliers',resultSuppliers);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al agregar: ',error);
+            console.error('Error al agregar la proveedor: ',error);
             return error;
         }
     });
-    //---------- PROVEEDORES
-    //---------- OBSERVACIONES
-    socket.on('Insert-Observation',async (usuario,proveedor,observacion,calificacion,fecha,idproveedor) => {
+    //---------- OBSERVACIONES ✔️
+    socket.on('Insert-Observation',async (idusuario,observacion,calificacion,fecha,idproveedor) => {
         try{
             await insertObservationService(observacion,calificacion,fecha,idproveedor);
-            io.emit('Insert-Observation',`${usuario} agregó una observación al proveedor ${proveedor}`);
+            const resultObservations = await getObservationsService();
+            const decryptedData = decryptData(resultObservations);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogObservationService(parsedData.find(data => data.fecha === fecha && data.idproveedor === idproveedor)?.idobservacion,idusuario,observacion,String(calificacion),String(fecha),String(idproveedor));
+            const resultLogs = await getLogsService();
+            io.emit('Get-ObservationS',resultObservations);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al agregar: ',error);
+            console.error('Error al agregar la observación al proveedor: ',error);
             return error;
         }
     });
-    //---------- OBSERVACIONES
-    //---------- PROVEEDORES ELIMINADOS
-    socket.on('Insert-Deleted-Supplier',async (usuario,proveedor,idproveedor) => {
+    //---------- PROVEEDORES ELIMINADOS ✔️
+    socket.on('Insert-Deleted-Supplier',async (idusuario,idproveedor) => {
         try{
             await insertDeletedSupplierService(idproveedor);
-            io.emit('Insert-Deleted-Supplier',`${usuario} eliminó al proveedor ${proveedor}`);
+            const resultDeletedSuppliers = await getDeletedSuppliersService();
+            const decryptedData = decryptData(resultDeletedSuppliers);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogDeletedSupplierService(parsedData.find(data => data.idproveedor === idproveedor)?.ideliminado,idusuario,String(idproveedor));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Suppliers',resultDeletedSuppliers)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al eliminar: ',error);
+            console.error('Error al eliminar al proveedor: ',error);
             return error;
         }
     });
-    //---------- PROVEEDORES ELIMINADOS
-    //---------- INSUMOS
-    socket.on('Insert-Supply',async (usuario,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
+    //---------- INSUMOS ✔️
+    socket.on('Insert-Supply',async (idusuario,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
         try{
             await insertSupplyService(nombre,descripcion,imagen,idproveedor,idtipo,idcategoria);
-            io.emit('Insert-Supply',`${usuario} agregó al insumo ${nombre}`);
+            const resultSupplies = await getSuppliesService();
+            const decryptedData = decryptData(resultSupplies);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogSupplyService(parsedData.find(data => data.nombre === nombre && data.idproveedor === idproveedor)?.idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Supplies',resultSupplies)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al agregar: ',error);
+            console.error('Error al agregar al insumo: ',error);
             return error;
         }
     });
-    //---------- INSUMOS
-    //---------- INSUMOS ELIMINADOS
-    socket.on('Insert-Deleted-Supply',async (usuario,insumo,idinsumo) => {
+    //---------- INSUMOS ELIMINADOS ✔️
+    socket.on('Insert-Deleted-Supply',async (idusuario,idinsumo) => {
         try{
             await insertDeletedSupplyService(idinsumo);
-            io.emit('Insert-Deleted-Supply',`${usuario} eliminó al insumo ${insumo}`);
+            const resultDeletedSupplies = await getDeletedSuppliesService();
+            const decryptedData = decryptData(resultDeletedSupplies);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogDeletedSupplyService(parsedData.find(data => data.idinsumo === idinsumo)?.ideliminado,idusuario,String(idinsumo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Supplies',resultDeletedSupplies)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al eliminar: ',error);
+            console.error('Error al eliminar al insumo: ',error);
             return error;
         }
     });
-    //---------- INSUMOS ELIMINADOS
-    //---------- TIPO DE INSUMOS
-    socket.on('Insert-Supply-Type',async (usuario,tipo,descripcion,unidad,idcategoria) => {
+    //---------- TIPO DE INSUMOS ✔️
+    socket.on('Insert-Supply-Type',async (idusuario,tipo,descripcion,unidad,idcategoria) => {
         try{
             await insertSupplyTypeService(tipo,descripcion,unidad,idcategoria);
-            io.emit('Insert-Supply-Type',`${usuario} agregó al tipo de insumo ${tipo}`);
+            const resultSupplyTypes = await getSupplyTypesService();
+            const decryptedData = decryptData(resultSupplyTypes);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogSupplyTypeService(parsedData.find(data => data.tipo === tipo)?.idtipo,idusuario,tipo,descripcion,unidad,String(idcategoria));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Supply-Types',resultSupplyTypes)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al agregar: ',error);
+            console.error('Error al agregar al tipo de insumo: ',error);
             return error;
         }
     });
-    //---------- TIPO DE INSUMOS
-    //---------- CANTIDAD DE TIPOS DE INSUMO
-    socket.on('Insert-Count-Supply-Type',async (usuario,tipo,cantidad,idtipo) => {
+    //---------- CANTIDAD DE TIPOS DE INSUMO ✔️
+    socket.on('Insert-Count-Supply-Type',async (idusuario,cantidad,idtipo) => {
         try{
             await insertCountSupplyTypeService(cantidad,idtipo);
-            io.emit('Insert-Count-Supply-Type',`${usuario} agregó una cantidad al tipo de insumo ${tipo}`);
+            const resultCountSupplyTypes = await getCountSupplyTypesService();
+            const decryptedData = decryptData(resultCountSupplyTypes);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogCountSupplyTypeService(parsedData.find(data => data.idtipo === idtipo && data.cantidad === cantidad)?.idcantidad,idusuario,String(cantidad),String(idtipo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Count-Supply-Types',resultCountSupplyTypes)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al agregar: ',error);
+            console.error('Error al agregar la cantidad al tipo de insumo: ',error);
             return error;
         }
     });
-    //---------- CANTIDAD DE TIPOS DE INSUMO
-    //---------- TIPOS DE INSUMO ELIMINADOS
-    socket.on('Insert-Deleted-Supply-Type',async (usuario,tipo,idtipo) => {
+    //---------- TIPOS DE INSUMO ELIMINADOS ✔️
+    socket.on('Insert-Deleted-Supply-Type',async (idusuario,idtipo) => {
         try{
             await insertDeletedSupplyTypeService(idtipo);
-            io.emit('Insert-Deleted-Supply-Type',`${usuario} eliminó al tipo de insumo ${tipo}`);
+            const resultDeletedSupplyTypes = await getDeletedSupplyTypesService();
+            const decryptedData = decryptData(resultDeletedSupplyTypes);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogDeletedSupplyTypeService(parsedData.find(data => data.idtipo === idtipo)?.ideliminado,idusuario,String(idtipo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Supply-Types',resultDeletedSupplyTypes)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al eliminar: ',error);
+            console.error('Error al eliminar al tipo de insumo: ',error);
             return error;
         }
     });
-    //---------- TIPOS DE INSUMO ELIMINADOS
-    //---------- CATEGORIAS DE INSUMO
-    socket.on('Insert-Supply-Category',async (usuario,nombre,descripcion) => {
+    //---------- CATEGORIAS DE INSUMO ✔️
+    socket.on('Insert-Supply-Category',async (idusuario,nombre,descripcion) => {
         try{
             await insertSupplyCategoryService(nombre,descripcion);
-            io.emit('Insert-Supply-Category',`${usuario} agregó la categoría de insumo ${nombre}`);
+            const resultSupplyCategories = await getSupplyCategoriesService();
+            const decryptedData = decryptData(resultSupplyCategories);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogSupplyCategoryService(parsedData.find(data => data.nombre === nombre)?.idcategoria,idusuario,nombre,descripcion);
+            const resultLogs = await getLogsService();
+            io.emit('Get-Supply-Categories',resultSupplyCategories)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al agregar: ',error);
+            console.error('Error al agregar la categoría del insumo: ',error);
             return error;
         }
     });
-    //---------- CATEGORIAS DE INSUMO
-    //---------- CATEGORIAS DE INSUMO ELIMINADAS
-    socket.on('Insert-Deleted-Supply-Category',async (usuario,categoria,idcategoria) => {
+    //---------- CATEGORIAS DE INSUMO ELIMINADAS ✔️
+    socket.on('Insert-Deleted-Supply-Category',async (idusuario,idcategoria) => {
         try{
             await insertDeletedSupplyCategoryService(idcategoria);
-            io.emit('Insert-Deleted-Supply-Category',`${usuario} eliminó la categoría de insumo ${categoria}`);
+            const resultDeletedSupplyCategories = await getDeletedSupplyCategoriesService();
+            const decryptedData = decryptData(resultDeletedSupplyCategories);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogDeletedSupplyCategoryService(parsedData.find(data => data.idcategoria === idcategoria)?.ideliminado,idusuario,String(idcategoria));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Supply-Categories',resultDeletedSupplyCategories)
+            io.emit('Get-Logs',resultLogs);    
         }catch(error){
-            console.error('Error al eliminar: ',error);
+            console.error('Error al eliminar la categoría del insumo: ',error);
             return error;
         }
     });
-    //---------- CATEGORIAS DE INSUMO ELIMINADAS
 }
 //______________INSERT______________
 //______________UPDATE______________
 export const Suppliers_UPDATE = (socket) => {
-    //---------- PROVEEDORES
-    socket.on('Update-Supplier',async (usuario,idproveedor,nombre,rfc,domicilio,telefono,correo) => {
+    //---------- PROVEEDORES ✔️
+    socket.on('Update-Supplier',async (idusuario,idproveedor,nombre,rfc,domicilio,telefono,correo) => {
         try{
             await updateSupplierService(idproveedor,nombre,rfc,domicilio,telefono,correo);
-            io.emit('Update-Supplier',`${usuario} editó al proveedor ${nombre}`);
+            const resultSuppliers = await getSuppliersService();
+            await updateLogSupplierService(idproveedor,idusuario,nombre,rfc,domicilio,telefono,correo);
+            const resultLogs = await getLogsService();
+            io.emit('Get-Suppliers',resultSuppliers);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al editar: ',error);
+            console.error('Error al editar al proveedor: ',error);
             return error;
         }
     });
-    //---------- PROVEEDORES
-    //---------- INSUMOS
-    socket.on('Update-Supply',async (usuario,idproveedor,nombre,rfc,domicilio,telefono,correo) => {
+    //---------- INSUMOS ✔️
+    socket.on('Update-Supply',async (idusuario,idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
         try{
-            await updateSupplyService(idproveedor,nombre,rfc,domicilio,telefono,correo);
-            io.emit('Update-Supply',`${usuario} editó al insumo ${nombre}`);
+            await updateSupplyService(idproveedor,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria);
+            const resultSupplies = await getSuppliesService();
+            await updateLogSupplyService(idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Supplies',resultSupplies);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al editar: ',error);
+            console.error('Error al editar al insumo: ',error);
             return error;
         }
     });
-    //---------- INSUMOS
-    //---------- TIPOS DE INSUMO
-
-    //---------- TIPOS DE INSUMO
-    //---------- CANTIDAD DE TIPOS DE INSUMO
-
-    //---------- CANTIDAD DE TIPOS DE INSUMO
-    //---------- CATEGORIAS DE INSUMO
-
-    //---------- CATEGORIAS DE INSUMO
+    //---------- TIPOS DE INSUMO ✔️
+    socket.on('Update-Supply-Type',async (idusuario,idtipo,tipo,descripcion,unidad,idcategoria) => {
+        try{
+            await updateSupplyTypeService(idtipo,tipo,descripcion,unidad,idcategoria);
+            const resultSupplyTypes = await getSupplyTypesService();
+            await updateLogSupplyTypeService(idtipo,idusuario,tipo,descripcion,unidad,String(idcategoria));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Supply-Types',resultSupplyTypes)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al editar al tipo de insumo: ',error);
+            return error;
+        }
+    });
+    //---------- CATEGORIAS DE INSUMO ✔️
+    socket.on('Update-Supply-Category',async (idusuario,idcategoria,nombre,descripcion) => {
+        try{
+            await updateSupplyCategoryService(idcategoria,nombre,descripcion);
+            const resultSupplyCategories = await getSupplyCategoriesService();
+            await updateLogSupplyCategoryService(idcategoria,idusuario,nombre,descripcion);
+            const resultLogs = await getLogsService();
+            io.emit('Get-Supply-Categories',resultSupplyCategories)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al editar la categoría del insumo: ',error);
+            return error;
+        }
+    });
 }
 //______________UPDATE______________
 //______________DELETE______________
 export const Suppliers_DELETE = (socket) => {
-    //---------- PROVEEDORES ELIMINADOS
-    socket.on('Delete-Deleted-Supplier',async (usuario,proveedor,idproveedor) => {
+    //---------- PROVEEDORES ELIMINADOS ✔️
+    socket.on('Delete-Deleted-Supplier',async (idusuario,ideliminado,idproveedor) => {
         try{
             await deleteDeletedSupplierService(idproveedor);
-            io.emit('Delete-Deleted-Supplier',`${usuario} recuperó al proveedor ${proveedor}`);
+            const resultDeletedSuppliers = await getDeletedSuppliersService();
+            await deleteLogDeletedSupplierService(ideliminado,idusuario,String(idproveedor));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Suppliers',resultDeletedSuppliers)
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
-            console.error('Error al recuperar: ',error);
+            console.error('Error al recuperar al proveedor: ',error);
             return error;
         }
     });
-    //---------- PROVEEDORES ELIMINADOS
+    //---------- INSUMOS ELIMINADOS ✔️
+    socket.on('Delete-Deleted-Supply',async (idusuario,ideliminado,idinsumo) => {
+        try{
+            await deleteDeletedSupplyService(idinsumo);
+            const resultDeletedSupplies = await getDeletedSuppliesService();
+            await deleteLogDeletedSupplyService(ideliminado,idusuario,String(idinsumo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Supplies',resultDeletedSupplies)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al recuperar al insumo: ',error);
+            return error;
+        }
+    });
+    //---------- TIPOS DE INSUMO ELIMINADOS ✔️
+    socket.on('Delete-Deleted-Supply-Type',async (idusuario,ideliminado,idtipo) => {
+        try{
+            await deleteDeletedSupplyTypeService(idtipo);
+            const resultDeletedSupplyTypes = await getDeletedSupplyTypesService();
+            await deleteLogDeletedSupplyTypeService(ideliminado,idusuario,String(idtipo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Supply-Types',resultDeletedSupplyTypes)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al recuperar al tipo de insumo: ',error);
+            return error;
+        }
+    });
+    //---------- CATEGORIAS DE INSUMO ELIMINADAS ✔️
+    socket.on('Delete-Deleted-Supply-Category',async (idusuario,idcategoria) => {
+        try{
+            await deleteDeletedSupplyCategoryService(idcategoria);
+            const resultDeletedSupplyCategories = await getDeletedSupplyCategoriesService();
+            await deleteLogDeletedSupplyCategoryService(ideliminado,idusuario,String(idcategoria));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Supply-Categories',resultDeletedSupplyCategories)
+            io.emit('Get-Logs',resultLogs);    
+        }catch(error){
+            console.error('Error al recuperar la categoría del insumo: ',error);
+            return error;
+        }
+    });
 }
 //______________DELETE______________

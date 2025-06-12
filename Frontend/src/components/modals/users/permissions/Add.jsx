@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -9,8 +9,8 @@ import Select from "react-select";
 import { ThemeModeContext,ModalViewContext,ModalContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
-import { PermissionsAddContext,PermissionsContext } from "../../../../contexts/UsersProvider";
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { PermissionsAddContext } from "../../../../contexts/UsersProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
@@ -43,10 +43,6 @@ export default function Permissions_Add(){
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
-    const [isPermissions] = useContext(PermissionsContext);
-    // Constantes con los valores de useRef 
-    const Permissions = useRef('');
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handlePermissionsAdd = HandlePermissionsAdd();
@@ -55,30 +51,31 @@ export default function Permissions_Add(){
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
     const filteredRecordsHasPermissions = FilteredRecordsHasPermissions();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isPermissionsAdd && isPermissions.length !== 0 && Permissions.current !== 'PERMISSIONS'){
+        if(isPermissionsAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Permissions',isLoggedUser.usuario,isTextFieldsPermissions.usuario,isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico,isTextFieldsPermissions.idusuario);
+                        socket.emit('Insert-Permissions',isLoggedUser.idusuario,isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico,isTextFieldsPermissions.idusuario);
                         
                         resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
-                        isPermissionsAdd(false);
+                        setIsPermissionsAdd(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            resetTextFieldsUser();
+                            resetTextFieldsPermissions();
+                            resetTextFieldsStatus();
+                            setIsActionBlock(false);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -87,38 +84,9 @@ export default function Permissions_Add(){
                 }
             });
 
-            Permissions.current = 'PERMISSIONS'
-
             Alert_Verification(promise,'¡Agregando permisos al usuario!...');
         }
-        if(isPermissions.some(permission => permission.idusuario === isTextFieldsPermissions.idusuario)){
-            setIsTextFieldsPermissions(prev => ({
-                ...prev,
-                idpermiso: isPermissions.find(permission => permission.idusuario === isTextFieldsPermissions.idusuario)?.idpermiso
-            }));
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && isTextFieldsPermissions.idpermiso !== 0 && Permissions.current !== 'LOG'){
-            Permissions.current = 'LOG';
-            socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsPermissions.idusuario));
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsUser();
-                resetTextFieldsPermissions();
-                resetTextFieldsStatus();
-                setIsActionBlock(false);
-                setIsPermissionsAdd(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isPermissionsAdd,isPermissions,isTextFieldsPermissions.idpermiso])
+    },[isPermissionsAdd])
     // Estructura del componente
     return(
         <>

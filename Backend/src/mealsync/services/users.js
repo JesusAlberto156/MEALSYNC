@@ -112,14 +112,14 @@ export const insertUserService = async (nombre,nombrecorto,usuario,contrasena,id
         throw error;
     }
 }
-export const insertLogUserService = async (idusuario,usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
+export const insertLogUserService = async (idusuario,Usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('tabla', sql.VarChar(50), 'Usuarios')
             .input('operacion', sql.VarChar(20), 'INSERT')
             .input('idtabla',sql.Int,idusuario)
-            .input('idusuario',sql.Int,usuario)
+            .input('idusuario',sql.Int,Usuario)
             .input('campo2',sql.VarChar(500),nombre)
             .input('campo3',sql.VarChar(500),nombrecorto)
             .input('campo4',sql.VarChar(500),usuario)
@@ -295,14 +295,14 @@ export const updateUserService = async (idusuario,nombre,nombrecorto,usuario,con
         throw error;
     }
 }
-export const updateLogUserService = async (idusuario,usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
+export const updateLogUserService = async (idusuario,Usuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('tabla', sql.VarChar(50), 'Usuarios')
             .input('operacion', sql.VarChar(20), 'UPDATE')
             .input('idtabla',sql.Int,idusuario)
-            .input('idusuario',sql.Int,usuario)
+            .input('idusuario',sql.Int,Usuario)
             .input('campo2',sql.VarChar(500),nombre)
             .input('campo3',sql.VarChar(500),nombrecorto)
             .input('campo4',sql.VarChar(500),usuario)

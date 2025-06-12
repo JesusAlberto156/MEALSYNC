@@ -101,6 +101,7 @@ export const Text_Fields_Status = ({ children }) => {
         </TextFieldsStatusContext.Provider>
     );
 }
+
 // Función contexto para controlar los campos de registro de un formulario de proveedor ✔️
 export const Text_Fields_Supplier = ({ children }) => {
     // UseState para controlar el valor del contexto

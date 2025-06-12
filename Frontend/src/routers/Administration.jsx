@@ -61,19 +61,6 @@ export const PrivateRouteAdministration = () => {
     const inactividadTimer = useRef(null);
     // Constantes
     const tiempoInactivoParaAccion = 900000;
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // Reiniciar temporizador de inactividad
     const ejecutarAccionFinal = () => {
         if(!isLoggedLoggedRef.current || logoutInitiatedRef.current) return;
@@ -146,7 +133,6 @@ export const PrivateRouteAdministration = () => {
                             setIsSearchTerm1('');
                             setIsSearchTerm2('');
                             setIsLoggedPermissions([]);
-                            setIsLoggedStatus([]);
                             setIsLoggedLog(false);
                             setIsLoggedLogged(false);
                             setIsSelectedRow(null);
@@ -161,12 +147,12 @@ export const PrivateRouteAdministration = () => {
                             setTimeout(() => {
                                 sessionStorage.clear();
                                 setIsLoggedUser([]);
+                                setIsLoggedStatus([]);
                                 setIsActionBlock(false);
                                 setIsModal(false);
                                 setIsSubModal(false)
                                 logoutInitiatedRef.current = false;
                                 isAlertGreeting.current = false;
-                                socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isStatus.find(status => status.idusuario === isLoggedUser.idusuario)?.idestatus,isLoggedUser.idusuario,'','0','');
                                 navigate("/",{replace: true});
                             },700);
                         },750)

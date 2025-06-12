@@ -1,36 +1,5 @@
 USE ComandaMedicaTepic
 
-
-CREATE TABLE [dbo].[pedidoInsumo](
-	[idpedido] [int] IDENTITY(1,1) NOT NULL,
-	[numeropedido] [varchar](10) NOT NULL,
-	[fecha] [datetime] NOT NULL,
-	[cantidad] [int] NOT NULL,
-	[preciounitario] [decimal](10, 4) NOT NULL,
-	[preciototal] [decimal](12, 4) NOT NULL,
-	[estado] [varchar](20) NOT NULL,
-	[idinsumo] [int] NOT NULL,
- CONSTRAINT [PK_pedidoInsumo] PRIMARY KEY CLUSTERED 
-(
-	[idpedido] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-CREATE TABLE [dbo].[observacionesPedidoInsumo](
-	[idobservacion] [int] IDENTITY(1,1) NOT NULL,
-	[numeropedido] [varchar](10) NOT NULL,
-	[fecha] [datetime] NOT NULL,
-	[observacion] [varchar](250) NOT NULL,
-	[categoria] [varchar](50) NOT NULL,
-	[idpedido] [int] NOT NULL,
- CONSTRAINT [PK_observacionesPedidoInsumo] PRIMARY KEY CLUSTERED 
-(
-	[idobservacion] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 ALTER TABLE tipoInsumo
 ALTER COLUMN descripcion VARCHAR(250) NULL
 
@@ -83,7 +52,7 @@ ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
 
 ALTER TABLE logComandaMedicaTepic
 ADD CONSTRAINT DF_logCamandaMedicaTepic_Fecha DEFAULT GETDATE() FOR fecha;
-
+select * from usuariosEliminados;
 SELECT * FROM logComandaMedicaTepic;
 
 DELETE FROM logComandaMedicaTepic;

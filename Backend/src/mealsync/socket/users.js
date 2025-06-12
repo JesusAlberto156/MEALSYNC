@@ -153,26 +153,28 @@ export const Users_UPDATE = (socket) => {
         }
     });
     //---------- PERMISOS ✔️
-    socket.on('Update-Permissions',async (usuario,idpermiso,administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
+    socket.on('Update-Permissions',async (Usuario,usuario,idpermiso,administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
         try{
             await updatePermissionsService(idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico);
             const resultPermissions = await getPermissionsService();
             await updateLogPermissionsService(idpermiso,usuario,String(administrador),String(chef),String(almacenista),String(cocinero),String(nutriologo),String(medico));
             const resultLogs = await getLogsService()
             io.emit('Get-Permissions',resultPermissions);
+            io.emit('Update-Permissions',`Se editó los permisos al usuario `,Usuario);
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al editar los permisos: ',error);
             return error;
         }
     });
-    socket.on('Update-Permission',async (usuario,idpermiso,superadministrador,idusuario) => {
+    socket.on('Update-Permission',async (Usuario,usuario,idpermiso,superadministrador,idusuario) => {
         try{
             await updatePermissionService(idusuario,superadministrador);
             const resultPermissions = await getPermissionsService();
             await updateLogPermissionService(idpermiso,usuario,String(superadministrador));
             const resultLogs = await getLogsService()
             io.emit('Get-Permissions',resultPermissions);
+            io.emit('Update-Permission',`Se editó el permiso de super administrador al usuario `,Usuario);
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al editar el permiso de super administrador: ',error);
@@ -180,11 +182,11 @@ export const Users_UPDATE = (socket) => {
         }
     });
     //---------- ESTATUS ✔️
-    socket.on('Update-Status-Log',async (usuario,idestatus,activo,idusuario) => {
+    socket.on('Update-Status-Log',async (idusuario,idestatus,activo) => {
         try{
             await updateStatusLogService(idusuario,activo);
             const resultStatus = await getStatusService();
-            await updateLogStatusLogService(idestatus,usuario,String(activo));
+            await updateLogStatusLogService(idestatus,idusuario,String(activo));
             const resultLogs = await getLogsService()
             io.emit('Get-Status',resultStatus);
             io.emit('Get-Logs',resultLogs);

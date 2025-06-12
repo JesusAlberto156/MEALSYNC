@@ -146,29 +146,8 @@ export const Users = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de un usuario ✔️
 export const User_Add = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserAdd,setIsUserAdd] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleInsertUser = (message) => {
-            console.log(message);
-            socket.emit('Get-Users');
-        };
-        const handleInsertLog = (message) => {
-            console.log(message);
-            socket.emit('Get-Logs');
-        };
-
-        socket.on('Insert-User',handleInsertUser);
-        socket.on('Insert-Log-User',handleInsertLog);
-        
-        return () => {
-            socket.off('Insert-User',handleInsertUser);
-            socket.off('Insert-Log-User',handleInsertLog);
-        }
-    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <UserAddContext.Provider value={[isUserAdd,setIsUserAdd]}>
@@ -261,29 +240,8 @@ export const Deleted_Users = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de un usuario eliminado ✔️
 export const User_Delete = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isUserDelete,setIsUserDelete] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleInsertDeletedUser = (message) => {
-            console.log(message);
-            socket.emit('Get-Deleted-Users');
-        };
-        const handleInsertLog = (message) => {
-            console.log(message);
-            socket.emit('Get-Logs');
-        };
-
-        socket.on('Insert-Deleted-User',handleInsertDeletedUser);
-        socket.on('Insert-Log-Deleted-User',handleInsertLog);
-
-        return () => {
-            socket.off('Insert-Deleted-User',handleInsertDeletedUser);
-            socket.off('Insert-Log-Deleted-User',handleInsertLog);
-        }
-    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <UserDeleteContext.Provider value={[isUserDelete,setIsUserDelete]}>
@@ -390,29 +348,8 @@ export const Permissions = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de los permisos de un usuario ✔️
 export const Permissions_Add = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsAdd,setIsPermissionsAdd] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleInsertPermissions = (message) => {
-            console.log(message);
-            socket.emit('Get-Permissions');
-        };
-        const handleInsertLog = (message) => {
-            console.log(message);
-            socket.emit('Get-Logs');
-        };
-
-        socket.on('Insert-Permissions',handleInsertPermissions);
-        socket.on('Insert-Log-Permissions',handleInsertLog);
-        
-        return () => {
-            socket.off('Insert-Permissions',handleInsertPermissions);
-            socket.off('Insert-Log-Permissions',handleInsertLog);
-        }
-    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <PermissionsAddContext.Provider value={[isPermissionsAdd,setIsPermissionsAdd]}>
@@ -432,7 +369,6 @@ export const Permissions_Edit = ({ children }) => {
         const handleUpdatePermissions = (message,user) => {
             console.log(message,user);
             setIsUserUpdated(user);
-            socket.emit('Get-Permissions');
         };
 
         socket.on('Update-Permissions',handleUpdatePermissions);
@@ -460,7 +396,6 @@ export const Permissions_Enable = ({ children }) => {
         const handleUpdatePermission = (message,user) => {
             console.log(message,user);
             setIsUserUpdated(user);
-            socket.emit('Get-Permissions');
         };
 
         socket.on('Update-Permission',handleUpdatePermission);
@@ -542,29 +477,8 @@ export const Status = ({ children }) => {
 }
 // Función contexto para controlar los datos agregados de los estatus de un usuario ✔️
 export const Status_Add = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isStatusAdd,setIsStatusAdd] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleInsertStatus = (message) => {
-            console.log(message);
-            socket.emit('Get-Status');
-        };
-        const handleInsertLog = (message) => {
-            console.log(message);
-            socket.emit('Get-Logs');
-        };
-
-        socket.on('Insert-Status',handleInsertStatus);
-        socket.on('Insert-Log-Status',handleInsertStatus);
-        
-        return () => {
-            socket.off('Insert-Status',handleInsertStatus);
-            socket.off('Insert-Log-Status',handleInsertLog);
-        }
-    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <StatusAddContext.Provider value={[isStatusAdd,setIsStatusAdd]}>
@@ -574,23 +488,8 @@ export const Status_Add = ({ children }) => {
 }
 // Función contexto para controlar los usuarios habilitados/deshabilitados ✔️
 export const Status_Enable = ({ children }) => {
-    // Constantes con el valor de los contextos
-    const [socket] = useContext(SocketContext);
     // UseState para controlar el valor del contexto
     const [isStatusEnable,setIsStatusEnable] = useState(false);
-    // UseEffect para quitar la suscrpcion de socket
-    useEffect(() => {
-        const handleUpdateStatusEnable = (message) => {
-            console.log(message);
-            socket.emit('Get-Status');
-        };
-
-        socket.on('Update-Status-Enable',handleUpdateStatusEnable);
-        
-        return () => {
-            socket.off('Update-Status-Enable',handleUpdateStatusEnable);
-        }
-    },[socket])
     // Return para darle valor al contexto y heredarlo
     return (
         <StatusEnableContext.Provider value={[isStatusEnable,setIsStatusEnable]}>

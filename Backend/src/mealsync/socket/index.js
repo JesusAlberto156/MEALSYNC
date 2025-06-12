@@ -24,7 +24,7 @@ export const socketEvents = () => {
         Suppliers_INSERT(socket);
         Suppliers_UPDATE(socket);
         Suppliers_DELETE(socket);
-        // Almacén
+        // Almacén ✔️
         Warehouse_GET(socket);
         Warehouse_INSERT(socket);
         Warehouse_UPDATE(socket);

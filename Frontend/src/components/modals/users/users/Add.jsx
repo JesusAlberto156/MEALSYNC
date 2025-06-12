@@ -1,15 +1,15 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,SubModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsUserContext,TextFieldsPermissionsContext,TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
-import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext,PermissionsContext,StatusContext } from "../../../../contexts/UsersProvider";
+import { TextFieldsUserContext,TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
+import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
@@ -39,8 +39,7 @@ export default function User_Add(){
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
-    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
-    const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
+    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isUserTypes] = useContext(UserTypesContext);
     const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -48,16 +47,9 @@ export default function User_Add(){
     const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext);
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
     const [socket] = useContext(SocketContext);
-    const [isUsers] = useContext(UsersContext);
-    const [isPermissions] = useContext(PermissionsContext);
-    const [isStatus] = useContext(StatusContext);
+    const [isUsers] = useContext(UsersContext); 
     const [isSubModal,setIsSubModal] = useContext(SubModalContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
-    // Constantes con los valores de useRef
-    const User = useRef(false);
-    const Permissions = useRef('');
-    const Status = useRef('');
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -65,19 +57,6 @@ export default function User_Add(){
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // UseEffect para abrir modal de los permisos
     useEffect(() => {
         if(isTextFieldsUser.permisos === 'Personalizado' && !isAnimation && !isSubModal){
@@ -97,15 +76,35 @@ export default function User_Add(){
     },[isTextFieldsUser]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isUserAdd && isUsers.length !== 0){
+        if(isUserAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-User',isLoggedUser.usuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),isTextFieldsUser.idtipo)
+                        socket.emit('Insert-User',isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),isTextFieldsUser.idtipo)
 
                         resolve('¡MEALSYNC agregó al usuario!...');
 
                         setIsUserAdd(false);
+
+                        if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === ''){
+                            const route = sessionStorage.getItem('Ruta');
+
+                            setCurrentMView('');
+                            sessionStorage.setItem('Vista del Modal','');
+                            setTimeout(() => {
+                                setIsModal(false);
+                                sessionStorage.setItem('Estado del Modal',false);
+                                setIsSubModal(false);
+                                sessionStorage.removeItem('Estado del Sub-Modal');
+                                resetTextFieldsUser();
+                                resetTextFieldsPermissions();
+                                resetTextFieldsStatus();
+                                setIsAnimation(false);
+                                sessionStorage.removeItem('Animación');
+                                setIsActionBlock(false);
+                                navigate(route,{ replace: true });
+                            },750);
+                        }
                     },1000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -116,67 +115,59 @@ export default function User_Add(){
 
             Alert_Verification(promise,'¡Agregando un usuario!...');
         }
-        if(isUsers.some(user => user.usuario === isTextFieldsUser.usuario)){
+    },[isUserAdd]);
+    // UseEffect para obtener el id del usuario insertado
+    useEffect(() => {
+        if(isUsers.length !== 0 && isTextFieldsUser.idusuario === 0){
             setIsTextFieldsUser(prev => ({
                 ...prev,
-                idusuario: isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario,
-            }));
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && !User.current){
-            User.current = true
-            if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus === ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
+                idusuario: isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario || 0,
+            }))
 
-                const route = sessionStorage.getItem('Ruta');
-
-                setCurrentMView('');
-                sessionStorage.setItem('Vista del Modal','');
-                setTimeout(() => {
-                    setIsModal(false);
-                    sessionStorage.setItem('Estado del Modal',false);
-                    setIsSubModal(false);
-                    sessionStorage.removeItem('Estado del Sub-Modal');
-                    resetTextFieldsUser();
-                    resetTextFieldsPermissions();
-                    resetTextFieldsStatus();
-                    setIsAnimation(false);
-                    setIsUserAdd(false);
-                    setIsPermissionsAdd(false);
-                    setIsStatusAdd(false);
-                    sessionStorage.removeItem('Animación');
-                    setIsActionBlock(false);
-                    navigate(route,{ replace: true });
-                },750);
-            }
             if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
                 setIsPermissionsAdd(true);
             }
             if(isTextFieldsUser.permisos === '' && isTextFieldsUser.estatus !== ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
                 setIsStatusAdd(true);
             }
             if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== ''){
-                socket.emit('Insert-Log-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.idusuario,isLoggedUser.idusuario,isTextFieldsUser.nombre.trim(),isTextFieldsUser.nombrecorto.trim(),isTextFieldsUser.usuario.trim(),isTextFieldsUser.contrasena.trim(),String(isTextFieldsUser.idtipo));
-                setIsLogAdd(false);
                 setIsPermissionsAdd(true);
             }
         }
-    },[isUserAdd,isUsers,isTextFieldsUser.idusuario]);
+    },[isUsers])
     useEffect(() => {
-        if(isPermissionsAdd && isPermissions.length !== 0 && Permissions.current !== 'PERMISSIONS'){
+        if(isPermissionsAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Permissions',isLoggedUser.usuario,isTextFieldsUser.usuario.trim(),isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico,isTextFieldsUser.idusuario);
+                        socket.emit('Insert-Permissions',isLoggedUser.idusuario,isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico,isTextFieldsUser.idusuario);
                         
                         resolve('¡MEALSYNC agregó los permisos al usuario!...')
 
                         setIsPermissionsAdd(false);
+
+                        if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === ''){
+                            const route = sessionStorage.getItem('Ruta');
+
+                            setCurrentMView('');
+                            sessionStorage.setItem('Vista del Modal','');
+                            setTimeout(() => {
+                                setIsModal(false);
+                                sessionStorage.setItem('Estado del Modal',false);
+                                setIsSubModal(false);
+                                sessionStorage.removeItem('Estado del Sub-Modal');
+                                resetTextFieldsUser();
+                                resetTextFieldsPermissions();
+                                resetTextFieldsStatus();
+                                setIsAnimation(false);
+                                sessionStorage.removeItem('Animación');
+                                setIsActionBlock(false);
+                                navigate(route,{ replace: true });
+                            },750);
+                        }
+                        if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== ''){
+                            setIsStatusAdd(true);
+                        }
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -185,62 +176,37 @@ export default function User_Add(){
                 }
             });
 
-            Permissions.current = 'PERMISSIONS'
-
             Alert_Verification(promise,'¡Agregando permisos al usuario!...');
         }
-        if(isPermissions.some(permission => permission.idusuario === isTextFieldsUser.idusuario)){
-            setIsTextFieldsPermissions(prev => ({
-                ...prev,
-                idpermiso: isPermissions.find(permission => permission.idusuario === isTextFieldsUser.idusuario)?.idpermiso
-            }));
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && isTextFieldsPermissions.idpermiso !== 0 && Permissions.current !== 'LOG'){
-            Permissions.current = 'LOG';
-            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus === ''){
-                socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'',String(isTextFieldsUser.idusuario));
-        
-                setIsLogAdd(false);
-
-                const route = sessionStorage.getItem('Ruta');
-
-                setCurrentMView('');
-                sessionStorage.setItem('Vista del Modal','');
-                setTimeout(() => {
-                    setIsModal(false);
-                    sessionStorage.setItem('Estado del Modal',false);
-                    setIsSubModal(false);
-                    sessionStorage.removeItem('Estado del Sub-Modal');
-                    resetTextFieldsUser();
-                    resetTextFieldsPermissions();
-                    resetTextFieldsStatus();
-                    setIsAnimation(false);
-                    setIsUserAdd(false);
-                    setIsPermissionsAdd(false);
-                    setIsStatusAdd(false);
-                    sessionStorage.removeItem('Animación');
-                    setIsActionBlock(false);
-                    navigate(route,{ replace: true });
-                },750);
-            }
-            if(isTextFieldsUser.permisos !== '' && isTextFieldsUser.estatus !== ''){
-                socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'0',String(isTextFieldsUser.idusuario));
-                setIsLogAdd(false);
-                setIsStatusAdd(true);
-            }
-        }
-    },[isPermissionsAdd,isPermissions,isLogAdd]);
+    },[isPermissionsAdd]);
     useEffect(() => {
-        if(isStatusAdd && isStatus.length !== 0 && Status.current !== 'STATUS'){
+        if(isStatusAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Status',isLoggedUser.usuario,isTextFieldsUser.usuario.trim(),isTextFieldsUser.estatus === 'Habilitado' ? 1:0,isTextFieldsUser.idusuario);
+                        socket.emit('Insert-Status',isLoggedUser.idusuario,isTextFieldsUser.estatus === 'Habilitado' ? 1:0,isTextFieldsUser.idusuario);
 
                         resolve('¡MEALSYNC agregó el estatus al usuario!...');
 
                         setIsStatusAdd(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsSubModal(false);
+                            sessionStorage.removeItem('Estado del Sub-Modal');
+                            resetTextFieldsUser();
+                            resetTextFieldsPermissions();
+                            resetTextFieldsStatus();
+                            setIsAnimation(false);
+                            sessionStorage.removeItem('Animación');
+                            setIsActionBlock(false);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){               
                     setIsActionBlock(false);
@@ -249,45 +215,9 @@ export default function User_Add(){
                 }
             });
 
-            Status.current = 'STATUS';
-
             Alert_Verification(promise,'¡Agregando estatus al usuario!...');
         }
-        if(isStatus.some(status => status.idusuario === isTextFieldsUser.idusuario)){
-            setIsTextFieldsStatus(prev => ({
-                ...prev,
-                idestatus: isStatus.find(status => status.idusuario === isTextFieldsUser.idusuario)?.idestatus
-            }))
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && isTextFieldsStatus.idestatus !== 0 && Status.current !== 'LOG'){
-            Status.current = 'LOG';
-            socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsStatus.idestatus,isLoggedUser.idusuario,isTextFieldsUser.estatus === 'Habilitado' ? '1':'0','0',String(isTextFieldsUser.idusuario));
-        
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSubModal(false);
-                sessionStorage.removeItem('Estado del Sub-Modal');
-                resetTextFieldsUser();
-                resetTextFieldsPermissions();
-                resetTextFieldsStatus();
-                setIsAnimation(false);
-                setIsUserAdd(false);
-                setIsPermissionsAdd(false);
-                setIsStatusAdd(false);
-                sessionStorage.removeItem('Animación');
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isStatusAdd,isStatus,isTextFieldsStatus.idestatus]);
+    },[isStatusAdd]);
     // Estructura del componente
     return(
         <>

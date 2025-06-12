@@ -1,14 +1,14 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
-import { UserDeleteContext,UsersContext,DeletedUsersContext } from "../../../../contexts/UsersProvider";
+import { UserDeleteContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefUsersContext } from '../../../../contexts/RefsProvider';
@@ -48,38 +48,36 @@ export default function User_Delete(){
     const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isDeletedUsers] = useContext(DeletedUsersContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
-    // Constantes con los valores de useRef
-    const User = useRef(false);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleUserDelete = HandleUserDelete();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isUserDelete){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Deleted-User',isLoggedUser.usuario,isTextFieldsUser.usuario,isTextFieldsUser.idusuario)
+                        socket.emit('Insert-Deleted-User',isLoggedUser.idusuario,isTextFieldsUser.idusuario)
 
                         resolve('¡MEALSYNC eliminó al usuario!...');
 
                         setIsUserDelete(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            sessionStorage.removeItem('Acción del Bloqueo');
+                            sessionStorage.removeItem('Verificación del Bloqueo');
+                            setIsVerificationBlock(false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(true);
@@ -90,34 +88,7 @@ export default function User_Delete(){
 
             Alert_Verification(promise,'Eliminando un usuario!...');
         }
-        if(isDeletedUsers.some(user => user.idusuario === isTextFieldsUser.idusuario)){
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                ideliminado: isDeletedUsers.find(user => user.idusuario === isTextFieldsUser.idusuario)?.ideliminado
-            }));
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && isTextFieldsUser.ideliminado !== 0 && !User.current){
-            User.current = true;
-            socket.emit('Insert-Log-Deleted-User',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsUser.ideliminado,isLoggedUser.idusuario,String(isTextFieldsUser.idusuario));
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                setIsVerificationBlock(false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isUserDelete,isDeletedUsers,isTextFieldsUser.ideliminado]);
+    },[isUserDelete]);
     // UseEffect para resetiar campos para el registro de verificación
     useEffect(() => {
         setIsTextFieldsUser((prev) => ({

@@ -11,8 +11,9 @@ import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefPermissionsContext } from "../../../../contexts/RefsProvider";
 import { PermissionsEditContext } from "../../../../contexts/UsersProvider";
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
+import { UsersContext } from "../../../../contexts/UsersProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandlePermissionsEdit } from "../../../../hooks/Form";
@@ -47,36 +48,34 @@ export default function Permissions_Edit(){
     const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext);
     const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
+    const [isUsers] = useContext(UsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handlePermissionsEdit = HandlePermissionsEdit();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isPermissionsEdit){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Update-Permissions',isLoggedUser.usuario,isTextFieldsPermissions.usuario,isTextFieldsPermissions.idusuario,isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico)
+                        socket.emit('Update-Permissions',isUsers.find(user => user.idusuario === isTextFieldsPermissions.idusuario)?.usuario,isLoggedUser.idusuario,isTextFieldsPermissions.idpermiso,isTextFieldsPermissions.administrador,isTextFieldsPermissions.chef,isTextFieldsPermissions.almacenista,isTextFieldsPermissions.cocinero,isTextFieldsPermissions.nutriologo,isTextFieldsPermissions.medico,isTextFieldsPermissions.idusuario)
                         
                         resolve('¡MEALSYNC editó los permisos al usuario!...')
                         
                         setIsPermissionsEdit(false);
-                        setIsLogAdd(true);
+                        
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -87,23 +86,7 @@ export default function Permissions_Edit(){
             
             Alert_Verification(promise,'¡Editando permisos a un usuario!...');
         }
-        if(isLogAdd){
-            socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,String(isTextFieldsPermissions.administrador),String(isTextFieldsPermissions.chef),String(isTextFieldsPermissions.almacenista),String(isTextFieldsPermissions.cocinero),String(isTextFieldsPermissions.nutriologo),String(isTextFieldsPermissions.medico),'',String(isTextFieldsPermissions.idusuario));
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isPermissionsEdit,isLogAdd]);
+    },[isPermissionsEdit]);
     // Estructura del componente
     return(
         <>

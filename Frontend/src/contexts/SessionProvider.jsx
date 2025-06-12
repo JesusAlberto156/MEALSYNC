@@ -145,6 +145,7 @@ export const Logged_Logged = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isLoggedStatus] = useContext(LoggedStatusContext);
     // UseState para controlar el valor del contexto
     const [isLoggedLogged,setIsLoggedLogged] = useState(() => {
         const logged = sessionStorage.getItem('Sesión') === 'true';
@@ -157,25 +158,12 @@ export const Logged_Logged = ({ children }) => {
     useEffect(() => {
         if(isLoggedLogged && isLoggedUser.length !== 0){
             if(sessionStorage.getItem('Login') === 'true') return
-            socket.emit('Update-Status-Log',isLoggedUser.idusuario,1);
+            socket.emit('Update-Status-Log',isLoggedUser.idusuario,isLoggedStatus.idestatus,1);
         }
         if(!isLoggedLogged && isLoggedUser.length !== 0){
-            socket.emit('Update-Status-Log',isLoggedUser.idusuario,0);
+            socket.emit('Update-Status-Log',isLoggedUser.idusuario,isLoggedStatus.idestatus,0);
         }
     },[isLoggedLogged]);
-    // useEffect para los eventos de socket de inicio de sesión
-    useEffect(() => {
-        const handleLogStatus = (message) => {
-            socket.emit('Get-Logs');
-            console.log(message);
-        };
-
-        socket.on('Insert-Log-Status',handleLogStatus);
-
-        return () => {
-            socket.off('Insert-Log-Status',handleLogStatus);
-        }
-    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <LoggedLoggedContext.Provider value={[isLoggedLogged,setIsLoggedLogged]}>

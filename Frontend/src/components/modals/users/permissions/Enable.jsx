@@ -10,9 +10,10 @@ import { PermissionsEnableContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefPermissionsContext } from "../../../../contexts/RefsProvider";
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
+import { UsersContext } from "../../../../contexts/UsersProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
 import { HandlePermissionsEnable } from "../../../../hooks/Form";
@@ -47,31 +48,18 @@ export default function Permissions_Enable(){
     const [socket] = useContext(SocketContext);
     const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
+    const [isUsers] = useContext(UsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handlePermissionsEnable = HandlePermissionsEnable();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isPermissionsEnable){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Update-Permission',isLoggedUser.usuario,isTextFieldsPermissions.usuario,isTextFieldsPermissions.idusuario,isTextFieldsPermissions.superadministrador ? 0:1);
+                        socket.emit('Update-Permission',isUsers.find(user => user.idusuario === isTextFieldsPermissions.idusuario)?.usuario,isLoggedUser.idusuario,isTextFieldsPermissions.idpermiso,isTextFieldsPermissions.superadministrador ? 0:1,isTextFieldsPermissions.idusuario);
 
                         if(isTextFieldsPermissions.superadministrador){
                             resolve('¡MEALSYNC deshabilita el super administrador al usuario!...');
@@ -80,7 +68,21 @@ export default function Permissions_Enable(){
                         }
                         
                         setIsPermissionsEnable(false);
-                        setIsLogAdd(true);
+                        
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            sessionStorage.removeItem('Acción del Bloqueo');
+                            sessionStorage.removeItem('Verificación del Bloqueo');
+                            setIsVerificationBlock(false);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(true);
@@ -91,26 +93,7 @@ export default function Permissions_Enable(){
             
             Alert_Verification(promise,isTextFieldsPermissions.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
         }
-        if(isLogAdd){
-            socket.emit('Insert-Log-Permissions',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsPermissions.idpermiso,isLoggedUser.idusuario,'','','','','','',isTextFieldsPermissions.superadministrador ? '0':'1',String(isTextFieldsPermissions.idusuario));
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                setIsVerificationBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isPermissionsEnable,isLogAdd]);
+    },[isPermissionsEnable]);
     // Estructura del componente
     return(
         <>

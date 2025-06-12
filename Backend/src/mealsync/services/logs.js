@@ -8,7 +8,7 @@ import { encryptData } from "../../config/crypto.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
-//---------- LOG
+//---------- LOG ✔️
 export const getLogsService = async () => {
     try{
         const pool = await conexionDB();
@@ -24,10 +24,8 @@ export const getLogsService = async () => {
         throw error;
     }
 }
-//---------- LOG
 //______________GET______________
-//______________INSERT______________
-//---------- LOG
+
 export const insertLogService = async (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8,campo9,campo10) => {
     try{
         const pool = await conexionDB();
@@ -58,5 +56,3 @@ export const insertLogService = async (tabla,operacion,idtabla,idusuario,campo1,
         throw error;
     }
 }
-//---------- LOG
-//______________INSERT______________

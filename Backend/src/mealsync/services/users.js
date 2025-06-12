@@ -8,7 +8,7 @@ import { encryptData } from "../../config/crypto.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
-//---------- USUARIOS
+//---------- USUARIOS ✔️
 export const getUsersService = async () => {
     try{
         const pool = await conexionDB();
@@ -24,8 +24,7 @@ export const getUsersService = async () => {
         throw error;
     }
 }
-//---------- USUARIOS
-//---------- PERMISOS
+//---------- PERMISOS ✔️
 export const getPermissionsService = async () => {
     try{
         const pool = await conexionDB();
@@ -41,8 +40,7 @@ export const getPermissionsService = async () => {
         throw error;
     }
 }
-//---------- PERMISOS
-//---------- ESTATUS
+//---------- ESTATUS ✔️
 export const getStatusService = async () => {
     try{
         const pool = await conexionDB();
@@ -58,8 +56,7 @@ export const getStatusService = async () => {
         throw error;
     }
 }
-//---------- ESTATUS
-//---------- TIPOS DE USUARIOS
+//---------- TIPOS DE USUARIOS ✔️
 export const getUserTypesService = async () => {
     try{
         const pool = await conexionDB();
@@ -75,8 +72,7 @@ export const getUserTypesService = async () => {
         throw error;
     }
 }
-//---------- TIPOS DE USUARIOS
-//---------- USUARIOS ELIMINADOS
+//---------- USUARIOS ELIMINADOS ✔️
 export const getDeletedUsersService = async () => {
     try{
         const pool = await conexionDB();
@@ -92,10 +88,9 @@ export const getDeletedUsersService = async () => {
         throw error;
     }
 }
-//---------- USUARIOS ELIMINADOS
 //______________GET______________
 //______________INSERT______________
-//---------- USUARIOS
+//---------- USUARIOS ✔️
 export const insertUserService = async (nombre,nombrecorto,usuario,contrasena,idtipo) => {
     try{
         const pool = await conexionDB();
@@ -142,8 +137,7 @@ export const insertLogUserService = async (idusuario,usuario,nombre,nombrecorto,
         throw error;
     }
 }
-//---------- USUARIOS
-//---------- PERMISOS
+//---------- PERMISOS ✔️
 export const insertPermissionsService = async (administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
     try{
         const pool = await conexionDB();
@@ -195,8 +189,7 @@ export const insertLogPermissionsService = async (idpermiso,usuario,administrado
         throw error;
     }
 }
-//---------- PERMISOS
-//---------- ESTATUS
+//---------- ESTATUS ✔️
 export const insertStatusService = async (habilitado,idusuario) => {
     try{
         const pool = await conexionDB();
@@ -238,8 +231,7 @@ export const insertLogStatusService = async (idestatus,usuario,habilitado,idusua
         throw error;
     }
 }
-//---------- ESTATUS
-//---------- USUARIOS ELIMINADOS
+//---------- USUARIOS ELIMINADOS ✔️
 export const insertDeletedUserService = async (idusuario) => {
     try{
         const pool = await conexionDB();
@@ -278,10 +270,9 @@ export const insertLogDeletedUserService = async (ideliminado,usuario,idusuario)
         throw error;
     }
 }
-//---------- USUARIOS ELIMINADOS
 //______________INSERT______________
 //______________UPDATE______________
-//---------- USUARIOS
+//---------- USUARIOS ✔️
 export const updateUserService = async (idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
     try{
         const pool = await conexionDB();
@@ -329,8 +320,7 @@ export const updateLogUserService = async (idusuario,usuario,nombre,nombrecorto,
         throw error;
     }
 }
-//---------- USUARIOS
-//---------- PERMISOS
+//---------- PERMISOS ✔️
 export const updatePermissionsService = async (idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
   try{
       const pool = await conexionDB();
@@ -419,8 +409,7 @@ export const updateLogPermissionService = async (idpermiso,idusuario,superadmini
         throw error;
     }
 }
-//---------- PERMISOS
-//---------- ESTATUS
+//---------- ESTATUS ✔️
 export const updateStatusLogService = async (idusuario,activo) => {
     try{
         const pool = await conexionDB();
@@ -507,10 +496,9 @@ export const updateLogStatusEnableService = async (idestatus,usuario,habilitado)
         throw error;
     }
 }
-//---------- ESTATUS
 //______________UPDATE______________
 //______________DELETE______________
-//---------- USUARIOS ELIMINADOS
+//---------- USUARIOS ELIMINADOS ✔️
 export const deleteDeletedUserService = async (idusuario) => {
     try{
         const pool = await conexionDB();
@@ -528,5 +516,25 @@ export const deleteDeletedUserService = async (idusuario) => {
         throw error;
     }
 }
-//---------- USUARIOS ELIMINADOS
+export const deleteLogDeletedUserService = async (ideliminado,usuario,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Usuarios Eliminados')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),idusuario)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //______________DELETE______________

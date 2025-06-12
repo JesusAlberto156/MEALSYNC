@@ -7,7 +7,7 @@ import { io } from "../../index.js";
 
 //______________GET______________
 export const Logs_GET = (socket) => {
-    //---------- LOGS  
+    //---------- LOGS ✔️
     socket.on('Get-Logs', async () => {
         try {
           const result = await getLogsService();
@@ -17,6 +17,5 @@ export const Logs_GET = (socket) => {
           console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- LOGS
 };
 //______________GET______________

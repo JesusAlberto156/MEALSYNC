@@ -8,11 +8,11 @@ import { encryptData } from "../../config/crypto.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
-//---------- PRECIO DEL INSUMO
-export const getSupplyPricesService = async () => {
+//---------- PEDIDOS DE INSUMO ✔️
+export const getSupplyOrdersService = async () => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM precioInsumo');
+        const result = await pool.request().query('SELECT * FROM pedidoInsumo');
 
         const jsonData = JSON.stringify(result.recordset);
 
@@ -20,16 +20,15 @@ export const getSupplyPricesService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener los precios del almacén por insumo: ',error.message);
+        console.error('Error al obtener los pedidos por insumo: ',error.message);
         throw error;
     }
 }
-//---------- PRECIO DEL INSUMO
-//---------- ALMACEN
-export const getWarehouseService = async () => {
+//---------- OBSERVACIONES DE LOS PEDIDOS DE LOS INSUMOS ✔️
+export const getSupplyOrderObservationsService = async () => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM almacen');
+        const result = await pool.request().query('SELECT * FROM observacionesPedidoInsumo');
 
         const jsonData = JSON.stringify(result.recordset);
 
@@ -37,16 +36,15 @@ export const getWarehouseService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener el almacén: ',error.message);
+        console.error('Error al obtener las observaciones de los pedidos por insumo: ',error.message);
         throw error;
     }
 }
-//---------- ALMACEN
-//---------- INSUMOS ELIMINADOS
-export const getDeletedSuppliesService = async () => {
+//---------- PEDIDOS DE INSUMO ELIMINADOS ✔️
+export const getDeletedSupplyOrdersService = async () => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM insumosEliminados');
+        const result = await pool.request().query('SELECT * FROM pedidoInsumoEliminado');
 
         const jsonData = JSON.stringify(result.recordset);
 
@@ -54,16 +52,15 @@ export const getDeletedSuppliesService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener los insumos, tipos de insumo o medidas eliminadas: ',error.message);
+        console.error('Error al obtener los pedidos por insumo eliminados: ',error.message);
         throw error;
     }
 }
-//---------- INSUMOS ELIMINADOS
-//---------- TIPOS DE INSUMO ELIMINADOS
-export const getDeletedWarehouseService = async () => {
+//---------- ALMACEN DE CATEGORIAS ✔️
+export const getWarehouseCategoriesService = async () => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM tipoInsumoEliminado');
+        const result = await pool.request().query('SELECT * FROM almacenCategorias');
 
         const jsonData = JSON.stringify(result.recordset);
 
@@ -71,387 +68,173 @@ export const getDeletedWarehouseService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener los insumos eliminados del almacén: ',error.message);
+        console.error('Error al obtener el almacén por categorías: ',error.message);
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO ELIMINADOS
+//---------- ALMACEN DE TIPOS DE INSUMO ✔️
+export const getWarehouseSupplyTypesService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM almacenTipoInsumo');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener el almacén por tipos de insumo: ',error.message);
+        throw error;
+    }
+}
 //______________GET______________
 //______________INSERT______________
-//---------- PRECIO DEL INSUMO
-export const insertSupplyPriceService = async (precio,fecha,idinsumo,estado) => {
+//---------- PEDIDOS DE INSUMO ✔️
+export const insertSupplyOrderService = async (numeropedido,fecha,cantidad,preciounitario,preciototal,estado,idunsumo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('precio',sql.Decimal(12,4),precio)
+            .input('numeropedido',sql.VarChar(10),numeropedido)
             .input('fecha',sql.DateTime,fecha)
-            .input('idinsumo',sql.Int,idinsumo)
-            .input('estado',sql.VarChar(20),estado)
-            .query('INSERT INTO precioInsumo (precio,fecha,idinsumo,estado) VALUES (@precio,@fecha,@idinsumo,@estado)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Precio del almacén por insumo insertado...';
-        }else{
-            return 'No se pudo insertar al precio del almacén por insumo...';
-        }
-    }catch(error){
-        console.error('Error al insertar al precio del almacén por insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- PRECIO DEL INSUMO
-//---------- ALMACEN
-export const insertWarehouseService = async (cantidad,observacion,idprecio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
             .input('cantidad',sql.Int,cantidad)
+            .input('preciounitario',sql.Decimal(10,4),preciounitario)
+            .input('preciototal',sql.Decimal(12,4),preciototal)
+            .input('estado',sql.VarChar(20),estado)
+            .input('idunsumo',sql.Int,idunsumo)
+            .query('INSERT INTO pedidoInsumo (numeropedido,fecha,cantidad,preciounitario,preciototal,estado,idunsumo) VALUES (@numeropedido,@fecha,@cantidad,@preciounitario,@preciototal,@estado,@idunsumo)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido por insumo insertado...';
+        }else{
+            return 'No se pudo insertar al pedido por insumo...';
+        }
+    }catch(error){
+        console.error('Error al insertar al pedido por insumo: ',error.message);
+        throw error;
+    }
+}
+export const insertLogSupplyOrderService = async (idpedido,idusuario,numeropedido,fecha,cantidad,preciounitario,preciototal,estado,idunsumo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos por Insumo')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idpedido)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),numeropedido)
+            .input('campo3',sql.VarChar(500),fecha)
+            .input('campo4',sql.VarChar(500),cantidad)
+            .input('campo5',sql.VarChar(500),preciounitario)
+            .input('campo6',sql.VarChar(500),preciototal)
+            .input('campo7',sql.VarChar(500),estado)
+            .input('campo8',sql.VarChar(500),idunsumo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- OBSERVACIONES DE LOS PEDIDOS DE LOS INSUMOS ✔️
+export const insertSupplyOrderObservationService = async (numeropedido,fecha,observacion,categoria,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('numeropedido',sql.VarChar(10),numeropedido)
+            .input('fecha',sql.DateTime,fecha)
             .input('observacion',sql.VarChar(250),observacion)
-            .input('idprecio',sql.Int,idprecio)
-            .query('INSERT INTO almacen (cantidad,observacion,idprecio) VALUES (@cantidad,@observacion,@idprecio)');
+            .input('categoria',sql.VarChar(50),categoria)
+            .input('idpedido',sql.Int,idpedido)
+            .query('INSERT INTO pedidoInsumo (numeropedido,fecha,observacion,categoria,idpedido) VALUES (@numeropedido,@fecha,@observacion,@categoria,@idpedido)');
 
         if(result.rowsAffected[0]>0){
-            return 'Cantidad del almacén por insumo insertado...';
+            return 'Observación al pedido por insumo insertada...';
         }else{
-            return 'No se pudo insertar la cantidad del almacén por insumo...';
+            return 'No se pudo insertar la observación al pedido por insumo...';
         }
     }catch(error){
-        console.error('Error al insertar la cantidad del almacén por insumo: ',error.message);
+        console.error('Error al insertar la observación al pedido por insumo: ',error.message);
         throw error;
     }
 }
-//---------- ALMACEN
-//---------- INSUMOS ELIMINADOS
-export const insertDeletedSupplyService = async (tabla,idtabla) => {
+export const insertLogSupplyOrderObservationService = async (idobservacion,idusuario,numeropedido,fecha,observacion,categoria,idpedido) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla',sql.VarChar(20),tabla)
-            .input('idtabla',sql.Int,idtabla)
-            .query('INSERT INTO insumosEliminados (idtabla,tabla) VALUES (@idtabla,@tabla)');
+            .input('tabla', sql.VarChar(50), 'Observaciones de los Pedidos por Insumo')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idobservacion)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),numeropedido)
+            .input('campo3',sql.VarChar(500),fecha)
+            .input('campo4',sql.VarChar(500),observacion)
+            .input('campo5',sql.VarChar(500),categoria)
+            .input('campo6',sql.VarChar(500),idpedido)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
 
         if(result.rowsAffected[0]>0){
-            if(tabla === 'INSUMOS'){
-                return 'Insumo Eliminado...';
-            }
-            if(tabla === 'TIPOS DE INSUMO'){
-                return 'Tipo de insumo Eliminado...';
-            }
-            if(tabla === 'MEDIDAS'){
-                return 'Medida Eliminada...';
-            }
+            return 'Operación regisrada...';
         }else{
-            if(tabla === 'INSUMOS'){
-                return 'No se pudo eliminar al insumo...';
-            }
-            if(tabla === 'TIPOS DE INSUMO'){
-                return 'No se pudo eliminar al tipo de insumo...';
-            }
-            if(tabla === 'MEDIDAS'){
-                return 'No se pudo eliminar la medida...';
-            }
+            return 'No se pudo registrar la operación...';
         }
     }catch(error){
-        if(tabla === 'INSUMOS'){
-            console.error('Error al eliminar al insumo: ',error.message);
-        }
-        if(tabla === 'TIPOS DE INSUMO'){
-            console.error('Error al eliminar al tipo de insumo: ',error.message);
-        }
-        if(tabla === 'MEDIDAS'){
-            console.error('Error al eliminar la medida: ',error.message);
-        }
+        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
-//---------- INSUMOS ELIMINADOS
-//---------- TIPOS DE INSUMO ELIMINADOS
-export const insertDeletedWarehouseService = async (idtipo,cantidad) => {
+//---------- PEDIDOS DE INSUMO ELIMINADOS ✔️
+export const insertDeletedSupplyOrderService = async (idpedido) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('idtipo',sql.Int,idtipo)
-            .input('cantidad',sql.Decimal(12,4),cantidad)
-            .query('INSERT INTO tipoInsumoEliminado (idtipo,cantidad) VALUES (@idtipo,@cantidad)');
+            .input('idpedido',sql.Int,idpedido)
+            .query('INSERT INTO pedidoInsumoEliminado (idpedido) VALUES (@idpedido)');
 
         if(result.rowsAffected[0]>0){
-            return 'Insumo del almacén Eliminado...';
+            return 'Pedido por insumo Eliminado...';
         }else{
-            return 'No se pudo eliminar al insumo del almacén...';
+            return 'No se pudo eliminar al pedido por insumo...';
         }
     }catch(error){
-        console.error('Error al eliminar al insumo del almacén: ',error.message);
+        console.error('Error al eliminar al pedido por insumo: ',error.message);
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO ELIMINADOS
+export const insertLogDeletedSupplyOrderService = async (ideliminado,idusuario,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos por Insumo Eliminados')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idpedido)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- ALMACEN DE CATEGORIAS
+
+//---------- ALMACEN DE TIPOS DE INSUMO
+
 //______________INSERT______________
 //______________UPDATE______________
-//---------- INSUMOS
-export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo) => {
-  try{
-      const pool = await conexionDB();
-      const result = await pool.request()
-        .input('idinsumo',sql.Int,idinsumo)
-        .input('nombre',sql.VarChar(150),nombre)
-        .input('descripcion',sql.VarChar(250),descripcion)
-        .input('imagen',sql.VarChar(sql.MAX),imagen)
-        .input('idproveedor',sql.Int,idproveedor)
-        .input('idtipo',sql.Int,idtipo)
-        .query('UPDATE insumos SET nombre = @nombre, descripcion = @descripcion, imagen = @imagen, idproveedor = @idproveedor, @idtipo = idtipo WHERE idinsumo = @idinsumo');
 
-      if(result.rowsAffected[0]>0){
-          return 'Insumo actualizado...'
-      }else{
-          return 'No se pudo actualizar al insumo...'
-      }
-  }catch(error){
-      console.error('Error al actualizar al insumo: ',error.message);
-      throw error;
-  }
-}
-//---------- INSUMOS
-//---------- TIPO DE INSUMOS
-export const updateSupplyTypeService = async (idtipo,tipo,descripcion,idmedida) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idtipo',sql.Int,idtipo)
-            .input('tipo',sql.VarChar(150),tipo)
-            .input('descripcion',sql.VarChar(250),descripcion)
-            .input('idmedida',sql.Int,idmedida)
-            .query('UPDATE tipoInsumo SET tipo = @tipo, descripcion = @descripcion, idmedida = @idmedida WHERE idtipo = @idtipo');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Tipo de insumo actualizado...'
-        }else{
-            return 'No se pudo actualizar al tipo de insumo...'
-        }
-    }catch(error){
-        console.error('Error al actualizar al tipo de insumo: ',error.message);
-        throw error;
-    }
-}
-export const updateSupplyTypeTypeDescriptionService = async (tipoOriginal,tipo,descripcion) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tipoOriginal',sql.VarChar(150),tipoOriginal)
-            .input('tipo',sql.VarChar(150),tipo)
-            .input('descripcion',sql.VarChar(250),descripcion)
-            .query('UPDATE tipoInsumo SET tipo = @tipo, descripcion = @descripcion WHERE tipo = @tipoOriginal');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Tipo de insumo actualizado...'
-        }else{
-            return 'No se pudo actualizar al tipo de insumo...'
-        }
-    }catch(error){
-        console.error('Error al actualizar al tipo de insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- TIPO DE INSUMOS
-//---------- MEDIDA
-export const updateUnitService = async (idmedida,nombre,unidad,cantidad) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idmedida',sql.Int,idmedida)
-            .input('nombre',sql.VarChar(20),nombre)
-            .input('cantidad',sql.Decimal(10,4),cantidad)
-            .input('unidad',sql.VarChar(20),unidad)
-            .query('UPDATE medida SET nombre = @nombre, cantidad = @cantidad, unidad = @unidad WHERE idmedida = @idmedida');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Medida actualizada...'
-        }else{
-            return 'No se pudo actualizar la medida...'
-        }
-    }catch(error){
-        console.error('Error al actualizar la medida: ',error.message);
-        throw error;
-    }
-}
-export const updateUnitNameUnitService = async (nombreOriginal,nombre,unidad) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('nombreOriginal',sql.VarChar(20),nombreOriginal)
-            .input('nombre',sql.VarChar(20),nombre)
-            .input('unidad',sql.VarChar(20),unidad)
-            .query('UPDATE medida SET nombre = @nombre, unidad = @unidad WHERE nombre = @nombreOriginal');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Medida actualizada...'
-        }else{
-            return 'No se pudo actualizar la medida...'
-        }
-    }catch(error){
-        console.error('Error al actualizar la medida: ',error.message);
-        throw error;
-    }
-}
-//---------- MEDIDA
-//---------- PRECIO DEL INSUMO
-export const updateSupplyPricePriceService = async (idprecio,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idprecio',sql.Int,idprecio)
-            .input('precio',sql.Decimal(12,4),precio)
-            .query('UPDATE precioInsumo SET precio = @precio WHERE idprecio = @idprecio');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Precio del almacén por insumo actualizado...'
-        }else{
-            return 'No se pudo actualizar el precio del almacén por insumo...'
-        }
-    }catch(error){
-        console.error('Error al actualizar el precio del almacén por insumo: ',error.message);
-        throw error;
-    }
-}
-export const updateSupplyPriceStateService = async (idprecio,estado) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idprecio',sql.Int,idprecio)
-            .input('estado',sql.VarChar(20),estado)
-            .query('UPDATE precioInsumo SET estado = @estado WHERE idprecio = @idprecio');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Estado del precio del almacén por insumo actualizado...'
-        }else{
-            return 'No se pudo actualizar el estado del precio del almacén por insumo...'
-        }
-    }catch(error){
-        console.error('Error al actualizar el estado del precio del almacén por insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- PRECIO DEL INSUMO
-//---------- ALMACEN
-export const updateWarehouseQuantityService = async (idalmacen,cantidad) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idalmacen',sql.Int,idalmacen)
-            .input('cantidad',sql.Int,cantidad)
-            .query('UPDATE almacen SET cantidad = @cantidad WHERE idalmacen = @idalmacen');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Cantidad del almacén por insumo actualizado...'
-        }else{
-            return 'No se pudo actualizar la cantidad del almacén por insumo...'
-        }
-    }catch(error){
-        console.error('Error al actualizar la cantidad del almacén por insumo: ',error.message);
-        throw error;
-    }
-}
-export const updateWarehouseObservationService = async (idalmacen,observacion) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idalmacen',sql.Int,idalmacen)
-            .input('observacion',sql.VarChar(250),observacion)
-            .query('UPDATE almacen SET observacion = @observacion WHERE idalmacen = @idalmacen');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Observación de la cantidad del almacén por insumo actualizada...'
-        }else{
-            return 'No se pudo actualizar la observación de la cantidad del almacén por insumo...'
-        }
-    }catch(error){
-        console.error('Error al actualizar la observación de la cantidad del almacén por insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN
-//---------- TIPOS DE INSUMO ELIMINADOS
-export const updateDeletedWarehouseService = async (ideliminado,idtipo,cantidad) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('ideliminado',sql.Int,ideliminado)
-            .input('idtipo',sql.Int,idtipo)
-            .input('cantidad',sql.Decimal(12,4),cantidad)
-            .query('UPDATE tipoInsumoEliminado SET idtipo = @idtipo, cantidad = @cantidad WHERE ideliminado = @ideliminado');
-  
-        if(result.rowsAffected[0]>0){
-            return 'Insumo del almacén actualizado...'
-        }else{
-            return 'No se pudo actualizar el insumo del almacén...'
-        }
-    }catch(error){
-        console.error('Error al actualizar el insumo del almacén: ',error.message);
-        throw error;
-    }
-}
-//---------- TIPOS DE INSUMO ELIMINADOS
 //______________UPDATE______________
 //______________DELETE______________
-//---------- INSUMOS ELIMINADOS
-export const deleteDeletedSupplyService = async (ideliminado,tabla) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('ideliminado',sql.Int,ideliminado)
-            .query('DELETE FROM insumosEliminados WHERE ideliminado = @ideliminado');
 
-        if(result.rowsAffected[0]>0){
-            if(tabla === 'INSUMOS'){
-                return 'Insumo recuperado...';
-            }
-            if(tabla === 'TIPOS DE INSUMO'){
-                return 'Tipo de insumo recuperado...';
-            }
-            if(tabla === 'MEDIDAS'){
-                return 'Medida recuperado...';
-            }
-        }else{
-            if(tabla === 'INSUMOS'){
-                return 'No se pudo recuperar al insumo...';
-            }
-            if(tabla === 'TIPOS DE INSUMO'){
-                return 'No se pudo recuperar al tipo de insumo...';
-            }
-            if(tabla === 'MEDIDAS'){
-                return 'No se pudo recuperar la medida...';
-            }
-        }
-    }catch(error){
-        if(tabla === 'INSUMOS'){
-            console.error('Error al recuperar al insumo: ',error.message);
-        }
-        if(tabla === 'TIPOS DE INSUMO'){
-            console.error('Error al recuperar al tipo de insumo: ',error.message);
-        }
-        if(tabla === 'MEDIDAS'){
-            console.error('Error al recuperar la medida: ',error.message);
-        }
-        throw error;
-    }
-}
-//---------- INSUMOS ELIMINADOS
-//---------- TIPOS DE INSUMO ELIMINADOS
-export const deleteDeletedWarehouseService = async (idtipo) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idtipo',sql.Int,idtipo)
-            .query('DELETE FROM tipoInsumoEliminado WHERE idtipo = @idtipo');
-
-        if(result.rowsAffected[0]>0){
-            return 'Insumo del almacén recuperado...';
-        }else{
-            return 'No se pudo recuperar al insumo del almacén...';
-        }
-    }catch(error){
-        console.error('Error al recuperar al insumo del almacén: ',error.message);
-        throw error;
-    }
-}
-//---------- TIPOS DE INSUMO ELIMINADOS
 //______________DELETE______________

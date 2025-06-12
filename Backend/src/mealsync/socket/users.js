@@ -4,7 +4,10 @@ import { getUsersService,getPermissionsService,getStatusService,getUserTypesServ
 import { insertUserService,insertPermissionsService,insertStatusService,insertDeletedUserService } from "../services/users.js";
 import { updateUserService,updatePermissionsService,updatePermissionService,updateStatusLogService,updateStatusEnableService } from "../services/users.js";
 import { deleteDeletedUserService } from "../services/users.js";
-import { getLogsService,insertLogService } from "../services/logs.js";
+import { getLogsService } from "../services/logs.js";
+import { insertLogUserService,insertLogPermissionsService,insertLogStatusService,insertLogDeletedUserService } from "../services/users.js";
+import { updateLogUserService,updateLogPermissionsService,updateLogPermissionService,updateLogStatusLogService,updateLogStatusEnableService } from "../services/users.js";
+import { deleteLogDeletedUserService } from "../services/users.js";
 // Servidor socket
 import { io } from "../../index.js";
 // Servicios
@@ -13,7 +16,7 @@ import { decryptData } from "../../config/crypto.js";
 
 //______________GET______________
 export const Users_GET = (socket) => {
-    //---------- USUARIOS
+    //---------- USUARIOS ✔️
     socket.on('Get-Users', async () => {
         try {
             const result = await getUsersService();
@@ -23,8 +26,7 @@ export const Users_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- USUARIOS
-    //---------- PERMISOS
+    //---------- PERMISOS ✔️
     socket.on('Get-Permissions', async () => {
         try {
             const result = await getPermissionsService();
@@ -34,8 +36,7 @@ export const Users_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- PERMISOS
-    //---------- ESTATUS
+    //---------- ESTATUS ✔️
     socket.on('Get-Status', async () => {
         try {
             const result = await getStatusService();
@@ -45,8 +46,7 @@ export const Users_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- ESTATUS
-    //---------- TIPOS DE USUARIOS
+    //---------- TIPOS DE USUARIOS ✔️
     socket.on('Get-User-Types', async () => {
         try {
             const result = await getUserTypesService();
@@ -56,8 +56,7 @@ export const Users_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- TIPOS DE USUARIOS
-    //---------- USUARIOS ELIMINADOS
+    //---------- USUARIOS ELIMINADOS ✔️
     socket.on('Get-Deleted-Users', async () => {
         try {
             const result = await getDeletedUsersService();
@@ -67,19 +66,18 @@ export const Users_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- USUARIOS ELIMINADOS
 };
 //______________GET______________
 //______________INSERT______________
 export const Users_INSERT = (socket) => {
-    //---------- USUARIOS
-    socket.on('Insert-User',async (fecha,idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
+    //---------- USUARIOS ✔️
+    socket.on('Insert-User',async (idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
         try{
             await insertUserService(nombre,nombrecorto,usuario,contrasena,idtipo);
             const resultUsers = await getUsersService();
             const decryptedData = decryptData(resultUsers);
             const parsedData = JSON.parse(decryptedData);
-            await insertLogService('Usuarios',fecha,'INSERT',parsedData.find(data => data.usuario === usuario)?.idusuario,idusuario,'',nombre,nombrecorto,usuario,contrasena,String(idtipo),'','','','');
+            await insertLogUserService(parsedData.find(data => data.usuario === usuario)?.idusuario,idusuario,nombre,nombrecorto,usuario,contrasena,String(idtipo));
             const resultLogs = await getLogsService()
             io.emit('Get-Users',resultUsers);
             io.emit('Get-Logs',resultLogs);
@@ -88,54 +86,65 @@ export const Users_INSERT = (socket) => {
             return error;
         }
     });
-    //---------- USUARIOS
-    //---------- PERMISOS
-    socket.on('Insert-Permissions',async (administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
+    //---------- PERMISOS ✔️
+    socket.on('Insert-Permissions',async (usuario,administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
         try{
             await insertPermissionsService(administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario);
-            const result = await getPermissionsService();
-            io.emit('Get-Permissions',result);
+            const resultPermissions = await getPermissionsService();
+            const decryptedData = decryptData(resultPermissions);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogPermissionsService(parsedData.find(data => data.idusuario === idusuario)?.idpermiso,usuario,String(administrador),String(chef),String(almacenista),String(cocinero),String(nutriologo),String(medico),String(idusuario));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Permissions',resultPermissions);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al agregar los permisos: ',error);
             return error;
         }
     });
-    //---------- PERMISOS
-    //---------- ESTATUS
-    socket.on('Insert-Status',async (habilitado,idusuario) => {
+    //---------- ESTATUS ✔️
+    socket.on('Insert-Status',async (usuario,habilitado,idusuario) => {
         try{
             await insertStatusService(habilitado,idusuario);
-            const result = await getStatusService();
-            io.emit('Get-Status',result);
+            const resultStatus = await getStatusService();
+            const decryptedData = decryptData(resultStatus);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogStatusService(parsedData.find(data => data.idusuario === idusuario)?.idestatus,usuario,String(habilitado),String(idusuario));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Status',resultStatus);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al agregar el estatus: ',error);
             return error;
         }
     });
-    //---------- ESTATUS
-    //---------- USUARIOS ELIMINADOS
-    socket.on('Insert-Deleted-User',async (idusuario) => {
+    //---------- USUARIOS ELIMINADOS ✔️
+    socket.on('Insert-Deleted-User',async (usuario,idusuario) => {
         try{
             await insertDeletedUserService(idusuario);
-            const result = await getDeletedUsersService();
-            io.emit('Get-Deleted-Users',result);
+            const resultDeletedUsers = await getDeletedUsersService();
+            const decryptedData = decryptData(resultDeletedUsers);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogDeletedUserService(parsedData.find(data => data.idusuario === idusuario)?.ideliminado,usuario,String(idusuario));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Deleted-Users',resultDeletedUsers);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al eliminar un usuario: ',error);
             return error;
         }
     });
-    //---------- USUARIOS ELIMINADOS
 }
 //______________INSERT______________
 //______________UPDATE______________
 export const Users_UPDATE = (socket) => {
-    //---------- USUARIOS
-    socket.on('Update-User',async (fecha,idusuariosesion,idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
+    //---------- USUARIOS ✔️
+    socket.on('Update-User',async (sesion,idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
         try{
             await updateUserService(idusuario,nombre,nombrecorto,usuario,contrasena,idtipo);
             const resultUsers = await getUsersService();
-            await insertLogService('Usuarios',fecha,'UPDATE',idusuario,idusuariosesion,'',nombre,nombrecorto,usuario,contrasena,String(idtipo),'','','','');
-            const resultLogs = await getLogsService();
+            await updateLogUserService(idusuario,sesion,nombre,nombrecorto,usuario,contrasena,String(idtipo));
+            const resultLogs = await getLogsService()
             io.emit('Get-Users',resultUsers);
             io.emit('Get-Logs',resultLogs);
         }catch(error){
@@ -143,66 +152,77 @@ export const Users_UPDATE = (socket) => {
             return error;
         }
     });
-    //---------- USUARIOS
-    //---------- PERMISOS
-    socket.on('Update-Permissions', async (idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico) => {
+    //---------- PERMISOS ✔️
+    socket.on('Update-Permissions',async (usuario,idpermiso,administrador,chef,almacenista,cocinero,nutriologo,medico,idusuario) => {
         try{
             await updatePermissionsService(idusuario,administrador,chef,almacenista,cocinero,nutriologo,medico);
-            const result = await getPermissionsService();
-            io.emit('Get-Permissions',result);
+            const resultPermissions = await getPermissionsService();
+            await updateLogPermissionsService(idpermiso,usuario,String(administrador),String(chef),String(almacenista),String(cocinero),String(nutriologo),String(medico));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Permissions',resultPermissions);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al editar los permisos: ',error);
             return error;
         }
     });
-    socket.on('Update-Permission', async (idusuario,superadministrador) => {
+    socket.on('Update-Permission',async (usuario,idpermiso,superadministrador,idusuario) => {
         try{
             await updatePermissionService(idusuario,superadministrador);
-            const result = await getPermissionsService();
-            io.emit('Get-Permissions',result);
+            const resultPermissions = await getPermissionsService();
+            await updateLogPermissionService(idpermiso,usuario,String(superadministrador));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Permissions',resultPermissions);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al editar el permiso de super administrador: ',error);
             return error;
         }
     });
-    //---------- PERMISOS
-    //---------- ESTATUS
-    socket.on('Update-Status-Log', async (idusuario,activo) => {
+    //---------- ESTATUS ✔️
+    socket.on('Update-Status-Log',async (usuario,idestatus,activo,idusuario) => {
         try{
             await updateStatusLogService(idusuario,activo);
-            const result = await getStatusService();
-            io.emit('Get-Status',result);
+            const resultStatus = await getStatusService();
+            await updateLogStatusLogService(idestatus,usuario,String(activo));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Status',resultStatus);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error(`Error al ${activo ? 'iniciar sesión':'cerrar sesión'} el usuario: `,error);
             return error;
         }
     });
-    socket.on('Update-Status-Enable', async (idusuario,habilitado) => {
+    socket.on('Update-Status-Enable',async (usuario,idestatus,habilitado,idusuario) => {
         try{
             await updateStatusEnableService(idusuario,habilitado);
-            const result = await getStatusService();
-            io.emit('Get-Status',result);
+            const resultStatus = await getStatusService();
+            await updateLogStatusEnableService(idestatus,usuario,String(habilitado));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Status',resultStatus);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error(`Error al ${habilitado ? 'habilitar':'deshabilitar'} el usuario: `,error);
             return error;
         }
     });
-    //---------- ESTATUS
 }
 //______________UPDATE______________
 //______________DELETE______________
 export const Users_DELETE = (socket) => {
-    //---------- USUARIOS ELIMINADOS
-    socket.on('Delete-Deleted-User',async (idusuario) => {
+    //---------- USUARIOS ELIMINADOS ✔️
+    socket.on('Delete-Deleted-User',async (usuario,ideliminado,idusuario) => {
         try{
             await deleteDeletedUserService(idusuario);
-            const result = await getDeletedUsersService();
-            io.emit('Get-Deleted-Users',result);
+            const resultDeletedUsers = await getDeletedUsersService();
+            await deleteLogDeletedUserService(ideliminado,usuario,String(idusuario));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Deleted-Users',resultDeletedUsers);
+            io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al recuperar un usuario: ',error);
             return error;
         }
     });
-    //---------- USUARIOS ELIMINADOS
 }
 //______________DELETE______________

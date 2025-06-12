@@ -8,7 +8,7 @@ import { encryptData } from "../../config/crypto.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
-//---------- PROVEEDORES
+//---------- PROVEEDORES ✔️
 export const getSuppliersService = async () => {
     try{
         const pool = await conexionDB();
@@ -24,8 +24,7 @@ export const getSuppliersService = async () => {
         throw error;
     }
 }
-//---------- PROVEEDORES
-//---------- OBSERVACIONES
+//---------- OBSERVACIONES ✔️
 export const getObservationsService = async () => {
     try{
         const pool = await conexionDB();
@@ -41,8 +40,7 @@ export const getObservationsService = async () => {
         throw error;
     }
 }
-//---------- OBSERVACIONES
-//---------- PROVEEDORES ELIMINADOS
+//---------- PROVEEDORES ELIMINADOS ✔️
 export const getDeletedSuppliersService = async () => {
     try{
         const pool = await conexionDB();
@@ -58,8 +56,7 @@ export const getDeletedSuppliersService = async () => {
         throw error;
     }
 }
-//---------- PROVEEDORES ELIMINADOS
-//---------- INSUMOS
+//---------- INSUMOS ✔️
 export const getSuppliesService = async () => {
     try{
         const pool = await conexionDB();
@@ -75,8 +72,7 @@ export const getSuppliesService = async () => {
         throw error;
     }
 }
-//---------- INSUMOS
-//---------- INSUMOS ELIMINADOS
+//---------- INSUMOS ELIMINADOS ✔️
 export const getDeletedSuppliesService = async () => {
     try{
         const pool = await conexionDB();
@@ -92,8 +88,7 @@ export const getDeletedSuppliesService = async () => {
         throw error;
     }
 }
-//---------- INSUMOS ELIMINADOS
-//---------- TIPOS DE INSUMO
+//---------- TIPOS DE INSUMO ✔️
 export const getSupplyTypesService = async () => {
     try{
         const pool = await conexionDB();
@@ -109,8 +104,7 @@ export const getSupplyTypesService = async () => {
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO
-//---------- CANTIDAD DE TIPOS DE INSUMO
+//---------- CANTIDAD DE TIPOS DE INSUMO ✔️
 export const getCountSupplyTypesService = async () => {
     try{
         const pool = await conexionDB();
@@ -126,8 +120,7 @@ export const getCountSupplyTypesService = async () => {
         throw error;
     }
 }
-//---------- CANTIDAD DE TIPOS DE INSUMO
-//---------- TIPOS DE INSUMO ELIMINADOS
+//---------- TIPOS DE INSUMO ELIMINADOS ✔️
 export const getDeletedSupplyTypesService = async () => {
     try{
         const pool = await conexionDB();
@@ -143,8 +136,7 @@ export const getDeletedSupplyTypesService = async () => {
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO ELIMINADOS
-//---------- CATEGORIAS DE INSUMO
+//---------- CATEGORIAS DE INSUMO ✔️
 export const getSupplyCategoriesService = async () => {
     try{
         const pool = await conexionDB();
@@ -160,8 +152,7 @@ export const getSupplyCategoriesService = async () => {
         throw error;
     }
 }
-//---------- CATEGORIAS DE INSUMO
-//---------- CATEGORIAS DE INSUMO ELIMINADAS
+//---------- CATEGORIAS DE INSUMO ELIMINADAS ✔️
 export const getDeletedSupplyCategoriesService = async () => {
     try{
         const pool = await conexionDB();
@@ -177,10 +168,9 @@ export const getDeletedSupplyCategoriesService = async () => {
         throw error;
     }
 }
-//---------- CATEGORIAS DE INSUMO ELIMINADAS
 //______________GET______________
 //______________INSERT______________
-//---------- PROVEEDORES
+//---------- PROVEEDORES ✔️
 export const insertSupplierService = async (nombre,rfc,domicilio,telefono,correo) => {
     try{
         const pool = await conexionDB();
@@ -227,8 +217,7 @@ export const insertLogSupplierService = async (idproveedor,idusuario,nombre,rfc,
         throw error;
     }
 }
-//---------- PROVEEDORES
-//---------- OBSERVACIONES
+//---------- OBSERVACIONES ✔️
 export const insertObservationService = async (observacion,calificacion,fecha,idproveedor) => {
     try{
         const pool = await conexionDB();
@@ -273,8 +262,7 @@ export const insertLogObservationService = async (idobservacion,idusuario,observ
         throw error;
     }
 }
-//---------- OBSERVACIONES
-//---------- PROVEEDORES ELIMINADOS
+//---------- PROVEEDORES ELIMINADOS ✔️
 export const insertDeletedSupplierService = async (idproveedor) => {
     try{
         const pool = await conexionDB();
@@ -313,8 +301,7 @@ export const insertLogDeletedSupplierService = async (ideliminado,idusuario,idpr
         throw error;
     }
 }
-//---------- PROVEEDORES ELIMINADOS
-//---------- INSUMOS
+//---------- INSUMOS ✔️
 export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
     try{
         const pool = await conexionDB();
@@ -363,8 +350,7 @@ export const insertLogSupplyService = async (idinsumo,idusuario,imagen,nombre,de
         throw error;
     }
 }
-//---------- INSUMOS
-//---------- INSUMOS ELIMINADOS
+//---------- INSUMOS ELIMINADOS ✔️
 export const insertDeletedSupplyService = async (idinsumo) => {
     try{
         const pool = await conexionDB();
@@ -403,8 +389,7 @@ export const insertLogDeletedSupplyService = async (ideliminado,idusuario,idinsu
         throw error;
     }
 }
-//---------- INSUMOS ELIMINADOS
-//---------- TIPOS DE INSUMO
+//---------- TIPOS DE INSUMO ✔️
 export const insertSupplyTypeService = async (tipo,descripcion,unidad,idcategoria) => {
     try{
         const pool = await conexionDB();
@@ -449,8 +434,7 @@ export const insertLogSupplyTypeService = async (idtipo,idusuario,tipo,descripci
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO
-//---------- CANTIDAD DE TIPOS DE INSUMO
+//---------- CANTIDAD DE TIPOS DE INSUMO ✔️
 export const insertCountSupplyTypeService = async (cantidad,idtipo) => {
     try{
         const pool = await conexionDB();
@@ -491,8 +475,7 @@ export const insertLogCountSupplyTypeService = async (idcantidad,idusuario,canti
         throw error;
     }
 }
-//---------- CANTIDAD DE TIPOS DE INSUMO
-//---------- TIPOS DE INSUMO ELIMINADOS
+//---------- TIPOS DE INSUMO ELIMINADOS ✔️
 export const insertDeletedSupplyTypeService = async (idtipo) => {
     try{
         const pool = await conexionDB();
@@ -531,8 +514,7 @@ export const insertLogDeletedSupplyTypeService = async (ideliminado,idusuario,id
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO ELIMINADOS
-//---------- CATEGORIAS DE INSUMO
+//---------- CATEGORIAS DE INSUMO ✔️
 export const insertSupplyCategoryService = async (nombre,descripcion) => {
     try{
         const pool = await conexionDB();
@@ -573,8 +555,7 @@ export const insertLogSupplyCategoryService = async (idcategoria,idusuario,nombr
         throw error;
     }
 }
-//---------- CATEGORIAS DE INSUMO
-//---------- CATEGORIAS DE INSUMO ELIMINADAS
+//---------- CATEGORIAS DE INSUMO ELIMINADAS ✔️
 export const insertDeletedSupplyCategoryService = async (idcategoria) => {
     try{
         const pool = await conexionDB();
@@ -613,10 +594,9 @@ export const insertLogDeletedSupplyCategoryService = async (ideliminado,idusuari
         throw error;
     }
 }
-//---------- CATEGORIAS DE INSUMO ELIMINADAS
 //______________INSERT______________
 //______________UPDATE______________
-//---------- PROVEEDORES
+//---------- PROVEEDORES ✔️
 export const updateSupplierService = async (idproveedor,nombre,rfc,domicilio,telefono,correo) => {
     try{
         const pool = await conexionDB();
@@ -664,8 +644,7 @@ export const updateLogSupplierService = async (idproveedor,idusuario,nombre,rfc,
         throw error;
     }
 }
-//---------- PROVEEDORES
-//---------- INSUMOS
+//---------- INSUMOS ✔️
 export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
     try{
         const pool = await conexionDB();
@@ -715,8 +694,7 @@ export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,de
         throw error;
     }
 }
-//---------- INSUMOS
-//---------- TIPOS DE INSUMO
+//---------- TIPOS DE INSUMO ✔️
 export const updateSupplyTypeService = async (idtipo,tipo,descripcion,unidad,idcategoria) => {
     try{
         const pool = await conexionDB();
@@ -762,8 +740,7 @@ export const updateLogSupplyTypeService = async (idtipo,idusuario,tipo,descripci
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO
-//---------- CATEGORIAS DE INSUMO
+//---------- CATEGORIAS DE INSUMO ✔️
 export const updateSupplyCategoryService = async (idcategoria,nombre,descripcion) => {
     try{
         const pool = await conexionDB();
@@ -805,10 +782,9 @@ export const updateLogSupplyCategoryService = async (idcategoria,idusuario,nombr
         throw error;
     }
 }
-//---------- CATEGORIAS DE INSUMO
 //______________UPDATE______________
 //______________DELETE______________
-//---------- PROVEEDORES ELIMINADOS
+//---------- PROVEEDORES ELIMINADOS ✔️
 export const deleteDeletedSupplierService = async (idproveedor) => {
     try{
         const pool = await conexionDB();
@@ -847,8 +823,7 @@ export const deleteLogDeletedSupplierService = async (ideliminado,idusuario,idpr
         throw error;
     }
 }
-//---------- PROVEEDORES ELIMINADOS
-//---------- INSUMOS ELIMINADOS
+//---------- INSUMOS ELIMINADOS ✔️
 export const deleteDeletedSupplyService = async (idinsumo) => {
     try{
         const pool = await conexionDB();
@@ -887,8 +862,7 @@ export const deleteLogDeletedSupplyService = async (ideliminado,idusuario,idinsu
         throw error;
     }
 }
-//---------- INSUMOS ELIMINADOS
-//---------- TIPOS DE INSUMO ELIMINADOS
+//---------- TIPOS DE INSUMO ELIMINADOS ✔️
 export const deleteDeletedSupplyTypeService = async (idtipo) => {
     try{
         const pool = await conexionDB();
@@ -927,8 +901,7 @@ export const deleteLogDeletedSupplyTypeService = async (ideliminado,idusuario,id
         throw error;
     }
 }
-//---------- TIPOS DE INSUMO ELIMINADOS
-//---------- CATEGORIAS DE INSUMO ELIMINADAS
+//---------- CATEGORIAS DE INSUMO ELIMINADAS ✔️
 export const deleteDeletedSupplyCategoryService = async (idcategoria) => {
     try{
         const pool = await conexionDB();
@@ -967,5 +940,4 @@ export const deleteLogDeletedSupplyCategoryService = async (ideliminado,idusuari
         throw error;
     }
 }
-//---------- CATEGORIAS DE INSUMO ELIMINADAS
 //______________DELETE______________

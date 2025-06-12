@@ -12,14 +12,14 @@ import { io } from '../../index.js';
 export const socketEvents = () => {
     io.on('connection', (socket) => {
         console.log(`Cliente conectado: ${socket.id}`);
-        // Registros
+        // Registros ✔️
         Logs_GET(socket)
-        // Usuarios
+        // Usuarios ✔️
         Users_GET(socket);
         Users_INSERT(socket);
         Users_UPDATE(socket);
         Users_DELETE(socket);
-        // Proveedores
+        // Proveedores ✔️
         Suppliers_GET(socket);
         Suppliers_INSERT(socket);
         Suppliers_UPDATE(socket);

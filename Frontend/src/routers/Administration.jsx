@@ -5,7 +5,7 @@ import { Outlet,useNavigate,Navigate } from "react-router-dom";
 // Contextos
 import { SidebarContext,ThemeModeContext,SidebarViewContext,NavbarViewContext,LoginViewContext,ModalViewContext,ModalContext,SubModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
-import { ActionBlockContext,UserUpdatedContext } from "../contexts/VariablesProvider";
+import { ActionBlockContext,UserUpdatedContext,PermissionUpdatedContext } from "../contexts/VariablesProvider";
 import { StatusContext } from "../contexts/UsersProvider";
 import { SearchTermContext,SearchTerm2Context,SearchTerm1Context } from "../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionSearchContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderDirectionContext } from "../contexts/SelectedesProvider";
@@ -55,6 +55,7 @@ export const PrivateRouteAdministration = () => {
     const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     const [isSubModal,setIsSubModal] = useContext(SubModalContext);
     const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
+    const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdatedContext);
     // Constantes con el valor de los useRef
     const isLoggedLoggedRef = useRef(isLoggedLogged);
     const logoutInitiatedRef = useRef(false);
@@ -143,6 +144,7 @@ export const PrivateRouteAdministration = () => {
                             setIsSelectedOptionOrderPlus('Normal');
                             setIsSelectedOptionOrderDirection('Asc');
                             setIsUserUpdated('');
+                            setIsPermissionUpdated('');
 
                             setTimeout(() => {
                                 sessionStorage.clear();

@@ -28,12 +28,15 @@ const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFiel
 const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext); ✔️
 const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext); ✔️
 const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext); ✔️
-const [isTextFieldsWarehouse,setIsTextFieldsWarehouse] = useContext(TextFieldsWarehouseContext);
+const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
+const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
-const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
-const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);
-const [isTextFieldsMenuTypes,setIsTextFieldsMenuTypes] = useContext(TextFieldsMenuTypesContext); ✔️
-const [isTextFieldsDishes,setIsTextFieldsDishes] = useContext(TextFieldsDishesContext); ✔️
+const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useContext(TextFieldsSupplyOrderContext);
+const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext);
+const [isTextFieldsWarehouseCategory,setIsTextFieldsWarehouseCategory] = useContext(TextFieldsWarehouseCategoryContext);
+
+const [isTextFieldsMenuTypes,setIsTextFieldsMenuTypes] = useContext(TextFieldsMenuTypesContext); 
+const [isTextFieldsDishes,setIsTextFieldsDishes] = useContext(TextFieldsDishesContext); 
 //____________FORM____________
 //____________MENUS____________
 const [isMenus,setIsMenus] = useContext(MenusContext);
@@ -92,6 +95,22 @@ const [isDeletedSuppliers,setIsDeletedSuppliers] = useContext(DeletedSuppliersCo
 const [isSupplierDelete,setIsSupplierDelete] = useContext(SupplierDeleteContext); ✔️
 const [isObservations,setIsObservations] = useContext(ObservationsContext); ✔️
 const [isObservationAdd,setIsObservationAdd] = useContext(ObservationAddContext); ✔️
+const [isSupplies,setIsSupplies] = useContext(SuppliesContext);
+const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
+const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
+const [isDeletedSupplies,setIsDeletedSupplies] = useContext(DeletedSuppliesContext);
+const [isSupplyDelete,setIsSupplyDelete] = useContext(SupplyDeleteContext);
+const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext);
+const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext);
+const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext);
+const [isCountSupplyTypes,setIsCountSupplyTypes] = useContext(CountSupplyTypesContext);
+const [isDeletedSupplyTypes,setIsDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
+const [isSupplyTypeDelete,setIsSupplyTypeDelete] = useContext(SupplyTypeDeleteContext);
+const [isSupplyCategories,setIsSupplyCategories] = useContext(SupplyCategoriesContext);
+const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext);
+const [isSupplyCategoryEdit,setIsSupplyCategoryEdit] = useContext(SupplyCategoryEditContext);
+const [isDeletedSupplyCategories,setIsDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext);
+const [isSupplyCategoryDelete,setIsSupplyCategoryDelete] = useContext(SupplyCategoryDeleteContext);
 //____________SUPPLIERS____________
 //____________USERS____________
 const [isUsers,setIsUsers] = useContext(UsersContext); ✔️
@@ -117,6 +136,7 @@ const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext); ✔️
 const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext); ✔️
 const [isTouch,setIsTouch] = useContext(TouchContext); ✔️
 const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext); ✔️
+const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdatedContext); ✔️
 //____________VARIABLES____________
 //____________VIEWS____________
 const [themeMode,setThemeMode] = useContext(ThemeModeContext); ✔️

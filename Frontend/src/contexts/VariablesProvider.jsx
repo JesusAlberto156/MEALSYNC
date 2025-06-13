@@ -9,6 +9,7 @@ export const KeyboardContext = createContext(null);
 export const KeyboardViewContext = createContext(null);
 export const TouchContext = createContext(null);
 export const UserUpdatedContext = createContext(null);
+export const PermissionUpdatedContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para las variables generales para funcionalidades ✔️
@@ -21,7 +22,9 @@ export const Index_Variables = ({children}) => {
                         <Keyboard_View>
                             <Touch>
                                 <User_Updated>
-                                    {children}
+                                    <Permission_Updated>
+                                        {children}
+                                    </Permission_Updated>
                                 </User_Updated>
                             </Touch>
                         </Keyboard_View>
@@ -116,5 +119,16 @@ export const User_Updated = ({children}) => {
         <UserUpdatedContext.Provider value={[isUserUpdated,setIsUserUpdated]}>
             {children}
         </UserUpdatedContext.Provider>
+    );
+}
+// Función Contexto para controlar las alertas de los permisos editados ✔️
+export const Permission_Updated = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isPermissionUpdated,setIsPermissionUpdated] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <PermissionUpdatedContext.Provider value={[isPermissionUpdated,setIsPermissionUpdated]}>
+            {children}
+        </PermissionUpdatedContext.Provider>
     );
 }

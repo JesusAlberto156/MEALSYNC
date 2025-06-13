@@ -841,7 +841,7 @@ export const HandleSupplierEdit = () => {
     // Retorno de la función del hook
     return handleSupplierEdit;
 }
-// Hook para eliminar un proveedor desde el modal 
+// Hook para eliminar un proveedor desde el modal ✔️
 export const HandleSupplierDelete = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);

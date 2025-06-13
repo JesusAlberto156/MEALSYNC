@@ -105,48 +105,6 @@ export const ResetTextFieldsStatus = () => {
     return resetTextFieldsStatus;
 }
 
-// Hook para reinciar los campos de texto de los proveedores ✔️
-export const ResetTextFieldsSupplier = () => {
-    // Constantes con el valor de los contextos 
-    const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
-    // Estados iniciales de los contextos
-    const initialTextFieldsSupplier = {
-        idproveedor: 0,
-        nombre: '',
-        rfc: '',
-        domicilio: '',
-        telefono: '',
-        correo: '',
-        calificacion: 0,
-        ideliminado: 0,
-    };
-    // Función del hook
-    const resetTextFieldsSupplier = () => {
-        setIsTextFieldsSupplier(initialTextFieldsSupplier);
-    }
-    // Retorno de la función del hook
-    return resetTextFieldsSupplier;
-}
-// Hook para reinciar los campos de texto de las observaciones a proveedor ✔️
-export const ResetTextFieldsObservation = () => {
-    // Constantes con el valor de los contextos 
-    const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext);
-    // Estados iniciales de los contextos
-    const initialTextFieldsObservation = {
-        idobservacion: 0,
-        observacion: '',
-        calificacion: 0,
-        fecha: '',
-        idproveedor: 0,
-    };
-    // Función del hook
-    const resetTextFieldsObservation = () => {
-        setIsTextFieldsObservation(initialTextFieldsObservation);
-    }
-    // Retorno de la función del hook
-    return resetTextFieldsObservation;
-}
-
 // Hook para reinciar los campos de texto de pedidos para el inventario 
 export const ResetTextFieldsWarehouse = () => {
     // Constantes con el valor de los contextos 
@@ -172,63 +130,6 @@ export const ResetTextFieldsWarehouse = () => {
     // Retorno de la función del hook
     return resetTextFieldsWarehouse;
 }
-// Hook para reinciar los campos de texto de los insumos 
-export const ResetTextFieldsSupply = () => {
-    // Constantes con el valor de los contextos 
-    const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
-    // Estados iniciales de los contextos
-    const initialTextFieldsSupply = {
-        idsupply: 0,
-        name: '',
-        description: '',
-        image: '',
-        supplier: 0,
-        type: 0,
-    };
-    // Función del hook
-    const resetTextFieldsSupply = () => {
-        setIsTextFieldsSupply(initialTextFieldsSupply);
-    }
-    // Retorno de la función del hook
-    return resetTextFieldsSupply;
-}
-// Hook para reinciar los campos de texto de los tipos de insumos 
-export const ResetTextFieldsSupplyType = () => {
-    // Constantes con el valor de los contextos 
-    const [isTextFieldsSupplyTypes,setIsTextFieldsSupplyTypes] = useContext(TextFieldsSupplyTypesContext);
-    // Estados iniciales de los contextos
-    const initialTextFieldsSupplyTypes = {
-        idtype: 0,
-        type: '',
-        description: '',
-        idunits: 0,
-    };
-    // Función del hook
-    const resetTextFieldsSupplyType = () => {
-        setIsTextFieldsSupplyTypes(initialTextFieldsSupplyTypes);
-    }
-    // Retorno de la función del hook
-    return resetTextFieldsSupplyType;
-}
-// Hook para reinciar los campos de texto de las mediciones 
-export const ResetTextFieldsUnit = () => {
-    // Constantes con el valor de los contextos 
-    const [isTextFieldsUnits,setIsTextFieldsUnits] = useContext(TextFieldsUnitsContext);
-    // Estados iniciales de los contextos
-    const initialTextFieldsUnits = {
-        idextent: 0,
-        extent: '',
-        unit: '',
-        amount: '',
-    };
-    // Función del hook
-    const resetTextFieldsUnit = () => {
-        setIsTextFieldsUnits(initialTextFieldsUnits);
-    }
-    // Retorno de la función del hook
-    return resetTextFieldsUnit;
-}
-
 // Hook para reinciar los campos de texto de los tipos de menu ✔️
 export const ResetTextFieldsMenuTypes = () => {
     // Constantes con el valor de los contextos 

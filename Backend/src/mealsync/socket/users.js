@@ -159,8 +159,9 @@ export const Users_UPDATE = (socket) => {
             const resultPermissions = await getPermissionsService();
             await updateLogPermissionsService(idpermiso,usuario,String(administrador),String(chef),String(almacenista),String(cocinero),String(nutriologo),String(medico));
             const resultLogs = await getLogsService()
+            const permisson = 'permisos'
             io.emit('Get-Permissions',resultPermissions);
-            io.emit('Update-Permissions',`Se editó los permisos al usuario `,Usuario);
+            io.emit('Update-Permissions',`Se editó los `,permisson,` al usuario `,Usuario);
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al editar los permisos: ',error);
@@ -173,8 +174,9 @@ export const Users_UPDATE = (socket) => {
             const resultPermissions = await getPermissionsService();
             await updateLogPermissionService(idpermiso,usuario,String(superadministrador));
             const resultLogs = await getLogsService()
+            const permisson = 'super administrador'
             io.emit('Get-Permissions',resultPermissions);
-            io.emit('Update-Permission',`Se editó el permiso de super administrador al usuario `,Usuario);
+            io.emit('Update-Permission',`Se editó al usuario `,Usuario,'el permiso de ',permisson);
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al editar el permiso de super administrador: ',error);

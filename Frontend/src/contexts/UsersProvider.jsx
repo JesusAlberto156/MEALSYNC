@@ -28,7 +28,7 @@ import Logo_Success_Dark from '../components/imgs/Logo-Success-Dark.png';
 import { SocketContext } from "./SocketProvider";
 import { LoggedLoggedContext,LoggedUserContext,LoggedTypeContext,LoggedLogContext,LoggedPermissionsContext } from "./SessionProvider";
 import { ThemeModeContext } from "./ViewsProvider";
-import { UserUpdatedContext } from "./VariablesProvider";
+import { UserUpdatedContext,PermissionUpdatedContext } from "./VariablesProvider";
 // Estilos personalizados
 import { Alert_Warning,Alert_Success } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -262,6 +262,7 @@ export const Permissions = ({ children }) => {
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext); 
     const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
+    const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdatedContext);
     // UseRef para las alertas
     const alertShow = useRef(false);
     // UseState para controlar el valor del contexto
@@ -294,11 +295,34 @@ export const Permissions = ({ children }) => {
     },[]);
     // UseEffect para verificar que los datos existan
     useEffect(() => {
-        if (isLoggedLogged && isPermissions.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current) {
+        if (isLoggedLogged && isPermissionUpdated === 'super administrador') {
             const user = isPermissions.find(user => user.idusuario === isLoggedUser.idusuario && isLoggedUser.usuario === isUserUpdated);
             if (user) {
                 const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                 const Image_Success = themeMode ? Logo_Success_Light : Logo_Success_Dark;
+
+                if (!user.superadministrador) {
+                    setIsUserUpdated('');
+                    Alert_Warning('MEALSYNC', '¡El super administrador ha sido deshabilitado!...', themeMode, Image_Warning);
+                    setTimeout(() => {
+                        setIsLoggedLog(true);
+                    }, 3000);
+                    return;
+                } 
+                if(user.superadministrador) {
+                    setIsUserUpdated('');
+                    Alert_Success('MEALSYNC', '¡El super administrador ha sido habilitado!...', themeMode, Image_Success);
+                    setTimeout(() => {
+                        setIsLoggedLog(true);
+                    }, 3000);
+                    return;
+                }
+            }
+        }
+        if (isLoggedLogged && isPermissionUpdated === 'permisos') {
+            const user = isPermissions.find(user => user.idusuario === isLoggedUser.idusuario && isLoggedUser.usuario === isUserUpdated);
+            if (user) {
+                const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
 
                 if (!user.superadministrador) {
                     if (
@@ -315,15 +339,9 @@ export const Permissions = ({ children }) => {
                             setIsLoggedLog(true);
                         }, 3000);
                         return;
-                    } else {
-                        setIsUserUpdated('');
-                        Alert_Warning('MEALSYNC', '¡El super administrador ha sido deshabilitado!...', themeMode, Image_Warning);
                     }
-                } else {
-                    setIsUserUpdated('');
-                    Alert_Success('MEALSYNC', '¡El super administrador ha sido habilitado!...', themeMode, Image_Success);
-                }
-
+                } 
+                
                 const jsonPermission = JSON.stringify(user);
                 const encryptedPermission = encryptData(jsonPermission);
                 if (encryptedPermission) {
@@ -332,13 +350,9 @@ export const Permissions = ({ children }) => {
                 } else {
                     return console.log('¡Error al encriptar las credenciales!...');
                 }
-
-                setTimeout(() => {
-                    setIsLoggedLog(true);
-                }, 3000);
             }
         }
-    }, [isPermissions]);
+    }, [isPermissions,isUserUpdated,isPermissionUpdated]);
     // Return para darle valor al contexto y heredarlo
     return (
         <PermissionsContext.Provider value={[isPermissions,setIsPermissions]}>
@@ -362,13 +376,16 @@ export const Permissions_Edit = ({ children }) => {
     // Constantes con el valor de los contextos
     const [socket] = useContext(SocketContext);
     const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
+    const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdatedContext);
     // UseState para controlar el valor del contexto
     const [isPermissionsEdit,setIsPermissionsEdit] = useState(false);
     // UseEffect para quitar la suscrpcion de socket
     useEffect(() => {
-        const handleUpdatePermissions = (message,user) => {
-            console.log(message,user);
+        const handleUpdatePermissions = (message1,permission,message2,user) => {
+            console.log(message1,permission,message2,user);
             setIsUserUpdated(user);
+            setIsPermissionUpdated(permission)
+            socket.emit('Get-Permissions')
         };
 
         socket.on('Update-Permissions',handleUpdatePermissions);
@@ -389,13 +406,16 @@ export const Permissions_Enable = ({ children }) => {
     // Constantes con el valor de los contextos
     const [socket] = useContext(SocketContext);
     const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
+    const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdatedContext)
     // UseState para controlar el valor del contexto
     const [isPermissionsEnable,setIsPermissionsEnable] = useState(false);
     // UseEffect para quitar la suscrpcion de socket
     useEffect(() => {
-        const handleUpdatePermission = (message,user) => {
-            console.log(message,user);
+        const handleUpdatePermission = (message1,user,message2,permission) => {
+            console.log(message1,user,message2,permission);
             setIsUserUpdated(user);
+            setIsPermissionUpdated(permission)
+            socket.emit('Get-Permissions');
         };
 
         socket.on('Update-Permission',handleUpdatePermission);

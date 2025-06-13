@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -9,8 +9,8 @@ import Select from "react-select";
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
-import { StatusAddContext,StatusContext } from "../../../../contexts/UsersProvider";
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { StatusAddContext } from "../../../../contexts/UsersProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../../hooks/Views";
@@ -42,11 +42,7 @@ export default function Status_Add(){
     const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext);
     const [socket] = useContext(SocketContext);
     const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext);
-    const [isStatus] = useContext(StatusContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    // Constantes con los valores de useRef
-    const Status = useRef('');
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
@@ -55,30 +51,31 @@ export default function Status_Add(){
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isStatusAdd && isStatus.length !== 0 && Status.current !== 'STATUS'){
+        if(isStatusAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Status',isLoggedUser.usuario,isTextFieldsStatus.usuario,isTextFieldsStatus.estatus === 'Habilitado' ? 1:0,isTextFieldsStatus.idusuario);
+                        socket.emit('Insert-Status',isLoggedUser.idusuario,isTextFieldsStatus.estatus === 'Habilitado' ? 1:0,isTextFieldsStatus.idusuario);
 
-                        resolve('¡MEALSYNC agregó el status al usuario!...');
+                        resolve('¡MEALSYNC agregó el estatus al usuario!...');
 
                         setIsStatusAdd(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            resetTextFieldsUser();
+                            resetTextFieldsPermissions();
+                            resetTextFieldsStatus();
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -87,39 +84,9 @@ export default function Status_Add(){
                 }
             });
 
-            Status.current = 'STATUS';
-
             Alert_Verification(promise,'¡Agregando estatus al usuario!...');
         }
-        if(isStatus.some(status => status.idusuario === isTextFieldsStatus.idusuario)){
-            setIsTextFieldsStatus(prev => ({
-                ...prev,
-                idestatus: isStatus.find(status => status.idusuario === isTextFieldsStatus.idusuario)?.idestatus
-            }))
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && isTextFieldsStatus.idestatus !== 0 && Status.current !== 'LOG'){
-            Status.current = 'LOG';
-            socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsStatus.idestatus,isLoggedUser.idusuario,isTextFieldsStatus.estatus === 'Habilitado' ? '1':'0','0',String(isTextFieldsStatus.idusuario));
-        
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                resetTextFieldsUser();
-                resetTextFieldsPermissions();
-                resetTextFieldsStatus();
-                setIsStatusAdd(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isStatusAdd,isStatus,isTextFieldsStatus.idestatus]);
+    },[isStatusAdd]);
     // Estructura del componente
     return(
         <>

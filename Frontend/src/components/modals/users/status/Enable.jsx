@@ -9,7 +9,7 @@ import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../cont
 import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { StatusEnableContext } from "../../../../contexts/UsersProvider";
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { RefStatusContext } from "../../../../contexts/RefsProvider";
 import { TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
@@ -47,24 +47,10 @@ export default function Status_Enable(){
     const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);
     const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalView = HandleModalView();
     const handleStatusEnable = HandleStatusEnable();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isStatusEnable){
@@ -72,16 +58,30 @@ export default function Status_Enable(){
                 try{ 
                     setIsActionBlock(false); 
                     setTimeout(() => {
-                        socket.emit('Update-Status-Enable',isTextFieldsStatus.usuario,isTextFieldsStatus.idusuario,isTextFieldsStatus.estatus === 'Habilitado' ? 0:1);
+                        socket.emit('Update-Status-Enable',isLoggedUser.idusuario,isTextFieldsStatus.idestatus,isTextFieldsStatus.estatus === 'Habilitado' ? 0:1,isTextFieldsStatus.idusuario);
 
-                        if(isTextFieldsStatus.status === 'Habilitado'){
+                        if(isTextFieldsStatus.estatus === 'Habilitado'){
                             resolve('¡MEALSYNC deshabilita al usuario!...');
                         }else{
                             resolve('¡MEALSYNC habilita al usuario!...');
                         }
 
-                        setIsLogAdd(true);
                         setIsStatusEnable(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            setIsVerificationBlock(false);
+                            sessionStorage.removeItem('Acción del Bloqueo');
+                            sessionStorage.removeItem('Verificación del Bloqueo');
+                            setIsSelectedRow(null);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(true);
@@ -92,26 +92,7 @@ export default function Status_Enable(){
 
             Alert_Verification(promise,isTextFieldsStatus.estatus === 'Habilitado' ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
         }
-        if(isLogAdd){
-            socket.emit('Insert-Log-Status',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsStatus.idestatus,isLoggedUser.idusuario,isTextFieldsStatus.estatus === 'Habilitado' ? '0':'1','',String(isTextFieldsStatus.idusuario));
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isStatusEnable,isLogAdd]);
+    },[isStatusEnable]);
     // Estructura del componente
     return(
         <>

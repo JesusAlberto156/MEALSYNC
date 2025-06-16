@@ -197,6 +197,7 @@ export const Text_Fields_Supply = ({ children }) => {
         idproveedor: 0,
         idtipo: 0,
         idcategoria: 0,
+        idcantidad: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -259,7 +260,6 @@ export const Text_Fields_Warehouse_Purchase_Category = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsWarehousePurchaseCategory,setIsTextFieldsWarehousePurchaseCategory] = useState({
         idalmacen: 0,
-        cantiad: 0,
         cantidadReal: 0,
         precio: 0,
         idcategoria: 0,
@@ -276,7 +276,6 @@ export const Text_Fields_Warehouse_Sales_Category = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsWarehouseSalesCategory,setIsTextFieldsWarehouseSalesCategory] = useState({
         idalmacen: 0,
-        cantiad: 0,
         cantidadReal: 0,
         precio: 0,
         idcategoria: 0,

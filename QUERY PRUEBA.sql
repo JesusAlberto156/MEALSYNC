@@ -1,7 +1,36 @@
 USE ComandaMedicaTepic
 
+CREATE TABLE [dbo].[almacenCategorias](
+	[idalmacen] [int] IDENTITY(1,1) NOT NULL,
+	[cantidadreal] [decimal](12, 4) NOT NULL,
+	[precio] [decimal](12, 4) NOT NULL,
+	[idcategoria] [int] NOT NULL,
+ CONSTRAINT [PK_almacenCategoriasCompras] PRIMARY KEY CLUSTERED 
+(
+	[idalmacen] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[almacenTipoInsumo](
+	[idalmacen] [int] IDENTITY(1,1) NOT NULL,
+	[cantidadreal] [decimal](12, 4) NOT NULL,
+	[precio] [decimal](12, 4) NOT NULL,
+	[idtipo] [int] NOT NULL,
+ CONSTRAINT [PK_almacenTipoInsumoCompras] PRIMARY KEY CLUSTERED 
+(
+	[idalmacen] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
 ALTER TABLE tipoInsumo
 ADD limite DECIMAL(10,4) NOT NULL 
+
+ALTER TABLE insumos
+ADD idcantidad INT NOT NULL 
+
 
 ALTER TABLE tipoInsumo
 ALTER COLUMN descripcion VARCHAR(250) NULL

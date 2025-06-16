@@ -100,6 +100,7 @@ export const ResetTextFieldsSupply = () => {
         idproveedor: 0,
         idtipo: 0,
         idcategoria: 0,
+        idcantidad: 0,
     };
     // Función del hook
     const resetTextFieldsSupply = () => {

@@ -65,7 +65,6 @@ export const ResetTextFieldsWarehousePurchaseCategory = () => {
     // Estados iniciales de los contextos
     const initialTextFieldsWarehousePurchaseCategory = {
         idalmacen: 0,
-        cantiad: 0,
         cantidadReal: 0,
         precio: 0,
         idcategoria: 0,
@@ -84,7 +83,6 @@ export const ResetTextFieldsWarehouseSalesCategory = () => {
     // Estados iniciales de los contextos
     const initialTextFieldsWarehouseSalesCategory = {
         idalmacen: 0,
-        cantiad: 0,
         cantidadReal: 0,
         precio: 0,
         idcategoria: 0,

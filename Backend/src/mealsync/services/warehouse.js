@@ -56,11 +56,11 @@ export const getDeletedSupplyOrdersService = async () => {
         throw error;
     }
 }
-//---------- ALMACEN DE CATEGORIAS COMPRAS ✔️
-export const getWarehousePurchasesCategoriesService = async () => {
+//---------- ALMACEN DE CATEGORIAS ✔️
+export const getWarehouseCategoriesService = async () => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM almacenCategoriasCompras');
+        const result = await pool.request().query('SELECT * FROM almacenCategorias');
 
         const jsonData = JSON.stringify(result.recordset);
 
@@ -68,15 +68,15 @@ export const getWarehousePurchasesCategoriesService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener el almacén de compras por categorías: ',error.message);
+        console.error('Error al obtener el almacén por categorías: ',error.message);
         throw error;
     }
 }
-//---------- ALMACEN DE CATEGORIAS VENTAS ✔️
-export const getWarehouseSalesCategoriesService = async () => {
+//---------- ALMACEN DE TIPOS DE INSUMO ✔️
+export const getWarehouseSupplyTypesService = async () => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM almacenCategoriasVentas');
+        const result = await pool.request().query('SELECT * FROM almacenTipoInsumo');
 
         const jsonData = JSON.stringify(result.recordset);
 
@@ -84,39 +84,7 @@ export const getWarehouseSalesCategoriesService = async () => {
 
         return encryptedData;
     }catch(error){
-        console.error('Error al obtener el almacén de ventas por categorías: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE TIPOS DE INSUMO COMPRAS ✔️
-export const getWarehousePurchasesSupplyTypesService = async () => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM almacenTipoInsumoCompras');
-
-        const jsonData = JSON.stringify(result.recordset);
-
-        const encryptedData = encryptData(jsonData);
-
-        return encryptedData;
-    }catch(error){
-        console.error('Error al obtener el almacén de compras por tipos de insumo: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE TIPOS DE INSUMO VENTAS ✔️
-export const getWarehouseSalesSupplyTypesService = async () => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM almacenTipoInsumoVentas');
-
-        const jsonData = JSON.stringify(result.recordset);
-
-        const encryptedData = encryptData(jsonData);
-
-        return encryptedData;
-    }catch(error){
-        console.error('Error al obtener el almacén de ventas por tipos de insumo: ',error.message);
+        console.error('Error al obtener el almacén por tipos de insumo: ',error.message);
         throw error;
     }
 }
@@ -259,119 +227,35 @@ export const insertLogDeletedSupplyOrderService = async (ideliminado,idusuario,i
         throw error;
     }
 }
-//---------- ALMACEN DE CATEGORIAS COMPRAS ✔️
-export const insertWarehousePurchaseCategoryService = async (idcategoria) => {
+//---------- ALMACEN DE CATEGORIAS ✔️
+export const insertWarehouseCategoryService = async (idcategoria) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idcategoria',sql.Int,idcategoria)
-            .query('INSERT INTO almacenCategoriasCompras (cantidad,cantidadreal,precio,idcategoria) VALUES (0,0,0,@idcategoria)');
+            .query('INSERT INTO almacenCategorias (cantidadreal,precio,idcategoria) VALUES (0,0,@idcategoria)');
 
         if(result.rowsAffected[0]>0){
-            return 'Almacén de compras de la categoría insertado...';
+            return 'Almacén de la categoría insertado...';
         }else{
-            return 'No se pudo insertar el almacén de compras de la categoría...';
+            return 'No se pudo insertar el almacén de la categoría...';
         }
     }catch(error){
-        console.error('Error al insertar el almacén de compras de la categoría: ',error.message);
+        console.error('Error al insertar el almacén de la categoría: ',error.message);
         throw error;
     }
 }
-export const insertLogWarehousePurchaseCategoryService = async (idalmacen,idusuario,idcategoria) => {
+export const insertLogWarehouseCategoryService = async (idalmacen,idusuario,idcategoria) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de compras por Categorias')
+            .input('tabla', sql.VarChar(50), 'Almacen por Categorias')
             .input('operacion', sql.VarChar(20), 'INSERT')
             .input('idtabla',sql.Int,idalmacen)
             .input('idusuario',sql.Int,idusuario)
             .input('campo2',sql.VarChar(500),'0')
             .input('campo3',sql.VarChar(500),'0')
-            .input('campo4',sql.VarChar(500),'0')
-            .input('campo5',sql.VarChar(500),idcategoria)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE CATEGORIAS VENTAS ✔️
-export const insertWarehouseSalesCategoryService = async (idcategoria) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idcategoria',sql.Int,idcategoria)
-            .query('INSERT INTO almacenCategoriasVentas (cantidad,cantidadreal,precio,idcategoria) VALUES (0,0,0,@idcategoria)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Almacén de ventas de la categoría insertado...';
-        }else{
-            return 'No se pudo insertar el almacén de ventas de la categoría...';
-        }
-    }catch(error){
-        console.error('Error al insertar el almacén de ventas de la categoría: ',error.message);
-        throw error;
-    }
-}
-export const insertLogWarehouseSalesCategoryService = async (idalmacen,idusuario,idcategoria) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de ventas por Categorias')
-            .input('operacion', sql.VarChar(20), 'INSERT')
-            .input('idtabla',sql.Int,idalmacen)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),'0')
-            .input('campo3',sql.VarChar(500),'0')
-            .input('campo4',sql.VarChar(500),'0')
-            .input('campo5',sql.VarChar(500),idcategoria)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE TIPOS DE INSUMO COMPRAS ✔️
-export const insertWarehousePurchaseSupplyTypeService = async (idtipo) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idtipo',sql.Int,idtipo)
-            .query('INSERT INTO almacenTipoInsumoCompras (cantidadreal,precio,idtipo) VALUES (0,0,@idtipo)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Almacén de compras del tipo de insumo insertado...';
-        }else{
-            return 'No se pudo insertar el almacén de compras del tipo de insumo...';
-        }
-    }catch(error){
-        console.error('Error al insertar el almacén de compras del tipo de insumo: ',error.message);
-        throw error;
-    }
-}
-export const insertLogWarehousePurchaseSupplyTypeService = async (idalmacen,idusuario,idtipo) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de compras por Tipos de Insumo')
-            .input('operacion', sql.VarChar(20), 'INSERT')
-            .input('idtabla',sql.Int,idalmacen)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),'0')
-            .input('campo3',sql.VarChar(500),'0')
-            .input('campo4',sql.VarChar(500),idtipo)
+            .input('campo4',sql.VarChar(500),idcategoria)
             .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4)');
 
         if(result.rowsAffected[0]>0){
@@ -384,29 +268,29 @@ export const insertLogWarehousePurchaseSupplyTypeService = async (idalmacen,idus
         throw error;
     }
 }
-//---------- ALMACEN DE TIPOS DE INSUMO VENTAS ✔️
-export const insertWarehouseSalesSupplyTypeService = async (idtipo) => {
+//---------- ALMACEN DE TIPOS DE INSUMO ✔️
+export const insertWarehouseSupplyTypeService = async (idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idtipo',sql.Int,idtipo)
-            .query('INSERT INTO almacenTipoInsumoVentas (cantidadreal,precio,idtipo) VALUES (0,0,@idtipo)');
+            .query('INSERT INTO almacenTipoInsumo (cantidadreal,precio,idtipo) VALUES (0,0,@idtipo)');
 
         if(result.rowsAffected[0]>0){
-            return 'Almacén de ventas del tipo de insumo insertado...';
+            return 'Almacén del tipo de insumo insertado...';
         }else{
-            return 'No se pudo insertar el almacén de ventas del tipo de insumo...';
+            return 'No se pudo insertar el almacén del tipo de insumo...';
         }
     }catch(error){
-        console.error('Error al insertar el almacén de ventas del tipo de insumo: ',error.message);
+        console.error('Error al insertar el almacén del tipo de insumo: ',error.message);
         throw error;
     }
 }
-export const insertLogWarehouseSalesSupplyTypeService = async (idalmacen,idusuario,idtipo) => {
+export const insertLogWarehouseSupplyTypeService = async (idalmacen,idusuario,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de ventas por Tipos de Insumo')
+            .input('tabla', sql.VarChar(50), 'Almacen por Tipos de Insumo')
             .input('operacion', sql.VarChar(20), 'INSERT')
             .input('idtabla',sql.Int,idalmacen)
             .input('idusuario',sql.Int,idusuario)
@@ -510,119 +394,31 @@ export const updateLogSupplyOrderStateService = async (idpedido,idusuario,estado
         throw error;
     }
 }
-//---------- ALMACEN DE CATEGORIAS COMPRAS ✔️
-export const updateWarehousePurchaseCategoryService = async (idcategoria,cantidad,cantidadreal,precio) => {
+//---------- ALMACEN DE CATEGORIAS ✔️
+export const updateWarehouseCategoryService = async (idcategoria,cantidadreal,precio) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idcategoria',sql.Int,idcategoria)
-            .input('cantidad',sql.Int,cantidad)
             .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
             .input('precio',sql.Decimal(12,4),precio)
-            .query('UPDATE almacenCategoriasCompras SET cantidad = @cantidad, cantidadreal = @cantidadreal, precio = @precio WHERE idcategoria = @idcategoria');
+            .query('UPDATE almacenCategorias SET cantidadreal = @cantidadreal, precio = @precio WHERE idcategoria = @idcategoria');
 
         if(result.rowsAffected[0]>0){
-            return 'Almacén de compras de la categoría actualizado...';
+            return 'Almacén de la categoría actualizado...';
         }else{
-            return 'No se pudo actualizar el almacén de compras de la categoría...';
+            return 'No se pudo actualizar el almacén de la categoría...';
         }
     }catch(error){
-        console.error('Error al actualizar el almacén de compras de la categoría: ',error.message);
+        console.error('Error al actualizar el almacén de la categoría: ',error.message);
         throw error;
     }
 }
-export const updateLogWarehousePurchaseCategoryService = async (idalmacen,idusuario,cantidad,cantidadreal,precio) => {
+export const updateLogWarehouseCategoryService = async (idalmacen,idusuario,cantidadreal,precio) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de compras por Categorias')
-            .input('operacion', sql.VarChar(20), 'UPDATE')
-            .input('idtabla',sql.Int,idalmacen)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),cantidad)
-            .input('campo3',sql.VarChar(500),cantidadreal)
-            .input('campo4',sql.VarChar(500),precio)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE CATEGORIAS VENTAS ✔️
-export const updateWarehouseSalesCategoryService = async (idcategoria,cantidad,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idcategoria',sql.Int,idcategoria)
-            .input('cantidad',sql.Int,cantidad)
-            .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
-            .input('precio',sql.Decimal(12,4),precio)
-            .query('UPDATE almacenCategoriasVentas SET cantidad = @cantidad, cantidadreal = @cantidadreal, precio = @precio WHERE idcategoria = @idcategoria');
-
-        if(result.rowsAffected[0]>0){
-            return 'Almacén de ventas de la categoría actualizado...';
-        }else{
-            return 'No se pudo actualizar el almacén de ventas de la categoría...';
-        }
-    }catch(error){
-        console.error('Error al actualizar el almacén de ventas de la categoría: ',error.message);
-        throw error;
-    }
-}
-export const updateLogWarehouseSalesCategoryService = async (idalmacen,idusuario,cantidad,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de ventas por Categorias')
-            .input('operacion', sql.VarChar(20), 'UPDATE')
-            .input('idtabla',sql.Int,idalmacen)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),cantidad)
-            .input('campo3',sql.VarChar(500),cantidadreal)
-            .input('campo4',sql.VarChar(500),precio)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE TIPOS DE INSUMO COMPRAS ✔️
-export const updateWarehousePurchaseSupplyTypeService = async (idtipo,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idtipo',sql.Int,idtipo)
-            .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
-            .input('precio',sql.Decimal(12,4),precio)
-            .query('UPDATE almacenTipoInsumoCompras SET cantidadreal = @cantidadreal, precio = @precio WHERE idtipo = @idtipo)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Almacén de compras del tipo de insumo actualizado...';
-        }else{
-            return 'No se pudo actualizar el almacén de compras del tipo de insumo...';
-        }
-    }catch(error){
-        console.error('Error al actualizar el almacén de compras del tipo de insumo: ',error.message);
-        throw error;
-    }
-}
-export const updateLogWarehousePurchaseSupplyTypeService = async (idalmacen,idusuario,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de compras por Tipos de Insumo')
+            .input('tabla', sql.VarChar(50), 'Almacen por Categorias')
             .input('operacion', sql.VarChar(20), 'UPDATE')
             .input('idtabla',sql.Int,idalmacen)
             .input('idusuario',sql.Int,idusuario)
@@ -640,31 +436,31 @@ export const updateLogWarehousePurchaseSupplyTypeService = async (idalmacen,idus
         throw error;
     }
 }
-//---------- ALMACEN DE TIPOS DE INSUMO VENTAS ✔️
-export const updateWarehouseSalesSupplyTypeService = async (idtipo,cantidadreal,precio) => {
+//---------- ALMACEN DE TIPOS DE INSUMO COMPRAS ✔️
+export const updateWarehouseSupplyTypeService = async (idtipo,cantidadreal,precio) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idtipo',sql.Int,idtipo)
             .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
             .input('precio',sql.Decimal(12,4),precio)
-            .query('UPDATE almacenTipoInsumoVentas SET cantidadreal = @cantidadreal, precio = @precio WHERE idtipo = @idtipo)');
+            .query('UPDATE almacenTipoInsumo SET cantidadreal = @cantidadreal, precio = @precio WHERE idtipo = @idtipo)');
 
         if(result.rowsAffected[0]>0){
-            return 'Almacén de ventas del tipo de insumo actualizado...';
+            return 'Almacén del tipo de insumo actualizado...';
         }else{
-            return 'No se pudo actualizar el almacén de ventas del tipo de insumo...';
+            return 'No se pudo actualizar el almacén del tipo de insumo...';
         }
     }catch(error){
-        console.error('Error al actualizar el almacén de ventas del tipo de insumo: ',error.message);
+        console.error('Error al actualizar el almacén del tipo de insumo: ',error.message);
         throw error;
     }
 }
-export const updateLogWarehouseSalesSupplyTypeService = async (idalmacen,idusuario,cantidadreal,precio) => {
+export const updateLogWarehouseSupplyTypeService = async (idalmacen,idusuario,cantidadreal,precio) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen de ventas por Tipos de Insumo')
+            .input('tabla', sql.VarChar(50), 'Almacen por Tipos de Insumo')
             .input('operacion', sql.VarChar(20), 'UPDATE')
             .input('idtabla',sql.Int,idalmacen)
             .input('idusuario',sql.Int,idusuario)

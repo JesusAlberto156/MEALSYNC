@@ -302,7 +302,7 @@ export const insertLogDeletedSupplierService = async (ideliminado,idusuario,idpr
     }
 }
 //---------- INSUMOS ✔️
-export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
+export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -312,7 +312,8 @@ export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,
             .input('idproveedor',sql.Int,idproveedor)
             .input('idtipo',sql.Int,idtipo)
             .input('idcategoria',sql.Int,idcategoria)
-            .query('INSERT INTO insumos (nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) VALUES (@nombre,@descripcion,@imagen,@idproveedor,@idtipo,@idcategoria)');
+            .input('idcantidad',sql.Int,idcantidad)
+            .query('INSERT INTO insumos (nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) VALUES (@nombre,@descripcion,@imagen,@idproveedor,@idtipo,@idcategoria,@idcantidad)');
 
         if(result.rowsAffected[0]>0){
             return 'Insumo insertado...';
@@ -324,7 +325,7 @@ export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,
         throw error;
     }
 }
-export const insertLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria) => {
+export const insertLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -338,7 +339,8 @@ export const insertLogSupplyService = async (idinsumo,idusuario,imagen,nombre,de
             .input('campo4',sql.VarChar(500),idproveedor)
             .input('campo5',sql.VarChar(500),idtipo)
             .input('campo6',sql.VarChar(500),idcategoria)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6)');
+            .input('campo7',sql.VarChar(500),idcantidad)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -647,7 +649,7 @@ export const updateLogSupplierService = async (idproveedor,idusuario,nombre,rfc,
     }
 }
 //---------- INSUMOS ✔️
-export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
+export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -658,7 +660,8 @@ export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idp
             .input('idproveedor',sql.Int,idproveedor)
             .input('idtipo',sql.Int,idtipo)
             .input('idcategoria',sql.Int,idcategoria)
-            .query('UPDATE insumos SET nombre = @nombre, descripcion = @descripcion, imagen = @imagen, idproveedor = @idproveedor, idtipo = @idtipo, idcategoria = @idcategoria WHERE idinsumo = @idinsumo');
+            .input('idcantidad',sql.Int,idcantidad)
+            .query('UPDATE insumos SET nombre = @nombre, descripcion = @descripcion, imagen = @imagen, idproveedor = @idproveedor, idtipo = @idtipo, idcategoria = @idcategoria, idcantidad = @idcantidad WHERE idinsumo = @idinsumo');
 
         if(result.rowsAffected[0]>0){
             return 'Insumo actualizado...';
@@ -670,7 +673,7 @@ export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idp
         throw error;
     }
 }
-export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria) => {
+export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -684,7 +687,8 @@ export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,de
             .input('campo4',sql.VarChar(500),idproveedor)
             .input('campo5',sql.VarChar(500),idtipo)
             .input('campo6',sql.VarChar(500),idcategoria)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6)');
+            .input('campo7',sql.VarChar(500),idcantidad)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';

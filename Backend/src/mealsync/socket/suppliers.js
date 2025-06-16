@@ -8,9 +8,9 @@ import { getLogsService } from "../services/logs.js";
 import { insertLogSupplierService,insertLogDeletedSupplierService,insertLogSupplyService,insertLogDeletedSupplyService,insertLogSupplyTypeService,insertLogCountSupplyTypeService,insertLogDeletedSupplyTypeService,insertLogSupplyCategoryService,insertLogDeletedSupplyCategoryService } from "../services/suppliers.js";
 import { updateLogSupplierService,updateLogSupplyService,updateLogSupplyTypeService,updateLogSupplyCategoryService } from "../services/suppliers.js";
 import { deleteLogDeletedSupplierService,deleteLogDeletedSupplyService,deleteLogDeletedSupplyTypeService,deleteLogDeletedSupplyCategoryService } from "../services/suppliers.js";
-import { getWarehousePurchasesCategoriesService,getWarehouseSalesCategoriesService,getWarehousePurchasesSupplyTypesService,getWarehouseSalesSupplyTypesService } from "../services/warehouse.js";
-import { insertWarehousePurchaseCategoryService,insertWarehouseSalesCategoryService,insertWarehousePurchaseSupplyTypeService,insertWarehouseSalesSupplyTypeService } from "../services/warehouse.js";
-import { insertLogWarehousePurchaseCategoryService,insertLogWarehouseSalesCategoryService,insertLogWarehousePurchaseSupplyTypeService,insertLogWarehouseSalesSupplyTypeService } from "../services/warehouse.js";
+import { getWarehouseCategoriesService,getWarehouseSupplyTypesService } from "../services/warehouse.js";
+import { insertWarehouseCategoryService,insertWarehouseSupplyTypeService } from "../services/warehouse.js";
+import { insertLogWarehouseCategoryService,insertLogWarehouseSupplyTypeService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 // Servicios
@@ -156,13 +156,13 @@ export const Suppliers_INSERT = (socket) => {
         }
     });
     //---------- INSUMOS ✔️
-    socket.on('Insert-Supply',async (idusuario,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
+    socket.on('Insert-Supply',async (idusuario,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
         try{
-            await insertSupplyService(nombre,descripcion,imagen,idproveedor,idtipo,idcategoria);
+            await insertSupplyService(nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
             const resultSupplies = await getSuppliesService();
             const decryptedData = decryptData(resultSupplies);
             const parsedData = JSON.parse(decryptedData);
-            await insertLogSupplyService(parsedData.find(data => data.nombre === nombre && data.idproveedor === idproveedor)?.idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria));
+            await insertLogSupplyService(parsedData.find(data => data.nombre === nombre && data.idproveedor === idproveedor)?.idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria),String(idcantidad));
             const resultLogs = await getLogsService();
             io.emit('Get-Supplies',resultSupplies)
             io.emit('Get-Logs',resultLogs);
@@ -188,7 +188,7 @@ export const Suppliers_INSERT = (socket) => {
         }
     });
     //---------- TIPO DE INSUMOS ✔️
-    socket.on('Insert-Supply-Type',async (idusuario,tipo,descripcion,unidad,idcategoria,limite,cantidad) => {
+    socket.on('Insert-Supply-Type',async (idusuario,tipo,descripcion,unidad,idcategoria,limite) => {
         try{
             await insertSupplyTypeService(tipo,descripcion,unidad,idcategoria,limite);
             const resultSupplyTypes = await getSupplyTypesService();
@@ -196,19 +196,13 @@ export const Suppliers_INSERT = (socket) => {
             const parsedData = JSON.parse(decryptedData);
             await insertLogSupplyTypeService(parsedData.find(data => data.tipo === tipo)?.idtipo,idusuario,tipo,descripcion,unidad,String(idcategoria),String(limite));
             const type = parsedData.find(data => data.tipo === tipo)?.idtipo
-            await insertWarehousePurchaseSupplyTypeService(type);
-            await insertWarehouseSalesSupplyTypeService(type);
-            const resultWarehousePurchasesSupplyTypes = await getWarehousePurchasesSupplyTypesService();
-            const resultWarehouseSalesSupplyTypes = await getWarehouseSalesSupplyTypesService();
-            const decryptedDataPurchases = decryptData(resultWarehousePurchasesSupplyTypes);
-            const parsedDataPurchases = JSON.parse(decryptedDataPurchases);
-            const decryptedDataSales = decryptData(resultWarehouseSalesSupplyTypes);
-            const parsedDataSales = JSON.parse(decryptedDataSales);
-            await insertLogWarehousePurchaseSupplyTypeService(parsedDataPurchases.find(data => data.idtipo === type)?.idalmacen,idusuario,String(type));
-            await insertLogWarehouseSalesSupplyTypeService(parsedDataSales.find(data => data.idtipo === type)?.idalmacen,idusuario,String(type));
+            await insertWarehouseSupplyTypeService(type);
+            const resultWarehouseSupplyTypes = await getWarehouseSupplyTypesService();
+            const decryptedDataWarehouse = decryptData(resultWarehouseSupplyTypes);
+            const parsedDataWarehouse = JSON.parse(decryptedDataWarehouse);
+            await insertLogWarehouseSupplyTypeService(parsedDataWarehouse.find(data => data.idtipo === type)?.idalmacen,idusuario,String(type));
             const resultLogs = await getLogsService();
-            io.emit('Get-Warehouse-Purchases-Supply-Types',resultWarehousePurchasesSupplyTypes);
-            io.emit('Get-Warehouse-Sales-Supply-Types',resultWarehouseSalesSupplyTypes);
+            io.emit('Get-Warehouse-Supply-Types',resultWarehouseSupplyTypes);
             io.emit('Get-Supply-Types',resultSupplyTypes)
             io.emit('Get-Logs',resultLogs);
         }catch(error){
@@ -258,19 +252,13 @@ export const Suppliers_INSERT = (socket) => {
             await insertLogSupplyCategoryService(parsedData.find(data => data.nombre === nombre)?.idcategoria,idusuario,nombre,descripcion);
             const resultLogs = await getLogsService();
             const category = parsedData.find(data => data.nombre === nombre)?.idcategoria
-            await insertWarehousePurchaseCategoryService(category);
-            await insertWarehouseSalesCategoryService(category);
-            const resultWarehousePurchasesCategories = await getWarehousePurchasesCategoriesService();
-            const resultWarehouseSalesCategories = await getWarehouseSalesCategoriesService();
-            const decryptedDataPurchases = decryptData(resultWarehousePurchasesCategories);
-            const parsedDataPurchases = JSON.parse(decryptedDataPurchases);
-            const decryptedDataSales = decryptData(resultWarehouseSalesCategories);
-            const parsedDataSales = JSON.parse(decryptedDataSales);
-            await insertLogWarehousePurchaseCategoryService(parsedDataPurchases.find(data => data.idcategoria === category)?.idalmacen,idusuario,String(category));
-            await insertLogWarehouseSalesCategoryService(parsedDataSales.find(data => data.idcategoria === category)?.idalmacen,idusuario,String(category));
+            await insertWarehouseCategoryService(category);
+            const resultWarehouseCategories = await getWarehouseCategoriesService();
+            const decryptedDataWarehouse = decryptData(resultWarehouseCategories);
+            const parsedDataWarehouse = JSON.parse(decryptedDataWarehouse);
+            await insertLogWarehouseCategoryService(parsedDataWarehouse.find(data => data.idcategoria === category)?.idalmacen,idusuario,String(category));
             io.emit('Get-Supply-Categories',resultSupplyCategories)
-            io.emit('Get-Warehouse-Purchases-Categories',resultWarehousePurchasesCategories);
-            io.emit('Get-Warehouse-Sales-Categories',resultWarehouseSalesCategories);
+            io.emit('Get-Warehouse-Categories',resultWarehouseCategories);
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al agregar la categoría del insumo: ',error);
@@ -312,11 +300,11 @@ export const Suppliers_UPDATE = (socket) => {
         }
     });
     //---------- INSUMOS ✔️
-    socket.on('Update-Supply',async (idusuario,idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria) => {
+    socket.on('Update-Supply',async (idusuario,idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
         try{
-            await updateSupplyService(idproveedor,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria);
+            await updateSupplyService(idproveedor,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
             const resultSupplies = await getSuppliesService();
-            await updateLogSupplyService(idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria));
+            await updateLogSupplyService(idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria),String(idcantidad));
             const resultLogs = await getLogsService();
             io.emit('Get-Supplies',resultSupplies);
             io.emit('Get-Logs',resultLogs);

@@ -25,7 +25,7 @@ export const Container_Page = styled.div`
 
     ::-webkit-scrollbar {
         display: none;
-    }
+    }  
 `;
 export const Container_Page_Login = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -187,44 +187,6 @@ export const Container_Page_Loading = styled.div.withConfig({
 `;
 //____________PAGE____________
 //____________FORM____________
-export const Container_Form_Header = styled.div`
-    position: sticky;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    padding: 15px;
-    gap: 15px;
-    width: 100%;
-    height: auto;
-
-    @media (max-width: 768px) {
-        padding: 10px;
-        gap: 10px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 5px;
-        gap: 5px;
-    }
-`;
-export const Container_Form_Content = styled.div`
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    width: 100%;
-    height: 400px;
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-
-    @media (max-width: 768px) {
-        padding: 15px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 10px;
-    }
-`;
 export const Container_Form_500 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -988,7 +950,7 @@ export const Container_Row_NG_80_Left = styled.div`
     }
 }
 `;
-//-------- White
+//-------- White (Navbar)
 export const Container_Row_White_Width_98_Left = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -1017,6 +979,7 @@ export const Container_Row_White_Width_98_Left = styled.div.withConfig({
 `;
 //-------- White
 //-------- Blue
+// (Searchbar)
 export const Container_Row_Blue_Width_2000_Left = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -1047,6 +1010,7 @@ export const Container_Row_Blue_Width_2000_Left = styled.div.withConfig({
         gap: 6px;
     }
 `;
+// (Navbar)
 export const Container_Row_Blue_Width_92_Left = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -1281,39 +1245,452 @@ export const Container_Column_NG_80_Center = styled.div`
     }
 }
 `;
-//-------- Border
-export const Container_Column_Border_90_Center = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    position: relative; 
+//-------- CENTER --------
+//-------- RIGHT --------
+export const Container_Column_100_Right = styled.div`
+    position: relative;     
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;  
-    text-align: center;        
+    justify-content: flex-end;
+    align-items: center;           
     background: transparent;
-    width: 90%;
-    height: auto;  
-    padding: 20px;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
     gap: 15px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')}; 
     border-radius: 40px;
 
     @media (max-width: 768px) {
         border-radius: 35px;
-        padding: 15px;
-        gap: 10px;    
+        padding: 8px;
+        padding-right: 25px;
+        gap: 10px;  
     }
 
     @media (max-width: 480px) {
         border-radius: 30px;
-        padding: 10px;
+        padding: 6px;
+        padding-right: 20px;
         gap: 5px;
     }
 }
 `;
-//-------- Border
-//-------- White
+export const Container_Column_NG_100_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+    }
+}
+`;
+export const Container_Column_95_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 95%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_NG_95_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 95%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+    }
+}
+`;
+export const Container_Column_90_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_90_NG_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px; 
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+    }
+}
+`;
+export const Container_Column_80_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_80_NG_Right = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;      
+    padding: 10px;
+    padding-right: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-right: 25px; 
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-right: 20px;
+    }
+}
+`;
+//-------- RIGHT --------
+//-------- LEFT --------
+export const Container_Column_100_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_100_NG_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 100%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px; 
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+    }
+}
+`;
+export const Container_Column_95_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 95%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_95_NG_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 95%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px; 
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+    }
+}
+`;
+export const Container_Column_90_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_90_NG_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 90%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+    }
+}
+`;
+export const Container_Column_80_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;
+        gap: 10px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+        gap: 5px;
+    }
+}
+`;
+export const Container_Column_80_NG_Left = styled.div`
+    position: relative;     
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;           
+    background: transparent;
+    width: 80%;
+    height: auto;      
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        padding-left: 25px;  
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        padding-left: 20px;
+    }
+}
+`;
+//-------- LEFT --------
+//-------- White (Sidebar)
 export const Container_Column_White_Height_100_Center = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -1357,7 +1734,7 @@ export const Container_Column_White_Height_100_Center = styled.div.withConfig({
     }
 `;
 //-------- White
-//-------- Black
+//-------- Black (Footer)
 export const Container_Column_Black_Width_100_Center = styled.div`
     position: relative; 
     display: flex;
@@ -1385,271 +1762,6 @@ export const Container_Column_Black_Width_100_Center = styled.div`
     }
 `;
 //-------- Black
-//-------- Blue
-export const Container_Column_Blue_Width_95_Center = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 100%;
-    height: auto;
-    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    border-radius: 40px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')}; 
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;   
-    text-align: center;   
-    gap: 10px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        gap: 8px;
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        gap: 6px;
-    }
-`;
-//-------- Blue
-//-------- CENTER --------
-//-------- RIGHT --------
-export const Container_Column_100_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_95_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_90_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_80_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-//-------- RIGHT --------
-//-------- LEFT --------
-export const Container_Column_100_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_95_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_90_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_80_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-//-------- LEFT --------
 //____________COLUMN____________
 //____________MODAL____________
 export const Container_Modal = styled.div`
@@ -1660,46 +1772,40 @@ export const Container_Modal = styled.div`
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     z-index: 1000;
     overflow-y: auto;
 `;
 //____________MODAL____________
-//____________COLOR____________
-//-------- BLANCO --------
-export const Container_Color_White_Auto = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`   
+//____________KEYBOARD____________
+export const Container_Keyboard = styled.div`
+    position: fixed;
+    bottom: 20px;    
+    transform: translateX(-50%);
+    position: relative; 
     display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
-    width: 100%;
-    height: auto;      
+    justify-content: center;
+    align-items: center;         
+    background: transparent;
+    width: 80%;
+    height: auto;  
     padding: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
     gap: 15px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    border-radius: 20px;
+    border-radius: 40px;
+    z-index: 999;
 
     @media (max-width: 768px) {
-        border-radius: 15px;
-        padding: 2px;
-        padding-right: 10px;
-        padding-left: 10px;
-        gap: 10px;  
+        border-radius: 35px;
+        padding: 8px;
+        gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        border-radius: 10px;
-        padding: 0px;
-        padding-right: 12px;
-        padding-left: 12px;
+        border-radius: 30px;
+        padding: 6px;
         gap: 5px;
     }
 }
 `;
-//-------- BLANCO --------
-//____________COLOR____________

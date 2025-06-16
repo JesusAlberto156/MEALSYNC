@@ -8,7 +8,7 @@ import { ThemeModeContext,ModalViewContext,ModalContext } from "../../../context
 import { ActionBlockContext,AnimationContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleModalView } from "../../../hooks/Views";
-import { HandleLoggedLog } from "../../../hooks/Form";
+import { HandleLoggedLog } from "../../../hooks/Forms";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";

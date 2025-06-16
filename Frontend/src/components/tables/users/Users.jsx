@@ -11,8 +11,8 @@ import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
 import { UserTypesContext } from "../../../contexts/UsersProvider"
 // Hooks personalizados
-import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus } from "../../../hooks/Texts"
-import { TableActionsUsers } from "../../../hooks/Table"
+import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus } from "../../../hooks/users/Texts"
+import { TableActionsUsers } from "../../../hooks/users/Tables"
 //__________ICONOS__________
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";

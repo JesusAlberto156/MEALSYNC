@@ -3,14 +3,12 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
-import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext,SubModalContext } from "../contexts/ViewsProvider";
-import { AnimationContext,ActionBlockContext,VerificationBlockContext } from "../contexts/VariablesProvider";
-import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../contexts/SelectedesProvider";
+import { ThemeModeContext,LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
+import { AnimationContext,ActionBlockContext } from "../contexts/VariablesProvider";
 import { TextFieldsUserContext } from "../contexts/FormsProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetSearchTerms,ResetSelectedOptions,ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus,ResetTextFieldsSupplier,ResetTextFieldsSupply,ResetTextFieldsSupplyType,ResetTextFieldsUnit } from "./Texts";
+import { ResetSearchTerms,ResetSelectedOptions } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modo de la página (Claro/Oscuro) ✔️
@@ -105,29 +103,15 @@ export const ToggleSidebar = () => {
     // Retorno de la función del hook
     return toggleSidebar;
 };
-// Hook para cambiar el modal
+// Hook para cambiar el modal ✔️
 export const HandleModalView = () => {
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
-    const [isAnimation,setIsAnimation] = useContext(AnimationContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
-    const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context);
-    const [isSubModal,setIsSubModal] = useContext(SubModalContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
     const resetSelectedOptions = ResetSelectedOptions();
-    const resetTextFieldsUser = ResetTextFieldsUser();
-    const resetTextFieldsPermissions = ResetTextFieldsPermissions();
-    const resetTextFieldsStatus = ResetTextFieldsStatus();
-    const resetTextFieldsSupplier = ResetTextFieldsSupplier();
-    const resetTextFieldsSupply = ResetTextFieldsSupply();
-    const resetTextFieldsSupplyType = ResetTextFieldsSupplyType();
-    const resetTextFieldsUnit = ResetTextFieldsUnit();
     // Función del hook
     const handleModalView = (View) => {
         setIsModal(true);
@@ -142,225 +126,10 @@ export const HandleModalView = () => {
             },750);
         }
         // CERRAR SESIÓN
-        // USUARIOS
-        if(currentMView === 'Usuario-Agregar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSubModal(false);
-                sessionStorage.removeItem('Estado del Sub-Modal');
-                setIsAnimation(false);
-                sessionStorage.removeItem('Animación');
-                resetTextFieldsUser();
-                resetTextFieldsPermissions();
-                resetTextFieldsStatus();
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Usuario-Ver-Contraseña' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsUser();
-                resetTextFieldsPermissions();
-                resetTextFieldsStatus();
-                setIsActionBlock(false);
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Usuario-Editar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Usuario-Eliminar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Permisos-Agregar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsUser();
-                resetTextFieldsPermissions();
-                resetTextFieldsStatus();
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Permisos-Editar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Permiso-Super-Administrador' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Estatus-Agregar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                resetTextFieldsUser();
-                resetTextFieldsPermissions();
-                resetTextFieldsStatus();
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Estatus-Habilitar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsVerificationBlock(false);
-                setIsSelectedRow(null);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        // USUARIOS
-        // PROVEEDORES
-        if(currentMView === 'Proveedor-Agregar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsSupplier();
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Proveedor-Editar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Proveedor-Eliminar' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Observacion-Detalles' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        // PROVEEDORES
-        // INVENTARIO
-        if(currentMView === 'Warehouse-Add' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Supply-Add' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsSupply();
-                setIsActionBlock(false);
-                resetSearchTerms();
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Supply-Edit' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                resetSearchTerms();
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Supply-Type-Add' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsSupplyType();
-                setIsActionBlock(false);
-                resetSearchTerms();
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Supply-Type-Edit' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow1(null);
-                setIsActionBlock(false);
-                resetSearchTerms();
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Unit-Add' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsUnit();
-                setIsActionBlock(false);
-                resetSearchTerms();
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Unit-Edit' && View === ''){
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow2(null);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        // INVENTARIO
         setCurrentMView(View);
         sessionStorage.setItem('Vista del Modal',View);
         resetSelectedOptions();
+        resetSearchTerms();
     }
     // Retorno de la función del hook
     return handleModalView;

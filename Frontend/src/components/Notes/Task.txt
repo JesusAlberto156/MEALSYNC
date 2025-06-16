@@ -1,24 +1,24 @@
 -------------------------------- FORMULARIOS --
 ______LOGIN______
-- Verificación de los campos 
-- Implementación del teclado 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______VERIFICAR SESION______
-- Verificación de los campos 
-- Implementación del teclado
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 -------------------------------- FORMULARIOS --
 -------------------------------- USUARIOS --
 ______AGREGAR______
 - Verificación de los campos ✔️
-- Implementación del teclado
+- Implementación del teclado ✔️
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______EDITAR______
 - Verificación de los campos ✔️
-- Implementación del teclado
+- Implementación del teclado ✔️
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______ELIMINAR______
@@ -72,16 +72,16 @@ ______VISUALIZAR______
 -------------------------------- PROVEEDORES --
 ______AGREGAR______
 - Verificación de los campos ✔️
-- Implementación del teclado
+- Implementación del teclado ✔️
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______EDITAR______
 - Verificación de los campos ✔️
-- Implementación del teclado
+- Implementación del teclado ✔️
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______ELIMINAR______
-- Verificación de los campos 
+- Verificación de los campos ✔️
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______VISUALIZAR______
@@ -90,7 +90,7 @@ ______VISUALIZAR______
 - Detalles en el buscador ✔️
 - Ordenamiento de la tabla ✔️
 -------------------------------- PROVEEDORES --
--------------------------------- ONSERVACIONES --
+-------------------------------- OBSERVACIONES DE PROVEEDORES --
 ______AGREGAR______
 - Verificación de los campos 
 - Implementación del teclado
@@ -104,92 +104,123 @@ ______VISUALIZAR______
 - Diseño de la interfaz ✔️
 - Detalles en el buscador ✔️
 - Ordenamiento de la tabla ✔️
--------------------------------- ONSERVACIONES --
--------------------------------- INVENTARIO --
+-------------------------------- OBSERVACIONES DE PROVEEDORES --
+-------------------------------- CATEGORIAS POR INSUMO --
 ______AGREGAR______
 - Verificación de los campos 
-- Implementación del teclado
+- Implementación del teclado 
 - Funcionalidad 
 - Diseño de la interfaz 
 ______EDITAR______
 - Verificación de los campos 
-- Implementación del teclado
+- Implementación del teclado 
 - Funcionalidad 
 - Diseño de la interfaz 
 ______ELIMINAR______
-- Verificación de los campos
-- Implementación del teclado
-- Funcionalidad
-- Diseño de la interfaz
+- Verificación de los campos 
+- Funcionalidad 
+- Diseño de la interfaz 
+______VISUALIZAR______
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
+- Ordenamiento de la tabla ✔️
+-------------------------------- CATEGORIAS POR INSUMO --
+-------------------------------- TIPOS DE INSUMO --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado 
+- Funcionalidad 
+- Diseño de la interfaz 
+______EDITAR______
+- Verificación de los campos 
+- Implementación del teclado 
+- Funcionalidad 
+- Diseño de la interfaz 
+______ELIMINAR______
+- Verificación de los campos 
+- Funcionalidad 
+- Diseño de la interfaz 
+______DETALLES______ 
+- Funcionalidad 
+- Diseño de la interfaz 
+______VISUALIZAR______
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
+- Ordenamiento de la tabla ✔️
+-------------------------------- TIPOS DE INSUMO --
+-------------------------------- INSUMOS --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado 
+- Funcionalidad 
+- Diseño de la interfaz 
+______EDITAR______
+- Verificación de los campos 
+- Implementación del teclado 
+- Funcionalidad 
+- Diseño de la interfaz 
+______ELIMINAR______
+- Verificación de los campos 
+- Funcionalidad 
+- Diseño de la interfaz 
+______VISUALIZAR______
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
+- Ordenamiento de la tabla ✔️
+-------------------------------- INSUMOS --
+-------------------------------- PEDIDOS DE INSUMOS --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado 
+- Funcionalidad 
+- Diseño de la interfaz 
+______EDITAR______
+- Verificación de los campos 
+- Implementación del teclado 
+- Funcionalidad 
+- Diseño de la interfaz 
+______ELIMINAR______
+- Verificación de los campos 
+- Funcionalidad 
+- Diseño de la interfaz 
 ______VISUALIZAR______
 - Detalles en la tabla 
 - Diseño de la interfaz 
 - Detalles en el buscador 
-- Ordenamiento de la tabla
--------------------------------- INVENTARIO --
--------------------------------- INSUMO --
-______AGREGAR______
-- Verificación de los campos ✔️
-- Implementación del teclado
-- Funcionalidad ✔️
-- Diseño de la interfaz ✔️
-______EDITAR______
-- Verificación de los campos ✔️
-- Implementación del teclado
-- Funcionalidad ✔️
-- Diseño de la interfaz ✔️
-______ELIMINAR______
-- Verificación de los campos
-- Implementación del teclado
-- Funcionalidad
-- Diseño de la interfaz
+- Ordenamiento de la tabla 
+-------------------------------- PEDIDOS DE INSUMOS --
+-------------------------------- ALMACEN DE COMPRAS POR CATEGORIAS --
+
 ______VISUALIZAR______
-- Detalles en la tabla ✔️
-- Diseño de la interfaz ✔️
-- Detalles en el buscador ✔️
-- Ordenamiento de la tabla
--------------------------------- INSUMO --
--------------------------------- TIPOS DE INSUMO --
-______AGREGAR______
-- Verificación de los campos ✔️
-- Implementación del teclado
-- Funcionalidad ✔️
-- Diseño de la interfaz ✔️
-______EDITAR______
-- Verificación de los campos ✔️
-- Implementación del teclado
-- Funcionalidad ✔️
-- Diseño de la interfaz ✔️
-______ELIMINAR______
-- Verificación de los campos
-- Implementación del teclado
-- Funcionalidad
-- Diseño de la interfaz
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+- Ordenamiento de la tabla 
+-------------------------------- ALMACEN DE COMPRAS POR CATEGORIAS --
+-------------------------------- ALMACEN DE VENTAS POR CATEGORIAS --
+
 ______VISUALIZAR______
-- Detalles en la tabla ✔️
-- Diseño de la interfaz ✔️
-- Detalles en el buscador ✔️
-- Ordenamiento de la tabla
--------------------------------- TIPOS DE INSUMO --
--------------------------------- MEDICIONES --
-______AGREGAR______
-- Verificación de los campos ✔️
-- Implementación del teclado
-- Funcionalidad ✔️
-- Diseño de la interfaz ✔️
-______EDITAR______
-- Verificación de los campos ✔️ 
-- Implementación del teclado
-- Funcionalidad ✔️
-- Diseño de la interfaz ✔️
-______ELIMINAR______
-- Verificación de los campos
-- Implementación del teclado
-- Funcionalidad
-- Diseño de la interfaz
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+- Ordenamiento de la tabla 
+-------------------------------- ALMACEN DE VENTAS POR CATEGORIAS --
+-------------------------------- ALMACEN DE COMPRAS DE TIPOS DE INSUMO --
+
 ______VISUALIZAR______
-- Detalles en la tabla ✔️
-- Diseño de la interfaz ✔️
-- Detalles en el buscador ✔️
-- Ordenamiento de la tabla
--------------------------------- MEDICIONES --
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+- Ordenamiento de la tabla 
+-------------------------------- ALMACEN DE COMPRAS DE TIPOS DE INSUMO --
+-------------------------------- ALMACEN DE VENTAS DE TIPOS DE INSUMO --
+
+______VISUALIZAR______
+- Detalles en la tabla 
+- Diseño de la interfaz 
+- Detalles en el buscador 
+- Ordenamiento de la tabla 
+-------------------------------- ALMACEN DE VENTAS DE TIPOS DE INSUMO --

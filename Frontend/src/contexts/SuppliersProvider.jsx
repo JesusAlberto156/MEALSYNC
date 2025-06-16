@@ -10,7 +10,6 @@ export const SupplierEditContext = createContext(null);
 export const DeletedSuppliersContext = createContext(null);
 export const SupplierDeleteContext = createContext(null);
 export const ObservationsContext = createContext(null);
-export const ObservationAddContext = createContext(null);
 export const SuppliesContext = createContext(null);
 export const SupplyAddContext = createContext(null);
 export const SupplyEditContext = createContext(null);
@@ -20,6 +19,7 @@ export const SupplyTypesContext = createContext(null);
 export const SupplyTypeAddContext = createContext(null);
 export const SupplyTypeEditContext = createContext(null);
 export const CountSupplyTypesContext = createContext(null);
+export const SupplyTypeCountAddContext = createContext(null);
 export const DeletedSupplyTypesContext = createContext(null);
 export const SupplyTypeDeleteContext = createContext(null);
 export const SupplyCategoriesContext = createContext(null);
@@ -40,16 +40,16 @@ export const Index_Suppliers = ({children}) => {
                     <Deleted_Suppliers>
                         <Supplier_Delete>
                             <Observations>
-                                <Observation_Add>
-                                    <Supplies>
-                                        <Supply_Add>
-                                            <Supply_Edit>
-                                                <Deleted_Supplies>
-                                                    <Supply_Delete>
-                                                        <Supply_Types>
-                                                            <Supply_Type_Add>
-                                                                <Supply_Type_Edit>
-                                                                    <Count_Supply_Types>
+                                <Supplies>
+                                    <Supply_Add>
+                                        <Supply_Edit>
+                                            <Deleted_Supplies>
+                                                <Supply_Delete>
+                                                    <Supply_Types>
+                                                        <Supply_Type_Add>
+                                                            <Supply_Type_Edit>
+                                                                <Count_Supply_Types>
+                                                                    <Supply_Type_Count_Add>
                                                                         <Deleted_Supply_Types>
                                                                             <Supply_Type_Delete>
                                                                                 <Supply_Categories>
@@ -65,16 +65,16 @@ export const Index_Suppliers = ({children}) => {
                                                                                 </Supply_Categories>
                                                                             </Supply_Type_Delete>
                                                                         </Deleted_Supply_Types>
-                                                                    </Count_Supply_Types>
-                                                                </Supply_Type_Edit>
-                                                            </Supply_Type_Add>
-                                                        </Supply_Types>
-                                                    </Supply_Delete>
-                                                </Deleted_Supplies>
-                                            </Supply_Edit>
-                                        </Supply_Add>
-                                    </Supplies>
-                                </Observation_Add>
+                                                                    </Supply_Type_Count_Add>
+                                                                </Count_Supply_Types>
+                                                            </Supply_Type_Edit>
+                                                        </Supply_Type_Add>
+                                                    </Supply_Types>
+                                                </Supply_Delete>
+                                            </Deleted_Supplies>
+                                        </Supply_Edit>
+                                    </Supply_Add>
+                                </Supplies>
                             </Observations>
                         </Supplier_Delete>
                     </Deleted_Suppliers>
@@ -237,17 +237,6 @@ export const Observations = ({ children }) => {
         <ObservationsContext.Provider value={[isObservations,setIsObservations]}>
             {children}
         </ObservationsContext.Provider>
-    );
-}
-// Función contexto para controlar los datos agregados de las observaciones a los proveedores ✔️
-export const Observation_Add = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isObservationAdd,setIsObservationAdd] = useState(false);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <ObservationAddContext.Provider value={[isObservationAdd,setIsObservationAdd]}>
-            {children}
-        </ObservationAddContext.Provider>
     );
 }
 // ---------- OBSERVACIONES
@@ -467,6 +456,17 @@ export const Count_Supply_Types = ({ children }) => {
         <CountSupplyTypesContext.Provider value={[isCountSupplyTypes,setIsCountSupplyTypes]}>
             {children}
         </CountSupplyTypesContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de la cantidades de un tipo de insumo ✔️
+export const Supply_Type_Count_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SupplyTypeCountAddContext.Provider value={[isSupplyTypeCountAdd,setIsSupplyTypeCountAdd]}>
+            {children}
+        </SupplyTypeCountAddContext.Provider>
     );
 }
 //---------- CANTIDAD DE TIPOS DE INSUMO

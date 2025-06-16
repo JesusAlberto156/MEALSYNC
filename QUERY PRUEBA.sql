@@ -1,6 +1,9 @@
 USE ComandaMedicaTepic
 
 ALTER TABLE tipoInsumo
+ADD limite DECIMAL(10,4) NOT NULL 
+
+ALTER TABLE tipoInsumo
 ALTER COLUMN descripcion VARCHAR(250) NULL
 
 

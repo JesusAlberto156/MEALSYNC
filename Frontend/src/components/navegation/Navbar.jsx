@@ -16,27 +16,29 @@ import { IoIosLock } from "react-icons/io";
 // Iconos para la opcion de proveedores del navbar
 import { FaStore } from "react-icons/fa";
 import { MdSpeakerNotes } from "react-icons/md";
-// Iconos para la sección de inventario del navbar
-import { FaWarehouse } from "react-icons/fa";
+import { GiFruitBowl } from "react-icons/gi";
+import { GiMilkCarton } from "react-icons/gi";
+import { GiMeat } from "react-icons/gi";
 import { FaBoxes } from "react-icons/fa";
-import { FaBoxOpen } from "react-icons/fa";
+import { FaBoxOpen } from "react-icons/fa6";
+// Iconos para la sección de inventario del navbar
+import { MdAssignment } from "react-icons/md";
+import { FaCashRegister } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
+import { TbReportAnalytics } from "react-icons/tb";
 // Iconos para la seccion de menus del navbar
 import { MdOutlineMenuBook } from "react-icons/md";
 import { MdFreeBreakfast } from "react-icons/md";
 import { GiMeal } from "react-icons/gi";
 import { MdDinnerDining } from "react-icons/md";
-
-import { RiRecordMailFill } from "react-icons/ri";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_White_Width_98_Left,Container_Row_Blue_Width_92_Left } from "../styled/Containers";
 import { Img_Logo_Hospital_70 } from '../styled/Imgs';
-import { Button_Icon_White_80,Button_Icon_White_100 } from '../styled/Buttons';
+import { Button_Icon_White_100 } from '../styled/Buttons';
 import { Icon_22 } from "../styled/Icons";
-import { Text_Title_30_Center,Text_Title_26_Center } from '../styled/Text';
-
-// Componentes personalizados
-
+import { Text_Title_26_Center } from '../styled/Text';
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre las paginas en la parte superior 
@@ -59,26 +61,26 @@ export default function Nav_Bar(){
                             <Tooltip title='Usuarios' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                     handleNavbarView('Usuarios');
-                                    sessionStorage.setItem('Ruta','/Administration/Index/Users');
-                                    navigate('/Administration/Index/Users',{ replace: true });
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Users/Users');
+                                    navigate('/Administration/Index/Users/Users',{ replace: true });
                                 }}>
                                     <Icon_22><FaUser/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            <Tooltip title='Permisos' placement="top">
+                            <Tooltip title='Permisos de usuarios' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                     handleNavbarView('Permisos')
-                                    sessionStorage.setItem('Ruta','/Administration/Index/Permissions');
-                                    navigate('/Administration/Index/Permissions',{ replace: true });
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Users/Permissions');
+                                    navigate('/Administration/Index/Users/Permissions',{ replace: true });
                                 }}>
                                     <Icon_22><IoShieldHalfSharp/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            <Tooltip title='Estatus' placement="top">
+                            <Tooltip title='Estatus de usuarios' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
                                     handleNavbarView('Estatus')
-                                    sessionStorage.setItem('Ruta','/Administration/Index/Status');
-                                    navigate('/Administration/Index/Status',{ replace: true });
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Users/Status');
+                                    navigate('/Administration/Index/Users/Status',{ replace: true });
                                 }}>
                                     <Icon_22><IoIosLock/></Icon_22>
                                 </Button_Icon_White_100>
@@ -89,12 +91,12 @@ export default function Nav_Bar(){
                                 <></>
                             )}
                             {currentNView === 'Permisos' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>PERMISOS</Text_Title_26_Center>
+                                <Text_Title_26_Center ThemeMode={themeMode}>PERMISOS DE USUARIOS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Estatus' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>ESTATUS</Text_Title_26_Center>
+                                <Text_Title_26_Center ThemeMode={themeMode}>ESTATUS DE USUARIOS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}
@@ -104,81 +106,74 @@ export default function Nav_Bar(){
                     )}
                     {currentSView === 'Proveedores' ? (
                         <>
-                        <Tooltip title='Proveedores' placement="top">
-                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                handleNavbarView('Proveedores');
-                                sessionStorage.setItem('Ruta','/Administration/Index/Suppliers');
-                                navigate('/Administration/Index/Suppliers',{ replace: true });
-                            }}>
-                                <Icon_22><FaStore/></Icon_22>
-                            </Button_Icon_White_100>
-                        </Tooltip>
-                        <Tooltip title='Observaciones' placement="top">
-                            <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                handleNavbarView('Observaciones');
-                                sessionStorage.setItem('Ruta','/Administration/Index/Observations');
-                                navigate('/Administration/Index/Observations',{ replace: true });
-                            }}>
-                                <Icon_22><MdSpeakerNotes/></Icon_22>
-                            </Button_Icon_White_100>
-                        </Tooltip>
-                        {currentNView === 'Proveedores' ? (
-                            <Text_Title_26_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_26_Center>
-                        ):(
-                            <></>
-                            
-                        )}
-                        {currentNView === 'Observaciones' ? (
-                            <Text_Title_26_Center ThemeMode={themeMode}>OBSERVACIONES</Text_Title_26_Center>
-                        ):(
-                            <></>
-                        )}
-                    </>
-                    ):(
-                        <></>
-                    )}
-                    {currentSView === 'Inventario' ? (
-                        <>
-                            <Tooltip title='Inventario' placement="top">
+                            <Tooltip title='Proveedores' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Inventario');
-                                    sessionStorage.setItem('Ruta','/Administration/Index/Warehouse');
-                                    navigate('/Administration/Index/Warehouse',{ replace: true });
+                                    handleNavbarView('Proveedores');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Suppliers');
+                                    navigate('/Administration/Index/Suppliers/Suppliers',{ replace: true });
                                 }}>
-                                    <Icon_22><FaWarehouse/></Icon_22>
+                                    <Icon_22><FaStore/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            <Tooltip title='Insumos' placement="top">
+                            <Tooltip title='Observaciones de proveedores' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Insumos')
-                                    sessionStorage.setItem('Ruta','/Administration/Index/Supplies');
-                                    navigate('/Administration/Index/Supplies',{ replace: true });
+                                    handleNavbarView('Observaciones de proveedores');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Observations');
+                                    navigate('/Administration/Index/Suppliers/Observations',{ replace: true });
+                                }}>
+                                    <Icon_22><MdSpeakerNotes/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Categorías por insumo' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Categorias por insumo');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Supply/Categories');
+                                    navigate('/Administration/Index/Suppliers/Supply/Categories',{ replace: true });
+                                }}>
+                                    <Icon_22><GiFruitBowl/><GiMilkCarton/><GiMeat/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Tipos de insumo' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Tipos de insumo');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Supply/Types');
+                                    navigate('/Administration/Index/Suppliers/Supply/Types',{ replace: true });
                                 }}>
                                     <Icon_22><FaBoxes/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            <Tooltip title='Tipos de Insumo' placement="top">
+                            <Tooltip title='Insumos' placement="top">
                                 <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
-                                    handleNavbarView('Tipos-Insumo')
-                                    sessionStorage.setItem('Ruta','/Administration/Index/Supply-Types');
-                                    navigate('/Administration/Index/Supply-Types',{ replace: true });
+                                    handleNavbarView('Insumos');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Supplies');
+                                    navigate('/Administration/Index/Suppliers/Supplies',{ replace: true });
                                 }}>
                                     <Icon_22><FaBoxOpen/></Icon_22>
                                 </Button_Icon_White_100>
                             </Tooltip>
-                            {currentNView === 'Inventario' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_26_Center>
+                            {currentNView === 'Proveedores' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_26_Center>
                             ):(
                                 <></>
                                 
                             )}
-                            {currentNView === 'Insumos' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>INSUMOS</Text_Title_26_Center>
+                            {currentNView === 'Observaciones de proveedores' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>OBSERVACIONES</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}
-                            {currentNView === 'Tipos-Insumo' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>TIPOS DE INSUMOS</Text_Title_26_Center>
+                            {currentNView === 'Categorias por insumo' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>CATEGORÍAS POR INSUMO</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                            {currentNView === 'Tipos de insumo' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>TIPOS DE INSUMO</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                            {currentNView === 'Insumos' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>INSUMOS</Text_Title_26_Center>
                             ):(
                                 <></>
                             )}
@@ -186,6 +181,70 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
+                    {currentSView === 'Inventario' ? (
+                        <>
+                            <Tooltip title='Pedidos de insumo' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Pedidos de insumo');
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Supply/Orders');
+                                    navigate('/Administration/Index/Warehouse/Supply/Orders',{ replace: true });
+                                }}>
+                                    <Icon_22><MdAssignment/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Compras' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Compras')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Purchases');
+                                    navigate('/Administration/Index/Warehouse/Purchases',{ replace: true });
+                                }}>
+                                    <Icon_22><FaCashRegister/><FaPlus/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Ventas' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Ventas')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Sales');
+                                    navigate('/Administration/Index/Warehouse/Sales',{ replace: true });
+                                }}>
+                                    <Icon_22><FaCashRegister/><FaMinus/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            <Tooltip title='Reportes' placement="top">
+                                <Button_Icon_White_100 ThemeMode={themeMode} onClick={() => {
+                                    handleNavbarView('Reportes')
+                                    sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Reports');
+                                    navigate('/Administration/Index/Warehouse/Reports',{ replace: true });
+                                }}>
+                                    <Icon_22><TbReportAnalytics/></Icon_22>
+                                </Button_Icon_White_100>
+                            </Tooltip>
+                            {currentNView === 'Pedidos de insumo' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>PEDIDOS DE INSUMOS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                                
+                            )}
+                            {currentNView === 'Compras' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>COMPRAS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                            {currentNView === 'Ventas' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>VENTAS</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                            {currentNView === 'Reportes' ? (
+                                <Text_Title_26_Center ThemeMode={themeMode}>REPORTES</Text_Title_26_Center>
+                            ):(
+                                <></>
+                            )}
+                        </>
+                    ):(
+                        <></>
+                    )}
+
                     {currentSView === 'Menus' ? (
                         <>
                             <Tooltip title='Menus' placement="top">
@@ -246,54 +305,6 @@ export default function Nav_Bar(){
                                 <></>
                             )}
                         </>
-                    ):(
-                        <></>
-                    )}
-
-                    {currentSView === 'Record' ? (
-                        <>
-                        <Tooltip title='General' placement="top">
-                            <Button_Icon_White_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeNavbar('General');
-                                navigate('/Administration/Record/General',{ replace: true });
-                            }}>
-                                <RiRecordMailFill/>
-                            </Button_Icon_White_80>
-                        </Tooltip>
-                        <Tooltip title='Inventario' placement="top">
-                            <Button_Icon_White_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeNavbar('Inventory');
-                                navigate('/Administration/Record/Inventory',{ replace: true });
-                            }}>
-                                <FaWarehouse/>
-                            </Button_Icon_White_80>
-                        </Tooltip>
-                        <Tooltip title='Proveedores' placement="top">
-                            <Button_Icon_White_80 ThemeMode={themeMode} onClick={() => {
-                                handleChangeNavbar('Suppliers')
-                                navigate('/Administration/Record/Suppliers',{ replace: true });
-                            }}>
-                                <FaUserTie/>
-                            </Button_Icon_White_80>
-                        </Tooltip>
-                        {currentNView === 'General' ? (
-                            <Text_Title_30_Center ThemeMode={themeMode}>GENERAL</Text_Title_30_Center>
-                        ):(
-                            <></>
-                            
-                        )}
-                        {currentNView === 'Inventory' ? (
-                            <Text_Title_30_Center ThemeMode={themeMode}>INVENTARIO</Text_Title_30_Center>
-                        ):(
-                            <></>
-                            
-                        )}
-                        {currentNView === 'Ingredients' ? (
-                            <Text_Title_30_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_30_Center>
-                        ):(
-                            <></>
-                        )}
-                    </>
                     ):(
                         <></>
                     )}

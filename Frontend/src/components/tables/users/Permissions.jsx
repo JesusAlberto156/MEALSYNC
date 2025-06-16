@@ -11,8 +11,8 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsPermissionsContext } from "../../../contexts/FormsProvider"
 import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
-import { TableActionsPermissions } from "../../../hooks/Table"
-import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../hooks/Texts"
+import { TableActionsPermissions } from "../../../hooks/users/Tables"
+import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../hooks/users/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaSortAlphaDown } from "react-icons/fa";

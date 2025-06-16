@@ -13,9 +13,9 @@ import { PermissionsAddContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandlePermissionsAdd,FilteredRecordsHasPermissions } from "../../../../hooks/Form";
-import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/Texts";
+import { HandleModalViewUsers } from "../../../../hooks/users/Views";
+import { HandlePermissionsAdd,FilteredRecordsHasPermissions } from "../../../../hooks/users/Forms";
+import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/users/Texts";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -46,7 +46,7 @@ export default function Permissions_Add(){
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handlePermissionsAdd = HandlePermissionsAdd();
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
@@ -250,7 +250,7 @@ export default function Permissions_Add(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}
+                                        onClick={() => handleModalViewUsers('')}
                                         disabled={isActionBlock}    
                                     >
                                         <Icon_White_22><MdCancel/></Icon_White_22>

@@ -9,7 +9,7 @@ import { ThemeModeContext,SubModalContext } from "../../../../contexts/ViewsProv
 import { AnimationContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsPermissionsContext,TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
-import { ResetTextFieldsPermissions } from "../../../../hooks/Texts";
+import { ResetTextFieldsPermissions } from "../../../../hooks/users/Texts";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -115,7 +115,7 @@ export default function User_Permissions_Add(){
                                     permisos: 'Default'
                                 }))
                                 setTimeout(() => {
-                                    navigate('/Administration/Users/Add',{ replace: true });
+                                    navigate('/Administration/Index/Users/Users/Add',{ replace: true });
                                 },1050);
                             }}>
                                 <Icon_White_22><MdCancel/></Icon_White_22>
@@ -130,7 +130,7 @@ export default function User_Permissions_Add(){
                                     permisos: 'Personalizado'
                                 }))
                                 setTimeout(() => {
-                                    navigate('/Administration/Users/Add',{ replace: true });
+                                    navigate('/Administration/Index/Users/Users/Add',{ replace: true });
                                 },1050);
                             }}>
                                 <Icon_White_22><IoIosAddCircle/></Icon_White_22>

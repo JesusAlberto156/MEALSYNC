@@ -10,10 +10,11 @@ import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 import { UsersViewPasswordContext } from "../../contexts/UsersProvider";
-import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSuppliesContext,RefObservationsContext } from "../../contexts/RefsProvider";
+import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSupplierObservationsContext,RefSupplyCategoriesContext,RefSupplyTypesContext,RefSuppliesContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../hooks/Views";
-import { HandleViewPassword } from "../../hooks/Form";
+import { HandleModalViewUsers } from "../../hooks/users/Views";
+import { HandleViewPassword } from "../../hooks/users/Forms";
+import { HandleModalViewSuppliers } from "../../hooks/suppliers/Views";
 //__________ICONOS__________
 // Icono para la seccion del buscador
 import { FcSearch } from "react-icons/fc";
@@ -22,6 +23,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { LuArrowDownUp } from "react-icons/lu";
 // Iconos para un crud
 import { IoIosAddCircle } from "react-icons/io";
+import { MdAddBox } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
@@ -29,10 +31,11 @@ import { IoIosEyeOff } from "react-icons/io";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
+import { FaCubes } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
-import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Blue_140 } from "../styled/Buttons";
+import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_White_60,Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_26,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
 import { Input_Text_White_20 } from "../styled/Inputs";
 import { Text_Span_12_Center } from "../styled/Text";
@@ -56,19 +59,24 @@ export default function Search_Bar (){
     const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
     const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);
     const {Modal_Suppliers,Form_Suppliers,Button_Edit_Suppliers,Button_Delete_Suppliers} = useContext(RefSuppliersContext);
-    const {Modal_Observations,Form_Observations,Button_Detail_Observations} = useContext(RefObservationsContext); 
-    const {Modal_Su,Form_Su,Button_Edit_Su,Button_Delete_Su} = useContext(RefSuppliesContext);
+    const {Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations} = useContext(RefSupplierObservationsContext);
+    const {Modal_Supply_Categories,Form_Supply_Categories,Button_Edit_Supply_Categories,Button_Delete_Supply_Categories} = useContext(RefSupplyCategoriesContext);
+    const {Modal_Supply_Types,Form_Supply_Types,Button_Edit_Supply_Types,Button_Add_Supply_Types,Button_Delete_Supply_Types,Button_Count_Supply_Types} = useContext(RefSupplyTypesContext);
+    const {Modal_Supplies,Form_Supplies,Button_Edit_Supplies,Button_Delete_Supplies} = useContext(RefSuppliesContext);
     const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // Constante con las opciones de los buscadores
     const isOptionUsers = ['General','Nombre','Nombre corto','Usuario','Tipo de usuario'];
     const isOptionStatus = ['Normal','Activo','Inactivo'];
     const isOptionSuppliers = ['General','Nombre','RFC','Domicilio','Teléfono','Correo'];
-    const isOptionObservations = ['Proveedor','Fecha','Calificación'];
+    const isOptionSupplierObservations = ['General','Proveedor','Fecha','Calificación'];
+    const isOptionSupplyTypes = ['General','Tipo','Unidad','Categoría'];
+    const isOptionSupplies = ['General','Nombre','Proveedor','Categoría','Tipo'];
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const handleViewPassword = HandleViewPassword();
+    const handleModalViewSuppliers = HandleModalViewSuppliers();
     // Estructura del componente
     return(
         <>
@@ -137,9 +145,47 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-                {currentSView === 'Proveedores' && currentNView === 'Observaciones' ? (
+                {currentSView === 'Proveedores' && currentNView === 'Observaciones de proveedores' ? (
                     <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
-                        {isOptionObservations.map((option,index) => (
+                        {isOptionSupplierObservations.map((option,index) => (
+                            <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                key={index}
+                                onClick={() => setIsSelectedOptionSearch(option)}
+                                style={{
+                                    backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                    color: isSelectedOptionSearch === option ? 'white' : 'white',
+                                }}
+                            >
+                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                            </Button_Icon_Blue_140>
+                        ))}
+                        <Icon_White_18><IoSearch/></Icon_White_18>
+                    </Container_Row_Blue_Width_2000_Left>
+                ):(
+                    <></>
+                )}
+                {currentSView === 'Proveedores' && currentNView === 'Tipos de insumo' ? (
+                    <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
+                        {isOptionSupplyTypes.map((option,index) => (
+                            <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                key={index}
+                                onClick={() => setIsSelectedOptionSearch(option)}
+                                style={{
+                                    backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                    color: isSelectedOptionSearch === option ? 'white' : 'white',
+                                }}
+                            >
+                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                            </Button_Icon_Blue_140>
+                        ))}
+                        <Icon_White_18><IoSearch/></Icon_White_18>
+                    </Container_Row_Blue_Width_2000_Left>
+                ):(
+                    <></>
+                )}
+                {currentSView === 'Proveedores' && currentNView === 'Insumos' ? (
+                    <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
+                        {isOptionSupplies.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
                                 key={index}
                                 onClick={() => setIsSelectedOptionSearch(option)}
@@ -166,8 +212,8 @@ export default function Search_Bar (){
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             if (isSelectedRow !== null) {
-                                                handleModalView('Usuario-Editar');
-                                                navigate('/Administration/Users/Edit',{ replace: true });
+                                                handleModalViewUsers('Usuario-Editar');
+                                                navigate('/Administration/Index/Users/Users/Edit',{ replace: true });
                                             }
                                         }}>
                                             <Icon_White_18><MdEdit/></Icon_White_18>
@@ -179,8 +225,8 @@ export default function Search_Bar (){
                                     <Tooltip title='Agregar' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                             onClick={() => {
-                                                handleModalView('Usuario-Agregar');
-                                                navigate('/Administration/Users/Add',{ replace: true });
+                                                handleModalViewUsers('Usuario-Agregar');
+                                                navigate('/Administration/Index/Users/Users/Add',{ replace: true });
                                             }}
                                         >
                                             <Icon_White_18><IoIosAddCircle/></Icon_White_18>
@@ -196,8 +242,8 @@ export default function Search_Bar (){
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 if (isSelectedRow !== null) {
-                                                    handleModalView('Usuario-Eliminar');
-                                                    navigate('/Administration/Users/Delete',{ replace: true });
+                                                    handleModalViewUsers('Usuario-Eliminar');
+                                                    navigate('/Administration/Index/Users/Users/Delete',{ replace: true });
                                                 }
                                             }}>
                                                 <Icon_White_18><MdDelete/></Icon_White_18>
@@ -224,8 +270,8 @@ export default function Search_Bar (){
                                     <Tooltip title='Mostrar contraseñas' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode}  className={!isUsersViewPassword ? 'fade-button-in':'fade-button-out'}
                                         onClick={() => {
-                                            handleModalView('Usuario-Ver-Contraseña');
-                                            navigate('/Administration/Users/View',{ replace: true });
+                                            handleModalViewUsers('Usuario-Ver-Contraseña');
+                                            navigate('/Administration/Index/Users/Users/View',{ replace: true });
                                         }}>
                                             <Icon_White_18><FaEye/></Icon_White_18>
                                         </Button_Icon_Green_60>
@@ -243,8 +289,8 @@ export default function Search_Bar (){
                                     <Tooltip title='Editar' placement="top">
                                         <Button_Icon_Blue_60 ref={Button_Edit_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                         onClick={() => {
-                                            handleModalView('Permisos-Editar');
-                                            navigate('/Administration/Permissions/Edit',{ replace: true });
+                                            handleModalViewUsers('Permisos-Editar');
+                                            navigate('/Administration/Index/Users/Permissions/Edit',{ replace: true });
                                         }}>
                                             <Icon_White_18><MdEdit/></Icon_White_18>
                                         </Button_Icon_Blue_60>
@@ -255,8 +301,8 @@ export default function Search_Bar (){
                                     <Tooltip title='Agregar' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                         onClick={() => {
-                                            handleModalView('Permisos-Agregar');
-                                            navigate('/Administration/Permissions/Add',{ replace: true });
+                                            handleModalViewUsers('Permisos-Agregar');
+                                            navigate('/Administration/Index/Users/Permissions/Add',{ replace: true });
                                         }}>
                                             <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                         </Button_Icon_Green_60>
@@ -271,8 +317,8 @@ export default function Search_Bar (){
                                                 <Button_Icon_Red_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
-                                                    handleModalView('Permiso-Super-Administrador');
-                                                    navigate('/Administration/Permissions/Enable',{ replace: true });
+                                                    handleModalViewUsers('Permiso-Super-Administrador');
+                                                    navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaUserTie/></Icon_White_18>
                                                 </Button_Icon_Red_60>
@@ -284,8 +330,8 @@ export default function Search_Bar (){
                                                 <Button_Icon_Green_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                                 disabled={isSelectedRow === null}
                                                 onClick={() => {
-                                                    handleModalView('Permiso-Super-Administrador');
-                                                    navigate('/Administration/Permissions/Enable',{ replace: true });
+                                                    handleModalViewUsers('Permiso-Super-Administrador');
+                                                    navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
                                                 }}>
                                                     <Icon_White_18><FaUserTie/></Icon_White_18>
                                                 </Button_Icon_Green_60>
@@ -311,8 +357,8 @@ export default function Search_Bar (){
                                             <Button_Icon_Red_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                             disabled={isSelectedRow === null}
                                             onClick={() => {
-                                                handleModalView('Estatus-Habilitar');
-                                                navigate('/Administration/Status/Enable',{ replace: true });
+                                                handleModalViewUsers('Estatus-Habilitar');
+                                                navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaLock/></Icon_White_18>
                                             </Button_Icon_Red_60>
@@ -324,8 +370,8 @@ export default function Search_Bar (){
                                             <Button_Icon_Green_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
                                             disabled={isSelectedRow === null}
                                             onClick={() => {
-                                                handleModalView('Estatus-Habilitar');
-                                                navigate('/Administration/Status/Enable',{ replace: true });
+                                                handleModalViewUsers('Estatus-Habilitar');
+                                                navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
                                             }}>
                                                 <Icon_White_18><FaLockOpen/></Icon_White_18>
                                             </Button_Icon_Green_60>
@@ -337,8 +383,8 @@ export default function Search_Bar (){
                                     <Tooltip title='Agregar' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                         onClick={() => {
-                                            handleModalView('Estatus-Agregar');
-                                            navigate('/Administration/Status/Add',{ replace: true });
+                                            handleModalViewUsers('Estatus-Agregar');
+                                            navigate('/Administration/Index/Users/Status/Add',{ replace: true });
                                         }}>
                                             <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                         </Button_Icon_Green_60>
@@ -350,15 +396,15 @@ export default function Search_Bar (){
                         <></>
                     )}
                     {currentSView === 'Proveedores' && currentNView === 'Proveedores' ? (
-                        isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
-                            <>
-                                {isSelectedRow !== null ? (
+                        <>
+                            {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                isSelectedRow !== null ? (
                                     <>
                                         <Tooltip title='Editar' placement="top">
                                             <Button_Icon_Blue_60 ref={Button_Edit_Suppliers} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
                                             onClick={() => {
-                                                handleModalView('Proveedor-Editar');
-                                                navigate('/Administration/Suppliers/Edit',{ replace: true });
+                                                handleModalViewSuppliers('Proveedor-Editar');
+                                                navigate('/Administration/Index/Suppliers/Suppliers/Edit',{ replace: true });
                                             }}>
                                                 <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
@@ -369,48 +415,48 @@ export default function Search_Bar (){
                                         <Tooltip title='Agregar' placement="top">
                                             <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                             onClick={() => {
-                                                handleModalView('Proveedor-Agregar');
-                                                navigate('/Administration/Suppliers/Add',{ replace: true });
+                                                handleModalViewSuppliers('Proveedor-Agregar');
+                                                navigate('/Administration/Index/Suppliers/Suppliers/Add',{ replace: true });
                                             }}>
                                                 <Icon_White_18><IoIosAddCircle/></Icon_White_18>
                                             </Button_Icon_Green_60>
                                         </Tooltip>
                                     </>
-                                )}
-                                {isPermission.superadministrador ? (
-                                    isSelectedRow !== null ? (
-                                        <>
-                                            <Tooltip title='Eliminar' placement="top">
-                                                <Button_Icon_Red_60 ref={Button_Delete_Suppliers} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
-                                                onClick={() => {
-                                                    handleModalView('Proveedor-Eliminar');
-                                                    navigate('/Administration/Suppliers/Delete',{ replace: true });
-                                                }}>
-                                                    <Icon_White_18><MdDelete/></Icon_White_18>
-                                                </Button_Icon_Red_60>
-                                            </Tooltip>
-                                        </>
-                                    ):(
-                                        <></>
-                                    )
+                                )
+                            ):(
+                                <></>
+                            )}
+                            {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_Suppliers} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Proveedor-Eliminar');
+                                                navigate('/Administration/Index/Suppliers/Suppliers/Delete',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><MdDelete/></Icon_White_18>
+                                            </Button_Icon_Red_60>
+                                        </Tooltip>
+                                    </>
                                 ):(
                                     <></>
-                                )}
-                            </>
-                        ):(
-                            <></>
-                        )
+                                )
+                            ):(
+                                <></>
+                            )}
+                        </>
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Proveedores' && currentNView === 'Observaciones' ? (
+                    {currentSView === 'Proveedores' && currentNView === 'Observaciones de proveedores' ? (
                         isSelectedRow !== null ? (
                             <>
                                 <Tooltip title='Ver detalles' placement="top">
-                                    <Button_Icon_Green_60 ThemeMode={themeMode} ref={Button_Detail_Observations} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                    <Button_Icon_Green_60 ThemeMode={themeMode} ref={Button_Detail_Supplier_Observations} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
                                     onClick={() => {
-                                        handleModalView('Observacion-Detalles');
-                                        navigate('/Administration/Observations/View',{ replace: true });
+                                        handleModalViewSuppliers('Observacion-Detalles');
+                                        navigate('/Administration/Index/Suppliers/Observations/View',{ replace: true });
                                     }}>
                                         <Icon_White_18><FaEye/></Icon_White_18>
                                     </Button_Icon_Green_60>
@@ -422,83 +468,189 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
-
-                    {currentSView === 'Inventario' && currentNView === 'Inventario' ? (
-                        isPermission.superadministrador ? (
-                            <>
-                                <Tooltip title='Agregar' placement="top">
-                                    <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleModalView('Warehouse-Add');
-                                        navigate('/Administration/Warehouse/Add',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                    </Button_Icon_Green_60>
-                                </Tooltip>
-                            </>
-                        ):(
-                            <></>
-                        )
-                    ):(
-                        <></>
-                    )}
-                    {currentSView === 'Inventario' && currentNView === 'Insumos' ? (
-                        isPermission.superadministrador ? (
-                            <>
-                                <Tooltip title='Agregar' placement="top">
-                                    <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'roll-in-button-left':'roll-out-button-left'}
-                                    onClick={() => {
-                                        handleModalView('Supply-Add');
-                                        navigate('/Administration/Supplies/Add',{ replace: true });
-                                    }}>
-                                        <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                    </Button_Icon_Green_60>
-                                </Tooltip>
-                                {isSelectedRow === null ? (
-                                    <>
-                                        <Button_Icon_Blue_60 ref={Button_Edit_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
-                                        disabled={isSelectedRow === null}
-                                        onClick={() => {
-                                            handleModalView('Supply-Edit');
-                                            navigate('/Administration/Supplies/Edit',{ replace: true });
-                                        }}>
-                                            <Icon_White_18><MdEdit/></Icon_White_18>
-                                        </Button_Icon_Blue_60>
-                                        <Button_Icon_Red_60 ref={Button_Delete_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
-                                        disabled={isSelectedRow === null}
-                                        onClick={() => {
-                                            handleModalView('Supply-Delete');
-                                            navigate('/Administration/Supplies/Delete',{ replace: true });
-                                        }}>
-                                            <Icon_White_18><MdDelete/></Icon_White_18>
-                                        </Button_Icon_Red_60>
-                                    </>
-                                ):(
+                    {currentSView === 'Proveedores' && currentNView === 'Categorias por insumo' ? (
+                        <>
+                            {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                isSelectedRow !== null ? (
                                     <>
                                         <Tooltip title='Editar' placement="top">
-                                            <Button_Icon_Blue_60 ref={Button_Edit_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                            <Button_Icon_Blue_60 ref={Button_Edit_Supply_Categories} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
                                             onClick={() => {
-                                                handleModalView('Supply-Edit');
-                                                navigate('/Administration/Supplies/Edit',{ replace: true });
+                                                handleModalViewSuppliers('Categoria-Editar');
+                                                navigate('/Administration/Index/Suppliers/Supply/Categories/Edit',{ replace: true });
                                             }}>
                                                 <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
-                                        <Tooltip title='Eliminar' placement="top">
-                                            <Button_Icon_Red_60 ref={Button_Delete_Su} ThemeMode={themeMode} className={isSelectedRow !== null ? 'roll-in-button-left':'roll-out-button-left'}
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Agregar' placement="top">
+                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                             onClick={() => {
-                                                handleModalView('Supply-Delete');
-                                                navigate('/Administration/Supplies/Delete',{ replace: true });
+                                                handleModalViewSuppliers('Categoria-Agregar');
+                                                navigate('/Administration/Index/Suppliers/Supply/Categories/Add',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
+                                    </>
+                                )
+                            ):(
+                                <></>
+                            )}
+                            {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_Supply_Categories} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Categoria-Eliminar');
+                                                navigate('/Administration/Index/Suppliers/Supply/Categories/Delete',{ replace: true });
                                             }}>
                                                 <Icon_White_18><MdDelete/></Icon_White_18>
                                             </Button_Icon_Red_60>
                                         </Tooltip>
                                     </>
-                                )}
-                            </>
-                        ):(
-                            <></>
-                        )
+                                ):(
+                                    <></>
+                                )
+                            ):(
+                                <></>
+                            )}
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Proveedores' && currentNView === 'Tipos de insumo' ? (
+                        <>
+                            {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_Supply_Types} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Tipo-Insumo-Editar');
+                                                navigate('/Administration/Index/Suppliers/Supply/Types/Edit',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                        <Tooltip title='Agregar cantidades' placement="top">
+                                            <Button_Icon_White_60 ref={Button_Add_Supply_Types} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Tipo-Insumo-Cantidad-Agregar');
+                                                navigate('/Administration/Index/Suppliers/Supply/Types/Count/Add',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
+                                            </Button_Icon_White_60>
+                                        </Tooltip>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Agregar' placement="top">
+                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Tipo-Insumo-Agregar');
+                                                navigate('/Administration/Index/Suppliers/Supply/Types/Add',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
+                                    </>
+                                )
+                            ):(
+                                <></>
+                            )}
+                            {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_Supply_Types} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Tipo-Insumo-Eliminar');
+                                                navigate('/Administration/Index/Suppliers/Supply/Types/Delete',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><MdDelete/></Icon_White_18>
+                                            </Button_Icon_Red_60>
+                                        </Tooltip>
+                                    </>
+                                ):(
+                                    <></>
+                                )
+                            ):(
+                                <></>
+                            )}
+                            {isSelectedRow !== null ? (
+                                <>
+                                    <Tooltip title='Detalles' placement="top">
+                                        <Button_Icon_Orange_60 ref={Button_Count_Supply_Types} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                        onClick={() => {
+                                            handleModalViewSuppliers('Tipo-Insumo-Detalles');
+                                            navigate('/Administration/Index/Suppliers/Supply/Types/Detail',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><FaCubes/></Icon_White_18>
+                                        </Button_Icon_Orange_60>
+                                    </Tooltip>
+                                </>
+                            ):(
+                                <></>
+                            )}
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Proveedores' && currentNView === 'Insumos' ? (
+                        <>
+                            {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 ref={Button_Edit_Supplies} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Insumo-Editar');
+                                                navigate('/Administration/Index/Suppliers/Supplies/Edit',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><MdEdit/></Icon_White_18>
+                                            </Button_Icon_Blue_60>
+                                        </Tooltip>
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Agregar' placement="top">
+                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Insumo-Agregar');
+                                                navigate('/Administration/Index/Suppliers/Supplies/Add',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
+                                    </>
+                                )
+                            ):(
+                                <></>
+                            )}
+                            {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_60 ref={Button_Delete_Supplies} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewSuppliers('Insumo-Eliminar');
+                                                navigate('/Administration/Index/Suppliers/Supplies/Delete',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><MdDelete/></Icon_White_18>
+                                            </Button_Icon_Red_60>
+                                        </Tooltip>
+                                    </>
+                                ):(
+                                    <></>
+                                )
+                            ):(
+                                <></>
+                            )}
+                        </>
                     ):(
                         <></>
                     )}

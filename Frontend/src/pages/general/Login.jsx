@@ -15,8 +15,8 @@ import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContex
 import { PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
 import { HandleLoginView } from "../../hooks/Views";
-import { HandleLoggedLog } from "../../hooks/Form";
-import { TableActionsUsers } from "../../hooks/Table";
+import { HandleLoggedLog } from "../../hooks/Forms";
+import { TableActionsUsers } from "../../hooks/users/Tables";
 //__________ICONOS__________
 // Iconos de la parte principal del login
 import { MdManageAccounts } from "react-icons/md";
@@ -420,7 +420,7 @@ export default function Login(){
                     </Container_Form_400>
                     {isKeyboard ? (
                         <>
-                            <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.user : isTextFieldsUser.password} onChange={handleKeyboard}/>  
+                            <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
                         </>
                     ):(
                         <></>

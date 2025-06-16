@@ -74,7 +74,11 @@ export const ResetTextFieldsSupplyType = () => {
         descripcion: '',
         unidad: '',
         idcategoria: 0,
-        cantidad: 0,
+        cantidades: [
+            {
+                cantidad: 0,
+            }
+        ],
     };
     // Función del hook
     const resetTextFieldsSupplyType = () => {

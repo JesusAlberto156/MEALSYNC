@@ -6,7 +6,7 @@ import { PieChart,Pie,Cell,Tooltip,Legend,ResponsiveContainer } from 'recharts';
 // Contextos
 import { ThemeModeContext } from '../../../contexts/ViewsProvider';
 // Hooks personalizados
-import { TableActionsStatus } from '../../../hooks/Table';
+import { TableActionsStatus } from '../../../hooks/users/Tables';
 // Estilos personalizados
 import { Container_Row_90_Center } from '../../styled/Containers';
 import { Text_P_16_Center,Text_Fade_A_30_Center } from '../../styled/Text';

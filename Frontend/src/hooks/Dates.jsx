@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 //____________IMPORT/EXPORT____________
 
+// Hook para controlar las fechas ✔️
 export function Dates() {
     // Función para obtener la hora exacta del sistema para insertar las tablas
     const insertDate = useCallback((hoursOffset = -7) => {

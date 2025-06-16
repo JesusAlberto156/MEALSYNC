@@ -13,9 +13,9 @@ import { StatusAddContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandleStatusSAdd,FilteredRecordsHasStatus } from "../../../../hooks/Form";
-import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/Texts";
+import { HandleModalViewUsers } from "../../../../hooks/users/Views";
+import { HandleStatusSAdd,FilteredRecordsHasStatus } from "../../../../hooks/users/Forms";
+import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/users/Texts";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -45,7 +45,7 @@ export default function Status_Add(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const filteredRecordsHasStatus = FilteredRecordsHasStatus();
     const handleStatusSAdd = HandleStatusSAdd();
     const resetTextFieldsUser = ResetTextFieldsUser();
@@ -203,7 +203,7 @@ export default function Status_Add(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_150 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}
+                                        onClick={() => handleModalViewUsers('')}
                                         disabled={isActionBlock}
                                     >
                                         <Icon_White_22><MdCancel/></Icon_White_22>

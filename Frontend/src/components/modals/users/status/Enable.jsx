@@ -6,16 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { StatusEnableContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { RefStatusContext } from "../../../../contexts/RefsProvider";
-import { TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
+import { TextFieldsStatusContext,TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleStatusEnable } from "../../../../hooks/Form";
-import { HandleModalView } from "../../../../hooks/Views";
+import { HandleStatusEnable } from "../../../../hooks/users/Forms";
+import { HandleModalViewUsers } from "../../../../hooks/users/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
@@ -24,13 +24,14 @@ import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_95_Center, Container_Row_NG_90_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_180,Button_Icon_Green_180,Button_Icon_Red_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Form_Verification from "../../../forms/Verification";
 import Error_Enable from "../../errors/Enable";
+import Virtual_Keyboard from "../../../forms/Keyboard";
 //____________IMPORT/EXPORT____________
 
 // Modal para habilitar/deshabilitar usuarios
@@ -47,10 +48,27 @@ export default function Status_Enable(){
     const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);
     const [isTextFieldsStatus] = useContext(TextFieldsStatusContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const handleStatusEnable = HandleStatusEnable();
+    // useEffect para escribir en los campos del login
+    const handleKeyboard = (newValue) => {
+        if(isKeyboardView === 'User' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                usuario: newValue, 
+            }));
+        }else{
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                contrasena: newValue,
+            }));
+        }
+    };
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isStatusEnable){
@@ -105,11 +123,20 @@ export default function Status_Enable(){
                             <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
                             <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsStatus.usuario}</Text_A_16_Left>
                         </Container_Row_NG_90_Center>
+                        {isTextFieldsStatus.estatus === 'Habilitado' ? (
+                            <>
+                                <Container_Row_95_Center>
+                                    <Text_A_12_Justify ThemeMode={themeMode}>Al deshabilitar al usuario, se forzará el cierre inmediato de la sesión del usuario si se encuentra activo.</Text_A_12_Justify>
+                                </Container_Row_95_Center>  
+                            </>
+                        ):(
+                            <></>
+                        )}
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement="top">
                                 <span>
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}
+                                        onClick={() => handleModalViewUsers('')}
                                         disabled={!isActionBlock && isVerificationBlock}
                                     >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
@@ -145,6 +172,13 @@ export default function Status_Enable(){
                             )}
                         </Container_Row_95_Center>
                     </Container_Form_450>
+                    {isKeyboard ? (
+                        <>
+                            <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
+                        </>
+                    ):(
+                        <></>
+                    )}
                 </Container_Modal>
             ):(
                 currentMView === 'Estatus-Habilitar' ? (

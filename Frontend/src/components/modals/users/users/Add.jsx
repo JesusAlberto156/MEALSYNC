@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -10,12 +10,13 @@ import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,SubModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext,TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
-import { AnimationContext,ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
+import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
-import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/Texts";
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandleUserAdd } from "../../../../hooks/Form";
+import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/users/Texts";
+import { HandleModalViewUsers } from "../../../../hooks/users/Views";
+import { HandleUserAdd } from "../../../../hooks/users/Forms";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -30,6 +31,8 @@ import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Radio_16 } from "../../../styled/Inputs";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Alert_Verification } from "../../../styled/Alerts";
+// Componentes personalizados
+import Virtual_Keyboard from "../../../forms/Keyboard";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar usuarios a su tabla
@@ -50,13 +53,107 @@ export default function User_Add(){
     const [isUsers] = useContext(UsersContext); 
     const [isSubModal,setIsSubModal] = useContext(SubModalContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
+    const Keyboard = useContext(RefKeyboardContext);
+    const [isTouch,setIsTouch] = useContext(TouchContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const handleUserAdd = HandleUserAdd();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
+    // Constantes con el valor de useRef
+    const lastTouchTimeRef = useRef(0);
+    const isTouchRef = useRef(isTouch);
+    // UseEffect que determina la visibilidad del teclado
+    useEffect(() => {
+        const handleTouchStart = () => {
+            lastTouchTimeRef.current = Date.now();
+            setIsTouch(true);
+        };
+    
+        const handleMouseOrKey = () => {
+            const now = Date.now();
+            const timeSinceLastTouch = now - lastTouchTimeRef.current;
+    
+            // Solo desactiva touch si ha pasado más de 500ms desde el último touch
+            if (timeSinceLastTouch > 500) {
+                setIsTouch(false);
+            }
+        };
+
+        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('mousedown', handleMouseOrKey);
+        window.addEventListener('keydown', handleMouseOrKey);
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('mousedown', handleMouseOrKey);
+            window.removeEventListener('keydown', handleMouseOrKey);
+        };
+    },[]);
+    // UseEffect que determina que se mantenga visible del teclado
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            setTimeout(() => {
+                const inputName = document.getElementById("Input-Name");
+                const inputShortName = document.getElementById("Input-ShortName");
+                const inputUser = document.getElementById("Input-User");
+                const inputPassword = document.getElementById("Input-Password");
+                const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
+    
+                const clickInsideInputs = 
+                    (inputName && inputName.contains(event.target)) ||
+                    (inputShortName && inputShortName.contains(event.target)) ||
+                    (inputUser && inputUser.contains(event.target)) ||
+                    (inputPassword && inputPassword.contains(event.target));
+    
+                if (!clickInsideInputs && !keyboard) {
+                    setIsKeyboardView('');
+                    setTimeout(() => {
+                        setIsKeyboard(false);
+                    }, 500);
+                }
+            }, 0);
+        };
+    
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+    
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [Keyboard]);
+    // useEffect para escribir en los campos del login
+    const handleKeyboard = (newValue) => {
+        if(isKeyboardView === 'Name' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                nombre: newValue, 
+            }));
+        }
+        if(isKeyboardView === 'ShortName' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                nombrecorto: newValue, 
+            }));
+        }
+        if(isKeyboardView === 'User' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                usuario: newValue, 
+            }));
+        }
+        if(isKeyboardView === 'Password' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                contrasena: newValue, 
+            }));
+        }
+    };
     // UseEffect para abrir modal de los permisos
     useEffect(() => {
         if(isTextFieldsUser.permisos === 'Personalizado' && !isAnimation && !isSubModal){
@@ -65,7 +162,7 @@ export default function User_Add(){
             setIsAnimation(true);
             sessionStorage.setItem('Animación',true);
             setTimeout(() => {
-                navigate('/Administration/Users/Add/Permissions',{ replace: true });
+                navigate('/Administration/Index/Users/Users/Add/Permissions',{ replace: true });
             },200);
         }if(isTextFieldsUser.permisos === 'Default'){
             setIsAnimation(false);
@@ -74,7 +171,7 @@ export default function User_Add(){
             sessionStorage.removeItem('Estado del Sub-Modal',false);
         }
     },[isTextFieldsUser]);
-    // UseEffect para agregar datos a la base de datos
+    // UseEffects para agregar datos a la base de datos
     useEffect(() => {
         if(isUserAdd){
             const promise = new Promise((resolve,reject) => {
@@ -116,7 +213,6 @@ export default function User_Add(){
             Alert_Verification(promise,'¡Agregando un usuario!...');
         }
     },[isUserAdd]);
-    // UseEffect para obtener el id del usuario insertado
     useEffect(() => {
         if(isUsers.length !== 0 && isTextFieldsUser.idusuario === 0){
             setIsTextFieldsUser(prev => ({
@@ -236,11 +332,18 @@ export default function User_Add(){
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
+                                        id="Input-Name"
                                         placeholder="..."
                                         type="text"
                                         disabled={isActionBlock}
                                         value={isTextFieldsUser.nombre}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
+                                        onFocus={() => {
+                                            if(isTouchRef.current){
+                                                setIsKeyboard(true);
+                                                setIsKeyboardView('Name');
+                                            }
+                                        }}
                                     />
                                     <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
@@ -254,11 +357,18 @@ export default function User_Add(){
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Nombre corto:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
+                                        id="Input-ShortName"
                                         placeholder="..."
                                         type="text"
                                         disabled={isActionBlock}
                                         value={isTextFieldsUser.nombrecorto}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
+                                        onFocus={() => {
+                                            if(isTouchRef.current){
+                                                setIsKeyboard(true);
+                                                setIsKeyboardView('ShortName');
+                                            }
+                                        }}
                                     />
                                     <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
@@ -272,21 +382,35 @@ export default function User_Add(){
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
+                                        id="Input-User"
                                         placeholder="..."
                                         type="text"
                                         disabled={isActionBlock}
                                         value={isTextFieldsUser.usuario}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
+                                        onFocus={() => {
+                                            if(isTouchRef.current){
+                                                setIsKeyboard(true);
+                                                setIsKeyboardView('User');
+                                            }
+                                        }}
                                     />
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
+                                        id="Input-Password"
                                         placeholder="..."
                                         type="password"
                                         disabled={isActionBlock}
                                         value={isTextFieldsUser.contrasena}
                                         onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
+                                        onFocus={() => {
+                                            if(isTouchRef.current){
+                                                setIsKeyboard(true);
+                                                setIsKeyboardView('Password');
+                                            }
+                                        }}
                                     />
                                 </Container_Row_100_Center>
                                 {isUserTypes.length !== 0 ? (
@@ -405,7 +529,7 @@ export default function User_Add(){
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}
+                                        onClick={() => handleModalViewUsers('')}
                                         disabled={isActionBlock}    
                                     >
                                         <Icon_White_22><MdCancel/></Icon_White_22>
@@ -421,6 +545,15 @@ export default function User_Add(){
                                 </Tooltip>
                             </Container_Row_95_Center>
                         </Container_Form_500>
+                        {isKeyboard ? (
+                            <>
+                                <Virtual_Keyboard value={isKeyboardView === 'Name' ? isTextFieldsUser.nombre : 
+                                                         isKeyboardView === 'ShortName' ? isTextFieldsUser.nombrecorto :
+                                                         isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
+                            </>
+                        ):(
+                            <></>
+                        )}
                     </Container_Modal>
                 </>
             ):(

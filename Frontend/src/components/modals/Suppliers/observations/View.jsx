@@ -8,9 +8,10 @@ import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../cont
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsObservationContext } from "../../../../contexts/FormsProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { RefObservationsContext } from "../../../../contexts/RefsProvider";
+import { RefSupplierObservationsContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
+import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
+import { Dates } from "../../../../hooks/Dates";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
@@ -24,37 +25,25 @@ import { Icon_White_22,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Oran
 import Error_View from "../../errors/View";
 //____________IMPORT/EXPORT____________
 
-export default function Observations_View(){
+// Modal para visualizar las observaciones de proveedores de su tabla
+export default function Supplier_Observations_View(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isModal] = useContext(ModalContext);
     const [isTextFieldsObservation] = useContext(TextFieldsObservationContext);
-    const {Modal_Observations,Form_Observations,Button_Detail_Observations} = useContext(RefObservationsContext);
+    const {Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations} = useContext(RefSupplierObservationsContext);
     const [isSuppliers] = useContext(SuppliersContext);
     // Constantes con la funcionalidad de los hooks
-    const handleModalView = HandleModalView();
-    // Funcion para dar formato a la fecha
-    function formatoCompletoLegible(fechaInput) {
-        const fecha = new Date(fechaInput);
-
-        fecha.setHours(fecha.getHours() + 7);
-        
-        const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };
-        const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: false };
-
-        const fechaLegible = fecha.toLocaleDateString('es-MX', opcionesFecha);
-        const horaLegible = fecha.toLocaleTimeString('es-MX', opcionesHora);
-
-        return `${fechaLegible}, ${horaLegible}`;
-    }
+    const handleModalViewSuppliers = HandleModalViewSuppliers();
+    const { getDate } = Dates();
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal ref={Modal_Observations}>
-                    <Container_Form_500 ref={Form_Observations} ThemeMode={themeMode} className={currentMView === 'Observacion-Detalles' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                <Container_Modal ref={Modal_Supplier_Observations}>
+                    <Container_Form_500 ref={Form_Supplier_Observations} ThemeMode={themeMode} className={currentMView === 'Observacion-Detalles' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_30_Center ThemeMode={themeMode}>DETALLES DE LA OBSERVACIÓN</Text_Title_30_Center>
                         </Container_Row_100_Center>
@@ -68,7 +57,7 @@ export default function Observations_View(){
                                 <Text_A_16_Center ThemeMode={themeMode}>- {isSuppliers.find(supplier => supplier.idproveedor === isTextFieldsObservation.idproveedor)?.nombre || 'Desconocido'}...</Text_A_16_Center>
                             </Container_Row_NG_95_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>{formatoCompletoLegible(isTextFieldsObservation.fecha)}</Text_A_16_Center>
+                                <Text_A_16_Center ThemeMode={themeMode}>{getDate(isTextFieldsObservation.fecha)}</Text_A_16_Center>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
                                 {isTextFieldsObservation.calificacion === 0 ? (
@@ -144,7 +133,7 @@ export default function Observations_View(){
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleModalView('')}   
+                                    onClick={() => handleModalViewSuppliers('')}   
                                 >
                                     <Icon_White_22><MdCancel/></Icon_White_22>
                                 </Button_Icon_Blue_210>

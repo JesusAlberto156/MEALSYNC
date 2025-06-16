@@ -9,13 +9,13 @@ import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 import { UserDeleteContext,UsersContext } from "../../../../contexts/UsersProvider";
-import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefUsersContext } from '../../../../contexts/RefsProvider';
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandleUserDelete } from "../../../../hooks/Form";
+import { HandleModalViewUsers } from "../../../../hooks/users/Views";
+import { HandleUserDelete } from "../../../../hooks/users/Forms";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -24,16 +24,17 @@ import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Delete from "../../errors/Delete";
 import Form_Verification from "../../../forms/Verification";
+import Virtual_Keyboard from "../../../forms/Keyboard";
 //____________IMPORT/EXPORT____________
 
-// Modal para editar los usuarios de la tabla
+// Modal para eliminar los usuarios de la tabla
 export default function User_Delete(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
@@ -48,11 +49,27 @@ export default function User_Delete(){
     const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const handleUserDelete = HandleUserDelete();
-    // UseEffect para editar datos a la base de datos
+    // useEffect para escribir en los campos del login
+    const handleKeyboard = (newValue) => {
+        if(isKeyboardView === 'User' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                usuario: newValue, 
+            }));
+        }else{
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                contrasena: newValue,
+            }));
+        }
+    };
+    // UseEffect para eliminar datos a la base de datos
     useEffect(() => {
         if(isUserDelete){
             const promise = new Promise((resolve,reject) => {
@@ -113,10 +130,13 @@ export default function User_Delete(){
                                 <Text_A_16_Left ThemeMode={themeMode}> {isUsers.find(user => user.idusuario === isTextFieldsUser.idusuario)?.usuario || 'Desconocido'}</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
+                                <Text_A_12_Justify ThemeMode={themeMode}>Al eliminar al usuario, su sesión se cerrará de forma inmediata si se encuentra activo y no podrá volver a acceder al sistema.</Text_A_12_Justify>
+                            </Container_Row_95_Center>
+                            <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <span>
                                         <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                            onClick={() => handleModalView('')}
+                                            onClick={() => handleModalViewUsers('')}
                                             disabled={!isActionBlock && isVerificationBlock}  
                                         >
                                             <Icon_White_22><MdCancel/></Icon_White_22>
@@ -135,6 +155,13 @@ export default function User_Delete(){
                                 </Tooltip>
                             </Container_Row_95_Center>
                         </Container_Form_500>
+                        {isKeyboard ? (
+                            <>
+                                <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
+                            </>
+                        ):(
+                            <></>
+                        )}
                     </Container_Modal>
                 </>
             ):(

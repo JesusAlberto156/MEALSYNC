@@ -1,21 +1,21 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,TouchContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsSupplierContext } from "../../../../contexts/FormsProvider";
 import { SupplierEditContext } from "../../../../contexts/SuppliersProvider";
-import { RefSuppliersContext } from "../../../../contexts/RefsProvider";
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { RefSuppliersContext,RefKeyboardContext } from "../../../../contexts/RefsProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandleSupplierEdit } from "../../../../hooks/Form";
+import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
+import { HandleSupplierEdit } from "../../../../hooks/suppliers/Forms";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
@@ -23,15 +23,17 @@ import { FaStar } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Column_90_Center,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_Button_Blue_18,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_White_30 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
+import Virtual_Keyboard from "../../../forms/Keyboard";
 //____________IMPORT/EXPORT____________
 
+// Modal para editar proveedores a su tabla
 export default function Suppliers_Edit(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
@@ -43,37 +45,136 @@ export default function Suppliers_Edit(){
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
     const {Modal_Suppliers,Form_Suppliers,Button_Edit_Suppliers,Button_Delete_Suppliers} = useContext(RefSuppliersContext);
     const [socket] = useContext(SocketContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
+    const Keyboard = useContext(RefKeyboardContext);
+    const [isTouch,setIsTouch] = useContext(TouchContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleSupplierEdit = HandleSupplierEdit();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
+    // Constantes con el valor de useRef
+    const lastTouchTimeRef = useRef(0);
+    const isTouchRef = useRef(isTouch);
+    // UseEffect que determina la visibilidad del teclado
+    useEffect(() => {
+        const handleTouchStart = () => {
+            lastTouchTimeRef.current = Date.now();
+            setIsTouch(true);
+        };
+    
+        const handleMouseOrKey = () => {
+            const now = Date.now();
+            const timeSinceLastTouch = now - lastTouchTimeRef.current;
+    
+            // Solo desactiva touch si ha pasado más de 500ms desde el último touch
+            if (timeSinceLastTouch > 500) {
+                setIsTouch(false);
+            }
+        };
+
+        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('mousedown', handleMouseOrKey);
+        window.addEventListener('keydown', handleMouseOrKey);
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('mousedown', handleMouseOrKey);
+            window.removeEventListener('keydown', handleMouseOrKey);
+        };
+    },[]);
+    // UseEffect que determina que se mantenga visible del teclado
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            setTimeout(() => {
+                const inputName = document.getElementById("Input-Name");
+                const inputRfc = document.getElementById("Input-Rfc");
+                const inputAddress = document.getElementById("Input-Address");
+                const inputPhone = document.getElementById("Input-Phone");
+                const inputEmail = document.getElementById("Input-Email");
+                const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
+    
+                const clickInsideInputs = 
+                    (inputName && inputName.contains(event.target)) ||
+                    (inputRfc && inputRfc.contains(event.target)) ||
+                    (inputAddress && inputAddress.contains(event.target)) ||
+                    (inputPhone && inputPhone.contains(event.target)) ||
+                    (inputEmail && inputEmail.contains(event.target));
+    
+                if (!clickInsideInputs && !keyboard) {
+                    setIsKeyboardView('');
+                    setTimeout(() => {
+                        setIsKeyboard(false);
+                    }, 500);
+                }
+            }, 0);
+        };
+    
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+    
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [Keyboard]);
+    // useEffect para escribir en los campos del login
+    const handleKeyboard = (newValue) => {
+        if(isKeyboardView === 'Name' ){
+            setIsTextFieldsSupplier(prev => ({
+                ...prev,
+                nombre: newValue, 
+            }));
+        }
+        if(isKeyboardView === 'Rfc' ){
+            setIsTextFieldsSupplier(prev => ({
+                ...prev,
+                rfc: newValue, 
+            }));
+        }
+        if(isKeyboardView === 'Address' ){
+            setIsTextFieldsSupplier(prev => ({
+                ...prev,
+                domicilio: newValue, 
+            }));
+        }
+        if(isKeyboardView === 'Phone' ){
+            setIsTextFieldsSupplier(prev => ({
+                ...prev,
+                telefono: newValue, 
+            }));
+        }
+        if(isKeyboardView === 'Email' ){
+            setIsTextFieldsSupplier(prev => ({
+                ...prev,
+                correo: newValue, 
+            }));
+        }
+    };
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isSupplierEdit){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Update-Supplier',isLoggedUser.usuario,isTextFieldsSupplier.idproveedor,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim())
+                        socket.emit('Update-Supplier',isLoggedUser.idusuario,isTextFieldsSupplier.idproveedor,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim())
 
                         resolve('¡MEALSYNC editó al proveedor!...');
 
                         setIsSupplierEdit(false);
-                        setIsLogAdd(true);
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            navigate(route,{ replace: true });
+                        },750);
                     },1000);
                 }catch(e){
                     setIsActionBlock(false);
@@ -84,23 +185,7 @@ export default function Suppliers_Edit(){
 
             Alert_Verification(promise,'Editando un proveedor!...');
         }
-        if(isLogAdd){
-            socket.emit('Insert-Log-Supplier',isLoggedUser.usuario,getLocalDateTimeOffset(),'UPDATE',isTextFieldsSupplier.idproveedor,isLoggedUser.idusuario,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim());
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isSupplierEdit,isLogAdd]);
+    },[isSupplierEdit]);
     // Estructura del componente
     return(
         <>
@@ -124,6 +209,12 @@ export default function Suppliers_Edit(){
                                     disabled={isActionBlock}
                                     value={isTextFieldsSupplier.nombre}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, nombre: e.target.value}))}
+                                    onFocus={() => {
+                                        if(isTouchRef.current){
+                                            setIsKeyboard(true);
+                                            setIsKeyboardView('Name');
+                                        }
+                                    }}
                                 />
                                 <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {
@@ -143,6 +234,12 @@ export default function Suppliers_Edit(){
                                     disabled={isActionBlock}
                                     value={isTextFieldsSupplier.rfc}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, rfc: e.target.value}))}
+                                    onFocus={() => {
+                                        if(isTouchRef.current){
+                                            setIsKeyboard(true);
+                                            setIsKeyboardView('Rfc');
+                                        }
+                                    }}
                                 />
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
@@ -154,6 +251,12 @@ export default function Suppliers_Edit(){
                                     disabled={isActionBlock}
                                     value={isTextFieldsSupplier.domicilio}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, domicilio: e.target.value}))}
+                                    onFocus={() => {
+                                        if(isTouchRef.current){
+                                            setIsKeyboard(true);
+                                            setIsKeyboardView('Address');
+                                        }
+                                    }}
                                 />
                                 <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {
@@ -173,6 +276,12 @@ export default function Suppliers_Edit(){
                                     disabled={isActionBlock}
                                     value={isTextFieldsSupplier.telefono}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, telefono: e.target.value}))}
+                                    onFocus={() => {
+                                        if(isTouchRef.current){
+                                            setIsKeyboard(true);
+                                            setIsKeyboardView('Phone');
+                                        }
+                                    }}
                                 />
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
@@ -184,6 +293,12 @@ export default function Suppliers_Edit(){
                                     disabled={isActionBlock}
                                     value={isTextFieldsSupplier.correo}
                                     onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, correo: e.target.value}))}
+                                    onFocus={() => {
+                                        if(isTouchRef.current){
+                                            setIsKeyboard(true);
+                                            setIsKeyboardView('Email');
+                                        }
+                                    }}
                                 />
                                 <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {
@@ -259,9 +374,12 @@ export default function Suppliers_Edit(){
                             )}
                         </Container_Row_95_Center>
                         <Container_Row_95_Center>
+                            <Text_A_12_Justify ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los insumos asociados al proveedor o para registrar nuevos insumos a su nombre. La modificación del correo puede afectar la recepción de solicitudes relacionadas con los pedidos de sus insumos.</Text_A_12_Justify>
+                        </Container_Row_95_Center>
+                        <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleModalView('')}
+                                    onClick={() => handleModalViewSuppliers('')}
                                     disabled={isActionBlock}    
                                 >
                                     <Icon_White_22><MdCancel/></Icon_White_22>
@@ -277,6 +395,16 @@ export default function Suppliers_Edit(){
                             </Tooltip>
                         </Container_Row_95_Center>
                     </Container_Form_500>
+                    {isKeyboard ? (
+                        <>
+                            <Virtual_Keyboard value={isKeyboardView === 'Name' ? isTextFieldsSupplier.nombre : 
+                                                        isKeyboardView === 'Rfc' ? isTextFieldsSupplier.rfc :
+                                                        isKeyboardView === 'Address' ? isTextFieldsSupplier.domicilio : 
+                                                        isKeyboardView === 'Phone' ? isTextFieldsSupplier.telefono : isTextFieldsSupplier.correo} onChange={handleKeyboard}/>  
+                        </>
+                    ):(
+                        <></>
+                    )}
                 </Container_Modal>
             ):(
                 currentMView === 'Proveedor-Editar' ? (

@@ -8,10 +8,10 @@ export const RefUsersContext = createContext(null);
 export const RefPermissionsContext = createContext(null);
 export const RefStatusContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
-export const RefObservationsContext = createContext(null);
-export const RefSuppliesContext = createContext(null);
+export const RefSupplierObservationsContext = createContext(null);
+export const RefSupplyCategoriesContext = createContext(null);
 export const RefSupplyTypesContext = createContext(null);
-export const RefUnitsContext = createContext(null);
+export const RefSuppliesContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los Ref ✔️
@@ -23,15 +23,15 @@ export const Index_Refs = ({children}) => {
                     <Ref_Permissions>
                         <Ref_Status>
                             <Ref_Suppliers>
-                                <Ref_Observations>
-                                    <Ref_Supplies>
+                                <Ref_Suppliers_Observations>
+                                    <Ref_Supply_Categories>
                                         <Ref_Supply_Types>
-                                            <Ref_Units>
+                                            <Ref_Supplies>
                                                 {children}
-                                            </Ref_Units>
+                                            </Ref_Supplies>
                                         </Ref_Supply_Types>
-                                    </Ref_Supplies>
-                                </Ref_Observations>
+                                    </Ref_Supply_Categories>
+                                </Ref_Suppliers_Observations>
                             </Ref_Suppliers>
                         </Ref_Status>
                     </Ref_Permissions>
@@ -127,67 +127,67 @@ export const Ref_Suppliers = ({ children }) => {
     );
 }
 // Función contexto para controlar la tabla de las observaciones a proveedor con referencias ✔️
-export const Ref_Observations = ({ children }) => {
+export const Ref_Suppliers_Observations = ({ children }) => {
     // UseRef para controlar el valor del contexto
-    const isObservations = {
-        Modal_Observations: useRef(null),
-        Form_Observations: useRef(null),
-        Button_Detail_Observations: useRef(null),
+    const isSupplierObservations = {
+        Modal_Supplier_Observations: useRef(null),
+        Form_Supplier_Observations: useRef(null),
+        Button_Detail_Supplier_Observations: useRef(null),
     };
     // Return para darle valor al contexto y heredarlo
     return(
-        <RefObservationsContext.Provider value={isObservations}>
+        <RefSupplierObservationsContext.Provider value={isSupplierObservations}>
             {children}
-        </RefObservationsContext.Provider>
+        </RefSupplierObservationsContext.Provider>
     );
 }
-
-
-// Función contexto para controlar la tabla de insumos 
+// Función contexto para controlar la tabla de las categorias por insumos con referencias ✔️
+export const Ref_Supply_Categories = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isSupplyCategories = {
+        Modal_Supply_Categories: useRef(null),
+        Form_Supply_Categories: useRef(null),
+        Button_Edit_Supply_Categories: useRef(null),
+        Button_Delete_Supply_Categories: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefSupplyCategoriesContext.Provider value={isSupplyCategories}>
+            {children}
+        </RefSupplyCategoriesContext.Provider>
+    );
+}
+// Función contexto para controlar la tabla de los tipos de insumo con referencias ✔️
+export const Ref_Supply_Types = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isSupplyTypes = {
+        Modal_Supply_Types: useRef(null),
+        Form_Supply_Types: useRef(null),
+        Button_Edit_Supply_Types: useRef(null),
+        Button_Add_Supply_Types: useRef(null),
+        Button_Delete_Supply_Types: useRef(null),
+        Button_Count_Supply_Types: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefSupplyTypesContext.Provider value={isSupplyTypes}>
+            {children}
+        </RefSupplyTypesContext.Provider>
+    );
+}
+// Función contexto para controlar la tabla de los insumos con referencias ✔️
 export const Ref_Supplies = ({ children }) => {
     // UseRef para controlar el valor del contexto
     const isSupplies = {
-        Modal: useRef(null),
-        Form: useRef(null),
-        Button_Edit_Su: useRef(null),
-        Button_Delete_Su: useRef(null),
+        Modal_Supplies: useRef(null),
+        Form_Supplies: useRef(null),
+        Button_Edit_Supplies: useRef(null),
+        Button_Delete_Supplies: useRef(null),
     };
     // Return para darle valor al contexto y heredarlo
     return(
         <RefSuppliesContext.Provider value={isSupplies}>
             {children}
         </RefSuppliesContext.Provider>
-    );
-}
-// Función contexto para controlar la tabla de tipos de insumos 
-export const Ref_Supply_Types = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isSupplies = {
-        Modal_ST: useRef(null),
-        Form_ST: useRef(null),
-        Button_Edit_ST: useRef(null),
-        Button_Delete_ST: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefSupplyTypesContext.Provider value={isSupplies}>
-            {children}
-        </RefSupplyTypesContext.Provider>
-    );
-}
-// Función contexto para controlar la tabla de mediciones 
-export const Ref_Units = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isUnits = {
-        Modal_Un: useRef(null),
-        Form_Un: useRef(null),
-        Button_Edit_Un: useRef(null),
-        Button_Delete_Un: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefUnitsContext.Provider value={isUnits}>
-            {children}
-        </RefUnitsContext.Provider>
     );
 }

@@ -12,10 +12,10 @@ export const TextFieldsSupplyTypesContext = createContext(null);
 export const TextFieldsSupplyContext = createContext(null);
 export const TextFieldsSupplyOrderContext = createContext(null);
 export const TextFieldsSupplyOrderObservationContext = createContext(null);
-export const TextFieldsWarehouseCategoryContext = createContext(null);
-export const TextFieldsWarehouseSupplyTypeContext = createContext(null);
-export const TextFieldsMenuTypesContext = createContext(null);
-export const TextFieldsDishesContext = createContext(null);
+export const TextFieldsWarehousePurchaseCategoryContext = createContext(null);
+export const TextFieldsWarehouseSalesCategoryContext = createContext(null);
+export const TextFieldsWarehousePurchaseSupplyTypeContext = createContext(null);
+export const TextFieldsWarehouseSalesSupplyTypeContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los campos de texto para los formularios ✔️
@@ -29,7 +29,19 @@ export const Index_Text_Fields = ({children}) => {
                             <Text_Fields_Supply_Category>
                                 <Text_Fields_Supply_Type>
                                     <Text_Fields_Supply>
-                                        {children}
+                                        <Text_Fields_Supply_Order>
+                                            <Text_Fields_Supply_Order_Observation>
+                                                <Text_Fields_Warehouse_Purchase_Category>
+                                                    <Text_Fields_Warehouse_Sales_Category>
+                                                        <Text_Fields_Warehouse_Purchase_Supply_Type>
+                                                            <Text_Fields_Warehouse_Sales_Supply_Type>
+                                                                {children}
+                                                            </Text_Fields_Warehouse_Sales_Supply_Type>
+                                                        </Text_Fields_Warehouse_Purchase_Supply_Type>
+                                                    </Text_Fields_Warehouse_Sales_Category>
+                                                </Text_Fields_Warehouse_Purchase_Category>
+                                            </Text_Fields_Supply_Order_Observation>
+                                        </Text_Fields_Supply_Order>
                                     </Text_Fields_Supply>
                                 </Text_Fields_Supply_Type>
                             </Text_Fields_Supply_Category>
@@ -161,7 +173,11 @@ export const Text_Fields_Supply_Type = ({ children }) => {
         descripcion: '',
         unidad: '',
         idcategoria: 0,
-        cantidad: 0,
+        cantidades: [
+            {
+                cantidad: 0,
+            }
+        ],
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -189,7 +205,7 @@ export const Text_Fields_Supply = ({ children }) => {
         </TextFieldsSupplyContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de pedido de insumo
+// Función contexto para controlar los campos de registro de un formulario de pedido de insumo ✔️
 export const Text_Fields_Supply_Order = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useState({
@@ -214,7 +230,7 @@ export const Text_Fields_Supply_Order = ({ children }) => {
         </TextFieldsSupplyOrderContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de una observacion de un pedido de insumo
+// Función contexto para controlar los campos de registro de un formulario de una observacion de un pedido de insumo ✔️
 export const Text_Fields_Supply_Order_Observation = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useState({
@@ -224,9 +240,12 @@ export const Text_Fields_Supply_Order_Observation = ({ children }) => {
         fechaP: null,
         hora: '',
         minutos: '',
-        observacion: '',
-        categoria: '',
-        idpedido: 0,
+        insumos: [{
+            idinsumo: 0,
+            observacion: '',
+            categoria: '',
+            idpedido: 0,
+        }]
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -235,59 +254,69 @@ export const Text_Fields_Supply_Order_Observation = ({ children }) => {
         </TextFieldsSupplyOrderObservationContext.Provider>
     );
 }
-// Función contexto para controlar los campos de registro de un formulario de una observacion de un pedido de insumo
-export const Text_Fields_Warehouse_Category = ({ children }) => {
+// Función contexto para controlar los campos de registro de un formulario de un almacen de compras por categoria ✔️
+export const Text_Fields_Warehouse_Purchase_Category = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isTextFieldsWarehouseCategory,setIsTextFieldsWarehouseCategory] = useState({
+    const [isTextFieldsWarehousePurchaseCategory,setIsTextFieldsWarehousePurchaseCategory] = useState({
         idalmacen: 0,
         cantiad: 0,
         cantidadReal: 0,
-        precioCompra: 0,
-        precioVenta: 0,
-        precioReal: 0,
+        precio: 0,
         idcategoria: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <TextFieldsWarehouseCategoryContext.Provider value={[isTextFieldsWarehouseCategory,setIsTextFieldsWarehouseCategory]}> 
+        <TextFieldsWarehousePurchaseCategoryContext.Provider value={[isTextFieldsWarehousePurchaseCategory,setIsTextFieldsWarehousePurchaseCategory]}> 
             {children}
-        </TextFieldsWarehouseCategoryContext.Provider>
+        </TextFieldsWarehousePurchaseCategoryContext.Provider>
     );
 }
-
-
-// Función contexto para controlar los campos de registro de un formulario de los tipos de menu ✔️
-export const Text_Fields_Menu_Types = ({ children }) => {
+// Función contexto para controlar los campos de registro de un formulario de un almacen de ventas por categoria ✔️
+export const Text_Fields_Warehouse_Sales_Category = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isTextFieldsMenuTypes,setIsTextFieldsMenuTypes] = useState({
-        idtipo: 0,
-        nombre: '',
-        ideliminado: 0,
-        idubicacion: 0,
-    });
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <TextFieldsMenuTypesContext.Provider value={[isTextFieldsMenuTypes,setIsTextFieldsMenuTypes]}> 
-            {children}
-        </TextFieldsMenuTypesContext.Provider>
-    );
-}
-// Función contexto para controlar los campos de registro de un formulario de los  platillos ✔️
-export const Text_Fields_Dishes = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isTextFieldsDishes,setIsTextFieldsDishes] = useState({
-        idplatillo: 0,
-        nombre: '',
-        descripcion: '',
+    const [isTextFieldsWarehouseSalesCategory,setIsTextFieldsWarehouseSalesCategory] = useState({
+        idalmacen: 0,
+        cantiad: 0,
+        cantidadReal: 0,
         precio: 0,
-        preparacion: 0,
-        ideliminado: 0,
-        
+        idcategoria: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <TextFieldsDishesContext.Provider value={[isTextFieldsDishes,setIsTextFieldsDishes]}> 
+        <TextFieldsWarehouseSalesCategoryContext.Provider value={[isTextFieldsWarehouseSalesCategory,setIsTextFieldsWarehouseSalesCategory]}> 
             {children}
-        </TextFieldsDishesContext.Provider>
+        </TextFieldsWarehouseSalesCategoryContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un almacen de compras de tipo de insumo ✔️
+export const Text_Fields_Warehouse_Purchase_Supply_Type = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsWarehousePurchaseSupplyType,setIsTextFieldsWarehousePurchaseSupplyType] = useState({
+        idalmacen: 0,
+        cantidadreal: 0,
+        precio: 0,
+        idtipo: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsWarehousePurchaseSupplyTypeContext.Provider value={[isTextFieldsWarehousePurchaseSupplyType,setIsTextFieldsWarehousePurchaseSupplyType]}> 
+            {children}
+        </TextFieldsWarehousePurchaseSupplyTypeContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un almacen de compras de tipo de insumo ✔️
+export const Text_Fields_Warehouse_Sales_Supply_Type = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType] = useState({
+        idalmacen: 0,
+        cantidadreal: 0,
+        precio: 0,
+        idtipo: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsWarehouseSalesSupplyTypeContext.Provider value={[isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType]}> 
+            {children}
+        </TextFieldsWarehouseSalesSupplyTypeContext.Provider>
     );
 }

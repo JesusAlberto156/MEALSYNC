@@ -1,12 +1,3 @@
  - Falta agregar el cerrado de sesion automatico si yo cierro la pestaña de forma forzada o bien navego a otra pagina y quiero regresar
-
- - Falta verificaion de campos a la hora de registrar y editar los proveedores
- - Falta la eliminacion de proveedores junto con sus observaciones
- - Falta agregar el teclado en la creación y edición de los proveedores
- - Falta configurar todo lo relacionado a observaciones del proveedor
- - Falta agregar el teclado en la creacion y edicion de insumos
- - Falta verificar campos en la creacion y edicion de insumos
- - Falta agregar el metodo de eliminacion de insumos
  - Falta acomodar los detalles de todas las imagenes mostradas por URL, como poner una por default
- 
- 
+ - Falta agregar una opcion que si ya esta iniciada la sesión y quiera iniciar en otro lado, cierre la sesion y ponga en la ubicacion actual 

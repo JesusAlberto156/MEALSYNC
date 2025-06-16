@@ -7,11 +7,12 @@ import { Tooltip } from "@mui/material"
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsObservationContext } from "../../../contexts/FormsProvider"
-import { RefObservationsContext } from "../../../contexts/RefsProvider"
+import { RefSupplierObservationsContext } from "../../../contexts/RefsProvider"
 import { SuppliersContext } from "../../../contexts/SuppliersProvider"
 // Hooks personalizados
-import { ResetTextFieldsObservation } from "../../../hooks/Texts"
-import { TableActionsObservations } from "../../../hooks/Table"
+import { ResetTextFieldsObservation } from "../../../hooks/suppliers/Texts"
+import { TableActionsObservations } from "../../../hooks/suppliers/Tables"
+import { Dates } from "../../../hooks/Dates"
 //__________ICONOS__________
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
@@ -30,38 +31,24 @@ import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
-export default function Table_Observations(){
+export default function Table_Supplier_Observations(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const {Modal_Observations,Form_Observations,Button_Detail_Observations} = useContext(RefObservationsContext); 
+    const {Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations} = useContext(RefSupplierObservationsContext);
     const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext);
     const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSuppliers] = useContext(SuppliersContext);
-    // Funcion para dar formato a la fecha
-    function formatoCompletoLegible(fechaInput) {
-        const fecha = new Date(fechaInput);
-
-        fecha.setHours(fecha.getHours() + 7);
-        
-        const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };
-        const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: false };
-
-        const fechaLegible = fecha.toLocaleDateString('es-MX', opcionesFecha);
-        const horaLegible = fecha.toLocaleTimeString('es-MX', opcionesHora);
-
-        return `${fechaLegible}, ${horaLegible}`;
-    }
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const table = document.getElementById("Table-Observations");
+            const table = document.getElementById("Table-Supplier-Observations");
     
             const isClickInsideTable = table && table.contains(event.target);
-            const isClickInsideModal = Modal_Observations?.current?.contains(event.target);
-            const isClickInsideForm = Form_Observations?.current?.contains(event.target);
-            const isClickInsideDetail = Button_Detail_Observations?.current?.contains(event.target);
+            const isClickInsideModal = Modal_Supplier_Observations?.current?.contains(event.target);
+            const isClickInsideForm = Form_Supplier_Observations?.current?.contains(event.target);
+            const isClickInsideDetail = Button_Detail_Supplier_Observations?.current?.contains(event.target);
     
             if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideDetail) {
                 setIsSelectedRow(null);
@@ -70,7 +57,7 @@ export default function Table_Observations(){
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    },[Modal_Observations,Form_Observations,Button_Detail_Observations]);
+    },[Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations]);
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -87,12 +74,13 @@ export default function Table_Observations(){
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageUsers, prevPage, currentRecordsObservations, currentPage, totalPagesObservations, ToggleOrder, ToggleOrderDirection} = TableActionsObservations();
+    const { handleRowClick,nextPageObservations,prevPage,currentRecordsObservations,currentPage,totalPagesObservations,ToggleOrder,ToggleOrderDirection } = TableActionsObservations();
+    const { getDate } = Dates();
     const resetTextFieldsObservation = ResetTextFieldsObservation();
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Observations">
+            <Table id="Table-Supplier-Observations">
                 <Thead ThemeMode={themeMode}>
                     <tr>
                         <Th>
@@ -180,7 +168,7 @@ export default function Table_Observations(){
                                     )
                                 )}
                             </Td>
-                            <Td ThemeMode={themeMode}>{formatoCompletoLegible(observation.fecha)}</Td>
+                            <Td ThemeMode={themeMode}>{getDate(observation.fecha)}</Td>
                             <Td ThemeMode={themeMode}>{observation.calificacion}</Td>
                         </tr>
                     ))}
@@ -198,7 +186,7 @@ export default function Table_Observations(){
                         <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesObservations}</Text_A_16_Center>
                         <Tooltip title='Página siguiente' placement="top">
                             <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesObservations || totalPagesObservations === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageUsers}>
+                                onClick={nextPageObservations}>
                                 <Icon_White_18><GrNext/></Icon_White_18>
                             </Button_Icon_Blue_180>
                         </Tooltip>

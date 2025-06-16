@@ -1,21 +1,21 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { SocketContext,LogAddContext } from "../../../../contexts/SocketProvider";
+import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { TextFieldsSupplierContext } from "../../../../contexts/FormsProvider";
-import { SupplierDeleteContext,DeletedSuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
+import { TextFieldsSupplierContext,TextFieldsUserContext } from "../../../../contexts/FormsProvider";
+import { SupplierDeleteContext } from "../../../../contexts/SuppliersProvider";
+import { ActionBlockContext,VerificationBlockContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefSuppliersContext } from '../../../../contexts/RefsProvider';
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandleSupplierDelete } from "../../../../hooks/Form";
+import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
+import { HandleSupplierDelete } from "../../../../hooks/suppliers/Forms";
 //__________ICONOS__________
 import { FaStar } from "react-icons/fa";
 // Icono para cerrar el modal
@@ -25,16 +25,17 @@ import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_Blue_30,Icon_Black_White_30,Icon_Red_30,Icon_Orange_30,Icon_Yellow_30,Icon_Lime_Green_30,Icon_Green_30 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Delete from "../../errors/Delete";
 import Form_Verification from "../../../forms/Verification";
+import Virtual_Keyboard from "../../../forms/Keyboard";
 //____________IMPORT/EXPORT____________
 
-// Modal para editar los usuarios de la tabla
+// Modal para eliminar los proveedores de la tabla
 export default function Supplier_Delete(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
@@ -47,39 +48,54 @@ export default function Supplier_Delete(){
     const [isSupplierDelete,setIsSupplierDelete] = useContext(SupplierDeleteContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
-    const [isLogAdd,setIsLogAdd] = useContext(LogAddContext);
-    const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
-    // Constantes con los valores de useRef
-    const Supplier = useRef(false);
+    const [isTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleSupplierDelete = HandleSupplierDelete();
-    // Función para obtener la hora exacta del sistema
-    function getLocalDateTimeOffset(hoursOffset = -7) {
-        const now = new Date();
-        now.setHours(now.getHours() + hoursOffset); // Restar 7 horas
-        const pad = (n) => n.toString().padStart(2, '0');
-        const year = now.getFullYear();
-        const month = pad(now.getMonth() + 1);
-        const day = pad(now.getDate());
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
-    // UseEffect para editar datos a la base de datos
+    // useEffect para escribir en los campos del login
+    const handleKeyboard = (newValue) => {
+        if(isKeyboardView === 'User' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                usuario: newValue, 
+            }));
+        }else{
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                contrasena: newValue,
+            }));
+        }
+    };
+    // UseEffect para eliminar datos a la base de datos
     useEffect(() => {
         if(isSupplierDelete){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Deleted-Supplier',isLoggedUser.usuario,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.idproveedor)
+                        socket.emit('Insert-Deleted-Supplier',isLoggedUser.idusuario,isTextFieldsSupplier.idproveedor)
 
                         resolve('¡MEALSYNC eliminó al proveedor!...');
 
                         setIsSupplierDelete(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            sessionStorage.removeItem('Acción del Bloqueo');
+                            sessionStorage.removeItem('Verificación del Bloqueo');
+                            setIsVerificationBlock(false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            navigate(route,{ replace: true });
+                        },750);
                     },2000);
                 }catch(e){
                     setIsActionBlock(true);
@@ -90,34 +106,7 @@ export default function Supplier_Delete(){
 
             Alert_Verification(promise,'Eliminando un proveedor!...');
         }
-        if(isDeletedSuppliers.some(supplier => supplier.idproveedor === isTextFieldsSupplier.idproveedor)){
-            setIsTextFieldsSupplier(prev => ({
-                ...prev,
-                ideliminado: isDeletedSuppliers.find(user => user.idproveedor === isTextFieldsSupplier.idproveedor)?.ideliminado
-            }));
-            setIsLogAdd(true);
-        }
-        if(isLogAdd && isTextFieldsSupplier.ideliminado !== 0 && !Supplier.current){
-            Supplier.current = true;
-            socket.emit('Insert-Log-Deleted-Supplier',isLoggedUser.usuario,getLocalDateTimeOffset(),'INSERT',isTextFieldsSupplier.ideliminado,isLoggedUser.idusuario,String(isTextFieldsSupplier.idproveedor));
-            setIsLogAdd(false);
-
-            const route = sessionStorage.getItem('Ruta');
-
-            setCurrentMView('');
-            sessionStorage.setItem('Vista del Modal','');
-            setTimeout(() => {
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                sessionStorage.removeItem('Acción del Bloqueo');
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                setIsVerificationBlock(false);
-                setIsActionBlock(false);
-                setIsSelectedRow(null);
-                navigate(route,{ replace: true });
-            },750);
-        }
-    },[isSupplierDelete,isDeletedSuppliers,isTextFieldsSupplier.ideliminado]);
+    },[isSupplierDelete]);
     // Estructura del componente
     return(
         <>
@@ -197,10 +186,13 @@ export default function Supplier_Delete(){
                                 )}
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
+                                <Text_A_12_Justify ThemeMode={themeMode}>La eliminación de este proveedor impedirá agregarle nuevos insumos o reasignar sus insumos a un proveedor distinto.</Text_A_12_Justify>
+                            </Container_Row_95_Center>
+                            <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <span>
                                         <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                            onClick={() => handleModalView('')}
+                                            onClick={() => handleModalViewSuppliers('')}
                                             disabled={!isActionBlock && isVerificationBlock}  
                                         >
                                             <Icon_White_22><MdCancel/></Icon_White_22>
@@ -219,6 +211,13 @@ export default function Supplier_Delete(){
                                 </Tooltip>
                             </Container_Row_95_Center>
                         </Container_Form_500>
+                        {isKeyboard ? (
+                            <>
+                                <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
+                            </>
+                        ):(
+                            <></>
+                        )}
                     </Container_Modal>
                 </>
             ):(

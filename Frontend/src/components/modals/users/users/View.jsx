@@ -5,10 +5,11 @@ import { useContext } from "react";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { ActionBlockContext,VerificationBlockContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
+import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandleViewPassword } from '../../../../hooks/Form'; 
+import { HandleModalViewUsers } from "../../../../hooks/users/Views";
+import { HandleViewPassword } from '../../../../hooks/users/Forms'; 
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -18,10 +19,11 @@ import { FaEye } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_100_Center,Container_Row_95_Center } from "../../../styled/Containers";
 import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
-import { Text_Title_30_Center } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_12_Justify } from "../../../styled/Text";
 import { Icon_White_22 } from "../../../styled/Icons";
 // Componentes perzonalizados
 import Form_Verification from "../../../forms/Verification";
+import Virtual_Keyboard from "../../../forms/Keyboard";
 //____________IMPORT/EXPORT____________
 
 // Modal para ver la contraseña de usuarios
@@ -32,9 +34,26 @@ export default function User_View(){
     const [isModal] = useContext(ModalContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isVerificationBlock] = useContext(VerificationBlockContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext);
+    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     // Constantes con la funcionalidad de los hooks
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const handleViewPassword = HandleViewPassword();
+    // useEffect para escribir en los campos del login
+    const handleKeyboard = (newValue) => {
+        if(isKeyboardView === 'User' ){
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                usuario: newValue, 
+            }));
+        }else{
+            setIsTextFieldsUser(prev => ({
+                ...prev,
+                contrasena: newValue,
+            }));
+        }
+    };
     // Estructura del componente
     return(
         <>
@@ -47,11 +66,14 @@ export default function User_View(){
                             </Container_Row_100_Center>
                             <Form_Verification/>
                             <Container_Row_95_Center>
+                                <Text_A_12_Justify ThemeMode={themeMode}>Las contraseñas podrán visualizarse, de todos los usuarios durante un periodo de 30 segundos.</Text_A_12_Justify>
+                            </Container_Row_95_Center>
+                            <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <span>
                                         <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
                                             onClick={() => {
-                                                handleModalView('');
+                                                handleModalViewUsers('');
                                             }}
                                             disabled={!isActionBlock && isVerificationBlock}
                                         >
@@ -73,6 +95,13 @@ export default function User_View(){
                                 </Tooltip>
                             </Container_Row_95_Center>
                         </Container_Form_450>
+                        {isKeyboard ? (
+                            <>
+                                <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
+                            </>
+                        ):(
+                            <></>
+                        )}
                     </Container_Modal>  
                 </>
             ):(

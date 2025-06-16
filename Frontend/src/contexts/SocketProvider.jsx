@@ -7,7 +7,6 @@ import { decryptData } from "../services/Crypto";
 // Contextos
 export const SocketContext = createContext(null);
 export const LogsContext = createContext(null);
-export const LogAddContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Función contexto para controlar la conexión a la base de datos ✔️
@@ -58,16 +57,5 @@ export const Logs = ({ children }) => {
         <LogsContext.Provider value={[isLogs,setIsLogs]}>
             {children}
         </LogsContext.Provider>
-    );
-}
-// Función contexto para controlar los datos agregados del historial de registros de la base de datos ✔️
-export const Log_Add = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isLogAdd,setIsLogAdd] = useState(false);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <LogAddContext.Provider value={[isLogAdd,setIsLogAdd]}>
-            {children}
-        </LogAddContext.Provider>
     );
 }

@@ -4,7 +4,7 @@ import { useContext } from "react"
 // Contextos
 import { ThemeModeContext } from "../../../../contexts/ViewsProvider"
 // Hooks personalizados
-import { TableActionsPermissions } from "../../../../hooks/Table"
+import { TableActionsPermissions } from "../../../../hooks/users/Tables"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaUserTie } from "react-icons/fa"

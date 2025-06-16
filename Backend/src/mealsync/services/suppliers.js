@@ -390,7 +390,7 @@ export const insertLogDeletedSupplyService = async (ideliminado,idusuario,idinsu
     }
 }
 //---------- TIPOS DE INSUMO ✔️
-export const insertSupplyTypeService = async (tipo,descripcion,unidad,idcategoria) => {
+export const insertSupplyTypeService = async (tipo,descripcion,unidad,idcategoria,limite) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -398,7 +398,8 @@ export const insertSupplyTypeService = async (tipo,descripcion,unidad,idcategori
             .input('descripcion',sql.VarChar(250),descripcion)
             .input('unidad',sql.VarChar(20),unidad)
             .input('idcategoria',sql.Int,idcategoria)
-            .query('INSERT INTO tipoInsumo (tipo,descripcion,unidad,idcategoria) VALUES (@tipo,@descripcion,@unidad,@idcategoria)');
+            .input('limite',sql.Decimal(10,4),limite)
+            .query('INSERT INTO tipoInsumo (tipo,descripcion,unidad,idcategoria,limite) VALUES (@tipo,@descripcion,@unidad,@idcategoria,@limite)');
 
         if(result.rowsAffected[0]>0){
             return 'Tipo de insumo insertado...';
@@ -410,7 +411,7 @@ export const insertSupplyTypeService = async (tipo,descripcion,unidad,idcategori
         throw error;
     }
 }
-export const insertLogSupplyTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria) => {
+export const insertLogSupplyTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria,limite) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -422,7 +423,8 @@ export const insertLogSupplyTypeService = async (idtipo,idusuario,tipo,descripci
             .input('campo3',sql.VarChar(500),descripcion)
             .input('campo4',sql.VarChar(500),unidad)
             .input('campo5',sql.VarChar(500),idcategoria)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
+            .input('campo6',sql.VarChar(500),limite)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -695,7 +697,7 @@ export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,de
     }
 }
 //---------- TIPOS DE INSUMO ✔️
-export const updateSupplyTypeService = async (idtipo,tipo,descripcion,unidad,idcategoria) => {
+export const updateSupplyTypeService = async (idtipo,tipo,descripcion,unidad,idcategoria,limite) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -704,7 +706,8 @@ export const updateSupplyTypeService = async (idtipo,tipo,descripcion,unidad,idc
             .input('descripcion',sql.VarChar(250),descripcion)
             .input('unidad',sql.VarChar(20),unidad)
             .input('idcategoria',sql.Int,idcategoria)
-            .query('UPDATE tipoInsumo SET tipo = @tipo, descripcion = @descripcion, unidad = @unidad, idcategoria = @idcategoria WHERE idtipo = @idtipo');
+            .input('limite',sql.Decimal(10,4),limite)
+            .query('UPDATE tipoInsumo SET tipo = @tipo, descripcion = @descripcion, unidad = @unidad, idcategoria = @idcategoria, limite = @limite WHERE idtipo = @idtipo');
 
         if(result.rowsAffected[0]>0){
             return 'Tipo de insumo actualizado...';
@@ -716,7 +719,7 @@ export const updateSupplyTypeService = async (idtipo,tipo,descripcion,unidad,idc
         throw error;
     }
 }
-export const updateLogSupplyTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria) => {
+export const updateLogSupplyTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria,limite) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -728,7 +731,8 @@ export const updateLogSupplyTypeService = async (idtipo,idusuario,tipo,descripci
             .input('campo3',sql.VarChar(500),descripcion)
             .input('campo4',sql.VarChar(500),unidad)
             .input('campo5',sql.VarChar(500),idcategoria)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
+            .input('campo6',sql.VarChar(500),limite)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';

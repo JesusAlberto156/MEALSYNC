@@ -1795,6 +1795,465 @@ export const Button_Icon_White_60 = styled.button.withConfig({
         padding: 2px;
     }
 `;
+// Color Naranja
+export const Button_Icon_Orange_220 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 220px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 190px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 160px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_210 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 210px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 180px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 150px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_200 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 200px;
+    height: auto;
+    padding: 6px;
+    padding-left: 20px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 170px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 140px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_190 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 190px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 160px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 130px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_180 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 180px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 150px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 120px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_170 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 170px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 140px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 110px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_160 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 160px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 130px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 100px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_150 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 150px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 120px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 90px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_140 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 140px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 110px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 80px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_120 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 120px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 100px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 80px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_100 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 100px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 80px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 60px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_80 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 80px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    @media (max-width: 768px) {
+        width: 70px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 60px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Orange_60 = styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    width: 60px;
+    height: auto;
+    padding: 6px;
+    border-radius: 25px;
+    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
+    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:hover {
+        background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(180, 86, 23)' : 'rgb(235, 108, 23)')};
+        transform: scale(1.1);
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: 0.8;
+        background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(207, 122, 52)' : 'rgb(235, 108, 23)')};
+    }
+
+    &:disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+        width: 50px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 40px;    
+        padding: 2px;
+    }
+`;
 //____________ICON____________
 //____________LINK____________
 export const Button_Link_Blue = styled.button.withConfig({

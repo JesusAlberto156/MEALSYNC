@@ -15,8 +15,8 @@ import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 import { UsersContext } from "../../../../contexts/UsersProvider";
 // Hooks personalizados
-import { HandleModalView } from "../../../../hooks/Views";
-import { HandlePermissionsEdit } from "../../../../hooks/Form";
+import { HandleModalViewUsers } from "../../../../hooks/users/Views";
+import { HandlePermissionsEdit } from "../../../../hooks/users/Forms";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -27,7 +27,7 @@ import { MdEdit } from "react-icons/md";
 import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_90_Center,Container_Column_90_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Button_Icon_Red_180,Button_Icon_Blue_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -51,7 +51,7 @@ export default function Permissions_Edit(){
     const [isUsers] = useContext(UsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalView = HandleModalView();
+    const handleModalViewUsers = HandleModalViewUsers();
     const handlePermissionsEdit = HandlePermissionsEdit();
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
@@ -176,9 +176,12 @@ export default function Permissions_Edit(){
                                 </Container_Row_95_Center>
                             </Container_Column_90_Center>
                             <Container_Row_95_Center>
+                                <Text_A_12_Justify ThemeMode={themeMode}>Si se le retira el permiso mientras el usuario tiene una sesión activa con dicho permiso, su sesión se cerrará de forma inmediata.</Text_A_12_Justify>
+                            </Container_Row_95_Center>
+                            <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Red_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalView('')}
+                                        onClick={() => handleModalViewUsers('')}
                                         disabled={isActionBlock}
                                     >
                                         <Icon_White_22><MdCancel/></Icon_White_22>

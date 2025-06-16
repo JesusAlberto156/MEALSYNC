@@ -46,20 +46,11 @@ import Table_Suppliers from './components/tables/suppliers/suppliers';
 import Suppliers_Add from './components/modals/Suppliers/suppliers/Add';
 import Suppliers_Edit from './components/modals/Suppliers/suppliers/Edit';
 import Supplier_Delete from './components/modals/Suppliers/suppliers/Delete';
-import Table_Observations from './components/tables/suppliers/observations';
-import Observations_View from './components/modals/Suppliers/observations/View';
-import Table_Warehouse from './components/tables/warehouse/Warehouse';
-import Warehouse_Add from './components/modals/warehouse/warehouse/Add';
-import Table_Supplies from './components/tables/warehouse/Supplies';
-import Supply_Add from './components/modals/warehouse/supplies/Add';
-import Supply_Edit from './components/modals/warehouse/supplies/Edit';
-import Table_Supply_Types from './components/tables/warehouse/SupplyTypes';
-import Supply_Type_Add from './components/modals/warehouse/supplyTypes/Add';
-import Supply_Type_Edit from './components/modals/warehouse/supplyTypes/Edit';
-import Unit_Add from './components/modals/warehouse/units.jsx/Add';
-import Unit_Edit from './components/modals/warehouse/units.jsx/Edit';
-import Table_Menus from './components/tables/menus/Menus';
-import Menu_Breakfasts from './components/menus/Breakfasts';
+import Table_Supplier_Observations from './components/tables/suppliers/observations';
+import Supplier_Observations_View from './components/modals/Suppliers/observations/View';
+import Table_Supply_Categories from './components/tables/suppliers/categories';
+import Table_Supply_Types from './components/tables/suppliers/supplyTypes';
+import Table_Supplies from './components/tables/suppliers/supplies';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
 import Index_Kitchen from './pages/Indexs/Kitchen';
@@ -90,88 +81,93 @@ const router = createHashRouter([
         element: <PrivateRouteAdministration/>,
         children: [
           {
-            path: 'Administration/Users/Add',
+            path: 'Administration/Index/Users/Users/Add',
             element: <User_Add/>,
           },
           {
-            path: 'Administration/Users/Add/Permissions',
+            path: 'Administration/Index/Users/Users/Add/Permissions',
             element: <User_Permissions_Add/>,
           },
           {
-            path: 'Administration/Users/Edit',
+            path: 'Administration/Index/Users/Users/Edit',
             element: <User_Edit/>,
           },
           {
-            path: 'Administration/Users/View',
+            path: 'Administration/Index/Users/Users/View',
             element: <User_View/>,
           },
           {
-            path: 'Administration/Users/Delete',
+            path: 'Administration/Index/Users/Users/Delete',
             element: <User_Delete/>,
           },
           {
-            path: 'Administration/Permissions/Add',
+            path: 'Administration/Index/Users/Permissions/Add',
             element: <Permissions_Add/>,
           },
           {
-            path: 'Administration/Permissions/Edit',
+            path: 'Administration/Index/Users/Permissions/Edit',
             element: <Permissions_Edit/>,
           },
           {
-            path: 'Administration/Permissions/Enable',
+            path: 'Administration/Index/Users/Permissions/Enable',
             element: <Permissions_Enable/>,
           },
           {
-            path: 'Administration/Status/Add',
+            path: 'Administration/Index/Users/Status/Add',
             element: <Status_Add/>,
           },
           {
-            path: 'Administration/Status/Enable',
+            path: 'Administration/Index/Users/Status/Enable',
             element: <Status_Enable/>,
           },
           {
-            path: 'Administration/Suppliers/Add',
+            path: 'Administration/Index/Suppliers/Suppliers/Add',
             element: <Suppliers_Add/>,
           },
           {
-            path: 'Administration/Suppliers/Edit',
+            path: 'Administration/Index/Suppliers/Suppliers/Edit',
             element: <Suppliers_Edit/>,
           },
           {
-            path: 'Administration/Suppliers/Delete',
+            path: 'Administration/Index/Suppliers/Suppliers/Delete',
             element: <Supplier_Delete/>,
           },
           {
-            path: 'Administration/Observations/View',
-            element: <Observations_View/>,
+            path: 'Administration/Index/Suppliers/Observations/View',
+            element: <Supplier_Observations_View/>,
           },
           {
-            path: 'Administration/Warehouse/Add',
-            element: <Warehouse_Add/>,
+            path: 'Administration/Index/Suppliers/Supply/Categories/Add',
           },
           {
-            path: 'Administration/Supplies/Add',
-            element: <Supply_Add/>,
+            path: 'Administration/Index/Suppliers/Supply/Categories/Edit',
           },
           {
-            path: 'Administration/Supplies/Edit',
-            element: <Supply_Edit/>,
+            path: 'Administration/Index/Suppliers/Supply/Categories/Delete',
           },
           {
-            path: 'Administration/Supply-Type/Add',
-            element: <Supply_Type_Add/>,
+            path: 'Administration/Index/Suppliers/Supply/Types/Add',
           },
           {
-            path: 'Administration/Supply-Type/Edit',
-            element: <Supply_Type_Edit/>,
+            path: 'Administration/Index/Suppliers/Supply/Types/Edit',
           },
           {
-            path: 'Administration/Unit/Add',
-            element: <Unit_Add/>,
+            path: 'Administration/Index/Suppliers/Supply/Types/Count/Edit',
           },
           {
-            path: 'Administration/Unit/Edit',
-            element: <Unit_Edit/>,
+            path: 'Administration/Index/Suppliers/Supply/Types/Delete',
+          },
+          {
+            path: 'Administration/Index/Suppliers/Supply/Types/Detail',
+          },
+          {
+            path: 'Administration/Index/Suppliers/Supplies/Add',
+          },
+          {
+            path: 'Administration/Index/Suppliers/Supplies/Edit',
+          },
+          {
+            path: 'Administration/Index/Suppliers/Supplies/Delete',
           },
           {
             path: 'Administration',
@@ -186,44 +182,36 @@ const router = createHashRouter([
                 element: <Administration_Index/>,
                 children: [
                   {
-                    path: 'Users',
+                    path: 'Users/Users',
                     element: <Table_Users/>,
                   },
                   {
-                    path: 'Permissions',
+                    path: 'Users/Permissions',
                     element: <Table_Permissions/>,
                   },
                   {
-                    path: 'Status',
+                    path: 'Users/Status',
                     element: <Table_Status/>,
                   },
                   {
-                    path: 'Suppliers',
+                    path: 'Suppliers/Suppliers',
                     element: <Table_Suppliers/>
                   },
                   {
-                    path: 'Observations',
-                    element: <Table_Observations/>
+                    path: 'Suppliers/Observations',
+                    element: <Table_Supplier_Observations/>
                   },
                   {
-                    path: 'Warehouse',
-                    element: <Table_Warehouse/>
+                    path: 'Suppliers/Supply/Categories',
+                    element: <Table_Supply_Categories/>
                   },
                   {
-                    path: 'Supplies',
-                    element: <Table_Supplies/>
-                  },
-                  {
-                    path: 'Supply-Types',
+                    path: 'Suppliers/Supply/Types',
                     element: <Table_Supply_Types/>
                   },
                   {
-                    path: 'Menus',
-                    element: <Table_Menus/>
-                  },
-                  {
-                    path: 'Breakfasts',
-                    element: <Menu_Breakfasts/>
+                    path: 'Suppliers/Supplies',
+                    element: <Table_Supplies/>
                   },
                 ]
               },

@@ -10,8 +10,8 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { RefStatusContext } from "../../../contexts/RefsProvider"
 import { TextFieldsStatusContext } from "../../../contexts/FormsProvider"
 // Hooks personalizados
-import { TableActionsStatus } from "../../../hooks/Table"
-import { ResetTextFieldsStatus,ResetTextFieldsUser,ResetTextFieldsPermissions } from "../../../hooks/Texts"
+import { TableActionsStatus } from "../../../hooks/users/Tables"
+import { ResetTextFieldsStatus,ResetTextFieldsUser,ResetTextFieldsPermissions } from "../../../hooks/users/Texts"
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaLockOpen } from "react-icons/fa";

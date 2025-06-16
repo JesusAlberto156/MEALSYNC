@@ -10,8 +10,9 @@ import { TextFieldsSupplierContext } from "../../../contexts/FormsProvider"
 import { RefSuppliersContext } from "../../../contexts/RefsProvider"
 import { ObservationsContext,SuppliersContext } from "../../../contexts/SuppliersProvider"
 // Hooks personalizados
-import { ResetTextFieldsSupplier,ResetTextFieldsUser } from "../../../hooks/Texts"
-import { TableActionsSuppliers } from "../../../hooks/Table"
+import { ResetTextFieldsSupplier } from "../../../hooks/suppliers/Texts"
+import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
+import { TableActionsSuppliers } from "../../../hooks/suppliers/Tables"
 //__________ICONOS__________
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
@@ -84,6 +85,7 @@ export default function Table_Suppliers(){
                 telefono: isSelectedRow.telefono,
                 correo: isSelectedRow.correo,
                 calificacion: promedio,
+                ideliminado: isSelectedRow.ideliminado,
             }))
         }else{
             resetTextFieldsSupplier();
@@ -114,7 +116,7 @@ export default function Table_Suppliers(){
         setCalification(totalCalificaciones);
     },[isObservations,isSuppliers]);
     // Constantes con la funcionalidad de los hooks
-    const {handleRowClick, nextPageUsers, prevPage, currentRecordsSuppliers, currentPage, totalPagesSuppliers, ToggleOrder, ToggleOrderDirection} = TableActionsSuppliers();
+    const { handleRowClick,nextPageSuppliers,prevPage,currentRecordsSuppliers,currentPage,totalPagesSuppliers,ToggleOrder,ToggleOrderDirection } = TableActionsSuppliers();
     const resetTextFieldsSupplier = ResetTextFieldsSupplier();
     const resetTextFieldsUser = ResetTextFieldsUser();
     // Estructura del componente
@@ -250,7 +252,7 @@ export default function Table_Suppliers(){
                         <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSuppliers}</Text_A_16_Center>
                         <Tooltip title='Página siguiente' placement="top">
                             <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSuppliers || totalPagesSuppliers === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageUsers}>
+                                onClick={nextPageSuppliers}>
                                 <Icon_White_18><GrNext/></Icon_White_18>
                             </Button_Icon_Blue_180>
                         </Tooltip>

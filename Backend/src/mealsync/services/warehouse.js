@@ -228,12 +228,13 @@ export const insertLogDeletedSupplyOrderService = async (ideliminado,idusuario,i
     }
 }
 //---------- ALMACEN DE CATEGORIAS ✔️
-export const insertWarehouseCategoryService = async (idcategoria) => {
+export const insertWarehouseCategoryStartService = async (idcategoria) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idcategoria',sql.Int,idcategoria)
-            .query('INSERT INTO almacenCategorias (cantidadreal,precio,idcategoria) VALUES (0,0,@idcategoria)');
+            .input('transaccion',sql.Varchar(20),'Inicial')
+            .query('INSERT INTO almacenCategorias (cantidadreal,precio,idcategoria,transaccion) VALUES (0,0,@idcategoria,@transaccion)');
 
         if(result.rowsAffected[0]>0){
             return 'Almacén de la categoría insertado...';
@@ -245,7 +246,7 @@ export const insertWarehouseCategoryService = async (idcategoria) => {
         throw error;
     }
 }
-export const insertLogWarehouseCategoryService = async (idalmacen,idusuario,idcategoria) => {
+export const insertLogWarehouseCategoryStartService = async (idalmacen,idusuario,idcategoria) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -256,7 +257,54 @@ export const insertLogWarehouseCategoryService = async (idalmacen,idusuario,idca
             .input('campo2',sql.VarChar(500),'0')
             .input('campo3',sql.VarChar(500),'0')
             .input('campo4',sql.VarChar(500),idcategoria)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4)');
+            .input('campo5',sql.VarChar(500),new Date().toISOString())
+            .input('campo6',sql.VarChar(500),'Inicial')
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const insertWarehouseCategoryService = async (cantidadreal,precio,idcategoria,transaccion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
+            .input('precio',sql.Decimal(12,4),precio)
+            .input('idcategoria',sql.Int,idcategoria)
+            .input('transaccion',sql.Varchar(20),transaccion)
+            .query('INSERT INTO almacenCategorias (cantidadreal,precio,idcategoria,transaccion) VALUES (@cantidadreal,@precio,@idcategoria,@transaccion)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Almacén de la categoría insertado...';
+        }else{
+            return 'No se pudo insertar el almacén de la categoría...';
+        }
+    }catch(error){
+        console.error('Error al insertar el almacén de la categoría: ',error.message);
+        throw error;
+    }
+}
+export const insertLogWarehouseCategoryService = async (idalmacen,idusuario,cantidadreal,precio,idcategoria,transaccion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Almacen por Categorias')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idalmacen)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),cantidadreal)
+            .input('campo3',sql.VarChar(500),precio)
+            .input('campo4',sql.VarChar(500),idcategoria)
+            .input('campo5',sql.VarChar(500),new Date().toISOString())
+            .input('campo6',sql.VarChar(500),transaccion)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -269,12 +317,13 @@ export const insertLogWarehouseCategoryService = async (idalmacen,idusuario,idca
     }
 }
 //---------- ALMACEN DE TIPOS DE INSUMO ✔️
-export const insertWarehouseSupplyTypeService = async (idtipo) => {
+export const insertWarehouseSupplyTypeStartService = async (idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idtipo',sql.Int,idtipo)
-            .query('INSERT INTO almacenTipoInsumo (cantidadreal,precio,idtipo) VALUES (0,0,@idtipo)');
+            .input('transaccion',sql.Varchar(20),'Inicial')
+            .query('INSERT INTO almacenTipoInsumo (cantidadreal,precio,idtipo,transaccion) VALUES (0,0,@idtipo,@transaccion)');
 
         if(result.rowsAffected[0]>0){
             return 'Almacén del tipo de insumo insertado...';
@@ -286,7 +335,7 @@ export const insertWarehouseSupplyTypeService = async (idtipo) => {
         throw error;
     }
 }
-export const insertLogWarehouseSupplyTypeService = async (idalmacen,idusuario,idtipo) => {
+export const insertLogWarehouseSupplyTypeStartService = async (idalmacen,idusuario,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -297,7 +346,54 @@ export const insertLogWarehouseSupplyTypeService = async (idalmacen,idusuario,id
             .input('campo2',sql.VarChar(500),'0')
             .input('campo3',sql.VarChar(500),'0')
             .input('campo4',sql.VarChar(500),idtipo)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4)');
+            .input('campo5',sql.VarChar(500),new Date().toISOString())
+            .input('campo6',sql.VarChar(500),'Inicial')
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const insertWarehouseSupplyTypeService = async (cantidadreal,precio,idtipo,transaccion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
+            .input('precio',sql.Decimal(12,4),precio)
+            .input('idtipo',sql.Int,idtipo)
+            .input('transaccion',sql.Varchar(20),transaccion)
+            .query('INSERT INTO almacenTipoInsumo (cantidadreal,precio,idtipo,transaccion) VALUES (@cantidadreal,@precio,@idtipo,@transaccion)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Almacén del tipo de insumo insertado...';
+        }else{
+            return 'No se pudo insertar el almacén del tipo de insumo...';
+        }
+    }catch(error){
+        console.error('Error al insertar el almacén del tipo de insumo: ',error.message);
+        throw error;
+    }
+}
+export const insertLogWarehouseSupplyTypeService = async (idalmacen,idusuario,cantidadreal,precio,idtipo,transaccion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Almacen por Tipos de Insumo')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idalmacen)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),cantidadreal)
+            .input('campo3',sql.VarChar(500),precio)
+            .input('campo4',sql.VarChar(500),idtipo)
+            .input('campo5',sql.VarChar(500),new Date().toISOString())
+            .input('campo6',sql.VarChar(500),transaccion)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -383,90 +479,6 @@ export const updateLogSupplyOrderStateService = async (idpedido,idusuario,estado
             .input('idusuario',sql.Int,idusuario)
             .input('campo7',sql.VarChar(500),estado)
             .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo7)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE CATEGORIAS ✔️
-export const updateWarehouseCategoryService = async (idcategoria,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idcategoria',sql.Int,idcategoria)
-            .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
-            .input('precio',sql.Decimal(12,4),precio)
-            .query('UPDATE almacenCategorias SET cantidadreal = @cantidadreal, precio = @precio WHERE idcategoria = @idcategoria');
-
-        if(result.rowsAffected[0]>0){
-            return 'Almacén de la categoría actualizado...';
-        }else{
-            return 'No se pudo actualizar el almacén de la categoría...';
-        }
-    }catch(error){
-        console.error('Error al actualizar el almacén de la categoría: ',error.message);
-        throw error;
-    }
-}
-export const updateLogWarehouseCategoryService = async (idalmacen,idusuario,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen por Categorias')
-            .input('operacion', sql.VarChar(20), 'UPDATE')
-            .input('idtabla',sql.Int,idalmacen)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),cantidadreal)
-            .input('campo3',sql.VarChar(500),precio)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
-//---------- ALMACEN DE TIPOS DE INSUMO COMPRAS ✔️
-export const updateWarehouseSupplyTypeService = async (idtipo,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idtipo',sql.Int,idtipo)
-            .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
-            .input('precio',sql.Decimal(12,4),precio)
-            .query('UPDATE almacenTipoInsumo SET cantidadreal = @cantidadreal, precio = @precio WHERE idtipo = @idtipo)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Almacén del tipo de insumo actualizado...';
-        }else{
-            return 'No se pudo actualizar el almacén del tipo de insumo...';
-        }
-    }catch(error){
-        console.error('Error al actualizar el almacén del tipo de insumo: ',error.message);
-        throw error;
-    }
-}
-export const updateLogWarehouseSupplyTypeService = async (idalmacen,idusuario,cantidadreal,precio) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Almacen por Tipos de Insumo')
-            .input('operacion', sql.VarChar(20), 'UPDATE')
-            .input('idtabla',sql.Int,idalmacen)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),cantidadreal)
-            .input('campo3',sql.VarChar(500),precio)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';

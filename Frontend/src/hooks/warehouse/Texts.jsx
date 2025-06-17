@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsSupplyOrderContext,TextFieldsSupplyOrderObservationContext,TextFieldsWarehousePurchaseCategoryContext,TextFieldsWarehouseSalesCategoryContext,TextFieldsWarehousePurchaseSupplyTypeContext,TextFieldsWarehouseSalesSupplyTypeContext } from "../../contexts/FormsProvider";
+import { TextFieldsSupplyOrderContext,TextFieldsSupplyOrderObservationContext,TextFieldsWarehouseCategoryContext,TextFieldsWarehouseSupplyTypeContext,TextFieldsWarehouseSalesSupplyTypeContext } from "../../contexts/FormsProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los pedidos de insumo ✔️
@@ -58,70 +58,52 @@ export const ResetTextFieldsSupplyOrderObservation = () => {
     // Retorno de la función del hook
     return resetTextFieldsSupplyOrderObservation;
 }
-// Hook para reinciar los campos de texto de los almacenes de compras por categoria ✔️
-export const ResetTextFieldsWarehousePurchaseCategory = () => {
+// Hook para reinciar los campos de texto de los almacenes por categoria ✔️
+export const ResetTextFieldsWarehouseCategory = () => {
     // Constantes con el valor de los contextos 
-    const [isTextFieldsWarehousePurchaseCategory,setIsTextFieldsWarehousePurchaseCategory] = useContext(TextFieldsWarehousePurchaseCategoryContext);
+    const [isTextFieldsWarehouseCategory,setIsTextFieldsWarehouseCategory] = useContext(TextFieldsWarehouseCategoryContext);
     // Estados iniciales de los contextos
-    const initialTextFieldsWarehousePurchaseCategory = {
-        idalmacen: 0,
-        cantidadReal: 0,
-        precio: 0,
+    const initialTextFieldsWarehouseCategory = {
+        cantidadRealTotal: 0,
+        precioTotal: 0,
         idcategoria: 0,
     };
     // Función del hook
-    const resetTextFieldsWarehousePurchaseCategory = () => {
-        setIsTextFieldsWarehousePurchaseCategory(initialTextFieldsWarehousePurchaseCategory);
+    const resetTextFieldsWarehouseCategory = () => {
+        setIsTextFieldsWarehouseCategory(initialTextFieldsWarehouseCategory);
     }
     // Retorno de la función del hook
-    return resetTextFieldsWarehousePurchaseCategory;
+    return resetTextFieldsWarehouseCategory;
 }
-// Hook para reinciar los campos de texto de los almacenes de ventas por categoria ✔️
-export const ResetTextFieldsWarehouseSalesCategory = () => {
+// Hook para reinciar los campos de texto de los almacenes de tipo de insumo ✔️
+export const ResetTextFieldsWarehouseSupplyType = () => {
     // Constantes con el valor de los contextos 
-    const [isTextFieldsWarehouseSalesCategory,setIsTextFieldsWarehouseSalesCategory] = useContext(TextFieldsWarehouseSalesCategoryContext); 
+    const [isTextFieldsWarehouseSupplyType,setIsTextFieldsWarehouseSupplyType] = useContext(TextFieldsWarehouseSupplyTypeContext); 
     // Estados iniciales de los contextos
-    const initialTextFieldsWarehouseSalesCategory = {
-        idalmacen: 0,
-        cantidadReal: 0,
-        precio: 0,
-        idcategoria: 0,
-    };
-    // Función del hook
-    const resetTextFieldsWarehouseSalesCategory = () => {
-        setIsTextFieldsWarehouseSalesCategory(initialTextFieldsWarehouseSalesCategory);
-    }
-    // Retorno de la función del hook
-    return resetTextFieldsWarehouseSalesCategory;
-}
-// Hook para reinciar los campos de texto de los almacenes de compras de tipo de insumo ✔️
-export const ResetTextFieldsWarehousePurchaseSupplyType = () => {
-    // Constantes con el valor de los contextos 
-    const [isTextFieldsWarehousePurchaseSupplyType,setIsTextFieldsWarehousePurchaseSupplyType] = useContext(TextFieldsWarehousePurchaseSupplyTypeContext); 
-    // Estados iniciales de los contextos
-    const initialTextFieldsWarehousePurchaseSupplyTypes = {
-        idalmacen: 0,
-        cantidadreal: 0,
-        precio: 0,
+    const initialTextFieldsWarehouseSupplyTypes = {
+        cantidadRealTotal: 0,
+        precioTotal: 0,
         idtipo: 0,
     };
     // Función del hook
-    const resetTextFieldsWarehousePurchaseSupplyType = () => {
-        setIsTextFieldsWarehousePurchaseSupplyType(initialTextFieldsWarehousePurchaseSupplyTypes);
+    const resetTextFieldsWarehouseSupplyType = () => {
+        setIsTextFieldsWarehouseSupplyType(initialTextFieldsWarehouseSupplyTypes);
     }
     // Retorno de la función del hook
-    return resetTextFieldsWarehousePurchaseSupplyType;
+    return resetTextFieldsWarehouseSupplyType;
 }
 // Hook para reinciar los campos de texto de los almacenes de ventas de tipo de insumo ✔️
 export const ResetTextFieldsWarehouseSalesSupplyType = () => {
     // Constantes con el valor de los contextos 
-    const [isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType] = useContext(TextFieldsWarehouseSalesSupplyTypeContext); 
+    const [isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType] = useContext(TextFieldsWarehouseSalesSupplyTypeContext);
     // Estados iniciales de los contextos
     const initialTextFieldsWarehouseSalesSupplyTypes = {
-        idalmacen: 0,
-        cantidadreal: 0,
-        precio: 0,
-        idtipo: 0,
+        tipos:[{
+            idtipo: 0,
+            cantidadReal: 0,
+            precio: 0,
+            transaccion: 'Venta',
+        }],
     };
     // Función del hook
     const resetTextFieldsWarehouseSalesSupplyType = () => {

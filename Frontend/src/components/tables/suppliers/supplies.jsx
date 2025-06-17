@@ -8,7 +8,7 @@ import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOr
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsSupplyContext } from "../../../contexts/FormsProvider"
 import { RefSuppliesContext } from "../../../contexts/RefsProvider"
-import { SupplyTypesContext,SupplyCategoriesContext,SuppliersContext } from "../../../contexts/SuppliersProvider"
+import { SupplyTypesContext,SupplyCategoriesContext,SuppliersContext,CountSupplyTypesContext } from "../../../contexts/SuppliersProvider"
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
 import { ResetTextFieldsSupply } from "../../../hooks/suppliers/Texts"
@@ -17,6 +17,8 @@ import { TableActionsSupplies } from "../../../hooks/suppliers/Tables"
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
+import { FaLongArrowAltUp } from "react-icons/fa";
+import { FaLongArrowAltDown } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -40,6 +42,7 @@ export default function Table_Supplies(){
     const [isSupplyTypes] = useContext(SupplyTypesContext);
     const [isSupplyCategories] = useContext(SupplyCategoriesContext); 
     const [isSuppliers] = useContext(SuppliersContext);
+    const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -71,6 +74,7 @@ export default function Table_Supplies(){
                 idproveedor: isSelectedRow.idproveedor,
                 idtipo: isSelectedRow.idtipo,
                 idcategoria: isSelectedRow.idcategoria,
+                idcantidad: isSelectedRow.idcantidad,
             }));
         }else{
             resetTextFieldsSupply();
@@ -133,6 +137,17 @@ export default function Table_Supplies(){
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Cantidad')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cantidad
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
@@ -152,6 +167,11 @@ export default function Table_Supplies(){
                             <Td ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Td>
                             <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === supply.idcategoria)?.nombre || 'Desconocido'}</Td>
                             <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo || 'Desconocido'}</Td>
+                            <Td ThemeMode={themeMode}>{() => {
+                                const count = isCountSupplyTypes.find(count => count.idcantidad === supply.idcantidad);
+                                const type = isSupplyTypes.find(type => type.idtipo === supply.idtipo);
+                                return `${count.cantidad} ${type.unidad}`
+                            }}</Td>
                         </tr>
                     ))}
                 </Tbody>

@@ -170,6 +170,21 @@ const router = createHashRouter([
             path: 'Administration/Index/Suppliers/Supplies/Delete',
           },
           {
+            path: 'Administration/Index/Warehouse/Supply/Orders/Add',
+          },
+          {
+            path: 'Administration/Index/Warehouse/Supply/Orders/Edit',
+          },
+          {
+            path: 'Administration/Index/Warehouse/Supply/Orders/State/Edit',
+          },
+          {
+            path: 'Administration/Index/Warehouse/Supply/Orders/Observation/Add',
+          },
+          {
+            path: 'Administration/Index/Warehouse/Supply/Orders/Delete',
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [

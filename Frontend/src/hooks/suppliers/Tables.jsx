@@ -2,7 +2,7 @@
 // Hooks de React
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
-import { SuppliersContext,DeletedSuppliersContext,ObservationsContext,SupplyTypesContext,DeletedSupplyTypesContext,SupplyCategoriesContext,DeletedSupplyCategoriesContext,SuppliesContext,DeletedSuppliesContext } from "../../contexts/SuppliersProvider";
+import { SuppliersContext,DeletedSuppliersContext,ObservationsContext,SupplyTypesContext,DeletedSupplyTypesContext,SupplyCategoriesContext,DeletedSupplyCategoriesContext,SuppliesContext,DeletedSuppliesContext,CountSupplyTypesContext } from "../../contexts/SuppliersProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 // Hooks personalizados
@@ -323,6 +323,7 @@ export const TableActionsSupplyTypes = () => {
                     category,
                     data.tipo,
                     data.unidad,
+                    data.limite
                 ].some(value =>
                     String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
                 );
@@ -336,6 +337,9 @@ export const TableActionsSupplyTypes = () => {
             if(isSelectedOptionSearch === 'Categoría'){
                 const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria);
                 return category.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Cantidad Mínima'){
+                return data.limite.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
         });
         return [...filtered].sort((a, b) => {
@@ -353,6 +357,11 @@ export const TableActionsSupplyTypes = () => {
                 return isSelectedOptionOrderDirection === 'Asc'
                 ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
                 : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Cantidad Mínima'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.limite - b.limite
+                : b.limite - a.limite
             }
 
             return 0
@@ -411,6 +420,7 @@ export const TableActionsSupplies = () => {
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
@@ -423,11 +433,13 @@ export const TableActionsSupplies = () => {
                 const supplier = isSuppliers.find(supplier => supplier.idproveedor === data.idproveedor)?.nombre;
                 const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre;
                 const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo;
+                const count = isCountSupplyTypes.find(count => count.idcantidad === data.idcantidad)?.cantidad;
                 return [
                     supplier,
                     category,
                     type,
                     data.nombre,
+                    count
                 ].some(value =>
                     String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
                 );
@@ -446,6 +458,10 @@ export const TableActionsSupplies = () => {
             if(isSelectedOptionSearch === 'Tipo'){
                 const type = isSupplyTypes.find(type => type.idtipo === data.idtipo);
                 return type.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Cantidad'){
+                const count = isCountSupplyTypes.find(count => count.idcantidad === data.idcantidad);
+                return count.cantidad.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
         });
         return [...filtered].sort((a, b) => {
@@ -469,10 +485,15 @@ export const TableActionsSupplies = () => {
                 ? isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo,'es', { sensitivity: 'base' })
                 : isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo,'es', { sensitivity: 'base' })
             }
+            if(isSelectedOptionOrder === 'Cantidad'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? isCountSupplyTypes.find(count => count.idcantidad === a.idcantidad)?.cantidad - isCountSupplyTypes.find(count => count.idcantidad === b.idcantidad)?.cantidad
+                : isCountSupplyTypes.find(count => count.idcantidad === b.idcantidad)?.cantidad - isCountSupplyTypes.find(count => count.idcantidad === a.idcantidad)?.cantidad
+            }
 
             return 0
         });
-    }, [isSupplies, isDeletedSupplies, isSuppliers, isSupplyTypes, isSupplyCategories, isSearchTerm, isSelectedOptionOrderDirection]);
+    }, [isSupplies, isDeletedSupplies, isSuppliers, isSupplyTypes, isSupplyCategories, isCountSupplyTypes, isSearchTerm, isSelectedOptionOrderDirection]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');

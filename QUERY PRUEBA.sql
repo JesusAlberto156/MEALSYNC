@@ -1,5 +1,22 @@
 USE ComandaMedicaTepic
 
+
+ALTER TABLE almacenTipoInsumo
+ADD fecha DATETIME NOT NULL 
+ALTER TABLE almacenTipoInsumo
+ADD transaccion VARCHAR(20) NOT NULL 
+
+ALTER TABLE almacenTipoInsumo
+ADD CONSTRAINT DF_almacenTipoInsumo_Fecha DEFAULT GETDATE() FOR fecha;
+
+ALTER TABLE almacenCategorias
+ADD fecha DATETIME NOT NULL 
+ALTER TABLE almacenCategorias
+ADD transaccion VARCHAR(20) NOT NULL 
+
+ALTER TABLE almacenCategorias
+ADD CONSTRAINT DF_almacenCategorias_Fecha DEFAULT GETDATE() FOR fecha;
+
 CREATE TABLE [dbo].[almacenCategorias](
 	[idalmacen] [int] IDENTITY(1,1) NOT NULL,
 	[cantidadreal] [decimal](12, 4) NOT NULL,
@@ -84,7 +101,9 @@ ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
 
 ALTER TABLE logComandaMedicaTepic
 ADD CONSTRAINT DF_logCamandaMedicaTepic_Fecha DEFAULT GETDATE() FOR fecha;
+
 select * from usuariosEliminados;
+
 SELECT * FROM logComandaMedicaTepic;
 
 DELETE FROM logComandaMedicaTepic;
@@ -97,7 +116,9 @@ DBCC CHECKIDENT (permisos, RESEED, 1);
 DBCC CHECKIDENT (estatus, RESEED, 1);
 
 SELECT * FROM estatus;
+
 SELECT SYSDATETIMEOFFSET() AS FechaConZonaHoraria;
+
 SELECT * FROM observacionesProveedor;
 
 SELECT * FROM usuarios;

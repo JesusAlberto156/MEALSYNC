@@ -17,6 +17,8 @@ import { TableActionsSupplyTypes } from "../../../hooks/suppliers/Tables"
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
+import { FaLongArrowAltUp } from "react-icons/fa";
+import { FaLongArrowAltDown } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -129,6 +131,17 @@ export default function Table_Supply_Types(){
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
+                        <Th>
+                            <TContainer_Center>
+                                <Icon_Button_Black_14 onClick={() => {
+                                        ToggleOrder('Cantidad Mínima')
+                                        ToggleOrderDirection()
+                                    }}
+                                >
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cantidad Mínima (Kg/Lt)
+                                </Icon_Button_Black_14>
+                            </TContainer_Center>
+                        </Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
@@ -146,6 +159,7 @@ export default function Table_Supply_Types(){
                             <Td ThemeMode={themeMode}>{type.descripcion}</Td>
                             <Td ThemeMode={themeMode}>{type.unidad}</Td>
                             <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === type.idcategoria)?.nombre || 'Desconocido'}</Td>
+                            <Td ThemeMode={themeMode}>{type.limite}</Td>
                         </tr>
                     ))}
                 </Tbody>

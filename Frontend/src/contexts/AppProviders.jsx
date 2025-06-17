@@ -8,6 +8,7 @@ import { Index_Searchs } from './SearchsProvider';
 import { Index_Variables } from './VariablesProvider';
 import { Index_Users } from './UsersProvider';
 import { Index_Suppliers } from './SuppliersProvider';
+import { Index_Warehouse } from './WarehouseProvider';
 import { Index_Text_Fields } from './FormsProvider';
 import { Index_Charts } from './ChartsProvider';
 import { Index_Refs } from './RefsProvider';
@@ -25,13 +26,15 @@ export const AppProviders = ({children}) => {
                                 <Index_Variables>
                                     <Index_Users>
                                         <Index_Suppliers>
-                                            <Index_Text_Fields>
-                                                <Index_Charts>
-                                                    <Index_Refs>
-                                                        {children}
-                                                    </Index_Refs>
-                                                </Index_Charts>
-                                            </Index_Text_Fields>
+                                            <Index_Warehouse>
+                                                <Index_Text_Fields>
+                                                    <Index_Charts>
+                                                        <Index_Refs>
+                                                            {children}
+                                                        </Index_Refs>
+                                                    </Index_Charts>
+                                                </Index_Text_Fields>
+                                            </Index_Warehouse>
                                         </Index_Suppliers>
                                     </Index_Users>
                                 </Index_Variables>

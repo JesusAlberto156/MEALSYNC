@@ -22,9 +22,8 @@ const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFields
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext); ✔️
 const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useContext(TextFieldsSupplyOrderContext); ✔️
 const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext); ✔️
-const [isTextFieldsWarehousePurchaseCategory,setIsTextFieldsWarehousePurchaseCategory] = useContext(TextFieldsWarehousePurchaseCategoryContext); ✔️
-const [isTextFieldsWarehouseSalesCategory,setIsTextFieldsWarehouseSalesCategory] = useContext(TextFieldsWarehouseSalesCategoryContext); ✔️
-const [isTextFieldsWarehousePurchaseSupplyType,setIsTextFieldsWarehousePurchaseSupplyType] = useContext(TextFieldsWarehousePurchaseSupplyTypeContext); ✔️
+const [isTextFieldsWarehouseCategory,setIsTextFieldsWarehouseCategory] = useContext(TextFieldsWarehouseCategoryContext); ✔️
+const [isTextFieldsWarehouseSupplyType,setIsTextFieldsWarehouseSupplyType] = useContext(TextFieldsWarehouseSupplyTypeContext); ✔️
 const [isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType] = useContext(TextFieldsWarehouseSalesSupplyTypeContext); ✔️
 //____________FORM____________
 //____________MENUS____________
@@ -133,5 +132,15 @@ const [isModal,setIsModal] = useContext(ModalContext); ✔️
 const [isSubModal,setIsSubModal] = useContext(SubModalContext); ✔️
 //____________VIEWS____________
 //____________WAREHOUSE____________
-
+const [isSupplyOrders,setIsSupplyOrders] = useContext(SupplyOrdersContext); ✔️
+const [isSupplyOrderAdd,setIsSupplyOrderAdd] = useContext(SupplyOrderAddContext);
+const [isSupplyOrderEdit,setIsSupplyOrderEdit] = useContext(SupplyOrderEditContext);
+const [isSupplyOrderEditState,setIsSupplyOrderEditState] = useContext(SupplyOrderEditStateContext);
+const [isSupplyOrderObservations,setIsSupplyOrderObservations] = useContext(SupplyOrderObservationsContext); ✔️
+const [isSupplyOrderObservationAdd,setIsSupplyOrderObservationAdd] = useContext(SupplyOrderObservationAddContext);
+const [isDeletedSupplyOrders,setIsDeletedSupplyOrders] = useContext(DeletedSupplyOrdersContext); ✔️
+const [isSupplyOrderDelete,setIsSupplyOrderDelete] = useContext(SupplyOrderDeleteContext);
+const [isWarehouseCategories,setIsWarehouseCategories] = useContext(WarhouseCategoriesContext); ✔️
+const [isWarehouseSupplyTypes,setIsWarehouseSupplyTypes] = useContext(WarhouseSupplyTypesContext); ✔️
+const [isWarehouseSupplyTypeAdd,setIsWarehouseSupplyTypeAdd] = useContext(WarhouseSupplyTypeAddContext);
 //____________WAREHOUSE____________

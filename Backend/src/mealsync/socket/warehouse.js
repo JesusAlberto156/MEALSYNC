@@ -1,12 +1,12 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
 import { getSupplyOrdersService,getSupplyOrderObservationsService,getDeletedSupplyOrdersService,getWarehouseCategoriesService,getWarehouseSupplyTypesService } from "../services/warehouse.js";
-import { insertSupplyOrderService,insertSupplyOrderObservationService,insertDeletedSupplyOrderService } from "../services/warehouse.js";
-import { updateSupplyOrderService,updateSupplyOrderStateService,updateWarehouseCategoryService,updateWarehouseSupplyTypeService } from "../services/warehouse.js";
+import { insertSupplyOrderService,insertSupplyOrderObservationService,insertDeletedSupplyOrderService,insertWarehouseCategoryService,insertWarehouseSupplyTypeService } from "../services/warehouse.js";
+import { updateSupplyOrderService,updateSupplyOrderStateService } from "../services/warehouse.js";
 import { deleteDeletedSupplyOrderService } from "../services/warehouse.js";
 import { getLogsService } from "../services/logs.js";
-import { insertLogSupplyOrderService,insertLogSupplyOrderObservationService,insertLogDeletedSupplyOrderService } from "../services/warehouse.js";
-import { updateLogSupplyOrderService,updateLogSupplyOrderStateService,updateLogWarehouseCategoryService,updateLogWarehouseSupplyTypeService } from "../services/warehouse.js";
+import { insertLogSupplyOrderService,insertLogSupplyOrderObservationService,insertLogDeletedSupplyOrderService,insertLogWarehouseCategoryService,insertLogWarehouseSupplyTypeService } from "../services/warehouse.js";
+import { updateLogSupplyOrderService,updateLogSupplyOrderStateService } from "../services/warehouse.js";
 import { deleteLogDeletedSupplyOrderService } from "../services/warehouse.js";
 import { getObservationsService } from "../services/suppliers.js";
 import { insertObservationService } from "../services/suppliers.js";
@@ -121,6 +121,38 @@ export const Warehouse_INSERT = (socket) => {
             return error;
         }
     });
+    //---------- ALMACEN DE CATEGORIAS ✔️
+    socket.on('Insert-Warehouse-Category',async (idusuario,cantidadreal,precio,idcategoria,transaccion) => {
+        try{
+            await insertWarehouseCategoryService(cantidadreal,precio,idcategoria,transaccion);
+            const resultWarehouseCategories = await getWarehouseCategoriesService();
+            const decryptedData = decryptData(resultWarehouseCategories);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogWarehouseCategoryService(parsedData.find(data => data.idcategoria === idcategoria)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idcategoria),transaccion);
+            const resultLogs = await getLogsService()
+            io.emit('Get-Warehouse-Categories',resultWarehouseCategories);
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al agregar un almacén por categoría: ',error);
+            return error;
+        }
+    });
+    //---------- ALMACEN DE TIPOS DE INSUMO ✔️
+    socket.on('Insert-Warehouse-Supply-Type',async (idusuario,cantidadreal,precio,idtipo,transaccion) => {
+        try{
+            await insertWarehouseSupplyTypeService(cantidadreal,precio,idtipo,transaccion);
+            const resultWarehouseSupplyTypes = await getWarehouseSupplyTypesService();
+            const decryptedData = decryptData(resultWarehouseSupplyTypes);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogWarehouseSupplyTypeService(parsedData.find(data => data.idtipo === idtipo)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idtipo),transaccion);
+            const resultLogs = await getLogsService()
+            io.emit('Get-Warehouse-Supply-Types',resultWarehouseSupplyTypes);
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al agregar un almacén por tipo de insumo: ',error);
+            return error;
+        }
+    });
 }
 //______________INSERT______________
 //______________UPDATE______________
@@ -155,34 +187,6 @@ export const Warehouse_UPDATE = (socket) => {
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al editar el estado de un pedido por insumo: ',error);
-            return error;
-        }
-    });
-    //---------- ALMACEN DE CATEGORIAS ✔️
-    socket.on('Update-Warehouse-Category',async (idusuario,idalmacen,cantidadreal,precio,idcategoria) => {
-        try{
-            await updateWarehouseCategoryService(idcategoria,cantidad,cantidadreal,precio);
-            const resultWarehouseCategories = await getWarehouseCategoriesService();
-            await updateLogWarehouseCategoryService(idalmacen,idusuario,String(cantidadreal),String(precio));
-            const resultLogs = await getLogsService()
-            io.emit('Get-Warehouse-Categories',resultWarehouseCategories);
-            io.emit('Get-Logs',resultLogs);
-        }catch(error){
-            console.error('Error al editar un almacén por categoría: ',error);
-            return error;
-        }
-    });
-    //---------- ALMACEN DE TIPOS DE INSUMO ✔️
-    socket.on('Update-Warehouse-Supply-Type',async (idusuario,idalmacen,cantidadreal,precio,idtipo) => {
-        try{
-            await updateWarehouseSupplyTypeService(idtipo,cantidadreal,precio);
-            const resultWarehouseSupplyTypes = await getWarehouseSupplyTypesService();
-            await updateLogWarehouseSupplyTypeService(idalmacen,idusuario,String(cantidadreal),String(precio));
-            const resultLogs = await getLogsService()
-            io.emit('Get-Warehouse-Supply-Types',resultWarehouseSupplyTypes);
-            io.emit('Get-Logs',resultLogs);
-        }catch(error){
-            console.error('Error al editar un almacén por tipo de insumo: ',error);
             return error;
         }
     });

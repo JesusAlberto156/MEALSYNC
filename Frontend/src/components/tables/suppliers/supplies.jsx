@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react"
+import { useContext,useEffect,useState } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
@@ -8,7 +8,7 @@ import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOr
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsSupplyContext } from "../../../contexts/FormsProvider"
 import { RefSuppliesContext } from "../../../contexts/RefsProvider"
-import { SupplyTypesContext,SupplyCategoriesContext,SuppliersContext,CountSupplyTypesContext } from "../../../contexts/SuppliersProvider"
+import { SupplyTypesContext,SupplyCategoriesContext,SuppliersContext,CountSupplyTypesContext,ObservationsContext } from "../../../contexts/SuppliersProvider"
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
 import { ResetTextFieldsSupply } from "../../../hooks/suppliers/Texts"
@@ -43,6 +43,8 @@ export default function Table_Supplies(){
     const [isSupplyCategories] = useContext(SupplyCategoriesContext); 
     const [isSuppliers] = useContext(SuppliersContext);
     const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
+    const [isObservations] = useContext(ObservationsContext);
+    const [calification,setCalification] = useState([]);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -81,6 +83,29 @@ export default function Table_Supplies(){
             resetTextFieldsUser();
         }
     },[isSelectedRow])
+    // UseEffect para determinar la calificacion promedio de cada proveedor
+    useEffect(() => {
+        const totalCalificaciones = isSuppliers.map((supplier) => {
+            const proveedorObservaciones = isObservations.filter(
+            obs => obs.idproveedor === supplier.idproveedor
+            );
+
+            const suma = proveedorObservaciones.reduce(
+                (sum, obs) => sum + Number(obs.calificacion), 0
+            );
+
+            const promedio = proveedorObservaciones.length > 0
+                ? suma / proveedorObservaciones.length
+                : 0;
+
+            return {
+                idproveedor: supplier.idproveedor,
+                calificacion: promedio
+            };
+        })
+
+        setCalification(totalCalificaciones);
+    },[isObservations,isSuppliers]);
     // Constantes con la funcionalidad de los hooks
     const { handleRowClick,nextPageSupplies,prevPage,currentRecordsSupplies,currentPage,totalPagesSupplies,ToggleOrder,ToggleOrderDirection } = TableActionsSupplies();
     const resetTextFieldsSupply = ResetTextFieldsSupply();
@@ -164,7 +189,45 @@ export default function Table_Supplies(){
                             <Td ThemeMode={themeMode}>{supply.nombre}</Td>
                             <Td ThemeMode={themeMode}>{supply.descripcion}</Td>
                             <Td ThemeMode={themeMode}><Icon_Image_Black_60 ThemeMode={themeMode} src={supply.imagen}/></Td>
-                            <Td ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Td>
+                            <Td ThemeMode={themeMode}>
+                                {calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion === 0 ? (
+                                    <>
+                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Blue_12_Center></TContainer_Center>
+                                    </>
+                                ):(
+                                    calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 1 ? (
+                                        <>
+                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Red_12_Center></TContainer_Center>
+                                        </>
+                                    ):(
+                                        calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 2 ? (
+                                            <>
+                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Orange_12_Center></TContainer_Center>
+                                            </>
+                                        ):(
+                                            calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 3 ? (
+                                                <>
+                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Yellow_12_Center></TContainer_Center>
+                                                </>
+                                            ):(
+                                                calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 4 ? (
+                                                    <>
+                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
+                                                    </>
+                                                ):(
+                                                    calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 5 ? (
+                                                        <>
+                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Green_12_Center></TContainer_Center>
+                                                        </>
+                                                    ):(
+                                                        <></>
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )}
+                            </Td>
                             <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === supply.idcategoria)?.nombre || 'Desconocido'}</Td>
                             <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo || 'Desconocido'}</Td>
                             <Td ThemeMode={themeMode}>{() => {

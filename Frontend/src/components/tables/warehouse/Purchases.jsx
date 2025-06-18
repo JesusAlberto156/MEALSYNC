@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
+import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../../contexts/SelectedesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { SupplyOrderObservationsContext } from "../../../contexts/WarehouseProvider"
 import { TextFieldsSupplyOrderObservationContext,TextFieldsSupplyOrderContext } from "../../../contexts/FormsProvider"
@@ -21,6 +21,7 @@ import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
 import { FaLongArrowAltUp } from "react-icons/fa";
 import { FaLongArrowAltDown } from "react-icons/fa";
+import { MdOutlineAttachMoney } from "react-icons/md";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -33,7 +34,7 @@ import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
-export default function Table_Supply_Orders(){
+export default function Table_Purchases(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
@@ -44,6 +45,7 @@ export default function Table_Supply_Orders(){
     const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSupplies] = useContext(SuppliesContext);
+    const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -126,13 +128,33 @@ export default function Table_Supply_Orders(){
                     <tr>
                         <Th>
                             <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Número de Pedido')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Número de Pedido' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Número de Pedido
-                                </Icon_Button_Black_14>
+                                {isSelectedOptionOrderPlus === 'Categorías' ? (
+                                    <>
+                                        <Icon_Button_Black_14 onClick={() => {
+                                                ToggleOrder('Categorías')
+                                                ToggleOrderDirection()
+                                            }}
+                                        >
+                                            {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categorías' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Categoría
+                                        </Icon_Button_Black_14>
+                                    </>
+                                ):(
+                                    <>
+                                        {isSelectedOptionOrderPlus === 'Tipos de Insumo' ? (
+                                            <>
+                                                <Icon_Button_Black_14 onClick={() => {
+                                                        ToggleOrder('Tipos de Insumo')
+                                                        ToggleOrderDirection()
+                                                    }}
+                                                >
+                                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipos de Insumo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Tipo de Insumo
+                                                </Icon_Button_Black_14>
+                                            </>
+                                        ):(
+                                            <>Desconocido</>
+                                        )}
+                                    </>
+                                )}
                             </TContainer_Center>
                         </Th>
                         <Th>
@@ -149,55 +171,22 @@ export default function Table_Supply_Orders(){
                         <Th>
                             <TContainer_Center>
                                 <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Insumo')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Insumo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Insumo
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
                                         ToggleOrder('Cantidad')
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cantidad
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cantidad (kg/Lt)
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
                         <Th>
                             <TContainer_Center>
                                 <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Precio Unitario')
+                                        ToggleOrder('Total')
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Precio Unitario' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Precio Unitario
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Precio Total')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Precio Total' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Precio Total
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Estado')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Estado' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Estado
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Total' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Total <MdOutlineAttachMoney/>MXN
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>

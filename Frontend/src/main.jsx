@@ -51,6 +51,8 @@ import Supplier_Observations_View from './components/modals/Suppliers/observatio
 import Table_Supply_Categories from './components/tables/suppliers/categories';
 import Table_Supply_Types from './components/tables/suppliers/supplyTypes';
 import Table_Supplies from './components/tables/suppliers/supplies';
+import Table_Supply_Orders from './components/tables/warehouse/SupplyOrders';
+import Table_Purchases from './components/tables/warehouse/Purchases';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
 import Index_Kitchen from './pages/Indexs/Kitchen';
@@ -179,10 +181,16 @@ const router = createHashRouter([
             path: 'Administration/Index/Warehouse/Supply/Orders/State/Edit',
           },
           {
+            path: 'Administration/Index/Warehouse/Supply/Orders/Observation/View',
+          },
+          {
             path: 'Administration/Index/Warehouse/Supply/Orders/Observation/Add',
           },
           {
             path: 'Administration/Index/Warehouse/Supply/Orders/Delete',
+          },
+          {
+            path: 'Administration/Index/Warehouse/Sales/Add',
           },
           {
             path: 'Administration',
@@ -228,6 +236,14 @@ const router = createHashRouter([
                     path: 'Suppliers/Supplies',
                     element: <Table_Supplies/>
                   },
+                  {
+                    path: 'Warehouse/Supply/Orders',
+                    element: <Table_Supply_Orders/>
+                  },
+                  {
+                    path: 'Warehouse/Purchases',
+                    element: <Table_Purchases/>
+                  }
                 ]
               },
               {

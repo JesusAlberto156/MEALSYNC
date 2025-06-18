@@ -32,6 +32,9 @@ export const HandleModalViewWarehouse = () => {
         if(currentMView === 'Pedido-Editar-Estado' && View === ''){
 
         }
+        if(currentMView === 'Observaciones-Pedido-Visualizar' && View === ''){
+
+        }
         if(currentMView === 'Observacion-Pedido-Agregar' && View === ''){
 
         }

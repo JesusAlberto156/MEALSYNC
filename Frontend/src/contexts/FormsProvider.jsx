@@ -232,17 +232,16 @@ export const Text_Fields_Supply_Order = ({ children }) => {
 export const Text_Fields_Supply_Order_Observation = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useState({
-        idobservacion: 0,
         numeroPedido: '',
-        fechaA: '',
-        fechaP: null,
-        hora: '',
-        minutos: '',
-        insumos: [{
-            idinsumo: 0,
+        idpedido: 0,
+        observaciones: [{
+            fechaA: '',
+            fechaP: null,
+            hora: '',
+            minutos: '',
+            idobservacion: 0,
             observacion: '',
             categoria: '',
-            idpedido: 0,
         }]
     });
     // Return para darle valor al contexto y heredarlo

@@ -10,7 +10,7 @@ import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 import { UsersViewPasswordContext } from "../../contexts/UsersProvider";
-import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSupplierObservationsContext,RefSupplyCategoriesContext,RefSupplyTypesContext,RefSuppliesContext } from "../../contexts/RefsProvider";
+import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSupplierObservationsContext,RefSupplyCategoriesContext,RefSupplyTypesContext,RefSuppliesContext,RefSupplyOrdersContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalViewUsers } from "../../hooks/users/Views";
 import { HandleViewPassword } from "../../hooks/users/Forms";
@@ -34,6 +34,7 @@ import { FaUserTie } from "react-icons/fa6";
 import { FaCubes } from "react-icons/fa6";
 import { FaSyncAlt } from "react-icons/fa";
 import { BiSolidMessageAdd } from "react-icons/bi";
+import { BiSolidMessageDetail } from "react-icons/bi";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
@@ -65,6 +66,7 @@ export default function Search_Bar (){
     const {Modal_Supply_Categories,Form_Supply_Categories,Button_Edit_Supply_Categories,Button_Delete_Supply_Categories} = useContext(RefSupplyCategoriesContext);
     const {Modal_Supply_Types,Form_Supply_Types,Button_Edit_Supply_Types,Button_Add_Supply_Types,Button_Delete_Supply_Types,Button_Count_Supply_Types} = useContext(RefSupplyTypesContext);
     const {Modal_Supplies,Form_Supplies,Button_Edit_Supplies,Button_Delete_Supplies} = useContext(RefSuppliesContext);
+    const {Modal_Suppy_Orders,Form_Supply_Orders,Button_Edit_Supply_Orders,Button_Edit_State_Supply_Orders,Button_Add_Supply_Order_Observations,Button_View_Supply_Order_Observations,Button_Delete_Supply_Orders} = useContext(RefSupplyOrdersContext);
     const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // Constante con las opciones de los buscadores
@@ -74,7 +76,7 @@ export default function Search_Bar (){
     const isOptionSupplierObservations = ['General','Proveedor','Fecha','Calificación'];
     const isOptionSupplyTypes = ['General','Tipo','Unidad','Categoría','Cantidad Mínima'];
     const isOptionSupplies = ['General','Nombre','Proveedor','Categoría','Tipo','Cantidad'];
-    const isOptionSupplyOrders = ['General','Número de Pedido','Fecha','Precio Unitario','Precio Total','Estado','Insumo'];
+    const isOptionSupplyOrders = ['General','Número de Pedido','Fecha','Insumo','Cantidad','Precio Unitario','Precio Total','Estado'];
     const isOptionPurchases = ['Categorías','Tipos de Insumo'];
     const isOptionSales = ['Categorías','Tipos de Insumo'];
     const isOptionWarehouse = ['General','Nombre','Fecha']
@@ -751,26 +753,35 @@ export default function Search_Bar (){
                                     <>
                                         {isSelectedRow.insumos.estado !== 'Finalizado' ? (
                                             <>
-                                                <Tooltip title='Editar' placement="top">
-                                                    <Button_Icon_Blue_60 ref={Button_Edit_Supplies} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                                <Tooltip title='Ver observaciones' placement="top">
+                                                    <Button_Icon_Green_60 ref={Button_View_Supply_Order_Observations} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                                     onClick={() => {
-                                                        handleModalViewWarehouse('Pedido-Editar');
-                                                        navigate('/Administration/Index/Warehouse/Supply/Orders/Edit',{ replace: true });
+                                                        handleModalViewWarehouse('Observaciones-Pedido-Visualizar');
+                                                        navigate('/Administration/Index/Warehouse/Supply/Orders/Observation/View',{ replace: true });
                                                     }}>
-                                                        <Icon_White_18><MdEdit/></Icon_White_18>
-                                                    </Button_Icon_Blue_60>
-                                                </Tooltip>
+                                                        <Icon_White_18><BiSolidMessageDetail/></Icon_White_18>
+                                                    </Button_Icon_Green_60>
+                                                </Tooltip> 
                                                 <Tooltip title='Agregar observación' placement="top">
-                                                    <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                                    <Button_Icon_Green_60 ref={Button_Add_Supply_Order_Observations} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
                                                     onClick={() => {
                                                         handleModalViewWarehouse('Observacion-Pedido-Agregar');
                                                         navigate('/Administration/Index/Warehouse/Supply/Orders/Observation/Add',{ replace: true });
                                                     }}>
                                                         <Icon_White_18><BiSolidMessageAdd/></Icon_White_18>
                                                     </Button_Icon_Green_60>
-                                                </Tooltip>  
+                                                </Tooltip> 
+                                                <Tooltip title='Editar' placement="top">
+                                                    <Button_Icon_Blue_60 ref={Button_Edit_Supply_Orders} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                                    onClick={() => {
+                                                        handleModalViewWarehouse('Pedido-Editar');
+                                                        navigate('/Administration/Index/Warehouse/Supply/Orders/Edit',{ replace: true });
+                                                    }}>
+                                                        <Icon_White_18><MdEdit/></Icon_White_18>
+                                                    </Button_Icon_Blue_60>
+                                                </Tooltip> 
                                                 <Tooltip title='Finalizar' placement="top">
-                                                    <Button_Icon_Orange_60 ref={Button_Edit_Supplies} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                                    <Button_Icon_Orange_60 ref={Button_Edit_State_Supply_Orders} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
                                                     onClick={() => {
                                                         handleModalViewWarehouse('Pedido-Editar-Estado');
                                                         navigate('/Administration/Index/Warehouse/Supply/Orders/State/Edit',{ replace: true });
@@ -803,7 +814,7 @@ export default function Search_Bar (){
                                 isSelectedRow !== null && isSelectedRow.insumos.estado !== 'Finalizado' ? (
                                     <>
                                         <Tooltip title='Eliminar' placement="top">
-                                            <Button_Icon_Red_60  ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                            <Button_Icon_Red_60 ref={Button_Delete_Supply_Orders} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
                                             onClick={() => {
                                                 handleModalViewWarehouse('Pedido-Eliminar');
                                                 navigate('/Administration/Index/Warehouse/Supply/Orders/Delete',{ replace: true });
@@ -814,6 +825,31 @@ export default function Search_Bar (){
                                     </>
                                 ):(
                                     <></>
+                                )
+                            ):(
+                                <></>
+                            )}
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
+                        <>
+                            {isLoggedType === 'Chef' || isPermission.superadministrador ? (
+                                isSelectedRow !== null ? (
+                                    <></>
+                                ):(
+                                    <>
+                                        <Tooltip title='Agregar' placement="top">
+                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                            onClick={() => {
+                                                handleModalViewWarehouse('Almacen-Tipo-Insumo-Agregar');
+                                                navigate('/Administration/Index/Warehouse/Sales/Add',{ replace: true });
+                                            }}>
+                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip>
+                                    </>
                                 )
                             ):(
                                 <></>

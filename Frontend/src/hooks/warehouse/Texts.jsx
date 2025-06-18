@@ -38,17 +38,16 @@ export const ResetTextFieldsSupplyOrderObservation = () => {
     const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext);
     // Estados iniciales de los contextos
     const initialTextFieldsSupplyOrderObservation = {
-        idobservacion: 0,
         numeroPedido: '',
-        fechaA: '',
-        fechaP: null,
-        hora: '',
-        minutos: '',
-        insumos: [{
-            idinsumo: 0,
+        idpedido: 0,
+        observaciones: [{
+            fechaA: '',
+            fechaP: null,
+            hora: '',
+            minutos: '',
+            idobservacion: 0,
             observacion: '',
             categoria: '',
-            idpedido: 0,
         }]
     };
     // Función del hook

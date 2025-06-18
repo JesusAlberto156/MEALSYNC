@@ -12,6 +12,7 @@ export const RefSupplierObservationsContext = createContext(null);
 export const RefSupplyCategoriesContext = createContext(null);
 export const RefSupplyTypesContext = createContext(null);
 export const RefSuppliesContext = createContext(null);
+export const RefSupplyOrdersContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los Ref ✔️
@@ -27,7 +28,9 @@ export const Index_Refs = ({children}) => {
                                     <Ref_Supply_Categories>
                                         <Ref_Supply_Types>
                                             <Ref_Supplies>
-                                                {children}
+                                                <Ref_Supply_Orders>
+                                                    {children}
+                                                </Ref_Supply_Orders>
                                             </Ref_Supplies>
                                         </Ref_Supply_Types>
                                     </Ref_Supply_Categories>
@@ -189,5 +192,24 @@ export const Ref_Supplies = ({ children }) => {
         <RefSuppliesContext.Provider value={isSupplies}>
             {children}
         </RefSuppliesContext.Provider>
+    );
+}
+// Función contexto para controlar la tabla de los pedidos por insumo con referencias ✔️
+export const Ref_Supply_Orders = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isSupplyOrders = {
+        Modal_Suppy_Orders: useRef(null),
+        Form_Supply_Orders: useRef(null),
+        Button_Edit_Supply_Orders: useRef(null),
+        Button_Edit_State_Supply_Orders: useRef(null),
+        Button_Add_Supply_Order_Observations: useRef(null),
+        Button_View_Supply_Order_Observations: useRef(null),
+        Button_Delete_Supply_Orders: useRef(null),
+    };
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefSupplyOrdersContext.Provider value={isSupplyOrders}>
+            {children}
+        </RefSupplyOrdersContext.Provider>
     );
 }

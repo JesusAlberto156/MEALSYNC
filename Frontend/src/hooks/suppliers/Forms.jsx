@@ -3,8 +3,7 @@
 import { useContext } from "react";
 // Contextos
 import { TextFieldsSupplierContext } from "../../contexts/FormsProvider";
-import { UserDeleteContext } from "../../contexts/UsersProvider";
-import { SuppliersContext,SupplierAddContext,SupplierEditContext } from "../../contexts/SuppliersProvider";
+import { SuppliersContext,SupplierAddContext,SupplierEditContext,SupplierDeleteContext } from "../../contexts/SuppliersProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
 import { ActionBlockContext } from "../../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../../contexts/ViewsProvider";
@@ -227,7 +226,7 @@ export const HandleSupplierDelete = () => {
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext);
+    const [isSupplierDelete,setIsSupplierDelete] = useContext(SupplierDeleteContext);
     // Función del hook
     const handleSupplierDelete = () => {
         if(currentNView === 'Proveedores' && currentSView === 'Proveedores' && currentMView === 'Proveedor-Eliminar'){
@@ -239,7 +238,7 @@ export const HandleSupplierDelete = () => {
                         resolve('¡Información verificada!...');
                         
                         setTimeout(() => {
-                            setIsUserDelete(true);
+                            setIsSupplierDelete(true);
                         },500)
                     },1000);
                 }catch(e){

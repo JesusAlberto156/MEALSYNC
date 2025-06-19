@@ -49,6 +49,7 @@ import Supplier_Delete from './components/modals/Suppliers/suppliers/Delete';
 import Table_Supplier_Observations from './components/tables/suppliers/observations';
 import Supplier_Observations_View from './components/modals/Suppliers/observations/View';
 import Table_Supply_Categories from './components/tables/suppliers/categories';
+import Category_Add from './components/modals/Suppliers/categories/Add';
 import Table_Supply_Types from './components/tables/suppliers/supplyTypes';
 import Table_Supplies from './components/tables/suppliers/supplies';
 import Table_Supply_Orders from './components/tables/warehouse/SupplyOrders';
@@ -140,6 +141,7 @@ const router = createHashRouter([
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Categories/Add',
+            element: <Category_Add/>
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Categories/Edit',

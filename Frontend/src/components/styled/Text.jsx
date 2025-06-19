@@ -24,7 +24,8 @@ export const Text_Background_Blue_24_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
-
+    cursor: default;
+    
     @media (max-width: 768px) {
         font-size: 22px;
         padding: 8px;
@@ -51,6 +52,7 @@ export const Text_Background_Blue_20_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -78,6 +80,7 @@ export const Text_Background_Blue_16_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -105,6 +108,7 @@ export const Text_Background_Blue_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -136,6 +140,7 @@ export const Text_Background_Red_24_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -163,6 +168,7 @@ export const Text_Background_Red_20_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -190,6 +196,7 @@ export const Text_Background_Red_16_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -217,6 +224,7 @@ export const Text_Background_Red_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -248,6 +256,7 @@ export const Text_Background_Green_24_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -275,6 +284,7 @@ export const Text_Background_Green_20_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -302,6 +312,7 @@ export const Text_Background_Green_16_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -329,6 +340,7 @@ export const Text_Background_Green_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -360,6 +372,7 @@ export const Text_Background_Yellow_24_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -387,6 +400,7 @@ export const Text_Background_Yellow_20_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -414,6 +428,7 @@ export const Text_Background_Yellow_16_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -441,6 +456,7 @@ export const Text_Background_Yellow_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -471,6 +487,7 @@ export const Text_Background_Orange_24_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -498,6 +515,7 @@ export const Text_Background_Orange_20_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -525,6 +543,7 @@ export const Text_Background_Orange_16_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -552,6 +571,7 @@ export const Text_Background_Orange_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -581,6 +601,7 @@ export const Text_Background_Lime_Green_24_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -608,6 +629,7 @@ export const Text_Background_Lime_Green_20_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -635,6 +657,7 @@ export const Text_Background_Lime_Green_16_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -662,6 +685,7 @@ export const Text_Background_Lime_Green_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -690,6 +714,7 @@ export const Text_Blue_24_Center = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -711,6 +736,7 @@ export const Text_Blue_20_Center = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -732,6 +758,7 @@ export const Text_Blue_16_Center = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -753,6 +780,7 @@ export const Text_Blue_12_Center = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -776,6 +804,7 @@ export const Text_Blue_24_Justify = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -797,6 +826,7 @@ export const Text_Blue_20_Justify = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -818,6 +848,7 @@ export const Text_Blue_16_Justify = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -839,6 +870,7 @@ export const Text_Blue_12_Justify = styled.h1.withConfig({
     justify-content: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -862,6 +894,7 @@ export const Text_Blue_24_Left = styled.h1.withConfig({
     justify-content: flex-start;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -883,6 +916,7 @@ export const Text_Blue_20_Left = styled.h1.withConfig({
     justify-content: flex-start;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -904,6 +938,7 @@ export const Text_Blue_16_Left = styled.h1.withConfig({
     justify-content: flex-start;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -925,6 +960,7 @@ export const Text_Blue_12_Left = styled.h1.withConfig({
     justify-content: flex-start;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -948,6 +984,7 @@ export const Text_Blue_24_Right = styled.h1.withConfig({
     justify-content: flex-end;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -969,6 +1006,7 @@ export const Text_Blue_20_Right = styled.h1.withConfig({
     justify-content: flex-end;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -990,6 +1028,7 @@ export const Text_Blue_16_Right = styled.h1.withConfig({
     justify-content: flex-end;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1011,6 +1050,7 @@ export const Text_Blue_12_Right = styled.h1.withConfig({
     justify-content: flex-end;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1032,7 +1072,8 @@ export const Text_White_50_Center = styled.h1`
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 45px;
         padding: 8px;
@@ -1052,7 +1093,8 @@ export const Text_White_40_Center = styled.h1`
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 35px;
         padding: 8px;
@@ -1074,7 +1116,8 @@ export const Text_Black_50_Center = styled.h1`
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 45px;
         padding: 8px;
@@ -1094,7 +1137,8 @@ export const Text_Black_40_Center = styled.h1`
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 35px;
         padding: 8px;
@@ -1118,7 +1162,8 @@ export const Text_Black_White_50_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 45px;
         padding: 8px;
@@ -1140,7 +1185,8 @@ export const Text_Black_White_40_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 35px;
         padding: 8px;
@@ -1164,7 +1210,8 @@ export const Text_White_Black_50_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 45px;
         padding: 8px;
@@ -1186,7 +1233,8 @@ export const Text_White_Black_40_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 35px;
         padding: 8px;
@@ -1212,7 +1260,8 @@ export const Text_Title_42_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 38px;
         padding: 8px;
@@ -1234,7 +1283,8 @@ export const Text_Title_38_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 34px;
         padding: 8px;
@@ -1256,7 +1306,8 @@ export const Text_Title_34_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 30px;
         padding: 8px;
@@ -1278,7 +1329,8 @@ export const Text_Title_30_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 26px;
         padding: 8px;
@@ -1300,7 +1352,8 @@ export const Text_Title_26_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 22px;
         padding: 8px;
@@ -1322,7 +1375,8 @@ export const Text_Title_22_Center = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 18px;
         padding: 8px;
@@ -1346,7 +1400,8 @@ export const Text_Title_42_Justify = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 38px;
         padding: 8px;
@@ -1368,7 +1423,8 @@ export const Text_Title_38_Justify = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 34px;
         padding: 8px;
@@ -1390,7 +1446,8 @@ export const Text_Title_34_Justify = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 30px;
         padding: 8px;
@@ -1412,7 +1469,8 @@ export const Text_Title_30_Justify = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 26px;
         padding: 8px;
@@ -1434,7 +1492,8 @@ export const Text_Title_26_Justify = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 22px;
         padding: 8px;
@@ -1456,7 +1515,8 @@ export const Text_Title_22_Justify = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 18px;
         padding: 8px;
@@ -1480,7 +1540,8 @@ export const Text_Title_42_Left = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 38px;
         padding: 8px;
@@ -1502,7 +1563,8 @@ export const Text_Title_38_Left = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 34px;
         padding: 8px;
@@ -1524,7 +1586,8 @@ export const Text_Title_34_Left = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 30px;
         padding: 8px;
@@ -1546,7 +1609,8 @@ export const Text_Title_30_Left = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 26px;
         padding: 8px;
@@ -1568,7 +1632,8 @@ export const Text_Title_26_Left = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 22px;
         padding: 8px;
@@ -1590,7 +1655,8 @@ export const Text_Title_22_Left = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 18px;
         padding: 8px;
@@ -1614,7 +1680,8 @@ export const Text_Title_42_Right = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 38px;
         padding: 8px;
@@ -1636,7 +1703,8 @@ export const Text_Title_38_Right = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 34px;
         padding: 8px;
@@ -1658,7 +1726,8 @@ export const Text_Title_34_Right = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 30px;
         padding: 8px;
@@ -1680,7 +1749,8 @@ export const Text_Title_30_Right = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 26px;
         padding: 8px;
@@ -1702,7 +1772,8 @@ export const Text_Title_26_Right = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 22px;
         padding: 8px;
@@ -1724,7 +1795,8 @@ export const Text_Title_22_Right = styled.h1.withConfig({
     width: auto;
     padding: 10px;
     margin: 0px;
-    
+    cursor: default;
+
     @media (max-width: 768px) {
         font-size: 18px;
         padding: 8px;
@@ -1752,6 +1824,7 @@ export const Text_A_24_Center = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1776,6 +1849,7 @@ export const Text_A_20_Center = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1800,6 +1874,7 @@ export const Text_A_16_Center = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1824,6 +1899,7 @@ export const Text_A_12_Center = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1850,6 +1926,7 @@ export const Text_A_24_Justify = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1874,6 +1951,7 @@ export const Text_A_20_Justify = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1898,6 +1976,7 @@ export const Text_A_16_Justify = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1922,6 +2001,7 @@ export const Text_A_12_Justify = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1948,6 +2028,7 @@ export const Text_A_24_Left = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1972,6 +2053,7 @@ export const Text_A_20_Left = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1996,6 +2078,7 @@ export const Text_A_16_Left = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2020,6 +2103,7 @@ export const Text_A_12_Left = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2046,6 +2130,7 @@ export const Text_A_24_Right = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2070,6 +2155,7 @@ export const Text_A_20_Right = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2094,6 +2180,7 @@ export const Text_A_16_Right = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2118,6 +2205,7 @@ export const Text_A_12_Right = styled.a.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2146,6 +2234,7 @@ export const Text_P_24_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2170,6 +2259,7 @@ export const Text_P_20_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2194,6 +2284,7 @@ export const Text_P_16_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2218,6 +2309,7 @@ export const Text_P_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2244,6 +2336,7 @@ export const Text_P_24_Justify = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2268,6 +2361,7 @@ export const Text_P_20_Justify = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2292,6 +2386,7 @@ export const Text_P_16_Justify = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2316,6 +2411,7 @@ export const Text_P_12_Justify = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2342,6 +2438,7 @@ export const Text_P_24_Left = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2366,6 +2463,7 @@ export const Text_P_20_Left = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2390,6 +2488,7 @@ export const Text_P_16_Left = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2414,6 +2513,7 @@ export const Text_P_12_Left = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2440,6 +2540,7 @@ export const Text_P_24_Right = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2464,6 +2565,7 @@ export const Text_P_20_Right = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2488,6 +2590,7 @@ export const Text_P_16_Right = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2512,6 +2615,7 @@ export const Text_P_12_Right = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2535,6 +2639,7 @@ export const Text_Span_24_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2552,6 +2657,7 @@ export const Text_Span_20_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2569,6 +2675,7 @@ export const Text_Span_16_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2586,6 +2693,7 @@ export const Text_Span_12_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2605,6 +2713,7 @@ export const Text_Span_24_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2622,6 +2731,7 @@ export const Text_Span_20_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2639,6 +2749,7 @@ export const Text_Span_16_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2656,6 +2767,7 @@ export const Text_Span_12_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2675,6 +2787,7 @@ export const Text_Span_24_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2692,6 +2805,7 @@ export const Text_Span_20_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2709,6 +2823,7 @@ export const Text_Span_16_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2726,6 +2841,7 @@ export const Text_Span_12_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2745,6 +2861,7 @@ export const Text_Span_24_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2762,6 +2879,7 @@ export const Text_Span_20_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2779,6 +2897,7 @@ export const Text_Span_16_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2796,6 +2915,7 @@ export const Text_Span_12_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2816,6 +2936,7 @@ export const Text_24_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2832,6 +2953,7 @@ export const Text_20_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2848,6 +2970,7 @@ export const Text_16_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2864,6 +2987,7 @@ export const Text_12_Center = styled.span`
     text-align: center;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2882,6 +3006,7 @@ export const Text_24_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2898,6 +3023,7 @@ export const Text_20_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2914,6 +3040,7 @@ export const Text_16_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2931,6 +3058,7 @@ export const Text_12_Justify = styled.span`
     text-align: justify;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -2949,6 +3077,7 @@ export const Text_24_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -2965,6 +3094,7 @@ export const Text_20_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -2981,6 +3111,7 @@ export const Text_16_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -2997,6 +3128,7 @@ export const Text_12_Left = styled.span`
     text-align: left;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -3015,6 +3147,7 @@ export const Text_24_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -3031,6 +3164,7 @@ export const Text_20_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -3047,6 +3181,7 @@ export const Text_16_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -3063,6 +3198,7 @@ export const Text_12_Right = styled.span`
     text-align: right;
     width: auto;
     margin: 0px;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -3091,6 +3227,7 @@ export const Text_Fade_A_35_Center = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 33px;
@@ -3116,6 +3253,7 @@ export const Text_Fade_A_30_Center = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -3141,6 +3279,7 @@ export const Text_Fade_A_25_Center = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 23px;
@@ -3166,6 +3305,7 @@ export const Text_Fade_A_20_Center = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -3191,6 +3331,7 @@ export const Text_Fade_A_15_Center = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 13px;
@@ -3218,6 +3359,7 @@ export const Text_Fade_A_35_Justify = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 33px;
@@ -3243,6 +3385,7 @@ export const Text_Fade_A_30_Justify = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -3268,6 +3411,7 @@ export const Text_Fade_A_25_Justify = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 23px;
@@ -3293,6 +3437,7 @@ export const Text_Fade_A_20_Justify = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -3318,6 +3463,7 @@ export const Text_Fade_A_15_Justify = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 13px;
@@ -3345,6 +3491,7 @@ export const Text_Fade_A_35_Left = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 33px;
@@ -3370,6 +3517,7 @@ export const Text_Fade_A_30_Left = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -3395,6 +3543,7 @@ export const Text_Fade_A_25_Left = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 23px;
@@ -3420,6 +3569,7 @@ export const Text_Fade_A_20_Left = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -3445,6 +3595,7 @@ export const Text_Fade_A_15_Left = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 13px;
@@ -3472,6 +3623,7 @@ export const Text_Fade_A_35_Right = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 33px;
@@ -3497,6 +3649,7 @@ export const Text_Fade_A_30_Right = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 28px;
@@ -3522,6 +3675,7 @@ export const Text_Fade_A_25_Right = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 23px;
@@ -3547,6 +3701,7 @@ export const Text_Fade_A_20_Right = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -3572,6 +3727,7 @@ export const Text_Fade_A_15_Right = styled.a.withConfig({
     width: auto;
     margin: 0px;
     animation: ${Fade_Animation} 2.5s infinite;
+    cursor: default;
 
     @media (max-width: 768px) {
         font-size: 13px;

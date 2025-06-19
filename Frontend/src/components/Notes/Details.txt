@@ -1,3 +1,5 @@
  - Falta agregar el cerrado de sesion automatico si yo cierro la pestaña de forma forzada o bien navego a otra pagina y quiero regresar
  - Falta acomodar los detalles de todas las imagenes mostradas por URL, como poner una por default
  - Falta agregar una opcion que si ya esta iniciada la sesión y quiera iniciar en otro lado, cierre la sesion y ponga en la ubicacion actual 
+ - Falta arreglar detalle del teclado virtual en todos los campos implementados
+ 

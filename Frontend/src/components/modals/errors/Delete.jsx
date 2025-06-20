@@ -4,7 +4,7 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext } from "../../../contexts/ViewsProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../../../contexts/SelectedesProvider";
+import { ActionBlockContext,VerificationBlockContext } from "../../../contexts/VariablesProvider";
 // Estilos personalizados
 import { Container_Modal,Container_Column_90_Center } from "../../styled/Containers";
 import { Text_White_40_Center,Text_White_50_Center } from "../../styled/Text";
@@ -14,46 +14,46 @@ import { Alert_Verification } from "../../styled/Alerts";
 // Modal para el error de editar de los modales
 export default function Error_Delete(){
     // Constantes con el valor de los contextos
-    const [isSelectedRow] = useContext(SelectedRowContext);
-    const [isSelectedRow1] = useContext(SelectedRow1Context);
-    const [isSelectedRow2] = useContext(SelectedRow2Context);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     // Constantes con el valor de los useState
     const [contador,setContador] = useState(5);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     // useEffect con cuenta regresiva para regresar
     useEffect(() => {
-        if(isSelectedRow === null || isSelectedRow1 === null || isSelectedRow2 === null){
-            if(contador === 0){
-                const promise = new Promise((resolve,reject) => {
-                    try{
-                        const route = sessionStorage.getItem('Ruta');
-                        setTimeout(() => {
-                            resolve('¡Página encontrada!...');
-                        },1000);
-                        setTimeout(() => {
-                            setIsModal(false);
-                            sessionStorage.setItem('Estado del Modal',false);
-                            setCurrentMView('');
-                            sessionStorage.setItem('Vista del Modal','');
-                            navigate(route,{replace: true});
-                        },2000);
-                    } catch (e) {
-                        return reject('¡Ocurrio un error inseperado!...');
-                    }
-                });
-        
-                return Alert_Verification(promise,'Buscando página...');
-            }
-
-            const intervalo = setInterval(() => {
-                setContador(prev => prev -1);
-            },1000)
-
-            return () => clearInterval(intervalo);
+        if(contador === 0){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        resolve('¡Página encontrada!...');
+                    },1000);
+                    setTimeout(() => {
+                        setIsModal(false);
+                        sessionStorage.setItem('Estado del Modal',false);
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setIsActionBlock(false);
+                        sessionStorage.removeItem('Acción del Bloqueo');
+                        setIsVerificationBlock(false);
+                        sessionStorage.removeItem('Verificación del Bloqueo');
+                        navigate('/',{replace: true});
+                    },2000);
+                } catch (e) {
+                    return reject('¡Ocurrio un error inseperado!...');
+                }
+            });
+    
+            return Alert_Verification(promise,'Buscando página...');
         }
+
+        const intervalo = setInterval(() => {
+            setContador(prev => prev -1);
+        },1000)
+
+        return () => clearInterval(intervalo);
     },[contador])
     // Estructura del componente
     return(

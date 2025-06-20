@@ -196,32 +196,32 @@ export default function Table_Suppliers(){
                             <Td ThemeMode={themeMode}>
                                 {calification.find(item => item.idproveedor === supplier.idproveedor)?.calificacion === 0 ? (
                                     <>
-                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{supplier.nombre}</Text_Background_Blue_12_Center></TContainer_Center>
+                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{supplier.nombre || 'Desconocido...'}</Text_Background_Blue_12_Center></TContainer_Center>
                                     </>
                                 ):(
                                     calification.find(item => item.idproveedor === supplier.idproveedor)?.calificacion <= 1 ? (
                                         <>
-                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{supplier.nombre}</Text_Background_Red_12_Center></TContainer_Center>
+                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{supplier.nombre || 'Desconocido...'}</Text_Background_Red_12_Center></TContainer_Center>
                                         </>
                                     ):(
                                         calification.find(item => item.idproveedor === supplier.idproveedor)?.calificacion <= 2 ? (
                                             <>
-                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{supplier.nombre}</Text_Background_Orange_12_Center></TContainer_Center>
+                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{supplier.nombre || 'Desconocido...'}</Text_Background_Orange_12_Center></TContainer_Center>
                                             </>
                                         ):(
                                             calification.find(item => item.idproveedor === supplier.idproveedor)?.calificacion <= 3 ? (
                                                 <>
-                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{supplier.nombre}</Text_Background_Yellow_12_Center></TContainer_Center>
+                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{supplier.nombre || 'Desconocido...'}</Text_Background_Yellow_12_Center></TContainer_Center>
                                                 </>
                                             ):(
                                                 calification.find(item => item.idproveedor === supplier.idproveedor)?.calificacion <= 4 ? (
                                                     <>
-                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{supplier.nombre}</Text_Background_Lime_Green_12_Center></TContainer_Center>
+                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{supplier.nombre || 'Desconocido...'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
                                                     </>
                                                 ):(
                                                     calification.find(item => item.idproveedor === supplier.idproveedor)?.calificacion <= 5 ? (
                                                         <>
-                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{supplier.nombre}</Text_Background_Green_12_Center></TContainer_Center>
+                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{supplier.nombre || 'Desconocido...'}</Text_Background_Green_12_Center></TContainer_Center>
                                                         </>
                                                     ):(
                                                         <></>
@@ -232,10 +232,10 @@ export default function Table_Suppliers(){
                                     )
                                 )}
                             </Td>
-                            <Td ThemeMode={themeMode}>{supplier.rfc}</Td>
-                            <Td ThemeMode={themeMode}>{supplier.domicilio}</Td>
-                            <Td ThemeMode={themeMode}>{supplier.telefono}</Td>
-                            <Td ThemeMode={themeMode}>{supplier.correo}</Td>
+                            <Td ThemeMode={themeMode}>{supplier.rfc || 'Desconocido...'}</Td>
+                            <Td ThemeMode={themeMode}>{supplier.domicilio || 'Desconocido...'}</Td>
+                            <Td ThemeMode={themeMode}>{supplier.telefono || 'Desconocido...'}</Td>
+                            <Td ThemeMode={themeMode}>{supplier.correo || 'Desconocido...'}</Td>
                         </tr>
                     ))}
                 </Tbody>

@@ -5,10 +5,8 @@ import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
 import { ActionBlockContext,VerificationBlockContext } from "../../contexts/VariablesProvider";
-import { SelectedRowContext } from "../../contexts/SelectedesProvider";
 // Hooks personalizados
-import { ResetTextFieldsSupplier } from "./Texts";
-import { ResetSearchTerms,ResetSelectedOptions } from "../Texts";
+import { ResetSearchTerms,ResetSelectedOptions,ResetSelectedTables } from "../Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modal
@@ -18,12 +16,11 @@ export const HandleModalViewSuppliers = () => {
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
+    const resetSelectedTables = ResetSelectedTables();
     const resetSelectedOptions = ResetSelectedOptions();
-    const resetTextFieldsSupplier = ResetTextFieldsSupplier();
     // Función del hook
     const handleModalViewSuppliers = (View) => {
         setIsModal(true);
@@ -31,40 +28,44 @@ export const HandleModalViewSuppliers = () => {
         const route = sessionStorage.getItem('Ruta');
         // PROVEEDORES
         if(currentMView === 'Proveedor-Agregar' && View === ''){
+            setIsActionBlock(true);
             setTimeout(() => {
+                resetSelectedTables();
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsSupplier();
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Proveedor-Editar' && View === ''){
+            setIsActionBlock(true);
             setTimeout(() => {
+                resetSelectedTables();
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
                 setIsActionBlock(false);
                 navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Proveedor-Eliminar' && View === ''){
+            setIsActionBlock(false);
             setTimeout(() => {
+                resetSelectedTables();
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                setIsVerificationBlock(false);
                 sessionStorage.removeItem('Acción del Bloqueo');
+                setIsVerificationBlock(false);
                 sessionStorage.removeItem('Verificación del Bloqueo');
                 navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Observacion-Detalles' && View === ''){
+            setIsActionBlock(true);
             setTimeout(() => {
+                resetSelectedTables();
+                setIsActionBlock(false);
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
                 navigate(route,{ replace: true });
             },750);
         }

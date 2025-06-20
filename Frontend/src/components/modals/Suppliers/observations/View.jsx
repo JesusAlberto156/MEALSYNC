@@ -9,6 +9,7 @@ import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsObservationContext } from "../../../../contexts/FormsProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
 import { RefSupplierObservationsContext } from "../../../../contexts/RefsProvider";
+import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
 import { Dates } from "../../../../hooks/Dates";
@@ -29,6 +30,7 @@ import Error_View from "../../errors/View";
 export default function Supplier_Observations_View(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isModal] = useContext(ModalContext);
@@ -134,6 +136,7 @@ export default function Supplier_Observations_View(){
                             <Tooltip title='Cancelar' placement='top'>
                                 <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                     onClick={() => handleModalViewSuppliers('')}   
+                                    disabled={isActionBlock}
                                 >
                                     <Icon_White_22><MdCancel/></Icon_White_22>
                                 </Button_Icon_Blue_210>

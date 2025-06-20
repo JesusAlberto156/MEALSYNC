@@ -120,6 +120,12 @@ export const Alert_Warning = (Title,Message,ThemeMode,Image) => {
         position: 'center',
     });
 }
+export const Alert_Warning_Sonner = (Mensaje) => {
+    toast.warning(Mensaje,{
+        duration:3000,
+        className:'Verification'
+    });
+};
 //____________WARNING____________
 //____________ERROR____________
 export const Alert_Error = (Title,Message,ThemeMode,Image) => {

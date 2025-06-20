@@ -116,6 +116,7 @@ const [isUserTypes,setIsUserTypes] = useContext(UserTypesContext); ✔️
 const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext); ✔️
 const [isAnimation,setIsAnimation] = useContext(AnimationContext); ✔️
 const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext); ✔️
+const [isBlock,setIsBlock] = useContext(BlockContext); 
 const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext); ✔️
 const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext); ✔️
 const [isTouch,setIsTouch] = useContext(TouchContext); ✔️

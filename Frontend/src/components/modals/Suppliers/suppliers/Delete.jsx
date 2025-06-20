@@ -193,7 +193,7 @@ export default function Supplier_Delete(){
                                     <span>
                                         <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                             onClick={() => handleModalViewSuppliers('')}
-                                            disabled={!isActionBlock && isVerificationBlock}  
+                                            disabled={isActionBlock}  
                                         >
                                             <Icon_White_22><MdCancel/></Icon_White_22>
                                         </Button_Icon_Blue_210>
@@ -201,9 +201,9 @@ export default function Supplier_Delete(){
                                 </Tooltip>
                                 <Tooltip title='Eliminar' placement='top'>
                                     <span>
-                                        <Button_Icon_Red_210 ThemeMode={themeMode} className={!isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                             onClick={() => handleSupplierDelete()}
-                                            disabled={!isActionBlock}    
+                                            disabled={isActionBlock}    
                                         >
                                             <Icon_White_22><MdDelete/></Icon_White_22>
                                         </Button_Icon_Red_210>

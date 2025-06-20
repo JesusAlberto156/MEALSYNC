@@ -3,7 +3,7 @@
 import { useContext } from "react";
 // Contextos
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
-import { SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../contexts/SelectedesProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los buscadores ✔️
@@ -17,6 +17,21 @@ export const ResetSearchTerms = () => {
         setIsSearchTerm('');
         setIsSearchTerm1('');
         setIsSearchTerm2('');
+    }
+    // Retorno de la función del hook
+    return resetSearchTerms;
+}
+// Hook para reinciar los campos de los selected para las tablas ✔️
+export const ResetSelectedTables = () => {
+    // Constantes con el valor de los contextos 
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
+    const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context); 
+    // Función del hook
+    const resetSearchTerms = () => {
+        setIsSelectedRow(null);
+        setIsSelectedRow1(null);
+        setIsSelectedRow2(null);
     }
     // Retorno de la función del hook
     return resetSearchTerms;

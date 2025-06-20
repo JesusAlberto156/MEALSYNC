@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useRef,useEffect } from "react";
+import { useContext,useRef,useEffect,useState } from "react";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
@@ -17,9 +17,11 @@ import { FaUserCheck } from "react-icons/fa6";
 // Estilos personalizados
 import { Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Left } from "../styled/Containers";
 import { Text_A_16_Left,Text_Blue_16_Left } from "../styled/Text";
-import { Input_Text_Black_100 } from "../styled/Inputs";
+import { Input_Group, Input_Text_Black_100 } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
 import { Icon_White_22 } from "../styled/Icons";
+import { Label_Total_Text_12_Center } from "../styled/Labels";
+import { Alert_Warning_Sonner } from "../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
@@ -37,31 +39,45 @@ export default function Form_Verification(){
     // Constantes con el valor de useRef
     const lastTouchTimeRef = useRef(0);
     const isTouchRef = useRef(isTouch);
+    // Constantes con el valor de useState
+    const [isTotalUser,setIsTotalUser] = useState(0);
+    const [isTotalPassword,setIsTotalPassword] = useState(0);
+    // useEffect para calcular el total escrito en los campos
+    useEffect(() => {
+        setIsTotalUser(isTextFieldsUser.usuario.length)
+        if(isTextFieldsUser.usuario.length === 25){
+            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el usuario!...')
+        }
+    },[isTextFieldsUser.usuario]);
+    useEffect(() => {
+        setIsTotalPassword(isTextFieldsUser.contrasena.length);
+        if(isTextFieldsUser.contrasena.length === 15){
+            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en la contraseña!...')
+        }
+    },[isTextFieldsUser.contrasena]);
     // UseEffect que determina la visibilidad del teclado
     useEffect(() => {
         const handleTouchStart = () => {
             lastTouchTimeRef.current = Date.now();
             setIsTouch(true);
         };
-    
-        const handleMouseOrKey = () => {
+
+        const handleMouseDown = () => {
             const now = Date.now();
             const timeSinceLastTouch = now - lastTouchTimeRef.current;
-    
-            // Solo desactiva touch si ha pasado más de 500ms desde el último touch
+
+            // Solo si no hubo un touch reciente, considera que es mouse
             if (timeSinceLastTouch > 500) {
                 setIsTouch(false);
             }
         };
 
         window.addEventListener('touchstart', handleTouchStart);
-        window.addEventListener('mousedown', handleMouseOrKey);
-        window.addEventListener('keydown', handleMouseOrKey);
+        window.addEventListener('mousedown', handleMouseDown);
 
         return () => {
             window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('mousedown', handleMouseOrKey);
-            window.removeEventListener('keydown', handleMouseOrKey);
+            window.removeEventListener('mousedown', handleMouseDown);
         };
     },[]);
     // UseEffect que determina que se mantenga visible del teclado
@@ -107,45 +123,57 @@ export default function Form_Verification(){
             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                 <Container_Row_100_Center>
                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
-                    <Input_Text_Black_100 ThemeMode={themeMode}
-                        id="Input-User"
-                        placeholder="..."
-                        type="text"
-                        value={isTextFieldsUser.usuario}
-                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
-                        disabled={isVerificationBlock}
-                        onFocus={() => {
-                            if(isTouchRef.current){
-                                setIsKeyboard(true);
-                                setIsKeyboardView('User');
-                            }
-                        }}
-                    />
+                    <Input_Group>
+                        <Input_Text_Black_100 ThemeMode={themeMode}
+                            id="Input-User"
+                            placeholder="..."
+                            type="text"
+                            maxLength={25}
+                            value={isTextFieldsUser.usuario}
+                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
+                            disabled={isVerificationBlock}
+                            onFocus={() => {
+                                if(isTouchRef.current){
+                                    setIsKeyboard(true);
+                                    setIsKeyboardView('User');
+                                }
+                            }}
+                        />
+                        <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalUser}/25</Label_Total_Text_12_Center>
+                    </Input_Group>
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
                     <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
-                    <Input_Text_Black_100 ThemeMode={themeMode}
-                        id="Input-Password"
-                        placeholder="..."
-                        type="password"
-                        value={isTextFieldsUser.contrasena}
-                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
-                        disabled={isVerificationBlock}
-                        onFocus={() => {
-                            if(isTouchRef.current){
-                                setIsKeyboard(true);
-                                setIsKeyboardView('Password');
-                            }
-                        }}
-                    />
+                    <Input_Group>
+                        <Input_Text_Black_100 ThemeMode={themeMode}
+                            id="Input-Password"
+                            placeholder="..."
+                            type="password"
+                            maxLength={15}
+                            value={isTextFieldsUser.contrasena}
+                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
+                            disabled={isVerificationBlock}
+                            onFocus={() => {
+                                if(isTouchRef.current){
+                                    setIsKeyboard(true);
+                                    setIsKeyboardView('Password');
+                                }
+                            }}
+                        />
+                        <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalPassword}/15</Label_Total_Text_12_Center>
+                    </Input_Group>
                 </Container_Row_100_Center>
                 <Tooltip title='Verificar' placement="top">
-                    <Button_Icon_Blue_220 ThemeMode={themeMode}  className={isVerificationBlock ? 'roll-out-button-left' : 'roll-in-button-left'} 
-                    onClick={() => {
-                        handleVerificationBlock();
-                    }}>
-                        <Icon_White_22><FaUserCheck/></Icon_White_22>
-                    </Button_Icon_Blue_220>
+                    <span>
+                        <Button_Icon_Blue_220 ThemeMode={themeMode}  className='pulsate-buttom' 
+                            disabled={isVerificationBlock}
+                            onClick={() => {
+                                handleVerificationBlock();
+                            }}
+                        >
+                            <Icon_White_22><FaUserCheck/></Icon_White_22>
+                        </Button_Icon_Blue_220>
+                    </span>
                 </Tooltip>
             </Container_Column_90_Center>
         </>  

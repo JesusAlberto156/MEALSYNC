@@ -28,7 +28,7 @@ export const HandleSupplierAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupplier.nombre === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.domicilio === '' || isTextFieldsSupplier.telefono === '' || isTextFieldsSupplier.correo === ''){
+                        if(isTextFieldsSupplier.nombre === '' || isTextFieldsSupplier.correo === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información del proveedor!...')
                         };
@@ -38,25 +38,15 @@ export const HandleSupplierAdd = () => {
                             return reject('¡Proveedor ya existente!...');
                         }
 
-                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]*$/
-                        const regexRFC = /^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/
-                        const regexAddress = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9\s.,#\-\/°()]+$/
-                        const regexPhone = /^\d{7}$|^\d{8}$|^\d{10}$/
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
+                        const regexRFC = /^$|^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/
+                        const regexAddress = /^$|^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9\s.,#\-\/°()]+$/
+                        const regexPhone = /^$|^\d{7}$|^\d{8}$|^\d{10}$/
                         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                        if(isTextFieldsSupplier.nombre.length > 150){
-                            setIsActionBlock(false);
-                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
-                        }
 
                         if(!regexNames.test(isTextFieldsSupplier.nombre.trim())){
                             setIsActionBlock(false);
-                            return reject('¡El nombre no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
-                        }
-
-                        if(isTextFieldsSupplier.rfc.length > 30){
-                            setIsActionBlock(false);
-                            return reject('¡El RFC sobrepasa el límite de caracteres permitido!...');
+                            return reject('¡El nombre no es válido, solo puede contener letras, números, espacios y los siguientes caracteres: - . , & ( )!...');
                         }
 
                         if(!regexRFC.test(isTextFieldsSupplier.rfc.trim())){
@@ -64,28 +54,14 @@ export const HandleSupplierAdd = () => {
                             return reject('¡El RFC no es válido, solo acepta un RFC que inicia con 3 o 4 letras mayúsculas (incluye Ñ y &), seguido de 6 dígitos para la fecha, y termina con 3 caracteres alfanuméricos en mayúsculas o números!...');
                         }
 
-                        if(isTextFieldsSupplier.domicilio.length > 150){
-                            setIsActionBlock(false);
-                            return reject('¡El domicilio sobrepasa el límite de caracteres permitido!...');
-                        }
-
                         if(!regexAddress.test(isTextFieldsSupplier.domicilio.trim())){
                             setIsActionBlock(false);
                             return reject('¡El domicilio no es válido, solo acepta letras (mayúsculas y minúsculas, incluidas vocales con acentos y la Ñ), números, espacios y los caracteres especiales: punto, coma, numeral (#), guion, barra, símbolo de grado (°) y paréntesis!...');
                         }
 
-                        if(isTextFieldsSupplier.telefono.length > 20){
-                            setIsActionBlock(false);
-                            return reject('¡El teléfono sobrepasa el límite de caracteres permitido!...');
-                        }
-
                         if(!regexPhone.test(isTextFieldsSupplier.telefono.trim())){
                             setIsActionBlock(false);
                             return reject('¡El teléfono no es válido, solo permite números de 7, 8 o 10 dígitos!...');
-                        }
-                        if(isTextFieldsSupplier.correo.length > 150){
-                            setIsActionBlock(false);
-                            return reject('¡El correo sobrepasa el límite de caracteres permitido!...');
                         }
 
                         if(!regexEmail.test(isTextFieldsSupplier.correo.trim())){
@@ -134,7 +110,7 @@ export const HandleSupplierEdit = () => {
                             return reject('¡No hay información del proveedor modificada!...')
                         };
 
-                        if(isTextFieldsSupplier.nombre === '' || isTextFieldsSupplier.rfc === '' || isTextFieldsSupplier.domicilio === '' || isTextFieldsSupplier.telefono === '' || isTextFieldsSupplier.correo === ''){
+                        if(isTextFieldsSupplier.nombre === '' || isTextFieldsSupplier.correo === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información del proveedor!...')
                         };
@@ -146,25 +122,15 @@ export const HandleSupplierEdit = () => {
                             }
                         }
 
-                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]*$/
-                        const regexRFC = /^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/
-                        const regexAddress = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9\s.,#\-\/°()]+$/
-                        const regexPhone = /^\d{7}$|^\d{8}$|^\d{10}$/
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
+                        const regexRFC = /^$|^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$/
+                        const regexAddress = /^$|^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9\s.,#\-\/°()]+$/
+                        const regexPhone = /^$|^\d{7}$|^\d{8}$|^\d{10}$/
                         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                        if(isTextFieldsSupplier.nombre.length > 150){
-                            setIsActionBlock(false);
-                            return reject('¡El nombre sobrepasa el límite de caracteres permitido!...');
-                        }
 
                         if(!regexNames.test(isTextFieldsSupplier.nombre.trim())){
                             setIsActionBlock(false);
-                            return reject('¡El nombre no es válido, solo permite letras, números, espacios y algunos caracteres especiales!...');
-                        }
-
-                        if(isTextFieldsSupplier.rfc.length > 30){
-                            setIsActionBlock(false);
-                            return reject('¡El RFC sobrepasa el límite de caracteres permitido!...');
+                            return reject('¡El nombre no es válido, solo puede contener letras, números, espacios y los siguientes caracteres: - . , & ( )!...');
                         }
 
                         if(!regexRFC.test(isTextFieldsSupplier.rfc.trim())){
@@ -172,28 +138,14 @@ export const HandleSupplierEdit = () => {
                             return reject('¡El RFC no es válido, solo acepta un RFC que inicia con 3 o 4 letras mayúsculas (incluye Ñ y &), seguido de 6 dígitos para la fecha, y termina con 3 caracteres alfanuméricos en mayúsculas o números!...');
                         }
 
-                        if(isTextFieldsSupplier.domicilio.length > 150){
-                            setIsActionBlock(false);
-                            return reject('¡El domicilio sobrepasa el límite de caracteres permitido!...');
-                        }
-
                         if(!regexAddress.test(isTextFieldsSupplier.domicilio.trim())){
                             setIsActionBlock(false);
                             return reject('¡El domicilio no es válido, solo acepta letras (mayúsculas y minúsculas, incluidas vocales con acentos y la Ñ), números, espacios y los caracteres especiales: punto, coma, numeral (#), guion, barra, símbolo de grado (°) y paréntesis!...');
                         }
 
-                        if(isTextFieldsSupplier.telefono.length > 20){
-                            setIsActionBlock(false);
-                            return reject('¡El teléfono sobrepasa el límite de caracteres permitido!...');
-                        }
-
                         if(!regexPhone.test(isTextFieldsSupplier.telefono.trim())){
                             setIsActionBlock(false);
                             return reject('¡El teléfono no es válido, solo permite números de 7, 8 o 10 dígitos!...');
-                        }
-                        if(isTextFieldsSupplier.correo.length > 150){
-                            setIsActionBlock(false);
-                            return reject('¡El correo sobrepasa el límite de caracteres permitido!...');
                         }
 
                         if(!regexEmail.test(isTextFieldsSupplier.correo.trim())){

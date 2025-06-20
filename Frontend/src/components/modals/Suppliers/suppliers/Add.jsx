@@ -27,10 +27,10 @@ import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center } from "../..
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Input_Group, Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Alert_Verification,Alert_Warning_Sonner } from "../../../styled/Alerts";
+import { Label_Total_Text_12_Center } from "../../../styled/Labels";
 // Componentes personalizados
 import Virtual_Keyboard from "../../../forms/Keyboard";
-import { Label_Total_Text_12_Center } from "../../../styled/Labels";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar proveedores a su tabla
@@ -65,18 +65,33 @@ export default function Suppliers_Add(){
     // useEffect para calcular el total escrito en los campos
     useEffect(() => {
         setIsTotalName(isTextFieldsSupplier.nombre.length)
+        if(isTextFieldsSupplier.nombre.length === 150){
+            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el nombre!...')
+        }
     },[isTextFieldsSupplier.nombre]);
     useEffect(() => {
-        setIsTotalRFC(isTextFieldsSupplier.rfc.length)
+        setIsTotalRFC(isTextFieldsSupplier.rfc.length);
+        if(isTextFieldsSupplier.rfc.length === 30){
+            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el RFC!...')
+        }
     },[isTextFieldsSupplier.rfc]);
     useEffect(() => {
-        setIsTotalAddress(isTextFieldsSupplier.domicilio.length)
+        setIsTotalAddress(isTextFieldsSupplier.domicilio.length);
+        if(isTextFieldsSupplier.domicilio.length === 150){
+            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el domicilio!...')
+        }
     },[isTextFieldsSupplier.domicilio]);
     useEffect(() => {
-        setIsTotalPhone(isTextFieldsSupplier.telefono.length)
+        setIsTotalPhone(isTextFieldsSupplier.telefono.length);
+        if(isTextFieldsSupplier.telefono.length === 20){
+            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el teléfono!...')
+        }
     },[isTextFieldsSupplier.telefono]);
     useEffect(() => {
-        setIsTotalEmail(isTextFieldsSupplier.correo.length)
+        setIsTotalEmail(isTextFieldsSupplier.correo.length);
+        if(isTextFieldsSupplier.correo.length === 150){
+            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el correo!...')
+        }
     },[isTextFieldsSupplier.correo]);
     // UseEffect que determina la visibilidad del teclado
     useEffect(() => {
@@ -257,7 +272,7 @@ export default function Suppliers_Add(){
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Rfc"
-                                        placeholder="..."
+                                        placeholder="(Opcional)..."
                                         type="text"
                                         maxLength={30}
                                         disabled={isActionBlock}
@@ -278,7 +293,7 @@ export default function Suppliers_Add(){
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Address"
-                                        placeholder="..."
+                                        placeholder="(Opcional)..."
                                         type="text"
                                         maxLength={150}
                                         disabled={isActionBlock}
@@ -307,7 +322,7 @@ export default function Suppliers_Add(){
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Phone"
-                                        placeholder="..."
+                                        placeholder="(Opcional)..."
                                         type="text"
                                         maxLength={20}
                                         disabled={isActionBlock}
@@ -363,7 +378,7 @@ export default function Suppliers_Add(){
                                 </Button_Icon_Blue_210>
                             </Tooltip>
                             <Tooltip title='Agregar' placement='top'>
-                                <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                <Button_Icon_Green_210 ThemeMode={themeMode} className='pulsate-buttom'
                                     onClick={() => handleSupplierAdd()}
                                     disabled={isActionBlock}    
                                 >

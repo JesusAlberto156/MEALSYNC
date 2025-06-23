@@ -65,12 +65,7 @@ export default function Table_Supply_Types(){
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
         if(isSelectedRow !== null){
-            const cantidadesFiltradas = isCountSupplyTypes
-            .filter(count => count.idtipo === isSelectedRow.idtipo)
-            .flatMap(item =>
-                (item.cantidades || []).map(c => ({ cantidad: c.cantidad }))
-            );
-
+            const cantidadesFiltradas = isCountSupplyTypes.filter(count => count.idtipo === isSelectedRow.idtipo).map(count => ({ cantidad: count.cantidad}))
             setIsTextFieldsSupplyType(prev => ({
             ...prev,
                 idtipo: isSelectedRow.idtipo,

@@ -2,9 +2,10 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsSupplierContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext } from "../../contexts/FormsProvider";
-import { SuppliersContext,SupplierAddContext,SupplierEditContext,SupplierDeleteContext,SupplyCategoriesContext,SupplyCategoryAddContext,SupplyCategoryEditContext,SupplyCategoryDeleteContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,SupplyTypeCountAddContext,SupplyTypeDeleteContext } from "../../contexts/SuppliersProvider";
+import { TextFieldsSupplierContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsSupplyContext } from "../../contexts/FormsProvider";
+import { SuppliersContext,DeletedSuppliersContext,DeletedSupplyTypesContext,DeletedSupplyCategoriesContext,SupplierAddContext,SupplierEditContext,SupplierDeleteContext,SupplyCategoriesContext,SupplyCategoryAddContext,SupplyCategoryEditContext,SupplyCategoryDeleteContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,CountSupplyTypesContext,SupplyTypeCountAddContext,SupplyTypeDeleteContext } from "../../contexts/SuppliersProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
+import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../contexts/SearchsProvider";
 import { ActionBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../../contexts/ViewsProvider";
 // Estilos personalizados
@@ -396,7 +397,7 @@ export const HandleSupplyTypeAdd = () => {
 
                         const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
                         const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
-                        const regexDecimalNumbers = /^\d+\.\d+$/;
+                        const regexDecimalNumbers = /^\d+(\.\d{1,4})?$/;
 
                         if(!regexNames.test(isTextFieldsSupplyType.tipo.trim())){
                             setIsActionBlock(false);
@@ -420,7 +421,7 @@ export const HandleSupplyTypeAdd = () => {
 
                         if(!regexDecimalNumbers.test(isTextFieldsSupplyType.limite)){
                             setIsActionBlock(false);
-                            return reject('¡La cantidad mínima no es válida, solo puede contener números decimales!...');
+                            return reject('¡La cantidad mínima no es válida, solo puede contener números decimales de hasta 4 dígitos decimales!...');
                         }
 
                         resolve('¡Información verificada!...');
@@ -478,7 +479,7 @@ export const HandleSupplyTypeEdit = () => {
 
                         const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
                         const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
-                        const regexDecimalNumbers = /^\d+\.\d+$/;
+                        const regexDecimalNumbers = /^\d+(\.\d{1,4})?$/;
 
                         if(!regexNames.test(isTextFieldsSupplyType.tipo.trim())){
                             setIsActionBlock(false);
@@ -502,7 +503,7 @@ export const HandleSupplyTypeEdit = () => {
 
                         if(!regexDecimalNumbers.test(isTextFieldsSupplyType.limite)){
                             setIsActionBlock(false);
-                            return reject('¡La cantidad mínima no es válida, solo puede contener números decimales!...');
+                            return reject('¡La cantidad mínima no es válida, solo puede contener números decimales de hasta 4 dígitos decimales!...');
                         }
 
                         resolve('¡Información verificada!...');
@@ -522,4 +523,171 @@ export const HandleSupplyTypeEdit = () => {
     }
     // Retorno de la función del hook
     return handleSupplyTypeEdit;
+}
+// Hook para agregar cantidades a un tipo de insumo desde el modal ✔️
+export const HandleCountSupplyTypeAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useContext(SupplyTypeCountAddContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
+    const [isCountSupplyTypes,setIsCountSupplyTypes] = useContext(CountSupplyTypesContext);
+    const [isSupplyTypes] = useContext(SupplyTypesContext);
+    // Función del hook
+    const handleCountSupplyTypeAdd = () => {
+        if(currentNView === 'Tipos de insumo' && currentSView === 'Proveedores' && currentMView === 'Tipo-Insumo-Cantidad-Agregar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupplyType.cantidades[0].cantidad === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información de la cantidad de tipo de insumo!...')
+                        };
+
+                        if(isCountSupplyTypes.some(count => count.idtipo === isTextFieldsSupplyType.idtipo && count.cantidad === parseFloat(isTextFieldsSupplyType.cantidades[0].cantidad))){
+                            setIsActionBlock(false);
+                            return reject('Cantidad ya existente al tipo de insumo!...');
+                        }
+
+                        const regexDecimalNumbers = /^\d+(\.\d{1,4})?$/;
+
+                        if(isTextFieldsSupplyType.cantidades[0].cantidad <= 0){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, debe de ser mayor a 0!...');
+                        }
+
+                        if(isTextFieldsSupplyType.cantidades[0].cantidad > 999999.9999){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, excede el valor máximo posible!...');
+                        }
+
+                        if(!regexDecimalNumbers.test(isTextFieldsSupplyType.cantidades[0].cantidad)){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, solo puede contener números decimales de hasta 4 dígitos decimales!...');
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyTypeCountAdd(true);
+                        },500);
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+    // Retorno de la función del hook
+    return handleCountSupplyTypeAdd;
+}
+// Hook para eliminar un tipo de insumo desde el modal ✔️
+export const HandleSupplyTypeDelete = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isSupplyTypeDelete,setIsSupplyTypeDelete] = useContext(SupplyTypeDeleteContext);
+    const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
+    // Función del hook
+    const handleSupplyTypeDelete = () => {
+        if(currentNView === 'Tipos de insumo' && currentSView === 'Proveedores' && currentMView === 'Tipo-Insumo-Eliminar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setIsFunctionBlock(false);
+                    setTimeout(() => {
+                        
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyTypeDelete(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    } 
+    // Retorno de la función del hook
+    return handleSupplyTypeDelete;
+}
+// Hook para filtrar los proveedores ✔️
+export const FilteredRecordsSuppliers = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm1] = useContext(SearchTerm1Context); 
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
+    // Función del hook
+    const filtered = isSuppliers.filter((data) => {
+        const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
+        if (isDeleted) return false;
+        
+        return [
+            data.nombre,
+            data.rfc,
+            data.domiclio,
+            data.telefono,
+            data.correo,
+        ].some(value =>
+            String(value).toLowerCase().includes(isSearchTerm1.toLowerCase())
+        );
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para filtrar las categorias por insumo ✔️
+export const FilteredRecordsSupplyCategories = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm2] = useContext(SearchTerm2Context); 
+    const [isSupplyCategories] = useContext(SupplyCategoriesContext); 
+    const [isDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext);
+    // Función del hook
+    const filtered = isSupplyCategories.filter((data) => {
+        const isDeleted = isDeletedSupplyCategories.some(category => category.idcategoria === data.idcategoria);
+        if (isDeleted) return false;
+        
+        return data.nombre.toLowerCase().includes(isSearchTerm2.toLowerCase());
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para filtrar los tipos de insumo ✔️
+export const FilteredRecordsSupplyTypes = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm3] = useContext(SearchTerm3Context); 
+    const [isSupplyTypes] = useContext(SupplyTypesContext);
+    const [isSupplyCategories] = useContext(SupplyCategoriesContext); 
+    const [isDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
+    // Función del hook
+    const filtered = isSupplyTypes.filter((data) => {
+        if(data.idcategoria === isTextFieldsSupply.idcategoria){
+                const isDeleted = isDeletedSupplyTypes.some(type => type.idtipo === data.idtipo);
+            if (isDeleted) return false;
+                
+            const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre;
+            return [
+                category,
+                data.tipo,
+                data.unidad,
+                data.limite
+            ].some(value =>
+                String(value).toLowerCase().includes(isSearchTerm3.toLowerCase())
+            );
+        }
+    });
+    // Retorno de la función del hook
+    return filtered;
 }

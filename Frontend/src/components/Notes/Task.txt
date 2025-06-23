@@ -143,12 +143,12 @@ ______AGREGAR CANTIDADES______
 - Funcionalidad ✔️
 - Diseño de la interfaz ✔️
 ______ELIMINAR______
-- Verificación de los campos 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______DETALLES______ 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️

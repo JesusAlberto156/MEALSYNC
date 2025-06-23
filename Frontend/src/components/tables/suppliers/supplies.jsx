@@ -186,38 +186,38 @@ export default function Table_Supplies(){
                                 transition: 'background-color 0.5s ease',
                             }}
                         >
-                            <Td ThemeMode={themeMode}>{supply.nombre}</Td>
-                            <Td ThemeMode={themeMode}>{supply.descripcion}</Td>
+                            <Td ThemeMode={themeMode}>{supply.nombre || 'Desconocido...'}</Td>
+                            <Td ThemeMode={themeMode}>{supply.descripcion || 'Desconocida...'}</Td>
                             <Td ThemeMode={themeMode}><Icon_Image_Black_60 ThemeMode={themeMode} src={supply.imagen}/></Td>
                             <Td ThemeMode={themeMode}>
                                 {calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion === 0 ? (
                                     <>
-                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Blue_12_Center></TContainer_Center>
+                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Blue_12_Center></TContainer_Center>
                                     </>
                                 ):(
                                     calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 1 ? (
                                         <>
-                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Red_12_Center></TContainer_Center>
+                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Red_12_Center></TContainer_Center>
                                         </>
                                     ):(
                                         calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 2 ? (
                                             <>
-                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Orange_12_Center></TContainer_Center>
+                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Orange_12_Center></TContainer_Center>
                                             </>
                                         ):(
                                             calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 3 ? (
                                                 <>
-                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Yellow_12_Center></TContainer_Center>
+                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Yellow_12_Center></TContainer_Center>
                                                 </>
                                             ):(
                                                 calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 4 ? (
                                                     <>
-                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
+                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
                                                     </>
                                                 ):(
                                                     calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 5 ? (
                                                         <>
-                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Green_12_Center></TContainer_Center>
+                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Green_12_Center></TContainer_Center>
                                                         </>
                                                     ):(
                                                         <></>
@@ -228,12 +228,12 @@ export default function Table_Supplies(){
                                     )
                                 )}
                             </Td>
-                            <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === supply.idcategoria)?.nombre || 'Desconocido'}</Td>
-                            <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo || 'Desconocido'}</Td>
+                            <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === supply.idcategoria)?.nombre || 'Desconocido...'}</Td>
+                            <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo || 'Desconocido...'}</Td>
                             <Td ThemeMode={themeMode}>{() => {
                                 const count = isCountSupplyTypes.find(count => count.idcantidad === supply.idcantidad);
                                 const type = isSupplyTypes.find(type => type.idtipo === supply.idtipo);
-                                return `${count.cantidad} ${type.unidad}`
+                                return `${count.cantidad} ${type.unidad}` || 'Desconocida...'
                             }}</Td>
                         </tr>
                     ))}

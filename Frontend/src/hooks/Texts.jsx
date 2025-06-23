@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { SearchTermContext,SearchTerm1Context,SearchTerm2Context } from "../contexts/SearchsProvider";
+import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../contexts/SelectedesProvider";
 //____________IMPORT/EXPORT____________
 
@@ -12,11 +12,13 @@ export const ResetSearchTerms = () => {
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
     const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
     const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+    const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context);
     // Función del hook
     const resetSearchTerms = () => {
         setIsSearchTerm('');
         setIsSearchTerm1('');
         setIsSearchTerm2('');
+        setIsSearchTerm3('');
     }
     // Retorno de la función del hook
     return resetSearchTerms;

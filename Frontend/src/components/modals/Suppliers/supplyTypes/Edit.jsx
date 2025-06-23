@@ -12,7 +12,7 @@ import { SearchTermContext } from "../../../../contexts/SearchsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
 import { SupplyCategoriesContext,SupplyTypeEditContext,DeletedSupplyCategoriesContext } from "../../../../contexts/SuppliersProvider";
-import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
+import { RefKeyboardContext,RefSupplyTypesContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
@@ -60,6 +60,7 @@ export default function Supply_Type_Edit(){
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
     const [isTouch,setIsTouch] = useContext(TouchContext);
+    const {Modal_Supply_Types,Form_Supply_Types,Button_Edit_Supply_Types,Button_Add_Supply_Types,Button_Delete_Supply_Types,Button_Count_Supply_Types} = useContext(RefSupplyTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
@@ -208,8 +209,8 @@ export default function Supply_Type_Edit(){
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal>
-                    <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                <Container_Modal ref={Modal_Supply_Types}>
+                    <Container_Form_500 ref={Form_Supply_Types} ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_30_Center ThemeMode={themeMode}>EDITAR TIPO DE INSUMO</Text_Title_30_Center>
                         </Container_Row_100_Center>
@@ -407,7 +408,7 @@ export default function Supply_Type_Edit(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Limit"
                                         placeholder="..."
-                                        type="number"
+                                        type="text"
                                         disabled={isActionBlock}
                                         value={isTextFieldsSupplyType.limite}
                                         onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, limite: e.target.value}))}

@@ -628,15 +628,6 @@ export default function Search_Bar (){
                                                 <Icon_White_18><MdEdit/></Icon_White_18>
                                             </Button_Icon_Blue_60>
                                         </Tooltip>
-                                        <Tooltip title='Agregar cantidades' placement="top">
-                                            <Button_Icon_White_60 ref={Button_Add_Supply_Types} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
-                                            onClick={() => {
-                                                handleModalViewSuppliers('Tipo-Insumo-Cantidad-Agregar');
-                                                navigate('/Administration/Index/Suppliers/Supply/Types/Count/Add',{ replace: true });
-                                            }}>
-                                                <Icon_18><IoIosAddCircle/></Icon_18>
-                                            </Button_Icon_White_60>
-                                        </Tooltip>
                                     </>
                                 ):(
                                     <>
@@ -673,7 +664,25 @@ export default function Search_Bar (){
                             ):(
                                 <></>
                             )}
+                            {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                isSelectedRow !== null ? (
+                                    <Tooltip title='Agregar cantidades' placement="top">
+                                        <Button_Icon_Green_60 ref={Button_Add_Supply_Types} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
+                                        onClick={() => {
+                                            handleModalViewSuppliers('Tipo-Insumo-Cantidad-Agregar');
+                                            navigate('/Administration/Index/Suppliers/Supply/Types/Count/Add',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </Tooltip>
+                                ):(
+                                    <></>
+                                )
+                            ):(
+                                <></>
+                            )}
                             {isSelectedRow !== null ? (
+                                
                                 <>
                                     <Tooltip title='Detalles' placement="top">
                                         <Button_Icon_Orange_60 ref={Button_Count_Supply_Types} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}

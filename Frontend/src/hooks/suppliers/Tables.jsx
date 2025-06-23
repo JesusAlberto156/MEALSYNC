@@ -339,7 +339,7 @@ export const TableActionsSupplyTypes = () => {
                 return category.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Cantidad Mínima'){
-                return data.limite.toLowerCase().includes(isSearchTerm.toLowerCase());
+                return String(data.limite).toLowerCase().includes(isSearchTerm.toLowerCase());
             }
         });
         return [...filtered].sort((a, b) => {
@@ -461,7 +461,7 @@ export const TableActionsSupplies = () => {
             }
             if(isSelectedOptionSearch === 'Cantidad'){
                 const count = isCountSupplyTypes.find(count => count.idcantidad === data.idcantidad);
-                return count.cantidad.toLowerCase().includes(isSearchTerm.toLowerCase());
+                return String(count.cantidad).toLowerCase().includes(isSearchTerm.toLowerCase());
             }
         });
         return [...filtered].sort((a, b) => {

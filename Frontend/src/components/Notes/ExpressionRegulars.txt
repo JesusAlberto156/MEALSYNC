@@ -18,3 +18,5 @@ EXPRESIÓN REGULAR PARA QUE ACEPTE TELEFONOS
 const regex = /^\d{7}$|^\d{8}$|^\d{10}$/
 EXPRESIÓN REGULAR PARA QUE ACEPTE CORREOS
 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const regexDecimalNumbers = /^\d+(\.\d{1,4})?$/;

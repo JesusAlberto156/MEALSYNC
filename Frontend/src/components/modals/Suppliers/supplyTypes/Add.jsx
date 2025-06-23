@@ -318,6 +318,7 @@ export default function Supply_Type_Add(){
                                                     setIsKeyboardView('Search');
                                                 }
                                             }}
+                                            disabled={isActionBlock}
                                         />
                                     </Container_Row_100_Center>
                                     {filteredRecordsSupplyCategories.length !== 0 ? (
@@ -402,7 +403,7 @@ export default function Supply_Type_Add(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Limit"
                                         placeholder="..."
-                                        type="number"
+                                        type="text"
                                         disabled={isActionBlock}
                                         value={isTextFieldsSupplyType.limite}
                                         onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, limite: e.target.value}))}

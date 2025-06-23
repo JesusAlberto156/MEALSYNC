@@ -10,12 +10,12 @@ import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
 import { SupplyCategoriesContext,SupplyTypeCountAddContext } from "../../../../contexts/SuppliersProvider";
-import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
+import { RefKeyboardContext,RefSupplyTypesContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
-import { HandleSupplyTypeAdd } from "../../../../hooks/suppliers/Forms";
+import { HandleCountSupplyTypeAdd } from "../../../../hooks/suppliers/Forms";
 import { ResetSelectedTables } from "../../../../hooks/Texts";
 //__________ICONOS__________
 // Icono para realizar la función del modal
@@ -51,14 +51,22 @@ export default function Count_Supply_Type_Add(){
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
     const [isTouch,setIsTouch] = useContext(TouchContext);
+    const {Modal_Supply_Types,Form_Supply_Types,Button_Edit_Supply_Types,Button_Add_Supply_Types,Button_Delete_Supply_Types,Button_Count_Supply_Types} = useContext(RefSupplyTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
-    const handleSupplyTypeAdd = HandleSupplyTypeAdd();
+    const handleCountSupplyTypeAdd = HandleCountSupplyTypeAdd();
     const resetSelectedTables = ResetSelectedTables();
     // Constantes con el valor de useRef
     const lastTouchTimeRef = useRef(0);
     const isTouchRef = useRef(isTouch);
+    // UseEffect para limpiar la cantidad
+    useEffect(() => {
+        setIsTextFieldsSupplyType(prev => ({
+            ...prev,
+            cantidades: [{ cantidad:0}]
+        }))
+    },[])
     // UseEffect que determina la visibilidad del teclado
     useEffect(() => {
         const handleTouchStart = () => {
@@ -116,7 +124,7 @@ export default function Count_Supply_Type_Add(){
         if(isKeyboardView === 'Count' ){
             setIsTextFieldsSupplyType(prev => ({
                 ...prev,
-                cantidades: [{cantidad: newValue}], 
+                cantidades: [{cantidad: parseFloat(newValue)}], 
             }));
         }
     };
@@ -129,7 +137,7 @@ export default function Count_Supply_Type_Add(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Count-Supply-Type',isLoggedUser.idusuario,isTextFieldsSupplyType.cantidades[0].cantidad,isTextFieldsSupplyType.idtipo);
+                        socket.emit('Insert-Count-Supply-Type',isLoggedUser.idusuario,parseFloat(isTextFieldsSupplyType.cantidades[0].cantidad),isTextFieldsSupplyType.idtipo);
 
                         resolve('¡MEALSYNC agregó una cantidad al tipo de insumo!...');
 
@@ -161,8 +169,8 @@ export default function Count_Supply_Type_Add(){
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal>
-                    <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Cantidad-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                <Container_Modal ref={Modal_Supply_Types}>
+                    <Container_Form_500 ref={Form_Supply_Types} ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Cantidad-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR CANTIDAD AL TIPO DE INSUMO</Text_Title_30_Center>
                         </Container_Row_100_Center>
@@ -195,10 +203,10 @@ export default function Count_Supply_Type_Add(){
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Count"
                                         placeholder="..."
-                                        type="number"
+                                        type="text"
                                         disabled={isActionBlock}
                                         value={isTextFieldsSupplyType.cantidades[0].cantidad}
-                                        onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, cantidades: [{ cantidad: e.target.value}]}))}
+                                        onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, cantidades: [{ cantidad: e.target.value }]}))}
                                         onFocus={() => {
                                             if(isTouchRef.current){
                                                 setIsKeyboard(true);
@@ -223,7 +231,7 @@ export default function Count_Supply_Type_Add(){
                             <Tooltip title='Agregar' placement='top'>
                                 <span>
                                     <Button_Icon_White_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleSupplyTypeAdd()}
+                                        onClick={() => handleCountSupplyTypeAdd()}
                                         disabled={isActionBlock}    
                                     >
                                         <Icon_22><IoIosAddCircle/></Icon_22>

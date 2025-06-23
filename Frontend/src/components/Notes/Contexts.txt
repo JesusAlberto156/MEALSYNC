@@ -46,6 +46,7 @@ const {Modal_Suppy_Orders,Form_Supply_Orders,Button_Edit_Supply_Orders,Button_Ed
 const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext); ✔️
 const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context); ✔️
 const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context); ✔️
+const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context); ✔️
 //____________SEARCH____________
 //____________SELECTED____________
 const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); ✔️
@@ -89,7 +90,7 @@ const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext)
 const [isCountSupplyTypes,setIsCountSupplyTypes] = useContext(CountSupplyTypesContext); ✔️
 const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useContext(SupplyTypeCountAddContext); ✔️
 const [isDeletedSupplyTypes,setIsDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext); ✔️
-const [isSupplyTypeDelete,setIsSupplyTypeDelete] = useContext(SupplyTypeDeleteContext);
+const [isSupplyTypeDelete,setIsSupplyTypeDelete] = useContext(SupplyTypeDeleteContext); ✔️
 const [isSupplyCategories,setIsSupplyCategories] = useContext(SupplyCategoriesContext); ✔️
 const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext); ✔️
 const [isSupplyCategoryEdit,setIsSupplyCategoryEdit] = useContext(SupplyCategoryEditContext); ✔️

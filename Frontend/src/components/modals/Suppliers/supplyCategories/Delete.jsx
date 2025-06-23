@@ -35,7 +35,7 @@ import Form_Verification from "../../../forms/Verification";
 import Keyboard_Default from "../../../keyboards/Defaullt";
 //____________IMPORT/EXPORT____________
 
-// Modal para eliminar los proveedores de la tabla
+// Modal para eliminar las categorias de la tabla
 export default function Supply_Category_Delete(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
@@ -126,7 +126,7 @@ export default function Supply_Category_Delete(){
                                 <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsSupplyCategory.nombre || 'Desconocida'}...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>La eliminación de esta categorá impedirá agregarle nuevos insumos o reasignar sus insumos a una categoría distinta, tambien no se podrá agregar nuevos tipos de insumo a esta categoría o reasignarle sus tipos de insumo a otra categoría.</Text_A_12_Justify>
+                                <Text_A_12_Justify ThemeMode={themeMode}>La eliminación de esta categoría impedirá agregarle nuevos insumos o reasignar sus insumos a una categoría distinta, tambien no se podrá agregar nuevos tipos de insumo a esta categoría o reasignarle sus tipos de insumo a otra categoría.</Text_A_12_Justify>
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>

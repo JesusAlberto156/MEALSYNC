@@ -5,6 +5,7 @@ import { createContext,useState } from "react"
 export const SearchTermContext = createContext(null);
 export const SearchTerm1Context = createContext(null);
 export const SearchTerm2Context = createContext(null);
+export const SearchTerm3Context = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para lo que se escriba en los buscadores  ✔️
@@ -13,7 +14,9 @@ export const Index_Searchs = ({children}) => {
         <Search_Term>
             <Search_Term_1>
                 <Search_Term_2>
-                    {children}
+                    <Search_Term_3>
+                        {children}
+                    </Search_Term_3>
                 </Search_Term_2>
             </Search_Term_1>
         </Search_Term>
@@ -51,5 +54,16 @@ export const Search_Term_2 = ({ children }) => {
         <SearchTerm2Context.Provider value={[isSearchTerm2,setIsSearchTerm2]}>
             {children}
         </SearchTerm2Context.Provider>
+    );
+}
+// Función Contexto para controlar el buscador 3 ✔️
+export const Search_Term_3 = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSearchTerm3,setIsSearchTerm3] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SearchTerm3Context.Provider value={[isSearchTerm3,setIsSearchTerm3]}>
+            {children}
+        </SearchTerm3Context.Provider>
     );
 }

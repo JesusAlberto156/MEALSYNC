@@ -77,9 +77,10 @@ ALTER COLUMN cantidad DECIMAL(10,4) NOT NULL
 
 ALTER TABLE logComandaMedicaTepic
 ADD CONSTRAINT DF_logCamandaMedicaTepic_Fecha DEFAULT GETDATE() FOR fecha;
-
+DBCC CHECKIDENT (cantidadTipoInsumo, RESEED, 0);
+delete from cantidadTipoInsumo
 select * from usuariosEliminados;
-
+SELECT * FROM cantidadTipoInsumo;
 SELECT * FROM logComandaMedicaTepic;
 
 DELETE FROM logComandaMedicaTepic;

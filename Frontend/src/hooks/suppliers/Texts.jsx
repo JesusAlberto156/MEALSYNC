@@ -74,6 +74,7 @@ export const ResetTextFieldsSupplyType = () => {
         descripcion: '',
         unidad: '',
         idcategoria: 0,
+        limite: 0,
         cantidades: [
             {
                 cantidad: 0,

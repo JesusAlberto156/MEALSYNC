@@ -31,7 +31,7 @@ const [isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyT
 //____________MENUS____________
 //____________REF____________
 const isAlertGreeting = useContext(RefAlertGreetingContext); ✔️
-const isKeyboard = useContext(RefKeyboardContext);
+const isKeyboard = useContext(RefKeyboardContext); ✔️
 const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext); ✔️
 const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext); ✔️
 const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext); ✔️
@@ -84,17 +84,17 @@ const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
 const [isDeletedSupplies,setIsDeletedSupplies] = useContext(DeletedSuppliesContext); ✔️
 const [isSupplyDelete,setIsSupplyDelete] = useContext(SupplyDeleteContext);
 const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext); ✔️
-const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext);
-const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext);
+const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext); ✔️
+const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext); ✔️
 const [isCountSupplyTypes,setIsCountSupplyTypes] = useContext(CountSupplyTypesContext); ✔️
-const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useContext(SupplyTypeCountAddContext);
+const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useContext(SupplyTypeCountAddContext); ✔️
 const [isDeletedSupplyTypes,setIsDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext); ✔️
 const [isSupplyTypeDelete,setIsSupplyTypeDelete] = useContext(SupplyTypeDeleteContext);
 const [isSupplyCategories,setIsSupplyCategories] = useContext(SupplyCategoriesContext); ✔️
-const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext);
-const [isSupplyCategoryEdit,setIsSupplyCategoryEdit] = useContext(SupplyCategoryEditContext);
+const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext); ✔️
+const [isSupplyCategoryEdit,setIsSupplyCategoryEdit] = useContext(SupplyCategoryEditContext); ✔️
 const [isDeletedSupplyCategories,setIsDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext); ✔️
-const [isSupplyCategoryDelete,setIsSupplyCategoryDelete] = useContext(SupplyCategoryDeleteContext);
+const [isSupplyCategoryDelete,setIsSupplyCategoryDelete] = useContext(SupplyCategoryDeleteContext); ✔️
 //____________SUPPLIERS____________
 //____________USERS____________
 const [isUsers,setIsUsers] = useContext(UsersContext); ✔️
@@ -116,7 +116,7 @@ const [isUserTypes,setIsUserTypes] = useContext(UserTypesContext); ✔️
 const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext); ✔️
 const [isAnimation,setIsAnimation] = useContext(AnimationContext); ✔️
 const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext); ✔️
-const [isBlock,setIsBlock] = useContext(BlockContext); 
+const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext); ✔️
 const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext); ✔️
 const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext); ✔️
 const [isTouch,setIsTouch] = useContext(TouchContext); ✔️

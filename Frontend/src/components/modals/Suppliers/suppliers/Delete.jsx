@@ -9,13 +9,14 @@ import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplierContext,TextFieldsUserContext } from "../../../../contexts/FormsProvider";
 import { SupplierDeleteContext } from "../../../../contexts/SuppliersProvider";
-import { ActionBlockContext,VerificationBlockContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext,KeyboardContext,KeyboardViewContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefSuppliersContext } from '../../../../contexts/RefsProvider';
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
 import { HandleSupplierDelete } from "../../../../hooks/suppliers/Forms";
+import { ResetSelectedTables } from "../../../../hooks/Texts";
 //__________ICONOS__________
 import { FaStar } from "react-icons/fa";
 // Icono para cerrar el modal
@@ -32,7 +33,7 @@ import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Delete from "../../errors/Delete";
 import Form_Verification from "../../../forms/Verification";
-import Virtual_Keyboard from "../../../forms/Keyboard";
+import Keyboard_Default from "../../../keyboards/Defaullt";
 //____________IMPORT/EXPORT____________
 
 // Modal para eliminar los proveedores de la tabla
@@ -42,8 +43,9 @@ export default function Supplier_Delete(){
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
     const [socket] = useContext(SocketContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
     const {Modal_Suppliers,Form_Suppliers,Button_Edit_Suppliers,Button_Delete_Suppliers} = useContext(RefSuppliersContext);
     const [isSupplierDelete,setIsSupplierDelete] = useContext(SupplierDeleteContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
@@ -56,6 +58,7 @@ export default function Supplier_Delete(){
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleSupplierDelete = HandleSupplierDelete();
+    const resetSelectedTables = ResetSelectedTables();
     // useEffect para escribir en los campos del login
     const handleKeyboard = (newValue) => {
         if(isKeyboardView === 'User' ){
@@ -89,17 +92,18 @@ export default function Supplier_Delete(){
                         setTimeout(() => {
                             setIsModal(false);
                             sessionStorage.setItem('Estado del Modal',false);
-                            sessionStorage.removeItem('Acción del Bloqueo');
+                            sessionStorage.removeItem('Función del Bloqueo');
                             sessionStorage.removeItem('Verificación del Bloqueo');
                             setIsVerificationBlock(false);
                             setIsActionBlock(false);
-                            setIsSelectedRow(null);
+                            resetSelectedTables();
                             navigate(route,{ replace: true });
                         },750);
                     },2000);
                 }catch(e){
-                    setIsActionBlock(true);
+                    setIsActionBlock(false);
                     setIsSupplierDelete(false);
+                    setIsFunctionBlock(true);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
@@ -120,7 +124,7 @@ export default function Supplier_Delete(){
                             <Form_Verification/>
                             <Container_Row_NG_95_Center>
                                 <Text_Blue_16_Left ThemeMode={themeMode}>Proveedor:</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsSupplier.nombre}</Text_A_16_Left>
+                                <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsSupplier.nombre || 'Desconocido'}...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
                                 {isTextFieldsSupplier.calificacion === 0 ? (
@@ -203,7 +207,7 @@ export default function Supplier_Delete(){
                                     <span>
                                         <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                             onClick={() => handleSupplierDelete()}
-                                            disabled={isActionBlock}    
+                                            disabled={!isFunctionBlock || isActionBlock}    
                                         >
                                             <Icon_White_22><MdDelete/></Icon_White_22>
                                         </Button_Icon_Red_210>
@@ -213,7 +217,7 @@ export default function Supplier_Delete(){
                         </Container_Form_500>
                         {isKeyboard ? (
                             <>
-                                <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
+                                <Keyboard_Default value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
                             </>
                         ):(
                             <></>

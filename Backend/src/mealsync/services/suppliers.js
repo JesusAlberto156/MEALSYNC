@@ -523,8 +523,8 @@ export const insertSupplyCategoryService = async (nombre,descripcion) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('nombre',sql.Varchar(150),nombre)
-            .input('descripcion',sql.Varchar(250),descripcion)
+            .input('nombre',sql.VarChar(150),nombre)
+            .input('descripcion',sql.VarChar(250),descripcion)
             .query('INSERT INTO categoriasInsumo (nombre,descripcion) VALUES (@nombre,@descripcion)');
 
         if(result.rowsAffected[0]>0){
@@ -754,9 +754,9 @@ export const updateSupplyCategoryService = async (idcategoria,nombre,descripcion
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idcategoria',sql.Int,idcategoria)
-            .input('nombre',sql.Varchar(150),nombre)
-            .input('descripcion',sql.Varchar(250),descripcion)
-            .query('UPDATE tipoInsumo SET nombre = @nombre, descripcion = @descripcion WHERE idcategoria = @idcategoria');
+            .input('nombre',sql.VarChar(150),nombre)
+            .input('descripcion',sql.VarChar(250),descripcion)
+            .query('UPDATE categoriasInsumo SET nombre = @nombre, descripcion = @descripcion WHERE idcategoria = @idcategoria');
 
         if(result.rowsAffected[0]>0){
             return 'Categoría del insumo actualizada...';

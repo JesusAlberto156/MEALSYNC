@@ -107,19 +107,19 @@ ______VISUALIZAR______
 -------------------------------- OBSERVACIONES DE PROVEEDORES --
 -------------------------------- CATEGORIAS POR INSUMO --
 ______AGREGAR______
-- Verificación de los campos 
-- Implementación del teclado 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______EDITAR______
-- Verificación de los campos 
-- Implementación del teclado 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______ELIMINAR______
-- Verificación de los campos 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______VISUALIZAR______
 - Detalles en la tabla ✔️
 - Diseño de la interfaz ✔️
@@ -128,15 +128,20 @@ ______VISUALIZAR______
 -------------------------------- CATEGORIAS POR INSUMO --
 -------------------------------- TIPOS DE INSUMO --
 ______AGREGAR______
-- Verificación de los campos 
-- Implementación del teclado 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______EDITAR______
-- Verificación de los campos 
-- Implementación del teclado 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
+______AGREGAR CANTIDADES______
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______ELIMINAR______
 - Verificación de los campos 
 - Funcionalidad 

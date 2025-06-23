@@ -104,8 +104,8 @@ export default function Table_Supply_Categories(){
                                 transition: 'background-color 0.5s ease',
                             }}
                         >
-                            <Td ThemeMode={themeMode}>{category.nombre}</Td>
-                            <Td ThemeMode={themeMode}>{category.descripcion}</Td>
+                            <Td ThemeMode={themeMode}>{category.nombre || 'Desconocido...'}</Td>
+                            <Td ThemeMode={themeMode}>{category.descripcion || 'Desconocida...'}</Td>
                         </tr>
                     ))}
                 </Tbody>

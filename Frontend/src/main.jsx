@@ -43,14 +43,19 @@ import Table_Status from './components/tables/users/Status';
 import Status_Add from './components/modals/users/status/Add';
 import Status_Enable from './components/modals/users/status/Enable';
 import Table_Suppliers from './components/tables/suppliers/suppliers';
-import Suppliers_Add from './components/modals/Suppliers/suppliers/Add';
-import Suppliers_Edit from './components/modals/Suppliers/suppliers/Edit';
+import Supplier_Add from './components/modals/Suppliers/suppliers/Add';
+import Supplier_Edit from './components/modals/Suppliers/suppliers/Edit';
 import Supplier_Delete from './components/modals/Suppliers/suppliers/Delete';
 import Table_Supplier_Observations from './components/tables/suppliers/observations';
-import Supplier_Observations_View from './components/modals/Suppliers/observations/View';
+import Supplier_Observation_View from './components/modals/Suppliers/observations/View';
 import Table_Supply_Categories from './components/tables/suppliers/categories';
-import Category_Add from './components/modals/Suppliers/categories/Add';
+import Supply_Category_Add from './components/modals/Suppliers/supplyCategories/Add';
+import Supply_Category_Edit from './components/modals/Suppliers/supplyCategories/Edit';
+import Supply_Category_Delete from './components/modals/Suppliers/supplyCategories/Delete';
 import Table_Supply_Types from './components/tables/suppliers/supplyTypes';
+import Supply_Type_Add from './components/modals/Suppliers/supplyTypes/Add';
+import Supply_Type_Edit from './components/modals/Suppliers/supplyTypes/Edit';
+import Count_Supply_Type_Add from './components/modals/Suppliers/supplyTypes/CountAdd';
 import Table_Supplies from './components/tables/suppliers/supplies';
 import Table_Supply_Orders from './components/tables/warehouse/SupplyOrders';
 import Table_Purchases from './components/tables/warehouse/Purchases';
@@ -125,11 +130,11 @@ const router = createHashRouter([
           },
           {
             path: 'Administration/Index/Suppliers/Suppliers/Add',
-            element: <Suppliers_Add/>,
+            element: <Supplier_Add/>,
           },
           {
             path: 'Administration/Index/Suppliers/Suppliers/Edit',
-            element: <Suppliers_Edit/>,
+            element: <Supplier_Edit/>,
           },
           {
             path: 'Administration/Index/Suppliers/Suppliers/Delete',
@@ -137,26 +142,31 @@ const router = createHashRouter([
           },
           {
             path: 'Administration/Index/Suppliers/Observations/View',
-            element: <Supplier_Observations_View/>,
+            element: <Supplier_Observation_View/>,
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Categories/Add',
-            element: <Category_Add/>
+            element: <Supply_Category_Add/>,
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Categories/Edit',
+            element: <Supply_Category_Edit/>,
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Categories/Delete',
+            element: <Supply_Category_Delete/>,
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Types/Add',
+            element: <Supply_Type_Add/>,
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Types/Edit',
+            element: <Supply_Type_Edit/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Types/Count/Edit',
+            path: 'Administration/Index/Suppliers/Supply/Types/Count/Add',
+            element: <Count_Supply_Type_Add/>,
           },
           {
             path: 'Administration/Index/Suppliers/Supply/Types/Delete',

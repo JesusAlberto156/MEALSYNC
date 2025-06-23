@@ -233,7 +233,7 @@ export const insertWarehouseCategoryStartService = async (idcategoria) => {
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idcategoria',sql.Int,idcategoria)
-            .input('transaccion',sql.Varchar(20),'Inicial')
+            .input('transaccion',sql.VarChar(20),'Inicial')
             .query('INSERT INTO almacenCategorias (cantidadreal,precio,idcategoria,transaccion) VALUES (0,0,@idcategoria,@transaccion)');
 
         if(result.rowsAffected[0]>0){
@@ -278,7 +278,7 @@ export const insertWarehouseCategoryService = async (cantidadreal,precio,idcateg
             .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
             .input('precio',sql.Decimal(12,4),precio)
             .input('idcategoria',sql.Int,idcategoria)
-            .input('transaccion',sql.Varchar(20),transaccion)
+            .input('transaccion',sql.VarChar(20),transaccion)
             .query('INSERT INTO almacenCategorias (cantidadreal,precio,idcategoria,transaccion) VALUES (@cantidadreal,@precio,@idcategoria,@transaccion)');
 
         if(result.rowsAffected[0]>0){
@@ -322,7 +322,7 @@ export const insertWarehouseSupplyTypeStartService = async (idtipo) => {
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idtipo',sql.Int,idtipo)
-            .input('transaccion',sql.Varchar(20),'Inicial')
+            .input('transaccion',sql.VarChar(20),'Inicial')
             .query('INSERT INTO almacenTipoInsumo (cantidadreal,precio,idtipo,transaccion) VALUES (0,0,@idtipo,@transaccion)');
 
         if(result.rowsAffected[0]>0){
@@ -367,7 +367,7 @@ export const insertWarehouseSupplyTypeService = async (cantidadreal,precio,idtip
             .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
             .input('precio',sql.Decimal(12,4),precio)
             .input('idtipo',sql.Int,idtipo)
-            .input('transaccion',sql.Varchar(20),transaccion)
+            .input('transaccion',sql.VarChar(20),transaccion)
             .query('INSERT INTO almacenTipoInsumo (cantidadreal,precio,idtipo,transaccion) VALUES (@cantidadreal,@precio,@idtipo,@transaccion)');
 
         if(result.rowsAffected[0]>0){

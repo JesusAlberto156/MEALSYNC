@@ -27,7 +27,7 @@ import Error_View from "../../errors/View";
 //____________IMPORT/EXPORT____________
 
 // Modal para visualizar las observaciones de proveedores de su tabla
-export default function Supplier_Observations_View(){
+export default function Supplier_Observation_View(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [isActionBlock] = useContext(ActionBlockContext);
@@ -134,12 +134,14 @@ export default function Supplier_Observations_View(){
                         </Container_Row_95_Center>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
-                                <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleModalViewSuppliers('')}   
-                                    disabled={isActionBlock}
-                                >
-                                    <Icon_White_22><MdCancel/></Icon_White_22>
-                                </Button_Icon_Blue_210>
+                                <span>
+                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        onClick={() => handleModalViewSuppliers('')}   
+                                        disabled={isActionBlock}
+                                    >
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Blue_210>
+                                </span>
                             </Tooltip>
                         </Container_Row_95_Center>
                     </Container_Form_500>

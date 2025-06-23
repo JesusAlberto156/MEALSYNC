@@ -170,6 +170,7 @@ export const Text_Fields_Supply_Type = ({ children }) => {
         descripcion: '',
         unidad: '',
         idcategoria: 0,
+        limite: 0,
         cantidades: [
             {
                 cantidad: 0,

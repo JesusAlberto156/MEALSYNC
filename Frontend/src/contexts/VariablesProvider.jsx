@@ -5,6 +5,7 @@ import { createContext,useState } from "react"
 export const VerificationBlockContext = createContext(null);
 export const AnimationContext = createContext(null);
 export const ActionBlockContext = createContext(null);
+export const FunctionBlockContext = createContext(null);
 export const KeyboardContext = createContext(null);
 export const KeyboardViewContext = createContext(null);
 export const TouchContext = createContext(null);
@@ -18,17 +19,19 @@ export const Index_Variables = ({children}) => {
         <Verification_Block>
             <Animation>
                 <Action_Block>
-                    <Keyboard>
-                        <Keyboard_View>
-                            <Touch>
-                                <User_Updated>
-                                    <Permission_Updated>
-                                        {children}
-                                    </Permission_Updated>
-                                </User_Updated>
-                            </Touch>
-                        </Keyboard_View>
-                    </Keyboard>
+                    <Function_Action_Block>
+                        <Keyboard>
+                            <Keyboard_View>
+                                <Touch>
+                                    <User_Updated>
+                                        <Permission_Updated>
+                                            {children}
+                                        </Permission_Updated>
+                                    </User_Updated>
+                                </Touch>
+                            </Keyboard_View>
+                        </Keyboard>
+                    </Function_Action_Block>
                 </Action_Block>
             </Animation>
         </Verification_Block>
@@ -66,15 +69,26 @@ export const Animation = ({children}) => {
 // Función Contexto para controlar el bloqueo de acciones ✔️
 export const Action_Block = ({children}) => {
     // UseState para controlar el valor del contexto
-    const [isActiveBlock,setIsActiveBlock] = useState(() => {
-        const activeBlock = sessionStorage.getItem('Acción del Bloqueo') === 'true';
-        return activeBlock;
-    });
+    const [isActiveBlock,setIsActiveBlock] = useState(false);
     // Return para darle valor al contexto y heredarlo
     return (
         <ActionBlockContext.Provider value={[isActiveBlock,setIsActiveBlock]}>
             {children}
         </ActionBlockContext.Provider>
+    );
+}
+// Función Contexto para controlar el bloqueo de la función ✔️
+export const Function_Action_Block = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isFunctionBlock,setIsFunctionBlock] = useState(() => {
+        const functionBlock = sessionStorage.getItem('Función del Bloqueo') === 'true';
+        return functionBlock;
+    });
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <FunctionBlockContext.Provider value={[isFunctionBlock,setIsFunctionBlock]}>
+            {children}
+        </FunctionBlockContext.Provider>
     );
 }
 // Función Contexto para controlar la visibilidad del teclado ✔️

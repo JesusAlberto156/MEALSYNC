@@ -1780,7 +1780,7 @@ export const Container_Modal = styled.div`
 `;
 //____________MODAL____________
 //____________KEYBOARD____________
-export const Container_Keyboard = styled.div`
+export const Container_Keyboard_Default = styled.div`
     position: fixed;
     bottom: 20px;    
     transform: translateX(-50%);
@@ -1809,3 +1809,33 @@ export const Container_Keyboard = styled.div`
     }
 }
 `;
+export const Container_Keyboard_Numeric = styled.div`
+    position: fixed;
+    bottom: 20px;    
+    transform: translateX(-50%);
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;         
+    background: transparent;
+    width: 40%;
+    height: auto;  
+    padding: 10px;
+    gap: 15px;
+    border-radius: 40px;
+    z-index: 999;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        gap: 5px;
+    }
+}
+`;
+//____________KEYBOARD____________

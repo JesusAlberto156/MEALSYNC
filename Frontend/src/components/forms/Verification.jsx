@@ -15,7 +15,7 @@ import { HandleVerificationBlock } from "../../hooks/Forms";
 import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Left } from "../styled/Containers";
+import { Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../styled/Containers";
 import { Text_A_16_Left,Text_Blue_16_Left } from "../styled/Text";
 import { Input_Group, Input_Text_Black_100 } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
@@ -116,10 +116,10 @@ export default function Form_Verification(){
     // Estructura del componente
     return(
         <> 
-            <Container_Row_NG_95_Left>
+            <Container_Row_NG_95_Center>
                 <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>   
-                <Text_A_16_Left ThemeMode={themeMode}>- Ingresa los datos de tu sesión...</Text_A_16_Left>
-            </Container_Row_NG_95_Left>
+                <Text_A_16_Left ThemeMode={themeMode}>- Datos de sesión...</Text_A_16_Left>
+            </Container_Row_NG_95_Center>
             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                 <Container_Row_100_Center>
                     <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>

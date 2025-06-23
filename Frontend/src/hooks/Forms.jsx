@@ -4,7 +4,7 @@ import { useContext } from "react";
 // Contextos
 import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider";
 import { TextFieldsUserContext } from "../contexts/FormsProvider";
-import { VerificationBlockContext,ActionBlockContext } from "../contexts/VariablesProvider";
+import { VerificationBlockContext,FunctionBlockContext } from "../contexts/VariablesProvider";
 // Estilos personalizados
 import { Alert_Verification } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -26,7 +26,7 @@ export const HandleVerificationBlock = () => {
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
-    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
     // Función del hook
     const handleVerificationBlock = () => {
         const promise = new Promise((resolve,reject) => {
@@ -40,9 +40,9 @@ export const HandleVerificationBlock = () => {
                         }
                         if(isTextFieldsUser.usuario === isLoggedUser.usuario && isTextFieldsUser.contrasena === isLoggedUser.contrasena){
                             resolve('¡Bienvenido(a), puede proceder con la acción!...');
-                            setIsActionBlock(true);
+                            setIsFunctionBlock(true);
                             sessionStorage.setItem('Verificación del Bloqueo',true);
-                            sessionStorage.setItem('Acción del Bloqueo',true);
+                            sessionStorage.setItem('Función del Bloqueo',true);
                         }else{
                             setIsVerificationBlock(false);
                             return reject('¡Nombre de usuario o contraseña incorrectos!...');

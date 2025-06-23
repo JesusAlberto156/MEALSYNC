@@ -57,6 +57,7 @@ export const Input_Text_Black_50 = styled.input.withConfig({
 })`
     width: 50%;
     height: auto;
+    font-family: 'Century Gothic', Prompt, sans-serif;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
     font-size: 16px;
     padding: 8px;
@@ -72,6 +73,12 @@ export const Input_Text_Black_50 = styled.input.withConfig({
         ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')}; 
     }
 
+    &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+        border-bottom: ${({ ThemeMode }) => (ThemeMode ? '2px dashed gray' : '2px dashed lightgray')};
+    }
+        
     @media (max-width: 768px) {
         font-size: 14px;
         padding: 6px;
@@ -88,49 +95,10 @@ export const Input_Text_Black_50 = styled.input.withConfig({
 `;
 //-------- Black
 //-------- White
-export const Input_Text_White_100 = styled.input.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 100%;
-    height: auto;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    font-size: 16px;
-    padding: 10px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '1px solid black' : '1px solid white')};
-    border-radius: 15px;
-    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
-    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(221, 223, 226)' : 'rgb(139, 139, 139)')};
-    transition: 0.1s ease;
-    outline: none;
-    cursor: text;
-
-    &::placeholder {
-        color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    }
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-        padding: 8px;
-    }
-    
-    @media (max-width: 480px) {
-        font-size: 12px;
-        padding: 6px;
-    }
-
-    &:focus {
-        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-        border-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-        box-shadow: 0 0 8px ${({ ThemeMode }) => (ThemeMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)')};
-
-        &::placeholder {
-            color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-        }
-    }
-`;
 export const Input_Text_White_20 = styled.input`
     width: 20%;
     height: auto;
+    font-family: 'Century Gothic', Prompt, sans-serif;
     color: white;
     font-size: 16px;
     padding: 8px;

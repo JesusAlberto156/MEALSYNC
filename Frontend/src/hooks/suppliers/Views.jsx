@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
-import { ActionBlockContext,VerificationBlockContext } from "../../contexts/VariablesProvider";
+import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { ResetSearchTerms,ResetSelectedOptions,ResetSelectedTables } from "../Texts";
 //____________IMPORT/EXPORT____________
@@ -16,6 +16,7 @@ export const HandleModalViewSuppliers = () => {
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
+    const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
@@ -48,12 +49,15 @@ export const HandleModalViewSuppliers = () => {
             },750);
         }
         if(currentMView === 'Proveedor-Eliminar' && View === ''){
-            setIsActionBlock(false);
+            setIsActionBlock(true);
+            setIsVerificationBlock(true);
+            setIsFunctionBlock(false);
             setTimeout(() => {
                 resetSelectedTables();
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                sessionStorage.removeItem('Acción del Bloqueo');
+                setIsActionBlock(false);
+                sessionStorage.removeItem('Función del Bloqueo');
                 setIsVerificationBlock(false);
                 sessionStorage.removeItem('Verificación del Bloqueo');
                 navigate(route,{ replace: true });
@@ -70,37 +74,129 @@ export const HandleModalViewSuppliers = () => {
             },750);
         }
         if(currentMView === 'Categoria-Agregar' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Categoria-Editar' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Categoria-Eliminar' && View === ''){
-            
+            setIsActionBlock(true);
+            setIsVerificationBlock(true);
+            setIsFunctionBlock(false);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                sessionStorage.removeItem('Función del Bloqueo');
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Verificación del Bloqueo');
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Tipo-Insumo-Agregar' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Tipo-Insumo-Editar' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Tipo-Insumo-Cantidad-Agregar' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Tipo-Insumo-Eliminar' && View === ''){
-            
+            setIsActionBlock(true);
+            setIsVerificationBlock(true);
+            setIsFunctionBlock(false);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                sessionStorage.removeItem('Función del Bloqueo');
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Verificación del Bloqueo');
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Tipo-Insumo-Detalles' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsActionBlock(false);
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Insumo-Agregar' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Insumo-Editar' && View === ''){
-            
+            setIsActionBlock(true);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                navigate(route,{ replace: true });
+            },750);
         }
         if(currentMView === 'Insumo-Eliminar' && View === ''){
-            
+            setIsActionBlock(true);
+            setIsVerificationBlock(true);
+            setIsFunctionBlock(false);
+            setTimeout(() => {
+                resetSelectedTables();
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsActionBlock(false);
+                sessionStorage.removeItem('Función del Bloqueo');
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Verificación del Bloqueo');
+                navigate(route,{ replace: true });
+            },750);
         }
         // PROVEEDORES
         setCurrentMView(View);

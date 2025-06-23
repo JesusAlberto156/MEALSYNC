@@ -16,31 +16,7 @@ ADD transaccion VARCHAR(20) NOT NULL
 
 ALTER TABLE almacenCategorias
 ADD CONSTRAINT DF_almacenCategorias_Fecha DEFAULT GETDATE() FOR fecha;
-
-CREATE TABLE [dbo].[almacenCategorias](
-	[idalmacen] [int] IDENTITY(1,1) NOT NULL,
-	[cantidadreal] [decimal](12, 4) NOT NULL,
-	[precio] [decimal](12, 4) NOT NULL,
-	[idcategoria] [int] NOT NULL,
- CONSTRAINT [PK_almacenCategoriasCompras] PRIMARY KEY CLUSTERED 
-(
-	[idalmacen] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-CREATE TABLE [dbo].[almacenTipoInsumo](
-	[idalmacen] [int] IDENTITY(1,1) NOT NULL,
-	[cantidadreal] [decimal](12, 4) NOT NULL,
-	[precio] [decimal](12, 4) NOT NULL,
-	[idtipo] [int] NOT NULL,
- CONSTRAINT [PK_almacenTipoInsumoCompras] PRIMARY KEY CLUSTERED 
-(
-	[idalmacen] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
+DELETE FROM categoriasInsumo WHERE idcategoria = 2
 
 ALTER TABLE tipoInsumo
 ADD limite DECIMAL(10,4) NOT NULL 
@@ -115,6 +91,7 @@ DBCC CHECKIDENT (usuarios, RESEED, 2);
 DBCC CHECKIDENT (permisos, RESEED, 1);
 DBCC CHECKIDENT (estatus, RESEED, 1);
 
+DBCC CHECKIDENT (categoriasInsumo, RESEED, 1);
 SELECT * FROM estatus;
 
 SELECT SYSDATETIMEOFFSET() AS FechaConZonaHoraria;

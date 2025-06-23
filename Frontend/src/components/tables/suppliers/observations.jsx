@@ -132,32 +132,32 @@ export default function Table_Supplier_Observations(){
                             <Td ThemeMode={themeMode}>
                                 {observation.calificacion === 0 ? (
                                     <>
-                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Blue_12_Center></TContainer_Center>
+                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Blue_12_Center></TContainer_Center>
                                     </>
                                 ):(
                                     observation.calificacion <= 1 ? (
                                         <>
-                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Red_12_Center></TContainer_Center>
+                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Red_12_Center></TContainer_Center>
                                         </>
                                     ):(
                                         observation.calificacion <= 2 ? (
                                             <>
-                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Orange_12_Center></TContainer_Center>
+                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Orange_12_Center></TContainer_Center>
                                             </>
                                         ):(
                                             observation.calificacion <= 3 ? (
                                                 <>
-                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Yellow_12_Center></TContainer_Center>
+                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Yellow_12_Center></TContainer_Center>
                                                 </>
                                             ):(
                                                 observation.calificacion <= 4 ? (
                                                     <>
-                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
+                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
                                                     </>
                                                 ):(
                                                     observation.calificacion <= 5 ? (
                                                         <>
-                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Green_12_Center></TContainer_Center>
+                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Green_12_Center></TContainer_Center>
                                                         </>
                                                     ):(
                                                         <></>
@@ -168,8 +168,8 @@ export default function Table_Supplier_Observations(){
                                     )
                                 )}
                             </Td>
-                            <Td ThemeMode={themeMode}>{getDate(observation.fecha)}</Td>
-                            <Td ThemeMode={themeMode}>{observation.calificacion}</Td>
+                            <Td ThemeMode={themeMode}>{getDate(observation.fecha) || 'Desconocida...'}</Td>
+                            <Td ThemeMode={themeMode}>{observation.calificacion || 'Desconocida...'}</Td>
                         </tr>
                     ))}
                 </Tbody>

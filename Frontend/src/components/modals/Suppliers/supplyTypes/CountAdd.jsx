@@ -1,47 +1,50 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef,useState } from "react";
+import { useContext,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
+import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
-import { TextFieldsSupplyCategoryContext } from "../../../../contexts/FormsProvider";
-import { SupplyCategoryAddContext } from "../../../../contexts/SuppliersProvider";
+import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
+import { SupplyCategoriesContext,SupplyTypeCountAddContext } from "../../../../contexts/SuppliersProvider";
 import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
-import { HandleSupplyCategoryAdd } from "../../../../hooks/suppliers/Forms";
+import { HandleSupplyTypeAdd } from "../../../../hooks/suppliers/Forms";
 import { ResetSelectedTables } from "../../../../hooks/Texts";
 //__________ICONOS__________
-import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
+import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center } from "../../../styled/Text";
-import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Input_Text_Black_100,Input_Area_Black_100, Input_Group } from "../../../styled/Inputs";
-import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
-import { Alert_Verification,Alert_Warning_Sonner } from "../../../styled/Alerts";
-import { Label_Total_Text_12_Center,Label_Total_Area_12_Center } from "../../../styled/Labels";
+import { Button_Icon_Blue_210,Button_Icon_White_210 } from "../../../styled/Buttons";
+import { Input_Text_Black_100,Input_Group } from "../../../styled/Inputs";
+import { Icon_White_22,Icon_22 } from "../../../styled/Icons";
+import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
-import Keyboard_Default from "../../../keyboards/Defaullt";
+import Error_Add from "../../errors/Add";
+import Keyboard_Numeric from "../../../keyboards/Numeric";
 //____________IMPORT/EXPORT____________
 
-// Modal para agregar categorías de insumo a su tabla
-export default function Supply_Category_Add(){
+// Modal para agregar cantidades a los tipos de insumo a su tabla
+export default function Count_Supply_Type_Add(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext);
-    const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isSupplyCategories] = useContext(SupplyCategoriesContext);
+    const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useContext(SupplyTypeCountAddContext);
+    const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
     const [socket] = useContext(SocketContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
@@ -51,27 +54,11 @@ export default function Supply_Category_Add(){
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
-    const handleSupplyCategoryAdd = HandleSupplyCategoryAdd();
+    const handleSupplyTypeAdd = HandleSupplyTypeAdd();
     const resetSelectedTables = ResetSelectedTables();
-    // Constantes con el valor de useState
-    const [isTotalDescription,setIsTotalDescription] = useState(0)
-    const [isTotalName,setIsTotalName] = useState(0)
     // Constantes con el valor de useRef
     const lastTouchTimeRef = useRef(0);
     const isTouchRef = useRef(isTouch);
-    // useEffect para calcular el total escrito en los campos
-    useEffect(() => {
-        setIsTotalName(isTextFieldsSupplyCategory.nombre.length);
-        if(isTextFieldsSupplyCategory.nombre.length === 150){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el nombre!...')
-        }
-    },[isTextFieldsSupplyCategory.nombre]);
-    useEffect(() => {
-        setIsTotalDescription(isTextFieldsSupplyCategory.descripcion.length);
-        if(isTextFieldsSupplyCategory.descripcion.length === 250){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en la descripción!...')
-        }
-    },[isTextFieldsSupplyCategory.descripcion]);
     // UseEffect que determina la visibilidad del teclado
     useEffect(() => {
         const handleTouchStart = () => {
@@ -101,13 +88,11 @@ export default function Supply_Category_Add(){
     useEffect(() => {
         const handleClickOutside = (event) => {
             setTimeout(() => {
-                const inputName = document.getElementById("Input-Name");
-                const inputDescription = document.getElementById("Input-Description");
+                const inputCount = document.getElementById("Input-Count");
                 const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
     
                 const clickInsideInputs = 
-                    (inputName && inputName.contains(event.target)) ||
-                    (inputDescription && inputDescription.contains(event.target));
+                    (inputCount && inputCount.contains(event.target));
     
                 if (!clickInsideInputs && !keyboard) {
                     setIsKeyboardView('');
@@ -128,16 +113,10 @@ export default function Supply_Category_Add(){
     },[Keyboard]);
     // useEffect para escribir en los campos del login
     const handleKeyboard = (newValue) => {
-        if(isKeyboardView === 'Name' ){
-            setIsTextFieldsSupplyCategory(prev => ({
+        if(isKeyboardView === 'Count' ){
+            setIsTextFieldsSupplyType(prev => ({
                 ...prev,
-                nombre: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'Description' ){
-            setIsTextFieldsSupplyCategory(prev => ({
-                ...prev,
-                descripcion: newValue, 
+                cantidades: [{cantidad: newValue}], 
             }));
         }
     };
@@ -146,15 +125,15 @@ export default function Supply_Category_Add(){
     }, [isTouch]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isSupplyCategoryAdd){
+        if(isSupplyTypeCountAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Supply-Category',isLoggedUser.idusuario,isTextFieldsSupplyCategory.nombre.trim(),isTextFieldsSupplyCategory.descripcion.trim());
+                        socket.emit('Insert-Count-Supply-Type',isLoggedUser.idusuario,isTextFieldsSupplyType.cantidades[0].cantidad,isTextFieldsSupplyType.idtipo);
 
-                        resolve('¡MEALSYNC agregó la categoría!...');
+                        resolve('¡MEALSYNC agregó una cantidad al tipo de insumo!...');
 
-                        setIsSupplyCategoryAdd(false)
+                        setIsSupplyTypeCountAdd(false)
 
                         const route = sessionStorage.getItem('Ruta');
 
@@ -170,86 +149,64 @@ export default function Supply_Category_Add(){
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
-                    setIsSupplyCategoryAdd(false);
+                    setIsSupplyTypeCountAdd(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'Agregando una categoría!...');
+            Alert_Verification(promise,'Agregando una cantidad al tipo de insumo!...');
         }
-    },[isSupplyCategoryAdd]);
+    },[isSupplyTypeCountAdd]);
     // Estructura del componente
     return(
         <>
-            {isModal ? (
+            {isModal && isSelectedRow !== null ? (
                 <Container_Modal>
-                    <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Categoria-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Cantidad-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
-                            <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR CATEGORÍA</Text_Title_30_Center>
+                            <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR CANTIDAD AL TIPO DE INSUMO</Text_Title_30_Center>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
                             <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
                             <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Center ThemeMode={themeMode}>Tipo de insumo:</Text_Blue_16_Center>
+                                <Text_A_16_Center ThemeMode={themeMode}> {isTextFieldsSupplyType.tipo || 'Desconocido'}...</Text_A_16_Center>
+                            </Container_Row_NG_95_Center>
+                        </Container_Column_90_Center>
+                        <Container_Row_NG_95_Center>
+                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
+                            <Text_A_16_Center ThemeMode={themeMode}>- Datos específicos...</Text_A_16_Center>
+                        </Container_Row_NG_95_Center>
+                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Center ThemeMode={themeMode}>Unidad:</Text_Blue_16_Center>
+                                <Text_A_16_Center ThemeMode={themeMode}> {isTextFieldsSupplyType.unidad || 'Desconocida'}...</Text_A_16_Center>
+                            </Container_Row_NG_95_Center>
+                            <Container_Row_NG_95_Center>
+                                <Text_Blue_16_Center ThemeMode={themeMode}>Categoría:</Text_Blue_16_Center>
+                                <Text_A_16_Center ThemeMode={themeMode}> {isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)?.nombre || 'Desconocida'}...</Text_A_16_Center>
+                            </Container_Row_NG_95_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Nombre:</Text_A_16_Center>
+                                <Text_A_16_Center ThemeMode={themeMode}>Cantidad:</Text_A_16_Center>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
-                                        id="Input-Name"
+                                        id="Input-Count"
                                         placeholder="..."
-                                        type="text"
-                                        maxLength={150}
+                                        type="number"
                                         disabled={isActionBlock}
-                                        value={isTextFieldsSupplyCategory.nombre}
-                                        onChange={(e) => setIsTextFieldsSupplyCategory(prev => ({...prev, nombre: e.target.value}))}
+                                        value={isTextFieldsSupplyType.cantidades[0].cantidad}
+                                        onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, cantidades: [{ cantidad: e.target.value}]}))}
                                         onFocus={() => {
                                             if(isTouchRef.current){
                                                 setIsKeyboard(true);
-                                                setIsKeyboardView('Name');
+                                                setIsKeyboardView('Count');
                                             }
                                         }}
                                     />
-                                    <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalName}/150</Label_Total_Text_12_Center>
                                 </Input_Group>
-                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
-                                    onClick={() => {
-                                        setIsTextFieldsSupplyCategory(prev => ({...prev, nombre: ''}))
-                                    }}
-                                    disabled={isActionBlock}
-                                >
-                                    <MdCancel/>
-                                </Icon_Button_Blue_18>
-                            </Container_Row_100_Center>
-                            <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Descripción:</Text_A_16_Center>
-                                <Input_Group>
-                                    <Input_Area_Black_100 ThemeMode={themeMode}
-                                        id="Input-Description"
-                                        placeholder="(Opcional)..."
-                                        type="text"
-                                        maxLength={250}
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsSupplyCategory.descripcion}
-                                        onChange={(e) => setIsTextFieldsSupplyCategory(prev => ({...prev, descripcion: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Description');
-                                            }
-                                        }}
-                                        rows={3}
-                                    />
-                                    <Label_Total_Area_12_Center ThemeMode={themeMode}>{isTotalDescription}/250</Label_Total_Area_12_Center>
-                                </Input_Group>
-                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
-                                    onClick={() => {
-                                        setIsTextFieldsSupplyCategory(prev => ({...prev, descripcion: ''}))
-                                    }}
-                                    disabled={isActionBlock}
-                                >
-                                    <MdCancel/>
-                                </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                         </Container_Column_90_Center>
                         <Container_Row_95_Center>
@@ -265,26 +222,32 @@ export default function Supply_Category_Add(){
                             </Tooltip>
                             <Tooltip title='Agregar' placement='top'>
                                 <span>
-                                    <Button_Icon_Green_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleSupplyCategoryAdd()}
+                                    <Button_Icon_White_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        onClick={() => handleSupplyTypeAdd()}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
-                                    </Button_Icon_Green_210>
+                                        <Icon_22><IoIosAddCircle/></Icon_22>
+                                    </Button_Icon_White_210>
                                 </span>
                             </Tooltip>
                         </Container_Row_95_Center>
                     </Container_Form_500>
                     {isKeyboard ? (
                         <>
-                            <Keyboard_Default value={isKeyboardView === 'Name' ? isTextFieldsSupplyCategory.nombre : isTextFieldsSupplyCategory.descripcion} onChange={handleKeyboard}/>  
+                            <Keyboard_Numeric value={isKeyboardView === 'Count' ? isTextFieldsSupplyType.cantidades.cantidad : ''} onChange={handleKeyboard}/>
                         </>
                     ):(
                         <></>
                     )}
                 </Container_Modal>
             ):(
-                <></>
+                currentMView === 'Tipo-Insumo-Cantidad-Agregar' ? (
+                    <>
+                        <Error_Add/>
+                    </>
+                ):(
+                    <></>
+                )
             )}
         </>
     );

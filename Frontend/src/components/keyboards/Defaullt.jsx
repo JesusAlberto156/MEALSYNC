@@ -3,8 +3,6 @@
 import { useRef,useState,useEffect,useContext } from "react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-// Componentes de React externos
-import layout from "simple-keyboard-layouts/build/layouts/spanish";
 // Contextos
 import { RefKeyboardContext } from '../../contexts/RefsProvider';
 import { KeyboardViewContext } from "../../contexts/VariablesProvider";
@@ -13,7 +11,7 @@ import { Container_Keyboard_Default } from '../styled/Containers';
 //____________IMPORT/EXPORT____________
 
 // Teclado virtual
-export default function Virtual_Keyboard ({ value, onChange }) {
+export default function Keyboard_Default ({ value, onChange }) {
     // Constantes con el valor de los contextos
     const isKeyboard = useContext(RefKeyboardContext);
     const [isKeyboardView] = useContext(KeyboardViewContext);

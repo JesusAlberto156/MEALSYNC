@@ -78,6 +78,7 @@ export default function Table_Supply_Types(){
                 descripcion: isSelectedRow.descripcion,
                 unidad: isSelectedRow.unidad,
                 idcategoria: isSelectedRow.idcategoria,
+                limite: isSelectedRow.limite,
                 cantidades: cantidadesFiltradas.length > 0
                     ? cantidadesFiltradas
                     : [{ cantidad: 0 }]
@@ -104,7 +105,7 @@ export default function Table_Supply_Types(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Tipo
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -155,11 +156,11 @@ export default function Table_Supply_Types(){
                                 transition: 'background-color 0.5s ease',
                             }}
                         >
-                            <Td ThemeMode={themeMode}>{type.tipo}</Td>
-                            <Td ThemeMode={themeMode}>{type.descripcion}</Td>
-                            <Td ThemeMode={themeMode}>{type.unidad}</Td>
-                            <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === type.idcategoria)?.nombre || 'Desconocido'}</Td>
-                            <Td ThemeMode={themeMode}>{type.limite}</Td>
+                            <Td ThemeMode={themeMode}>{type.tipo || 'Desconocido...'}</Td>
+                            <Td ThemeMode={themeMode}>{type.descripcion || 'Desconocida...'}</Td>
+                            <Td ThemeMode={themeMode}>{type.unidad || 'Desconocida...'}</Td>
+                            <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === type.idcategoria)?.nombre || 'Desconocida...'}</Td>
+                            <Td ThemeMode={themeMode}>{type.limite || 'Desconocido...'}</Td>
                         </tr>
                     ))}
                 </Tbody>

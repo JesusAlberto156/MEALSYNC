@@ -15,7 +15,7 @@ import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
 import { HandleSupplierAdd } from "../../../../hooks/suppliers/Forms";
-import { ResetTextFieldsSupplier } from "../../../../hooks/suppliers/Texts";
+import { ResetSelectedTables } from "../../../../hooks/Texts";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 // Icono para realizar la función del modal
@@ -30,11 +30,12 @@ import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
 import { Alert_Verification,Alert_Warning_Sonner } from "../../../styled/Alerts";
 import { Label_Total_Text_12_Center } from "../../../styled/Labels";
 // Componentes personalizados
-import Virtual_Keyboard from "../../../forms/Keyboard";
+import Keyboard_Default from "../../../keyboards/Defaullt";
+import Keyboard_Numeric from "../../../keyboards/Numeric";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar proveedores a su tabla
-export default function Suppliers_Add(){
+export default function Supplier_Add(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
@@ -52,7 +53,7 @@ export default function Suppliers_Add(){
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleSupplierAdd = HandleSupplierAdd();
-    const resetTextFieldsSupplier = ResetTextFieldsSupplier();
+    const resetSelectedTables = ResetSelectedTables();
     // Constantes con el valor de useRef
     const lastTouchTimeRef = useRef(0);
     const isTouchRef = useRef(isTouch);
@@ -208,8 +209,7 @@ export default function Suppliers_Add(){
                         setTimeout(() => {
                             setIsModal(false);
                             sessionStorage.setItem('Estado del Modal',false);
-                            setIsSupplierAdd(false);
-                            resetTextFieldsSupplier();
+                            resetSelectedTables();
                             setIsActionBlock(false);
                             navigate(route,{ replace: true });
                         },750);
@@ -370,30 +370,41 @@ export default function Suppliers_Add(){
                         </Container_Column_90_Center>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
-                                <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleModalViewSuppliers('')}
-                                    disabled={isActionBlock}    
-                                >
-                                    <Icon_White_22><MdCancel/></Icon_White_22>
-                                </Button_Icon_Blue_210>
+                                <span>
+                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        onClick={() => handleModalViewSuppliers('')}
+                                        disabled={isActionBlock}    
+                                    >
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Blue_210>
+                                </span>
                             </Tooltip>
                             <Tooltip title='Agregar' placement='top'>
-                                <Button_Icon_Green_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleSupplierAdd()}
-                                    disabled={isActionBlock}    
-                                >
-                                    <Icon_White_22><IoIosAddCircle/></Icon_White_22>
-                                </Button_Icon_Green_210>
+                                <span>
+                                    <Button_Icon_Green_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        onClick={() => handleSupplierAdd()}
+                                        disabled={isActionBlock}    
+                                    >
+                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                    </Button_Icon_Green_210>
+                                </span>
                             </Tooltip>
                         </Container_Row_95_Center>
                     </Container_Form_500>
                     {isKeyboard ? (
-                        <>
-                            <Virtual_Keyboard value={isKeyboardView === 'Name' ? isTextFieldsSupplier.nombre : 
+                        isKeyboardView === 'Name' || isKeyboardView === 'Rfc' || isKeyboardView === 'Address' || isKeyboardView === 'Email' ? (
+                            <>
+                                <Keyboard_Default value={isKeyboardView === 'Name' ? isTextFieldsSupplier.nombre : 
                                                         isKeyboardView === 'Rfc' ? isTextFieldsSupplier.rfc :
-                                                        isKeyboardView === 'Address' ? isTextFieldsSupplier.domicilio : 
-                                                        isKeyboardView === 'Phone' ? isTextFieldsSupplier.telefono : isTextFieldsSupplier.correo} onChange={handleKeyboard}/>  
-                        </>
+                                                        isKeyboardView === 'Address' ? isTextFieldsSupplier.domicilio : isTextFieldsSupplier.correo} onChange={handleKeyboard}/>  
+                        
+                            </>
+                        ):(
+                            <>
+                                <Keyboard_Numeric value={isKeyboardView === 'Phone' ? isTextFieldsSupplier.telefono : ''} onChange={handleKeyboard}/>  
+                        
+                            </>
+                        )
                     ):(
                         <></>
                     )}

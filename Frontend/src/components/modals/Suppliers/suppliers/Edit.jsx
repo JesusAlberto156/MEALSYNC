@@ -16,6 +16,7 @@ import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
 import { HandleSupplierEdit } from "../../../../hooks/suppliers/Forms";
+import { ResetSelectedTables } from "../../../../hooks/Texts";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
@@ -31,14 +32,15 @@ import { Alert_Verification,Alert_Warning_Sonner } from "../../../styled/Alerts"
 import { Label_Total_Text_12_Center } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
-import Virtual_Keyboard from "../../../forms/Keyboard";
+import Keyboard_Default from "../../../keyboards/Defaullt";
+import Keyboard_Numeric from "../../../keyboards/Numeric";
 //____________IMPORT/EXPORT____________
 
 // Modal para editar proveedores a su tabla
-export default function Suppliers_Edit(){
+export default function Supplier_Edit(){
     // Constantes con el valor de los contextos
     const [themeMode] = useContext(ThemeModeContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -55,6 +57,7 @@ export default function Suppliers_Edit(){
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleSupplierEdit = HandleSupplierEdit();
+    const resetSelectedTables = ResetSelectedTables();
     // Constantes con el valor de useRef
     const lastTouchTimeRef = useRef(0);
     const isTouchRef = useRef(isTouch);
@@ -211,7 +214,7 @@ export default function Suppliers_Edit(){
                             setIsModal(false);
                             sessionStorage.setItem('Estado del Modal',false);
                             setIsActionBlock(false);
-                            setIsSelectedRow(null);
+                            resetSelectedTables();
                             navigate(route,{ replace: true });
                         },750);
                     },1000);
@@ -437,30 +440,41 @@ export default function Suppliers_Edit(){
                         </Container_Row_95_Center>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
-                                <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleModalViewSuppliers('')}
-                                    disabled={isActionBlock}    
-                                >
-                                    <Icon_White_22><MdCancel/></Icon_White_22>
-                                </Button_Icon_Red_210>
+                                <span>
+                                    <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        onClick={() => handleModalViewSuppliers('')}
+                                        disabled={isActionBlock}    
+                                    >
+                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                    </Button_Icon_Red_210>
+                                </span>
                             </Tooltip>
                             <Tooltip title='Editar' placement='top'>
-                                <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                    onClick={() => handleSupplierEdit()}
-                                    disabled={isActionBlock}    
-                                >
-                                    <Icon_White_22><MdEdit/></Icon_White_22>
-                                </Button_Icon_Blue_210>
+                                <span>
+                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        onClick={() => handleSupplierEdit()}
+                                        disabled={isActionBlock}    
+                                    >
+                                        <Icon_White_22><MdEdit/></Icon_White_22>
+                                    </Button_Icon_Blue_210>
+                                </span>
                             </Tooltip>
                         </Container_Row_95_Center>
                     </Container_Form_500>
                     {isKeyboard ? (
-                        <>
-                            <Virtual_Keyboard value={isKeyboardView === 'Name' ? isTextFieldsSupplier.nombre : 
+                        isKeyboardView === 'Name' || isKeyboardView === 'Rfc' || isKeyboardView === 'Address' || isKeyboardView === 'Email' ? (
+                            <>
+                                <Keyboard_Default value={isKeyboardView === 'Name' ? isTextFieldsSupplier.nombre : 
                                                         isKeyboardView === 'Rfc' ? isTextFieldsSupplier.rfc :
-                                                        isKeyboardView === 'Address' ? isTextFieldsSupplier.domicilio : 
-                                                        isKeyboardView === 'Phone' ? isTextFieldsSupplier.telefono : isTextFieldsSupplier.correo} onChange={handleKeyboard}/>  
-                        </>
+                                                        isKeyboardView === 'Address' ? isTextFieldsSupplier.domicilio : isTextFieldsSupplier.correo} onChange={handleKeyboard}/>  
+                        
+                            </>
+                        ):(
+                            <>
+                                <Keyboard_Numeric value={isKeyboardView === 'Phone' ? isTextFieldsSupplier.telefono : ''} onChange={handleKeyboard}/>  
+                        
+                            </>
+                        )
                     ):(
                         <></>
                     )}

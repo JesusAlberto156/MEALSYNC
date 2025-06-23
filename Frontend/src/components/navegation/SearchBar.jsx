@@ -39,7 +39,7 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
 import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_White_60,Button_Icon_Blue_140 } from "../styled/Buttons";
-import { Icon_26,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
+import { Icon_26,Icon_Button_Black_30,Icon_White_18,Icon_18 } from "../styled/Icons";
 import { Input_Text_White_20 } from "../styled/Inputs";
 import { Text_Span_12_Center } from "../styled/Text";
 // Componentes personalizados
@@ -634,7 +634,7 @@ export default function Search_Bar (){
                                                 handleModalViewSuppliers('Tipo-Insumo-Cantidad-Agregar');
                                                 navigate('/Administration/Index/Suppliers/Supply/Types/Count/Add',{ replace: true });
                                             }}>
-                                                <Icon_White_18><MdEdit/></Icon_White_18>
+                                                <Icon_18><IoIosAddCircle/></Icon_18>
                                             </Button_Icon_White_60>
                                         </Tooltip>
                                     </>

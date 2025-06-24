@@ -3,7 +3,7 @@
 import { useContext } from "react";
 // Contextos
 import { TextFieldsSupplierContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsSupplyContext } from "../../contexts/FormsProvider";
-import { SuppliersContext,DeletedSuppliersContext,DeletedSupplyTypesContext,DeletedSupplyCategoriesContext,SupplierAddContext,SupplierEditContext,SupplierDeleteContext,SupplyCategoriesContext,SupplyCategoryAddContext,SupplyCategoryEditContext,SupplyCategoryDeleteContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,CountSupplyTypesContext,SupplyTypeCountAddContext,SupplyTypeDeleteContext } from "../../contexts/SuppliersProvider";
+import { SuppliersContext,DeletedSuppliersContext,DeletedSupplyTypesContext,DeletedSupplyCategoriesContext,SupplierAddContext,SupplierEditContext,SupplierDeleteContext,SupplyCategoriesContext,SupplyCategoryAddContext,SupplyCategoryEditContext,SupplyCategoryDeleteContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,CountSupplyTypesContext,SupplyTypeCountAddContext,SupplyTypeDeleteContext,SuppliesContext,SupplyAddContext,SupplyEditContext,SupplyDeleteContext } from "../../contexts/SuppliersProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
 import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../contexts/SearchsProvider";
 import { ActionBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
@@ -690,4 +690,166 @@ export const FilteredRecordsSupplyTypes = () => {
     });
     // Retorno de la función del hook
     return filtered;
+}
+// Hook para filtrar las cantidades de los tipos de insumo ✔️
+export const FilteredRecordsCountSupplyTypes = () => {
+    // Constantes con el valor de los contextos 
+    const [isCountSupplyTypes] = useContext(CountSupplyTypesContext); 
+    const [isDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
+    // Función del hook
+    const filtered = isCountSupplyTypes.filter((data) => {
+        if(data.idtipo === isTextFieldsSupply.idtipo){
+                const isDeleted = isDeletedSupplyTypes.some(type => type.idtipo === data.idtipo);
+            if (isDeleted) return false;
+                
+            return [
+                data.cantidad,
+            ]
+        }
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para agregar un insumo desde el modal ✔️
+export const HandleSupplyAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
+    const [isSupplies] = useContext(SuppliesContext);
+    // Función del hook
+    const handleSupplyAdd = () => {
+        if(currentNView === 'Insumos' && currentSView === 'Proveedores' && currentMView === 'Insumo-Agregar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsSupply.nombre === '' || isTextFieldsSupply.idproveedor === 0 || isTextFieldsSupply.idcategoria === 0 || isTextFieldsSupply.idtipo === 0 || isTextFieldsSupply.idcantidad === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del insumo!...')
+                        };
+
+                        if(isSupplies.some(supply => supply.nombre === isTextFieldsSupply.nombre && supply.idproveedor === isTextFieldsSupply.idproveedor)){
+                            setIsActionBlock(false);
+                            return reject('Insumo ya existente!...');
+                        }
+
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
+                        const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(!regexNames.test(isTextFieldsSupply.nombre.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo puede contener letras, números, espacios y los siguientes caracteres: - . , & ( )!...');
+                        }
+
+                        if(!regexDescriptions.test(isTextFieldsSupply.descripcion.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!...');
+                        }
+
+                        if(isTextFieldsSupply.imagen){
+                            try{
+                                new URL(isTextFieldsSupply.imagen.trim());
+                            }catch(e){
+                                setIsActionBlock(false);
+                                return reject('¡La dirección URL de la imagen no es valida!...');
+                            }
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyAdd(true);
+                        },500);
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+    // Retorno de la función del hook
+    return handleSupplyAdd;
+}
+// Hook para editar un insumo desde el modal ✔️
+export const HandleSupplyEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
+    const [isSupplies] = useContext(SuppliesContext);
+    // Función del hook
+    const handleSupplyEdit = () => {
+        if(currentNView === 'Insumos' && currentSView === 'Proveedores' && currentMView === 'Insumo-Editar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isSelectedRow.nombre === isTextFieldsSupply.nombre && isSelectedRow.descripcion === isTextFieldsSupply.descripcion && isSelectedRow.imagen === isTextFieldsSupply.imagen && isSelectedRow.idproveedor === isTextFieldsSupply.idproveedor && isSelectedRow.idtipo === isTextFieldsSupply.idtipo && isSelectedRow.idcategoria === isTextFieldsSupply.idcategoria && isSelectedRow.idcantidad === isTextFieldsSupply.idcantidad){
+                            setIsActionBlock(false);
+                            return reject('¡No hay información del insumo modificada!...')
+                        }
+
+                        if(isTextFieldsSupply.nombre === '' || isTextFieldsSupply.idproveedor === 0 || isTextFieldsSupply.idcategoria === 0 || isTextFieldsSupply.idtipo === 0 || isTextFieldsSupply.idcantidad === 0){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del insumo!...')
+                        };
+
+                        if(isSelectedRow.nombre !== isTextFieldsSupply.nombre){
+                            if(isSupplies.some(supply => supply.nombre === isTextFieldsSupply.nombre && supply.idproveedor === isTextFieldsSupply.idproveedor)){
+                                setIsActionBlock(false);
+                                return reject('Insumo ya existente!...');
+                            }
+                        }
+
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
+                        const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(!regexNames.test(isTextFieldsSupply.nombre.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo puede contener letras, números, espacios y los siguientes caracteres: - . , & ( )!...');
+                        }
+
+                        if(!regexDescriptions.test(isTextFieldsSupply.descripcion.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!...');
+                        }
+
+                        if(isTextFieldsSupply.imagen){
+                            try{
+                                new URL(isTextFieldsSupply.imagen.trim());
+                            }catch(e){
+                                setIsActionBlock(false);
+                                return reject('¡La dirección URL de la imagen no es valida!...');
+                            }
+                        }
+
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyEdit(true);
+                        },500);
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    }
+    // Retorno de la función del hook
+    return handleSupplyEdit;
 }

@@ -24,6 +24,15 @@ import { FaWarehouse } from "react-icons/fa";
 import { MdOutlineMenuBook } from "react-icons/md";
 import { FaHistory } from "react-icons/fa";
 //__________ICONOS__________
+//__________IMAGENES__________
+import Super_Administrator from '../imgs/Super-Administrator.jpg';
+import Administrator from '../imgs/Administrator.jpg';
+import Chef from '../imgs/Chef.avif';
+import Storekeeper from '../imgs/Storekeeper.jpg';
+import Cook from '../imgs/Cook.jpg';
+import Nutritionist from '../imgs/Nutritionist.jpg';
+import Doctor from '../imgs/Doctor.webp';
+//__________IMAGENES__________
 // Estilos personalizados
 import { Container_Column_White_Height_100_Center,Container_Column_80_Center,Container_Row_100_Center } from "../styled/Containers";
 import { Icon_Image_Black_90,Icon_White_18 } from "../styled/Icons";
@@ -44,25 +53,25 @@ export default function Side_Bar() {
   // UseEffect con la imagen del usuario
   useEffect(() => {
     if(isLoggedPermissions.superadministrador){
-      return setProfileImage('https://blog.edipro.cl/wp-content/uploads/2020/02/cropped-superjefe.3-681x352.jpg');
+      return setProfileImage(Super_Administrator);
     }
     if(isLoggedType === 'Administrador'){
-      return setProfileImage('https://cmsresources.elempleo.com/co/assets/backend/styles/770x513/public/fotos/noticias/administradores-min.jpg');
+      return setProfileImage(Administrator);
     }
     if(isLoggedType === 'Chef'){
-      return setProfileImage('https://img.freepik.com/foto-gratis/expertos-gastronomia-espalda-espalda-pie-cocina-profesional-restaurante-mientras-posan-camara-chefs-vistiendo-uniformes-cocina-mientras-estan-pie-cocina-gourmet-brazos-cruzados_482257-41991.jpg?t=st=1745432760~exp=1745436360~hmac=d779bdc838a09b980fee6122e72ca035cb0cd068ee322468866d9103be104733&w=740');
+      return setProfileImage(Chef);  
     }
     if(isLoggedType === 'Almacenista'){
-      return setProfileImage('https://previews.123rf.com/images/kzenon/kzenon1301/kzenon130100553/17620188-el-trabajo-en-equipo-de-trabajo-o-almacenista-con-esc%C3%A1ner-y-su-compa%C3%B1ero-de-trabajo-con-el.jpg');
+      return setProfileImage(Storekeeper);  
     }
     if(isLoggedType === 'Cocinero'){
-      return setProfileImage('https://chefejecutivo.com/wp-content/uploads/2022/05/food-truck-restaurantes.jpg');
+      return setProfileImage(Cook);  
     }
     if(isLoggedType === 'Nutriólogo'){
-      return setProfileImage('https://saludnutricional.com.mx/wp-content/uploads/2024/09/Diferencia-entre-nutriologo-CDMX-y-bariatra.jpg');
+      return setProfileImage(Nutritionist);  
     }
     if(isLoggedType === 'Médico'){
-      return setProfileImage('https://staticnew-common-prod.topdoctors.mx/assets/imageCloud/home-page/doctor-main-banner.webp?width=375/height=300/format=avif');
+      return setProfileImage(Doctor);  
     }
   },[isLoggedPermissions]);
   // Constantes con la funcionalidad de los hooks
@@ -78,7 +87,7 @@ export default function Side_Bar() {
             <Icon_Image_Black_90 ThemeMode={themeMode} src={profileImage}/>
           </Container_Row_100_Center>
           <Container_Row_100_Center>
-            <Text_Title_22_Center ThemeMode={themeMode}>{isLoggedUser.nombre}</Text_Title_22_Center>
+            <Text_Title_22_Center ThemeMode={themeMode}>{isLoggedUser.nombre || 'Desconocido...'}</Text_Title_22_Center>
           </Container_Row_100_Center>
           <Tooltip title='Inicio' placement="right">
             <Button_Icon_Blue_200 ThemeMode={themeMode} className='pulsate-buttom' onClick={() => {

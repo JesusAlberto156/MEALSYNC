@@ -34,11 +34,11 @@ import { GiMeal } from "react-icons/gi";
 import { MdDinnerDining } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_White_Width_98_Left,Container_Row_Blue_Width_92_Left } from "../styled/Containers";
+import { Container_Row_White_Width_98_Left,Container_Row_Blue_Width_92_Left, Container_Row_80_Left } from "../styled/Containers";
 import { Img_Logo_Hospital_70 } from '../styled/Imgs';
 import { Button_Icon_White_100 } from '../styled/Buttons';
 import { Icon_22 } from "../styled/Icons";
-import { Text_Title_26_Center } from '../styled/Text';
+import { Text_Span_24_Center, Text_Title_26_Center } from '../styled/Text';
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre las paginas en la parte superior 
@@ -86,17 +86,23 @@ export default function Nav_Bar(){
                                 </Button_Icon_White_100>
                             </Tooltip>
                             {currentNView === 'Usuarios' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>USUARIOS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>USUARIOS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Permisos' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>PERMISOS DE USUARIOS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>PERMISOS DE USUARIOS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Estatus' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>ESTATUS DE USUARIOS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>ESTATUS DE USUARIOS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
@@ -152,28 +158,38 @@ export default function Nav_Bar(){
                                 </Button_Icon_White_100>
                             </Tooltip>
                             {currentNView === 'Proveedores' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>PROVEEDORES</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>PROVEEDORES</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                                 
                             )}
                             {currentNView === 'Observaciones de proveedores' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>OBSERVACIONES</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>OBSERVACIONES</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Categorias por insumo' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>CATEGORÍAS POR INSUMO</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>CATEGORÍAS POR INSUMO</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Tipos de insumo' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>TIPOS DE INSUMO</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>TIPOS DE INSUMO</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Insumos' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>INSUMOS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>INSUMOS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
@@ -220,23 +236,31 @@ export default function Nav_Bar(){
                                 </Button_Icon_White_100>
                             </Tooltip>
                             {currentNView === 'Pedidos de insumo' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>PEDIDOS DE INSUMOS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>PEDIDOS DE INSUMOS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                                 
                             )}
                             {currentNView === 'Compras' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>COMPRAS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>COMPRAS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Ventas' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>VENTAS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>VENTAS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Reportes' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>REPORTES</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>REPORTES</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
@@ -244,7 +268,6 @@ export default function Nav_Bar(){
                     ):(
                         <></>
                     )}
-
                     {currentSView === 'Menus' ? (
                         <>
                             <Tooltip title='Menus' placement="top">
@@ -284,23 +307,31 @@ export default function Nav_Bar(){
                                 </Button_Icon_White_100>
                             </Tooltip>
                             {currentNView === 'Menus' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>MENÚS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>MENÚS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                                 
                             )}
                             {currentNView === 'Desayunos' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>DESAYUNOS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>DESAYUNOS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Comidas' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>COMIDAS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>COMIDAS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}
                             {currentNView === 'Cenas' ? (
-                                <Text_Title_26_Center ThemeMode={themeMode}>CENAS</Text_Title_26_Center>
+                                <Container_Row_80_Left>
+                                    <Text_Span_24_Center>CENAS</Text_Span_24_Center>
+                                </Container_Row_80_Left>
                             ):(
                                 <></>
                             )}

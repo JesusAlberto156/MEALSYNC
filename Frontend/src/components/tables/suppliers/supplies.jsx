@@ -22,11 +22,14 @@ import { FaLongArrowAltDown } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
+//__________IMAGENES__________
+import Supply_Image from '../../imgs/Supply.jpg'
+//__________IMAGENES__________
 // Estilos personalizados
 import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
+import { Text_A_16_Center,Text_Fade_A_30_Center,Text_Background_Blue_12_Center,Text_Background_Green_12_Center,Text_Background_Lime_Green_12_Center,Text_Background_Orange_12_Center,Text_Background_Red_12_Center,Text_Background_Yellow_12_Center } from "../../styled/Text";
 import { Icon_White_18,Icon_Button_Black_14,Icon_Image_Black_60 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
@@ -188,7 +191,7 @@ export default function Table_Supplies(){
                         >
                             <Td ThemeMode={themeMode}>{supply.nombre || 'Desconocido...'}</Td>
                             <Td ThemeMode={themeMode}>{supply.descripcion || 'Desconocida...'}</Td>
-                            <Td ThemeMode={themeMode}><Icon_Image_Black_60 ThemeMode={themeMode} src={supply.imagen}/></Td>
+                            <Td ThemeMode={themeMode}><TContainer_Center><Icon_Image_Black_60 ThemeMode={themeMode} src={supply.imagen || Supply_Image}/></TContainer_Center></Td>
                             <Td ThemeMode={themeMode}>
                                 {calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion === 0 ? (
                                     <>
@@ -230,11 +233,11 @@ export default function Table_Supplies(){
                             </Td>
                             <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === supply.idcategoria)?.nombre || 'Desconocido...'}</Td>
                             <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo || 'Desconocido...'}</Td>
-                            <Td ThemeMode={themeMode}>{() => {
+                            <Td ThemeMode={themeMode}>{(() => {
                                 const count = isCountSupplyTypes.find(count => count.idcantidad === supply.idcantidad);
                                 const type = isSupplyTypes.find(type => type.idtipo === supply.idtipo);
                                 return `${count.cantidad} ${type.unidad}` || 'Desconocida...'
-                            }}</Td>
+                            })()}</Td>
                         </tr>
                     ))}
                 </Tbody>

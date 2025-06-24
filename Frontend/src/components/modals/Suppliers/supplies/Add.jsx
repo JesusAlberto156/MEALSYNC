@@ -10,13 +10,13 @@ import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../cont
 import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../../../contexts/SearchsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
-import { SuppliersContext,SupplyCategoriesContext,SupplyTypesContext,CountSupplyTypesContext,SupplyTypeAddContext } from "../../../../contexts/SuppliersProvider";
+import { SuppliersContext,SupplyCategoriesContext,SupplyTypesContext,SupplyAddContext } from "../../../../contexts/SuppliersProvider";
 import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
-import { HandleSupplyTypeAdd,FilteredRecordsSuppliers,FilteredRecordsSupplyCategories,FilteredRecordsSupplyTypes } from "../../../../hooks/suppliers/Forms";
+import { HandleSupplyAdd,FilteredRecordsSuppliers,FilteredRecordsSupplyCategories,FilteredRecordsSupplyTypes,FilteredRecordsCountSupplyTypes } from "../../../../hooks/suppliers/Forms";
 import { ResetSelectedTables } from "../../../../hooks/Texts";
 //__________ICONOS__________
 // Icono para el buscador
@@ -50,8 +50,7 @@ export default function Supply_Add(){
     const [isSuppliers] = useContext(SuppliersContext);
     const [isSupplyCategories] = useContext(SupplyCategoriesContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
-    const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
-    const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext);
+    const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [socket] = useContext(SocketContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
@@ -62,11 +61,12 @@ export default function Supply_Add(){
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
-    const handleSupplyTypeAdd = HandleSupplyTypeAdd();
+    const handleSupplyAdd = HandleSupplyAdd();
     const resetSelectedTables = ResetSelectedTables();
     const filteredRecordsSuppliers = FilteredRecordsSuppliers();
     const filteredRecordsSupplyCategories = FilteredRecordsSupplyCategories();
     const filteredRecordsSupplyTypes = FilteredRecordsSupplyTypes();
+    const filteredRecordsCountSupplyTypes = FilteredRecordsCountSupplyTypes();
     // Constantes con el valor de useState
     const [isTotalDescription,setIsTotalDescription] = useState(0)
     const [isTotalName,setIsTotalName] = useState(0)
@@ -79,9 +79,15 @@ export default function Supply_Add(){
         setIsTextFieldsSupply(prev => ({
             ...prev,
             idtipo: 0,
-            idcatidad: 0,
+            idcantidad: 0,
         }))
     },[isTextFieldsSupply.idcategoria]);
+    useEffect(() => {
+        setIsTextFieldsSupply(prev => ({
+            ...prev,
+            idcantidad: 0,
+        }))
+    },[isTextFieldsSupply.idtipo]);
     // useEffect para calcular el total escrito en los campos
     useEffect(() => {
         setIsTotalName(isTextFieldsSupply.nombre.length);
@@ -198,15 +204,15 @@ export default function Supply_Add(){
     }, [isTouch]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isSupplyTypeAdd){
+        if(isSupplyAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Supply-Type',isLoggedUser.idusuario,isTextFieldsSupplyType.tipo.trim(),isTextFieldsSupplyType.descripcion.trim(),isTextFieldsSupplyType.unidad,isTextFieldsSupplyType.idcategoria,isTextFieldsSupplyType.limite);
+                        socket.emit('Insert-Supply',isLoggedUser.idusuario,isTextFieldsSupply.nombre.trim(),isTextFieldsSupply.descripcion.trim(),isTextFieldsSupply.imagen,isTextFieldsSupply.idproveedor,isTextFieldsSupply.idtipo,isTextFieldsSupply.idcategoria,isTextFieldsSupply.idcantidad);
 
-                        resolve('¡MEALSYNC agregó al tipo de insumo!...');
+                        resolve('¡MEALSYNC agregó al insumo!...');
 
-                        setIsSupplyTypeAdd(false)
+                        setIsSupplyAdd(false)
 
                         const route = sessionStorage.getItem('Ruta');
 
@@ -222,14 +228,14 @@ export default function Supply_Add(){
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
-                    setIsSupplyTypeAdd(false);
+                    setIsSupplyAdd(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'Agregando un tipo de insumo!...');
+            Alert_Verification(promise,'Agregando un insumo!...');
         }
-    },[isSupplyTypeAdd]);
+    },[isSupplyAdd]);
     // Estructura del componente
     return(
         <>
@@ -611,10 +617,10 @@ export default function Supply_Add(){
                                                         },
                                                     })
                                                 }}
-                                                placeholder='Seleccione una...'
+                                                placeholder='Seleccione un...'
                                                 value={filteredRecordsSupplyTypes
                                                     .map(type => ({ value: type.idtipo, label: type.tipo }))
-                                                    .find(option => option.value === isTextFieldsSupply.idtipo)
+                                                    .find(option => option.value === isTextFieldsSupply.idtipo) || null
                                                 }
                                                 onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, idtipo: e.value}))}
                                                 isDisabled={isActionBlock}
@@ -640,12 +646,12 @@ export default function Supply_Add(){
                                 <Text_A_16_Center ThemeMode={themeMode}>- Cantidad...</Text_A_16_Center>
                             </Container_Row_NG_95_Center>
                             {isTextFieldsSupply.idtipo !== 0 ? (
-                                isCountSupplyTypes.some(count => count.idtipo === isTextFieldsSupply.idtipo) ? (
+                                filteredRecordsCountSupplyTypes.length !== 0 ? (
                                     <>
                                         <Select
-                                            options={isCountSupplyTypes.filter(count => count.idtipo === isTextFieldsSupply.idtipo).map((c) => ({
-                                                value: c.idcantidad,
-                                                label: `${c.cantidad} ${isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.unidad}`
+                                            options={filteredRecordsCountSupplyTypes.map((count) => ({
+                                                value: count.idcantidad,
+                                                label: `${count.cantidad} ${isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.unidad}`
                                             }))}
                                             styles={{
                                                 control: (provided) => ({
@@ -693,9 +699,9 @@ export default function Supply_Add(){
                                                 })
                                             }}
                                             placeholder='Seleccione una...'
-                                            value={isCountSupplyTypes.filter(count => count.idtipo === isTextFieldsSupply.idtipo)
-                                                .map(c => ({ value: c.idtipo, label: `${c.cantidad} ${isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.unidad}` }))
-                                                .find(option => option.value === isTextFieldsSupply.idcantidad)
+                                            value={filteredRecordsCountSupplyTypes.filter(count => count.idtipo === isTextFieldsSupply.idtipo)
+                                                .map(c => ({ value: c.idcantidad, label: `${c.cantidad} ${isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.unidad}` }))
+                                                .find(option => option.value === isTextFieldsSupply.idcantidad) || null
                                             }
                                             onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, idcantidad: e.value}))}
                                             isDisabled={isActionBlock}
@@ -730,7 +736,7 @@ export default function Supply_Add(){
                             <Tooltip title='Agregar' placement='top'>
                                 <span>
                                     <Button_Icon_Green_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleSupplyTypeAdd()}
+                                        onClick={() => handleSupplyAdd()}
                                         disabled={isActionBlock}    
                                     >
                                         <Icon_White_22><IoIosAddCircle/></Icon_White_22>

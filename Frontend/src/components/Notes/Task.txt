@@ -157,10 +157,10 @@ ______VISUALIZAR______
 -------------------------------- TIPOS DE INSUMO --
 -------------------------------- INSUMOS --
 ______AGREGAR______
-- Verificación de los campos 
-- Implementación del teclado 
-- Funcionalidad 
-- Diseño de la interfaz 
+- Verificación de los campos ✔️
+- Implementación del teclado ✔️
+- Funcionalidad ✔️
+- Diseño de la interfaz ✔️
 ______EDITAR______
 - Verificación de los campos 
 - Implementación del teclado 

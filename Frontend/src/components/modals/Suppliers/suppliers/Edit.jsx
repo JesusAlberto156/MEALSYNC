@@ -436,7 +436,7 @@ export default function Supplier_Edit(){
                             )}
                         </Container_Row_95_Center>
                         <Container_Row_95_Center>
-                            <Text_A_12_Justify ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los insumos asociados al proveedor o para registrar nuevos insumos a su nombre. La modificación del correo puede afectar la recepción de solicitudes relacionadas con los pedidos de sus insumos.</Text_A_12_Justify>
+                            <Text_A_12_Justify ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los insumos asociados al proveedor, para registrar nuevos insumos a su nombre o realizar solicitudes de insumos a su nombre. La modificación del correo puede afectar la recepción de solicitudes relacionadas con los pedidos de sus insumos.</Text_A_12_Justify>
                         </Container_Row_95_Center>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>

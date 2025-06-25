@@ -426,7 +426,7 @@ export const TableActionsSupplies = () => {
     // Filtrado de datos
     const filteredRecordsSupplies = useMemo(() => {
         const filtered = isSupplies.filter((data) => {
-            const isDeleted = isDeletedSupplies.some(type => type.idtipo === data.idtipo);
+            const isDeleted = isDeletedSupplies.some(supply => supply.idinsumo === data.idinsumo);
             if (isDeleted) return false;
             
             if (isSelectedOptionSearch === 'General') {

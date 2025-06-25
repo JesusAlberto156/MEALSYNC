@@ -15,6 +15,7 @@ export const TextFieldsSupplyOrderObservationContext = createContext(null);
 export const TextFieldsWarehouseCategoryContext = createContext(null);
 export const TextFieldsWarehouseSupplyTypeContext = createContext(null);
 export const TextFieldsWarehouseSalesSupplyTypeContext = createContext(null);
+export const TextFieldsSearchDateContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los campos de texto para los formularios ✔️
@@ -33,7 +34,9 @@ export const Index_Text_Fields = ({children}) => {
                                                 <Text_Fields_Warehouse_Category>
                                                     <Text_Fields_Warehouse_Supply_Type>
                                                         <Text_Fields_Warehouse_Sales_Supply_Type>
-                                                            {children}
+                                                            <Text_Fields_Search_Date>
+                                                                {children}
+                                                            </Text_Fields_Search_Date>
                                                         </Text_Fields_Warehouse_Sales_Supply_Type>
                                                     </Text_Fields_Warehouse_Supply_Type>
                                                 </Text_Fields_Warehouse_Category>
@@ -298,5 +301,19 @@ export const Text_Fields_Warehouse_Sales_Supply_Type = ({ children }) => {
         <TextFieldsWarehouseSalesSupplyTypeContext.Provider value={[isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType]}> 
             {children}
         </TextFieldsWarehouseSalesSupplyTypeContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de busqueda ✔️
+export const Text_Fields_Search_Date = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useState({
+        año: new Date().getFullYear(),
+        mes: new Date().getMonth(),
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsSearchDateContext.Provider value={[isTextFieldsSearchDate,setIsTextFieldsSearchDate]}> 
+            {children}
+        </TextFieldsSearchDateContext.Provider>
     );
 }

@@ -8,6 +8,7 @@ export const SelectedRow2Context = createContext(null);
 export const SelectedOptionSearchContext = createContext(null);
 export const SelectedOptionOrderContext = createContext(null);
 export const SelectedOptionOrderPlusContext = createContext(null);
+export const SelectedOptionOrderPlusUltraContext = createContext(null);
 export const SelectedOptionOrderDirectionContext = createContext(null);
 //____________IMPORT/EXPORT____________
 // Todos los contextos para lo que se seleccione de varias opciones ✔️
@@ -19,9 +20,11 @@ export const Index_Selectedes = ({children}) => {
                     <Selected_Option_Search>
                         <Selected_Option_Order>
                             <Selected_Option_Order_Plus>
-                                <Selected_Option_Order_Direction>
-                                    {children}
-                                </Selected_Option_Order_Direction>
+                                <Selected_Option_Order_Plus_Ultra>
+                                    <Selected_Option_Order_Direction>
+                                        {children}
+                                    </Selected_Option_Order_Direction>
+                                </Selected_Option_Order_Plus_Ultra>
                             </Selected_Option_Order_Plus>
                         </Selected_Option_Order>
                     </Selected_Option_Search>
@@ -95,6 +98,17 @@ export const Selected_Option_Order_Plus = ({ children }) => {
         <SelectedOptionOrderPlusContext.Provider value={[isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus]}>
             {children}
         </SelectedOptionOrderPlusContext.Provider>
+    );
+}
+// Función Contexto para controlar la opcion seleccionada en el ordenamiento mucho mas especifico ✔️
+export const Selected_Option_Order_Plus_Ultra = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useState('');
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SelectedOptionOrderPlusUltraContext.Provider value={[isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra]}>
+            {children}
+        </SelectedOptionOrderPlusUltraContext.Provider>
     );
 }
 // Función Contexto para controlar la direccion en el ordenamiento ✔️

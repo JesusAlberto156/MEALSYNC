@@ -95,8 +95,8 @@ export const Input_Text_Black_50 = styled.input.withConfig({
 `;
 //-------- Black
 //-------- White
-export const Input_Text_White_20 = styled.input`
-    width: 20%;
+export const Input_Text_White_40 = styled.input`
+    width: 40%;
     height: auto;
     font-family: 'Century Gothic', Prompt, sans-serif;
     color: white;

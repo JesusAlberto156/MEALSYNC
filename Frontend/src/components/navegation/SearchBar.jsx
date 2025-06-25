@@ -1,13 +1,14 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext } from "react";
+import { useContext, useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
-import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
+import { TextFieldsSearchDateContext } from "../../contexts/FormsProvider";
+import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 import { UsersViewPasswordContext } from "../../contexts/UsersProvider";
 import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSupplierObservationsContext,RefSupplyCategoriesContext,RefSupplyTypesContext,RefSuppliesContext,RefSupplyOrdersContext } from "../../contexts/RefsProvider";
@@ -38,10 +39,11 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
-import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_White_60,Button_Icon_Blue_140 } from "../styled/Buttons";
+import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_26,Icon_Button_Black_30,Icon_White_18,Icon_18 } from "../styled/Icons";
-import { Input_Text_White_20 } from "../styled/Inputs";
+import { Input_Text_White_40,Input_Radio_16 } from "../styled/Inputs";
 import { Text_Span_12_Center } from "../styled/Text";
+import { Label_Text_16_Center } from "../styled/Labels";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -69,6 +71,8 @@ export default function Search_Bar (){
     const {Modal_Suppy_Orders,Form_Supply_Orders,Button_Edit_Supply_Orders,Button_Edit_State_Supply_Orders,Button_Add_Supply_Order_Observations,Button_View_Supply_Order_Observations,Button_Delete_Supply_Orders} = useContext(RefSupplyOrdersContext);
     const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext); 
+    const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext);
     // Constante con las opciones de los buscadores
     const isOptionUsers = ['General','Nombre','Nombre corto','Usuario','Tipo de usuario'];
     const isOptionStatus = ['Normal','Activo','Inactivo'];
@@ -79,24 +83,41 @@ export default function Search_Bar (){
     const isOptionSupplyOrders = ['General','Número de Pedido','Fecha','Insumo','Cantidad','Precio Unitario','Precio Total','Estado'];
     const isOptionPurchases = ['Categorías','Tipos de Insumo'];
     const isOptionSales = ['Categorías','Tipos de Insumo'];
-    const isOptionWarehouse = ['General','Nombre','Fecha']
+    const isOptionWarehouse = ['Nombre','Fecha'];
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
     const handleViewPassword = HandleViewPassword();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleModalViewWarehouse = HandleModalViewWarehouse();
+    // UseEffect para reiniciar las opciones
+    useEffect(() => {
+        setIsSelectedOptionOrderPlusUltra('');
+    },[isSelectedOptionOrderPlus]);
+    useEffect(() => {
+        setIsTextFieldsSearchDate(prev => ({
+            ...prev,
+            año: new Date().getFullYear(),
+            mes: new Date().getMonth(),
+        }))
+    },[isSelectedOptionSearch])
     // Estructura del componente
     return(
         <>
             <Container_Row_100_Left>
-                <Icon_26><FcSearch/></Icon_26>
-                <Input_Text_White_20
-                    type="text"
-                    placeholder="Buscar..."
-                    value={isSearchTerm}
-                    onChange={(e) => setIsSearchTerm(e.target.value)}
-                />
+                {currentSView === 'Inventario' && currentNView === 'Compras' || currentNView === 'Ventas' ? (
+                    <></>
+                ):(
+                    <>
+                        <Icon_26><FcSearch/></Icon_26>
+                        <Input_Text_White_40
+                            type="text"
+                            placeholder="Buscar..."
+                            value={isSearchTerm}
+                            onChange={(e) => setIsSearchTerm(e.target.value)}
+                        />  
+                    </>
+                )}
                 {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
                     <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
                         {isOptionUsers.map((option,index) => (
@@ -294,7 +315,64 @@ export default function Search_Bar (){
                 ):(
                     <></>
                 )}
-                <Container_Row_80_Right>    
+                {currentSView === 'Inventario' && currentNView === 'Compras' || currentNView === 'Ventas' ? (
+                    isSelectedOptionSearch === 'Nombre' ? (
+                        <>
+                            <Icon_26><FcSearch/></Icon_26>
+                            <Input_Text_White_40
+                                type="text"
+                                placeholder="Buscar..."
+                                value={isSearchTerm}
+                                onChange={(e) => setIsSearchTerm(e.target.value)}
+                            /> 
+                        </>
+                    ):(
+                        isSelectedOptionSearch === 'Fecha' ? (
+                            <>
+                                <select
+                                    value={isTextFieldsSearchDate.año}
+                                    onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, año: value }))}
+                                    style={{
+                                        fontFamily: 'Century Gothic',
+                                        fontSize: '16px',
+                                        borderRadius: '15px',
+                                        padding:'5px',
+                                        background: 'white',
+                                        border: '1px solid black',
+                                    }}
+                                >
+                                    {Array.from({ length: 51 }, (_, i) => {
+                                        const year = new Date().getFullYear() - i;
+                                        return <option key={year} value={year}>{year}</option>;
+                                    })}
+                                </select>
+                                <select
+                                    value={isTextFieldsSearchDate.mes}
+                                    onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, mes: value }))}
+                                    style={{
+                                        fontFamily: 'Century Gothic',
+                                        fontSize: '16px',
+                                        borderRadius: '15px',
+                                        padding:'5px',
+                                        background: 'white',
+                                        border: '1px solid black',
+                                    }}
+                                >
+                                    {Array.from({ length: isTextFieldsSearchDate.año === new Date().getFullYear() ? new Date().getMonth() + 1 : 12 }, (_, i) => (
+                                        <option key={i} value={i}>
+                                            {new Date(0, i).toLocaleString("es", { month: "long" }).toUpperCase()}
+                                        </option>
+                                    ))}
+                                </select>
+                            </>
+                        ):(
+                            <></>
+                        )
+                    )
+                ):(
+                    <></>
+                )}
+                <Container_Row_80_Right>
                     {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
                         <>
                             {isSelectedRow !== null ? (
@@ -842,6 +920,22 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
+                    {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus !== 'Normal' ? (
+                        ['General','Totales'].map((item,index) => (
+                            <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                <Input_Radio_16 ThemeMode={themeMode}
+                                    type="radio"
+                                    name="options"
+                                    value={item}
+                                    checked={isSelectedOptionOrderPlusUltra === item}
+                                    onChange={(e) => setIsSelectedOptionOrderPlusUltra(e.target.value)}
+                                />
+                                {item}
+                            </Label_Text_16_Center>
+                        ))
+                    ):(
+                        <></>
+                    )}
                     {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
                         <>
                             {isLoggedType === 'Chef' || isPermission.superadministrador ? (
@@ -868,7 +962,7 @@ export default function Search_Bar (){
                         <></>
                     )}
                 </Container_Row_80_Right>
-            </Container_Row_100_Left> 
+            </Container_Row_100_Left>
         </>
     );
 }

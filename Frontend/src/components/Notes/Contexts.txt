@@ -25,6 +25,7 @@ const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation]
 const [isTextFieldsWarehouseCategory,setIsTextFieldsWarehouseCategory] = useContext(TextFieldsWarehouseCategoryContext); ✔️
 const [isTextFieldsWarehouseSupplyType,setIsTextFieldsWarehouseSupplyType] = useContext(TextFieldsWarehouseSupplyTypeContext); ✔️
 const [isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType] = useContext(TextFieldsWarehouseSalesSupplyTypeContext); ✔️
+const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); ✔️
 //____________FORM____________
 //____________MENUS____________
 
@@ -55,6 +56,7 @@ const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context); ✔�
 const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext); ✔️
 const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext); ✔️
 const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext); ✔️
+const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext); ✔️
 const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext); ✔️
 //____________SELECTED____________
 //____________SESSION____________

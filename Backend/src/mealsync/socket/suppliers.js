@@ -302,7 +302,7 @@ export const Suppliers_UPDATE = (socket) => {
     //---------- INSUMOS ✔️
     socket.on('Update-Supply',async (idusuario,idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
         try{
-            await updateSupplyService(idproveedor,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
+            await updateSupplyService(idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
             const resultSupplies = await getSuppliesService();
             await updateLogSupplyService(idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria),String(idcantidad));
             const resultLogs = await getLogsService();

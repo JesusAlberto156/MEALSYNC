@@ -3,7 +3,8 @@
 import { useContext } from "react";
 // Contextos
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../contexts/SearchsProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../contexts/SelectedesProvider";
+import { TextFieldsSearchDateContext } from "../contexts/FormsProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los buscadores ✔️
@@ -45,12 +46,20 @@ export const ResetSelectedOptions = () => {
     const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
+    const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
     // Función del hook
     const resetSelectedOptions = () => {
         setIsSelectedOptionSearch('General');
         setIsSelectedOptionOrder('');
         setIsSelectedOptionOrderPlus('Normal')
         setIsSelectedOptionOrderDirection('Asc');
+        setIsSelectedOptionOrderPlusUltra('');
+        setIsTextFieldsSearchDate(prev => ({ 
+            ...prev,
+            año: new Date().getFullYear(),
+            mes: new Date().getMonth(),
+        }));
     }
     // Retorno de la función del hook
     return resetSelectedOptions;

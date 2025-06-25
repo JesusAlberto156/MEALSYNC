@@ -9,11 +9,11 @@ import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { SupplyOrderObservationsContext } from "../../../contexts/WarehouseProvider"
 import { TextFieldsSupplyOrderObservationContext,TextFieldsSupplyOrderContext } from "../../../contexts/FormsProvider"
 import { RefSupplyOrdersContext } from "../../../contexts/RefsProvider"
-import { SuppliesContext } from "../../../contexts/SuppliersProvider"
+import { SupplyTypesContext,SupplyCategoriesContext } from "../../../contexts/SuppliersProvider"
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
 import { ResetTextFieldsSupplyOrder,ResetTextFieldsSupplyOrderObservation } from "../../../hooks/warehouse/Texts"
-import { TableActionsSupplyOrders } from "../../../hooks/warehouse/Tables"
+import { TableActionsPurchases } from "../../../hooks/warehouse/Tables"
 import { Dates } from "../../../hooks/Dates"
 //__________ICONOS__________
 // Iconos de las tablas
@@ -44,7 +44,8 @@ export default function Table_Purchases(){
     const [isSupplyOrderObservations] = useContext(SupplyOrderObservationsContext);
     const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
-    const [isSupplies] = useContext(SuppliesContext);
+    const [isSupplyTypes] = useContext(SupplyTypesContext); 
+    const [isSupplyCategories] = useContext(SupplyCategoriesContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
@@ -115,11 +116,14 @@ export default function Table_Purchases(){
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
-    const { handleRowClick,nextPageSupplyOrders,prevPage,currentRecordsSupplyOrders,currentPage,totalPagesSupplyOrders,ToggleOrder,ToggleOrderDirection } = TableActionsSupplyOrders();
+    const { handleRowClick,nextPagePurchases,prevPage,currentRecordsPurchases,currentPage,totalPagesPurchases,ToggleOrder,ToggleOrderDirection } = TableActionsPurchases();
     const resetTextFieldsSupplyOrder = ResetTextFieldsSupplyOrder();
     const resetTextFieldsSupplyOrderObservation = ResetTextFieldsSupplyOrderObservation();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const { getDate } = Dates();
+    useEffect(() => {
+
+    })
     // Estructura del componente
     return(
         <>
@@ -186,35 +190,32 @@ export default function Table_Purchases(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Total' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Total <MdOutlineAttachMoney/>MXN
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Total' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Total
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
                     </tr>
                 </Thead>
                 <Tbody ThemeMode={themeMode}>
-                    {currentRecordsSupplyOrders.map((supplyOrder) => (
+                    {currentRecordsPurchases.map((warehouse) => (
                         <tr 
-                            key={supplyOrder.idpedido}
-                            onClick={() => handleRowClick(supplyOrder)}
+                            key={warehouse.idalmacen}
+                            onClick={() => handleRowClick(warehouse)}
                             style={{
-                                backgroundColor:  isSelectedRow === supplyOrder ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
+                                backgroundColor:  isSelectedRow === warehouse ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
                                 cursor: 'pointer',
                                 transition: 'background-color 0.5s ease',
                             }}
                         >
-                            <Td ThemeMode={themeMode}>{supplyOrder.numeropedido}</Td>
-                            <Td ThemeMode={themeMode}>{() => getDate(supplyOrder.fecha)}</Td>
-                            <Td ThemeMode={themeMode}>{isSupplies.find(supply => supply.idinsumo === supplyOrder.idinsumo)?.nombre || 'Desconocido'}</Td>
-                            <Td ThemeMode={themeMode}>{supplyOrder.cantidad}</Td>
-                            <Td ThemeMode={themeMode}>{supplyOrder.preciounitario}</Td>
-                            <Td ThemeMode={themeMode}>{supplyOrder.preciototal}</Td>
-                            <Td ThemeMode={themeMode}>{supplyOrder.estado === 'En curso' ? <TContainer_Center><Text_Background_Blue_12_Center>{supplyOrder.estado}</Text_Background_Blue_12_Center></TContainer_Center>:<TContainer_Center><Text_Background_Green_12_Center>{supplyOrder.estado}</Text_Background_Green_12_Center></TContainer_Center>}</Td>
+                            <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' ? isSupplyCategories.find(category => category.idcategoria === warehouse.idcategoria)?.nombre || 'Desconocida...' : isSelectedOptionOrderPlus === 'Tipos de Insumo'  ? isSupplyTypes.find(type => type.idtipo === warehouse.idtipo)?.tipo || 'Desconocido...' : ''}</Td>
+                            <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? getDate(warehouse.fecha) || 'Desconocida...' : ''}</Td>
+                            <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? warehouse.cantidadreal : ''}</Td>
+                            <Td ThemeMode={themeMode}><MdOutlineAttachMoney/> {isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? warehouse.precio : ''} MXN</Td>
                         </tr>
                     ))}
                 </Tbody>
             </Table>
-            {currentRecordsSupplyOrders.length !== 0 ? (
+            {currentRecordsPurchases.length !== 0 ? (
                 <>
                     <Container_Row_90_Center>
                         <Tooltip title='Página anterior' placement="top">
@@ -223,10 +224,10 @@ export default function Table_Purchases(){
                                 <Icon_White_18><GrPrevious/></Icon_White_18>
                             </Button_Icon_Blue_180>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSupplyOrders}</Text_A_16_Center>
+                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesPurchases}</Text_A_16_Center>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSupplyOrders || totalPagesSupplyOrders === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageSupplyOrders}>
+                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesPurchases || totalPagesPurchases === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                onClick={nextPagePurchases}>
                                 <Icon_White_18><GrNext/></Icon_White_18>
                             </Button_Icon_Blue_180>
                         </Tooltip>

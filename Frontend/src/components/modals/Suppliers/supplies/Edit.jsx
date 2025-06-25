@@ -28,7 +28,7 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center,Container_Row_90_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center,Text_A_20_Center } from "../../../styled/Text";
+import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center,Text_A_20_Center,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Area_Black_100,Input_Group,Input_Text_Black_50 } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_Button_Blue_18,Icon_26 } from "../../../styled/Icons";
@@ -612,7 +612,7 @@ export default function Supply_Edit(){
                                                         label: type.tipo
                                                     }))}
                                                     styles={{
-                                                        control: (provided,state) => ({
+                                                        control: (provided) => ({
                                                             ...provided,
                                                             width: '300px',
                                                             padding: '6px',
@@ -770,6 +770,9 @@ export default function Supply_Edit(){
                                 </>
                             )}
                         </Container_Column_90_Center>
+                        <Container_Row_95_Center>
+                            <Text_A_12_Justify ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los pedidos del inventario o para registrar nuevos pedidos del inventario a su nombre. La modificación de la categoría, el tipo de insumo o la cantidad puede afectar los resultados finales del inventario. La modificación del proveedor puede afectar a futuras solicitudes para el inventario.</Text_A_12_Justify>
+                        </Container_Row_95_Center>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <span>

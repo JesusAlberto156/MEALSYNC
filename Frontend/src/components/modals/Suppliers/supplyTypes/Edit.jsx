@@ -28,7 +28,7 @@ import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_90_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center,Text_A_20_Center,Text_A_12_Justify } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Area_Black_100,Input_Group,Input_Radio_16,Input_Text_Black_50 } from "../../../styled/Inputs";
@@ -308,93 +308,101 @@ export default function Supply_Type_Edit(){
                                 <Text_A_16_Center ThemeMode={themeMode}>- Categoría...</Text_A_16_Center>
                             </Container_Row_NG_95_Center>
                             {isSupplyCategories.length !== 0 ? (
-                                <>
-                                    <Container_Row_100_Center>
-                                        <Icon_26><FcSearch/></Icon_26>
-                                        <Input_Text_Black_50 ThemeMode={themeMode}
-                                            id="Input-Search"
-                                            type="text"
-                                            placeholder="Buscar..."
-                                            value={isSearchTerm}
-                                            onChange={(e) => setIsSearchTerm(e.target.value)}
-                                            onFocus={() => {
-                                                if(isTouchRef.current){
-                                                    setIsKeyboard(true);
-                                                    setIsKeyboardView('Search');
-                                                }
-                                            }}
-                                            disabled={isActionBlock || isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)}
-                                        />
-                                    </Container_Row_100_Center>
-                                    {filteredRecordsSupplyCategories.length !== 0 ? (
+                                isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupplyType.idcategoria) ? (
+                                    <>
+                                        <Container_Row_90_Center>
+                                            <Text_A_16_Center ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)?.nombre || 'Desconocida...'}</Text_A_16_Center>
+                                        </Container_Row_90_Center>
+                                    </>
+                                ):(
                                         <>
-                                            <Select
-                                                options={filteredRecordsSupplyCategories.map((category) => ({
-                                                    value: category.idcategoria,
-                                                    label: category.nombre
-                                                }))}
-                                                styles={{
-                                                    control: (provided) => ({
-                                                        ...provided,
-                                                        width: '300px',
-                                                        padding: '6px',
-                                                        border: '2px solid black',
-                                                        cursor: 'pointer',
-                                                        borderRadius: '20px',
-                                                        fontFamily: 'Century Gothic',
-                                                        fontStyle: 'normal',
-                                                        fontSize: '18px',
-                                                        '@media (max-width: 768px)':{
-                                                            width: '250px',
-                                                            padding: '4px',
-                                                            fontSize: '16px',
-                                                        },
-                                                        '@media (max-width: 480px)':{
-                                                            width: '200px',
-                                                            padding: '2px',
-                                                            fontSize: '14px',
-                                                        },
-                                                    }),
-                                                    menu: (provided) => ({
-                                                        ...provided,
-                                                        overflow: 'hidden',
-                                                        borderRadius:'15px',
-                                                    }),
-                                                    menuList: (provided) => ({
-                                                        ...provided,
-                                                        maxHeight:175,
-                                                        fontFamily: 'Century Gothic',
-                                                        fontStyle: 'normal',
-                                                        overflowY:'auto',
-                                                        scrollbarWidth: 'none',
-                                                        '&::-webkit-scrollbar': {
-                                                            display:'none',
-                                                        },
-                                                        '@media (max-width: 768px)':{
-                                                            maxHeight:150,
-                                                        },
-                                                        '@media (max-width: 480px)':{
-                                                            maxHeight:125,
-                                                        },
-                                                    })
+                                        <Container_Row_100_Center>
+                                            <Icon_26><FcSearch/></Icon_26>
+                                            <Input_Text_Black_50 ThemeMode={themeMode}
+                                                id="Input-Search"
+                                                type="text"
+                                                placeholder="Buscar..."
+                                                value={isSearchTerm}
+                                                onChange={(e) => setIsSearchTerm(e.target.value)}
+                                                onFocus={() => {
+                                                    if(isTouchRef.current){
+                                                        setIsKeyboard(true);
+                                                        setIsKeyboardView('Search');
+                                                    }
                                                 }}
-                                                placeholder='Seleccione una...'
-                                                value={isSupplyCategories
-                                                    .map(category => ({ value: category.idcategoria, label: category.nombre }))
-                                                    .find(option => option.value === isTextFieldsSupplyType.idcategoria)
-                                                }
-                                                onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, idcategoria: e.value}))}
-                                                isDisabled={isActionBlock || isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)}
+                                                disabled={isActionBlock}
                                             />
-                                        </>
-                                    ):(
-                                        <>
-                                            <Container_Row_95_Center>
-                                                <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
-                                            </Container_Row_95_Center>
-                                        </>
-                                    )}
-                                </>
+                                        </Container_Row_100_Center>
+                                        {filteredRecordsSupplyCategories.length !== 0 ? (
+                                            <>
+                                                <Select
+                                                    options={filteredRecordsSupplyCategories.map((category) => ({
+                                                        value: category.idcategoria,
+                                                        label: category.nombre
+                                                    }))}
+                                                    styles={{
+                                                        control: (provided) => ({
+                                                            ...provided,
+                                                            width: '300px',
+                                                            padding: '6px',
+                                                            border: '2px solid black',
+                                                            cursor: 'pointer',
+                                                            borderRadius: '20px',
+                                                            fontFamily: 'Century Gothic',
+                                                            fontStyle: 'normal',
+                                                            fontSize: '18px',
+                                                            '@media (max-width: 768px)':{
+                                                                width: '250px',
+                                                                padding: '4px',
+                                                                fontSize: '16px',
+                                                            },
+                                                            '@media (max-width: 480px)':{
+                                                                width: '200px',
+                                                                padding: '2px',
+                                                                fontSize: '14px',
+                                                            },
+                                                        }),
+                                                        menu: (provided) => ({
+                                                            ...provided,
+                                                            overflow: 'hidden',
+                                                            borderRadius:'15px',
+                                                        }),
+                                                        menuList: (provided) => ({
+                                                            ...provided,
+                                                            maxHeight:175,
+                                                            fontFamily: 'Century Gothic',
+                                                            fontStyle: 'normal',
+                                                            overflowY:'auto',
+                                                            scrollbarWidth: 'none',
+                                                            '&::-webkit-scrollbar': {
+                                                                display:'none',
+                                                            },
+                                                            '@media (max-width: 768px)':{
+                                                                maxHeight:150,
+                                                            },
+                                                            '@media (max-width: 480px)':{
+                                                                maxHeight:125,
+                                                            },
+                                                        })
+                                                    }}
+                                                    placeholder='Seleccione una...'
+                                                    value={filteredRecordsSupplyCategories
+                                                        .map(category => ({ value: category.idcategoria, label: category.nombre }))
+                                                        .find(option => option.value === isTextFieldsSupplyType.idcategoria)
+                                                    }
+                                                    onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, idcategoria: e.value}))}
+                                                    isDisabled={isActionBlock}
+                                                />
+                                            </>
+                                        ):(
+                                            <>
+                                                <Container_Row_95_Center>
+                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                </Container_Row_95_Center>
+                                            </>
+                                        )}
+                                    </>
+                                )
                             ):(
                                 <>
                                     <Container_Row_95_Center>

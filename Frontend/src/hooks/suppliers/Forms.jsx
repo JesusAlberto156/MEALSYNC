@@ -853,3 +853,39 @@ export const HandleSupplyEdit = () => {
     // Retorno de la función del hook
     return handleSupplyEdit;
 }
+// Hook para eliminar un insumo desde el modal ✔️
+export const HandleSupplyDelete = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isSupplyDelete,setIsSupplyDelete] = useContext(SupplyDeleteContext);
+    const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
+    // Función del hook
+    const handleSupplyDelete = () => {
+        if(currentNView === 'Insumos' && currentSView === 'Proveedores' && currentMView === 'Insumo-Eliminar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setIsFunctionBlock(false);
+                    setTimeout(() => {
+                        
+                        resolve('¡Información verificada!...');
+                        
+                        setTimeout(() => {
+                            setIsSupplyDelete(true);
+                        },500)
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!...');
+                }
+            });
+
+            Alert_Verification(promise,'¡Verificando información!...');
+        }
+    } 
+    // Retorno de la función del hook
+    return handleSupplyDelete;
+}

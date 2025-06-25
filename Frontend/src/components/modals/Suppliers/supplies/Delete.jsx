@@ -15,7 +15,7 @@ import { RefSuppliesContext } from '../../../../contexts/RefsProvider';
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
-import { HandleSupplyCategoryDelete } from "../../../../hooks/suppliers/Forms";
+import { HandleSupplyDelete } from "../../../../hooks/suppliers/Forms";
 import { ResetSelectedTables } from "../../../../hooks/Texts";
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -56,7 +56,7 @@ export default function Supply_Delete(){
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
-    const handleSupplyCategoryDelete = HandleSupplyCategoryDelete();
+    const handleSupplyDelete = HandleSupplyDelete();
     const resetSelectedTables = ResetSelectedTables();
     // useEffect para escribir en los campos del login
     const handleKeyboard = (newValue) => {
@@ -126,7 +126,7 @@ export default function Supply_Delete(){
                                 <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsSupply.nombre || 'Desconocido'}...</Text_A_16_Left>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>La eliminación de este insumo impedirá agregarle nuevos insumos o reasignar sus insumos a una categoría distinta, tambien no se podrá agregar nuevos tipos de insumo a esta categoría o reasignarle sus tipos de insumo a otra categoría.</Text_A_12_Justify>
+                                <Text_A_12_Justify ThemeMode={themeMode}>La eliminación de este insumo impedirá agregar nuevos pedidos de inventario a este insumo.</Text_A_12_Justify>
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>
@@ -142,7 +142,7 @@ export default function Supply_Delete(){
                                 <Tooltip title='Eliminar' placement='top'>
                                     <span>
                                         <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                            onClick={() => handleSupplyCategoryDelete()}
+                                            onClick={() => handleSupplyDelete()}
                                             disabled={!isFunctionBlock || isActionBlock}    
                                         >
                                             <Icon_White_22><MdDelete/></Icon_White_22>

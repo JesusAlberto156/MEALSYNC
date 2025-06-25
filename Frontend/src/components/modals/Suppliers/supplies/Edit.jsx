@@ -10,8 +10,8 @@ import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../cont
 import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../../../contexts/SearchsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
-import { SuppliersContext,SupplyCategoriesContext,SupplyTypesContext,CountSupplyTypesContext,SupplyAddContext,DeletedSuppliersContext,DeletedSupplyCategoriesContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliersProvider";
-import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
+import { SuppliersContext,SupplyCategoriesContext,SupplyTypesContext,CountSupplyTypesContext,SupplyEditContext,DeletedSuppliersContext,DeletedSupplyCategoriesContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliersProvider";
+import { RefKeyboardContext,RefSuppliesContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
@@ -49,6 +49,7 @@ export default function Supply_Edit(){
     const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
     const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context);
+    const {Modal_Supplies,Form_Supplies,Button_Edit_Supplies,Button_Delete_Supplies} = useContext(RefSuppliesContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [isSuppliers] = useContext(SuppliersContext);
     const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
@@ -57,7 +58,7 @@ export default function Supply_Edit(){
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
     const [isDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
     const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
-    const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext);
+    const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext);
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [socket] = useContext(SocketContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
@@ -219,15 +220,15 @@ export default function Supply_Edit(){
     }, [isTouch]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isSupplyAdd){
+        if(isSupplyEdit){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Supply',isLoggedUser.idusuario,isTextFieldsSupply.nombre.trim(),isTextFieldsSupply.descripcion.trim(),isTextFieldsSupply.imagen,isTextFieldsSupply.idproveedor,isTextFieldsSupply.idtipo,isTextFieldsSupply.idcategoria,isTextFieldsSupply.idcantidad);
+                        socket.emit('Update-Supply',isLoggedUser.idusuario,isTextFieldsSupply.idinsumo,isTextFieldsSupply.nombre.trim(),isTextFieldsSupply.descripcion.trim(),isTextFieldsSupply.imagen,isTextFieldsSupply.idproveedor,isTextFieldsSupply.idtipo,isTextFieldsSupply.idcategoria,isTextFieldsSupply.idcantidad);
+                        
+                        resolve('¡MEALSYNC editó al insumo!...');
 
-                        resolve('¡MEALSYNC agregó al insumo!...');
-
-                        setIsSupplyAdd(false)
+                        setIsSupplyEdit(false);
 
                         const route = sessionStorage.getItem('Ruta');
 
@@ -243,20 +244,20 @@ export default function Supply_Edit(){
                     },2000);
                 }catch(e){
                     setIsActionBlock(false);
-                    setIsSupplyAdd(false);
+                    setIsSupplyEdit(false);
                     return reject('¡Ocurrio un error inesperado!...');
                 }
             });
 
-            Alert_Verification(promise,'Agregando un insumo!...');
+            Alert_Verification(promise,'Editando un insumo!...');
         }
-    },[isSupplyAdd]);
+    },[isSupplyEdit]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal>
-                    <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Insumo-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                <Container_Modal ref={Modal_Supplies}>
+                    <Container_Form_500 ref={Form_Supplies} ThemeMode={themeMode} className={currentMView === 'Insumo-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_30_Center ThemeMode={themeMode}>EDITAR INSUMO</Text_Title_30_Center>
                         </Container_Row_100_Center>

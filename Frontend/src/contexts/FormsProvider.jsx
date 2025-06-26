@@ -307,8 +307,8 @@ export const Text_Fields_Warehouse_Sales_Supply_Type = ({ children }) => {
 export const Text_Fields_Search_Date = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useState({
-        año: new Date().getFullYear(),
-        mes: new Date().getMonth(),
+        año: 0,
+        mes: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(

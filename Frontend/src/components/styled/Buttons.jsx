@@ -10,6 +10,7 @@ export const Button_Icon_Blue_220 = styled.button.withConfig({
 })`
     width: 220px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -45,6 +46,7 @@ export const Button_Icon_Blue_210 = styled.button.withConfig({
 })`
     width: 210px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -80,6 +82,7 @@ export const Button_Icon_Blue_200 = styled.button.withConfig({
 })`
     width: 200px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     padding-left: 20px;
     border-radius: 25px;
@@ -112,6 +115,7 @@ export const Button_Icon_Blue_190 = styled.button.withConfig({
 })`
     width: 190px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -147,6 +151,7 @@ export const Button_Icon_Blue_180 = styled.button.withConfig({
 })`
     width: 180px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -182,6 +187,7 @@ export const Button_Icon_Blue_170 = styled.button.withConfig({
 })`
     width: 170px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -217,6 +223,7 @@ export const Button_Icon_Blue_160 = styled.button.withConfig({
 })`
     width: 160px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -252,6 +259,7 @@ export const Button_Icon_Blue_150 = styled.button.withConfig({
 })`
     width: 150px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -287,6 +295,7 @@ export const Button_Icon_Blue_140 = styled.button.withConfig({
 })`
     width: 140px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -322,6 +331,7 @@ export const Button_Icon_Blue_120 = styled.button.withConfig({
 })`
     width: 120px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -357,6 +367,7 @@ export const Button_Icon_Blue_100 = styled.button.withConfig({
 })`
     width: 100px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -392,6 +403,7 @@ export const Button_Icon_Blue_80 = styled.button.withConfig({
 })`
     width: 80px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -427,6 +439,7 @@ export const Button_Icon_Blue_60 = styled.button.withConfig({
 })`
     width: 60px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -469,6 +482,7 @@ export const Button_Icon_Green_220 = styled.button.withConfig({
 })`
     width: 220px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -504,6 +518,7 @@ export const Button_Icon_Green_210 = styled.button.withConfig({
 })`
     width: 210px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -539,6 +554,7 @@ export const Button_Icon_Green_200 = styled.button.withConfig({
 })`
     width: 200px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     padding-left: 20px;
     border-radius: 25px;
@@ -571,6 +587,7 @@ export const Button_Icon_Green_190 = styled.button.withConfig({
 })`
     width: 190px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -606,6 +623,7 @@ export const Button_Icon_Green_180 = styled.button.withConfig({
 })`
     width: 180px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -641,6 +659,7 @@ export const Button_Icon_Green_170 = styled.button.withConfig({
 })`
     width: 170px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -676,6 +695,7 @@ export const Button_Icon_Green_160 = styled.button.withConfig({
 })`
     width: 160px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -711,6 +731,7 @@ export const Button_Icon_Green_150 = styled.button.withConfig({
 })`
     width: 150px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -746,6 +767,7 @@ export const Button_Icon_Green_140 = styled.button.withConfig({
 })`
     width: 140px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -781,6 +803,7 @@ export const Button_Icon_Green_120 = styled.button.withConfig({
 })`
     width: 120px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -816,6 +839,7 @@ export const Button_Icon_Green_100 = styled.button.withConfig({
 })`
     width: 100px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -851,6 +875,7 @@ export const Button_Icon_Green_80 = styled.button.withConfig({
 })`
     width: 80px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -886,6 +911,7 @@ export const Button_Icon_Green_60 = styled.button.withConfig({
 })`
     width: 60px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -922,6 +948,7 @@ export const Button_Icon_Red_220 = styled.button.withConfig({
 })`
     width: 220px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -957,6 +984,7 @@ export const Button_Icon_Red_210 = styled.button.withConfig({
 })`
     width: 210px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -992,6 +1020,7 @@ export const Button_Icon_Red_200 = styled.button.withConfig({
 })`
     width: 200px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     padding-left: 20px;
     border-radius: 25px;
@@ -1024,6 +1053,7 @@ export const Button_Icon_Red_190 = styled.button.withConfig({
 })`
     width: 190px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1059,6 +1089,7 @@ export const Button_Icon_Red_180 = styled.button.withConfig({
 })`
     width: 180px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1094,6 +1125,7 @@ export const Button_Icon_Red_170 = styled.button.withConfig({
 })`
     width: 170px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1129,6 +1161,7 @@ export const Button_Icon_Red_160 = styled.button.withConfig({
 })`
     width: 160px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1164,6 +1197,7 @@ export const Button_Icon_Red_150 = styled.button.withConfig({
 })`
     width: 150px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1199,6 +1233,7 @@ export const Button_Icon_Red_140 = styled.button.withConfig({
 })`
     width: 140px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1234,6 +1269,7 @@ export const Button_Icon_Red_120 = styled.button.withConfig({
 })`
     width: 120px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1269,6 +1305,7 @@ export const Button_Icon_Red_100 = styled.button.withConfig({
 })`
     width: 100px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1304,6 +1341,7 @@ export const Button_Icon_Red_80 = styled.button.withConfig({
 })`
     width: 80px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1339,6 +1377,7 @@ export const Button_Icon_Red_60 = styled.button.withConfig({
 })`
     width: 60px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1375,6 +1414,7 @@ export const Button_Icon_White_220 = styled.button.withConfig({
 })`
     width: 220px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1407,6 +1447,7 @@ export const Button_Icon_White_210 = styled.button.withConfig({
 })`
     width: 210px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1439,6 +1480,7 @@ export const Button_Icon_White_200 = styled.button.withConfig({
 })`
     width: 200px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     padding-left: 20px;
     border-radius: 25px;
@@ -1474,6 +1516,7 @@ export const Button_Icon_White_190 = styled.button.withConfig({
 })`
     width: 190px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1506,6 +1549,7 @@ export const Button_Icon_White_180 = styled.button.withConfig({
 })`
     width: 180px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1538,6 +1582,7 @@ export const Button_Icon_White_170 = styled.button.withConfig({
 })`
     width: 170px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1570,6 +1615,7 @@ export const Button_Icon_White_160 = styled.button.withConfig({
 })`
     width: 160px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1602,6 +1648,7 @@ export const Button_Icon_White_150 = styled.button.withConfig({
 })`
     width: 150px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1634,6 +1681,7 @@ export const Button_Icon_White_140 = styled.button.withConfig({
 })`
     width: 140px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1666,6 +1714,7 @@ export const Button_Icon_White_120 = styled.button.withConfig({
 })`
     width: 120px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1698,6 +1747,7 @@ export const Button_Icon_White_100 = styled.button.withConfig({
 })`
     width: 100px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1730,6 +1780,7 @@ export const Button_Icon_White_80 = styled.button.withConfig({
 })`
     width: 80px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1762,6 +1813,7 @@ export const Button_Icon_White_60 = styled.button.withConfig({
 })`
     width: 60px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1801,6 +1853,7 @@ export const Button_Icon_Orange_220 = styled.button.withConfig({
 })`
     width: 220px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1836,6 +1889,7 @@ export const Button_Icon_Orange_210 = styled.button.withConfig({
 })`
     width: 210px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1871,6 +1925,7 @@ export const Button_Icon_Orange_200 = styled.button.withConfig({
 })`
     width: 200px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     padding-left: 20px;
     border-radius: 25px;
@@ -1903,6 +1958,7 @@ export const Button_Icon_Orange_190 = styled.button.withConfig({
 })`
     width: 190px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1938,6 +1994,7 @@ export const Button_Icon_Orange_180 = styled.button.withConfig({
 })`
     width: 180px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -1973,6 +2030,7 @@ export const Button_Icon_Orange_170 = styled.button.withConfig({
 })`
     width: 170px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2008,6 +2066,7 @@ export const Button_Icon_Orange_160 = styled.button.withConfig({
 })`
     width: 160px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2043,6 +2102,7 @@ export const Button_Icon_Orange_150 = styled.button.withConfig({
 })`
     width: 150px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2078,6 +2138,7 @@ export const Button_Icon_Orange_140 = styled.button.withConfig({
 })`
     width: 140px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2113,6 +2174,7 @@ export const Button_Icon_Orange_120 = styled.button.withConfig({
 })`
     width: 120px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2148,6 +2210,7 @@ export const Button_Icon_Orange_100 = styled.button.withConfig({
 })`
     width: 100px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2183,6 +2246,7 @@ export const Button_Icon_Orange_80 = styled.button.withConfig({
 })`
     width: 80px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2218,6 +2282,7 @@ export const Button_Icon_Orange_60 = styled.button.withConfig({
 })`
     width: 60px;
     height: auto;
+    font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
     border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
@@ -2261,6 +2326,7 @@ export const Button_Link_Blue = styled.button.withConfig({
 })`
     width: auto;
     padding: 6px;
+    font-family: Century Gothic,Prompt;
     background-color: transparent;
     color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(141, 171, 240)')};
     border: none;

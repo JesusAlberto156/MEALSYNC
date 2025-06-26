@@ -17,8 +17,9 @@ import { TableActionsSuppliers } from "../../../hooks/suppliers/Tables"
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
-import { FaLongArrowAltUp } from "react-icons/fa";
-import { FaLongArrowAltDown } from "react-icons/fa";
+import { FaSortNumericUp } from "react-icons/fa";
+import { FaSortNumericUpAlt } from "react-icons/fa";
+import { CgArrowsV } from "react-icons/cg";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -132,7 +133,7 @@ export default function Table_Suppliers(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -143,7 +144,7 @@ export default function Table_Suppliers(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'RFC' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} RFC
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'RFC' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'RFC' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} RFC
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -154,7 +155,7 @@ export default function Table_Suppliers(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Domicilio' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Domicilio
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Domicilio' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Domicilio' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Domicilio
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -165,7 +166,7 @@ export default function Table_Suppliers(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Teléfono' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Teléfono
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Teléfono' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Teléfono' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Teléfono
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -176,7 +177,7 @@ export default function Table_Suppliers(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Correo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Correo
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Correo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Correo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Correo
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>

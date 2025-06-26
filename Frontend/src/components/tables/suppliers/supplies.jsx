@@ -17,8 +17,9 @@ import { TableActionsSupplies } from "../../../hooks/suppliers/Tables"
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
-import { FaLongArrowAltUp } from "react-icons/fa";
-import { FaLongArrowAltDown } from "react-icons/fa";
+import { FaSortNumericUp } from "react-icons/fa";
+import { FaSortNumericUpAlt } from "react-icons/fa";
+import { CgArrowsV } from "react-icons/cg";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -126,7 +127,7 @@ export default function Table_Supplies(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -139,7 +140,7 @@ export default function Table_Supplies(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Proveedor
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Proveedor
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -150,7 +151,7 @@ export default function Table_Supplies(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Categoría
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -161,7 +162,7 @@ export default function Table_Supplies(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Tipo
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Tipo
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -172,7 +173,7 @@ export default function Table_Supplies(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cantidad
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>

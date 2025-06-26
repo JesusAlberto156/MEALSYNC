@@ -17,6 +17,7 @@ import { HandleModalViewUsers } from "../../hooks/users/Views";
 import { HandleViewPassword } from "../../hooks/users/Forms";
 import { HandleModalViewSuppliers } from "../../hooks/suppliers/Views";
 import { HandleModalViewWarehouse } from "../../hooks/warehouse/Views";
+import { ResetFilteredSearch,ResetFilteredOrder } from "../../hooks/Texts";
 //__________ICONOS__________
 // Icono para la seccion del buscador
 import { FcSearch } from "react-icons/fc";
@@ -40,8 +41,8 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 // Estilos personalizados
 import { Container_Row_100_Left,Container_Row_80_Right,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
 import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../styled/Buttons";
-import { Icon_26,Icon_Button_Black_30,Icon_White_18,Icon_18 } from "../styled/Icons";
-import { Input_Text_White_40,Input_Radio_16 } from "../styled/Inputs";
+import { Icon_26,Icon_Button_Black_30,Icon_White_18,Icon_Button_White_18 } from "../styled/Icons";
+import { Input_Text_White_50,Input_Radio_16 } from "../styled/Inputs";
 import { Text_Span_12_Center } from "../styled/Text";
 import { Label_Text_16_Center } from "../styled/Labels";
 // Componentes personalizados
@@ -90,16 +91,28 @@ export default function Search_Bar (){
     const handleViewPassword = HandleViewPassword();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleModalViewWarehouse = HandleModalViewWarehouse();
+    const resetFilteredSearch = ResetFilteredSearch();
+    const resetFilteredOrder = ResetFilteredOrder();
     // UseEffect para reiniciar las opciones
     useEffect(() => {
         setIsSelectedOptionOrderPlusUltra('');
     },[isSelectedOptionOrderPlus]);
     useEffect(() => {
-        setIsTextFieldsSearchDate(prev => ({
-            ...prev,
-            año: new Date().getFullYear(),
-            mes: new Date().getMonth(),
-        }))
+        if(isSelectedOptionSearch === 'Fecha'){
+            setIsTextFieldsSearchDate(prev => ({
+                ...prev,
+                año: new Date().getFullYear(),
+                mes: new Date().getMonth() + 1,
+            }))
+        }
+        if(isSelectedOptionSearch === 'Nombre'){
+            setIsTextFieldsSearchDate(prev => ({
+                ...prev,
+                año: 0,
+                mes: 0,
+            }))
+        }
+        console.log(isTextFieldsSearchDate)
     },[isSelectedOptionSearch])
     // Estructura del componente
     return(
@@ -110,7 +123,7 @@ export default function Search_Bar (){
                 ):(
                     <>
                         <Icon_26><FcSearch/></Icon_26>
-                        <Input_Text_White_40
+                        <Input_Text_White_50
                             type="text"
                             placeholder="Buscar..."
                             value={isSearchTerm}
@@ -129,16 +142,36 @@ export default function Search_Bar (){
                                     color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
+                ):(
+                    <></>
+                )}
+                {currentSView === 'Usuarios' && currentNView === 'Permisos' ? (
+                    <>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
+                    </>
                 ):(
                     <></>
                 )}
                 {currentSView === 'Usuarios' && currentNView === 'Estatus' ? (
                     <Container_Row_Blue_Width_2000_Left ThemeMode={themeMode}>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
                         {isOptionStatus.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
                                 key={index}
@@ -148,10 +181,12 @@ export default function Search_Bar (){
                                     color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><LuArrowDownUp/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>
@@ -167,10 +202,15 @@ export default function Search_Bar (){
                                     color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>
@@ -186,11 +226,28 @@ export default function Search_Bar (){
                                     color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
+                ):(
+                    <></>
+                )}
+                {currentSView === 'Proveedores' && currentNView === 'Categorias por insumo' ? (
+                    <>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
+                    </>
                 ):(
                     <></>
                 )}
@@ -205,10 +262,15 @@ export default function Search_Bar (){
                                     color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>
@@ -224,10 +286,15 @@ export default function Search_Bar (){
                                     color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>
@@ -262,10 +329,12 @@ export default function Search_Bar (){
                                     color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
                         {isOptionPurchases.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
                                 key={index}
@@ -275,10 +344,12 @@ export default function Search_Bar (){
                                     color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><LuArrowDownUp/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>
@@ -294,10 +365,12 @@ export default function Search_Bar (){
                                     color: isSelectedOptionSearch === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de búsqueda' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                        </Tooltip>
                         {isOptionSales.map((option,index) => (
                             <Button_Icon_Blue_140 ThemeMode={themeMode}
                                 key={index}
@@ -307,10 +380,12 @@ export default function Search_Bar (){
                                     color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
                                 }}
                             >
-                                <Text_Span_12_Center>{option}</Text_Span_12_Center>
+                                {option}
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><LuArrowDownUp/></Icon_White_18>
+                        <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
+                            <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                        </Tooltip>
                     </Container_Row_Blue_Width_2000_Left>
                 ):(
                     <></>
@@ -319,7 +394,7 @@ export default function Search_Bar (){
                     isSelectedOptionSearch === 'Nombre' ? (
                         <>
                             <Icon_26><FcSearch/></Icon_26>
-                            <Input_Text_White_40
+                            <Input_Text_White_50
                                 type="text"
                                 placeholder="Buscar..."
                                 value={isSearchTerm}
@@ -331,7 +406,7 @@ export default function Search_Bar (){
                             <>
                                 <select
                                     value={isTextFieldsSearchDate.año}
-                                    onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, año: value }))}
+                                    onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, año: parseInt(value) }))}
                                     style={{
                                         fontFamily: 'Century Gothic',
                                         fontSize: '16px',
@@ -348,7 +423,7 @@ export default function Search_Bar (){
                                 </select>
                                 <select
                                     value={isTextFieldsSearchDate.mes}
-                                    onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, mes: value }))}
+                                    onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, mes: parseInt(value) }))}
                                     style={{
                                         fontFamily: 'Century Gothic',
                                         fontSize: '16px',
@@ -359,7 +434,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {Array.from({ length: isTextFieldsSearchDate.año === new Date().getFullYear() ? new Date().getMonth() + 1 : 12 }, (_, i) => (
-                                        <option key={i} value={i}>
+                                        <option key={i} value={i+1}>
                                             {new Date(0, i).toLocaleString("es", { month: "long" }).toUpperCase()}
                                         </option>
                                     ))}

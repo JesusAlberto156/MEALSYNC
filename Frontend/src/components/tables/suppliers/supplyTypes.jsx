@@ -17,8 +17,9 @@ import { TableActionsSupplyTypes } from "../../../hooks/suppliers/Tables"
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
-import { FaLongArrowAltUp } from "react-icons/fa";
-import { FaLongArrowAltDown } from "react-icons/fa";
+import { FaSortNumericUp } from "react-icons/fa";
+import { FaSortNumericUpAlt } from "react-icons/fa";
+import { CgArrowsV } from "react-icons/cg";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -100,7 +101,7 @@ export default function Table_Supply_Types(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -112,7 +113,7 @@ export default function Table_Supply_Types(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Unidad' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Unidad
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Unidad' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Unidad' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Unidad
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -123,7 +124,7 @@ export default function Table_Supply_Types(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Categoría
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -134,7 +135,7 @@ export default function Table_Supply_Types(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Cantidad Mínima (Kg/Lt)
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad Mínima (Kg/Lt)
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>

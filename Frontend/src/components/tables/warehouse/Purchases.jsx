@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react"
 // Componentes de React externos
 import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../../contexts/SelectedesProvider"
+import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../../contexts/SelectedesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { SupplyOrderObservationsContext } from "../../../contexts/WarehouseProvider"
 import { TextFieldsSupplyOrderObservationContext,TextFieldsSupplyOrderContext } from "../../../contexts/FormsProvider"
@@ -47,6 +47,7 @@ export default function Table_Purchases(){
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
     const [isSupplyCategories] = useContext(SupplyCategoriesContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -161,17 +162,23 @@ export default function Table_Purchases(){
                                 )}
                             </TContainer_Center>
                         </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Fecha')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Fecha
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
+                        {isSelectedOptionOrderPlusUltra === 'General'? (
+                            <>
+                                <Th>
+                                    <TContainer_Center>
+                                        <Icon_Button_Black_14 onClick={() => {
+                                                ToggleOrder('Fecha')
+                                                ToggleOrderDirection()
+                                            }}
+                                        >
+                                            {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Fecha
+                                        </Icon_Button_Black_14>
+                                    </TContainer_Center>
+                                </Th>  
+                            </>
+                        ):(
+                            <></>
+                        )}
                         <Th>
                             <TContainer_Center>
                                 <Icon_Button_Black_14 onClick={() => {
@@ -208,7 +215,13 @@ export default function Table_Purchases(){
                             }}
                         >
                             <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' ? isSupplyCategories.find(category => category.idcategoria === warehouse.idcategoria)?.nombre || 'Desconocida...' : isSelectedOptionOrderPlus === 'Tipos de Insumo'  ? isSupplyTypes.find(type => type.idtipo === warehouse.idtipo)?.tipo || 'Desconocido...' : ''}</Td>
-                            <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? getDate(warehouse.fecha) || 'Desconocida...' : ''}</Td>
+                            {isSelectedOptionOrderPlusUltra === 'General'? (
+                                <>
+                                    <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? getDate(warehouse.fecha) || 'Desconocida...' : ''}</Td>
+                                </>
+                            ):(
+                                <></>
+                            )}
                             <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? warehouse.cantidadreal : ''}</Td>
                             <Td ThemeMode={themeMode}><MdOutlineAttachMoney/> {isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? warehouse.precio : ''} MXN</Td>
                         </tr>

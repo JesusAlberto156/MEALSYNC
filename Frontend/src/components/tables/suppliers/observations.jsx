@@ -19,6 +19,9 @@ import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
 import { FaLongArrowAltUp } from "react-icons/fa";
 import { FaLongArrowAltDown } from "react-icons/fa";
+import { FaSortNumericUp } from "react-icons/fa";
+import { FaSortNumericUpAlt } from "react-icons/fa";
+import { CgArrowsV } from "react-icons/cg";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
@@ -90,7 +93,7 @@ export default function Table_Supplier_Observations(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Proveedor
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Proveedor
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -101,7 +104,7 @@ export default function Table_Supplier_Observations(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Fecha
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Fecha
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>
@@ -112,7 +115,7 @@ export default function Table_Supplier_Observations(){
                                         ToggleOrderDirection()
                                     }}
                                 >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Calificación' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Calificación
+                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Calificación' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Calificación' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Calificación
                                 </Icon_Button_Black_14>
                             </TContainer_Center>
                         </Th>

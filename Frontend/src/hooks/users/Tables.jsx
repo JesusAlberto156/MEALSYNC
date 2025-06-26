@@ -76,7 +76,7 @@ export const TableActionsUsers = () => {
 
             return 0
         });
-    }, [isUsers, isDeletedUsers, isUserTypes, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
+    }, [isUsers, isDeletedUsers, isUserTypes, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection, isSelectedOptionOrder]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
@@ -191,7 +191,7 @@ export const TableActionsPermissions = () => {
 
             return 0
         });
-    }, [isUsers, isDeletedUsers, isPermissions, isSearchTerm, isSelectedOptionOrderDirection]);
+    }, [isUsers, isDeletedUsers, isPermissions, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrder]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
@@ -308,7 +308,7 @@ export const TableActionsStatus = () => {
 
             return 0
         });
-    }, [isUsers, isDeletedUsers, isStatus, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus]);
+    }, [isUsers, isDeletedUsers, isStatus, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');

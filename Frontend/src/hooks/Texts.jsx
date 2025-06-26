@@ -57,10 +57,52 @@ export const ResetSelectedOptions = () => {
         setIsSelectedOptionOrderPlusUltra('');
         setIsTextFieldsSearchDate(prev => ({ 
             ...prev,
-            año: new Date().getFullYear(),
-            mes: new Date().getMonth(),
+            año: 0,
+            mes: 0,
         }));
     }
     // Retorno de la función del hook
     return resetSelectedOptions;
+}
+// Hook para reinciar las selecciones de busqueda de las tablas ✔️
+export const ResetFilteredSearch = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
+    const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
+    const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+    const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context);
+    const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    // Función del hook
+    const resetSearch = () => {
+        setIsSearchTerm('');
+        setIsSearchTerm1('');
+        setIsSearchTerm2('');
+        setIsSearchTerm3('');
+        setIsSelectedOptionSearch('General');
+    }
+    // Retorno de la función del hook
+    return resetSearch;
+}
+// Hook para reinciar las selecciones de ordenamiento de las tablas ✔️
+export const ResetFilteredOrder = () => {
+    // Constantes con el valor de los contextos 
+    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
+    const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
+    // Función del hook
+    const resetSelected = () => {
+        setIsSelectedOptionOrder('');
+        setIsSelectedOptionOrderPlus('Normal')
+        setIsSelectedOptionOrderDirection('Asc');
+        setIsSelectedOptionOrderPlusUltra('');
+        setIsTextFieldsSearchDate(prev => ({ 
+            ...prev,
+            año: 0,
+            mes: 0,
+        }));
+    }
+    // Retorno de la función del hook
+    return resetSelected;
 }

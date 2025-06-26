@@ -7,6 +7,7 @@ import { SupplyOrdersContext,DeletedSupplyOrdersContext,WarhouseSupplyTypesConte
 import { SupplyCategoriesContext,SupplyTypesContext } from "../../contexts/SuppliersProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
+import { TextFieldsSearchDateContext } from "../../contexts/FormsProvider";
 // Hooks personalizados
 import { Dates } from "../Dates";
 //____________IMPORT/EXPORT____________
@@ -164,6 +165,7 @@ export const TableActionsPurchases = () => {
     const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     const [isSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext); 
+    const [isTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
     const { getDate } = Dates();
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
@@ -188,23 +190,91 @@ export const TableActionsPurchases = () => {
                     }
                     if (isSelectedOptionSearch === 'Nombre') {
                         const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
-                        return category.toLowerCase().includes(isSearchTerm.toLowerCase());
+                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
                     }
                     if (isSelectedOptionSearch === 'Fecha') {
-                        const fecha = getDate(data.fecha);
-                        return fecha.toLowerCase().includes(isSearchTerm.toLowerCase());
+                        const date = new Date(data.fecha);
+                        const year = date.getFullYear();
+                        const month = date.getMonth()+1;
+
+                        return year === isTextFieldsSearchDate.año && month === isTextFieldsSearchDate.mes;
                     }
+
+                    return false;
                 });
 
-                return filtered;
+                return [...filtered].sort((a, b) => {
+                    if(isSelectedOptionOrder === 'Categorías'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                    }
+                    if(isSelectedOptionOrder === 'Fecha'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? new Date(a.fecha) - new Date(b.fecha)
+                        : new Date(b.fecha) - new Date(a.fecha)
+                    }
+                    if(isSelectedOptionOrder === 'Cantidad'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.cantidadreal - b.cantidadreal
+                        : b.cantidadreal - a.cantidadreal
+                    }
+                    if(isSelectedOptionOrder === 'Total'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.precio - b.precio
+                        : b.precio - a.precio
+                    }
+
+                    return 0
+                });
             }
             if(isSelectedOptionOrderPlusUltra === 'Totales'){
-                
+                const filtered = isWarehouseCategories.filter((data) => {
+                    if(data.transaccion === 'Venta') return false;
+                    
+                    if (isSelectedOptionSearch === 'General') {
+                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
+                        const fecha = getDate(data.fecha);
+                        return [
+                            category,
+                            fecha,
+                            data.cantidadreal,
+                            data.precio,
+                        ].some(value =>
+                            String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                        );
+                    }
+                    if (isSelectedOptionSearch === 'Nombre') {
+                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
+                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                    }
+                    if (isSelectedOptionSearch === 'Fecha') {
+                        const date = new Date(data.fecha);
+                        const year = date.getFullYear();
+                        const month = date.getMonth()+1;
+
+                        return year === isTextFieldsSearchDate.año && month === isTextFieldsSearchDate.mes;
+                    }
+
+                    return false;
+                });
+
+                const totals = filtered.reduce((index,item) => {
+                    const exist = index.find(category => category.idcategoria === item.idcategoria);
+                    if(exist){
+                        exist.cantidadreal += item.cantidadreal;
+                        exist.precio += item.precio;
+                    }else{
+                        index.push({...item});
+                    }
+                    return index;
+                },[]);
+                return totals;
             }
             return [];
         }
         return [];
-    }, [isWarehouseCategories, isSupplyCategories, isSupplyTypes, isSearchTerm, isSelectedOptionOrderPlus, isSelectedOptionOrderPlusUltra, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
+    }, [isWarehouseCategories, isSupplyCategories, isSupplyTypes, isSearchTerm, isSelectedOptionOrderPlus, isSelectedOptionOrderPlusUltra, isSelectedOptionSearch, isSelectedOptionOrderDirection, isTextFieldsSearchDate]);
     // Cambio de direccion del ordenamiento
     const ToggleOrderDirection = () => {
         setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');

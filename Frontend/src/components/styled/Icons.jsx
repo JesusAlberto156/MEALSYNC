@@ -69,7 +69,99 @@ export const Icon_Image_90 = styled.img.withConfig({
 //---------- Black/White
 //____________IMAGE____________
 //____________BUTTON____________
-//---------- Black
+//---------- White
+export const Icon_Button_White_30 = styled.button`
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 26px;
+    }
+`;
+export const Icon_Button_White_26 = styled.button`
+    font-size: 26px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 22px;
+    }
+`;
+export const Icon_Button_White_22 = styled.button`
+    font-size: 22px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+export const Icon_Button_White_18 = styled.button`
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 14px;
+    }
+`;
+export const Icon_Button_White_14 = styled.button`
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 10px;
+    }
+`;
+//---------- White
+//---------- Black/White
 export const Icon_Button_Black_30 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -170,7 +262,7 @@ export const Icon_Button_Black_14 = styled.button.withConfig({
         font-size: 10px;
     }
 `;
-//---------- Black
+//---------- Black/White
 //---------- Blue
 export const Icon_Button_Blue_30 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',

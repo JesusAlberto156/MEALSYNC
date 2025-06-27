@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
+import { ThemeModeContext,NavbarViewContext,SidebarViewContext,SidebarContext } from "../../contexts/ViewsProvider";
+import { LoggedLoggedContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
-import { HandleNavbarView } from "../../hooks/Views";
+import { HandleNavbarView,ToggleSidebar,HandleModalView } from "../../hooks/Views";
 //__________ICONOS__________
 // Iconos para la opcion de usuarios del navbar
 import { FaUser } from "react-icons/fa6";
@@ -32,13 +33,18 @@ import { MdOutlineMenuBook } from "react-icons/md";
 import { MdFreeBreakfast } from "react-icons/md";
 import { GiMeal } from "react-icons/gi";
 import { MdDinnerDining } from "react-icons/md";
+// Iconos para el toggle
+import { BiSolidToggleLeft } from "react-icons/bi";
+import { BiSolidToggleRight } from "react-icons/bi";
+// Icono para el logout
+import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_White_Width_98_Left,Container_Row_Blue_Width_92_Left, Container_Row_80_Left } from "../styled/Containers";
+import { Container_Row_White_Width_98_Left,Container_Row_Blue_Width_92_Left, Container_Row_80_Left,Container_Row_15_Center } from "../styled/Containers";
 import { Img_Logo_Hospital_70 } from '../styled/Imgs';
-import { Button_Icon_White_100 } from '../styled/Buttons';
-import { Icon_22 } from "../styled/Icons";
-import { Text_Span_24_Center, Text_Title_26_Center } from '../styled/Text';
+import { Button_Icon_White_100,Button_Icon_Blue_80,Button_Icon_Red_80 } from '../styled/Buttons';
+import { Icon_22,Icon_White_18 } from "../styled/Icons";
+import { Text_Span_24_Center } from '../styled/Text';
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre las paginas en la parte superior 
@@ -47,9 +53,14 @@ export default function Nav_Bar(){
     const [themeMode] = useContext(ThemeModeContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
+    const [isLogged] = useContext(LoggedLoggedContext);
+    const [isTypeUser] = useContext(LoggedTypeContext);
+    const [isSidebar] = useContext(SidebarContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleNavbarView = HandleNavbarView();
+    const toggleSidebar = ToggleSidebar();
+    const handleModalView = HandleModalView();
     // Estructura del componente
     return(
         <>
@@ -340,6 +351,27 @@ export default function Nav_Bar(){
                         <></>
                     )}
                 </Container_Row_Blue_Width_92_Left>
+                {isLogged ? (
+                    <>  
+                        <Container_Row_15_Center>
+                                <Tooltip title='Salir' placement="bottom">
+                                <Button_Icon_Red_80 ThemeMode={themeMode} onClick={() => {
+                                    handleModalView('Cerrar-Sesión');
+                                    navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
+                                }}>
+                                    <Icon_White_18><ImExit/></Icon_White_18>
+                                </Button_Icon_Red_80>
+                            </Tooltip>
+                            <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
+                                <Button_Icon_Blue_80 ThemeMode={themeMode} onClick={() => toggleSidebar()}>
+                                    {isSidebar ? <Icon_White_18><BiSolidToggleRight/></Icon_White_18> : <Icon_White_18><BiSolidToggleLeft/></Icon_White_18>}
+                                </Button_Icon_Blue_80>
+                            </Tooltip>
+                        </Container_Row_15_Center>
+                    </>
+                ):(
+                    <></>
+                )}
             </Container_Row_White_Width_98_Left>  
         </>
     );

@@ -7,7 +7,7 @@ import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirec
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 //____________IMPORT/EXPORT____________
 
-// Hook para realizar las acciones de la tabla de usuarios ✔️
+// Hook para realizar las acciones de la tabla de usuarios
 export const TableActionsUsers = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
@@ -136,8 +136,8 @@ export const TableActionsPermissions = () => {
             const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
             if (isDeleted) return false;
 
-            const user = isUsers.find(user => user.idusuario === data.idusuario);
-            return user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+            const user = isUsers.find(user => user.idusuario === data.idusuario)?.nombre;
+            return user?.toLowerCase().includes(isSearchTerm.toLowerCase());
         });
 
         return [...filtered].sort((a, b) => {
@@ -201,7 +201,7 @@ export const TableActionsPermissions = () => {
         setIsSelectedOptionOrder(option);
     };
     // Total de registros visibles de la tabla
-    const recordsPerPage = 8;
+    const recordsPerPage = 5;
     // Indices de los registros
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -251,8 +251,8 @@ export const TableActionsStatus = () => {
             const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
             if (isDeleted) return false;
 
-            const user = isUsers.find(user => user.idusuario === data.idusuario);
-            return user.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+            const user = isUsers.find(user => user.idusuario === data.idusuario)?.nombre;
+            return user?.toLowerCase().includes(isSearchTerm.toLowerCase());
         });
 
         return [...filtered].sort((a, b) => {

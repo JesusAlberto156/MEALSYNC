@@ -18,14 +18,7 @@ export const Container_Page = styled.div`
     background-color:aliceblue;
     display: flex;
     height: auto;
-    flex-direction: column;
-    overflow-y: scroll;   
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    ::-webkit-scrollbar {
-        display: none;
-    }  
+    flex-direction: column; 
 `;
 export const Container_Page_Login = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -83,7 +76,6 @@ export const Container_Page_Logged = styled.div.withConfig({
     width: 100vw;
     height: 100vh;
     max-height: none;
-    position: relative;
     display: flex;
     justify-content: flex-start;
     align-Items: center;
@@ -118,7 +110,7 @@ export const Container_Page_Elements = styled.div.withConfig({
     top: 0%;
     left: ${({ sidebarVisible }) => (sidebarVisible ? "23%" : "2%")};
     width: 100%;
-    height: 100%;
+    height: auto;
     max-width: ${({ sidebarVisible }) => (sidebarVisible ? "75vw" : "95vw")}; 
     max-height: 100vh;
     margin: 0px;
@@ -133,8 +125,6 @@ export const Container_Page_Elements = styled.div.withConfig({
     justify-content: flex-start;
     box-sizing: border-box;
     transition: all ${({ sidebarVisible }) => (sidebarVisible ? "0.3s" : "1.0s")} ease;
-    overflow-y: auto; 
-    overflow-x: auto;
     
     @media (max-width: 768px) {
         padding: 8px;
@@ -519,6 +509,31 @@ export const Container_Row_NG_80_Center = styled.div`
     @media (max-width: 480px) {
         border-radius: 30px;
         padding: 6px;
+    }
+}
+`;
+export const Container_Row_15_Center = styled.div`
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;         
+    background: transparent;
+    width: 15%;
+    height: auto;  
+    padding: 10px;
+    gap: 15px;
+    border-radius: 40px;
+
+    @media (max-width: 768px) {
+        border-radius: 35px;
+        padding: 8px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 30px;
+        padding: 6px;
+        gap: 5px;
     }
 }
 `;
@@ -964,6 +979,7 @@ export const Container_Row_White_Width_98_Left = styled.div.withConfig({
     align-items: left; 
     padding: 4px; 
     padding-left: 20px;
+    padding-right: 20px;
 
     @media (max-width: 768px) {
         padding: 3px; 

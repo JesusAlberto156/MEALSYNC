@@ -402,7 +402,7 @@ export const Button_Icon_Blue_80 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 80px;
-    height: auto;
+    height: 40px;
     font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
@@ -874,7 +874,7 @@ export const Button_Icon_Green_80 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 80px;
-    height: auto;
+    height: 40px;
     font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
@@ -1340,7 +1340,7 @@ export const Button_Icon_Red_80 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 80px;
-    height: auto;
+    height: 40px;
     font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
@@ -1779,7 +1779,7 @@ export const Button_Icon_White_80 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 80px;
-    height: auto;
+    height: 40px;
     font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;
@@ -2245,7 +2245,7 @@ export const Button_Icon_Orange_80 = styled.button.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
     width: 80px;
-    height: auto;
+    height: 40px;
     font-family: Century Gothic,Prompt;
     padding: 6px;
     border-radius: 25px;

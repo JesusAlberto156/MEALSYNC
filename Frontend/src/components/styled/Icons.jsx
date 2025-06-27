@@ -889,6 +889,23 @@ export const Icon_Green_18 = styled.div.withConfig({
         font-size: 14px;
     }
 `;
+export const Icon_Green_14 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 14px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 10px;
+    }
+`;
 //---------- Green
 //---------- Red
 export const Icon_Red_30 = styled.div.withConfig({
@@ -957,6 +974,23 @@ export const Icon_Red_18 = styled.div.withConfig({
 
     @media (max-width: 480px) {
         font-size: 14px;
+    }
+`;
+export const Icon_Red_14 = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'ThemeMode',
+})`
+    font-size: 14px;
+    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 10px;
     }
 `;
 //---------- Red

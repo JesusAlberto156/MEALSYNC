@@ -112,7 +112,6 @@ export default function Search_Bar (){
                 mes: 0,
             }))
         }
-        console.log(isTextFieldsSearchDate)
     },[isSelectedOptionSearch])
     // Estructura del componente
     return(
@@ -1011,28 +1010,42 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
+                    {currentSView === 'Inventario' && currentNView === 'Ventas' && isSelectedOptionOrderPlus !== 'Normal' ? (
+                        ['General','Totales'].map((item,index) => (
+                            <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                <Input_Radio_16 ThemeMode={themeMode}
+                                    type="radio"
+                                    name="options"
+                                    value={item}
+                                    checked={isSelectedOptionOrderPlusUltra === item}
+                                    onChange={(e) => setIsSelectedOptionOrderPlusUltra(e.target.value)}
+                                />
+                                {item}
+                            </Label_Text_16_Center>
+                        ))
+                    ):(
+                        <></>
+                    )}
                     {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
-                        <>
-                            {isLoggedType === 'Chef' || isPermission.superadministrador ? (
-                                isSelectedRow !== null ? (
-                                    <></>
-                                ):(
-                                    <>
-                                        <Tooltip title='Agregar' placement="top">
-                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                            onClick={() => {
-                                                handleModalViewWarehouse('Almacen-Tipo-Insumo-Agregar');
-                                                navigate('/Administration/Index/Warehouse/Sales/Add',{ replace: true });
-                                            }}>
-                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                            </Button_Icon_Green_60>
-                                        </Tooltip>
-                                    </>
-                                )
-                            ):(
+                        isLoggedType === 'Chef' || isPermission.superadministrador ? (
+                            isSelectedRow !== null ? (
                                 <></>
-                            )}
-                        </>
+                            ):(
+                                <>
+                                    <Tooltip title='Agregar' placement="top">
+                                        <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                        onClick={() => {
+                                            handleModalViewWarehouse('Almacen-Tipo-Insumo-Agregar');
+                                            navigate('/Administration/Index/Warehouse/Sales/Add',{ replace: true });
+                                        }}>
+                                            <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                        </Button_Icon_Green_60>
+                                    </Tooltip>
+                                </>
+                            )
+                        ):(
+                            <></>
+                        )
                     ):(
                         <></>
                     )}

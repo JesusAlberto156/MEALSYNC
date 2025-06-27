@@ -197,35 +197,22 @@ ______VISUALIZAR______
 - Detalles en el buscador 
 - Ordenamiento de la tabla 
 -------------------------------- PEDIDOS DE INSUMOS --
--------------------------------- ALMACEN DE COMPRAS POR CATEGORIAS --
-
+-------------------------------- ALMACEN DE COMPRAS --
 ______VISUALIZAR______
-- Detalles en la tabla 
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
+- Ordenamiento de la tabla ✔️
+-------------------------------- ALMACEN DE COMPRAS --
+-------------------------------- ALMACEN DE VENTAS --
+______AGREGAR______
+- Verificación de los campos 
+- Implementación del teclado 
+- Funcionalidad 
 - Diseño de la interfaz 
-- Detalles en el buscador 
-- Ordenamiento de la tabla 
--------------------------------- ALMACEN DE COMPRAS POR CATEGORIAS --
--------------------------------- ALMACEN DE VENTAS POR CATEGORIAS --
-
 ______VISUALIZAR______
-- Detalles en la tabla 
-- Diseño de la interfaz 
-- Detalles en el buscador 
-- Ordenamiento de la tabla 
--------------------------------- ALMACEN DE VENTAS POR CATEGORIAS --
--------------------------------- ALMACEN DE COMPRAS DE TIPOS DE INSUMO --
-
-______VISUALIZAR______
-- Detalles en la tabla 
-- Diseño de la interfaz 
-- Detalles en el buscador 
-- Ordenamiento de la tabla 
--------------------------------- ALMACEN DE COMPRAS DE TIPOS DE INSUMO --
--------------------------------- ALMACEN DE VENTAS DE TIPOS DE INSUMO --
-
-______VISUALIZAR______
-- Detalles en la tabla 
-- Diseño de la interfaz 
-- Detalles en el buscador 
-- Ordenamiento de la tabla 
--------------------------------- ALMACEN DE VENTAS DE TIPOS DE INSUMO --
+- Detalles en la tabla ✔️
+- Diseño de la interfaz ✔️
+- Detalles en el buscador ✔️
+- Ordenamiento de la tabla ✔️
+-------------------------------- ALMACEN DE VENTAS --

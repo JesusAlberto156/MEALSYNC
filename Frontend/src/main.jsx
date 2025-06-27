@@ -64,6 +64,7 @@ import Supply_Edit from './components/modals/Suppliers/supplies/Edit';
 import Supply_Delete from './components/modals/Suppliers/supplies/Delete';
 import Table_Supply_Orders from './components/tables/warehouse/SupplyOrders';
 import Table_Purchases from './components/tables/warehouse/Purchases';
+import Table_Sales from './components/tables/warehouse/Sales';
 import Menus from './pages/administration/Menus';
 import Record from './pages/administration/Record';
 import Index_Kitchen from './pages/Indexs/Kitchen';
@@ -265,6 +266,10 @@ const router = createHashRouter([
                   {
                     path: 'Warehouse/Purchases',
                     element: <Table_Purchases/>
+                  },
+                  {
+                    path: 'Warehouse/Sales',
+                    element: <Table_Sales/>
                   }
                 ]
               },

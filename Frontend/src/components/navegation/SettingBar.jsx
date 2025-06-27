@@ -39,33 +39,16 @@ export default function Setting_Bar(){
     const handleModalView = HandleModalView();
     // Estructura del componente
     return(
-        <>
+        <>  
+            {/* Modo oscuro deshabilitado
             <Container_Row_90_Right>
-                {isLogged ? (
-                    <>  
-                        <Tooltip title='Salir' placement="bottom">
-                            <Button_Icon_Red_80 ThemeMode={themeMode} onClick={() => {
-                                handleModalView('Cerrar-Sesión');
-                                navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
-                            }}>
-                                <Icon_White_18><ImExit/></Icon_White_18>
-                            </Button_Icon_Red_80>
-                        </Tooltip>
-                        <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
-                            <Button_Icon_Blue_80 ThemeMode={themeMode} onClick={() => toggleSidebar()}>
-                                {isSidebar ? <Icon_White_18><BiSolidToggleRight/></Icon_White_18> : <Icon_White_18><BiSolidToggleLeft/></Icon_White_18>}
-                            </Button_Icon_Blue_80>
-                        </Tooltip>
-                    </>
-                ):(
-                    <></>
-                )}
-                <Tooltip title={themeMode ? 'Modo Claro' : 'Modo Oscuro'} placement="left">
-                    <Icon_Button_Black_30 ThemeMode={themeMode} onClick={() => toggleThemeMode()}>
-                        {themeMode ? <IoMdSunny/> : <FaMoon/>}
-                    </Icon_Button_Black_30>
-                </Tooltip>
+                    <Tooltip title={themeMode ? 'Modo Claro' : 'Modo Oscuro'} placement="left">
+                        <Icon_Button_Black_30 ThemeMode={themeMode} onClick={() => toggleThemeMode()}>
+                            {themeMode ? <IoMdSunny/> : <FaMoon/>}
+                        </Icon_Button_Black_30>
+                    </Tooltip>
             </Container_Row_90_Right>
+            */}
         </>
     );
 }

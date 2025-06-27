@@ -1,6 +1,8 @@
 USE ComandaMedicaTepic
 
 select * from almacenCategorias;
+select * from tipoInsumo;
+
 ALTER TABLE almacenTipoInsumo
 ADD fecha DATETIME NOT NULL 
 ALTER TABLE almacenTipoInsumo
@@ -13,6 +15,13 @@ INSERT INTO almacenCategorias (cantidadreal,precio,fecha,idcategoria,transaccion
 INSERT INTO almacenCategorias (cantidadreal,precio,fecha,idcategoria,transaccion) VALUES (15,1500,'2025-03-15 14:30:00',2,'Compra');
 INSERT INTO almacenCategorias (cantidadreal,precio,fecha,idcategoria,transaccion) VALUES (22,3500,'2025-04-29 14:30:00',3,'Compra');
 INSERT INTO almacenCategorias (cantidadreal,precio,fecha,idcategoria,transaccion) VALUES (20,3100,'2025-05-05 14:30:00',1,'Compra');
+
+INSERT INTO almacenTipoInsumo (cantidadreal,precio,fecha,idtipo,transaccion) VALUES (25,3000,'2025-02-22 14:30:00',1,'Compra');
+INSERT INTO almacenTipoInsumo (cantidadreal,precio,fecha,idtipo,transaccion) VALUES (5,300,'2025-02-25 14:30:00',2,'Compra');
+INSERT INTO almacenTipoInsumo (cantidadreal,precio,fecha,idtipo,transaccion) VALUES (15,1500,'2025-03-15 14:30:00',2,'Compra');
+INSERT INTO almacenTipoInsumo (cantidadreal,precio,fecha,idtipo,transaccion) VALUES (22,3500,'2025-04-29 14:30:00',3,'Compra');
+INSERT INTO almacenTipoInsumo (cantidadreal,precio,fecha,idtipo,transaccion) VALUES (20,3100,'2025-05-05 14:30:00',1,'Compra');
+
 
 ALTER TABLE almacenTipoInsumo
 ADD CONSTRAINT DF_almacenTipoInsumo_Fecha DEFAULT GETDATE() FOR fecha;

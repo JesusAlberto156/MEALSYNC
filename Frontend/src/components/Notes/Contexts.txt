@@ -22,9 +22,7 @@ const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFields
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext); ✔️
 const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useContext(TextFieldsSupplyOrderContext); ✔️
 const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext); ✔️
-const [isTextFieldsWarehouseCategory,setIsTextFieldsWarehouseCategory] = useContext(TextFieldsWarehouseCategoryContext); ✔️
-const [isTextFieldsWarehouseSupplyType,setIsTextFieldsWarehouseSupplyType] = useContext(TextFieldsWarehouseSupplyTypeContext); ✔️
-const [isTextFieldsWarehouseSalesSupplyType,setIsTextFieldsWarehouseSalesSupplyType] = useContext(TextFieldsWarehouseSalesSupplyTypeContext); ✔️
+const [isTextFieldsWarehouseSale,setIsTextFieldsWarehouseSale] = useContext(TextFieldsWarehouseSaleContext); ✔️
 const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); ✔️
 //____________FORM____________
 //____________MENUS____________

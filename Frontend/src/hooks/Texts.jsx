@@ -72,6 +72,7 @@ export const ResetFilteredSearch = () => {
     const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
     const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context);
     const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
     // Función del hook
     const resetSearch = () => {
         setIsSearchTerm('');
@@ -79,6 +80,11 @@ export const ResetFilteredSearch = () => {
         setIsSearchTerm2('');
         setIsSearchTerm3('');
         setIsSelectedOptionSearch('General');
+        setIsTextFieldsSearchDate(prev => ({ 
+            ...prev,
+            año: 0,
+            mes: 0,
+        }));
     }
     // Retorno de la función del hook
     return resetSearch;
@@ -90,18 +96,12 @@ export const ResetFilteredOrder = () => {
     const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
-    const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
     // Función del hook
     const resetSelected = () => {
         setIsSelectedOptionOrder('');
         setIsSelectedOptionOrderPlus('Normal')
         setIsSelectedOptionOrderDirection('Asc');
         setIsSelectedOptionOrderPlusUltra('');
-        setIsTextFieldsSearchDate(prev => ({ 
-            ...prev,
-            año: 0,
-            mes: 0,
-        }));
     }
     // Retorno de la función del hook
     return resetSelected;

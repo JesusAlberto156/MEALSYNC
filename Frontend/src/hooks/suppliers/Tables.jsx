@@ -157,8 +157,8 @@ export const TableActionsObservations = () => {
                 );
             }
             if(isSelectedOptionSearch === 'Proveedor'){
-                const supplier = isSuppliers.find(type => type.idproveedor === data.idproveedor);
-                return supplier.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+                const supplier = isSuppliers.find(type => type.idproveedor === data.idproveedor)?.nombre;
+                return supplier?.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Fecha'){
                 const fechaFormateada = getDate(data.fecha);
@@ -335,8 +335,8 @@ export const TableActionsSupplyTypes = () => {
                 return data.unidad.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Categoría'){
-                const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria);
-                return category.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+                const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre;
+                return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Cantidad Mínima'){
                 return String(data.limite).toLowerCase().includes(isSearchTerm.toLowerCase());
@@ -448,16 +448,16 @@ export const TableActionsSupplies = () => {
                 return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Proveedor'){
-                const supplier = isSuppliers.find(supplier => supplier.idproveedor === data.idproveedor);
-                return supplier.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+                const supplier = isSuppliers.find(supplier => supplier.idproveedor === data.idproveedor)?.nombre;
+                return supplier?.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Categoría'){
-                const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria);
-                return category.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
+                const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre;
+                return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Tipo'){
-                const type = isSupplyTypes.find(type => type.idtipo === data.idtipo);
-                return type.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+                const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo;
+                return type?.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Cantidad'){
                 const count = isCountSupplyTypes.find(count => count.idcantidad === data.idcantidad);

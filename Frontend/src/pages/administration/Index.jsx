@@ -28,7 +28,6 @@ export default function Administration_Index(){
                 <></>
             )}
             <Outlet/>
-            <Img_Logo_Horizontal_Hospital_400 ThemeMode={themeMode} className='pulsate-image'/>
         </>
     )
 }

@@ -6,8 +6,7 @@ import { Outlet } from "react-router-dom";
 import { SidebarContext,ThemeModeContext } from "../../contexts/ViewsProvider";
 import { LoggedUserContext } from "../../contexts/SessionProvider";
 //__________IMAGES____________
-import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
-import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
+import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital.png';
 //__________IMAGES____________
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";

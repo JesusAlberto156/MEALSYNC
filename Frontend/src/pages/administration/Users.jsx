@@ -10,7 +10,7 @@ import { HandleNavbarView } from "../../hooks/Views";
 import { HandleSidebarView } from "../../hooks/Views";
 // Estilos personalizados
 import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_100_Center,Container_Column_NG_100_Center } from "../../components/styled/Containers";
-import { Text_Title_30_Center,Text_P_16_Center,Text_P_12_Center,Text_16_Center } from "../../components/styled/Text";
+import { Text_Title_30_Center,Text_P_16_Center,Text_P_12_Center,Text_Span_12_Center_Black } from "../../components/styled/Text";
 import { Img_Logo_Horizontal_Hospital_400 } from "../../components/styled/Imgs";
 import { Button_Link_Blue } from "../../components/styled/Buttons";
 // Componentes personalizados
@@ -53,7 +53,7 @@ export default function Administration_Users(){
                                         navigate('/Administration/Index/Status',{ replace: true });
                                     }}
                                 >
-                                    <Text_16_Center>Ver activos/inactivos...</Text_16_Center>
+                                    <Text_Span_12_Center_Black>Ver activos/inactivos...</Text_Span_12_Center_Black>
                                 </Button_Link_Blue>
                                 <Button_Link_Blue ThemeMode={themeMode}
                                     onClick={() => {
@@ -63,7 +63,7 @@ export default function Administration_Users(){
                                         navigate('/Administration/Index/Users',{ replace: true });
                                     }}
                                 >
-                                    <Text_16_Center>Ver usuarios...</Text_16_Center>
+                                    <Text_Span_12_Center_Black>Ver usuarios...</Text_Span_12_Center_Black>
                                 </Button_Link_Blue>
                             </Container_Row_100_Center>
                             <Img_Logo_Horizontal_Hospital_400/>
@@ -94,7 +94,7 @@ export default function Administration_Users(){
                                     navigate('/Administration/Index/Permissions',{ replace: true });
                                 }}
                             >
-                                <Text_16_Center>Mas detalles...</Text_16_Center>
+                                ...jklloo
                             </Button_Link_Blue>
                         </Container_Column_NG_100_Center>
                     </Container_Row_NG_100_Center>

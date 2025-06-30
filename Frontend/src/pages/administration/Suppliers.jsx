@@ -10,7 +10,7 @@ import { HandleNavbarView } from "../../hooks/Views";
 import { HandleSidebarView } from "../../hooks/Views";
 // Estilos personalizados
 import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_100_Center,Container_Column_NG_100_Center } from "../../components/styled/Containers";
-import { Text_Title_30_Center,Text_P_16_Center,Text_P_12_Center,Text_16_Center } from "../../components/styled/Text";
+import { Text_Title_30_Center,Text_P_16_Center,Text_P_12_Center } from "../../components/styled/Text";
 import { Img_Logo_Horizontal_Hospital_400 } from "../../components/styled/Imgs";
 import { Button_Link_Blue } from "../../components/styled/Buttons";
 // Componentes personalizados

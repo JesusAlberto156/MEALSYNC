@@ -9,8 +9,7 @@ import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { IoSettings } from "react-icons/io5";
 //__________ICONOS__________
 //__________IMAGES____________
-import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
-import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
+import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital.png';
 //__________IMAGES____________
 // Estilos personalizados
 import { Container_Page_Loading,Container_Row_80_Center } from "../../components/styled/Containers";
@@ -27,7 +26,7 @@ export default function Loading(){
     useEffect(() => {
         document.title = "MEALSYNC_Cargando...";
 
-        const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
+        const Image =  Logo_Hospital_Light;
 
         Alert_Greeting("MEALSYNC",'¡Cargando!...',themeMode,Image);
 

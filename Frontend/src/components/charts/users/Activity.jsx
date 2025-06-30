@@ -9,7 +9,7 @@ import { ThemeModeContext } from '../../../contexts/ViewsProvider';
 import { TableActionsStatus } from '../../../hooks/users/Tables';
 // Estilos personalizados
 import { Container_Row_90_Center } from '../../styled/Containers';
-import { Text_P_16_Center,Text_Fade_A_30_Center } from '../../styled/Text';
+import { Text_P_16_Center,Text_Fade_Title_28_Black } from '../../styled/Text';
 import { Chart_Container_White_420x450,Chart_Tooltip_Custom_Name_Value } from '../../styled/Charts';
 //____________IMPORT/EXPORT____________
 
@@ -72,7 +72,7 @@ export default function Chart_Activity() {
                 ):(
                     <>
                         <Container_Row_90_Center>
-                            <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
+                            <Text_Fade_Title_28_Black>No hay datos disponibles</Text_Fade_Title_28_Black>
                         </Container_Row_90_Center>
                     </>
                 )}

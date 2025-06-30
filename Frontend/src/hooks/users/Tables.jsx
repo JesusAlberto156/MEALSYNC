@@ -27,7 +27,7 @@ export const TableActionsUsers = () => {
             if (isDeleted) return false;
             
             if (isSelectedOptionSearch === 'General') {
-                const type = isUserTypes.find(type => type.idtipo === data.idtipo)?.tipo || '';
+                const type = isUserTypes.find(type => type.idtipo === data.idtipo)?.tipo;
                 return [
                     data.nombre,
                     data.nombrecorto,
@@ -47,8 +47,8 @@ export const TableActionsUsers = () => {
                 return data.usuario.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Tipo de usuario'){
-                const type = isUserTypes.find(type => type.idtipo === data.idtipo);
-                return type.tipo.toLowerCase().includes(isSearchTerm.toLowerCase());
+                const type = isUserTypes.find(type => type.idtipo === data.idtipo)?.tipo;
+                return type?.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
         });
 
@@ -86,7 +86,7 @@ export const TableActionsUsers = () => {
         setIsSelectedOptionOrder(option);
     };
     // Total de registros visibles de la tabla
-    const recordsPerPage = 8;
+    const recordsPerPage = 6;
     // Indices de los registros
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -129,7 +129,6 @@ export const TableActionsPermissions = () => {
     const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
-    // Filtrado de datos
     // Filtrado de datos
     const filteredRecordsPermissions = useMemo(() => {
         const filtered = isPermissions.filter((data) => {
@@ -201,7 +200,7 @@ export const TableActionsPermissions = () => {
         setIsSelectedOptionOrder(option);
     };
     // Total de registros visibles de la tabla
-    const recordsPerPage = 5;
+    const recordsPerPage = 6;
     // Indices de los registros
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -318,7 +317,7 @@ export const TableActionsStatus = () => {
         setIsSelectedOptionOrder(option);
     };
     // Total de registros visibles de la tabla
-    const recordsPerPage = 8;
+    const recordsPerPage = 6;
     // Indices de los registros
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;

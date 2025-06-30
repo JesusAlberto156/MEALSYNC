@@ -150,7 +150,7 @@ VALUES (1,0,28);
 
 DELETE estatus WHERE idusuario = 27;
 
-UPDATE estatus SET habilitado = 1  WHERE idusuario = 28; 
+UPDATE estatus SET activo = 0  WHERE idusuario = 1; 
 UPDATE estatus SET activo = 0  WHERE idusuario = 27; 
 
 SELECT * FROM dbo.platillo

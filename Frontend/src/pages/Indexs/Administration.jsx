@@ -9,8 +9,7 @@ import { RefAlertGreetingContext } from "../../contexts/RefsProvider";
 import { SocketContext } from "../../contexts/SocketProvider";
 import { StatusContext } from "../../contexts/UsersProvider";
 //__________IMAGES____________
-import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
-import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
+import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital.png';
 //__________IMAGES____________
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";

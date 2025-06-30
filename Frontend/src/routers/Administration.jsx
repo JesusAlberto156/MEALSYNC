@@ -63,56 +63,6 @@ export const PrivateRouteAdministration = () => {
     // Constantes
     const tiempoInactivoParaAccion = 900000;
     // Reiniciar temporizador de inactividad
-    const ejecutarAccionFinal = () => {
-        if(!isLoggedLoggedRef.current || logoutInitiatedRef.current) return;
-
-        logoutInitiatedRef.current = true; 
-
-        const showAlerts = async () => {
-            const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
-            const Image_Logout = themeMode ? Logo_Logout_Light : Logo_Logout_Dark;
-            const Color = themeMode ? '#3a5dae' : '#527ee7';
-
-            await Alert_Warning('MEALSYNC',`¡${isLoggedUser.nombre}!`,themeMode,Image_Warning);
-
-            await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleLoggedLog,resetInactividad);
-        }
-        if(isLoggedLoggedRef.current){
-            showAlerts();
-        }
-    };
-    const resetInactividad = () => {
-        logoutInitiatedRef.current = false;
-        clearTimeout(inactividadTimer.current);
-        inactividadTimer.current = setTimeout(ejecutarAccionFinal, tiempoInactivoParaAccion);
-    };
-    // UseEffect para actualizar el valor de logged
-    useEffect(() => {
-        isLoggedLoggedRef.current = isLoggedLogged;
-    }, [isLoggedLogged]);
-    // useEffect para detectar eventos
-    useEffect(() => {
-        const eventos = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart', 'touchmove'];
-        eventos.forEach(e => window.addEventListener(e, resetInactividad));
-    
-        const handleVisibilityChange = () => {
-            if (document.hidden) {
-                inactividadTimer.current = setTimeout(ejecutarAccionFinal, tiempoInactivoParaAccion);
-            } else {
-                resetInactividad();
-            }
-        };
-    
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-    
-        resetInactividad();
-    
-        return () => {
-            eventos.forEach(e => window.removeEventListener(e, resetInactividad));
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-            clearTimeout(inactividadTimer.current);
-        };
-    },[]);
     // useEffect con el cerrado de sesión
     useEffect(() => {
         if(isLoggedLog && isLoggedLogged){

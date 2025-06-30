@@ -25,7 +25,7 @@ import { IoIosAddCircle } from "react-icons/io";
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center } from "../../../styled/Text";
-import { Button_Icon_Blue_210,Button_Icon_White_210 } from "../../../styled/Buttons";
+import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Group } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -230,12 +230,12 @@ export default function Count_Supply_Type_Add(){
                             </Tooltip>
                             <Tooltip title='Agregar' placement='top'>
                                 <span>
-                                    <Button_Icon_White_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                    <Button_Icon_Green_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleCountSupplyTypeAdd()}
                                         disabled={isActionBlock}    
                                     >
                                         <Icon_22><IoIosAddCircle/></Icon_22>
-                                    </Button_Icon_White_210>
+                                    </Button_Icon_Green_210>
                                 </span>
                             </Tooltip>
                         </Container_Row_95_Center>

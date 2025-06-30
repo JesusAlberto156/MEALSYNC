@@ -1,5 +1,24 @@
 COLORES EN RGB
-
+--------AZUL--------
+NORMAL - rgb(58,93,174);
+HOVER - rgb(12, 54, 109);
+DISABLE - rgb(82, 126, 231);
+--------AZUL--------
+--------VERDE--------
+NORMAL - rgb(20, 165, 76);
+HOVER - rgb(13, 112, 51);
+DISABLE - rgb(60, 188, 109);
+--------VERDE--------
+--------ROJO--------
+NORMAL - rgb(155, 9, 9);
+HOVER - rgb(100, 15, 15);
+DISABLE - rgb(208, 31, 31);
+--------ROJO--------
+--------GRIS--------
+NORMAL - rgb(88, 88, 84);
+HOVER - rgb(61, 61, 60);
+DISABLE - rgb(155, 155, 155);
+--------GRIS--------
 --------FORM--------
 ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
 ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};

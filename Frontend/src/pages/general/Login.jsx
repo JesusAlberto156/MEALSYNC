@@ -34,8 +34,7 @@ import { IoArrowBackCircle } from "react-icons/io5";
 import { MdLogin } from "react-icons/md";
 //__________ICONOS__________
 //__________IMAGES____________
-import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital-Light.png';
-import Logo_Hospital_Dark from '../../components/imgs/Logo-Hospital-Dark.png';
+import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital.png';
 //__________IMAGES____________
 // Estilos personalizados
 import { Container_Page,Container_Page_Login,Container_Form_400,Container_Column_90_Center,Container_Row_95_Center } from "../../components/styled/Containers";
@@ -75,7 +74,7 @@ export default function Login(){
     useEffect(() => {
         document.title = 'MEALSYNC';
         const showAlerts = async () => {
-            const Image = themeMode ? Logo_Hospital_Light : Logo_Hospital_Dark;
+            const Image = Logo_Hospital_Light;
 
             await Alert_Greeting('MEALSYNC','¡Te da la Bienvenida!',themeMode,Image);
 
@@ -138,6 +137,7 @@ export default function Login(){
                                             sessionStorage.setItem('Estatus',encryptedStatus);
                                             sessionStorage.setItem('Sesión',true);
                                             sessionStorage.setItem('Tipo de usuario',isLoggedType);
+                                            sessionStorage.setItem('Vista del Sidebar','Inicio');
                                             
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));
@@ -209,6 +209,7 @@ export default function Login(){
                                             sessionStorage.setItem('Estatus',encryptedStatus);
                                             sessionStorage.setItem('Sesión',true);
                                             sessionStorage.setItem('Tipo de usuario',isLoggedType);
+                                            sessionStorage.setItem('Vista del Sidebar','Inicio');
                                             
                                             setIsLoggedUser(JSON.parse(jsonUser));
                                             setIsLoggedPermissions(JSON.parse(jsonPermission));

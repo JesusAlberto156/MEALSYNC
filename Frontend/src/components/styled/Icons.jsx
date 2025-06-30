@@ -53,22 +53,161 @@ export const Icon_Image_Black_60 = styled.img.withConfig({
         height: 40px;
     }
 `;
-export const Icon_Image_90 = styled.img.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 90%; 
-    height: auto;
-    border-radius: 10%;
-    object-fit: cover;
-    border: ${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
 //---------- Black/White
 //____________IMAGE____________
 //____________BUTTON____________
+//---------- Blanco
+export const Icon_Button_White_32 = styled.button`
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 32px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 28px;
+    }
+`;
+export const Icon_Button_White_28 = styled.button`
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 28px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 26px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+export const Icon_Button_White_24 = styled.button`
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Icon_Button_White_20 = styled.button`
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Icon_Button_White_16 = styled.button`
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Icon_Button_White_12 = styled.button`
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: white;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 18px;
+    }
+`;
+//---------- Blanco
 //---------- White
 export const Icon_Button_White_30 = styled.button`
     font-size: 30px;
@@ -453,7 +592,183 @@ export const Icon_18 = styled.div`
         font-size: 14px;
     }
 `;
+export const Icon_32 = styled.div`
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 28px;
+    }
+`;
+export const Icon_28 = styled.div`
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 26px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+export const Icon_24 = styled.div`
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Icon_20 = styled.div`
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Icon_16 = styled.div`
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Icon_12 = styled.div`
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
 //---------- Sin color
+//---------- Blanco
+export const Icon_White_32 = styled.div`
+    font-size: 32px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 28px;
+    }
+`;
+export const Icon_White_28 = styled.div`
+    font-size: 28px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 26px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+export const Icon_White_24 = styled.div`
+    font-size: 24px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Icon_White_20 = styled.div`
+    font-size: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Icon_White_16 = styled.div`
+    font-size: 16px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Icon_White_12 = styled.div`
+    font-size: 12px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- Blanco
 //---------- White
 export const Icon_White_30 = styled.div`
     font-size: 30px;

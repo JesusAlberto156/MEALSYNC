@@ -5,8 +5,8 @@ import { Outlet } from 'react-router-dom';
 // Componentes de React externos
 import { Toaster } from "sonner";
 // Contextos
-import { ThemeModeContext } from '../../contexts/ViewsProvider';
 import { LoggedLoggedContext,LoggedTypeContext } from '../../contexts/SessionProvider';
+import { SidebarViewContext } from '../../contexts/ViewsProvider';
 // Estilos personalizados
 import { Container_Page,Container_Page_Logged } from "../../components/styled/Containers";
 import { Alert_Styles } from '../../components/styled/Alerts';
@@ -18,14 +18,14 @@ import Side_Bar from '../../components/navegation/Sidebar';
 // Página para gestionar la parte principal de las paginas
 export default function Index_Main(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
+    const [currentSView] = useContext(SidebarViewContext);
     // Estructura del componente
     return(
         <>
             <Container_Page>
-                <Container_Page_Logged className='bg-pan-bl' ThemeMode={themeMode} TypeUser={isLoggedType} Logged={isLoggedLogged}>
+                <Container_Page_Logged TypeUser={isLoggedType} Logged={isLoggedLogged} Sidebar={currentSView}>
                     <Side_Bar/>
                     <Outlet/>
                 </Container_Page_Logged> 

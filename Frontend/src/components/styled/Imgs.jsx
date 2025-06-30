@@ -2,24 +2,61 @@
 // Componentes de React externos
 import styled from 'styled-components';
 //__________IMAGE__________
-import Logo_Horizontal_Hospital_Light from '../imgs/Logo-Horizontal-Hospital-Light.png'
-import Logo_Horizontal_Hospital_Dark from '../imgs/Logo-Horizontal-Hospital-Light.png'
-import Logo_Vertical_Hospital_Dark from '../imgs/Logo-Vertical-Hospital-Dark.png'
-import Logo_Vertical_Hospital_Light from '../imgs/Logo-Vertical-Hospital-Light.png'
-import Logo_Hospital_Dark from '../imgs/Logo-Hospital-Dark.png';
-import Logo_Hospital_Light from '../imgs/Logo-Hospital-Light.png';
 //__________IMAGE__________
 // Estilos personalizados
 import { Fade_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
+//____________SIDEBAR____________
+export const Image_Sidebar_Black = styled.img`
+    width: 100px; 
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        width: 90px; 
+        height: 90px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 80px; 
+        height: 80px;
+    }
+`;
+//____________SIDEBAR____________
+//____________NAVBAR____________
+export const Image_Navbar = styled.img`
+    width: 80px; 
+    height: 80px;
+    object-fit: cover;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        width: 70px; 
+        height: 70px;    
+    }
+
+    @media (max-width: 480px) {
+        width: 60px; 
+        height: 60px;
+    }
+`;
+//____________NAVBAR____________
 //____________LOGO____________
 //---------- HOSPITAL ----------
 //-------- HORIZONTAL
 export const Img_Logo_Horizontal_Hospital_400 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`
-    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Horizontal_Hospital_Light})` : `url(${Logo_Horizontal_Hospital_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
     width: 400px;
@@ -41,7 +78,6 @@ export const Img_Logo_Horizontal_Hospital_400 = styled.div.withConfig({
 export const Img_Logo_Verical_Hospital_240 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`
-    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Vertical_Hospital_Light})` : `url(${Logo_Vertical_Hospital_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
     width: 240px;
@@ -63,21 +99,17 @@ export const Img_Logo_Verical_Hospital_240 = styled.div.withConfig({
 export const Img_Logo_Hospital_70 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode'
 })`
-    background-image: ${({ ThemeMode }) => (ThemeMode ? `url(${Logo_Hospital_Light})` : `url(${Logo_Hospital_Dark})`)};
     background-size: contain;
     background-repeat: no-repeat;
-    width: 70px; 
-    height: 70px;
+    width: 5%; 
+    height: auto;
     animation: ${Fade_Animation} 2s infinite;
 
     @media (max-width: 768px) {
-        width: 60px; 
-        height: 60px;
     }
 
     @media (max-width: 480px) {
-        width: 50px; 
-        height: 50px;
+       
     }
 `;
 //-------- PURO LOGO

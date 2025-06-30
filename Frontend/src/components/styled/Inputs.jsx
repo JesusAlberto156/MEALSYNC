@@ -130,6 +130,43 @@ export const Input_Text_White_50 = styled.input`
 `;
 //-------- White
 //____________TEXT____________
+//____________SEARCH____________
+export const Input_Search_Table_Black = styled.input`
+    width: 300px;
+    height: auto;
+    font-family: 'Century Gothic', Prompt, sans-serif;
+    color: white;
+    font-size: 16px;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    border-bottom: 2px solid white;
+    background: transparent;
+    transition: 0.1s ease;
+    outline: none;
+    cursor: text;
+
+    &::placeholder {
+        color: white; 
+    }
+
+    @media (max-width: 768px) {
+        width: 250px;
+        font-size: 14px;
+        padding: 6px;
+    }
+    
+    @media (max-width: 480px) {
+        width: 200px;
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    &:focus {
+        box-shadow: 0 0 8px rgb(255, 255, 255);
+    }
+`;
+//____________SEARCH____________
 //____________RADIO____________
 export const Input_Radio_16 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',

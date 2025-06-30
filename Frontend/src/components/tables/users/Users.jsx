@@ -5,39 +5,48 @@ import { useContext,useEffect } from "react"
 import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
-import { UsersViewPasswordContext } from "../../../contexts/UsersProvider"
-import { ThemeModeContext } from "../../../contexts/ViewsProvider"
+import { UsersViewPasswordContext,PermissionsContext } from "../../../contexts/UsersProvider"
 import { TextFieldsUserContext } from "../../../contexts/FormsProvider"
 import { RefUsersContext } from "../../../contexts/RefsProvider"
 import { UserTypesContext } from "../../../contexts/UsersProvider"
 // Hooks personalizados
 import { ResetTextFieldsUser,ResetTextFieldsPermissions,ResetTextFieldsStatus } from "../../../hooks/users/Texts"
 import { TableActionsUsers } from "../../../hooks/users/Tables"
+//__________IMAGENES__________
+import User from '../../imgs/User.png';
+import Super_Administrator from '../../imgs/Super-Administrator.jpg';
+import Administrator from '../../imgs/Administrator.jpg';
+import Chef from '../../imgs/Chef.avif';
+import Storekeeper from '../../imgs/Storekeeper.jpg';
+import Cook from '../../imgs/Cook.jpg';
+import Nutritionist from '../../imgs/Nutritionist.jpg';
+import Doctor from '../../imgs/Doctor.webp';
+//__________IMAGENES__________
 //__________ICONOS__________
 // Iconos de las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
+import { CgArrowsV } from "react-icons/cg";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
-import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td,Table_Container_Item_Center,Table_Container_Pagination,Table_Image_Black,Table_Container_Data } from "../../styled/Tables";
+import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Text_Span_16_Center_White,Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
+import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 import { Alert_Verification } from "../../styled/Alerts"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
 export default function Table_Users(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isUsersViewPassword,setIsUsersViewPassword] = useContext(UsersViewPasswordContext);
     const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isUserTypes] = useContext(UserTypesContext);
+    const [isPermissions] = useContext(PermissionsContext);
     const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // UseEffect que determina la selección de la tabla
@@ -110,99 +119,124 @@ export default function Table_Users(){
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Users">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Nombre')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre completo
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Nombre-Corto')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre-Corto' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Nombre corto
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Usuario')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Usuario' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Usuario
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>Contraseña</Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Tipo')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Tipo de usuario
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                    </tr>
-                </Thead>
-                <Tbody ThemeMode={themeMode}>
-                    {currentRecordsUsers.map((user) => (
-                        <tr 
-                            key={user.idusuario}
-                            onClick={() => handleRowClick(user)}
-                            style={{
-                                backgroundColor:  isSelectedRow === user ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.5s ease',
-                            }}
-                        >
-                            <Td ThemeMode={themeMode}>{user.nombre}</Td>
-                            <Td ThemeMode={themeMode}>{user.nombrecorto}</Td>
-                            <Td ThemeMode={themeMode}>{user.usuario}</Td>
-                            <Td ThemeMode={themeMode}>{isUsersViewPassword ? user.contrasena : '•'.repeat(8)}</Td>
-                            <Td ThemeMode={themeMode}>{isUserTypes.find(type => type.idtipo === user.idtipo)?.tipo || 'Desconocido'}</Td>
+            <Table_Container_Auto>
+                <Table id="Table-Users">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            <Table_Head_Th><Text_Span_16_Center_White>Imagen</Text_Span_16_Center_White></Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Nombre')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre completo
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Nombre-Corto')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre-Corto' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre-Corto' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre corto
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Usuario')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Usuario' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Usuario' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Usuario
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th><Text_Span_16_Center_White>Contraseña</Text_Span_16_Center_White></Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Tipo')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Tipo de usuario
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
                         </tr>
-                    ))}
-                </Tbody>
-            </Table>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        {currentRecordsUsers.map((user) => (
+                            <tr
+                                key={user.idusuario}
+                                onClick={() => handleRowClick(user)}
+                                style={{
+                                    backgroundColor: isSelectedRow === user ? 'rgba(88, 88, 84, 0.8)' : 'transparent',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 1s ease',
+                                }}
+                            >
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={(() => {
+                                    const permission = isPermissions.find(permission => permission.idusuario === user.idusuario);
+                                    return permission?.superadministrador ? Super_Administrator : 
+                                           permission?.administrador ? Administrator :
+                                           permission?.chef ? Chef : 
+                                           permission?.almacenista ? Storekeeper :
+                                           permission?.cocinero ? Cook :
+                                           permission?.nutriologo ? Nutritionist : 
+                                           permission?.medico ? Doctor : User
+                                })()} style={{border: isSelectedRow === user ? '3px solid white' : '3px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td style={{color: isSelectedRow === user ? 'white' : 'black'}}>{user.nombre || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{color: isSelectedRow === user ? 'white' : 'black'}}>{user.nombrecorto || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{color: isSelectedRow === user ? 'white' : 'black'}}>{user.usuario || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{color: isSelectedRow === user ? 'white' : 'black'}}>{isUsersViewPassword ? user.contrasena || 'Desconocida...' : '•'.repeat(8)}</Table_Body_Td>
+                                <Table_Body_Td style={{color: isSelectedRow === user ? 'white' : 'black'}}>{isUserTypes.find(type => type.idtipo === user.idtipo)?.tipo || 'Desconocido...'}</Table_Body_Td>
+                            </tr>
+                        ))}
+                    </Table_Body_Tbody_White>
+                </Table>
+            </Table_Container_Auto>
             {currentRecordsUsers.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === 1}
+                                    onClick={prevPage}
+                                >
+                                    <Icon_20><GrPrevious/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesUsers}</Text_A_16_Center>
+                        <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesUsers}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesUsers || totalPagesUsers === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageUsers}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220 
+                                    disabled={currentPage === totalPagesUsers || totalPagesUsers === 0}
+                                    onClick={nextPageUsers}
+                                >
+                                    <Icon_20><GrNext/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                    </Container_Row_90_Center>
+                    </Table_Container_Pagination>
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
-                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
-                    </Container_Row_90_Center>
+                    <Table_Container_Data>
+                        <Text_Fade_Title_32_Black>¡No hay datos disponibles!</Text_Fade_Title_32_Black>
+                    </Table_Container_Data>
                 </>
             )}
         </>

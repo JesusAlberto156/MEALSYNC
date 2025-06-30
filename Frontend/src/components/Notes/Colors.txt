@@ -15,10 +15,15 @@ HOVER - rgb(100, 15, 15);
 DISABLE - rgb(208, 31, 31);
 --------ROJO--------
 --------GRIS--------
-NORMAL - rgb(88, 88, 84);
+NORMAL - rgb(84, 88, 89);
 HOVER - rgb(61, 61, 60);
 DISABLE - rgb(155, 155, 155);
 --------GRIS--------
+--------NARANJA--------
+NORMAL - rgb(235, 108, 23);
+HOVER - rgb(180, 86, 23);
+DISABLE - rgb(207, 122, 52);
+--------NARANJA--------
 --------FORM--------
 ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
 ${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};

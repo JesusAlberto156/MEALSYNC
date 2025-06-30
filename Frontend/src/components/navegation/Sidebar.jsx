@@ -34,10 +34,10 @@ import Nutritionist from '../imgs/Nutritionist.jpg';
 import Doctor from '../imgs/Doctor.webp';
 //__________IMAGENES__________
 // Estilos personalizados
-import { Container_Sidebar_Column_White } from "../styled/Containers";
+import { Container_Sidebar_Column_Black } from "../styled/Containers";
 import { Icon_20 } from "../styled/Icons";
 import { Image_Sidebar_Black } from '../styled/Imgs';
-import { Text_Fade_Title_20_Black } from "../styled/Text";
+import { Text_Fade_Title_20_White } from "../styled/Text";
 import { Button_Icon_Blue_200 } from '../styled/Buttons';
 //____________IMPORT/EXPORT____________
 
@@ -81,9 +81,9 @@ export default function Side_Bar() {
   // Estructura del componente
   return (
     <>
-      <Container_Sidebar_Column_White className={isSidebar ? 'slide-in-container-left' : 'slide-out-container-left'}>
+      <Container_Sidebar_Column_Black className={isSidebar ? 'slide-in-container-left' : 'slide-out-container-left'}>
         <Image_Sidebar_Black src={profileImage}/>
-        <Text_Fade_Title_20_Black>{isLoggedUser.nombre || 'Desconocido...'}</Text_Fade_Title_20_Black>
+        <Text_Fade_Title_20_White>{isLoggedUser.nombre || 'Desconocido...'}</Text_Fade_Title_20_White>
         <Tooltip title='Inicio' placement="right">
           <Button_Icon_Blue_200 onClick={() => {
             handleSidebarView('Inicio');
@@ -213,7 +213,7 @@ export default function Side_Bar() {
         ):(
           <></>
         )}
-      </Container_Sidebar_Column_White>
+      </Container_Sidebar_Column_Black>
     </>
   );
 }

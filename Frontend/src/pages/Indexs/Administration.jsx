@@ -16,6 +16,7 @@ import { Container_Page_Elements } from "../../components/styled/Containers";
 import { Alert_Greeting } from "../../components/styled/Alerts";
 // Componentes personalizados
 import Setting_Bar from "../../components/navegation/SettingBar";
+import Footer from "../../components/navegation/Footer";
 //____________IMPORT/EXPORT____________
 
 // Página para mostrar el área de administración
@@ -69,6 +70,7 @@ export default function Index_Administration(){
             <Container_Page_Elements sidebarVisible={isSidebar}>
                 <Setting_Bar/>
                 <Outlet/>
+                <Footer/>
             </Container_Page_Elements> 
         </>
     );

@@ -16,31 +16,11 @@ import Background_Users from '../imgs/Background-Users.jpg';
 
 //____________PAGE____________
 export const Container_Page = styled.div`
-    background-color:aliceblue;
     display: flex;
-    height: auto;
-    flex-direction: column; 
-    overflow-x: auto;
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
-        background-color:rgb(255, 255, 255);
-        border-radius: 20px;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: rgb(58,93,174);
-        border-radius: 30px;
-        border: 1px solid rgb(255, 255, 255);
-        cursor: pointer;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(82, 126, 231);
-    }
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
 `;
 export const Container_Page_Login = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -93,9 +73,8 @@ export const Container_Page_Logged = styled.div.withConfig({
     }
     background-Size: cover;
     background-Position: center;
-    width: 100vw;
-    height: 100vh;
-    max-height: none;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -104,18 +83,12 @@ export const Container_Page_Logged = styled.div.withConfig({
 export const Container_Page_Elements = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'sidebarVisible'
 })`
-    position: fixed;
-    top: 0%;
-    left: ${({ sidebarVisible }) => (sidebarVisible ? "16%" : "0%")};
+    margin-left: ${({ sidebarVisible }) => (sidebarVisible ? "19%" : "0%")};
     width: 100%;
-    height: auto;
-    max-width: ${({ sidebarVisible }) => (sidebarVisible ? "80vw" : "100vw")}; 
-    max-height: 100vh;
-    margin: 0px;
+    height: 100%;
+    max-width: ${({ sidebarVisible }) => (sidebarVisible ? "81vw" : "100vw")}; 
+    max-height: 100%;
     gap: 15px;
-    padding: 10px;
-    padding-top: 30px;
-    padding-bottom: 30px;
     background-color: transparent;
     display: flex;
     flex-direction: column;
@@ -123,22 +96,36 @@ export const Container_Page_Elements = styled.div.withConfig({
     justify-content: flex-start;
     box-sizing: border-box;
     transition: all ${({ sidebarVisible }) => (sidebarVisible ? "0.3s" : "1.0s")} ease;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;          
+        height: 8px;  
+        background-color:rgb(255, 255, 255);
+        border-radius: 20px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(58,93,174);
+        border-radius: 30px;
+        border: 1px solid rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(82, 126, 231);
+    }
 
     @media (max-width: 768px) {
-        padding: 8px;
-        padding-top: 25px;
-        padding-bottom: 25px;
         gap: 10px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "30%" : "0%")};  
-        max-width: ${({ sidebarVisible }) => (sidebarVisible ? "70vw" : "100vw")}; 
+        margin-left: ${({ sidebarVisible }) => (sidebarVisible ? "28%" : "0%")};  
+        max-width: ${({ sidebarVisible }) => (sidebarVisible ? "72vw" : "100vw")}; 
     }
 
     @media (max-width: 480px) {
-        padding: 6px;
-        padding-top: 20px;
-        padding-bottom: 20px;
         gap: 5px;
-        left: ${({ sidebarVisible }) => (sidebarVisible ? "38%" : "0%")}; 
+        margin-left: ${({ sidebarVisible }) => (sidebarVisible ? "38%" : "0%")}; 
         max-width: ${({ sidebarVisible }) => (sidebarVisible ? "62vw" : "100vw")}; 
     }
 `;
@@ -1714,15 +1701,15 @@ export const Container_Keyboard_Numeric = styled.div`
 `;
 //____________KEYBOARD____________
 //____________SIDEBAR____________
-export const Container_Sidebar_Column_White = styled.div`
+export const Container_Sidebar_Column_Black = styled.div`
     width: 250px;
     height: 100vh;
     padding: 10px;
     padding-top: 40px;
     gap: 15px;
-    background-color:rgb(255, 255, 255);
-    border: 5px solid black;
+    background-color:rgba(0, 0, 0, 0.85);
     box-sizing: border-box;
+    border-right: 5px solid white;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -1758,42 +1745,27 @@ export const Container_Sidebar_Column_White = styled.div`
 //____________SIDEBAR____________
 //____________NAVBAR____________
 export const Container_Navbar_Row_General_White = styled.div`
-    width: 94%;
-    max-width: 94%;
-    height: 70px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
     gap: 10px;
     background: rgb(255, 255, 255);
-    border-radius: 50px;
-    border: 4px solid black; 
     display: flex;            
     justify-content: flex-start;
     align-items: center;
-    padding-top: 6px; 
-    padding-bottom: 10px;
+    padding: 2px;
     padding-right: 30px;
     padding-left: 30px;
 
     @media (max-width: 768px) { 
-        width: 92%;
-        max-width: 92%;
-        height: 65px;
-        border-radius: 30px;
-        border: 3px solid black;
-        padding-top: 4px; 
-        padding-bottom: 8px;
+        padding: 2px;
         padding-right: 20px;
         padding-left: 20px;
         gap: 8px;
     }
 
     @media (max-width: 480px) {
-        width: 90%;
-        max-width: 90%;
-        height: 60px;
-        border-radius: 20px;
-        border: 2px solid black;
-        padding-top: 2px;
-        padding-bottom: 6px; 
+        padding: 2px;
         padding-right: 10px;
         padding-left: 10px;
         gap: 6px;
@@ -1838,8 +1810,8 @@ export const Container_Navbar_Row_General = styled.div`
     }
 `;
 export const Container_Navbar_Row_Function_Blue = styled.div`
-    width: 90%;
-    height: 60px;
+    width: auto;
+    height: auto;
     gap: 10px;
     background: rgb(58,93,174);
     border-radius: 50px;
@@ -1847,72 +1819,28 @@ export const Container_Navbar_Row_Function_Blue = styled.div`
     display: flex;            
     justify-content: flex-start;
     align-items: center;
-    padding-top: 2px; 
-    padding-bottom: 2px;
-    padding-right: 30px;
-    padding-left: 30px;
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
     
     @media (max-width: 768px) {
-        width: 85%;
-        height: 55px;
         border-radius: 30px;
         border: 2px solid black;
-        padding-top: 2px; 
-        padding-bottom: 2px;
-        padding-right: 20px;
-        padding-left: 20px; 
+        padding-top: 8px; 
+        padding-bottom: 8px;
+        padding-right: 15px;
+        padding-left: 15px; 
         gap: 8px;
     }
 
     @media (max-width: 480px) {
-        width: 80%;
-        height: 45px;
         border-radius: 20px;
         border: 1px solid black;
-        padding-top: 2px; 
-        padding-bottom: 2px;
+        padding-top: 6px; 
+        padding-bottom: 6px;
         padding-right: 10px;
         padding-left: 10px; 
-        gap: 6px;
-    }
-`;
-export const Container_Navbar_Row_Function = styled.div`
-    width: 100%;
-    height: 55px;
-    gap: 10px;
-    padding-left: 10px;
-    background: transparent;
-    display: flex;            
-    justify-content: flex-start;
-    align-items: center;
-    overflow-x: auto;
-
-    &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
-        background-color:rgb(255, 255, 255);
-        border-radius: 20px;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: rgb(58,93,174);
-        border-radius: 30px;
-        border: 1px solid rgb(255, 255, 255);
-        cursor: pointer;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(82, 126, 231);
-    }
-
-    @media (max-width: 768px) {
-        height: 50px;
-        gap: 8px;
-    }
-
-    @media (max-width: 480px) {
-        height: 45px;
         gap: 6px;
     }
 `;
@@ -1922,6 +1850,7 @@ export const Container_Navbar_Row_Buttom = styled.div`
     justify-content: flex-start;
     align-items: center;           
     background: transparent;
+    margin-left: auto;
     width: auto;
     height: auto;  
     padding-right: 10px;     
@@ -1961,38 +1890,21 @@ export const Container_Navbar_Text = styled.div`
 //____________SEARCHBAR____________
 export const Container_Searchbar_Row_General_Blue = styled.div`
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;     
-    background: rgb(58,93,174);
-    border-radius: 50px;
-    border: 4px solid black; 
-    width: 94%;
-    max-width: 94%;
+    background: rgba(0, 0, 0, 0.35);
+    border: none; 
+    width: 100%;
+    max-width: 100%;
     height: auto;
     padding: 6px;
-    padding-left: 30px;
-    padding-right: 30px;
     gap: 10px;
 
     @media (max-width: 768px) {
-        width: 92%;
-        max-width: 92%;
-        border: 3px solid black;
-        border-radius: 30px;
-        padding: 4px;
-        padding-left: 20px;
-        padding-right: 20px;
         gap: 8px;  
     }
 
     @media (max-width: 480px) {
-        width: 90%;
-        max-width: 90%;
-        border: 2px solid black;
-        border-radius: 20px;
-        padding: 2px;
-        padding-left: 15px;
-        padding-right: 15px;
         gap: 6px;
     }
 }
@@ -2002,8 +1914,8 @@ export const Container_Searchbar_Row_General = styled.div`
     justify-content: flex-start;
     align-items: center;     
     background: transparent;
-    width: 100%;
-    max-width: 100%;
+    width: 94%;
+    max-width: 94%;
     height: auto;       
     gap: 10px;
     white-space: nowrap;
@@ -2029,21 +1941,25 @@ export const Container_Searchbar_Row_General = styled.div`
     }
 
     @media (max-width: 768px) {
+        width: 92%;
+        max-width: 92%;
         gap: 8px;  
     }
 
     @media (max-width: 480px) {
+        width: 90%;
+        max-width: 90%;
         gap: 6px;
     }
 }
 `;
-export const Container_Searchbar_Row_Search_Gray = styled.div`
+export const Container_Searchbar_Row_Search_Blue = styled.div`
     width: auto;
     height: auto;
     gap: 16px;
-    background: rgb(88,88,84);
+    background: rgb(58,93,174);
     border-radius: 50px;
-    border: 3px solid white; 
+    border: 3px solid black; 
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -2054,7 +1970,7 @@ export const Container_Searchbar_Row_Search_Gray = styled.div`
 
     @media (max-width: 768px) {
         border-radius: 30px;
-        border: 2px solid white;
+        border: 2px solid black;
         margin-bottom: 4px; 
         padding: 6px; 
         padding-left: 15px;
@@ -2064,7 +1980,7 @@ export const Container_Searchbar_Row_Search_Gray = styled.div`
 
     @media (max-width: 480px) {
         border-radius: 20px;
-        border: 1px solid white; 
+        border: 1px solid black; 
         margin-bottom: 2px; 
         padding: 4px; 
         padding-left: 10px;
@@ -2073,27 +1989,29 @@ export const Container_Searchbar_Row_Search_Gray = styled.div`
     }
 `;
 export const Container_Searchbar_Row_Function = styled.div`
-    width: 500px;
+    width: auto;
     height: auto;
     gap: 10px;
     background: transparent;
+    margin-left: auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 10px;
     padding-right: 20px;
+    padding-left: 20px;
 
     @media (max-width: 768px) {
-        width: 450px;
         padding: 8px;
         padding-right: 15px;
+        padding-left: 15px;
         gap: 8px;
     }
 
     @media (max-width: 480px) {
-        width: 400px;
         padding: 6px;
         padding-right: 10px;
+        padding-left: 10px;
         gap: 6px;
     }
 `;
@@ -2105,22 +2023,20 @@ export const Container_Footer_Column_Black = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;          
-    background: rgb(0,0,0);
+    background: rgba(0, 0, 0, 0.85);
     color: white;
-    border: 4px solid white;
     width: 100%;
-    height: auto;  
+    height: auto; 
+    margin-top: auto; 
     padding: 20px;
     gap: 15px;
 
     @media (max-width: 768px) {
-        width: 96%;
         padding: 18px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 92%;
         padding: 16px;
         gap: 5px;
     }

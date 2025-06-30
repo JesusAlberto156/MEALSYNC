@@ -39,10 +39,10 @@ import { BiSolidMessageAdd } from "react-icons/bi";
 import { BiSolidMessageDetail } from "react-icons/bi";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Searchbar_Row_General_Blue,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Gray,Container_Searchbar_Row_Function } from "../styled/Containers";
+import { Container_Searchbar_Row_General_Blue,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function } from "../styled/Containers";
 import { Button_Icon_Blue_Auto,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../styled/Buttons";
-import { Icon_White_20,Icon_White_16,Icon_26,Icon_Button_White_20,Icon_Button_Black_30,Icon_White_18,Icon_Button_White_18 } from "../styled/Icons";
-import { Input_Text_White_50,Input_Search_Table_Black,Input_Radio_16 } from "../styled/Inputs";
+import { Icon_White_20,Icon_White_16,Icon_Button_White_20,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
+import { Input_Search_Table_Black,Input_Radio_16 } from "../styled/Inputs";
 import { Label_Text_16_Center } from "../styled/Labels";
 // Componentes personalizados
 
@@ -55,9 +55,8 @@ export default function Search_Bar (){
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
-    const [isTypeUser] = useContext(LoggedTypeContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
-    const [isPermission] = useContext(LoggedPermissionsContext);
+    const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isUsersViewPassword] = useContext(UsersViewPasswordContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
     const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
@@ -131,7 +130,7 @@ export default function Search_Bar (){
                         </>
                     )}
                     {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
-                        <Container_Searchbar_Row_Search_Gray>
+                        <Container_Searchbar_Row_Search_Blue>
                             {isOptionUsers.map((option,index) => (
                                 <Button_Icon_Blue_Auto
                                     key={index}
@@ -150,156 +149,156 @@ export default function Search_Bar (){
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Usuarios' && currentNView === 'Permisos' ? (
                         <>
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
                         </>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Usuarios' && currentNView === 'Estatus' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>
+                        <Container_Searchbar_Row_Search_Blue>
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             {isOptionStatus.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionOrderPlus(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionOrderPlus === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Proveedores' && currentNView === 'Proveedores' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>
+                        <Container_Searchbar_Row_Search_Blue>
                             {isOptionSuppliers.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionSearch === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Proveedores' && currentNView === 'Observaciones de proveedores' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>
+                        <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplierObservations.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionSearch === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Proveedores' && currentNView === 'Categorias por insumo' ? (
                         <>
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
                         </>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Proveedores' && currentNView === 'Tipos de insumo' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>
+                        <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplyTypes.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionSearch === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Proveedores' && currentNView === 'Insumos' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>
+                        <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplies.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionSearch === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Inventario' && currentNView === 'Pedidos de insumo' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>                   
+                        <Container_Searchbar_Row_Search_Blue ThemeMode={themeMode}>                   
                             {isOptionSupplyOrders.map((option,index) => (
                                 <Button_Icon_Blue_140 ThemeMode={themeMode}
                                     key={index}
@@ -313,87 +312,87 @@ export default function Search_Bar (){
                                 </Button_Icon_Blue_140>
                             ))}
                             <Icon_White_18><IoSearch/></Icon_White_18>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Inventario' && currentNView === 'Compras' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>
+                        <Container_Searchbar_Row_Search_Blue>
                             {isOptionWarehouse.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionSearch === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             {isOptionPurchases.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionOrderPlus(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionOrderPlus === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
-                        <Container_Searchbar_Row_Search_Gray ThemeMode={themeMode}>
+                        <Container_Searchbar_Row_Search_Blue>
                             {isOptionWarehouse.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionSearch === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             {isOptionSales.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
+                                <Button_Icon_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionOrderPlus(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionOrderPlus === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
+                                        backgroundColor: isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
                                         color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_140>
+                                </Button_Icon_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_18 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_18>
+                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
                             </Tooltip>
-                        </Container_Searchbar_Row_Search_Gray>
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Inventario' && currentNView === 'Compras' || currentNView === 'Ventas' ? (
                         isSelectedOptionSearch === 'Nombre' ? (
                             <>
-                                <Icon_26><FcSearch/></Icon_26>
-                                <Input_Text_White_50
+                                <Icon_White_20><IoSearch/></Icon_White_20>
+                                <Input_Search_Table_Black
                                     type="text"
                                     placeholder="Buscar..."
                                     value={isSearchTerm}
@@ -410,9 +409,9 @@ export default function Search_Bar (){
                                             fontFamily: 'Century Gothic',
                                             fontSize: '16px',
                                             borderRadius: '15px',
+                                            border: '2px solid black',
                                             padding:'5px',
                                             background: 'white',
-                                            border: '1px solid black',
                                         }}
                                     >
                                         {Array.from({ length: 51 }, (_, i) => {
@@ -427,9 +426,9 @@ export default function Search_Bar (){
                                             fontFamily: 'Century Gothic',
                                             fontSize: '16px',
                                             borderRadius: '15px',
+                                            border: '2px solid black',
                                             padding:'5px',
                                             background: 'white',
-                                            border: '1px solid black',
                                         }}
                                     >
                                         {Array.from({ length: isTextFieldsSearchDate.año === new Date().getFullYear() ? new Date().getMonth() + 1 : 12 }, (_, i) => (
@@ -476,7 +475,7 @@ export default function Search_Bar (){
                                         </Button_Icon_Blue_60>
                                     </span>
                                 </Tooltip>  
-                                {isPermission.superadministrador ? (
+                                {isLoggedPermissions.superadministrador ? (
                                     <>
                                         <Tooltip title='Eliminar' placement="top">
                                             <span>
@@ -530,65 +529,81 @@ export default function Search_Bar (){
                         )}
                         {currentSView === 'Usuarios' && currentNView === 'Permisos' ? (
                             <>
-                                {isSelectedRow !== null ? (
-                                    <>
-                                        <Tooltip title='Editar' placement="top">
-                                            <Button_Icon_Blue_60 ref={Button_Edit_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
-                                            onClick={() => {
-                                                handleModalViewUsers('Permisos-Editar');
-                                                navigate('/Administration/Index/Users/Permissions/Edit',{ replace: true });
-                                            }}>
-                                                <Icon_White_18><MdEdit/></Icon_White_18>
-                                            </Button_Icon_Blue_60>
-                                        </Tooltip>
-                                    </>
-                                ):(
-                                    <>
-                                        <Tooltip title='Agregar' placement="top">
-                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
+                                <Tooltip title='Agregar' placement="top">
+                                    <span>
+                                        <Button_Icon_Green_60 
+                                            disabled={isSelectedRow !== null}
                                             onClick={() => {
                                                 handleModalViewUsers('Permisos-Agregar');
                                                 navigate('/Administration/Index/Users/Permissions/Add',{ replace: true });
-                                            }}>
-                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                            </Button_Icon_Green_60>
-                                        </Tooltip>      
+                                            }}
+                                        >
+                                            <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                        </Button_Icon_Green_60>
+                                    </span>
+                                </Tooltip> 
+                                <Tooltip title='Editar' placement="top">
+                                    <span>
+                                        <Button_Icon_Blue_60 
+                                            ref={Button_Edit_Permissions}
+                                            disabled={isSelectedRow === null}
+                                            onClick={() => {
+                                                handleModalViewUsers('Permisos-Editar');
+                                                navigate('/Administration/Index/Users/Permissions/Edit',{ replace: true });
+                                            }}
+                                        >
+                                            <Icon_White_16><MdEdit/></Icon_White_16>
+                                        </Button_Icon_Blue_60>
+                                    </span>
+                                </Tooltip> 
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Tooltip title='Deshabilitar/Habilitar' placement="top">
+                                            <span>
+                                                <Button_Icon_Orange_60 
+                                                    disabled={isSelectedRow === null}
+                                                >
+                                                    <Icon_White_16><FaUserTie/></Icon_White_16>
+                                                </Button_Icon_Orange_60>
+                                            </span>
+                                        </Tooltip> 
                                     </>
-                                )}
-                                {isPermission.superadministrador ? (
-                                    isSelectedRow !== null ? (
-                                        isSelectedRow.superadministrador ? (
-                                            <>
-                                                <Tooltip title='Deshabilitar' placement="top">
-                                                    <Button_Icon_Red_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
-                                                    disabled={isSelectedRow === null}
-                                                    onClick={() => {
-                                                        handleModalViewUsers('Permiso-Super-Administrador');
-                                                        navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
-                                                    }}>
-                                                        <Icon_White_18><FaUserTie/></Icon_White_18>
-                                                    </Button_Icon_Red_60>
-                                                </Tooltip>
-                                            </>
-                                        ):(
-                                            <>
-                                                <Tooltip title='Habilitar' placement="top">
-                                                    <Button_Icon_Green_60 ref={Button_Enable_Permissions} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
-                                                    disabled={isSelectedRow === null}
-                                                    onClick={() => {
-                                                        handleModalViewUsers('Permiso-Super-Administrador');
-                                                        navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
-                                                    }}>
-                                                        <Icon_White_18><FaUserTie/></Icon_White_18>
-                                                    </Button_Icon_Green_60>
-                                                </Tooltip>
-                                            </>
-                                        )
-                                    ):(
-                                        <></>
-                                    )                               
                                 ):(
-                                    <></>
+                                    isSelectedRow.superadministrador ? (
+                                        <>
+                                            <Tooltip title='Deshabilitar' placement="top">
+                                                <span>
+                                                    <Button_Icon_Red_60 
+                                                        ref={Button_Enable_Permissions}
+                                                        disabled={isSelectedRow === null}
+                                                        onClick={() => {
+                                                            handleModalViewUsers('Permiso-Super-Administrador');
+                                                            navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_White_16><FaUserTie/></Icon_White_16>
+                                                    </Button_Icon_Red_60>
+                                                </span>
+                                            </Tooltip> 
+                                        </>
+                                    ):(
+                                        <>
+                                            <Tooltip title='Habilitar' placement="top">
+                                                <span>
+                                                    <Button_Icon_Green_60 
+                                                        ref={Button_Enable_Permissions}
+                                                        disabled={isSelectedRow === null}
+                                                        onClick={() => {
+                                                            handleModalViewUsers('Permiso-Super-Administrador');
+                                                            navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_White_16><FaUserTie/></Icon_White_16>
+                                                    </Button_Icon_Green_60>
+                                                </span>
+                                            </Tooltip> 
+                                        </>                              
+                                    )
                                 )}
                             </>
                         ):(
@@ -672,7 +687,7 @@ export default function Search_Bar (){
                                 ):(
                                     <></>
                                 )}
-                                {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
                                     isSelectedRow !== null ? (
                                         <>
                                             <Tooltip title='Eliminar' placement="top">
@@ -745,7 +760,7 @@ export default function Search_Bar (){
                                 ):(
                                     <></>
                                 )}
-                                {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
                                     isSelectedRow !== null ? (
                                         <>
                                             <Tooltip title='Eliminar' placement="top">
@@ -799,7 +814,7 @@ export default function Search_Bar (){
                                 ):(
                                     <></>
                                 )}
-                                {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
                                     isSelectedRow !== null ? (
                                         <>
                                             <Tooltip title='Eliminar' placement="top">
@@ -886,7 +901,7 @@ export default function Search_Bar (){
                                 ):(
                                     <></>
                                 )}
-                                {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
                                     isSelectedRow !== null ? (
                                         <>
                                             <Tooltip title='Eliminar' placement="top">
@@ -973,7 +988,7 @@ export default function Search_Bar (){
                                 ):(
                                     <></>
                                 )}
-                                {isPermission.superadministrador || isLoggedType === 'Chef' ? (
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
                                     isSelectedRow !== null && isSelectedRow.insumos.estado !== 'Finalizado' ? (
                                         <>
                                             <Tooltip title='Eliminar' placement="top">
@@ -1029,7 +1044,7 @@ export default function Search_Bar (){
                             <></>
                         )}
                         {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
-                            isLoggedType === 'Chef' || isPermission.superadministrador ? (
+                            isLoggedType === 'Chef' || isLoggedPermissions.superadministrador ? (
                                 isSelectedRow !== null ? (
                                     <></>
                                 ):(

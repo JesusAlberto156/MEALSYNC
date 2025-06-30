@@ -13,6 +13,16 @@ import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
 import { TableActionsPermissions } from "../../../hooks/users/Tables"
 import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../hooks/users/Texts"
+//__________IMAGENES__________
+import User from '../../imgs/User.png';
+import Super_Administrator from '../../imgs/Super-Administrator.jpg';
+import Administrator from '../../imgs/Administrator.jpg';
+import Chef from '../../imgs/Chef.avif';
+import Storekeeper from '../../imgs/Storekeeper.jpg';
+import Cook from '../../imgs/Cook.jpg';
+import Nutritionist from '../../imgs/Nutritionist.jpg';
+import Doctor from '../../imgs/Doctor.webp';
+//__________IMAGENES__________
 //__________ICONOS__________
 // Iconos utilizados en las tablas
 import { FaSortAlphaDown } from "react-icons/fa";
@@ -26,11 +36,11 @@ import { FaShieldAlt,FaUserTie } from "react-icons/fa";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
-import { Container_Table,Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
-import { Icon_Green_14,Icon_Red_14,Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Container_Item_Center,Table_Body_Tbody_White,Table_Body_Td,Table_Image_Black,Table_Container_Pagination,Table_Container_Data } from "../../styled/Tables"
+import { Thead,Th,Tbody,Td } from "../../styled/Tables";
+import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
+import { Icon_Green_14,Icon_Red_14,Icon_Button_White_16,Icon_20 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los permisos de usuarios
@@ -93,113 +103,113 @@ export default function Table_Permissions(){
     // Estructura del componente
     return(
         <>
-            <Container_Table ThemeMode={themeMode}>
+            <Table_Container_Auto>
                 <Table id="Table-Permissions">
-                    <Thead ThemeMode={themeMode}>
+                    <Table_Head_Thead_Blue>
                         <tr>
-                            <Th>
-                                <TContainer_Center>
-                                    <Icon_Button_Black_14 onClick={() => {
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
                                             ToggleOrder('Nombre')
                                             ToggleOrderDirection()
                                         }}
                                     >
                                         {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Usuario
-                                    </Icon_Button_Black_14>
-                                </TContainer_Center>
-                            </Th>
-                            <Th>
-                                <TContainer_Center>
-                                    <Icon_Button_Black_14 onClick={() => {
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
                                             ToggleOrder('Administrador')
                                             ToggleOrderDirection()
                                         }}
                                     >
                                         {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Administrador' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Administrador' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Administrador
-                                    </Icon_Button_Black_14>
-                                </TContainer_Center>
-                            </Th>
-                            <Th>
-                                <TContainer_Center>
-                                    <Icon_Button_Black_14 onClick={() => {
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
                                             ToggleOrder('Chef')
                                             ToggleOrderDirection()
                                         }}
                                     >
                                         {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Chef' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Chef' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Chef
-                                    </Icon_Button_Black_14>
-                                </TContainer_Center>
-                            </Th>
-                            <Th>
-                                <TContainer_Center>
-                                    <Icon_Button_Black_14 onClick={() => {
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
                                             ToggleOrder('Almacenista')
                                             ToggleOrderDirection()
                                         }}
                                     >
                                         {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Almacenista' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Almacenista' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Almacenista
-                                    </Icon_Button_Black_14>
-                                </TContainer_Center>
-                            </Th>
-                            <Th>
-                                <TContainer_Center>
-                                    <Icon_Button_Black_14 onClick={() => {
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
                                             ToggleOrder('Cocinero')
                                             ToggleOrderDirection()
                                         }}
                                     >
                                         {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cocinero' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cocinero' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Cocinero
-                                    </Icon_Button_Black_14>
-                                </TContainer_Center>
-                            </Th>
-                            <Th>
-                                <TContainer_Center>
-                                    <Icon_Button_Black_14 onClick={() => {
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
                                             ToggleOrder('Nutriologo')
                                             ToggleOrderDirection()
                                         }}
                                     >
                                         {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nutriologo' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nutriologo' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Nutriólogo
-                                    </Icon_Button_Black_14>
-                                </TContainer_Center>
-                            </Th>
-                            <Th>
-                                <TContainer_Center>
-                                    <Icon_Button_Black_14 onClick={() => {
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
                                             ToggleOrder('Medico')
                                             ToggleOrderDirection()
                                         }}
                                     >
                                         {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Medico' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Medico' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Médico
-                                    </Icon_Button_Black_14>
-                                </TContainer_Center>
-                            </Th>
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
                             {isPermission.superadministrador ? (
-                                <Th>
-                                    <TContainer_Center>
-                                        <Icon_Button_Black_14 onClick={() => {
+                                <Table_Head_Th>
+                                    <Table_Container_Item_Center>
+                                        <Icon_Button_White_16 onClick={() => {
                                                 ToggleOrder('Super-Administrador')
                                                 ToggleOrderDirection()
                                             }}
                                         >
                                             {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Super-Administrador' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Super-Administrador' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Super Administrador
-                                        </Icon_Button_Black_14>
-                                    </TContainer_Center>
-                                </Th>
+                                        </Icon_Button_White_16>
+                                    </Table_Container_Item_Center>
+                                </Table_Head_Th>
                             ):(
                                 <></>
                             )}
                         </tr>
-                    </Thead>
-                    <Tbody ThemeMode={themeMode}>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
                         {currentRecordsPermissions.map((permission) => (
                             <tr
                                 key={permission.idpermiso}
                                 onClick={() => handleRowClick(permission)}
                                 style={{
-                                    backgroundColor: isSelectedRow === permission ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
+                                    backgroundColor: isSelectedRow === permission ? 'rgba(88, 88, 84, 0.8)' : 'transparent',
                                     cursor: 'pointer',
-                                    transition: 'background-color 0.5s ease',
+                                    transition: 'background-color 1s ease',
                                 }}
                             >
                                 <Td ThemeMode={themeMode}>{isUsers.find(user => user.idusuario === permission.idusuario)?.nombre || 'Desconocido'}</Td>
@@ -216,32 +226,40 @@ export default function Table_Permissions(){
                                 )}
                             </tr>
                         ))}
-                    </Tbody>
+                    </Table_Body_Tbody_White>
                 </Table>
-            </Container_Table>
+            </Table_Container_Auto>
             {currentRecordsPermissions.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === 1}
+                                    onClick={() => prevPage}
+                                >
+                                    <Icon_20><GrPrevious/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesPermissions}</Text_A_16_Center>
+                        <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesPermissions}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesPermissions || totalPagesPermissions === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPagePermissions}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === totalPagesPermissions || totalPagesPermissions === 0}
+                                    onClick={() => nextPagePermissions}
+                                >
+                                    <Icon_20><GrNext/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                    </Container_Row_90_Center>  
+                    </Table_Container_Pagination>  
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
-                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
-                    </Container_Row_90_Center>
+                    <Table_Container_Data>
+                        <Text_Fade_Title_32_Black>¡No hay datos disponibles!</Text_Fade_Title_32_Black>
+                    </Table_Container_Data>
                 </>
             )}
         </>

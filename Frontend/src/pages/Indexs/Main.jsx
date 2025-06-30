@@ -29,7 +29,6 @@ export default function Index_Main(){
                     <Side_Bar/>
                     <Outlet/>
                 </Container_Page_Logged> 
-                <Footer/>
                 <Alert_Styles>
                     <Toaster
                         visibleToasts={5}

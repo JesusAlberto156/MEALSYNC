@@ -13,7 +13,7 @@ export const Image_Sidebar_Black = styled.img`
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid black;
+    border: 3px solid white;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -39,6 +39,7 @@ export const Image_Navbar = styled.img`
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: ${Fade_Animation} 2s infinite;
 
     @media (max-width: 768px) {
         width: 70px; 

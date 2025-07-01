@@ -8,7 +8,7 @@ import { Fade_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
 //____________SIDEBAR____________
-export const Image_Sidebar_Black = styled.img`
+export const Image_Sidebar_White = styled.img`
     width: 100px; 
     height: 100px;
     border-radius: 50%;
@@ -31,7 +31,7 @@ export const Image_Sidebar_Black = styled.img`
 `;
 //____________SIDEBAR____________
 //____________NAVBAR____________
-export const Image_Navbar = styled.img`
+export const Image_Navbar_Fade = styled.img`
     width: 80px; 
     height: 80px;
     object-fit: cover;

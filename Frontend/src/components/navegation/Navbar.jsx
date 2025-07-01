@@ -47,7 +47,7 @@ import { Container_Navbar_Row_General_White,Container_Navbar_Row_General,Contain
 import { Button_Icon_Gray_100,Button_Icon_Blue_80,Button_Icon_Red_80 } from '../styled/Buttons';
 import { Icon_16,Icon_24 } from "../styled/Icons";
 import { Text_Title_24_White } from '../styled/Text';
-import { Image_Navbar } from "../styled/Imgs";
+import { Image_Navbar_Fade } from "../styled/Imgs";
 //____________IMPORT/EXPORT____________
 
 // Componente para navegar entre las paginas en la parte superior 
@@ -68,7 +68,7 @@ export default function Nav_Bar(){
         <>
             <Container_Navbar_Row_General_White>
                 <Container_Navbar_Row_General>
-                    <Image_Navbar src={Logo_Hospital}/>  
+                    <Image_Navbar_Fade src={Logo_Hospital}/>  
                     <Container_Navbar_Row_Function_Blue>
                         {currentSView === 'Usuarios' ? (
                             <>

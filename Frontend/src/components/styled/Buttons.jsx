@@ -600,14 +600,15 @@ export const Button_Icon_Blue_Auto = styled.button`
     width: auto;
     height: auto;
     font-family: Century Gothic,Prompt;
+    font-size: 14px;
     color: white;
     padding: 6px;
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 30px;
-    border: 1px solid black;
-    border-right: 4px solid black;
-    border-bottom: 4px solid black;
+    border: 1px solid white;
+    border-right: 4px solid white;
+    border-bottom: 4px solid white;
     background-color: rgb(58,93,174);
     text-align: center;
     box-sizing: border-box;
@@ -626,14 +627,16 @@ export const Button_Icon_Blue_Auto = styled.button`
     }
 
     @media (max-width: 768px) {
+        font-size: 12px;
         padding: 4px;
         padding-left: 15px;
         padding-right: 15px;
     }
 
     @media (max-width: 480px) { 
-        border-right: 3px solid black;
-        border-bottom: 3px solid black;  
+        font-size: 10px;
+        border-right: 3px solid white;
+        border-bottom: 3px solid white;  
         padding: 2px;
         padding-left: 10px;
         padding-right: 10px;
@@ -805,9 +808,9 @@ export const Button_Icon_Green_200 = styled.button`
     padding: 8px;
     padding-left: 20px;
     border-radius: 30px;
-    border: 1px solid black;
-    border-right: 4px solid black;
-    border-bottom: 4px solid black;
+    border: 1px solid white;
+    border-right: 4px solid white;
+    border-bottom: 4px solid white;
     background-color: rgb(20, 165, 76);
     display: flex;
     align-items: center;
@@ -834,8 +837,8 @@ export const Button_Icon_Green_200 = styled.button`
     }
 
     @media (max-width: 480px) {
-        border-right: 3px solid black;
-        border-bottom: 3px solid black;  
+        border-right: 3px solid white;
+        border-bottom: 3px solid white;  
         width: 140px;    
         padding: 4px;
         font-size: 10px;
@@ -1231,6 +1234,52 @@ export const Button_Icon_Green_60 = styled.button`
         padding: 2px;
     }
 `;
+export const Button_Icon_Green_Auto = styled.button`
+    width: auto;
+    height: auto;
+    font-family: Century Gothic,Prompt;
+    font-size: 14px;
+    color: white;
+    padding: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+    border: 1px solid white;
+    border-right: 4px solid white;
+    border-bottom: 4px solid white;
+    background-color: rgb(20, 165, 76);
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:not(:disabled):hover {
+        background-color: rgb(13, 112, 51);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        background: rgb(60, 188, 109);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+        padding: 4px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    @media (max-width: 480px) { 
+        font-size: 10px;
+        border-right: 3px solid white;
+        border-bottom: 3px solid white;  
+        padding: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+`;
 // Color Rojo
 export const Button_Icon_Red_240 = styled.button`
     width: 240px;
@@ -1397,9 +1446,9 @@ export const Button_Icon_Red_200 = styled.button`
     padding: 8px;
     padding-left: 20px;
     border-radius: 30px;
-    border: 1px solid black;
-    border-right: 4px solid black;
-    border-bottom: 4px solid black;
+    border: 1px solid white;
+    border-right: 4px solid white;
+    border-bottom: 4px solid white;
     background-color: rgb(155, 9, 9);
     display: flex;
     align-items: center;
@@ -1426,8 +1475,8 @@ export const Button_Icon_Red_200 = styled.button`
     }
 
     @media (max-width: 480px) {
-        border-right: 3px solid black;
-        border-bottom: 3px solid black;  
+        border-right: 3px solid white;
+        border-bottom: 3px solid white;  
         width: 140px;    
         padding: 4px;
         font-size: 10px;
@@ -1821,6 +1870,52 @@ export const Button_Icon_Red_60 = styled.button`
         border-bottom: 3px solid black;  
         width: 40px;    
         padding: 2px;
+    }
+`;
+export const Button_Icon_Red_Auto = styled.button`
+    width: auto;
+    height: auto;
+    font-family: Century Gothic,Prompt;
+    font-size: 14px;
+    color: white;
+    padding: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+    border: 1px solid white;
+    border-right: 4px solid white;
+    border-bottom: 4px solid white;
+    background-color: rgb(155, 9, 9);
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    &:not(:disabled):hover {
+        background-color: rgb(100, 15, 15);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        background: rgb(208, 31, 31);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+        padding: 4px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    @media (max-width: 480px) { 
+        font-size: 10px;
+        border-right: 3px solid white;
+        border-bottom: 3px solid white;  
+        padding: 2px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 `;
 // Color Gris

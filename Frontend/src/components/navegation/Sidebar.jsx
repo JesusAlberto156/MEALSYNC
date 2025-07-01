@@ -36,7 +36,7 @@ import Doctor from '../imgs/Doctor.webp';
 // Estilos personalizados
 import { Container_Sidebar_Column_Black } from "../styled/Containers";
 import { Icon_20 } from "../styled/Icons";
-import { Image_Sidebar_Black } from '../styled/Imgs';
+import { Image_Sidebar_White } from '../styled/Imgs';
 import { Text_Fade_Title_20_White } from "../styled/Text";
 import { Button_Icon_Blue_200 } from '../styled/Buttons';
 //____________IMPORT/EXPORT____________
@@ -82,7 +82,7 @@ export default function Side_Bar() {
   return (
     <>
       <Container_Sidebar_Column_Black className={isSidebar ? 'slide-in-container-left' : 'slide-out-container-left'}>
-        <Image_Sidebar_Black src={profileImage}/>
+        <Image_Sidebar_White src={profileImage}/>
         <Text_Fade_Title_20_White>{isLoggedUser.nombre || 'Desconocido...'}</Text_Fade_Title_20_White>
         <Tooltip title='Inicio' placement="right">
           <Button_Icon_Blue_200 onClick={() => {

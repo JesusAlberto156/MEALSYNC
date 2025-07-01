@@ -39,10 +39,11 @@ import { BiSolidMessageAdd } from "react-icons/bi";
 import { BiSolidMessageDetail } from "react-icons/bi";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Searchbar_Row_General_Blue,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function } from "../styled/Containers";
+import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function } from "../styled/Containers";
 import { Button_Icon_Blue_Auto,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Icon_White_20,Icon_White_16,Icon_Button_White_20,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
-import { Input_Search_Table_Black,Input_Radio_16 } from "../styled/Inputs";
+import { Input_Search_Table_White,Input_Radio_16 } from "../styled/Inputs";
+import { Text_Span_12_Center_White } from "../styled/Text";
 import { Label_Text_16_Center } from "../styled/Labels";
 // Componentes personalizados
 
@@ -114,14 +115,14 @@ export default function Search_Bar (){
     // Estructura del componente
     return(
         <>
-            <Container_Searchbar_Row_General_Blue>
+            <Container_Searchbar_Row_General_Black>
                 <Container_Searchbar_Row_General>
                     {currentSView === 'Inventario' && currentNView === 'Compras' || currentNView === 'Ventas' ? (
                         <></>
                     ):(
                         <>
                             <Icon_White_20><IoSearch/></Icon_White_20>
-                            <Input_Search_Table_Black
+                            <Input_Search_Table_White
                                 type="text"
                                 placeholder="Buscar..."
                                 value={isSearchTerm}
@@ -392,7 +393,7 @@ export default function Search_Bar (){
                         isSelectedOptionSearch === 'Nombre' ? (
                             <>
                                 <Icon_White_20><IoSearch/></Icon_White_20>
-                                <Input_Search_Table_Black
+                                <Input_Search_Table_White
                                     type="text"
                                     placeholder="Buscar..."
                                     value={isSearchTerm}
@@ -1068,7 +1069,7 @@ export default function Search_Bar (){
                         )}
                     </Container_Searchbar_Row_Function>
                 </Container_Searchbar_Row_General>
-            </Container_Searchbar_Row_General_Blue>
+            </Container_Searchbar_Row_General_Black>
         </>
     );
 }

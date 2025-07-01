@@ -20,7 +20,8 @@ export const Container_Page = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    max-height: none;
 `;
 export const Container_Page_Login = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -73,8 +74,8 @@ export const Container_Page_Logged = styled.div.withConfig({
     }
     background-Size: cover;
     background-Position: center;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -85,18 +86,17 @@ export const Container_Page_Elements = styled.div.withConfig({
 })`
     margin-left: ${({ sidebarVisible }) => (sidebarVisible ? "19%" : "0%")};
     width: 100%;
-    height: 100%;
     max-width: ${({ sidebarVisible }) => (sidebarVisible ? "81vw" : "100vw")}; 
-    max-height: 100%;
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
     gap: 15px;
-    background-color: transparent;
     display: flex;
     flex-direction: column;
     align-Items: center;
     justify-content: flex-start;
     box-sizing: border-box;
     transition: all ${({ sidebarVisible }) => (sidebarVisible ? "0.3s" : "1.0s")} ease;
-    overflow-y: auto;
 
     &::-webkit-scrollbar {
         width: 8px;          
@@ -1702,7 +1702,7 @@ export const Container_Keyboard_Numeric = styled.div`
 //____________KEYBOARD____________
 //____________SIDEBAR____________
 export const Container_Sidebar_Column_Black = styled.div`
-    width: 250px;
+    width: 19vw;
     height: 100vh;
     padding: 10px;
     padding-top: 40px;
@@ -1721,14 +1721,14 @@ export const Container_Sidebar_Column_Black = styled.div`
     z-index: 100;
 
     @media (max-width: 768px) {
-        width: 215px;
+        width: 28vw;
         padding: 8px;
         padding-top: 35px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 180px;
+        width: 38vw;
         padding: 6px;
         padding-top: 30px;
         gap: 5px;
@@ -1815,7 +1815,7 @@ export const Container_Navbar_Row_Function_Blue = styled.div`
     gap: 10px;
     background: rgb(58,93,174);
     border-radius: 50px;
-    border: 3px solid black; 
+    border: 4px solid black; 
     display: flex;            
     justify-content: flex-start;
     align-items: center;
@@ -1826,7 +1826,7 @@ export const Container_Navbar_Row_Function_Blue = styled.div`
     
     @media (max-width: 768px) {
         border-radius: 30px;
-        border: 2px solid black;
+        border: 3px solid black;
         padding-top: 8px; 
         padding-bottom: 8px;
         padding-right: 15px;
@@ -1836,7 +1836,7 @@ export const Container_Navbar_Row_Function_Blue = styled.div`
 
     @media (max-width: 480px) {
         border-radius: 20px;
-        border: 1px solid black;
+        border: 2px solid black;
         padding-top: 6px; 
         padding-bottom: 6px;
         padding-right: 10px;
@@ -1888,7 +1888,7 @@ export const Container_Navbar_Text = styled.div`
 `;
 //____________NAVBAR____________
 //____________SEARCHBAR____________
-export const Container_Searchbar_Row_General_Blue = styled.div`
+export const Container_Searchbar_Row_General_Black = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;     
@@ -1959,7 +1959,7 @@ export const Container_Searchbar_Row_Search_Blue = styled.div`
     gap: 16px;
     background: rgb(58,93,174);
     border-radius: 50px;
-    border: 3px solid black; 
+    border: 4px solid black; 
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -1970,7 +1970,7 @@ export const Container_Searchbar_Row_Search_Blue = styled.div`
 
     @media (max-width: 768px) {
         border-radius: 30px;
-        border: 2px solid black;
+        border: 3px solid black;
         margin-bottom: 4px; 
         padding: 6px; 
         padding-left: 15px;
@@ -1980,7 +1980,7 @@ export const Container_Searchbar_Row_Search_Blue = styled.div`
 
     @media (max-width: 480px) {
         border-radius: 20px;
-        border: 1px solid black; 
+        border: 3px solid black; 
         margin-bottom: 2px; 
         padding: 4px; 
         padding-left: 10px;

@@ -131,7 +131,7 @@ export const Input_Text_White_50 = styled.input`
 //-------- White
 //____________TEXT____________
 //____________SEARCH____________
-export const Input_Search_Table_Black = styled.input`
+export const Input_Search_Table_White = styled.input`
     width: 300px;
     height: auto;
     font-family: 'Century Gothic', Prompt, sans-serif;

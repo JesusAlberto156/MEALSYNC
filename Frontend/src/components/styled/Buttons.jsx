@@ -600,7 +600,7 @@ export const Button_Icon_Blue_Auto = styled.button`
     width: auto;
     height: auto;
     font-family: Century Gothic,Prompt;
-    font-size: 14px;
+    font-size: 16px;
     color: white;
     padding: 6px;
     padding-left: 20px;
@@ -627,14 +627,14 @@ export const Button_Icon_Blue_Auto = styled.button`
     }
 
     @media (max-width: 768px) {
-        font-size: 12px;
+        font-size: 14px;
         padding: 4px;
         padding-left: 15px;
         padding-right: 15px;
     }
 
     @media (max-width: 480px) { 
-        font-size: 10px;
+        font-size: 12px;
         border-right: 3px solid white;
         border-bottom: 3px solid white;  
         padding: 2px;
@@ -1238,7 +1238,7 @@ export const Button_Icon_Green_Auto = styled.button`
     width: auto;
     height: auto;
     font-family: Century Gothic,Prompt;
-    font-size: 14px;
+    font-size: 16px;
     color: white;
     padding: 6px;
     padding-left: 20px;
@@ -1265,14 +1265,14 @@ export const Button_Icon_Green_Auto = styled.button`
     }
 
     @media (max-width: 768px) {
-        font-size: 12px;
+        font-size: 14px;
         padding: 4px;
         padding-left: 15px;
         padding-right: 15px;
     }
 
     @media (max-width: 480px) { 
-        font-size: 10px;
+        font-size: 12px;
         border-right: 3px solid white;
         border-bottom: 3px solid white;  
         padding: 2px;
@@ -1876,7 +1876,7 @@ export const Button_Icon_Red_Auto = styled.button`
     width: auto;
     height: auto;
     font-family: Century Gothic,Prompt;
-    font-size: 14px;
+    font-size: 16px;
     color: white;
     padding: 6px;
     padding-left: 20px;
@@ -1903,14 +1903,14 @@ export const Button_Icon_Red_Auto = styled.button`
     }
 
     @media (max-width: 768px) {
-        font-size: 12px;
+        font-size: 14px;
         padding: 4px;
         padding-left: 15px;
         padding-right: 15px;
     }
 
     @media (max-width: 480px) { 
-        font-size: 10px;
+        font-size: 12px;
         border-right: 3px solid white;
         border-bottom: 3px solid white;  
         padding: 2px;

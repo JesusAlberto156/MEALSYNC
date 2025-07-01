@@ -14,7 +14,7 @@ import { RefPermissionsContext } from "../../../contexts/RefsProvider"
 import { TableActionsPermissions } from "../../../hooks/users/Tables"
 import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../hooks/users/Texts"
 //__________IMAGENES__________
-import User from '../../imgs/User.png';
+import User from '../../imgs/User-Disable.png';
 import Super_Administrator from '../../imgs/Super-Administrator.jpg';
 import Administrator from '../../imgs/Administrator.jpg';
 import Chef from '../../imgs/Chef.avif';
@@ -30,17 +30,14 @@ import { FaSortAlphaDownAlt } from "react-icons/fa";
 import { FaLongArrowAltUp } from "react-icons/fa";
 import { FaLongArrowAltDown } from "react-icons/fa";
 import { CgArrowsV } from "react-icons/cg";
-// Iconos de la sección de Administración del login
-import { FaShieldAlt,FaUserTie } from "react-icons/fa";
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
 import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Container_Item_Center,Table_Body_Tbody_White,Table_Body_Td,Table_Image_Black,Table_Container_Pagination,Table_Container_Data } from "../../styled/Tables"
-import { Thead,Th,Tbody,Td } from "../../styled/Tables";
 import { Button_Icon_Blue_220 } from "../../styled/Buttons";
 import { Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
-import { Icon_Green_14,Icon_Red_14,Icon_Button_White_16,Icon_20 } from "../../styled/Icons";
+import { Icon_Button_White_16,Icon_20 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los permisos de usuarios
@@ -212,15 +209,15 @@ export default function Table_Permissions(){
                                     transition: 'background-color 1s ease',
                                 }}
                             >
-                                <Td ThemeMode={themeMode}>{isUsers.find(user => user.idusuario === permission.idusuario)?.nombre || 'Desconocido'}</Td>
-                                <Td ThemeMode={themeMode}>{permission.administrador ? <Icon_Green_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_14>:<Icon_Red_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_14>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.chef ? <Icon_Green_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_14>:<Icon_Red_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_14>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.almacenista ? <Icon_Green_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_14>:<Icon_Red_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_14>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.cocinero ? <Icon_Green_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_14>:<Icon_Red_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_14>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.nutriologo ? <Icon_Green_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_14>:<Icon_Red_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_14>}</Td>
-                                <Td ThemeMode={themeMode}>{permission.medico ? <Icon_Green_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Green_14>:<Icon_Red_14 ThemeMode={themeMode} className="pulsate-icon"><FaShieldAlt/></Icon_Red_14>}</Td>
+                                <Table_Body_Td style={{color: isSelectedRow === permission ? 'white' : 'black'}}>{isUsers.find(user => user.idusuario === permission.idusuario)?.nombre || 'Desconocido'}</Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={permission.administrador ? Administrator : User} style={{border: isSelectedRow === permission ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={permission.chef ? Chef : User} style={{border: isSelectedRow === permission ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={permission.alamcenista ? Storekeeper : User} style={{border: isSelectedRow === permission ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={permission.cocinero ? Cook : User} style={{border: isSelectedRow === permission ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={permission.nutriologo ? Nutritionist : User} style={{border: isSelectedRow === permission ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={permission.medico ? Doctor : User} style={{border: isSelectedRow === permission ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
                                 {isPermission.superadministrador ? (
-                                    <Td ThemeMode={themeMode}>{permission.superadministrador ? <Icon_Green_14 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Green_14>:<Icon_Red_14 ThemeMode={themeMode} className="pulsate-icon"><FaUserTie/></Icon_Red_14>}</Td>
+                                    <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={permission.superadministrador ? Super_Administrator : User} style={{border: isSelectedRow === permission ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
                                 ):(
                                     <></>
                                 )}

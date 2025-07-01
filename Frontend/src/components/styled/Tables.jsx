@@ -10,9 +10,9 @@ export const Table_Container_Auto = styled.div`
     justify-content: flex-start;
     box-sizing: border-box;        
     background: transparent;
-    width: 95vw;
+    width: 95%;
     height: auto;
-    max-width: 95vw; 
+    max-width: 95%; 
     padding: 6px;
     overflow-x: auto;
 
@@ -131,7 +131,7 @@ export const Table_Image_Black = styled.img`
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid black;
+    border: 2px solid black;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -210,7 +210,7 @@ export const Table_Head_Th = styled.th`
 //__________HEAND____________
 //__________BODY____________
 export const Table_Body_Tbody_White = styled.tbody`
-    background-color: rgb(255, 255, 255);  
+    background-color: rgba(255, 255, 255, 0.9);  
 
     tr {
         transition: transform 0.3s ease, box-shadow 0.3s ease;

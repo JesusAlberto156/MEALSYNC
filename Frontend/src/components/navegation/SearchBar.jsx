@@ -30,6 +30,7 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { IoIosEyeOff } from "react-icons/io";
+import { FaUnlock } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
@@ -612,46 +613,67 @@ export default function Search_Bar (){
                         )}
                         {currentSView === 'Usuarios' && currentNView === 'Estatus' ? (
                             <>
-                                {isSelectedRow !== null ? (
+                                <Tooltip title='Agregar' placement="top">
+                                    <span>
+                                        <Button_Icon_Green_60 
+                                            disabled={isSelectedRow !== null}
+                                            onClick={() => {
+                                                handleModalViewUsers('Estatus-Agregar');
+                                                navigate('/Administration/Index/Users/Status/Add',{ replace: true });
+                                            }}
+                                        >
+                                            <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                        </Button_Icon_Green_60>
+                                    </span>
+                                </Tooltip> 
+                                {isSelectedRow === null ? (
+                                    <>
+                                        <Tooltip title='Deshabilitar/Habilitar' placement="top">
+                                            <span>
+                                                <Button_Icon_Orange_60 
+                                                    disabled={isSelectedRow === null}
+                                                >
+                                                    <Icon_White_16><FaUnlock/></Icon_White_16>
+                                                </Button_Icon_Orange_60>
+                                            </span>
+                                        </Tooltip> 
+                                    </>
+                                ):(
                                     isSelectedRow.habilitado ? (
                                         <>
                                             <Tooltip title='Deshabilitar' placement="top">
-                                                <Button_Icon_Red_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
-                                                disabled={isSelectedRow === null}
-                                                onClick={() => {
-                                                    handleModalViewUsers('Estatus-Habilitar');
-                                                    navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
-                                                }}>
-                                                    <Icon_White_18><FaLock/></Icon_White_18>
-                                                </Button_Icon_Red_60>
-                                            </Tooltip>
+                                                <span>
+                                                    <Button_Icon_Red_60 
+                                                        ref={Button_Enable_Status}
+                                                        disabled={isSelectedRow === null}
+                                                        onClick={() => {
+                                                            handleModalViewUsers('Estatus-Habilitar');
+                                                            navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_White_16><FaLock/></Icon_White_16>
+                                                    </Button_Icon_Red_60>
+                                                </span>
+                                            </Tooltip> 
                                         </>
                                     ):(
                                         <>
                                             <Tooltip title='Habilitar' placement="top">
-                                                <Button_Icon_Green_60 ref={Button_Enable_Status} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-out':'fade-button-in'}
-                                                disabled={isSelectedRow === null}
-                                                onClick={() => {
-                                                    handleModalViewUsers('Estatus-Habilitar');
-                                                    navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
-                                                }}>
-                                                    <Icon_White_18><FaLockOpen/></Icon_White_18>
-                                                </Button_Icon_Green_60>
-                                            </Tooltip>
-                                        </>
+                                                <span>
+                                                    <Button_Icon_Green_60 
+                                                        ref={Button_Enable_Status}
+                                                        disabled={isSelectedRow === null}
+                                                        onClick={() => {
+                                                            handleModalViewUsers('Estatus-Habilitar');
+                                                            navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_White_16><FaLockOpen/></Icon_White_16>
+                                                    </Button_Icon_Green_60>
+                                                </span>
+                                            </Tooltip> 
+                                        </>                              
                                     )
-                                ):(
-                                    <>
-                                        <Tooltip title='Agregar' placement="top">
-                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                            onClick={() => {
-                                                handleModalViewUsers('Estatus-Agregar');
-                                                navigate('/Administration/Index/Users/Status/Add',{ replace: true });
-                                            }}>
-                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
-                                            </Button_Icon_Green_60>
-                                        </Tooltip>
-                                    </>
                                 )}
                             </>   
                         ):(

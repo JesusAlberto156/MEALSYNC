@@ -12,23 +12,25 @@ import { TextFieldsStatusContext } from "../../../contexts/FormsProvider"
 // Hooks personalizados
 import { TableActionsStatus } from "../../../hooks/users/Tables"
 import { ResetTextFieldsStatus,ResetTextFieldsUser,ResetTextFieldsPermissions } from "../../../hooks/users/Texts"
+//__________IMAGENES__________
+import User_Enable from '../../imgs/User-Enable.png';
+import User_Disable from '../../imgs/User-Disable.png';
+//__________IMAGENES__________
 //__________ICONOS__________
 // Iconos utilizados en las tablas
-import { FaLockOpen } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
 import { FaSortAlphaDown } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
 import { FaLongArrowAltUp } from "react-icons/fa";
 import { FaLongArrowAltDown } from "react-icons/fa";
+import { CgArrowsV } from "react-icons/cg"
 // Iconos de la paginación
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center,Text_Background_Red_12_Center,Text_Background_Green_12_Center } from "../../styled/Text";
-import { Icon_Green_18,Icon_Red_18,Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Container_Item_Center,Table_Container_Pagination,Table_Container_Data,Table_Image_Black, Table_Body_Tbody_White, Table_Body_Td } from "../../styled/Tables"
+import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Text_Background_Green_12,Text_Background_Red_12,Text_Fade_Title_32_Black,Text_Span_16_Center_Black } from "../../styled/Text";
+import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los estatus de usuarios
@@ -87,73 +89,83 @@ export default function Table_Status(){
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Status">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Nombre')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : <FaSortAlphaDownAlt/>} Usuario (nombre completo)
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Habilitado')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Habilitado' ? <FaLongArrowAltUp/> : <FaLongArrowAltDown/>} Habilitado
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                    </tr>
-                </Thead>
-                <Tbody ThemeMode={themeMode}>
-                    {currentRecordsStatus.map((status) => (
-                        <tr
-                            key={status.idestatus}
-                            onClick={() => handleRowClick(status)}
-                            style={{
-                                backgroundColor: isSelectedRow === status ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.5s ease',
-                            }}
-                        >
-                            <Td ThemeMode={themeMode}><TContainer_Center>{status.activo ? <Text_Background_Green_12_Center ThemeMode={themeMode}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Green_12_Center>:<Text_Background_Red_12_Center ThemeMode={themeMode}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Red_12_Center>}</TContainer_Center></Td>
-                            <Td ThemeMode={themeMode}>{status.habilitado ? <Icon_Green_18 ThemeMode={themeMode} className="pulsate-icon"><FaLockOpen/></Icon_Green_18> : <Icon_Red_18 ThemeMode={themeMode} className="pulsate-icon"><FaLock/></Icon_Red_18>}</Td>
+            <Table_Container_Auto>
+                <Table id="Table-Status">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
+                                            ToggleOrder('Nombre')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Usuario (nombre completo)
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 onClick={() => {
+                                            ToggleOrder('Habilitado')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Habilitado' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Habilitado' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Habilitado
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
                         </tr>
-                    ))}
-                </Tbody>
-            </Table>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        {currentRecordsStatus.map((status) => (
+                            <tr
+                                key={status.idestatus}
+                                onClick={() => handleRowClick(status)}
+                                style={{
+                                    backgroundColor: isSelectedRow === status ? 'rgba(88, 88, 84, 0.8)' : 'transparent',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 1s ease',
+                                }}
+                            >
+                                <Table_Body_Td><Table_Container_Item_Center>{status.activo ? <Text_Background_Green_12 style={{border: isSelectedRow === status ? '3px solid white' : '3px solid rgb(13, 112, 51)'}}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Green_12>:<Text_Background_Red_12  style={{border: isSelectedRow === status ? '3px solid white' : '3px solid rgb(100, 15, 15)'}}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Red_12>}</Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={status.habilitado ? User_Enable : User_Disable} style={{border: isSelectedRow === status ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                            </tr>
+                        ))}
+                    </Table_Body_Tbody_White>
+                </Table>
+            </Table_Container_Auto>
             {currentRecordsStatus.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === 1}
+                                    onClick={() => prevPage}
+                                >
+                                    <Icon_20><GrPrevious/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesStatus}</Text_A_16_Center>
+                        <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesStatus}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesStatus || totalPagesStatus === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageStatus}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === totalPagesStatus || totalPagesStatus === 0}
+                                    onClick={() => nextPageStatus}
+                                >
+                                    <Icon_20><GrNext/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                    </Container_Row_90_Center>
+                    </Table_Container_Pagination>
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
-                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
-                    </Container_Row_90_Center>
+                    <Table_Container_Data>
+                        <Text_Fade_Title_32_Black>¡No hay datos disponibles!</Text_Fade_Title_32_Black>
+                    </Table_Container_Data>
                 </>
             )}
         </>

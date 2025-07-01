@@ -87,8 +87,7 @@ export const Container_Page_Elements = styled.div.withConfig({
     margin-left: ${({ sidebarVisible }) => (sidebarVisible ? "19%" : "0%")};
     width: 100%;
     max-width: ${({ sidebarVisible }) => (sidebarVisible ? "81vw" : "100vw")}; 
-    height: auto;
-    max-height: none;
+    min-height: 100vh;
     overflow-y: auto;
     gap: 15px;
     display: flex;

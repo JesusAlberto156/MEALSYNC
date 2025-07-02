@@ -17,6 +17,9 @@ import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
 import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/users/Texts";
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
 import { HandleUserAdd } from "../../../../hooks/users/Forms";
+//__________IMAGENES__________
+import Hospital from '../../../imgs/Logo-Hospital.png'
+//__________IMAGENES__________
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -24,12 +27,13 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_A_16_Center,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
+import { Container_Modal_Background_Black,Container_Modal_Form_White_50,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Center,Container_Row_Left,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center, Container_Row_Right } from "../../../styled/Containers";
+import { Text_Title_28_Black,Text_A_16_Left,Text_A_16_Center,Text_Span_16_Left_Black,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Radio_16 } from "../../../styled/Inputs";
 import { Label_Text_16_Center } from "../../../styled/Labels";
+import { Image_Modal_Fixed } from "../../../styled/Imgs";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
 import Virtual_Keyboard from "../../../forms/Keyboard";
@@ -319,232 +323,234 @@ export default function User_Add(){
         <>
             {isModal ? (
                 <>
-                    <Container_Modal>
-                        <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Usuario-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                            <Container_Row_100_Center>
-                                <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR USUARIO</Text_Title_30_Center>
-                            </Container_Row_100_Center>
-                            <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
-                                        id="Input-Name"
-                                        placeholder="..."
-                                        type="text"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsUser.nombre}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Name');
-                                            }
-                                        }}
-                                    />
-                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
-                                        onClick={() => {
-                                            setIsTextFieldsUser(prev => ({...prev, nombre: ''}))
-                                        }}
-                                        disabled={isActionBlock}
-                                    >
-                                        <MdCancel/>
-                                    </Icon_Button_Blue_18>
-                                </Container_Row_100_Center>
-                                <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Nombre corto:</Text_A_16_Left>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
-                                        id="Input-ShortName"
-                                        placeholder="..."
-                                        type="text"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsUser.nombrecorto}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('ShortName');
-                                            }
-                                        }}
-                                    />
-                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
-                                        onClick={() => {
-                                            setIsTextFieldsUser(prev => ({...prev, nombrecorto: ''}))
-                                        }}
-                                        disabled={isActionBlock}
-                                    >
-                                        <MdCancel/>
-                                    </Icon_Button_Blue_18>
-                                </Container_Row_100_Center>
-                                <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
-                                        id="Input-User"
-                                        placeholder="..."
-                                        type="text"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsUser.usuario}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('User');
-                                            }
-                                        }}
-                                    />
-                                </Container_Row_100_Center>
-                                <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
-                                        id="Input-Password"
-                                        placeholder="..."
-                                        type="password"
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsUser.contrasena}
-                                        onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Password');
-                                            }
-                                        }}
-                                    />
-                                </Container_Row_100_Center>
-                                {isUserTypes.length !== 0 ? (
-                                    <>
-                                        <Select
-                                            options={isUserTypes.map((userTypes) => ({
-                                                value: userTypes.idtipo,
-                                                label: userTypes.tipo
-                                            }))}
-                                            styles={{
-                                                control: (provided) => ({
-                                                    ...provided,
-                                                    width: '300px',
-                                                    padding: '6px',
-                                                    border: '2px solid black',
-                                                    cursor: 'pointer',
-                                                    borderRadius: '20px',
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    fontSize: '18px',
-                                                    '@media (max-width: 768px)':{
-                                                        width: '250px',
-                                                        padding: '4px',
-                                                        fontSize: '16px',
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        width: '200px',
-                                                        padding: '2px',
-                                                        fontSize: '14px',
-                                                    },
-                                                }),
-                                                menu: (provided) => ({
-                                                    ...provided,
-                                                    overflow: 'hidden',
-                                                    borderRadius:'15px',
-                                                }),
-                                                menuList: (provided) => ({
-                                                    ...provided,
-                                                    maxHeight:175,
-                                                    fontFamily: 'Century Gothic',
-                                                    fontStyle: 'normal',
-                                                    overflowY:'auto',
-                                                    scrollbarWidth: 'none',
-                                                    '&::-webkit-scrollbar': {
-                                                        display:'none',
-                                                    },
-                                                    '@media (max-width: 768px)':{
-                                                        maxHeight:150,
-                                                    },
-                                                    '@media (max-width: 480px)':{
-                                                        maxHeight:125,
-                                                    },
-                                                })
+                    <Container_Modal_Background_Black>
+                        <Container_Modal_Image/>
+                        <Image_Modal_Fixed src={Hospital}/>
+                        <Container_Modal_Form_White_50 className={currentMView === 'Usuario-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                            <Container_Modal_Form>
+                                <Text_Title_28_Black>AGREGAR USUARIO</Text_Title_28_Black>
+                                <Container_Modal_Form_White className='shadow-out-container-light-infinite'>
+                                    <Container_Row_NG_Center>
+                                        <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                        <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                                    </Container_Row_NG_Center>
+                                    <Container_Row_Left>
+                                        <Text_Span_16_Left_Black>Nombre:</Text_Span_16_Left_Black>
+                                        <Input_Text_Black_100 ThemeMode={themeMode}
+                                            id="Input-Name"
+                                            placeholder="..."
+                                            type="text"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsUser.nombre}
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isTouchRef.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Name');
+                                                }
                                             }}
-                                            placeholder='Seleccione uno...'
-                                            value={isUserTypes
-                                                .map(user => ({ value: user.idtipo, label: user.tipo }))
-                                                .find(option => option.value === isTextFieldsUser.idtipo)
-                                            }
-                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, idtipo: e.value}))}
-                                            isDisabled={isActionBlock}
-                                        />  
-                                    </>
-                                ):(
-                                    <>
-                                        <Container_Row_95_Center>
-                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
-                                        </Container_Row_95_Center>
-                                    </>
-                                )}
-                            </Container_Column_90_Center>
-                            <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Center>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                        />
+                                        <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                            onClick={() => {
+                                                setIsTextFieldsUser(prev => ({...prev, nombre: ''}))
+                                            }}
+                                            disabled={isActionBlock}
+                                        >
+                                            <MdCancel/>
+                                        </Icon_Button_Blue_18>
+                                    </Container_Row_Left>
+                                    <Container_Row_Left>
+                                        <Text_Span_16_Left_Black>Nombre corto:</Text_Span_16_Left_Black>
+                                        <Input_Text_Black_100 ThemeMode={themeMode}
+                                            id="Input-ShortName"
+                                            placeholder="..."
+                                            type="text"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsUser.nombrecorto}
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isTouchRef.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('ShortName');
+                                                }
+                                            }}
+                                        />
+                                        <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                            onClick={() => {
+                                                setIsTextFieldsUser(prev => ({...prev, nombrecorto: ''}))
+                                            }}
+                                            disabled={isActionBlock}
+                                        >
+                                            <MdCancel/>
+                                        </Icon_Button_Blue_18>
+                                    </Container_Row_Left>
+                                    <Container_Row_Left>
+                                        <Text_Span_16_Left_Black>Usuario:</Text_Span_16_Left_Black>
+                                        <Input_Text_Black_100 ThemeMode={themeMode}
+                                            id="Input-User"
+                                            placeholder="..."
+                                            type="text"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsUser.usuario}
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isTouchRef.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('User');
+                                                }
+                                            }}
+                                        />
+                                    </Container_Row_Left>
+                                    <Container_Row_Left>
+                                        <Text_Span_16_Left_Black>Contraseña:</Text_Span_16_Left_Black>
+                                        <Input_Text_Black_100 ThemeMode={themeMode}
+                                            id="Input-Password"
+                                            placeholder="..."
+                                            type="password"
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsUser.contrasena}
+                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isTouchRef.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Password');
+                                                }
+                                            }}
+                                        />
+                                    </Container_Row_Left>
+                                    {isUserTypes.length !== 0 ? (
+                                        <>
+                                            <Select
+                                                options={isUserTypes.map((userTypes) => ({
+                                                    value: userTypes.idtipo,
+                                                    label: userTypes.tipo
+                                                }))}
+                                                styles={{
+                                                    control: (provided) => ({
+                                                        ...provided,
+                                                        width: '300px',
+                                                        padding: '6px',
+                                                        border: '2px solid black',
+                                                        cursor: 'pointer',
+                                                        borderRadius: '20px',
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        fontSize: '18px',
+                                                        '@media (max-width: 768px)':{
+                                                            width: '250px',
+                                                            padding: '4px',
+                                                            fontSize: '16px',
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            width: '200px',
+                                                            padding: '2px',
+                                                            fontSize: '14px',
+                                                        },
+                                                    }),
+                                                    menu: (provided) => ({
+                                                        ...provided,
+                                                        overflow: 'hidden',
+                                                        borderRadius:'15px',
+                                                    }),
+                                                    menuList: (provided) => ({
+                                                        ...provided,
+                                                        maxHeight:175,
+                                                        fontFamily: 'Century Gothic',
+                                                        fontStyle: 'normal',
+                                                        overflowY:'auto',
+                                                        scrollbarWidth: 'none',
+                                                        '&::-webkit-scrollbar': {
+                                                            display:'none',
+                                                        },
+                                                        '@media (max-width: 768px)':{
+                                                            maxHeight:150,
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            maxHeight:125,
+                                                        },
+                                                    })
+                                                }}
+                                                placeholder='Seleccione uno...'
+                                                value={isUserTypes
+                                                    .map(user => ({ value: user.idtipo, label: user.tipo }))
+                                                    .find(option => option.value === isTextFieldsUser.idtipo)
+                                                }
+                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, idtipo: e.value}))}
+                                                isDisabled={isActionBlock}
+                                            />  
+                                        </>
+                                    ):(
+                                        <>
+                                            <Container_Row_95_Center>
+                                                <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                            </Container_Row_95_Center>
+                                        </>
+                                    )}
+                                </Container_Modal_Form_White>
                                 <Container_Row_NG_95_Center>
                                     <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_A_16_Center ThemeMode={themeMode}>- Permisos...</Text_A_16_Center>
+                                    <Text_A_16_Center ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Center>
                                 </Container_Row_NG_95_Center>
-                                <Container_Row_100_Center>
-                                    {['Default','Personalizado'].map((item,index) => (
-                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                            <Input_Radio_16 ThemeMode={themeMode}
-                                                type="radio"
-                                                name="permissions"
-                                                disabled={isActionBlock}
-                                                value={item}
-                                                checked={isTextFieldsUser.permisos === item}
-                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permisos: e.target.value}))}
-                                            />
-                                            {item}
-                                        </Label_Text_16_Center>
-                                    ))};
-                                </Container_Row_100_Center>
-                                <Container_Row_NG_95_Center>
-                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_A_16_Center ThemeMode={themeMode}>- Estatus...</Text_A_16_Center>
-                                </Container_Row_NG_95_Center>
-                                <Container_Row_100_Center>
-                                    {['Habilitado','Deshabilitado'].map((item,index) => (
-                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                            <Input_Radio_16 ThemeMode={themeMode}
-                                                type="radio"
-                                                name="status"
-                                                disabled={isActionBlock}
-                                                value={item}
-                                                checked={isTextFieldsUser.estatus === item}
-                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, estatus: e.target.value}))}
-                                            />
-                                            {item}
-                                        </Label_Text_16_Center>
-                                    ))};
-                                </Container_Row_100_Center>
-                            </Container_Column_90_Center>
-                            <Container_Row_95_Center>
-                                <Tooltip title='Cancelar' placement='top'>
-                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalViewUsers('')}
-                                        disabled={isActionBlock}    
-                                    >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
-                                    </Button_Icon_Blue_210>
-                                </Tooltip>
-                                <Tooltip title='Agregar' placement='top'>
-                                    <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                        onClick={() => handleUserAdd()}
-                                        disabled={isActionBlock}    
-                                    >
-                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
-                                    </Button_Icon_Green_210>
-                                </Tooltip>
-                            </Container_Row_95_Center>
-                        </Container_Form_500>
+                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                    <Container_Row_NG_95_Center>
+                                        <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                        <Text_A_16_Center ThemeMode={themeMode}>- Permisos...</Text_A_16_Center>
+                                    </Container_Row_NG_95_Center>
+                                    <Container_Row_100_Center>
+                                        {['Default','Personalizado'].map((item,index) => (
+                                            <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                                <Input_Radio_16 ThemeMode={themeMode}
+                                                    type="radio"
+                                                    name="permissions"
+                                                    disabled={isActionBlock}
+                                                    value={item}
+                                                    checked={isTextFieldsUser.permisos === item}
+                                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permisos: e.target.value}))}
+                                                />
+                                                {item}
+                                            </Label_Text_16_Center>
+                                        ))};
+                                    </Container_Row_100_Center>
+                                    <Container_Row_NG_95_Center>
+                                        <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
+                                        <Text_A_16_Center ThemeMode={themeMode}>- Estatus...</Text_A_16_Center>
+                                    </Container_Row_NG_95_Center>
+                                    <Container_Row_100_Center>
+                                        {['Habilitado','Deshabilitado'].map((item,index) => (
+                                            <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                                <Input_Radio_16 ThemeMode={themeMode}
+                                                    type="radio"
+                                                    name="status"
+                                                    disabled={isActionBlock}
+                                                    value={item}
+                                                    checked={isTextFieldsUser.estatus === item}
+                                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, estatus: e.target.value}))}
+                                                />
+                                                {item}
+                                            </Label_Text_16_Center>
+                                        ))};
+                                    </Container_Row_100_Center>
+                                </Container_Column_90_Center>
+                                <Container_Row_95_Center>
+                                    <Tooltip title='Cancelar' placement='top'>
+                                        <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                            onClick={() => handleModalViewUsers('')}
+                                            disabled={isActionBlock}    
+                                        >
+                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                        </Button_Icon_Blue_210>
+                                    </Tooltip>
+                                    <Tooltip title='Agregar' placement='top'>
+                                        <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                            onClick={() => handleUserAdd()}
+                                            disabled={isActionBlock}    
+                                        >
+                                            <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                        </Button_Icon_Green_210>
+                                    </Tooltip>
+                                </Container_Row_95_Center>
+                            </Container_Modal_Form>
+                        </Container_Modal_Form_White_50>
                         {isKeyboard ? (
                             <>
                                 <Virtual_Keyboard value={isKeyboardView === 'Name' ? isTextFieldsUser.nombre : 
@@ -554,7 +560,7 @@ export default function User_Add(){
                         ):(
                             <></>
                         )}
-                    </Container_Modal>
+                    </Container_Modal_Background_Black>
                 </>
             ):(
                 <></>

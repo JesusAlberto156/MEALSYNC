@@ -32,7 +32,7 @@ export const Image_Sidebar_White = styled.img`
 //____________SIDEBAR____________
 //____________NAVBAR____________
 export const Image_Navbar_Fade = styled.img`
-    width: 80px; 
+    width: auto; 
     height: 80px;
     object-fit: cover;
     background-color: transparent;
@@ -42,16 +42,37 @@ export const Image_Navbar_Fade = styled.img`
     animation: ${Fade_Animation} 2s infinite;
 
     @media (max-width: 768px) {
-        width: 70px; 
         height: 70px;    
     }
 
     @media (max-width: 480px) {
-        width: 60px; 
         height: 60px;
     }
 `;
 //____________NAVBAR____________
+//____________MODAL____________
+export const Image_Modal_Fixed = styled.img`
+    position: fixed;
+    top: 1%;
+    left: 2%;
+    width: auto; 
+    height: 10%;
+    object-fit: cover;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+
+    @media (max-width: 768px) {
+        height: 9%;
+    }
+
+    @media (max-width: 480px) {
+        height: 8%;
+    }
+`;
+//____________MODAL____________
 //____________LOGO____________
 //---------- HOSPITAL ----------
 //-------- HORIZONTAL

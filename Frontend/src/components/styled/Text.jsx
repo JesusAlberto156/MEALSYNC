@@ -165,7 +165,7 @@ export const Text_Background_Green_12 = styled.h6`
     padding: 10px;
     width: auto;
     margin: 0px;
-    cursor: default;
+    cursor: pointer;
 
     @media (max-width: 768px) {
         font-size: 10px;

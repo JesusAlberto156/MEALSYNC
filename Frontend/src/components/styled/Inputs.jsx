@@ -10,20 +10,20 @@ export const Input_Text_Black_100 = styled.input.withConfig({
 })`
     width: 100%;
     height: auto;
-    font-family: 'Century Gothic', Prompt, sans-serif;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+    font-family: Century Gothic, Prompt;
+    color: black' : 'white')};
     font-size: 16px;
     padding: 10px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '1px solid black' : '1px solid white')};
-    border-radius: 15px;
-    border-bottom: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
-    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(245,250,250)' : 'rgb(120, 121, 121)')};
-    transition: 0.1s ease;
+    border: 1px solid black;
+    border-radius: 50px;
+    border-bottom: 3px solid black;
+    background:rgb(230, 230, 230);
+    transition: 0.2s ease;
     outline: none;
     cursor: text;
 
     &::placeholder {
-        color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
+        color: black;
     }
 
     &:disabled {
@@ -34,11 +34,13 @@ export const Input_Text_Black_100 = styled.input.withConfig({
 
     @media (max-width: 768px) {
         font-size: 14px;
+        border-radius: 30px;
         padding: 8px;
     }
     
     @media (max-width: 480px) {
         font-size: 12px;
+        border-radius: 20px;
         padding: 6px;
     }
 

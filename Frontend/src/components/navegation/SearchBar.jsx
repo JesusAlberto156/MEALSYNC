@@ -20,7 +20,6 @@ import { HandleModalViewWarehouse } from "../../hooks/warehouse/Views";
 import { ResetFilteredSearch,ResetFilteredOrder } from "../../hooks/Texts";
 //__________ICONOS__________
 // Icono para la seccion del buscador
-import { FcSearch } from "react-icons/fc";
 import { IoSearch } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { LuArrowDownUp } from "react-icons/lu";
@@ -45,7 +44,6 @@ import { Button_Icon_Blue_Auto,Button_Icon_Green_60,Button_Icon_Blue_60,Button_I
 import { Icon_White_20,Icon_White_16,Icon_Button_White_20,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
 import { Input_Search_Table_White,Input_Radio_16 } from "../styled/Inputs";
 import { Text_Span_12_Center_White } from "../styled/Text";
-import { Label_Text_16_Center } from "../styled/Labels";
 // Componentes personalizados
 
 //____________IMPORT/EXPORT____________
@@ -1036,7 +1034,7 @@ export default function Search_Bar (){
                         )}
                         {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus !== 'Normal' ? (
                             ['General','Totales'].map((item,index) => (
-                                <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                <Text_Span_12_Center_White ThemeMode={themeMode} key={index}>
                                     <Input_Radio_16 ThemeMode={themeMode}
                                         type="radio"
                                         name="options"
@@ -1045,14 +1043,14 @@ export default function Search_Bar (){
                                         onChange={(e) => setIsSelectedOptionOrderPlusUltra(e.target.value)}
                                     />
                                     {item}
-                                </Label_Text_16_Center>
+                                </Text_Span_12_Center_White>
                             ))
                         ):(
                             <></>
                         )}
                         {currentSView === 'Inventario' && currentNView === 'Ventas' && isSelectedOptionOrderPlus !== 'Normal' ? (
                             ['General','Totales'].map((item,index) => (
-                                <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                <Text_Span_12_Center_White ThemeMode={themeMode} key={index}>
                                     <Input_Radio_16 ThemeMode={themeMode}
                                         type="radio"
                                         name="options"
@@ -1061,7 +1059,7 @@ export default function Search_Bar (){
                                         onChange={(e) => setIsSelectedOptionOrderPlusUltra(e.target.value)}
                                     />
                                     {item}
-                                </Label_Text_16_Center>
+                                </Text_Span_12_Center_White>
                             ))
                         ):(
                             <></>

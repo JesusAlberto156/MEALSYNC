@@ -5,7 +5,6 @@ import { useContext,useEffect } from "react"
 import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
-import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsSupplyTypesContext } from "../../../contexts/FormsProvider"
 import { RefSupplyTypesContext } from "../../../contexts/RefsProvider"
 import { CountSupplyTypesContext,SupplyCategoriesContext } from "../../../contexts/SuppliersProvider"
@@ -24,17 +23,15 @@ import { CgArrowsV } from "react-icons/cg";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
-import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td,Table_Container_Item_Center,Table_Container_Pagination,Table_Container_Data } from "../../styled/Tables"
+import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Text_Fade_Title_32_Black,Text_Span_16_Center_Black,Text_Span_16_Center_White } from "../../styled/Text";
+import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
 export default function Table_Supply_Types(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const {Modal_Supply_Types,Form_Supply_Types,Button_Edit_Supply_Types,Button_Add_Supply_Types,Button_Delete_Supply_Types,Button_Count_Supply_Types} = useContext(RefSupplyTypesContext);
     const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
@@ -91,99 +88,113 @@ export default function Table_Supply_Types(){
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Supply-Types">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Tipo')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>Descripción</Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Unidad')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Unidad' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Unidad' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Unidad
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Categoría')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Cantidad Mínima')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad Mínima (Kg/Lt)
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                    </tr>
-                </Thead>
-                <Tbody ThemeMode={themeMode}>
-                    {currentRecordsSupplyTypes.map((type) => (
-                        <tr 
-                            key={type.idtipo}
-                            onClick={() => handleRowClick(type)}
-                            style={{
-                                backgroundColor:  isSelectedRow === type ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.5s ease',
-                            }}
-                        >
-                            <Td ThemeMode={themeMode}>{type.tipo || 'Desconocido...'}</Td>
-                            <Td ThemeMode={themeMode}>{type.descripcion || 'Desconocida...'}</Td>
-                            <Td ThemeMode={themeMode}>{type.unidad || 'Desconocida...'}</Td>
-                            <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === type.idcategoria)?.nombre || 'Desconocida...'}</Td>
-                            <Td ThemeMode={themeMode}>{type.limite || 'Desconocido...'}</Td>
+            <Table_Container_Auto>
+                <Table id="Table-Supply-Types">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Tipo')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th><Text_Span_16_Center_White>Descripción</Text_Span_16_Center_White></Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Unidad')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Unidad' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Unidad' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Unidad
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Categoría')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Cantidad Mínima')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad Mínima' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad Mínima (Kg/Lt)
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
                         </tr>
-                    ))}
-                </Tbody>
-            </Table>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        {currentRecordsSupplyTypes.map((type) => (
+                            <tr 
+                                key={type.idtipo}
+                                onClick={() => handleRowClick(type)}
+                                style={{
+                                    backgroundColor: isSelectedRow === type ? 'rgba(88, 88, 84, 0.8)' : 'transparent',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 1s ease',
+                                }}
+                            >
+                                <Table_Body_Td style={{ color: isSelectedRow === type ? 'white' : ''}}>{type.tipo || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === type ? 'white' : ''}}>{type.descripcion || 'Desconocida...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === type ? 'white' : ''}}>{type.unidad || 'Desconocida...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === type ? 'white' : ''}}>{isSupplyCategories.find(category => category.idcategoria === type.idcategoria)?.nombre || 'Desconocida...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === type ? 'white' : ''}}>{type.limite || 'Desconocido...'}</Table_Body_Td>
+                            </tr>
+                        ))}
+                    </Table_Body_Tbody_White>
+                </Table>
+            </Table_Container_Auto>
             {currentRecordsSupplyTypes.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === 1}
+                                    onClick={() => prevPage()}
+                                >
+                                    <Icon_20><GrPrevious/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSupplyTypes}</Text_A_16_Center>
+                        <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesSupplyTypes}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSupplyTypes || totalPagesSupplyTypes === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageSupplyTypes}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === totalPagesSupplyTypes || totalPagesSupplyTypes === 0}
+                                    onClick={() => nextPageSupplyTypes()}
+                                >
+                                    <Icon_20><GrNext/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                    </Container_Row_90_Center>
+                    </Table_Container_Pagination>
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
-                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
-                    </Container_Row_90_Center>
+                    <Table_Container_Data>
+                        <Text_Fade_Title_32_Black>¡No hay datos disponibles!</Text_Fade_Title_32_Black>
+                    </Table_Container_Data>
                 </>
             )}
         </>

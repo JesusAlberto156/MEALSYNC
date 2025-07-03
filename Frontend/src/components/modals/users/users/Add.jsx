@@ -32,7 +32,7 @@ import { Text_Title_28_Black,Text_A_16_Center,Text_Span_16_Left_Black,Text_Blue_
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Radio_16, Input_Group } from "../../../styled/Inputs";
-import { Label_Text_12_Black, Label_Text_16_Center } from "../../../styled/Labels";
+import { Label_Text_12_Black } from "../../../styled/Labels";
 import { Image_Modal_Fixed } from "../../../styled/Imgs";
 import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
 // Componentes personalizados
@@ -522,7 +522,7 @@ export default function User_Add(){
                                     </Container_Row_NG_95_Center>
                                     <Container_Row_100_Center>
                                         {['Default','Personalizado'].map((item,index) => (
-                                            <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                            <Label_Text_12_Black ThemeMode={themeMode} key={index}>
                                                 <Input_Radio_16 ThemeMode={themeMode}
                                                     type="radio"
                                                     name="permissions"
@@ -532,7 +532,7 @@ export default function User_Add(){
                                                     onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permisos: e.target.value}))}
                                                 />
                                                 {item}
-                                            </Label_Text_16_Center>
+                                            </Label_Text_12_Black>
                                         ))};
                                     </Container_Row_100_Center>
                                     <Container_Row_NG_95_Center>
@@ -541,7 +541,7 @@ export default function User_Add(){
                                     </Container_Row_NG_95_Center>
                                     <Container_Row_100_Center>
                                         {['Habilitado','Deshabilitado'].map((item,index) => (
-                                            <Label_Text_16_Center ThemeMode={themeMode} key={index}>
+                                            <Label_Text_12_Black ThemeMode={themeMode} key={index}>
                                                 <Input_Radio_16 ThemeMode={themeMode}
                                                     type="radio"
                                                     name="status"
@@ -551,7 +551,7 @@ export default function User_Add(){
                                                     onChange={(e) => setIsTextFieldsUser(prev => ({...prev, estatus: e.target.value}))}
                                                 />
                                                 {item}
-                                            </Label_Text_16_Center>
+                                            </Label_Text_12_Black>
                                         ))};
                                     </Container_Row_100_Center>
                                 </Container_Column_90_Center>

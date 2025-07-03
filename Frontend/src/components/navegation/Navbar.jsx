@@ -25,6 +25,10 @@ import { GiMilkCarton } from "react-icons/gi";
 import { GiMeat } from "react-icons/gi";
 import { FaBoxes } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa6";
+import { GiBroom } from "react-icons/gi";
+import { FaSoap } from "react-icons/fa6";
+import { FaSprayCanSparkles } from "react-icons/fa6";
+import { FaMoneyBillWave } from "react-icons/fa";
 // Iconos para la sección de inventario del navbar
 import { MdAssignment } from "react-icons/md";
 import { FaCashRegister } from "react-icons/fa";
@@ -171,6 +175,27 @@ export default function Nav_Bar(){
                                         <Icon_24><FaBoxOpen/></Icon_24>
                                     </Button_Icon_Gray_100>
                                 </Tooltip>
+                                <Tooltip title='Tipos de materiales de limpieza' placement="bottom">
+                                    <Button_Icon_Gray_100 onClick={() => {
+                                        handleNavbarView('Gastos fijos');
+                                    }}>
+                                        <Icon_24><GiBroom/><FaSoap/></Icon_24>
+                                    </Button_Icon_Gray_100>
+                                </Tooltip>
+                                <Tooltip title='Materiales de limpieza' placement="bottom">
+                                    <Button_Icon_Gray_100 onClick={() => {
+                                        handleNavbarView('Tipos de material de limpieza');
+                                    }}>
+                                        <Icon_24><FaMoneyBillWave/></Icon_24>
+                                    </Button_Icon_Gray_100>
+                                </Tooltip>
+                                <Tooltip title='Gastos fijos' placement="bottom">
+                                    <Button_Icon_Gray_100 onClick={() => {
+                                        handleNavbarView('Gastos fijos');
+                                    }}>
+                                        <Icon_24><FaMoneyBillWave/></Icon_24>
+                                    </Button_Icon_Gray_100>
+                                </Tooltip>
                                 {currentNView === 'Proveedores' ? (
                                     <Container_Navbar_Text>
                                         <Text_Title_24_White>PROVEEDORES</Text_Title_24_White>
@@ -203,6 +228,14 @@ export default function Nav_Bar(){
                                 {currentNView === 'Insumos' ? (
                                     <Container_Navbar_Text>
                                         <Text_Title_24_White>INSUMOS</Text_Title_24_White>
+                                    </Container_Navbar_Text>
+                                ):(
+                                    <></>
+                                )}
+
+                                {currentNView === 'Gastos fijos' ? (
+                                    <Container_Navbar_Text>
+                                        <Text_Title_24_White>GASTOS FIJOS</Text_Title_24_White>
                                     </Container_Navbar_Text>
                                 ):(
                                     <></>

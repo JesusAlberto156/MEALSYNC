@@ -5,7 +5,6 @@ import { useContext,useEffect } from "react"
 import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
-import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsSupplyCategoryContext } from "../../../contexts/FormsProvider"
 import { RefSupplyCategoriesContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
@@ -21,17 +20,15 @@ import { CgArrowsV } from "react-icons/cg";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
-import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td,Table_Container_Item_Center,Table_Container_Pagination,Table_Container_Data } from "../../styled/Tables";
+import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Text_Fade_Title_32_Black,Text_Span_16_Center_Black,Text_Span_16_Center_White } from "../../styled/Text";
+import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
 export default function Table_Supply_Categories(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const {Modal_Supply_Categories,Form_Supply_Categories,Button_Edit_Supply_Categories,Button_Delete_Supply_Categories} = useContext(RefSupplyCategoriesContext);
     const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
@@ -77,63 +74,74 @@ export default function Table_Supply_Categories(){
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Supply-Categories">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Nombre')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>Descripción</Th>
-                    </tr>
-                </Thead>
-                <Tbody ThemeMode={themeMode}>
-                    {currentRecordsSupplyCategories.map((category) => (
-                        <tr 
-                            key={category.idcategoria}
-                            onClick={() => handleRowClick(category)}
-                            style={{
-                                backgroundColor:  isSelectedRow === category ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.5s ease',
-                            }}
-                        >
-                            <Td ThemeMode={themeMode}>{category.nombre || 'Desconocido...'}</Td>
-                            <Td ThemeMode={themeMode}>{category.descripcion || 'Desconocida...'}</Td>
+            <Table_Container_Auto>
+                <Table id="Table-Supply-Categories">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Nombre')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th><Text_Span_16_Center_White>Descripción</Text_Span_16_Center_White></Table_Head_Th>
                         </tr>
-                    ))}
-                </Tbody>
-            </Table>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        {currentRecordsSupplyCategories.map((category) => (
+                            <tr 
+                                key={category.idcategoria}
+                                onClick={() => handleRowClick(category)}
+                                style={{
+                                    backgroundColor: isSelectedRow === category ? 'rgba(88, 88, 84, 0.8)' : 'transparent',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 1s ease',
+                                }}
+                            >
+                                <Table_Body_Td style={{ color: isSelectedRow === category ? 'white' : ''}}>{category.nombre || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === category ? 'white' : ''}}>{category.descripcion || 'Desconocida...'}</Table_Body_Td>
+                            </tr>
+                        ))}
+                    </Table_Body_Tbody_White>
+                </Table>
+            </Table_Container_Auto>
             {currentRecordsSupplyCategories.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === 1}
+                                    onClick={() => prevPage()}
+                                >
+                                    <Icon_20><GrPrevious/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSupplyCategories}</Text_A_16_Center>
+                        <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesSupplyCategories}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSupplyCategories || totalPagesSupplyCategories === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageSupplyCategories}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
-                            </Button_Icon_Blue_180>
-                        </Tooltip>
-                    </Container_Row_90_Center>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === totalPagesSupplyCategories || totalPagesSupplyCategories === 0}
+                                    onClick={() => nextPageSupplyCategories()}
+                                >
+                                    <Icon_20><GrNext/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
+                        </Tooltip>     
+                    </Table_Container_Pagination>
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
-                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
-                    </Container_Row_90_Center>
+                    <Table_Container_Data>
+                        <Text_Fade_Title_32_Black>¡No hay datos disponibles!</Text_Fade_Title_32_Black>
+                    </Table_Container_Data>
                 </>
             )}
         </>

@@ -5,7 +5,6 @@ import { useContext,useEffect,useState } from "react"
 import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
-import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsSupplyContext } from "../../../contexts/FormsProvider"
 import { RefSuppliesContext } from "../../../contexts/RefsProvider"
 import { SupplyTypesContext,SupplyCategoriesContext,SuppliersContext,CountSupplyTypesContext,ObservationsContext } from "../../../contexts/SuppliersProvider"
@@ -24,20 +23,18 @@ import { CgArrowsV } from "react-icons/cg";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 //__________IMAGENES__________
-import Supply_Image from '../../imgs/Supply.jpg'
+import Supply from '../../imgs/Supply.jpg'
 //__________IMAGENES__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center,Text_Background_Blue_12_Center,Text_Background_Green_12_Center,Text_Background_Lime_Green_12_Center,Text_Background_Orange_12_Center,Text_Background_Red_12_Center,Text_Background_Yellow_12_Center } from "../../styled/Text";
-import { Icon_White_18,Icon_Button_Black_14,Icon_Image_Black_60 } from "../../styled/Icons";
+import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td,Table_Image_Black,Table_Container_Item_Center,Table_Container_Data,Table_Container_Pagination } from "../../styled/Tables"
+import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Text_Span_16_Center_White,Text_Background_Green_12,Text_Background_Lime_Green_12,Text_Background_Yellow_12,Text_Background_Orange_12,Text_Background_Red_12,Text_Background_Blue_12,Text_Fade_Title_32_Black,Text_Span_16_Center_Black } from "../../styled/Text";
+import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
 export default function Table_Supplies(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const {Modal_Supplies,Form_Supplies,Button_Edit_Supplies,Button_Delete_Supplies} = useContext(RefSuppliesContext);  
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
@@ -117,155 +114,172 @@ export default function Table_Supplies(){
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Supplies">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Nombre')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>Descripción</Th>
-                        <Th>Imagen</Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Proveedor')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Proveedor
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Categoría')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Tipo')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Tipo
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Cantidad')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                    </tr>
-                </Thead>
-                <Tbody ThemeMode={themeMode}>
-                    {currentRecordsSupplies.map((supply) => (
-                        <tr 
-                            key={supply.idinsumo}
-                            onClick={() => handleRowClick(supply)}
-                            style={{
-                                backgroundColor:  isSelectedRow === supply ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.5s ease',
-                            }}
-                        >
-                            <Td ThemeMode={themeMode}>{supply.nombre || 'Desconocido...'}</Td>
-                            <Td ThemeMode={themeMode}>{supply.descripcion || 'Desconocida...'}</Td>
-                            <Td ThemeMode={themeMode}><TContainer_Center><Icon_Image_Black_60 ThemeMode={themeMode} src={supply.imagen || Supply_Image}/></TContainer_Center></Td>
-                            <Td ThemeMode={themeMode}>
-                                {calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion === 0 ? (
-                                    <>
-                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Blue_12_Center></TContainer_Center>
-                                    </>
-                                ):(
-                                    calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 1 ? (
+            <Table_Container_Auto>
+                <Table id="Table-Supplies">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Nombre')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Nombre' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Nombre
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th><Text_Span_16_Center_White>Descripción</Text_Span_16_Center_White></Table_Head_Th>
+                            <Table_Head_Th><Text_Span_16_Center_White>Imagen</Text_Span_16_Center_White></Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Proveedor')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Proveedor
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Categoría')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categoría' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Tipo')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Tipo
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Cantidad')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                        </tr>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        {currentRecordsSupplies.map((supply) => (
+                            <tr 
+                                key={supply.idinsumo}
+                                onClick={() => handleRowClick(supply)}
+                                style={{
+                                    backgroundColor: isSelectedRow === supply ? 'rgba(88, 88, 84, 0.8)' : 'transparent',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 1s ease',
+                                }}
+                            >
+                                <Table_Body_Td style={{ color: isSelectedRow === supply ? 'white': ''}}>{supply.nombre || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === supply ? 'white': ''}}>{supply.descripcion || 'Desconocida...'}</Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black style={{border: isSelectedRow === supply ? '2px solid white' : ''}} src={supply.imagen || Supply}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td>
+                                    {calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion === 0 ? (
                                         <>
-                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Red_12_Center></TContainer_Center>
+                                            <Table_Container_Item_Center><Text_Background_Blue_12 style={{border: isSelectedRow === supply ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Blue_12></Table_Container_Item_Center>
                                         </>
                                     ):(
-                                        calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 2 ? (
+                                        calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 1 ? (
                                             <>
-                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Orange_12_Center></TContainer_Center>
+                                                <Table_Container_Item_Center><Text_Background_Red_12 style={{border: isSelectedRow === supply ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Red_12></Table_Container_Item_Center>
                                             </>
                                         ):(
-                                            calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 3 ? (
+                                            calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 2 ? (
                                                 <>
-                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Yellow_12_Center></TContainer_Center>
+                                                    <Table_Container_Item_Center><Text_Background_Orange_12 style={{border: isSelectedRow === supply ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Orange_12></Table_Container_Item_Center>
                                                 </>
                                             ):(
-                                                calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 4 ? (
+                                                calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 3 ? (
                                                     <>
-                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
+                                                        <Table_Container_Item_Center><Text_Background_Yellow_12 style={{border: isSelectedRow === supply ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Yellow_12></Table_Container_Item_Center>
                                                     </>
                                                 ):(
-                                                    calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 5 ? (
+                                                    calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 4 ? (
                                                         <>
-                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Green_12_Center></TContainer_Center>
+                                                            <Table_Container_Item_Center><Text_Background_Lime_Green_12 style={{border: isSelectedRow === supply ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Lime_Green_12></Table_Container_Item_Center>
                                                         </>
                                                     ):(
-                                                        <></>
+                                                        calification.find(item => item.idproveedor === supply.idproveedor)?.calificacion <= 5 ? (
+                                                            <>
+                                                                <Table_Container_Item_Center><Text_Background_Green_12 style={{border: isSelectedRow === supply ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === supply.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Green_12></Table_Container_Item_Center>
+                                                            </>
+                                                        ):(
+                                                            <></>
+                                                        )
                                                     )
                                                 )
                                             )
                                         )
-                                    )
-                                )}
-                            </Td>
-                            <Td ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === supply.idcategoria)?.nombre || 'Desconocido...'}</Td>
-                            <Td ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo || 'Desconocido...'}</Td>
-                            <Td ThemeMode={themeMode}>{(() => {
-                                const count = isCountSupplyTypes.find(count => count.idcantidad === supply.idcantidad);
-                                const type = isSupplyTypes.find(type => type.idtipo === supply.idtipo);
-                                return `${count.cantidad} ${type.unidad}` || 'Desconocida...'
-                            })()}</Td>
-                        </tr>
-                    ))}
-                </Tbody>
-            </Table>
+                                    )}
+                                </Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === supply ? 'white' : ''}}>{isSupplyCategories.find(category => category.idcategoria === supply.idcategoria)?.nombre || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === supply ? 'white' : ''}}>{isSupplyTypes.find(type => type.idtipo === supply.idtipo)?.tipo || 'Desconocido...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === supply ? 'white' : ''}}>
+                                    {(() => {
+                                        const count = isCountSupplyTypes.find(count => count.idcantidad === supply.idcantidad);
+                                        const type = isSupplyTypes.find(type => type.idtipo === supply.idtipo);
+                                        return `${count.cantidad} ${type.unidad}` || 'Desconocida...'
+                                    })()}
+                                </Table_Body_Td>
+                            </tr>
+                        ))}
+                    </Table_Body_Tbody_White>
+                </Table>
+            </Table_Container_Auto>
             {currentRecordsSupplies.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === 1}
+                                    onClick={() => prevPage()}
+                                >
+                                    <Icon_20><GrPrevious/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesSupplies}</Text_A_16_Center>
+                        <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesSupplies}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSupplies || totalPagesSupplies === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageSupplies}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === totalPagesSupplies || totalPagesSupplies === 0}
+                                    onClick={() => nextPageSupplies()}
+                                >
+                                    <Icon_20><GrNext/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                    </Container_Row_90_Center>
+                    </Table_Container_Pagination>
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
-                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
-                    </Container_Row_90_Center>
+                    <Table_Container_Data>
+                        <Text_Fade_Title_32_Black>¡No hay datos disponibles!</Text_Fade_Title_32_Black>
+                    </Table_Container_Data>
                 </>
             )}
         </>

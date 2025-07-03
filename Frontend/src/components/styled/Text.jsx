@@ -6,99 +6,12 @@ import { Fade_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
 //____________BACKGROUND____________
-//---------- BLUE
-//------ CENTER
-export const Text_Background_Blue_24_Center = styled.span.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+//---------- Azul
+export const Text_Background_Blue_12 = styled.h6`
     color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 24px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-    
-    @media (max-width: 768px) {
-        font-size: 22px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Blue_20_Center = styled.span.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 18px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 16px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Blue_16_Center = styled.span.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 16px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 12px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Blue_12_Center = styled.span.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(82, 126, 231)' : '3px solid rgb(58,93,174)')};
-    border-radius: 15px;
+    background-color: rgb(58,93,174);
+    border: 3px solid rgb(12, 54, 109);
+    border-radius: 20px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
@@ -108,7 +21,7 @@ export const Text_Background_Blue_12_Center = styled.span.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
-    cursor: default;
+    cursor: pointer;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -116,12 +29,12 @@ export const Text_Background_Blue_12_Center = styled.span.withConfig({
     }
 
     @media (max-width: 480px) {
+        border: 2px solid rgb(12, 54, 109);
         font-size: 8px;
         padding: 6px;
     }
 `;
-//------ CENTER
-//---------- BLUE
+//---------- Azul
 //---------- Rojo
 export const Text_Background_Red_12 = styled.h6`
     color: white;
@@ -145,6 +58,7 @@ export const Text_Background_Red_12 = styled.h6`
     }
 
     @media (max-width: 480px) {
+        border: 2px solid rgb(100, 15, 15);
         font-size: 8px;
         padding: 6px;
     }
@@ -173,104 +87,18 @@ export const Text_Background_Green_12 = styled.h6`
     }
 
     @media (max-width: 480px) {
+        border: 2px solid rgb(13, 112, 51);
         font-size: 8px;
         padding: 6px;
     }
 `;
 //---------- Verde
-//---------- YELLOW
-//------ CENTER
-export const Text_Background_Yellow_24_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 24px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 22px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Yellow_20_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 18px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 16px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Yellow_16_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 16px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 12px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Yellow_12_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(250, 207, 66)' : 'rgb(235, 191, 71)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(235, 191, 71)' : '3px solid rgb(250, 207, 66)')};
-    border-radius: 15px;
+//---------- Amarillo
+export const Text_Background_Yellow_12 = styled.h6`
+    color: rgba(0, 0, 0, 0.55);
+    background-color: rgb(255, 226, 108);
+    border: 3px solid rgb(255, 193, 10);
+    border-radius: 20px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
@@ -280,7 +108,7 @@ export const Text_Background_Yellow_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
-    cursor: default;
+    cursor: pointer;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -288,104 +116,18 @@ export const Text_Background_Yellow_12_Center = styled.p.withConfig({
     }
 
     @media (max-width: 480px) {
+        border: 2px solid rgb(255, 193, 10);
         font-size: 8px;
         padding: 6px;
     }
 `;
-//------ CENTER
-//---------- YELLOW
-//---------- ORANGE
-export const Text_Background_Orange_24_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+//---------- Amarillo
+//---------- Naranja
+export const Text_Background_Orange_12 = styled.h6`
     color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 24px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 22px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Orange_20_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 18px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 16px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Orange_16_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 16px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 12px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Orange_12_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(235, 108, 23)' : 'rgb(207, 122, 52)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(207, 122, 52)' : '3px solid rgb(235, 108, 23)')};
-    border-radius: 15px;
+    background-color: rgb(235, 108, 23);
+    border: 3px solid rgb(180, 86, 23);
+    border-radius: 20px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
@@ -395,7 +137,7 @@ export const Text_Background_Orange_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
-    cursor: default;
+    cursor: pointer;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -403,103 +145,18 @@ export const Text_Background_Orange_12_Center = styled.p.withConfig({
     }
 
     @media (max-width: 480px) {
+        border: 2px solid rgb(180, 86, 23);
         font-size: 8px;
         padding: 6px;
     }
 `;
-//---------- ORANGE
-//---------- LIME GREEN
-export const Text_Background_Lime_Green_24_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+//---------- Naranja
+//---------- Verde Lima
+export const Text_Background_Lime_Green_12 = styled.h6`
     color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 24px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 22px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 20px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Lime_Green_20_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 18px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 16px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Lime_Green_16_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
-    border-radius: 15px;
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 16px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    width: auto;
-    margin: 0px;
-    cursor: default;
-
-    @media (max-width: 768px) {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 12px;
-        padding: 6px;
-    }
-`;
-export const Text_Background_Lime_Green_12_Center = styled.p.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: white;
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(160, 187, 39)' : 'rgb(174, 190, 100)')};
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid rgb(174, 190, 100)' : '3px solid rgb(160, 187, 39)')};
-    border-radius: 15px;
+    background-color: rgb(160, 187, 39);
+    border: 3px solid rgb(125, 153, 1);
+    border-radius: 20px;
     font-family: Century Gothic,Prompt;
     font-style: normal;
     font-size: 12px;
@@ -509,7 +166,7 @@ export const Text_Background_Lime_Green_12_Center = styled.p.withConfig({
     padding: 10px;
     width: auto;
     margin: 0px;
-    cursor: default;
+    cursor: pointer;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -517,11 +174,12 @@ export const Text_Background_Lime_Green_12_Center = styled.p.withConfig({
     }
 
     @media (max-width: 480px) {
+        border: 2px solid rgb(125, 153, 1);
         font-size: 8px;
         padding: 6px;
     }
 `;
-//---------- LIME GREEN
+//---------- Verde Lima
 //____________BACKGROUND____________
 //____________COLOR____________
 //---------- BLUE

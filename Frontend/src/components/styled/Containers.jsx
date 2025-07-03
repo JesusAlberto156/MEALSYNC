@@ -9,7 +9,8 @@ import Background_Login from '../imgs/Background-Login.jpg';
 import Background_Home from '../imgs/Background-Home.webp';
 // Usuarios
 import Background_Users from '../imgs/Background-Users.jpg';
-
+// Proveedores
+import Background_Suppliers from '../imgs/Background-Suppliers.jpg';
 // AREÁ COCINA
 //__________IMAGE__________
 //____________IMPORT/EXPORT____________
@@ -71,6 +72,9 @@ export const Container_Page_Logged = styled.div.withConfig({
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Usuarios') && Logged ? 
         `background-image: url(${Background_Users});`:''
+    }
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Proveedores') && Logged ? 
+        `background-image: url(${Background_Suppliers});`:''
     }
     background-Size: cover;
     background-Position: center;

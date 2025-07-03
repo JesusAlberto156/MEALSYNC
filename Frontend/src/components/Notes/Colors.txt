@@ -24,52 +24,13 @@ NORMAL - rgb(235, 108, 23);
 HOVER - rgb(180, 86, 23);
 DISABLE - rgb(207, 122, 52);
 --------NARANJA--------
---------FORM--------
-${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-${({ ThemeMode }) => (ThemeMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)')};
---------FORM--------
---------INPUT--------
-${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
-${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-${({ ThemeMode }) => (ThemeMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)')};
---------INPUT--------
---------BORDER--------
-${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
---------BORDER--------
---------BOTONES--------
------- NORMAL
-${({ ThemeMode }) => (ThemeMode ? '2px solid black' : '2px solid white')};
------- HOVER
-${({ ThemeMode }) => (ThemeMode ? '2px solid white' : '2px solid black')};
---------BOTONES--------
---------AZUL-------- 
------- NORMAL
-${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
------- HOVER
-${({ ThemeMode }) => (ThemeMode ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)')};
---------AZUL--------
---------VERDE--------
------- NORMAL
-${({ ThemeMode }) => (ThemeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)')};
------- HOVER
-${({ ThemeMode }) => (ThemeMode ? 'rgb(13, 112, 51)' : 'rgb(20, 165, 76)')};
---------VERDE--------
---------ROJO--------
------- NORMAL
-${({ ThemeMode }) => (ThemeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)')};
------- HOVER
-${({ ThemeMode }) => (ThemeMode ? 'rgb(100, 15, 15)' : 'rgb(155, 9, 9)')};
---------ROJO--------
---------BLANCO--------
------- NORMAL
-${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
------- HOVER
-${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
---------BLANCO--------
---------NEGRO--------
------- NORMAL
-${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
------- HOVER
-${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
---------NEGRO--------
+--------AMARILLO--------
+NORMAL - rgb(255, 226, 108);
+HOVER - rgb(255, 193, 10);
+DISABLE- 
+--------AMARILLO--------
+--------VERDE LIMA--------
+NORMAL - rgb(160, 187, 39);
+HOVER - rgb(125, 153, 1);
+DISABLE- 
+--------VERDE LIMA--------

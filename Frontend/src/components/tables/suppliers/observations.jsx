@@ -5,7 +5,6 @@ import { useContext,useEffect } from "react"
 import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../../contexts/SelectedesProvider"
-import { ThemeModeContext } from "../../../contexts/ViewsProvider"
 import { TextFieldsObservationContext } from "../../../contexts/FormsProvider"
 import { RefSupplierObservationsContext } from "../../../contexts/RefsProvider"
 import { SuppliersContext } from "../../../contexts/SuppliersProvider"
@@ -26,17 +25,15 @@ import { CgArrowsV } from "react-icons/cg";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center,Text_Background_Blue_12_Center,Text_Background_Red_12_Center,Text_Background_Orange_12_Center,Text_Background_Yellow_12_Center,Text_Background_Lime_Green_12_Center,Text_Background_Green_12_Center } from "../../styled/Text";
-import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td,Table_Container_Pagination,Table_Container_Item_Center,Table_Container_Data } from "../../styled/Tables"
+import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Text_Span_16_Center_Black,Text_Fade_Title_32_Black,Text_Background_Green_12,Text_Background_Lime_Green_12,Text_Background_Yellow_12,Text_Background_Orange_12,Text_Background_Red_12,Text_Background_Blue_12 } from "../../styled/Text";
+import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
 export default function Table_Supplier_Observations(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const {Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations} = useContext(RefSupplierObservationsContext);
     const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext);
@@ -83,123 +80,136 @@ export default function Table_Supplier_Observations(){
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Supplier-Observations">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Proveedor')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Proveedor
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Fecha')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Fecha
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
-                                        ToggleOrder('Calificación')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Calificación' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Calificación' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Calificación
-                                </Icon_Button_Black_14>
-                            </TContainer_Center>
-                        </Th>
-                    </tr>
-                </Thead>
-                <Tbody ThemeMode={themeMode}>
-                    {currentRecordsObservations.map((observation) => (
-                        <tr 
-                            key={observation.idobservacion}
-                            onClick={() => handleRowClick(observation)}
-                            style={{
-                                backgroundColor:  isSelectedRow === observation ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.5s ease',
-                            }}
-                        >
-                            <Td ThemeMode={themeMode}>
-                                {observation.calificacion === 0 ? (
-                                    <>
-                                        <TContainer_Center><Text_Background_Blue_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Blue_12_Center></TContainer_Center>
-                                    </>
-                                ):(
-                                    observation.calificacion <= 1 ? (
+            <Table_Container_Auto>
+                <Table id="Table-Supplier-Observations">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Proveedor')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Proveedor' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Proveedor
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Fecha')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Fecha
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                            <Table_Head_Th>
+                                <Table_Container_Item_Center>
+                                    <Icon_Button_White_16 
+                                        onClick={() => {
+                                            ToggleOrder('Calificación')
+                                            ToggleOrderDirection()
+                                        }}
+                                    >
+                                        {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Calificación' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Calificación' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Calificación
+                                    </Icon_Button_White_16>
+                                </Table_Container_Item_Center>
+                            </Table_Head_Th>
+                        </tr>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        {currentRecordsObservations.map((observation) => (
+                            <tr 
+                                key={observation.idobservacion}
+                                onClick={() => handleRowClick(observation)}
+                                style={{
+                                    backgroundColor: isSelectedRow === observation ? 'rgba(88, 88, 84, 0.8)' : 'transparent',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 1s ease',
+                                }}
+                            >
+                                <Table_Body_Td>
+                                    {observation.calificacion === 0 ? (
                                         <>
-                                            <TContainer_Center><Text_Background_Red_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Red_12_Center></TContainer_Center>
+                                            <Table_Container_Item_Center><Text_Background_Blue_12 style={{ border: isSelectedRow === observation ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Blue_12></Table_Container_Item_Center>
                                         </>
                                     ):(
-                                        observation.calificacion <= 2 ? (
+                                        observation.calificacion <= 1 ? (
                                             <>
-                                                <TContainer_Center><Text_Background_Orange_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Orange_12_Center></TContainer_Center>
+                                                <Table_Container_Item_Center><Text_Background_Red_12 style={{ border: isSelectedRow === observation ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Red_12></Table_Container_Item_Center>
                                             </>
                                         ):(
-                                            observation.calificacion <= 3 ? (
+                                            observation.calificacion <= 2 ? (
                                                 <>
-                                                    <TContainer_Center><Text_Background_Yellow_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Yellow_12_Center></TContainer_Center>
+                                                    <Table_Container_Item_Center><Text_Background_Orange_12 style={{ border: isSelectedRow === observation ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Orange_12></Table_Container_Item_Center>
                                                 </>
                                             ):(
-                                                observation.calificacion <= 4 ? (
+                                                observation.calificacion <= 3 ? (
                                                     <>
-                                                        <TContainer_Center><Text_Background_Lime_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Lime_Green_12_Center></TContainer_Center>
+                                                        <Table_Container_Item_Center><Text_Background_Yellow_12 style={{ border: isSelectedRow === observation ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Yellow_12></Table_Container_Item_Center>
                                                     </>
                                                 ):(
-                                                    observation.calificacion <= 5 ? (
+                                                    observation.calificacion <= 4 ? (
                                                         <>
-                                                            <TContainer_Center><Text_Background_Green_12_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Green_12_Center></TContainer_Center>
+                                                            <Table_Container_Item_Center><Text_Background_Lime_Green_12 style={{ border: isSelectedRow === observation ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Lime_Green_12></Table_Container_Item_Center>
                                                         </>
                                                     ):(
-                                                        <></>
+                                                        observation.calificacion <= 5 ? (
+                                                            <>
+                                                                <Table_Container_Item_Center><Text_Background_Green_12 style={{ border: isSelectedRow === observation ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === observation.idproveedor)?.nombre || 'Desconocido...'}</Text_Background_Green_12></Table_Container_Item_Center>
+                                                            </>
+                                                        ):(
+                                                            <></>
+                                                        )
                                                     )
                                                 )
                                             )
                                         )
-                                    )
-                                )}
-                            </Td>
-                            <Td ThemeMode={themeMode}>{getDate(observation.fecha) || 'Desconocida...'}</Td>
-                            <Td ThemeMode={themeMode}>{observation.calificacion || 'Desconocida...'}</Td>
-                        </tr>
-                    ))}
-                </Tbody>
-            </Table>
+                                    )}
+                                </Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === observation ? 'white' : ''}}>{getDate(observation.fecha) || 'Desconocida...'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === observation ? 'white' : ''}}>{observation.calificacion || 'Desconocida...'}</Table_Body_Td>
+                            </tr>
+                        ))}
+                    </Table_Body_Tbody_White>
+                </Table>
+            </Table_Container_Auto>
             {currentRecordsObservations.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === 1}
+                                    onClick={() => prevPage()}
+                                >
+                                    <Icon_20><GrPrevious/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                        <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPagesObservations}</Text_A_16_Center>
+                        <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesObservations}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesObservations || totalPagesObservations === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPageObservations}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
-                            </Button_Icon_Blue_180>
+                            <span>
+                                <Button_Icon_Blue_220
+                                    disabled={currentPage === totalPagesObservations || totalPagesObservations === 0}
+                                    onClick={() => nextPageObservations()}
+                                >
+                                    <Icon_20><GrNext/></Icon_20>
+                                </Button_Icon_Blue_220>
+                            </span>
                         </Tooltip>
-                    </Container_Row_90_Center>
+                    </Table_Container_Pagination>
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
-                        <Text_Fade_A_30_Center ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_A_30_Center>
-                    </Container_Row_90_Center>
+                    <Table_Container_Data>
+                        <Text_Fade_Title_32_Black>¡No hay datos disponibles!</Text_Fade_Title_32_Black>
+                    </Table_Container_Data>
                 </>
             )}
         </>

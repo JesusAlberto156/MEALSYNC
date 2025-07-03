@@ -128,8 +128,8 @@ export default function Table_Status(){
                                     transition: 'background-color 1s ease',
                                 }}
                             >
-                                <Table_Body_Td><Table_Container_Item_Center>{status.activo ? <Text_Background_Green_12 style={{border: isSelectedRow === status ? '3px solid white' : '3px solid rgb(13, 112, 51)'}}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Green_12>:<Text_Background_Red_12  style={{border: isSelectedRow === status ? '3px solid white' : '3px solid rgb(100, 15, 15)'}}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Red_12>}</Table_Container_Item_Center></Table_Body_Td>
-                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={status.habilitado ? User_Enable : User_Disable} style={{border: isSelectedRow === status ? '2px solid white' : '2px solid black'}}/></Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center>{status.activo ? <Text_Background_Green_12 style={{border: isSelectedRow === status ? '2px solid white' : ''}}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Green_12>:<Text_Background_Red_12  style={{border: isSelectedRow === status ? '2px solid white' : ''}}>{isUsers.find((user) => user.idusuario === status.idusuario)?.nombre || 'Desconocido'}</Text_Background_Red_12>}</Table_Container_Item_Center></Table_Body_Td>
+                                <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black src={status.habilitado ? User_Enable : User_Disable} style={{border: isSelectedRow === status ? '2px solid white' : ''}}/></Table_Container_Item_Center></Table_Body_Td>
                             </tr>
                         ))}
                     </Table_Body_Tbody_White>

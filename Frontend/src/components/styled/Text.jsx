@@ -2746,6 +2746,189 @@ export const Text_Title_12_Black = styled.h1`
     }
 `;
 //---------- Negro
+//---------- Naranja
+export const Text_Title_40_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 40px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 38px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 36px;
+    }
+`;
+export const Text_Title_36_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 36px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 34px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 32px;
+    }
+`;
+export const Text_Title_32_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 32px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 28px;
+    }
+`;
+export const Text_Title_28_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 28px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 26px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 24px;
+    }
+`;
+export const Text_Title_24_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 20px;
+    }
+`;
+export const Text_Title_20_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+`;
+export const Text_Title_16_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_Title_12_Orange = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- Naranja
+//---------- Amarillo
+export const Text_Title_16_Yellow = styled.h1`
+    color: rgb(235, 108, 23);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Text_Title_12_Yellow = styled.h1`
+    color: rgb(250, 238, 66);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
 //______________TITLE____________
 //______________SPAN____________
 //---------- CENTER

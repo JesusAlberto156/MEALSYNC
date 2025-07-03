@@ -32,9 +32,6 @@ export default function Index_Main(){
                 <Alert_Styles>
                     <Toaster
                         visibleToasts={5}
-                        richColors
-                        theme='light'
-                        position='top-right'
                     />
                 </Alert_Styles> 
             </Container_Page>

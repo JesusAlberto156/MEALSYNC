@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef } from "react";
+import { useContext,useEffect,useRef,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
@@ -27,14 +27,14 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Form_White_50,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Center,Container_Row_Left,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center, Container_Row_Right } from "../../../styled/Containers";
-import { Text_Title_28_Black,Text_A_16_Left,Text_A_16_Center,Text_Span_16_Left_Black,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
+import { Container_Modal_Background_Black,Container_Modal_Form_White_50,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Center,Container_Row_Left,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Text_Title_28_Black,Text_A_16_Center,Text_Span_16_Left_Black,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
-import { Input_Text_Black_100,Input_Radio_16 } from "../../../styled/Inputs";
-import { Label_Text_16_Center } from "../../../styled/Labels";
+import { Input_Text_Black_100,Input_Radio_16, Input_Group } from "../../../styled/Inputs";
+import { Label_Text_12_Black, Label_Text_16_Center } from "../../../styled/Labels";
 import { Image_Modal_Fixed } from "../../../styled/Imgs";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
 // Componentes personalizados
 import Virtual_Keyboard from "../../../forms/Keyboard";
 //____________IMPORT/EXPORT____________
@@ -68,37 +68,54 @@ export default function User_Add(){
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
+    // Constantes con el valor de useState
+    const [isTotalName,setIsTotalName] = useState(0)
+    const [isTotalShortName,setIsTotalShortName] = useState(0)
     // Constantes con el valor de useRef
     const lastTouchTimeRef = useRef(0);
     const isTouchRef = useRef(isTouch);
+    // UseEffects para advertir sobre el limite de caracteres de los campos del formulario
+    useEffect(() => {
+        setIsTotalName(isTextFieldsUser.nombre.length);
+        if(isTextFieldsUser.nombre.length === 150){
+            Alert_Sonner_Warning('MEALSYNC','¡Ha alcanzado el límite de caracteres permitido en el nombre!');
+        }
+    },[isTextFieldsUser.nombre]);
+    useEffect(() => {
+
+    },[isTextFieldsUser.nombrecorto]);
+    useEffect(() => {
+
+    },[isTextFieldsUser.usuario]);
+    useEffect(() => {
+
+    },[isTextFieldsUser.contrasena]);
     // UseEffect que determina la visibilidad del teclado
     useEffect(() => {
         const handleTouchStart = () => {
             lastTouchTimeRef.current = Date.now();
             setIsTouch(true);
         };
-    
-        const handleMouseOrKey = () => {
+
+        const handleMouseDown = () => {
             const now = Date.now();
             const timeSinceLastTouch = now - lastTouchTimeRef.current;
-    
-            // Solo desactiva touch si ha pasado más de 500ms desde el último touch
+
+            // Solo si no hubo un touch reciente, considera que es mouse
             if (timeSinceLastTouch > 500) {
                 setIsTouch(false);
             }
         };
 
         window.addEventListener('touchstart', handleTouchStart);
-        window.addEventListener('mousedown', handleMouseOrKey);
-        window.addEventListener('keydown', handleMouseOrKey);
+        window.addEventListener('mousedown', handleMouseDown);
 
         return () => {
             window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('mousedown', handleMouseOrKey);
-            window.removeEventListener('keydown', handleMouseOrKey);
+            window.removeEventListener('mousedown', handleMouseDown);
         };
     },[]);
-    // UseEffect que determina que se mantenga visible del teclado
+    // UseEffects que determina que se mantenga visible del teclado
     useEffect(() => {
         const handleClickOutside = (event) => {
             setTimeout(() => {
@@ -131,6 +148,9 @@ export default function User_Add(){
             document.removeEventListener("touchstart", handleClickOutside);
         };
     }, [Keyboard]);
+    useEffect(() => {
+        isTouchRef.current = isTouch;
+    }, [isTouch]);
     // useEffect para escribir en los campos del login
     const handleKeyboard = (newValue) => {
         if(isKeyboardView === 'Name' ){
@@ -336,20 +356,24 @@ export default function User_Add(){
                                     </Container_Row_NG_Center>
                                     <Container_Row_Left>
                                         <Text_Span_16_Left_Black>Nombre:</Text_Span_16_Left_Black>
-                                        <Input_Text_Black_100 ThemeMode={themeMode}
-                                            id="Input-Name"
-                                            placeholder="..."
-                                            type="text"
-                                            disabled={isActionBlock}
-                                            value={isTextFieldsUser.nombre}
-                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
-                                            onFocus={() => {
-                                                if(isTouchRef.current){
-                                                    setIsKeyboard(true);
-                                                    setIsKeyboardView('Name');
-                                                }
-                                            }}
-                                        />
+                                        <Input_Group>
+                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                                id="Input-Name"
+                                                placeholder="..."
+                                                type="text"
+                                                maxLength={150}
+                                                disabled={isActionBlock}
+                                                value={isTextFieldsUser.nombre}
+                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
+                                                onFocus={() => {
+                                                    if(isTouchRef.current){
+                                                        setIsKeyboard(true);
+                                                        setIsKeyboardView('Name');
+                                                    }
+                                                }}
+                                            />
+                                            <Label_Text_12_Black>{isTotalName}/150</Label_Text_12_Black>
+                                        </Input_Group>
                                         <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
                                             onClick={() => {
                                                 setIsTextFieldsUser(prev => ({...prev, nombre: ''}))

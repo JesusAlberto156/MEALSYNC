@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import { toast } from 'sonner';
+import { Text_Span_16_Left_Black,Text_Title_20_Orange } from './Text';
 //____________IMPORT/EXPORT____________
 
 //____________STYLES____________
@@ -13,6 +14,16 @@ export const Alert_Styles = styled.div`
         font-style: normal;
         border-radius: 40px;
         border: 3px solid white;
+    }
+
+    .Warning {
+        font-family: Century Gothic,Prompt;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        background: rgb(255, 245, 101);
+        border: 3px solid rgb(250, 184, 3);
+        border-bottom: 8px solid rgb(250, 184, 3);
+        border-right: 8px solid rgb(250, 184, 3);
     }
 `;
 //____________STYLES____________
@@ -87,6 +98,17 @@ export const Alert_Success = (Title,Message,ThemeMode,Image) => {
 };
 //____________GREETING____________
 //____________WARNING____________
+//____________SONNER____________
+export const Alert_Sonner_Warning = (Title,Message) => {
+    toast.warning(<Text_Title_20_Orange>{Title}</Text_Title_20_Orange>,{
+        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        duration:5000,
+        className:'Warning',
+        position: 'top-right',
+        closeButton: true,
+    });
+};
+//____________SONNER____________
 export const Alert_Warning = (Title,Message,ThemeMode,Image) => {
     return Swal.fire({
         title: Title,

@@ -3,6 +3,34 @@
 import styled from 'styled-components';
 //____________IMPORT/EXPORT____________
 
+//____________TEXT____________
+export const Label_Text_12_Black = styled.label`
+    color: black;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    cursor: default;
+    position: absolute;
+    top: 40px;
+    right: 15px;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+        gap: 4px;
+        top: 40px;
+        right: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        gap: 3px;
+        top: 32px;
+        right: 15px;
+    }
+
+`;
+//____________TEXT____________
+
 //____________TOTAL____________
 //---------- CENTER
 export const Label_Total_Text_12_Center = styled.label.withConfig({

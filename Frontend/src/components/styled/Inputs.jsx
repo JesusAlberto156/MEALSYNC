@@ -286,6 +286,5 @@ export const Input_Area_Black_100 = styled.textarea.withConfig({
 export const Input_Group = styled.div`
     position: relative;
     width: 100%;
-    padding-right: 10px;
 `;
 //____________GROUP____________

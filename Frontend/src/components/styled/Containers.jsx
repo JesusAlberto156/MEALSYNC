@@ -1843,31 +1843,27 @@ export const Container_Modal_Form_White = styled.div`
 //____________MODAL____________
 //____________KEYBOARD____________
 export const Container_Keyboard_Default = styled.div`
-    position: fixed;
-    bottom: 20px;    
+    position: fixed;    
     transform: translateX(-50%);
-    position: relative; 
     display: flex;
     justify-content: center;
     align-items: center;         
     background: transparent;
     width: 80%;
     height: auto;  
-    padding: 10px;
-    gap: 15px;
-    border-radius: 40px;
+    bottom: 8px;
     z-index: 999;
 
     @media (max-width: 768px) {
-        border-radius: 35px;
+        width: 100%;
         padding: 8px;
-        gap: 10px;    
+        bottom: 4px;    
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
+        width: 100%;
         padding: 6px;
-        gap: 5px;
+        bottom: 2px; 
     }
 }
 `;

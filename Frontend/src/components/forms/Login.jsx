@@ -9,7 +9,7 @@ import { AnimationContext,KeyboardContext,KeyboardViewContext,TouchContext,Actio
 import { RefKeyboardContext } from "../../contexts/RefsProvider";
 // Estilos personalizados
 import { Container_Row_100_Center,Container_Column_90_Center,Container_Row_NG_95_Left } from "../styled/Containers";
-import { Text_A_16_Left,Text_Blue_16_Left } from "../styled/Text";
+import { Text_Span_16_Left_Black,Text_Color_Blue_12 } from "../styled/Text";
 import { Input_Text_Black_100 } from "../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
@@ -91,12 +91,12 @@ export default function Form_Login(){
     return(
         <> 
             <Container_Row_NG_95_Left>
-                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC </Text_Blue_16_Left>
-                <Text_A_16_Left ThemeMode={themeMode}>- Ingresar tus datos...</Text_A_16_Left>
+                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC </Text_Color_Blue_12>
+                <Text_Span_16_Left_Black ThemeMode={themeMode}>- Ingresar tus datos...</Text_Span_16_Left_Black>
             </Container_Row_NG_95_Left>
             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                 <Container_Row_100_Center>
-                    <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Usuario:</Text_A_16_Left>
+                    <Text_Span_16_Left_Black ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Usuario:</Text_Span_16_Left_Black>
                     <Input_Text_Black_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                         placeholder="..."
                         type="text"
@@ -113,7 +113,7 @@ export default function Form_Login(){
                     />
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
-                    <Text_A_16_Left ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Contraseña:</Text_A_16_Left>
+                    <Text_Span_16_Left_Black ThemeMode={themeMode} className={isAnimation ? 'roll-out-text-left' : 'roll-in-text-left'}>Contraseña:</Text_Span_16_Left_Black>
                     <Input_Text_Black_100 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                         placeholder="..."
                         type="password"

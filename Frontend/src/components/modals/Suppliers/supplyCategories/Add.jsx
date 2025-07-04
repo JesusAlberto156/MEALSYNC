@@ -23,7 +23,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12 } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Area_Black_100, Input_Group } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
@@ -185,15 +185,15 @@ export default function Supply_Category_Add(){
                 <Container_Modal>
                     <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Categoria-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
-                            <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR CATEGORÍA</Text_Title_30_Center>
+                            <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR CATEGORÍA</Text_Title_32_Black>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Nombre:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Name"
@@ -222,7 +222,7 @@ export default function Supply_Category_Add(){
                                 </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Descripción:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Descripción:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Area_Black_100 ThemeMode={themeMode}
                                         id="Input-Description"

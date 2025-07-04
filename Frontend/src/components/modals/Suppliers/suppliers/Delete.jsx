@@ -26,7 +26,7 @@ import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_Blue_30,Icon_Black_White_30,Icon_Red_30,Icon_Orange_30,Icon_Yellow_30,Icon_Lime_Green_30,Icon_Green_30 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -119,12 +119,12 @@ export default function Supplier_Delete(){
                     <Container_Modal ref={Modal_Suppliers}>
                         <Container_Form_500 ref={Form_Suppliers} ThemeMode={themeMode} className={currentMView === 'Proveedor-Eliminar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
-                                <Text_Title_30_Center ThemeMode={themeMode}>ELIMINAR PROVEEDOR</Text_Title_30_Center>
+                                <Text_Title_32_Black ThemeMode={themeMode}>ELIMINAR PROVEEDOR</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Form_Verification/>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>Proveedor:</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsSupplier.nombre || 'Desconocido'}...</Text_A_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>Proveedor:</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupplier.nombre || 'Desconocido'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
                                 {isTextFieldsSupplier.calificacion === 0 ? (
@@ -190,7 +190,7 @@ export default function Supplier_Delete(){
                                 )}
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>La eliminación de este proveedor impedirá agregarle nuevos insumos o reasignar sus insumos a un proveedor distinto.</Text_A_12_Justify>
+                                <Text_Span_12_Justify_Black ThemeMode={themeMode}>La eliminación de este proveedor impedirá agregarle nuevos insumos o reasignar sus insumos a un proveedor distinto.</Text_Span_12_Justify_Black>
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>

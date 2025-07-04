@@ -28,7 +28,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center,Text_A_20_Center } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Area_Black_100,Input_Group,Input_Radio_16,Input_Text_Black_50 } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_Button_Blue_18,Icon_26 } from "../../../styled/Icons";
@@ -207,15 +207,15 @@ export default function Supply_Type_Add(){
                 <Container_Modal>
                     <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
-                            <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR TIPO DE INSUMO</Text_Title_30_Center>
+                            <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR TIPO DE INSUMO</Text_Title_32_Black>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Nombre:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Type"
@@ -244,7 +244,7 @@ export default function Supply_Type_Add(){
                                 </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Descripción:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Descripción:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Area_Black_100 ThemeMode={themeMode}
                                         id="Input-Description"
@@ -275,13 +275,13 @@ export default function Supply_Type_Add(){
                             </Container_Row_100_Center>
                         </Container_Column_90_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos específicos...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos específicos...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Unidad...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Unidad...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_100_Center>
                                 {['Kilogramos','Litros'].map((item,index) => (
@@ -299,8 +299,8 @@ export default function Supply_Type_Add(){
                                 ))};
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Categoría...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Categoría...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             {isSupplyCategories.length !== 0 ? (
                                 <>
@@ -385,7 +385,7 @@ export default function Supply_Type_Add(){
                                     ):(
                                         <>
                                             <Container_Row_95_Center>
-                                                <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                             </Container_Row_95_Center>
                                         </>
                                     )}
@@ -393,12 +393,12 @@ export default function Supply_Type_Add(){
                             ):(
                                 <>
                                     <Container_Row_95_Center>
-                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                     </Container_Row_95_Center>
                                 </>
                             )}
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Cantidad Mínima (Kg/Lt):</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Cantidad Mínima (Kg/Lt):</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Limit"

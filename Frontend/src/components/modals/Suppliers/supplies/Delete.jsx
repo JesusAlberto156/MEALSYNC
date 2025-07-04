@@ -25,7 +25,7 @@ import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -118,15 +118,15 @@ export default function Supply_Delete(){
                     <Container_Modal ref={Modal_Supplies}>
                         <Container_Form_500 ref={Form_Supplies} ThemeMode={themeMode} className={currentMView === 'Insumo-Eliminar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
-                                <Text_Title_30_Center ThemeMode={themeMode}>ELIMINAR INSUMO</Text_Title_30_Center>
+                                <Text_Title_32_Black ThemeMode={themeMode}>ELIMINAR INSUMO</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Form_Verification/>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>Insumo:</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsSupply.nombre || 'Desconocido'}...</Text_A_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>Insumo:</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupply.nombre || 'Desconocido'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>La eliminación de este insumo impedirá agregar nuevos pedidos de inventario a este insumo.</Text_A_12_Justify>
+                                <Text_Span_12_Justify_Black ThemeMode={themeMode}>La eliminación de este insumo impedirá agregar nuevos pedidos de inventario a este insumo.</Text_Span_12_Justify_Black>
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>

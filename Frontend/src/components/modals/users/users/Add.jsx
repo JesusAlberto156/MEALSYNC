@@ -28,7 +28,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal_Background_Black,Container_Modal_Form_White_50,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Center,Container_Row_Left,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_28_Black,Text_A_16_Center,Text_Span_16_Left_Black,Text_Blue_16_Left,Text_A_20_Center } from "../../../styled/Text";
+import { Text_Title_28_Black,Text_Span_16_Left_Black,Text_Color_Blue_12 } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Radio_16, Input_Group } from "../../../styled/Inputs";
@@ -351,8 +351,8 @@ export default function User_Add(){
                                 <Text_Title_28_Black>AGREGAR USUARIO</Text_Title_28_Black>
                                 <Container_Modal_Form_White className='shadow-out-container-light-infinite'>
                                     <Container_Row_NG_Center>
-                                        <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                        <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                                        <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                        <Text_Span_16_Left_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Left_Black>
                                     </Container_Row_NG_Center>
                                     <Container_Row_Left>
                                         <Text_Span_16_Left_Black>Nombre:</Text_Span_16_Left_Black>
@@ -506,19 +506,19 @@ export default function User_Add(){
                                     ):(
                                         <>
                                             <Container_Row_95_Center>
-                                                <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                <Text_Span_16_Left_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_16_Left_Black>
                                             </Container_Row_95_Center>
                                         </>
                                     )}
                                 </Container_Modal_Form_White>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_A_16_Center ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Center>
+                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Span_16_Left_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Left_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Container_Row_NG_95_Center>
-                                        <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                        <Text_A_16_Center ThemeMode={themeMode}>- Permisos...</Text_A_16_Center>
+                                        <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                        <Text_Span_16_Left_Black ThemeMode={themeMode}>- Permisos...</Text_Span_16_Left_Black>
                                     </Container_Row_NG_95_Center>
                                     <Container_Row_100_Center>
                                         {['Default','Personalizado'].map((item,index) => (
@@ -536,8 +536,8 @@ export default function User_Add(){
                                         ))};
                                     </Container_Row_100_Center>
                                     <Container_Row_NG_95_Center>
-                                        <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                        <Text_A_16_Center ThemeMode={themeMode}>- Estatus...</Text_A_16_Center>
+                                        <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                        <Text_Span_16_Left_Black ThemeMode={themeMode}>- Estatus...</Text_Span_16_Left_Black>
                                     </Container_Row_NG_95_Center>
                                     <Container_Row_100_Center>
                                         {['Habilitado','Deshabilitado'].map((item,index) => (

@@ -23,7 +23,7 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Column_90_Center,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Group,Input_Area_Black_100 } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
@@ -188,15 +188,15 @@ export default function Supply_Category_Edit(){
                 <Container_Modal ref={Modal_Supply_Categories}>
                     <Container_Form_500 ref={Form_Supply_Categories} ThemeMode={themeMode} className={currentMView === 'Categoria-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
-                            <Text_Title_30_Center ThemeMode={themeMode}>EDITAR CATEGORÍA</Text_Title_30_Center>
+                            <Text_Title_32_Black ThemeMode={themeMode}>EDITAR CATEGORÍA</Text_Title_32_Black>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Nombre:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Name"
@@ -225,7 +225,7 @@ export default function Supply_Category_Edit(){
                                 </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Descripción:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Descripción:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Area_Black_100 ThemeMode={themeMode}
                                         id="Input-Description"
@@ -256,7 +256,7 @@ export default function Supply_Category_Edit(){
                             </Container_Row_100_Center>
                         </Container_Column_90_Center>
                         <Container_Row_95_Center>
-                            <Text_A_12_Justify ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los almacenes de los insumos agregados a esta categoría o para registrar nuevos insumos a su nombre.</Text_A_12_Justify>
+                            <Text_Span_12_Justify_Black ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los almacenes de los insumos agregados a esta categoría o para registrar nuevos insumos a su nombre.</Text_Span_12_Justify_Black>
                         </Container_Row_95_Center>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>

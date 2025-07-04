@@ -22,7 +22,7 @@ export const Card_Menu = styled.div`
   }
 `;
 import { ThemeModeContext } from '../../contexts/ViewsProvider';
-import { Text_Title_30_Center } from '../styled/Text';
+import { Text_Title_32_Black } from '../styled/Text';
 import { Icon_Image_90 } from '../styled/Icons';
 import { Button_Icon_Blue_200 } from '../styled/Buttons';
 import { Container_Row_90_Center } from '../styled/Containers';

@@ -24,7 +24,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_90_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
-import { Text_A_16_Center,Text_Fade_A_30_Center } from "../../styled/Text";
+import { Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
 import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
 import { Alert_Verification } from "../../styled/Alerts"
 //____________IMPORT/EXPORT____________

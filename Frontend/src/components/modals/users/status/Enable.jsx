@@ -24,7 +24,7 @@ import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_95_Center, Container_Row_NG_90_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_180,Button_Icon_Green_180,Button_Icon_Red_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -117,16 +117,16 @@ export default function Status_Enable(){
             {isModal && isSelectedRow !== null ? (
                 <Container_Modal ref={Modal_Status}>
                     <Container_Form_450 ref={Form_Status} ThemeMode={themeMode} className={currentMView === 'Estatus-Habilitar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                        <Text_Title_30_Center ThemeMode={themeMode}>{isTextFieldsStatus.estatus === 'Habilitado' ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_30_Center>
+                        <Text_Title_32_Black ThemeMode={themeMode}>{isTextFieldsStatus.estatus === 'Habilitado' ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_32_Black>
                         <Form_Verification/>
                         <Container_Row_NG_90_Center>
-                            <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
-                            <Text_A_16_Left ThemeMode={themeMode}> {isTextFieldsStatus.usuario}</Text_A_16_Left>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsStatus.usuario}</Text_Span_16_Center_Black>
                         </Container_Row_NG_90_Center>
                         {isTextFieldsStatus.estatus === 'Habilitado' ? (
                             <>
                                 <Container_Row_95_Center>
-                                    <Text_A_12_Justify ThemeMode={themeMode}>Al deshabilitar al usuario, se forzará el cierre inmediato de la sesión del usuario si se encuentra activo.</Text_A_12_Justify>
+                                    <Text_Span_12_Justify_Black ThemeMode={themeMode}>Al deshabilitar al usuario, se forzará el cierre inmediato de la sesión del usuario si se encuentra activo.</Text_Span_12_Justify_Black>
                                 </Container_Row_95_Center>  
                             </>
                         ):(

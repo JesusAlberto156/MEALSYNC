@@ -40,7 +40,7 @@ import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital.png';
 import { Container_Page,Container_Page_Login,Container_Form_400,Container_Column_90_Center,Container_Row_95_Center } from "../../components/styled/Containers";
 import { Icon_White_22 } from "../../components/styled/Icons";
 import { Img_Logo_Verical_Hospital_240 } from "../../components/styled/Imgs";
-import { Text_Title_26_Center } from "../../components/styled/Text";
+import { Text_Title_28_Black } from "../../components/styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Blue_220,Button_Icon_Green_150 } from "../../components/styled/Buttons";
 import { Alert_Greeting,Alert_Verification,Alert_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
@@ -284,9 +284,9 @@ export default function Login(){
                         <Container_Row_95_Center>
                             <Img_Logo_Verical_Hospital_240 ThemeMode={themeMode}/>
                         </Container_Row_95_Center>
-                        <Text_Title_26_Center ThemeMode={themeMode}>
+                        <Text_Title_28_Black ThemeMode={themeMode}>
                             {currentLView === '' ? 'BIENVENIDO(A)': currentLView === 'Administration' || currentLView === 'Kitchen' ? 'SELECCIÓN DE USUARIO' : 'INICIAR SESIÓN'}
-                        </Text_Title_26_Center>
+                        </Text_Title_28_Black>
                         {currentLView === '' || currentLView === 'Administration' || currentLView === 'Kitchen' ? (
                             <>
                                 <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>

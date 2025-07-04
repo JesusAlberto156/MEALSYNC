@@ -18,7 +18,7 @@ export const Card_Menu = styled.div`
   }
 `;
 import { ThemeModeContext } from '../../contexts/ViewsProvider';
-import { Text_Title_30_Center } from '../styled/Text';
+import { Text_Title_32_Black } from '../styled/Text';
 import { Icon_Image_90 } from '../styled/Icons';
 import { Button_Icon_Blue_220 } from '../styled/Buttons';
 import { Container_Row_90_Center } from '../styled/Containers';
@@ -30,7 +30,7 @@ export default function Card_Dish(){
     return(
         <>
           <Card_Menu>
-            <Text_Title_30_Center ThemeMode={themeMode}>Huevos revueltos</Text_Title_30_Center>
+            <Text_Title_32_Black ThemeMode={themeMode}>Huevos revueltos</Text_Title_32_Black>
             <Icon_Image_90 ThemeMode={themeMode} src='https://imag.bonviveur.com/fotografia-de-unos-huevos-revueltos.jpg'/>
             <Container_Row_90_Center>
               <Button_Icon_Blue_220 ThemeMode={themeMode}><Text_Span_20_Center>Ver detalles</Text_Span_20_Center></Button_Icon_Blue_220>

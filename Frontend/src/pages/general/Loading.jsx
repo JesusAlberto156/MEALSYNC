@@ -13,7 +13,7 @@ import Logo_Hospital_Light from '../../components/imgs/Logo-Hospital.png';
 //__________IMAGES____________
 // Estilos personalizados
 import { Container_Page_Loading,Container_Row_80_Center } from "../../components/styled/Containers";
-import { Text_Title_42_Center } from "../../components/styled/Text";
+import { Text_Fade_Title_40_White } from "../../components/styled/Text";
 import { Icon_Rotate_Gray_50 } from "../../components/styled/Icons";
 import { Alert_Greeting } from '../../components/styled/Alerts';
 //____________IMPORT/EXPORT____________
@@ -47,7 +47,7 @@ export default function Loading(){
         <>
             <Container_Page_Loading ThemeMode={themeMode}>
                 <Container_Row_80_Center>
-                    <Text_Title_42_Center ThemeMode={themeMode}>Cargando...</Text_Title_42_Center>
+                    <Text_Fade_Title_40_White>Cargando...</Text_Fade_Title_40_White>
                     <Icon_Rotate_Gray_50><IoSettings/></Icon_Rotate_Gray_50>
                 </Container_Row_80_Center>
             </Container_Page_Loading>

@@ -10,7 +10,6 @@ import { HandleNavbarView } from "../../hooks/Views";
 import { HandleSidebarView } from "../../hooks/Views";
 // Estilos personalizados
 import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_100_Center,Container_Column_NG_100_Center } from "../../components/styled/Containers";
-import { Text_Title_30_Center,Text_P_16_Center,Text_P_12_Center } from "../../components/styled/Text";
 import { Img_Logo_Horizontal_Hospital_400 } from "../../components/styled/Imgs";
 import { Button_Link_Blue } from "../../components/styled/Buttons";
 // Componentes personalizados
@@ -31,9 +30,7 @@ export default function Administration_Suppliers(){
         <> 
             {isLoggedType === 'Administrator' ? (
                 <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                    <Container_Row_100_Center>
-                        <Text_Title_30_Center ThemeMode={themeMode}>SECCIÓN DE PROVEEDORES</Text_Title_30_Center>
-                    </Container_Row_100_Center>
+                    
                     <MyRadialBarChart/>
                         
                 </Container_Column_100_Center>  

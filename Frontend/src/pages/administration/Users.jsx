@@ -10,7 +10,7 @@ import { HandleNavbarView } from "../../hooks/Views";
 import { HandleSidebarView } from "../../hooks/Views";
 // Estilos personalizados
 import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_100_Center,Container_Column_NG_100_Center } from "../../components/styled/Containers";
-import { Text_Title_30_Center,Text_P_16_Center,Text_P_12_Center,Text_Span_12_Center_Black } from "../../components/styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Span_12_Center_Black } from "../../components/styled/Text";
 import { Img_Logo_Horizontal_Hospital_400 } from "../../components/styled/Imgs";
 import { Button_Link_Blue } from "../../components/styled/Buttons";
 // Componentes personalizados
@@ -39,7 +39,7 @@ export default function Administration_Users(){
             {isLoggedType === 'Administrador' ? (
                 <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                     <Container_Row_100_Center>
-                        <Text_Title_30_Center ThemeMode={themeMode}>SECCIÓN DE USUARIOS</Text_Title_30_Center>
+                        <Text_Title_32_Black ThemeMode={themeMode}>SECCIÓN DE USUARIOS</Text_Title_32_Black>
                     </Container_Row_100_Center>
                     <Container_Row_NG_100_Center>
                         <Container_Column_NG_100_Center>
@@ -70,17 +70,17 @@ export default function Administration_Users(){
                             
                         </Container_Column_NG_100_Center>
                         <Container_Column_NG_100_Center>
-                            <Text_P_16_Center ThemeMode={themeMode}>REPORTE DE PERMISOS</Text_P_16_Center>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>REPORTE DE PERMISOS</Text_Span_16_Center_Black>
                             <Table_Permissions_Super_Administrators/>
                             <Container_Row_NG_100_Center>
                                 <Container_Column_NG_100_Center>
-                                    <Text_P_12_Center ThemeMode={themeMode}>Área de administración</Text_P_12_Center>
+                                    <Text_Span_12_Center_Black ThemeMode={themeMode}>Área de administración</Text_Span_12_Center_Black>
                                     <Table_Permissions_Administrators/>
                                     <Table_Permissions_Chefs/>
                                     <Table_Permissions_Storekeepers/>
                                 </Container_Column_NG_100_Center>
                                 <Container_Column_NG_100_Center>
-                                    <Text_P_12_Center ThemeMode={themeMode}>Área de cocina</Text_P_12_Center>
+                                    <Text_Span_12_Center_Black ThemeMode={themeMode}>Área de cocina</Text_Span_12_Center_Black>
                                     <Table_Permissions_Cooks/>
                                     <Table_Permissions_Nutritionists/>
                                     <Table_Permissions_Doctors/>

@@ -18,7 +18,7 @@ import Logo_Error_Dark from '../../components/imgs/Logo-Error-Dark.png';
 // Estilos personalizados
 import { Container_Page_Error,Container_Row_100_Center,Container_Column_90_Center } from "../../components/styled/Containers";
 import { Icon_Rotate_Gray_50,Icon_Yellow_250 } from "../../components/styled/Icons";
-import { Text_Title_42_Center,Text_A_20_Center,Text_White_50_Center,Text_Black_White_40_Center } from "../../components/styled/Text";
+import { Text_Span_20_Center_White,Text_Span_24_Center_White,Text_Title_40_White } from "../../components/styled/Text";
 import { Alert_Error,Alert_Styles,Alert_Verification } from "../../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
@@ -70,12 +70,12 @@ export default function Error(){
                         <Icon_Yellow_250 ThemeMode={themeMode}><IoIosWarning/></Icon_Yellow_250>
                     </Container_Row_100_Center>
                     <Container_Row_100_Center>
-                        <Text_Title_42_Center ThemeMode={themeMode}>Ooops...</Text_Title_42_Center>
+                        <Text_Title_40_White>Ooops...</Text_Title_40_White>
                         <Icon_Rotate_Gray_50><IoSettings/></Icon_Rotate_Gray_50>
                     </Container_Row_100_Center>
-                    <Text_A_20_Center ThemeMode={themeMode}>Página no encotrada...</Text_A_20_Center>
-                    <Text_Black_White_40_Center ThemeMode={themeMode}>Redirigiendo en...</Text_Black_White_40_Center>
-                    <Text_White_50_Center>{contador}</Text_White_50_Center>
+                    <Text_Span_20_Center_White>Página no encotrada...</Text_Span_20_Center_White>
+                    <Text_Span_24_Center_White>Redirigiendo en...</Text_Span_24_Center_White>
+                    <Text_Title_40_White>{contador}</Text_Title_40_White>
                 </Container_Column_90_Center>
                 <Alert_Styles>
                     <Toaster

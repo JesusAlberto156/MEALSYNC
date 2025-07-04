@@ -24,7 +24,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12 } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Group } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_22 } from "../../../styled/Icons";
@@ -172,33 +172,33 @@ export default function Count_Supply_Type_Add(){
                 <Container_Modal ref={Modal_Supply_Types}>
                     <Container_Form_500 ref={Form_Supply_Types} ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Cantidad-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
-                            <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR CANTIDAD AL TIPO DE INSUMO</Text_Title_30_Center>
+                            <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR CANTIDAD AL TIPO DE INSUMO</Text_Title_32_Black>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>Tipo de insumo:</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}> {isTextFieldsSupplyType.tipo || 'Desconocido'}...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>Tipo de insumo:</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupplyType.tipo || 'Desconocido'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                         </Container_Column_90_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos específicos...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos específicos...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>Unidad:</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}> {isTextFieldsSupplyType.unidad || 'Desconocida'}...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>Unidad:</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupplyType.unidad || 'Desconocida'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>Categoría:</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}> {isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)?.nombre || 'Desconocida'}...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>Categoría:</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}> {isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)?.nombre || 'Desconocida'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Cantidad:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Cantidad:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Count"

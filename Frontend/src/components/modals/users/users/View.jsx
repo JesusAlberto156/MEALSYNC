@@ -19,7 +19,7 @@ import { FaEye } from "react-icons/fa";
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_100_Center,Container_Row_95_Center } from "../../../styled/Containers";
 import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
-import { Text_Title_30_Center,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Icon_White_22 } from "../../../styled/Icons";
 // Componentes perzonalizados
 import Form_Verification from "../../../forms/Verification";
@@ -62,11 +62,11 @@ export default function User_View(){
                     <Container_Modal>
                         <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'Usuario-Ver-Contraseña' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
-                                <Text_Title_30_Center ThemeMode={themeMode}>VER CONTRASEÑAS</Text_Title_30_Center>
+                                <Text_Title_32_Black ThemeMode={themeMode}>VER CONTRASEÑAS</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Form_Verification/>
                             <Container_Row_95_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>Las contraseñas podrán visualizarse, de todos los usuarios durante un periodo de 30 segundos.</Text_A_12_Justify>
+                                <Text_Span_12_Justify_Black ThemeMode={themeMode}>Las contraseñas podrán visualizarse, de todos los usuarios durante un periodo de 30 segundos.</Text_Span_12_Justify_Black>
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement="top">

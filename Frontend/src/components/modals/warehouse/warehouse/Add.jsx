@@ -32,7 +32,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Right,Container_Column_Border_90_Center,Container_Column_90_Center,Container_Column_Blue_Width_95_Center,Container_Row_95_Center,Container_Row_NG_95_Center, Container_Row_NG_100_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_20_Center,Text_Span_24_Center,Text_A_16_Center } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black,Text_Span_24_Center,Text_Span_16_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210,Button_Icon_Green_60,Button_Icon_Red_60 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_22, Icon_White_18 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Text_Black_50,Input_Radio_16 } from "../../../styled/Inputs";
@@ -214,12 +214,12 @@ export default function Warehouse_Add(){
                     <Container_Modal>
                         <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Warehouse-Add' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
-                                <Text_Title_30_Center ThemeMode={themeMode}>AGREGAR PEDIDO PARA EL INVENTARIO</Text_Title_30_Center>
+                                <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR PEDIDO PARA EL INVENTARIO</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_A_16_Left ThemeMode={themeMode}>- Selección de fecha...</Text_A_16_Left>
+                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Span_16_Center_Black ThemeMode={themeMode}>- Selección de fecha...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Row_100_Center>
                                     {['Automática','Personalizada'].map((item,index) => (
@@ -322,7 +322,7 @@ export default function Warehouse_Add(){
                                                     </div>
                                                 )}
                                             />
-                                            <Text_A_16_Center ThemeMode={themeMode}>Hora: </Text_A_16_Center>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>Hora: </Text_Span_16_Center_Black>
                                             <select
                                                 style={{
                                                     padding: '10px',
@@ -349,7 +349,7 @@ export default function Warehouse_Add(){
                                                     );
                                                 })}
                                             </select>
-                                            <Text_A_16_Center ThemeMode={themeMode}>:</Text_A_16_Center>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>:</Text_Span_16_Center_Black>
                                             <select
                                                 style={{
                                                     padding: '10px',
@@ -386,14 +386,14 @@ export default function Warehouse_Add(){
                             {isTextFieldsWarehouse.supplies.map((supply,index) => (
                                 <Container_Column_Border_90_Center key={index} ThemeMode={themeMode}>
                                     <Container_Row_100_Right>
-                                        <Text_A_20_Center ThemeMode={themeMode}>INSUMO NO. {index+1}</Text_A_20_Center>
+                                        <Text_Span_20_Center_Black ThemeMode={themeMode}>INSUMO NO. {index+1}</Text_Span_20_Center_Black>
                                     </Container_Row_100_Right>
                                     <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                         <Container_Row_NG_95_Center>
-                                            <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                            <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
+                                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                                         </Container_Row_NG_95_Center>
-                                        <Text_A_16_Center ThemeMode={themeMode}>Proveedores...</Text_A_16_Center>
+                                        <Text_Span_16_Center_Black ThemeMode={themeMode}>Proveedores...</Text_Span_16_Center_Black>
                                         {isSuppliers.length !== 0 ? (
                                             <>
                                                 <Container_Row_100_Center>
@@ -409,7 +409,7 @@ export default function Warehouse_Add(){
                                                 {filteredRecordsSuppliers.length === 0 ? (
                                                     <>
                                                         <Container_Row_100_Center>
-                                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                            <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                         </Container_Row_100_Center>
                                                     </>
                                                 ):(
@@ -484,17 +484,17 @@ export default function Warehouse_Add(){
                                         ):(
                                             <>
                                                 <Container_Row_100_Center>
-                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                    <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                 </Container_Row_100_Center>
                                             </>
                                         )}  
-                                        <Text_A_16_Center ThemeMode={themeMode}>Insumos...</Text_A_16_Center>
+                                        <Text_Span_16_Center_Black ThemeMode={themeMode}>Insumos...</Text_Span_16_Center_Black>
                                         {isSupplies.length !== 0 ? (
                                             <>
                                                 {isSupplies.filter(item => item.idproveedor === supply.idsupplier).length === 0 ? (
                                                     <>
                                                         <Container_Row_100_Center>
-                                                            <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                            <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                         </Container_Row_100_Center>
                                                     </>
                                                 ):(
@@ -512,7 +512,7 @@ export default function Warehouse_Add(){
                                                         {isSupplies.filter(item => item.idproveedor === supply.idsupplier && item.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase())).length === 0 ? (
                                                             <>
                                                                 <Container_Row_100_Center>
-                                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                                    <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                                 </Container_Row_100_Center>
                                                             </>
                                                         ):(
@@ -594,18 +594,18 @@ export default function Warehouse_Add(){
                                         ):(
                                             <>
                                                 <Container_Row_100_Center>
-                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                    <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                 </Container_Row_100_Center>
                                             </>
                                         )}
                                     </Container_Column_90_Center>
                                     <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                         <Container_Row_NG_95_Center>
-                                            <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                            <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
+                                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
                                         </Container_Row_NG_95_Center>
                                         <Container_Row_100_Center>
-                                            <Text_A_16_Left ThemeMode={themeMode}>Cantidad:</Text_A_16_Left>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>Cantidad:</Text_Span_16_Center_Black>
                                             <Input_Text_Black_100 ThemeMode={themeMode}
                                                 placeholder="..."
                                                 type="text"
@@ -625,7 +625,7 @@ export default function Warehouse_Add(){
                                             />
                                         </Container_Row_100_Center>
                                         <Container_Row_100_Center>
-                                            <Text_A_16_Left ThemeMode={themeMode}>Precio Unitario:</Text_A_16_Left>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>Precio Unitario:</Text_Span_16_Center_Black>
                                             <Input_Text_Black_100 ThemeMode={themeMode}
                                                 placeholder="..."
                                                 type="text"
@@ -646,7 +646,7 @@ export default function Warehouse_Add(){
                                             />
                                         </Container_Row_100_Center>
                                         <Container_Row_100_Center>
-                                            <Text_A_16_Left ThemeMode={themeMode}>Precio Total:</Text_A_16_Left>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>Precio Total:</Text_Span_16_Center_Black>
                                             <Input_Text_Black_100 ThemeMode={themeMode}
                                                 placeholder="..."
                                                 type="number"

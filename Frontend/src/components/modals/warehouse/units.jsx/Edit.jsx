@@ -22,7 +22,7 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Input_Radio_16,Input_Text_Black_100 } from "../../../styled/Inputs";
@@ -112,15 +112,15 @@ export default function Unit_Edit(){
                     <Container_Modal>
                         <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Unit-Edit' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
-                                <Text_Title_30_Center ThemeMode={themeMode}>EDITAR MEDIDA</Text_Title_30_Center>
+                                <Text_Title_32_Black ThemeMode={themeMode}>EDITAR MEDIDA</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Nombre:</Text_A_16_Left>
+                                    <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
@@ -129,8 +129,8 @@ export default function Unit_Edit(){
                                     />
                                 </Container_Row_100_Center>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_A_16_Left ThemeMode={themeMode}>- Unidad...</Text_A_16_Left>
+                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Span_16_Center_Black ThemeMode={themeMode}>- Unidad...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Row_95_Center>
                                     {['Kilogramos','Litros'].map((item,index) => (
@@ -148,15 +148,15 @@ export default function Unit_Edit(){
                                 </Container_Row_95_Center>
                             </Container_Column_90_Center>
                             <Container_Row_100_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>Si editas los datos generales, se modificarán para todas las medidas que compartan el mismo nombre, incluso si cambias el nombre en una de ellas.</Text_A_12_Justify>
+                                <Text_Span_12_Justify_Black ThemeMode={themeMode}>Si editas los datos generales, se modificarán para todas las medidas que compartan el mismo nombre, incluso si cambias el nombre en una de ellas.</Text_Span_12_Justify_Black>
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
-                                    <Text_A_16_Left ThemeMode={themeMode}>Cantidad:</Text_A_16_Left>
+                                    <Text_Span_16_Center_Black ThemeMode={themeMode}>Cantidad:</Text_Span_16_Center_Black>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"

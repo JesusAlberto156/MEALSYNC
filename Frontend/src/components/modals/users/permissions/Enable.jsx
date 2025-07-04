@@ -25,7 +25,7 @@ import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_90_Center,Container_Row_NG_90_Center,Container_Row_95_Center } from "../../../styled/Containers";
-import { Text_P_16_Left,Text_Title_30_Center,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Span_16_Left_Black,Text_Title_32_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_180,Button_Icon_Red_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -119,14 +119,14 @@ export default function Permissions_Enable(){
                 <>
                     <Container_Modal ref={Modal_Permissions}>
                         <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permiso-Super-Administrador' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                            <Text_Title_30_Center ThemeMode={themeMode}>{isTextFieldsPermissions.superadministrador ? 'DESHABILITAR SUPER ADMINISTRADOR':'HABILITAR SUPER ADMINISTRADOR'}</Text_Title_30_Center>
+                            <Text_Title_32_Black ThemeMode={themeMode}>{isTextFieldsPermissions.superadministrador ? 'DESHABILITAR SUPER ADMINISTRADOR':'HABILITAR SUPER ADMINISTRADOR'}</Text_Title_32_Black>
                             <Form_Verification/>
                             <Container_Row_NG_90_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
-                                <Text_P_16_Left ThemeMode={themeMode}> {isTextFieldsPermissions.usuario}</Text_P_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_12>
+                                <Text_Span_16_Left_Black ThemeMode={themeMode}> {isTextFieldsPermissions.usuario}</Text_Span_16_Left_Black>
                             </Container_Row_NG_90_Center>
                             <Container_Row_95_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>Al {isTextFieldsPermissions.superadministrador ? 'deshabilitar':'habilitar'} el rol de superadministrador, se forzará el cierre inmediato de la sesión del usuario si se encuentra activo.</Text_A_12_Justify>
+                                <Text_Span_12_Justify_Black ThemeMode={themeMode}>Al {isTextFieldsPermissions.superadministrador ? 'deshabilitar':'habilitar'} el rol de superadministrador, se forzará el cierre inmediato de la sesión del usuario si se encuentra activo.</Text_Span_12_Justify_Black>
                             </Container_Row_95_Center>
                             <Container_Row_90_Center>
                                 <Tooltip title='Cancelar' placement="top">

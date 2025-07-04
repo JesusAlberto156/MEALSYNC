@@ -28,7 +28,7 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center,Container_Row_90_Center } from "../../../styled/Containers";
-import { Text_Title_30_Center,Text_A_16_Center,Text_Blue_16_Center,Text_A_20_Center,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Area_Black_100,Input_Group,Input_Text_Black_50 } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_Button_Blue_18,Icon_26 } from "../../../styled/Icons";
@@ -259,15 +259,15 @@ export default function Supply_Edit(){
                 <Container_Modal ref={Modal_Supplies}>
                     <Container_Form_500 ref={Form_Supplies} ThemeMode={themeMode} className={currentMView === 'Insumo-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
-                            <Text_Title_30_Center ThemeMode={themeMode}>EDITAR INSUMO</Text_Title_30_Center>
+                            <Text_Title_32_Black ThemeMode={themeMode}>EDITAR INSUMO</Text_Title_32_Black>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos generales...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Nombre:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Name"
@@ -296,7 +296,7 @@ export default function Supply_Edit(){
                                 </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Descripción:</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Descripción:</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Area_Black_100 ThemeMode={themeMode}
                                         id="Input-Description"
@@ -326,7 +326,7 @@ export default function Supply_Edit(){
                                 </Icon_Button_Blue_18>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>Imagen (URL):</Text_A_16_Center>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Imagen (URL):</Text_Span_16_Center_Black>
                                 <Input_Group>
                                     <Input_Text_Black_100 ThemeMode={themeMode}
                                         id="Input-Image"
@@ -356,19 +356,19 @@ export default function Supply_Edit(){
                             </Container_Row_100_Center>
                         </Container_Column_90_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                            <Text_A_16_Center ThemeMode={themeMode}>- Datos específicos...</Text_A_16_Center>
+                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos específicos...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Proveedor...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Proveedor...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             {isSuppliers.length !== 0 ? (
                                 isDeletedSuppliers.some(supplier => supplier.idproveedor === isTextFieldsSupply.idproveedor) ? (
                                     <>
                                         <Container_Row_90_Center>
-                                            <Text_A_16_Center ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === isTextFieldsSupply.idproveedor)?.nombre || 'Desconocido...'}</Text_A_16_Center>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>{isSuppliers.find(supplier => supplier.idproveedor === isTextFieldsSupply.idproveedor)?.nombre || 'Desconocido...'}</Text_Span_16_Center_Black>
                                         </Container_Row_90_Center>
                                     </>
                                 ):(
@@ -454,7 +454,7 @@ export default function Supply_Edit(){
                                         ):(
                                             <>
                                                 <Container_Row_95_Center>
-                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                    <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                 </Container_Row_95_Center>
                                             </>
                                         )}
@@ -463,19 +463,19 @@ export default function Supply_Edit(){
                             ):(
                                 <>
                                     <Container_Row_95_Center>
-                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                     </Container_Row_95_Center>
                                 </>
                             )}
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Categoría...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Categoría...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             {isSupplyCategories.length !== 0 ? (
                                 isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupply.idcategoria) ? (
                                     <>
                                         <Container_Row_90_Center>
-                                            <Text_A_16_Center ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupply.idcategoria)?.nombre || 'Desconocida...'}</Text_A_16_Center>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupply.idcategoria)?.nombre || 'Desconocida...'}</Text_Span_16_Center_Black>
                                         </Container_Row_90_Center>
                                     </>
                                 ):(
@@ -561,7 +561,7 @@ export default function Supply_Edit(){
                                         ):(
                                             <>
                                                 <Container_Row_95_Center>
-                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                    <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                 </Container_Row_95_Center>
                                             </>
                                         )}
@@ -570,19 +570,19 @@ export default function Supply_Edit(){
                             ):(
                                 <>
                                     <Container_Row_95_Center>
-                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                     </Container_Row_95_Center>
                                 </>
                             )}
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Tipo de insumo...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Tipo de insumo...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             {isTextFieldsSupply.idcategoria !== 0 ? (
                                 isDeletedSupplyTypes.some(type => type.idtipo === isTextFieldsSupply.idtipo) ? (
                                     <>
                                         <Container_Row_90_Center>
-                                            <Text_A_16_Center ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.tipo || 'Desconocido...'}</Text_A_16_Center>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>{isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.tipo || 'Desconocido...'}</Text_Span_16_Center_Black>
                                         </Container_Row_90_Center>
                                     </>
                                 ):(
@@ -668,7 +668,7 @@ export default function Supply_Edit(){
                                         ):(
                                             <>
                                                 <Container_Row_95_Center>
-                                                    <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                    <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                                 </Container_Row_95_Center>
                                             </>
                                         )}   
@@ -677,19 +677,19 @@ export default function Supply_Edit(){
                             ):(
                                 <>
                                     <Container_Row_95_Center>
-                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                     </Container_Row_95_Center>
                                 </>
                             )}
                             <Container_Row_NG_95_Center>
-                                <Text_Blue_16_Center ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Center>
-                                <Text_A_16_Center ThemeMode={themeMode}>- Cantidad...</Text_A_16_Center>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Cantidad...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             {isTextFieldsSupply.idtipo !== 0 ? (
                                 isDeletedSupplyTypes.some(type => type.idtipo === isTextFieldsSupply.idtipo) ? (
                                     <>
                                         <Container_Row_90_Center>
-                                            <Text_A_16_Center ThemeMode={themeMode}>{isCountSupplyTypes.find(count => count.idcantidad === isTextFieldsSupply.idcantidad)?.cantidad || 'Desconocida...'} {isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.unidad || 'Desconocido...'}</Text_A_16_Center>
+                                            <Text_Span_16_Center_Black ThemeMode={themeMode}>{isCountSupplyTypes.find(count => count.idcantidad === isTextFieldsSupply.idcantidad)?.cantidad || 'Desconocida...'} {isSupplyTypes.find(type => type.idtipo === isTextFieldsSupply.idtipo)?.unidad || 'Desconocido...'}</Text_Span_16_Center_Black>
                                         </Container_Row_90_Center>
                                     </>
                                 ):(
@@ -757,7 +757,7 @@ export default function Supply_Edit(){
                                     ):(
                                         <>
                                             <Container_Row_95_Center>
-                                                <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                                <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                             </Container_Row_95_Center>
                                         </>
                                     )
@@ -765,13 +765,13 @@ export default function Supply_Edit(){
                             ):(
                                 <>
                                     <Container_Row_95_Center>
-                                        <Text_A_20_Center ThemeMode={themeMode}>No hay datos disponibles</Text_A_20_Center>
+                                        <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
                                     </Container_Row_95_Center>
                                 </>
                             )}
                         </Container_Column_90_Center>
                         <Container_Row_95_Center>
-                            <Text_A_12_Justify ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los pedidos del inventario o para registrar nuevos pedidos del inventario a su nombre. La modificación de la categoría, el tipo de insumo o la cantidad puede afectar los resultados finales del inventario. La modificación del proveedor puede afectar a futuras solicitudes para el inventario.</Text_A_12_Justify>
+                            <Text_Span_12_Justify_Black ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los pedidos del inventario o para registrar nuevos pedidos del inventario a su nombre. La modificación de la categoría, el tipo de insumo o la cantidad puede afectar los resultados finales del inventario. La modificación del proveedor puede afectar a futuras solicitudes para el inventario.</Text_Span_12_Justify_Black>
                         </Container_Row_95_Center>
                         <Container_Row_95_Center>
                             <Tooltip title='Cancelar' placement='top'>

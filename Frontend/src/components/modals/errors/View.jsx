@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ModalContext,ModalViewContext } from "../../../contexts/ViewsProvider";
 // Estilos personalizados
 import { Container_Modal,Container_Column_90_Center } from "../../styled/Containers";
-import { Text_White_40_Center,Text_White_50_Center } from "../../styled/Text";
+import { Text_Title_36_White,Text_Title_40_White } from "../../styled/Text";
 import { Alert_Verification } from "../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
@@ -53,9 +53,9 @@ export default function Error_View(){
         <>
             <Container_Modal>
                 <Container_Column_90_Center>
-                    <Text_White_40_Center>¡Ha perdido los datos para visualizar!</Text_White_40_Center>
-                    <Text_White_40_Center>Redirigiendo en...</Text_White_40_Center>
-                    <Text_White_50_Center>{contador}</Text_White_50_Center>
+                    <Text_Title_36_White>¡Ha perdido los datos para visualizar!</Text_Title_36_White>
+                    <Text_Title_36_White>Redirigiendo en...</Text_Title_36_White>
+                    <Text_Title_40_White>{contador}</Text_Title_40_White>
                 </Container_Column_90_Center>
             </Container_Modal>
         </>

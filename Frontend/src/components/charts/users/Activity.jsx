@@ -9,7 +9,7 @@ import { ThemeModeContext } from '../../../contexts/ViewsProvider';
 import { TableActionsStatus } from '../../../hooks/users/Tables';
 // Estilos personalizados
 import { Container_Row_90_Center } from '../../styled/Containers';
-import { Text_P_16_Center,Text_Fade_Title_28_Black } from '../../styled/Text';
+import { Text_Span_16_Center_Black,Text_Fade_Title_28_Black } from '../../styled/Text';
 import { Chart_Container_White_420x450,Chart_Tooltip_Custom_Name_Value } from '../../styled/Charts';
 //____________IMPORT/EXPORT____________
 
@@ -31,7 +31,7 @@ export default function Chart_Activity() {
     return (
         <>
             <Chart_Container_White_420x450 ThemeMode={themeMode}>
-                <Text_P_16_Center ThemeMode={themeMode}>ACTIVIDAD DE USUARIOS</Text_P_16_Center>
+                <Text_Span_16_Center_Black ThemeMode={themeMode}>ACTIVIDAD DE USUARIOS</Text_Span_16_Center_Black>
                 {filteredRecordsStatus.length !== 0 ? (
                     <>
                         <ResponsiveContainer width={'100%'} height={'80%'}>

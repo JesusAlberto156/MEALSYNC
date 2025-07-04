@@ -20,7 +20,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 import { Container_Row_100_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_140 } from "../../styled/Buttons";
 import { Icon_White_22 } from "../../styled/Icons";
-import { Text_A_16_Center,Text_Black_White_40_Center } from "../../styled/Text";
+import { Text_Span_16_Center_Black,Text_Black_White_40_Center } from "../../styled/Text";
 import { Chart_90 } from "../../styled/Charts";
 //____________IMPORT/EXPORT____________
 
@@ -324,7 +324,7 @@ export default function Chart_Suppliers(){
                         </Icon_White_22>
                     </Button_Icon_Blue_140>
                 </Tooltip>
-                <Text_A_16_Center ThemeMode={themeMode}>Página {currentPage} de {totalPages}</Text_A_16_Center>
+                <Text_Span_16_Center_Black ThemeMode={themeMode}>Página {currentPage} de {totalPages}</Text_Span_16_Center_Black>
                 <Tooltip title='Siguiente' placement='top'>
                     <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage * itemsPerPage >= Object.entries(qualification).filter(([id, data]) =>
                                                                                 data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())

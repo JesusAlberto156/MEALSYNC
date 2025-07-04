@@ -27,7 +27,7 @@ import { MdEdit } from "react-icons/md";
 import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_90_Center,Container_Column_90_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
 import { Button_Icon_Red_180,Button_Icon_Blue_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
-import { Text_Title_30_Center,Text_A_16_Left,Text_Blue_16_Left,Text_A_12_Justify } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -94,23 +94,23 @@ export default function Permissions_Edit(){
                 <>
                     <Container_Modal ref={Modal_Permissions}>
                         <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permisos-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                            <Text_Title_30_Center ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_30_Center>
+                            <Text_Title_32_Black ThemeMode={themeMode}>EDITAR PERMISOS</Text_Title_32_Black>
                             <Container_Row_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Datos generales...</Text_A_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                             </Container_Row_95_Center>
                             <Container_Row_NG_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>Usuario:</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>{isTextFieldsPermissions.usuario}</Text_A_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>{isTextFieldsPermissions.usuario}</Text_Span_16_Center_Black>
                             </Container_Row_NG_90_Center>
                             <Container_Row_95_Center>
-                                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                <Text_A_16_Left ThemeMode={themeMode}>- Datos especificos...</Text_A_16_Left>
+                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
                             </Container_Row_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_A_16_Left ThemeMode={themeMode}>- Área de administración...</Text_A_16_Left>
+                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Span_16_Center_Black ThemeMode={themeMode}>- Área de administración...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Row_95_Center>
                                     <Label_Text_16_Center ThemeMode={themeMode}>
@@ -142,8 +142,8 @@ export default function Permissions_Edit(){
                                     </Label_Text_16_Center>
                                 </Container_Row_95_Center>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_A_16_Left ThemeMode={themeMode}>- Área de cocina...</Text_A_16_Left>
+                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Span_16_Center_Black ThemeMode={themeMode}>- Área de cocina...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Row_95_Center>
                                     <Label_Text_16_Center ThemeMode={themeMode}>
@@ -176,7 +176,7 @@ export default function Permissions_Edit(){
                                 </Container_Row_95_Center>
                             </Container_Column_90_Center>
                             <Container_Row_95_Center>
-                                <Text_A_12_Justify ThemeMode={themeMode}>Si se le retira el permiso mientras el usuario tiene una sesión activa con dicho permiso, su sesión se cerrará de forma inmediata.</Text_A_12_Justify>
+                                <Text_Span_12_Justify_Black ThemeMode={themeMode}>Si se le retira el permiso mientras el usuario tiene una sesión activa con dicho permiso, su sesión se cerrará de forma inmediata.</Text_Span_12_Justify_Black>
                             </Container_Row_95_Center>
                             <Container_Row_95_Center>
                                 <Tooltip title='Cancelar' placement='top'>

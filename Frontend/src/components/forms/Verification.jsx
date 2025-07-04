@@ -16,7 +16,7 @@ import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../styled/Containers";
-import { Text_A_16_Left,Text_Blue_16_Left } from "../styled/Text";
+import { Text_Span_16_Center_Black,Text_Color_Blue_12 } from "../styled/Text";
 import { Input_Group, Input_Text_Black_100 } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
 import { Icon_White_22 } from "../styled/Icons";
@@ -117,12 +117,12 @@ export default function Form_Verification(){
     return(
         <> 
             <Container_Row_NG_95_Center>
-                <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>   
-                <Text_A_16_Left ThemeMode={themeMode}>- Datos de sesión...</Text_A_16_Left>
+                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>   
+                <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos de sesión...</Text_Span_16_Center_Black>
             </Container_Row_NG_95_Center>
             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                 <Container_Row_100_Center>
-                    <Text_A_16_Left ThemeMode={themeMode}>Usuario:</Text_A_16_Left>
+                    <Text_Span_16_Center_Black ThemeMode={themeMode}>Usuario:</Text_Span_16_Center_Black>
                     <Input_Group>
                         <Input_Text_Black_100 ThemeMode={themeMode}
                             id="Input-User"
@@ -143,7 +143,7 @@ export default function Form_Verification(){
                     </Input_Group>
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
-                    <Text_A_16_Left ThemeMode={themeMode}>Contraseña:</Text_A_16_Left>
+                    <Text_Span_16_Center_Black ThemeMode={themeMode}>Contraseña:</Text_Span_16_Center_Black>
                     <Input_Group>
                         <Input_Text_Black_100 ThemeMode={themeMode}
                             id="Input-Password"

@@ -17,7 +17,7 @@ import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_350,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../styled/Containers";
-import { Text_Title_30_Center,Text_P_16_Left,Text_Blue_16_Left } from "../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12 } from "../../styled/Text";
 import { Button_Icon_Blue_120,Button_Icon_Red_120 } from "../../styled/Buttons";
 import { Icon_White_22 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
@@ -41,11 +41,11 @@ export default function Out_Login(){
                     <Container_Modal>
                         <Container_Form_350 className={currentMView === 'Cerrar-Sesión' ? 'slide-in-container-top' : 'slide-out-container-top'} ThemeMode={themeMode}>
                                 <Container_Row_100_Center>
-                                    <Text_Title_30_Center ThemeMode={themeMode}>¿ESTAS SEGURO?</Text_Title_30_Center>
+                                    <Text_Title_32_Black ThemeMode={themeMode}>¿ESTAS SEGURO?</Text_Title_32_Black>
                                 </Container_Row_100_Center>
                                 <Container_Row_NG_95_Left>
-                                    <Text_Blue_16_Left ThemeMode={themeMode}>MEALSYNC</Text_Blue_16_Left>
-                                    <Text_P_16_Left ThemeMode={themeMode}>- Cerrará la sesión...</Text_P_16_Left>
+                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Span_16_Center_Black ThemeMode={themeMode}>- Cerrará la sesión...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Left>
                                 <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title="Cancelar" placement="top">

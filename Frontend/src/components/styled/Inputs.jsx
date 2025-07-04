@@ -4,6 +4,56 @@ import styled from 'styled-components';
 //____________IMPORT/EXPORT____________
 
 //____________TEXT____________
+//-------- Negro
+export const Input_Text_100_Black = styled.input`
+    width: 100%;
+    height: auto;
+    font-family: Century Gothic, Prompt;
+    color: black;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 50px;
+    border-bottom: 3px solid black;
+    background:rgb(230, 230, 230);
+    transition: 0.2s ease;
+    outline: none;
+    cursor: text;
+
+    &::placeholder {
+        color: black;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background: rgb(221, 223, 226);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        border-radius: 30px;
+        padding: 8px;
+    }
+    
+    @media (max-width: 480px) {
+        font-size: 12px;
+        border-radius: 20px;
+        padding: 6px;
+    }
+
+    &:focus {
+        color: rgb(58,93,174);
+        border-color: rgb(58,93,174);
+        box-shadow: 0 0 8px rgb(0, 0, 0);
+
+        &::placeholder {
+            color: rgb(58,93,174);
+        }
+    }
+`;
+//-------- Negro
+
 //-------- Black
 export const Input_Text_Black_100 = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',

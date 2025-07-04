@@ -24,7 +24,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12 } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Group } from "../../../styled/Inputs";
 import { Icon_White_22,Icon_22 } from "../../../styled/Icons";
@@ -175,26 +175,26 @@ export default function Count_Supply_Type_Add(){
                             <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR CANTIDAD AL TIPO DE INSUMO</Text_Title_32_Black>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>Tipo de insumo:</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>Tipo de insumo:</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupplyType.tipo || 'Desconocido'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                         </Container_Column_90_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos específicos...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>Unidad:</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>Unidad:</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupplyType.unidad || 'Desconocida'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>Categoría:</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>Categoría:</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}> {isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)?.nombre || 'Desconocida'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_100_Center>

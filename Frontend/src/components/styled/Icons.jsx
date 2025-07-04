@@ -402,108 +402,182 @@ export const Icon_Button_Black_14 = styled.button.withConfig({
     }
 `;
 //---------- Black/White
-//---------- Blue
-export const Icon_Button_Blue_30 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 30px;
+//---------- Azul
+export const Icon_Button_Blue_32 = styled.button`
+    font-size: 32px;
     border: none;
     background-color: transparent;
     cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: rgb(58,93,174);
     display: flex;
     justify-content: center;
     align-items: center;
 
+    &:not(:disabled):hover {
+        color: rgb(12, 54, 109);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        color: rgb(82, 126, 231);
+    }
+        
     @media (max-width: 768px) {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 28px;
     }
+`;
+export const Icon_Button_Blue_28 = styled.button`
+    font-size: 28px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    &:not(:disabled):hover {
+        color: rgb(12, 54, 109);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        color: rgb(82, 126, 231);
+    }
+        
+    @media (max-width: 768px) {
         font-size: 26px;
     }
-`;
-export const Icon_Button_Blue_26 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 26px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         font-size: 24px;
     }
+`;
+export const Icon_Button_Blue_24 = styled.button`
+    font-size: 24px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    &:not(:disabled):hover {
+        color: rgb(12, 54, 109);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        color: rgb(82, 126, 231);
+    }
+        
+    @media (max-width: 768px) {
         font-size: 22px;
     }
-`;
-export const Icon_Button_Blue_22 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 22px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         font-size: 20px;
     }
+`;
+export const Icon_Button_Blue_20 = styled.button`
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    &:not(:disabled):hover {
+        color: rgb(12, 54, 109);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        color: rgb(82, 126, 231);
+    }
+        
+    @media (max-width: 768px) {
         font-size: 18px;
     }
-`;
-export const Icon_Button_Blue_18 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 18px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         font-size: 16px;
     }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
-    }
 `;
-export const Icon_Button_Blue_14 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 14px;
+export const Icon_Button_Blue_16 = styled.button`
+    font-size: 16px;
     border: none;
     background-color: transparent;
     cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+    color: rgb(58,93,174);
     display: flex;
     justify-content: center;
     align-items: center;
 
+    &:not(:disabled):hover {
+        color: rgb(12, 54, 109);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        color: rgb(82, 126, 231);
+    }
+
     @media (max-width: 768px) {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     @media (max-width: 480px) {
-        font-size: 10px;
+        font-size: 12px;
     }
 `;
-//---------- Blue
+export const Icon_Button_Blue_12 = styled.button`
+    font-size: 12px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:not(:disabled):hover {
+        color: rgb(12, 54, 109);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+        color: rgb(82, 126, 231);
+    }
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- Azul
 //____________BUTTON____________
 //____________ROTATE____________
 //---------- Gray

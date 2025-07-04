@@ -28,9 +28,9 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
+import { Icon_White_22,Icon_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Text_Black_50 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -116,7 +116,7 @@ export default function Supply_Add(){
                                 <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR INSUMO</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
@@ -137,12 +137,12 @@ export default function Supply_Add(){
                                         value={isTextFieldsSupply.description}
                                         onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, description: e.target.value}))}
                                     />
-                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                    <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
                                             setIsTextFieldsSupply(prev => ({...prev, description: ''}))
                                         }}>
                                         <MdCancel/>
-                                    </Icon_Button_Blue_18>
+                                    </Icon_Button_Blue_16>
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Imagen (URL):</Text_Span_16_Center_Black>
@@ -152,21 +152,21 @@ export default function Supply_Add(){
                                         value={isTextFieldsSupply.image}
                                         onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, image: e.target.value}))}
                                     />
-                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                    <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
                                             setIsTextFieldsSupply(prev => ({...prev, image: ''}))
                                         }}>
                                         <MdCancel/>
-                                    </Icon_Button_Blue_18>
+                                    </Icon_Button_Blue_16>
                                 </Container_Row_100_Center>
                             </Container_Column_90_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Proveedor...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 {isSuppliers.length !== 0 ? (
@@ -257,7 +257,7 @@ export default function Supply_Add(){
                                     </>
                                 )}
                                 <Container_Row_NG_95_Center>
-                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Tipo de insumo...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 {isSupplyTypes.length !== 0 && isUnits.length !== 0 ? (

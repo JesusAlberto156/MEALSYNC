@@ -31,6 +31,7 @@ export default function Index_Main(){
                 </Container_Page_Logged> 
                 <Alert_Styles>
                     <Toaster
+                        richColors
                         visibleToasts={5}
                     />
                 </Alert_Styles> 

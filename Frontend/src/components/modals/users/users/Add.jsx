@@ -28,10 +28,10 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal_Background_Black,Container_Modal_Form_White_50,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Center,Container_Row_Left,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_28_Black,Text_Span_16_Left_Black,Text_Color_Blue_12 } from "../../../styled/Text";
+import { Text_Title_28_Black,Text_Span_16_Left_Black,Text_Color_Blue_16,Text_Span_16_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
-import { Input_Text_Black_100,Input_Radio_16, Input_Group } from "../../../styled/Inputs";
+import { Icon_White_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
+import { Input_Text_100_Black,Input_Radio_16, Input_Group } from "../../../styled/Inputs";
 import { Label_Text_12_Black } from "../../../styled/Labels";
 import { Image_Modal_Fixed } from "../../../styled/Imgs";
 import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
@@ -69,8 +69,10 @@ export default function User_Add(){
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
     // Constantes con el valor de useState
-    const [isTotalName,setIsTotalName] = useState(0)
-    const [isTotalShortName,setIsTotalShortName] = useState(0)
+    const [isTotalName,setIsTotalName] = useState(0);
+    const [isTotalShortName,setIsTotalShortName] = useState(0);
+    const [isTotalUser,setIsTotalUser] = useState(0);
+    const [isTotalPassword,setIsTotalPassword] = useState(0);
     // Constantes con el valor de useRef
     const lastTouchTimeRef = useRef(0);
     const isTouchRef = useRef(isTouch);
@@ -82,13 +84,22 @@ export default function User_Add(){
         }
     },[isTextFieldsUser.nombre]);
     useEffect(() => {
-
+        setIsTotalShortName(isTextFieldsUser.nombrecorto.length);
+        if(isTextFieldsUser.nombrecorto.length === 50){
+            Alert_Sonner_Warning('MEALSYNC','¡Ha alcanzado el límite de caracteres permitido en el nombre corto!');
+        }
     },[isTextFieldsUser.nombrecorto]);
     useEffect(() => {
-
+        setIsTotalUser(isTextFieldsUser.usuario.length);
+        if(isTextFieldsUser.usuario.length === 25){
+            Alert_Sonner_Warning('MEALSYNC','¡Ha alcanzado el límite de caracteres permitido en el usuario!');
+        }
     },[isTextFieldsUser.usuario]);
     useEffect(() => {
-
+        setIsTotalPassword(isTextFieldsUser.contrasena.length);
+        if(isTextFieldsUser.contrasena.length === 15){
+            Alert_Sonner_Warning('MEALSYNC','¡Ha alcanzado el límite de caracteres permitido en la contraseña!');
+        }
     },[isTextFieldsUser.contrasena]);
     // UseEffect que determina la visibilidad del teclado
     useEffect(() => {
@@ -151,27 +162,31 @@ export default function User_Add(){
     useEffect(() => {
         isTouchRef.current = isTouch;
     }, [isTouch]);
-    // useEffect para escribir en los campos del login
+    // useEffect para escribir en los campos del formulario
     const handleKeyboard = (newValue) => {
         if(isKeyboardView === 'Name' ){
+            if (newValue.length > 150) return;
             setIsTextFieldsUser(prev => ({
                 ...prev,
                 nombre: newValue, 
             }));
         }
         if(isKeyboardView === 'ShortName' ){
+            if (newValue.length > 50) return;
             setIsTextFieldsUser(prev => ({
                 ...prev,
                 nombrecorto: newValue, 
             }));
         }
         if(isKeyboardView === 'User' ){
+            if (newValue.length > 25) return;
             setIsTextFieldsUser(prev => ({
                 ...prev,
                 usuario: newValue, 
             }));
         }
         if(isKeyboardView === 'Password' ){
+            if (newValue.length > 15) return;
             setIsTextFieldsUser(prev => ({
                 ...prev,
                 contrasena: newValue, 
@@ -351,13 +366,13 @@ export default function User_Add(){
                                 <Text_Title_28_Black>AGREGAR USUARIO</Text_Title_28_Black>
                                 <Container_Modal_Form_White className='shadow-out-container-light-infinite'>
                                     <Container_Row_NG_Center>
-                                        <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
-                                        <Text_Span_16_Left_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Left_Black>
+                                        <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
+                                        <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Center>
                                     <Container_Row_Left>
                                         <Text_Span_16_Left_Black>Nombre:</Text_Span_16_Left_Black>
                                         <Input_Group>
-                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                            <Input_Text_100_Black
                                                 id="Input-Name"
                                                 placeholder="..."
                                                 type="text"
@@ -374,73 +389,85 @@ export default function User_Add(){
                                             />
                                             <Label_Text_12_Black>{isTotalName}/150</Label_Text_12_Black>
                                         </Input_Group>
-                                        <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        <Icon_Button_Blue_16
                                             onClick={() => {
                                                 setIsTextFieldsUser(prev => ({...prev, nombre: ''}))
                                             }}
                                             disabled={isActionBlock}
                                         >
                                             <MdCancel/>
-                                        </Icon_Button_Blue_18>
+                                        </Icon_Button_Blue_16>
                                     </Container_Row_Left>
                                     <Container_Row_Left>
                                         <Text_Span_16_Left_Black>Nombre corto:</Text_Span_16_Left_Black>
-                                        <Input_Text_Black_100 ThemeMode={themeMode}
-                                            id="Input-ShortName"
-                                            placeholder="..."
-                                            type="text"
-                                            disabled={isActionBlock}
-                                            value={isTextFieldsUser.nombrecorto}
-                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
-                                            onFocus={() => {
-                                                if(isTouchRef.current){
-                                                    setIsKeyboard(true);
-                                                    setIsKeyboardView('ShortName');
-                                                }
-                                            }}
-                                        />
-                                        <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                        <Input_Group>
+                                            <Input_Text_100_Black
+                                                id="Input-ShortName"
+                                                placeholder="..."
+                                                type="text"
+                                                maxLength={50}
+                                                disabled={isActionBlock}
+                                                value={isTextFieldsUser.nombrecorto}
+                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
+                                                onFocus={() => {
+                                                    if(isTouchRef.current){
+                                                        setIsKeyboard(true);
+                                                        setIsKeyboardView('ShortName');
+                                                    }
+                                                }}
+                                            />
+                                            <Label_Text_12_Black>{isTotalShortName}/50</Label_Text_12_Black>
+                                        </Input_Group>
+                                        <Icon_Button_Blue_16
                                             onClick={() => {
                                                 setIsTextFieldsUser(prev => ({...prev, nombrecorto: ''}))
                                             }}
                                             disabled={isActionBlock}
                                         >
                                             <MdCancel/>
-                                        </Icon_Button_Blue_18>
+                                        </Icon_Button_Blue_16>
                                     </Container_Row_Left>
                                     <Container_Row_Left>
                                         <Text_Span_16_Left_Black>Usuario:</Text_Span_16_Left_Black>
-                                        <Input_Text_Black_100 ThemeMode={themeMode}
-                                            id="Input-User"
-                                            placeholder="..."
-                                            type="text"
-                                            disabled={isActionBlock}
-                                            value={isTextFieldsUser.usuario}
-                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
-                                            onFocus={() => {
-                                                if(isTouchRef.current){
-                                                    setIsKeyboard(true);
-                                                    setIsKeyboardView('User');
-                                                }
-                                            }}
-                                        />
+                                        <Input_Group>
+                                            <Input_Text_100_Black
+                                                id="Input-User"
+                                                placeholder="..."
+                                                type="text"
+                                                maxLength={25}
+                                                disabled={isActionBlock}
+                                                value={isTextFieldsUser.usuario}
+                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
+                                                onFocus={() => {
+                                                    if(isTouchRef.current){
+                                                        setIsKeyboard(true);
+                                                        setIsKeyboardView('User');
+                                                    }
+                                                }}
+                                            />
+                                            <Label_Text_12_Black>{isTotalUser}/25</Label_Text_12_Black>
+                                        </Input_Group>
                                     </Container_Row_Left>
                                     <Container_Row_Left>
                                         <Text_Span_16_Left_Black>Contraseña:</Text_Span_16_Left_Black>
-                                        <Input_Text_Black_100 ThemeMode={themeMode}
-                                            id="Input-Password"
-                                            placeholder="..."
-                                            type="password"
-                                            disabled={isActionBlock}
-                                            value={isTextFieldsUser.contrasena}
-                                            onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
-                                            onFocus={() => {
-                                                if(isTouchRef.current){
-                                                    setIsKeyboard(true);
-                                                    setIsKeyboardView('Password');
-                                                }
-                                            }}
-                                        />
+                                        <Input_Group>
+                                            <Input_Text_100_Black
+                                                id="Input-Password"
+                                                placeholder="..."
+                                                type="password"
+                                                maxLength={15}
+                                                disabled={isActionBlock}
+                                                value={isTextFieldsUser.contrasena}
+                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
+                                                onFocus={() => {
+                                                    if(isTouchRef.current){
+                                                        setIsKeyboard(true);
+                                                        setIsKeyboardView('Password');
+                                                    }
+                                                }}
+                                            />
+                                            <Label_Text_12_Black>{isTotalPassword}/15</Label_Text_12_Black>
+                                        </Input_Group>
                                     </Container_Row_Left>
                                     {isUserTypes.length !== 0 ? (
                                         <>
@@ -449,32 +476,111 @@ export default function User_Add(){
                                                     value: userTypes.idtipo,
                                                     label: userTypes.tipo
                                                 }))}
+                                                isClearable={true}
                                                 styles={{
-                                                    control: (provided) => ({
+                                                    control: (provided,state) => ({
                                                         ...provided,
-                                                        width: '300px',
+                                                        width: '30vw',
                                                         padding: '6px',
-                                                        border: '2px solid black',
+                                                        border: '1px solid black',
+                                                        borderRight: '5px solid black',
                                                         cursor: 'pointer',
-                                                        borderRadius: '20px',
+                                                        borderRadius: '30px',
                                                         fontFamily: 'Century Gothic',
                                                         fontStyle: 'normal',
-                                                        fontSize: '18px',
+                                                        fontSize: '16px',
+                                                        justifyContent: 'center',
+                                                        textAlign: 'center',
+                                                        '&:hover': {
+                                                            border: '1px solid rgb(58,93,174)',
+                                                            borderRight: '5px solid rgb(58,93,174)',
+                                                        },
+                                                        ...(state.isFocused && {
+                                                            border: '1px solid rgb(58,93,174)',
+                                                            borderRight: '5px solid rgb(58,93,174)',
+                                                        }),
                                                         '@media (max-width: 768px)':{
-                                                            width: '250px',
+                                                            width: '40vw',
+                                                            borderRadius: '25px',
                                                             padding: '4px',
-                                                            fontSize: '16px',
+                                                            fontSize: '14px',
+                                                            border: '1px solid black',
+                                                            borderRight: '4px solid black',
+                                                            '&:hover': {
+                                                                border: '1px solid rgb(58,93,174)',
+                                                                borderRight: '4px solid rgb(58,93,174)',
+                                                            },
+                                                            ...(state.isFocused && {
+                                                                border: '1px solid rgb(58,93,174)',
+                                                                borderRight: '5px solid rgb(58,93,174)',
+                                                            }),
                                                         },
                                                         '@media (max-width: 480px)':{
-                                                            width: '200px',
+                                                            width: '50vw',
+                                                            borderRadius: '20px',
                                                             padding: '2px',
+                                                            fontSize: '12px',
+                                                            border: '1px solid black',
+                                                            borderRight: '3px solid black',
+                                                            '&:hover': {
+                                                                border: '1px solid rgb(58,93,174)',
+                                                                borderRight: '3px solid rgb(58,93,174)',
+                                                            },
+                                                            ...(state.isFocused && {
+                                                                border: '1px solid rgb(58,93,174)',
+                                                                borderRight: '5px solid rgb(58,93,174)',
+                                                            }),
+                                                        },
+                                                    }),
+                                                    singleValue: (provided,state) => ({
+                                                        ...provided,
+                                                        textAlign: 'center', 
+                                                        width: '100%',
+                                                    }),
+                                                    option: (provided,state) => ({
+                                                        ...provided,
+                                                        textAlign: 'center',
+                                                        fontFamily: 'Century Gothic',
+                                                        padding: '6px',
+                                                        fontSize: '16px',
+                                                        backgroundColor: state.isSelected ? 'rgb(58,93,174)' : 'white', 
+                                                        color: state.isSelected ? 'white' : 'black',
+                                                        fontWeight: state.isSelected ? 'bold' : 'normal',
+                                                        cursor: 'pointer',
+                                                        ':hover': {
+                                                            backgroundColor: state.isSelected ? 'rgb(12, 54, 109)' : 'rgba(58,93,174,0.2)',
+                                                        },
+                                                        '@media (max-width: 768px)':{
+                                                            padding: '4px',
                                                             fontSize: '14px',
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            padding: '2px',
+                                                            fontSize: '12px',
                                                         },
                                                     }),
                                                     menu: (provided) => ({
                                                         ...provided,
                                                         overflow: 'hidden',
-                                                        borderRadius:'15px',
+                                                        borderBottomLeftRadius:'30px',
+                                                        borderBottomRightRadius: '30px',
+                                                        border: '1px solid black',
+                                                        borderRight: '5px solid black',
+                                                        borderBottom: '5px solid black',
+                                                        '@media (max-width: 768px)':{
+                                                            borderBottomLeftRadius:'25px',
+                                                            borderBottomRightRadius: '25px',
+                                                            border: '1px solid black',
+                                                            borderRight: '4px solid black',
+                                                            borderBottom: '4px solid black',
+                                                        },
+                                                        '@media (max-width: 480px)':{
+                                                            borderBottomLeftRadius:'20px',
+                                                            borderBottomRightRadius: '20px',
+                                                            border: '1px solid black',
+                                                            borderRight: '3px solid black',
+                                                            borderBottom: '3px solid black',
+                                                        },
                                                     }),
                                                     menuList: (provided) => ({
                                                         ...provided,
@@ -482,10 +588,7 @@ export default function User_Add(){
                                                         fontFamily: 'Century Gothic',
                                                         fontStyle: 'normal',
                                                         overflowY:'auto',
-                                                        scrollbarWidth: 'none',
-                                                        '&::-webkit-scrollbar': {
-                                                            display:'none',
-                                                        },
+                                                        
                                                         '@media (max-width: 768px)':{
                                                             maxHeight:150,
                                                         },
@@ -494,12 +597,12 @@ export default function User_Add(){
                                                         },
                                                     })
                                                 }}
-                                                placeholder='Seleccione uno...'
+                                                placeholder='Tipo de usuario...'
                                                 value={isUserTypes
                                                     .map(user => ({ value: user.idtipo, label: user.tipo }))
                                                     .find(option => option.value === isTextFieldsUser.idtipo)
                                                 }
-                                                onChange={(e) => setIsTextFieldsUser(prev => ({...prev, idtipo: e.value}))}
+                                                onChange={(e) => {if(e) {setIsTextFieldsUser(prev => ({...prev, idtipo: e.value}))}else{setIsTextFieldsUser(prev => ({...prev, idtipo: 0}))}}}
                                                 isDisabled={isActionBlock}
                                             />  
                                         </>
@@ -512,12 +615,12 @@ export default function User_Add(){
                                     )}
                                 </Container_Modal_Form_White>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Left_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Left_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Container_Row_NG_95_Center>
-                                        <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                        <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                         <Text_Span_16_Left_Black ThemeMode={themeMode}>- Permisos...</Text_Span_16_Left_Black>
                                     </Container_Row_NG_95_Center>
                                     <Container_Row_100_Center>
@@ -536,7 +639,7 @@ export default function User_Add(){
                                         ))};
                                     </Container_Row_100_Center>
                                     <Container_Row_NG_95_Center>
-                                        <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                        <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                         <Text_Span_16_Left_Black ThemeMode={themeMode}>- Estatus...</Text_Span_16_Left_Black>
                                     </Container_Row_NG_95_Center>
                                     <Container_Row_100_Center>

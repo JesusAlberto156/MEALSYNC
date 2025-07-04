@@ -26,7 +26,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_22 } from "../../../styled/Icons";
 import { Input_Radio_16,Input_Text_Black_100,Input_Text_Black_50 } from "../../../styled/Inputs";
@@ -138,7 +138,7 @@ export default function Unit_Add(){
                                 <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR MEDIDA</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
@@ -168,7 +168,7 @@ export default function Unit_Add(){
                                             />
                                         </Container_Row_100_Center>
                                         <Container_Row_NG_95_Center>
-                                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Unidad...</Text_Span_16_Center_Black>
                                         </Container_Row_NG_95_Center>
                                         <Container_Row_95_Center>
@@ -278,7 +278,7 @@ export default function Unit_Add(){
                                                         />
                                                     </Container_Row_100_Center>
                                                     <Container_Row_NG_95_Center>
-                                                        <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                                        <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                                         <Text_Span_16_Center_Black ThemeMode={themeMode}>- Unidad...</Text_Span_16_Center_Black>
                                                     </Container_Row_NG_95_Center>
                                                     <Container_Row_95_Center>
@@ -311,7 +311,7 @@ export default function Unit_Add(){
                                 )}
                             </Container_Column_90_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>

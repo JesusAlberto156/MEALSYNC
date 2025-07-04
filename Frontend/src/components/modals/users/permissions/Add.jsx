@@ -26,7 +26,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { Container_Modal,Container_Form_450,Container_Row_95_Center,Container_Row_NG_95_Center,Container_Column_90_Center } from "../../../styled/Containers";
 import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Label_Text_16_Center } from "../../../styled/Labels";
 import { Input_Checkbox_16 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -96,12 +96,12 @@ export default function Permissions_Add(){
                         <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'Permisos-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR PERMISOS</Text_Title_32_Black>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Container_Row_NG_95_Center>
-                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Usuarios...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 {filteredRecordsHasPermissions.length !== 0 ? (
@@ -176,12 +176,12 @@ export default function Permissions_Add(){
                                 )} 
                             </Container_Column_90_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Área de administración...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Row_95_Center>
@@ -214,7 +214,7 @@ export default function Permissions_Add(){
                                     </Label_Text_16_Center>
                                 </Container_Row_95_Center>
                                 <Container_Row_NG_95_Center>
-                                    <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                    <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Área de cocina...</Text_Span_16_Center_Black>
                                 </Container_Row_NG_95_Center>
                                 <Container_Row_95_Center>

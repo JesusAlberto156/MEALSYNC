@@ -16,12 +16,12 @@ import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../styled/Containers";
-import { Text_Span_16_Center_Black,Text_Color_Blue_12 } from "../styled/Text";
+import { Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../styled/Text";
 import { Input_Group, Input_Text_Black_100 } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
 import { Icon_White_22 } from "../styled/Icons";
-import { Label_Total_Text_12_Center } from "../styled/Labels";
-import { Alert_Warning_Sonner } from "../styled/Alerts";
+import { Label_Text_12_Black } from "../styled/Labels";
+import { Alert_Sonner_Warning } from "../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Formulario para iniciar sesión
@@ -46,13 +46,13 @@ export default function Form_Verification(){
     useEffect(() => {
         setIsTotalUser(isTextFieldsUser.usuario.length)
         if(isTextFieldsUser.usuario.length === 25){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el usuario!...')
+            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el usuario!...')
         }
     },[isTextFieldsUser.usuario]);
     useEffect(() => {
         setIsTotalPassword(isTextFieldsUser.contrasena.length);
         if(isTextFieldsUser.contrasena.length === 15){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en la contraseña!...')
+            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en la contraseña!...')
         }
     },[isTextFieldsUser.contrasena]);
     // UseEffect que determina la visibilidad del teclado
@@ -117,7 +117,7 @@ export default function Form_Verification(){
     return(
         <> 
             <Container_Row_NG_95_Center>
-                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>   
+                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>   
                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos de sesión...</Text_Span_16_Center_Black>
             </Container_Row_NG_95_Center>
             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
@@ -139,7 +139,7 @@ export default function Form_Verification(){
                                 }
                             }}
                         />
-                        <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalUser}/25</Label_Total_Text_12_Center>
+                        <Label_Text_12_Black ThemeMode={themeMode}>{isTotalUser}/25</Label_Text_12_Black>
                     </Input_Group>
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
@@ -160,7 +160,7 @@ export default function Form_Verification(){
                                 }
                             }}
                         />
-                        <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalPassword}/15</Label_Total_Text_12_Center>
+                        <Label_Text_12_Black ThemeMode={themeMode}>{isTotalPassword}/15</Label_Text_12_Black>
                     </Input_Group>
                 </Container_Row_100_Center>
                 <Tooltip title='Verificar' placement="top">

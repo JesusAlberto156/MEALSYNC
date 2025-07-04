@@ -9,7 +9,7 @@ import { AnimationContext,KeyboardContext,KeyboardViewContext,TouchContext,Actio
 import { RefKeyboardContext } from "../../contexts/RefsProvider";
 // Estilos personalizados
 import { Container_Row_100_Center,Container_Column_90_Center,Container_Row_NG_95_Left } from "../styled/Containers";
-import { Text_Span_16_Left_Black,Text_Color_Blue_12 } from "../styled/Text";
+import { Text_Span_16_Left_Black,Text_Color_Blue_16 } from "../styled/Text";
 import { Input_Text_Black_100 } from "../styled/Inputs";
 //____________IMPORT/EXPORT____________
 
@@ -91,7 +91,7 @@ export default function Form_Login(){
     return(
         <> 
             <Container_Row_NG_95_Left>
-                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC </Text_Color_Blue_12>
+                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC </Text_Color_Blue_16>
                 <Text_Span_16_Left_Black ThemeMode={themeMode}>- Ingresar tus datos...</Text_Span_16_Left_Black>
             </Container_Row_NG_95_Left>
             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>

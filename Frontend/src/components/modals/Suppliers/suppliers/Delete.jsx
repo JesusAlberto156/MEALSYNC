@@ -26,7 +26,7 @@ import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Icon_White_22,Icon_Blue_30,Icon_Black_White_30,Icon_Red_30,Icon_Orange_30,Icon_Yellow_30,Icon_Lime_Green_30,Icon_Green_30 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -123,7 +123,7 @@ export default function Supplier_Delete(){
                             </Container_Row_100_Center>
                             <Form_Verification/>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>Proveedor:</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>Proveedor:</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupplier.nombre || 'Desconocido'}...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Row_95_Center>

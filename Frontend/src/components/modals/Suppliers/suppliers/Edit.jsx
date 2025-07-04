@@ -24,12 +24,12 @@ import { FaStar } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Column_90_Center,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
 import { Input_Text_Black_100,Input_Group } from "../../../styled/Inputs";
-import { Icon_White_22,Icon_Button_Blue_18,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_White_30 } from "../../../styled/Icons";
-import { Alert_Verification,Alert_Warning_Sonner } from "../../../styled/Alerts";
-import { Label_Total_Text_12_Center } from "../../../styled/Labels";
+import { Icon_White_22,Icon_Button_Blue_16,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_White_30 } from "../../../styled/Icons";
+import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
+import { Label_Text_12_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
 import Keyboard_Default from "../../../keyboards/Defaullt";
@@ -71,31 +71,31 @@ export default function Supplier_Edit(){
     useEffect(() => {
         setIsTotalName(isTextFieldsSupplier.nombre.length)
         if(isTextFieldsSupplier.nombre.length === 150){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el nombre!...')
+            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el nombre!...')
         }
     },[isTextFieldsSupplier.nombre]);
     useEffect(() => {
         setIsTotalRFC(isTextFieldsSupplier.rfc.length);
         if(isTextFieldsSupplier.rfc.length === 30){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el RFC!...')
+            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el RFC!...')
         }
     },[isTextFieldsSupplier.rfc]);
     useEffect(() => {
         setIsTotalAddress(isTextFieldsSupplier.domicilio.length);
         if(isTextFieldsSupplier.domicilio.length === 150){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el domicilio!...')
+            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el domicilio!...')
         }
     },[isTextFieldsSupplier.domicilio]);
     useEffect(() => {
         setIsTotalPhone(isTextFieldsSupplier.telefono.length);
         if(isTextFieldsSupplier.telefono.length === 20){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el teléfono!...')
+            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el teléfono!...')
         }
     },[isTextFieldsSupplier.telefono]);
     useEffect(() => {
         setIsTotalEmail(isTextFieldsSupplier.correo.length);
         if(isTextFieldsSupplier.correo.length === 150){
-            Alert_Warning_Sonner('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el correo!...')
+            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el correo!...')
         }
     },[isTextFieldsSupplier.correo]);
     // UseEffect que determina la visibilidad del teclado
@@ -238,7 +238,7 @@ export default function Supplier_Edit(){
                             <Text_Title_32_Black ThemeMode={themeMode}>EDITAR PROVEEDOR</Text_Title_32_Black>
                         </Container_Row_100_Center>
                         <Container_Row_NG_95_Center>
-                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_95_Center>
                         <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
@@ -260,16 +260,16 @@ export default function Supplier_Edit(){
                                             }
                                         }}
                                     />
-                                    <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalName}/150</Label_Total_Text_12_Center>
+                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalName}/150</Label_Text_12_Black>
                                 </Input_Group>
-                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {
                                         setIsTextFieldsSupplier(prev => ({...prev, nombre: ''}))
                                     }}
                                     disabled={isActionBlock}
                                 >
                                     <MdCancel/>
-                                </Icon_Button_Blue_18>
+                                </Icon_Button_Blue_16>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>RFC:</Text_Span_16_Center_Black>
@@ -289,7 +289,7 @@ export default function Supplier_Edit(){
                                             }
                                         }}
                                     />
-                                    <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalRFC}/30</Label_Total_Text_12_Center>
+                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalRFC}/30</Label_Text_12_Black>
                                 </Input_Group>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
@@ -310,16 +310,16 @@ export default function Supplier_Edit(){
                                             }
                                         }}
                                     />
-                                    <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalAddress}/150</Label_Total_Text_12_Center>
+                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalAddress}/150</Label_Text_12_Black>
                                 </Input_Group>
-                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {
                                         setIsTextFieldsSupplier(prev => ({...prev, domicilio: ''}))
                                     }}
                                     disabled={isActionBlock}
                                 >
                                     <MdCancel/>
-                                </Icon_Button_Blue_18>
+                                </Icon_Button_Blue_16>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Teléfono:</Text_Span_16_Center_Black>
@@ -339,7 +339,7 @@ export default function Supplier_Edit(){
                                             }
                                         }}
                                     />
-                                    <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalPhone}/20</Label_Total_Text_12_Center>
+                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalPhone}/20</Label_Text_12_Black>
                                 </Input_Group>
                             </Container_Row_100_Center>
                             <Container_Row_100_Center>
@@ -360,16 +360,16 @@ export default function Supplier_Edit(){
                                             }
                                         }}
                                     />
-                                    <Label_Total_Text_12_Center ThemeMode={themeMode}>{isTotalEmail}/150</Label_Total_Text_12_Center>
+                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalEmail}/150</Label_Text_12_Black>
                                 </Input_Group>
-                                <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {
                                         setIsTextFieldsSupplier(prev => ({...prev, correo: ''}))
                                     }}
                                     disabled={isActionBlock}
                                 >
                                     <MdCancel/>
-                                </Icon_Button_Blue_18>
+                                </Icon_Button_Blue_16>
                             </Container_Row_100_Center>
                         </Container_Column_90_Center>
                         <Container_Row_95_Center>

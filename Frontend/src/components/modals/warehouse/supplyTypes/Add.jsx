@@ -27,9 +27,9 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
+import { Icon_White_22,Icon_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
 import { Input_Text_Black_100,Input_Radio_16,Input_Text_Black_50 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 import { Label_Text_16_Center } from "../../../styled/Labels";
@@ -142,7 +142,7 @@ export default function Supply_Type_Add(){
                                 <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR TIPO DE INSUMO</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
@@ -179,12 +179,12 @@ export default function Supply_Type_Add(){
                                                 value={isTextFieldsSupplyTypes.description}
                                                 onChange={(e) => setIsTextFieldsSupplyTypes(prev => ({...prev, description: e.target.value}))}
                                             />
-                                            <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                            <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                                 onClick={() => {
                                                     setIsTextFieldsSupplyTypes(prev => ({...prev, description: ''}))
                                                 }}>
                                                 <MdCancel/>
-                                            </Icon_Button_Blue_18>
+                                            </Icon_Button_Blue_16>
                                         </Container_Row_100_Center>  
                                     </>
                                 ):(
@@ -303,14 +303,14 @@ export default function Supply_Type_Add(){
                                 )}
                             </Container_Column_90_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 {isUnits.length !== 0 ? (
                                     <>
                                         <Container_Row_NG_95_Center>
-                                            <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Medidas...</Text_Span_16_Center_Black>
                                         </Container_Row_NG_95_Center>
                                         <Container_Row_100_Center>

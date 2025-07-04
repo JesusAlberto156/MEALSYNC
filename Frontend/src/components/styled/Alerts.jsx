@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import { toast } from 'sonner';
-import { Text_Span_16_Left_Black,Text_Title_20_Orange } from './Text';
+import { Text_Span_16_Left_Black,Text_Color_Green_16,Text_Color_Yellow_16,Text_Color_Red_16 } from './Text';
 //____________IMPORT/EXPORT____________
 
 //____________STYLES____________
@@ -16,14 +16,31 @@ export const Alert_Styles = styled.div`
         border: 3px solid white;
     }
 
+    .Success {
+        font-family: Century Gothic,Prompt;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border: 2px solid rgb(20, 165, 76);
+        border-bottom: 8px solid rgb(20, 165, 76);
+        border-right: 8px solid rgb(20, 165, 76);
+    }
+
     .Warning {
         font-family: Century Gothic,Prompt;
         border-top-right-radius: 50px;
         border-bottom-right-radius: 50px;
-        background: rgb(255, 245, 101);
-        border: 3px solid rgb(250, 184, 3);
-        border-bottom: 8px solid rgb(250, 184, 3);
-        border-right: 8px solid rgb(250, 184, 3);
+        border: 2px solid rgb(255, 193, 10);
+        border-bottom: 8px solid rgb(255, 193, 10);
+        border-right: 8px solid rgb(255, 193, 10);
+    }
+
+    .Error {
+        font-family: Century Gothic,Prompt;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border: 2px solid rgb(155, 9, 9);
+        border-bottom: 8px solid rgb(155, 9, 9);
+        border-right: 8px solid rgb(155, 9, 9);
     }
 `;
 //____________STYLES____________
@@ -99,11 +116,29 @@ export const Alert_Success = (Title,Message,ThemeMode,Image) => {
 //____________GREETING____________
 //____________WARNING____________
 //____________SONNER____________
-export const Alert_Sonner_Warning = (Title,Message) => {
-    toast.warning(<Text_Title_20_Orange>{Title}</Text_Title_20_Orange>,{
+export const Alert_Sonner_Success = (Title,Message) => {
+    toast.success(<Text_Color_Green_16 style={{ justifyContent: 'flex-start'}}>{Title}</Text_Color_Green_16>,{
         description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
-        duration:5000,
+        duration:6000,
+        className:'Success',
+        position: 'top-right',
+        closeButton: true,
+    });
+};
+export const Alert_Sonner_Warning = (Title,Message) => {
+    toast.warning(<Text_Color_Yellow_16 style={{ justifyContent: 'flex-start'}}>{Title}</Text_Color_Yellow_16>,{
+        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        duration:6000,
         className:'Warning',
+        position: 'top-right',
+        closeButton: true,
+    });
+};
+export const Alert_Sonner_Error = (Title,Message) => {
+    toast.error(<Text_Color_Red_16 style={{ justifyContent: 'flex-start'}}>{Title}</Text_Color_Red_16>,{
+        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        duration:6000,
+        className:'Error',
         position: 'top-right',
         closeButton: true,
     });
@@ -142,12 +177,6 @@ export const Alert_Warning = (Title,Message,ThemeMode,Image) => {
         position: 'center',
     });
 }
-export const Alert_Warning_Sonner = (Mensaje) => {
-    toast.warning(Mensaje,{
-        duration:3000,
-        className:'Verification'
-    });
-};
 //____________WARNING____________
 //____________ERROR____________
 export const Alert_Error = (Title,Message,ThemeMode,Image) => {

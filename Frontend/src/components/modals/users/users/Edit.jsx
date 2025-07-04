@@ -25,9 +25,9 @@ import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_100_Left,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_12,Text_Span_20_Center_Black,Text_Span_12_Justify_Black } from "../../../styled/Text";
+import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_Button_Blue_18 } from "../../../styled/Icons";
+import { Icon_White_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
 import { Input_Text_Black_100 } from "../../../styled/Inputs";
 import { Alert_Verification } from "../../../styled/Alerts";
 // Componentes personalizados
@@ -192,7 +192,7 @@ export default function User_Edit(){
                                 <Text_Title_32_Black ThemeMode={themeMode}>EDITAR USUARIO</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Container_Row_NG_95_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales</Text_Span_16_Center_Black>
                             </Container_Row_NG_95_Center>
                             <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
@@ -212,14 +212,14 @@ export default function User_Edit(){
                                             }
                                         }}
                                     />
-                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                    <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
                                             setIsTextFieldsUser(prev => ({...prev, nombre: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >
                                         <MdCancel/>
-                                    </Icon_Button_Blue_18>
+                                    </Icon_Button_Blue_16>
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre corto:</Text_Span_16_Center_Black>
@@ -237,14 +237,14 @@ export default function User_Edit(){
                                             }
                                         }}
                                     />
-                                    <Icon_Button_Blue_18 ThemeMode={themeMode} className="pulsate-buttom"
+                                    <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                         onClick={() => {
                                             setIsTextFieldsUser(prev => ({...prev, nombrecorto: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >
                                         <MdCancel/>
-                                    </Icon_Button_Blue_18>
+                                    </Icon_Button_Blue_16>
                                 </Container_Row_100_Left>
                                 <Container_Row_100_Left>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Usuario:</Text_Span_16_Center_Black>

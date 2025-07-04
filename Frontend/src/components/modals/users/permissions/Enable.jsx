@@ -25,7 +25,7 @@ import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal,Container_Form_450,Container_Row_90_Center,Container_Row_NG_90_Center,Container_Row_95_Center } from "../../../styled/Containers";
-import { Text_Span_16_Left_Black,Text_Title_32_Black,Text_Color_Blue_12,Text_Span_12_Justify_Black } from "../../../styled/Text";
+import { Text_Span_16_Left_Black,Text_Title_32_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_180,Button_Icon_Red_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
 import { Icon_White_22 } from "../../../styled/Icons";
 import { Alert_Verification } from "../../../styled/Alerts";
@@ -122,7 +122,7 @@ export default function Permissions_Enable(){
                             <Text_Title_32_Black ThemeMode={themeMode}>{isTextFieldsPermissions.superadministrador ? 'DESHABILITAR SUPER ADMINISTRADOR':'HABILITAR SUPER ADMINISTRADOR'}</Text_Title_32_Black>
                             <Form_Verification/>
                             <Container_Row_NG_90_Center>
-                                <Text_Color_Blue_12 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_12>
+                                <Text_Color_Blue_16 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_16>
                                 <Text_Span_16_Left_Black ThemeMode={themeMode}> {isTextFieldsPermissions.usuario}</Text_Span_16_Left_Black>
                             </Container_Row_NG_90_Center>
                             <Container_Row_95_Center>

@@ -213,11 +213,11 @@ export const Table_Body_Tbody_White = styled.tbody`
     background-color: rgba(255, 255, 255, 0.9);  
 
     tr {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 1.5s ease, box-shadow 1.5s ease;
     }
     tr:hover {
         transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         z-index: 1;
     }
     td {

@@ -6,7 +6,7 @@ import { ThemeModeContext } from "../../contexts/ViewsProvider";
 import { Container_Column_100_Center, Container_Row_100_Center,Container_Row_Blue_Width_2000_Left } from "../styled/Containers";
 import { Button_Icon_Blue_140 } from "../styled/Buttons";
 import { Text_Span_12_Center } from "../styled/Text";
-import { Icon_White_18 } from "../styled/Icons";
+import { Icon_20 } from "../styled/Icons";
 
 import { IoSearch } from "react-icons/io5";
 //__________ICONOS__________
@@ -36,7 +36,7 @@ export default function Menu_Breakfasts(){
                                 <Text_Span_12_Center>{option}</Text_Span_12_Center>
                             </Button_Icon_Blue_140>
                         ))}
-                        <Icon_White_18><IoSearch/></Icon_White_18>
+                        <Icon_20><IoSearch/></Icon_20>
                     </Container_Row_Blue_Width_2000_Left>
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>

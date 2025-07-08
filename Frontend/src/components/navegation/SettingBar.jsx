@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { ThemeModeContext,SidebarContext,SidebarViewContext } from "../../contexts/ViewsProvider";
+import { SidebarContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { LoggedLoggedContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
 import { ToggleSidebar,HandleModalView } from "../../hooks/Views";
+//__________IMAGENES__________
+import Logo_Hospital from '../imgs/Logo-Hospital.png'
+//__________IMAGENES__________
 //__________ICONOS__________
 // Iconos para el toggle
 import { BiSolidToggleLeft } from "react-icons/bi";
@@ -17,15 +20,15 @@ import { BiSolidToggleRight } from "react-icons/bi";
 import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Right } from "../styled/Containers";
+import { Container_Settingbar_Row_White,Container_Row_100_Right } from "../styled/Containers";
 import { Button_Icon_Blue_80,Button_Icon_Red_80 } from "../styled/Buttons";
-import { Icon_White_18 } from "../styled/Icons";
+import { Icon_20 } from "../styled/Icons";
+import { Image_Navbar_Fade } from "../styled/Imgs";
 //____________IMPORT/EXPORT____________
 
 // Componente para la configuración visual de la página o cerrar sesión
 export default function Setting_Bar(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isSidebar] = useContext(SidebarContext);
     const [isLogged] = useContext(LoggedLoggedContext);
     const [currentSView] = useContext(SidebarViewContext);
@@ -39,21 +42,28 @@ export default function Setting_Bar(){
         <>  
             {isLogged && currentSView === 'Inicio' ? (
                 <>
-                    <Container_Row_90_Right>
-                        <Tooltip title='Salir' placement="bottom">
-                            <Button_Icon_Red_80 ThemeMode={themeMode} onClick={() => {
-                                handleModalView('Cerrar-Sesión');
-                                navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
-                            }}>
-                                <Icon_White_18><ImExit/></Icon_White_18>
-                            </Button_Icon_Red_80>
-                        </Tooltip>
-                        <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
-                            <Button_Icon_Blue_80 ThemeMode={themeMode} onClick={() => toggleSidebar()}>
-                                {isSidebar ? <Icon_White_18><BiSolidToggleRight/></Icon_White_18> : <Icon_White_18><BiSolidToggleLeft/></Icon_White_18>}
-                            </Button_Icon_Blue_80>
-                        </Tooltip>
-                    </Container_Row_90_Right>
+                    <Container_Settingbar_Row_White>
+                        <Image_Navbar_Fade src={Logo_Hospital}/>
+                        <Container_Row_100_Right>
+                            <Tooltip title='Salir' placement="bottom">
+                                <Button_Icon_Red_80 
+                                    onClick={() => {
+                                        handleModalView('Cerrar-Sesión');
+                                        navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_20><ImExit/></Icon_20>
+                                </Button_Icon_Red_80>
+                            </Tooltip>
+                            <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
+                                <Button_Icon_Blue_80 
+                                    onClick={() => toggleSidebar()}
+                                >
+                                    {isSidebar ? <Icon_20><BiSolidToggleRight/></Icon_20> : <Icon_20><BiSolidToggleLeft/></Icon_20>}
+                                </Button_Icon_Blue_80>
+                            </Tooltip>
+                        </Container_Row_100_Right>
+                    </Container_Settingbar_Row_White>
                 </>
             ):(
                 <></>

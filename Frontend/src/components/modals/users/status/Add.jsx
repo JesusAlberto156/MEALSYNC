@@ -23,13 +23,13 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_400,Container_Row_95_Center, Container_Row_NG_95_Center, Container_Column_90_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_400,Container_Row_100_Center, Container_Row_NG_Auto_Center, Container_Column_100_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_150,Button_Icon_Green_150 } from "../../../styled/Buttons";
-import { Label_Text_16_Center } from "../../../styled/Labels";
-import { Input_Radio_16 } from "../../../styled/Inputs";
-import { Icon_White_22 } from "../../../styled/Icons";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Label_Button_16_Black } from "../../../styled/Labels";
+import { Input_Radio_20 } from "../../../styled/Inputs";
+import { Icon_20 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar estatus al usuario
@@ -84,7 +84,7 @@ export default function Status_Add(){
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando estatus al usuario!...');
+            Alert_Sonner_Promise(promise,'¡Agregando estatus al usuario!...');
         }
     },[isStatusAdd]);
     // Estructura del componente
@@ -92,21 +92,21 @@ export default function Status_Add(){
         <>
             {isModal ? (
                 <>
-                    <Container_Modal>
+                    <Container_Modal_Background_Black>
                         <Container_Form_400 ThemeMode={themeMode} className={currentMView === 'Estatus-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR STATUS</Text_Title_32_Black>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_NG_95_Center>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Usuarios...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Center>
+                                </Container_Row_NG_Auto_Center>
                                 {filteredRecordsHasStatus.length !== 0 ? (
                                     <>
-                                        <Container_Row_95_Center>
+                                        <Container_Row_100_Center>
                                             <Select
                                                 options={filteredRecordsHasStatus.map((user) => ({
                                                     value: user.idusuario,
@@ -165,29 +165,29 @@ export default function Status_Add(){
                                                 onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, idusuario: e.value, usuario: e.label}))}
                                                 isDisabled={isActionBlock}
                                             />
-                                        </Container_Row_95_Center>  
+                                        </Container_Row_100_Center>  
                                     </>
                                 ):(
                                     <>
-                                        <Container_Row_95_Center>
+                                        <Container_Row_100_Center>
                                             <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
-                                        </Container_Row_95_Center>
+                                        </Container_Row_100_Center>
                                     </>
                                 )}
-                            </Container_Column_90_Center>
-                            <Container_Row_NG_95_Center>
+                            </Container_Column_100_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_NG_95_Center>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Estado...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Center>
-                                <Container_Row_95_Center>
+                                </Container_Row_NG_Auto_Center>
+                                <Container_Row_100_Center>
                                     {['Habilitado','Deshabilitado'].map((item,index) => (
-                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                            <Input_Radio_16 ThemeMode={themeMode}
+                                        <Label_Button_16_Black ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_20 ThemeMode={themeMode}
                                                 type="radio"
                                                 name="group"
                                                 value={item}
@@ -196,17 +196,17 @@ export default function Status_Add(){
                                                 onChange={(e) => setIsTextFieldsStatus(prev => ({...prev, estatus: e.target.value}))}
                                             />
                                             {item}
-                                        </Label_Text_16_Center>
+                                        </Label_Button_16_Black>
                                     ))};
-                                </Container_Row_95_Center>
-                            </Container_Column_90_Center>
-                            <Container_Row_95_Center>
+                                </Container_Row_100_Center>
+                            </Container_Column_100_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <Button_Icon_Blue_150 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalViewUsers('')}
                                         disabled={isActionBlock}
                                     >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Blue_150>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement="top">
@@ -214,12 +214,12 @@ export default function Status_Add(){
                                         onClick={() => handleStatusSAdd()}
                                         disabled={isActionBlock}
                                     >
-                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                        <Icon_20><IoIosAddCircle/></Icon_20>
                                     </Button_Icon_Green_150>
                                 </Tooltip>
-                            </Container_Row_95_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_400>
-                    </Container_Modal>
+                    </Container_Modal_Background_Black>
                 </>
             ):(
                 <></>

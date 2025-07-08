@@ -4,8 +4,8 @@ import { forwardRef,useContext } from "react";
 // Contextos
 import { ThemeModeContext } from "../../contexts/ViewsProvider";
 // Estilos personalizados
-import { Input_Text_Black_100 } from "./Inputs";
-import { Container_Row_95_Center } from "./Containers";
+import { Input_Text_100_Black } from "./Inputs";
+import { Container_Row_100_Center } from "./Containers";
 //____________IMPORT/EXPORT____________
 
 //____________INPUT____________
@@ -15,8 +15,8 @@ export const Calendar_Input_Custom_Black = forwardRef(({value,onClick},ref) => {
 
     return(
         <>
-            <Container_Row_95_Center>
-                <Input_Text_Black_100 ThemeMode={themeMode}
+            <Container_Row_100_Center>
+                <Input_Text_100_Black ThemeMode={themeMode}
                     placeholder="Seleccione una fecha..."
                     type="text"
                     value={value}
@@ -24,7 +24,7 @@ export const Calendar_Input_Custom_Black = forwardRef(({value,onClick},ref) => {
                     ref={ref}
                     readOnly
                 />
-            </Container_Row_95_Center>
+            </Container_Row_100_Center>
         </>
     );
 });

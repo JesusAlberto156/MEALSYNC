@@ -19,7 +19,7 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 // Estilos personalizados
 import { Container_Row_100_Center } from "../../styled/Containers";
 import { Button_Icon_Blue_140 } from "../../styled/Buttons";
-import { Icon_White_22 } from "../../styled/Icons";
+import { Icon_20 } from "../../styled/Icons";
 import { Text_Span_16_Center_Black,Text_Black_White_40_Center } from "../../styled/Text";
 import { Chart_90 } from "../../styled/Charts";
 //____________IMPORT/EXPORT____________
@@ -319,9 +319,9 @@ export default function Chart_Suppliers(){
                 <Tooltip title='Anterior' placement='top'>
                     <Button_Icon_Blue_140 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
                         onClick={() => currentPage > 1 ? handlePageChange(currentPage - 1) : null}>
-                        <Icon_White_22>
+                        <Icon_20>
                             <GrPrevious/>
-                        </Icon_White_22>
+                        </Icon_20>
                     </Button_Icon_Blue_140>
                 </Tooltip>
                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Página {currentPage} de {totalPages}</Text_Span_16_Center_Black>
@@ -330,7 +330,7 @@ export default function Chart_Suppliers(){
                                                                                 data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())
                                                                             ).length ? 'roll-out-button-left' : 'roll-in-button-left'}   
                         onClick={() => currentPage < totalPages ? handlePageChange(currentPage + 1) : null}>
-                        <Icon_White_22>
+                        <Icon_20>
                             <GrNext/>
                         </Icon_White_22>
                     </Button_Icon_Blue_140>

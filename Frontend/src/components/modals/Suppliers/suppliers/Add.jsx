@@ -22,12 +22,12 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Input_Group, Input_Text_Black_100 } from "../../../styled/Inputs";
-import { Icon_White_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
-import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
+import { Input_Group, Input_Text_100_Black } from "../../../styled/Inputs";
+import { Icon_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
 import { Label_Text_12_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Keyboard_Default from "../../../keyboards/Defaullt";
@@ -221,27 +221,27 @@ export default function Supplier_Add(){
                 }
             });
 
-            Alert_Verification(promise,'Agregando un proveedor!...');
+            Alert_Sonner_Promise(promise,'Agregando un proveedor!...');
         }
     },[isSupplierAdd]);
     // Estructura del componente
     return(
         <>
             {isModal ? (
-                <Container_Modal>
+                <Container_Modal_Background_Black>
                     <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Proveedor-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR PROVEEDOR</Text_Title_32_Black>
                         </Container_Row_100_Center>
-                        <Container_Row_NG_95_Center>
+                        <Container_Row_NG_Auto_Center>
                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_95_Center>
-                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        </Container_Row_NG_Auto_Center>
+                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Name"
                                         placeholder="..."
                                         type="text"
@@ -270,7 +270,7 @@ export default function Supplier_Add(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>RFC:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Rfc"
                                         placeholder="(Opcional)..."
                                         type="text"
@@ -291,7 +291,7 @@ export default function Supplier_Add(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Domicilio:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Address"
                                         placeholder="(Opcional)..."
                                         type="text"
@@ -320,7 +320,7 @@ export default function Supplier_Add(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Teléfono:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Phone"
                                         placeholder="(Opcional)..."
                                         type="text"
@@ -341,7 +341,7 @@ export default function Supplier_Add(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Correo:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Email"
                                         placeholder="..."
                                         type="text"
@@ -367,15 +367,15 @@ export default function Supplier_Add(){
                                     <MdCancel/>
                                 </Icon_Button_Blue_16>
                             </Container_Row_100_Center>
-                        </Container_Column_90_Center>
-                        <Container_Row_95_Center>
+                        </Container_Column_100_Center>
+                        <Container_Row_100_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <span>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalViewSuppliers('')}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </span>
                             </Tooltip>
@@ -385,11 +385,11 @@ export default function Supplier_Add(){
                                         onClick={() => handleSupplierAdd()}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                        <Icon_20><IoIosAddCircle/></Icon_20>
                                     </Button_Icon_Green_210>
                                 </span>
                             </Tooltip>
-                        </Container_Row_95_Center>
+                        </Container_Row_100_Center>
                     </Container_Form_500>
                     {isKeyboard ? (
                         isKeyboardView === 'Name' || isKeyboardView === 'Rfc' || isKeyboardView === 'Address' || isKeyboardView === 'Email' ? (
@@ -408,7 +408,7 @@ export default function Supplier_Add(){
                     ):(
                         <></>
                     )}
-                </Container_Modal>
+                </Container_Modal_Background_Black>
             ):(
                 <></>
             )}

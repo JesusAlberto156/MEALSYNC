@@ -9,9 +9,8 @@ import { LoggedLoggedContext,LoggedTypeContext } from '../../contexts/SessionPro
 import { SidebarViewContext } from '../../contexts/ViewsProvider';
 // Estilos personalizados
 import { Container_Page,Container_Page_Logged } from "../../components/styled/Containers";
-import { Alert_Styles } from '../../components/styled/Alerts';
+import { Alert_Sonner_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
-import Footer from "../../components/navegation/Footer";
 import Side_Bar from '../../components/navegation/Sidebar';
 //____________IMPORT/EXPORT____________
 
@@ -29,12 +28,12 @@ export default function Index_Main(){
                     <Side_Bar/>
                     <Outlet/>
                 </Container_Page_Logged> 
-                <Alert_Styles>
+                <Alert_Sonner_Styles>
                     <Toaster
                         richColors
                         visibleToasts={5}
                     />
-                </Alert_Styles> 
+                </Alert_Sonner_Styles> 
             </Container_Page>
         </>
     );

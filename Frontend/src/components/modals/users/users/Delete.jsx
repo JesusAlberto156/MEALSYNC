@@ -23,11 +23,11 @@ import { MdCancel } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_500,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Icon_20 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Delete from "../../errors/Delete";
 import Form_Verification from "../../../forms/Verification";
@@ -103,7 +103,7 @@ export default function User_Delete(){
                 }
             });
 
-            Alert_Verification(promise,'Eliminando un usuario!...');
+            Alert_Sonner_Promise(promise,'Eliminando un usuario!...');
         }
     },[isUserDelete]);
     // UseEffect para resetiar campos para el registro de verificación
@@ -119,27 +119,27 @@ export default function User_Delete(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal_Users}>
+                    <Container_Modal_Background_Black ref={Modal_Users}>
                         <Container_Form_500 ref={Form_Users} ThemeMode={themeMode} className={currentMView === 'Usuario-Eliminar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_32_Black ThemeMode={themeMode}>ELIMINAR USUARIO</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Form_Verification/>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}> {isUsers.find(user => user.idusuario === isTextFieldsUser.idusuario)?.usuario || 'Desconocido'}</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Row_95_Center>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Row_100_Center>
                                 <Text_Span_12_Justify_Black ThemeMode={themeMode}>Al eliminar al usuario, su sesión se cerrará de forma inmediata si se encuentra activo y no podrá volver a acceder al sistema.</Text_Span_12_Justify_Black>
-                            </Container_Row_95_Center>
-                            <Container_Row_95_Center>
+                            </Container_Row_100_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <span>
                                         <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                             onClick={() => handleModalViewUsers('')}
                                             disabled={!isActionBlock && isVerificationBlock}  
                                         >
-                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                            <Icon_20><MdCancel/></Icon_20>
                                         </Button_Icon_Blue_210>
                                     </span>
                                 </Tooltip>
@@ -149,11 +149,11 @@ export default function User_Delete(){
                                             onClick={() => handleUserDelete()}
                                             disabled={!isActionBlock}    
                                         >
-                                            <Icon_White_22><MdDelete/></Icon_White_22>
+                                            <Icon_20><MdDelete/></Icon_20>
                                         </Button_Icon_Red_210>
                                     </span>
                                 </Tooltip>
-                            </Container_Row_95_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_500>
                         {isKeyboard ? (
                             <>
@@ -162,7 +162,7 @@ export default function User_Delete(){
                         ):(
                             <></>
                         )}
-                    </Container_Modal>
+                    </Container_Modal_Background_Black>
                 </>
             ):(
                 currentMView === 'Usuario-Eliminar' ? (

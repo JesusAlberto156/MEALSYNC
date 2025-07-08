@@ -3,10 +3,10 @@
 import styled from 'styled-components';
 //__________IMAGE__________
 // Imagenes de fondo para login
-import Background_Login from '../imgs/Background-Login.jpg';
+import Background_Login from '../imgs/Background-Login.webp';
 // AREÁ ADMINISTRATIVA
 // Inicio
-import Background_Home from '../imgs/Background-Home.webp';
+import Background_Home from '../imgs/Background-Home.jpg';
 // Usuarios
 import Background_Users from '../imgs/Background-Users.jpg';
 // Proveedores
@@ -24,44 +24,46 @@ export const Container_Page = styled.div`
     min-height: 100vh;
     max-height: none;
 `;
-export const Container_Page_Login = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+export const Container_Page_Login = styled.div`
     background-image: url(${(Background_Login)});
     background-Size: cover;
     background-Position: center;
-    width: 100vw;
+    background-repeat: no-repeat;
+    width: 100%;
+    max-height: 100vh;
     height: 100vh;
-    max-height: none;
-    position: relative;
     display: flex;
-    justify-content: flex-start;
-    align-Items: center;
+    padding-top: 60px;
     flex-direction: column;
-    padding-top: 40px;
-    gap: 40px; 
+    align-Items: center;
+    justify-content: flex-start;
+    overflow-y: auto
 
-    &.bg-pan-bl {
-        -webkit-animation: bg-pan-bl 4s infinite both alternate;
-        animation: bg-pan-bl 4s infinite both alternate;
-        background-size: 125% 125%;
+    &::-webkit-scrollbar {
+        width: 8px;          
+        height: 8px;  
+        background-color:rgb(255, 255, 255);
+        border-radius: 20px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
     }
 
-    @-webkit-keyframes bg-pan-bl {
-        0% {
-            background-position: 100% 0%;
-        }
-        100% {
-            background-position: 0% 100%;
-        }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(58,93,174);
+        border-radius: 30px;
+        border: 1px solid rgb(255, 255, 255);
+        cursor: pointer;
     }
-    @keyframes bg-pan-bl {
-        0% {
-            background-position: 100% 0%;
-        }
-        100% {
-            background-position: 0% 100%;
-        }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(82, 126, 231);
+    }
+
+    @media (max-width: 768px) {
+        padding-top: 80px;
+    }
+
+    @media (max-width: 480px) {
+        padding-top: 100px;
     }
 `;
 export const Container_Page_Logged = styled.div.withConfig({
@@ -132,9 +134,7 @@ export const Container_Page_Elements = styled.div.withConfig({
         max-width: ${({ sidebarVisible }) => (sidebarVisible ? "62vw" : "100vw")}; 
     }
 `;
-export const Container_Page_Error = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+export const Container_Page_Error = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -142,29 +142,33 @@ export const Container_Page_Error = styled.div.withConfig({
     justify-content: flex-start; 
     align-items: center;   
     flex-direction: column;
-    gap:10px;      
+    gap: 20px;      
     top: 0; 
     left: 0;
-    padding-top: 60px;
-    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(233, 23, 23)' : 'rgb(155, 9, 9)')};
+    padding-top: 15vh;
+    background: rgb(155, 9, 9);
+
+    @media (max-width: 768px) {
+        padding-top: 20vh;
+        gap: 15px;
+    }
+
+    @media (max-width: 480px) {
+        padding-top: 25vh;
+        gap: 10px;
+    }
 `;
-export const Container_Page_Loading = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+export const Container_Page_Loading = styled.div`
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
-    position: fixed; 
-    justify-content: center; 
+    justify-content: Center; 
     align-items: center;   
-    flex-direction: column;
-    gap:10px;      
-    top: 0; 
-    left: 0;
-    background: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174);' : 'rgb(82, 126, 231)')};
+    flex-direction: column;     
+    background: rgb(58,93,174);
 `;
 //____________PAGE____________
-//____________FORM____________
+//____________LOGIN____________
 export const Container_Form_500 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
 })`
@@ -315,27 +319,54 @@ export const Container_Form_350 = styled.div.withConfig({
         gap: 10px;
     }
 `;
-//____________FORM____________
+//____________LOGIN____________
 //____________ROW____________
-export const Container_Row_Center = styled.div` 
+export const Container_Row_100_Center = styled.div` 
     display: flex;
     justify-content: center;
     align-items: center;        
     background: transparent;
     width: 100%;
     height: auto;  
-    gap: 15px;
+    gap: 20px;
      
     @media (max-width: 768px) {
-        gap: 10px;    
+        gap: 15px;    
     }
 
     @media (max-width: 480px) {
-        gap: 5px;
+        gap: 10px;
     }
 }
 `;
-export const Container_Row_NG_Center = styled.div` 
+export const Container_Row_Auto_Center = styled.div` 
+    display: flex;
+    justify-content: center;
+    align-items: center;        
+    background: transparent;
+    width: auto;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        gap: 15px;    
+    }
+
+    @media (max-width: 480px) {
+        gap: 10px;
+    }
+}
+`;
+export const Container_Row_NG_100_Center = styled.div` 
+    display: flex;
+    justify-content: center;
+    align-items: center;        
+    background: transparent;
+    width: 100%;
+    height: auto;  
+}
+`;
+export const Container_Row_NG_Auto_Center = styled.div` 
     display: flex;
     justify-content: center;
     align-items: center;        
@@ -344,7 +375,7 @@ export const Container_Row_NG_Center = styled.div`
     height: auto;  
 }
 `;
-export const Container_Row_Left = styled.div` 
+export const Container_Row_100_Left = styled.div` 
     display: flex;
     justify-content: flex-start;
     align-items: center;        
@@ -353,22 +384,46 @@ export const Container_Row_Left = styled.div`
     padding-bottom: 6px;
     width: 100%;
     height: auto;  
-    gap: 15px;
+    gap: 20px;
      
     @media (max-width: 768px) {
         padding-top: 5px;
         padding-bottom: 5px;
-        gap: 10px;    
+        gap: 15px;    
     }
 
     @media (max-width: 480px) {
         padding-top: 4px;
         padding-bottom: 4px;
-        gap: 5px;
+        gap: 10px;
     }
 }
 `;
-export const Container_Row_Right = styled.div` 
+export const Container_Row_Auto_Left = styled.div` 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;        
+    background: transparent;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: auto;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        gap: 15px;    
+    }
+
+    @media (max-width: 480px) {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        gap: 10px;
+    }
+}
+`;
+export const Container_Row_100_Right = styled.div` 
     display: flex;
     justify-content: flex-end;
     align-items: center;        
@@ -377,1327 +432,251 @@ export const Container_Row_Right = styled.div`
     padding-bottom: 6px;
     width: 100%;
     height: auto;  
-    gap: 15px;
+    gap: 20px;
      
     @media (max-width: 768px) {
         padding-top: 5px;
         padding-bottom: 5px;
-        gap: 10px;    
+        gap: 15px;    
     }
 
     @media (max-width: 480px) {
         padding-top: 4px;
         padding-bottom: 4px;
-        gap: 5px;
+        gap: 10px;
     }
 }
 `;
-
-export const Container_Row_100_Center = styled.div`
-    position: relative; 
+export const Container_Row_Auto_Right = styled.div` 
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;        
     background: transparent;
-    width: 100%;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: auto;
     height: auto;  
-    padding: 10px;
-    gap: 15px;
-    border-radius: 40px;
-
+    gap: 20px;
+     
     @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        gap: 10px;    
+        padding-top: 5px;
+        padding-bottom: 5px;
+        gap: 15px;    
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        gap: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        gap: 10px;
     }
 }
 `;
-export const Container_Row_NG_100_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;        
-    background: transparent;
-    width: 100%;
-    height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;   
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
-}
-`;
-export const Container_Row_95_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;        
-    background: transparent;
-    width: 95%;
-    height: auto;  
-    padding: 10px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_95_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;        
-    background: transparent;
-    width: 95%;
-    height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
-}
-`;
-export const Container_Row_90_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;        
-    background: transparent;
-    width: 90%;
-    height: auto;  
-    padding: 10px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_90_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;        
-    background: transparent;
-    width: 90%;
-    height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;   
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
-}
-`;
-export const Container_Row_80_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;         
-    background: transparent;
-    width: 80%;
-    height: auto;  
-    padding: 10px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_80_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;         
-    background: transparent;
-    width: 80%;
-    height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
-}
-`;
-export const Container_Row_15_Center = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;         
-    background: transparent;
-    width: 15%;
-    height: auto;  
-    padding: 10px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        gap: 5px;
-    }
-}
-`;
-//-------- CENTER --------
-//-------- RIGHT --------
-export const Container_Row_100_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_100_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-    }
-}
-`;
-export const Container_Row_95_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_95_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-    }
-}
-`;
-export const Container_Row_90_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_90_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-    }
-}
-`;
-export const Container_Row_80_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_80_Right = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;       
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-    }
-}
-`;
-//-------- RIGHT --------
-//-------- LEFT --------
-export const Container_Row_100_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_100_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 100%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-    }
-}
-`;
-export const Container_Row_95_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_95_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-    }
-}
-`;
-export const Container_Row_90_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_90_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-    }
-}
-`;
-export const Container_Row_80_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Row_NG_80_Left = styled.div`
-    position: relative; 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;       
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-    }
-}
-`;
-//-------- White
+//____________ROW____________
 //____________COLUMN____________
-//-------- CENTER --------
-export const Container_Column_100_Center = styled.div`
-    position: relative; 
+export const Container_Column_100_Center = styled.div` 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;     
-    text-align: center;     
+    align-items: center;        
     background: transparent;
     width: 100%;
     height: auto;  
-    padding: 20px;
-    gap: 15px;
-    border-radius: 40px;
-
+    gap: 20px;
+     
     @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 15px;
-        gap: 10px;    
+        gap: 18px;    
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 10px;
-        gap: 5px;
+        gap: 16px;
     }
 }
 `;
-export const Container_Column_NG_100_Center = styled.div`
-    position: relative; 
+export const Container_Column_Auto_Center = styled.div` 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;         
+    align-items: center;        
+    background: transparent;
+    width: auto;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        gap: 18px;    
+    }
+
+    @media (max-width: 480px) {
+        gap: 16px;
+    }
+}
+`;
+export const Container_Column_NG_100_Center = styled.div` 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;        
     background: transparent;
     width: 100%;
     height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
 }
 `;
-export const Container_Column_95_Center = styled.div`
-    position: relative; 
+export const Container_Column_NG_Auto_Center = styled.div` 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;  
-    text-align: center;        
+    align-items: center;        
     background: transparent;
-    width: 95%;
+    width: auto;
     height: auto;  
-    padding: 20px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 15px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 10px;
-        gap: 5px;
-    }
 }
 `;
-export const Container_Column_NG_95_Center = styled.div`
-    position: relative; 
+export const Container_Column_100_Left = styled.div` 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;         
+    align-items: flex-start;        
     background: transparent;
-    width: 95%;
-    height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
-}
-`;
-export const Container_Column_90_Center = styled.div`
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;  
-    text-align: center;        
-    background: transparent;
-    width: 90%;
-    height: auto;  
-    padding: 20px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 15px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 10px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_NG_90_Center = styled.div`
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;         
-    background: transparent;
-    width: 90%;
-    height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
-}
-`;
-export const Container_Column_80_Center = styled.div`
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;   
-    text-align: center;       
-    background: transparent;
-    width: 80%;
-    height: auto;  
-    padding: 20px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 15px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 10px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_NG_80_Center = styled.div`
-    position: relative; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;         
-    background: transparent;
-    width: 80%;
-    height: auto;  
-    padding: 10px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-    }
-}
-`;
-//-------- CENTER --------
-//-------- RIGHT --------
-export const Container_Column_100_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
+    padding-top: 6px;
+    padding-bottom: 6px;
     width: 100%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
+    height: auto;  
+    gap: 20px;
+     
     @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
+        padding-top: 5px;
+        padding-bottom: 5px;
+        gap: 18px;    
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        gap: 16px;
     }
 }
 `;
-export const Container_Column_NG_100_Right = styled.div`
-    position: relative;     
+export const Container_Column_Auto_Left = styled.div` 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
+    justify-content: center;
+    align-items: flex-start;       
     background: transparent;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: auto;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        gap: 18px;    
+    }
+
+    @media (max-width: 480px) {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        gap: 16px;
+    }
+}
+`;
+export const Container_Column_NG_100_Left = styled.div` 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;        
+    background: transparent;
+    padding-top: 6px;
+    padding-bottom: 6px;
     width: 100%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
+    height: auto;  
+     
     @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
+        padding-top: 5px;
+        padding-bottom: 5px;   
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 }
 `;
-export const Container_Column_95_Right = styled.div`
-    position: relative;     
+export const Container_Column_NG_Auto_Left = styled.div` 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
+    justify-content: center;
+    align-items: flex-start;        
     background: transparent;
-    width: 95%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: auto;
+    height: auto;  
+     
     @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
+        padding-top: 5px;
+        padding-bottom: 5px;   
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 }
 `;
-export const Container_Column_NG_95_Right = styled.div`
-    position: relative;     
+export const Container_Column_100_Right = styled.div` 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
+    justify-content: center;
+    align-items: flex-end;        
     background: transparent;
-    width: 95%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-    }
-}
-`;
-export const Container_Column_90_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_90_NG_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-    }
-}
-`;
-export const Container_Column_80_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_80_NG_Right = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;      
-    padding: 10px;
-    padding-right: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-right: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-right: 20px;
-    }
-}
-`;
-//-------- RIGHT --------
-//-------- LEFT --------
-export const Container_Column_100_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
+    padding-top: 6px;
+    padding-bottom: 6px;
     width: 100%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
+    height: auto;  
+    gap: 20px;
+     
     @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
+        padding-top: 5px;
+        padding-bottom: 5px;
+        gap: 18px;    
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        gap: 16px;
     }
 }
 `;
-export const Container_Column_100_NG_Left = styled.div`
-    position: relative;     
+export const Container_Column_Auto_Right = styled.div` 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
+    justify-content: center;
+    align-items: flex-end;        
     background: transparent;
-    width: 100%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
+    padding-top: 6px;
+    padding-bottom: 6px;
+    width: auto;
+    height: auto;  
+    gap: 20px;
+     
     @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px; 
+        padding-top: 5px;
+        padding-bottom: 5px;
+        gap: 18px;    
     }
 
     @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        gap: 16px;
     }
 }
 `;
-export const Container_Column_95_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_95_NG_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 95%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px; 
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-    }
-}
-`;
-export const Container_Column_90_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_90_NG_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 90%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-    }
-}
-`;
-export const Container_Column_80_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    gap: 15px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;
-        gap: 10px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-        gap: 5px;
-    }
-}
-`;
-export const Container_Column_80_NG_Left = styled.div`
-    position: relative;     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;           
-    background: transparent;
-    width: 80%;
-    height: auto;      
-    padding: 10px;
-    padding-left: 30px;
-    border-radius: 40px;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        padding-left: 25px;  
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        padding-left: 20px;
-    }
-}
-`;
-//-------- LEFT --------
 //____________COLUMN____________
 //____________MODAL____________
-export const Container_Modal = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    overflow-y: auto;
-`;
 export const Container_Modal_Background_Black = styled.div`
     position: fixed;
     top: 0;
@@ -1738,7 +717,7 @@ export const Container_Modal_Form_White_50 = styled.div`
     justify-content: flex-start;
     box-sizing: border-box;
     max-width: 50vw;
-    height: 70vh;
+    max-height: 70vh;
     padding: 15px;
     padding-top: 35px;
     gap: 15px;
@@ -1754,7 +733,7 @@ export const Container_Modal_Form_White_50 = styled.div`
         border-right: 6px solid black;
         border-bottom: 6px solid black;
         max-width: 70vw;
-        height: 60vh;
+        max-height: 60vh;
         padding: 10px;
         padding-top: 25px;
         gap: 10px;
@@ -1768,7 +747,47 @@ export const Container_Modal_Form_White_50 = styled.div`
         padding: 5px;
         padding-top: 15px;
         max-width: 80vw;
-        height: 50vh;
+        max-height: 50vh;
+        gap: 5px;
+    }
+`;
+export const Container_Modal_Form_White_35 = styled.div`
+    z-index: 100;
+    display: flex;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    max-width: 35vw;
+    max-height: 70vh;
+    padding: 15px;
+    padding-top: 35px;
+    gap: 15px;
+    border-radius: 50px;
+    border: 3px solid black;
+    border-right: 7px solid black;
+    border-bottom: 7px solid black;
+    background-color: rgba(255, 255, 255, 0.75);
+
+    @media (max-width: 768px) {
+        border-radius: 30px;
+        border: 2px solid black;
+        border-right: 6px solid black;
+        border-bottom: 6px solid black;
+        max-width: 55vw;
+        max-height: 60vh;
+        padding: 10px;
+        padding-top: 25px;
+        gap: 10px;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 20px;
+        border: 1px solid black;
+        border-right: 5px solid black;
+        border-bottom: 5px solid black;
+        padding: 5px;
+        padding-top: 15px;
+        max-width: 65vw;
+        max-height: 50vh;
         gap: 5px;
     }
 `;
@@ -1778,6 +797,7 @@ export const Container_Modal_Form = styled.div`
     max-height: 100%;
     gap: 10px;
     background: transparent;
+    padding: 10px;
     display: flex;            
     justify-content: flex-start;
     flex-direction: column;
@@ -1805,21 +825,21 @@ export const Container_Modal_Form = styled.div`
 
     @media (max-width: 768px) { 
         gap: 8px;
+        padding: 8px;
     }
 
     @media (max-width: 480px) {
         gap: 6px;
+        padding: 6px;
     }
 `;
 export const Container_Modal_Form_White = styled.div`
     width: 93%;
     height: auto;
     margin-top: 20px;
-    margin-left: 30px;
     padding: 20px;
     gap: 20px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    border-radius: 50px;
     background: white;
     display: flex;            
     justify-content: flex-start;
@@ -1827,21 +847,37 @@ export const Container_Modal_Form_White = styled.div`
     align-items: center;
 
     @media (max-width: 768px) { 
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
+        border-radius: 30px;
         margin-top: 15px;
-        margin-left: 25px;
         padding: 15px;
         gap: 15px;
     }
 
     @media (max-width: 480px) {
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
+        border-radius: 20px;
         margin-top: 10px;
-        margin-left: 20px;
         padding: 10px;
         gap: 10px;
+    }
+`;
+export const Container_Modal_Form_Button = styled.div`
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    gap: 25px;
+    background: transparent;
+    display: flex;            
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) { 
+        padding: 15px;
+        gap: 20px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 10px;
+        gap: 15px;
     }
 `;
 //____________MODAL____________
@@ -1853,7 +889,7 @@ export const Container_Keyboard_Default = styled.div`
     justify-content: center;
     align-items: center;         
     background: transparent;
-    width: 80%;
+    width: 60%;
     height: auto;  
     bottom: 8px;
     z-index: 999;
@@ -1901,9 +937,126 @@ export const Container_Keyboard_Numeric = styled.div`
 }
 `;
 //____________KEYBOARD____________
+//____________LOGIN____________
+export const Container_Login_Form_White_350 = styled.div`
+    z-index: 100;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: auto;
+    height: 70vh;
+    padding: 20px;
+    border-radius: 50px;
+    border: 3px solid black;
+    border-right: 7px solid black;
+    border-bottom: 7px solid black;
+    background-color: rgba(255, 255, 255, 0.75);
+    
+    @media (max-width: 768px) {
+        border-radius: 30px;
+        border: 2px solid black;
+        border-right: 6px solid black;
+        border-bottom: 6px solid black;
+        padding: 15px;
+        height: 60vh;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 20px;
+        border: 1px solid black;
+        border-right: 5px solid black;
+        border-bottom: 5px solid black;   
+        padding: 10px;
+        height: 50vh;
+    }
+`;
+export const Container_Login_Form = styled.div`
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    gap: 20px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background: rgb(255,255,255);
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    display: flex;            
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;          
+        height: 8px;  
+        background-color:rgb(255, 255, 255);
+        border-radius: 20px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(58,93,174);
+        border-radius: 30px;
+        border: 1px solid rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(82, 126, 231);
+    }
+
+    @media (max-width: 768px) {
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px; 
+        gap: 15px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 20px;
+        gap: 10px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+`;
+//____________LOGIN____________
+//____________SETTINGBAR____________
+export const Container_Settingbar_Row_White = styled.div`
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    display: flex;            
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2px;
+    padding-right: 30px;
+    padding-left: 30px;
+
+    @media (max-width: 768px) { 
+        padding: 2px;
+        padding-right: 20px;
+        padding-left: 20px;
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 2px;
+        padding-right: 10px;
+        padding-left: 10px;
+        gap: 6px;
+    }
+`;
+//____________SETTINGBAR____________
 //____________SIDEBAR____________
 export const Container_Sidebar_Column_Black = styled.div`
-    width: 19vw;
+    max-width: 19vw;
     height: 100vh;
     padding: 10px;
     padding-top: 40px;
@@ -1913,23 +1066,42 @@ export const Container_Sidebar_Column_Black = styled.div`
     border-right: 5px solid white;
     position: fixed;
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     top: 0;
     left: 0;
     transition: transform 0.3s ease;
     z-index: 100;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;          
+        height: 8px;  
+        background-color:rgb(255, 255, 255);
+        border-radius: 20px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(58,93,174);
+        border-radius: 30px;
+        border: 1px solid rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(82, 126, 231);
+    }
 
     @media (max-width: 768px) {
-        width: 28vw;
+        max-width: 28vw;
         padding: 8px;
         padding-top: 35px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
-        width: 38vw;
+        max-width: 38vw;
         padding: 6px;
         padding-top: 30px;
         gap: 5px;
@@ -1941,6 +1113,51 @@ export const Container_Sidebar_Column_Black = styled.div`
 
     &.visible {
         transform: translateX(0);
+    }
+`;
+export const Container_Sidebar_Column = styled.div`
+    max-width: 100%;
+    height: auto;
+    padding: 10px;
+    gap: 15px;
+    box-sizing: border-box;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 100;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;          
+        height: 8px;  
+        background-color:rgb(255, 255, 255);
+        border-radius: 20px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(58,93,174);
+        border-radius: 30px;
+        border: 1px solid rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(82, 126, 231);
+    }
+
+    @media (max-width: 768px) {
+        max-width: 28vw;
+        padding: 8px;
+        gap: 10px;    
+    }
+
+    @media (max-width: 480px) {
+        max-width: 38vw;
+        padding: 6px;
+        gap: 5px;
     }
 `;
 //____________SIDEBAR____________
@@ -2225,6 +1442,7 @@ export const Container_Footer_Column_Black = styled.div`
     justify-content: flex-start;
     align-items: center;          
     background: rgba(0, 0, 0, 0.85);
+    border-top: 4px solid rgb(255,255,255);
     color: white;
     width: 100%;
     height: auto; 
@@ -2233,11 +1451,13 @@ export const Container_Footer_Column_Black = styled.div`
     gap: 15px;
 
     @media (max-width: 768px) {
+        border-top: 3px solid rgb(255,255,255);
         padding: 18px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
+        border-top: 2px solid rgb(255,255,255);
         padding: 16px;
         gap: 5px;
     }

@@ -11,14 +11,8 @@ import { SelectedRowContext } from "../contexts/SelectedesProvider";
 import { RefAlertGreetingContext } from "../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleLoggedLog } from "../hooks/Forms";
-//__________IMAGES____________
-import Logo_Warning_Light from '../components/imgs/Logo-Warning-Light.png';
-import Logo_Warning_Dark from '../components/imgs/Logo-Warning-Dark.webp';
-import Logo_Logout_Light from '../components/imgs/Logo-Logout-Light.png';
-import Logo_Logout_Dark from '../components/imgs/Logo-Logout-Dark.png';
-//__________IMAGES____________
 // Estilos personalizados
-import { Alert_Logout,Alert_Warning,Alert_Verification } from "../components/styled/Alerts";
+import { Alert_Logout,Alert_Swal_Warning,Alert_Sonner_Promise } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Componente para proteger las rutas de la pagina
@@ -54,13 +48,11 @@ export const PrivateRouteKitchen = () => {
         logoutInitiatedRef.current = true; 
 
         const showAlerts = async () => {
-            const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
-            const Image_Logout = themeMode ? Logo_Logout_Light : Logo_Logout_Dark;
             const Color = themeMode ? '#3a5dae' : '#527ee7';
 
-            await Alert_Warning('MEALSYNC',`¡${isLoggedUser.nombre}!`,themeMode,Image_Warning);
+            await Alert_Swal_Warning('MEALSYNC',`¡${isLoggedUser.nombre}!`,themeMode);
 
-            await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Image_Logout,Color,handleLoggedLog,resetInactividad);
+            await Alert_Logout('MEALSYNC',`¡Se esta cerrando la sesión!...`,themeMode,Color,handleLoggedLog,resetInactividad);
         }
         if(isLoggedLoggedRef.current){
             showAlerts();
@@ -140,7 +132,7 @@ export const PrivateRouteKitchen = () => {
                 }
             });
             
-            Alert_Verification(promise,'¡Cerrando sesión!...');
+            Alert_Sonner_Promise(promise,'¡Cerrando sesión!...');
         }
     },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks

@@ -11,7 +11,6 @@ import { HandleSidebarView } from "../../hooks/Views";
 // Estilos personalizados
 import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_100_Center,Container_Column_NG_100_Center } from "../../components/styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Span_12_Center_Black } from "../../components/styled/Text";
-import { Img_Logo_Horizontal_Hospital_400 } from "../../components/styled/Imgs";
 import { Button_Link_Blue } from "../../components/styled/Buttons";
 // Componentes personalizados
 import Chart_Activity from "../../components/charts/users/Activity";
@@ -66,7 +65,6 @@ export default function Administration_Users(){
                                     <Text_Span_12_Center_Black>Ver usuarios...</Text_Span_12_Center_Black>
                                 </Button_Link_Blue>
                             </Container_Row_100_Center>
-                            <Img_Logo_Horizontal_Hospital_400/>
                             
                         </Container_Column_NG_100_Center>
                         <Container_Column_NG_100_Center>

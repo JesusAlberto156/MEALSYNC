@@ -1,145 +1,103 @@
+.swal2-close {
+    font-family: 'Century Gothic', Prompt;
+    font-size: 24px;
+    color: black;
+    background: transparent;
+    border: none;
+    top: 16px;
+    right: 16px;
+    position: absolute;
+    transition: transform 0.2s ease;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.swal2-close:hover {
+    color: rgba(0, 0, 0, 0.625);
+    transform: scale(1.3);
+    cursor: pointer;
+}
 /*____________GREETING____________*/
-.greeting-theme-light {
+.greeting-theme {
+    width: 25vw;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     font-family: 'Century Gothic','Prompt';
     font-style: normal;
     font-size: 16px;
     border-radius: 50px;
+    border: 2px solid rgb(0, 0, 0);
+    border-bottom: 8px solid rgb(0, 0, 0);
+    border-right: 8px solid rgb(0, 0, 0);
     padding: 10px;
-    padding-bottom: 30px;
 }
-.greeting-theme-dark {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    font-family: 'Century Gothic','Prompt';
-    font-style: normal;
-    font-size: 16px;
-    border-radius: 50px;
-    padding: 10px;
-    padding-bottom: 30px;
-}
-.greeting-title-light {
+.greeting-title {
     color: rgb(58,93,174);
     font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
-}
-.greeting-title-dark {
-    color: rgb(82, 126, 231);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
+    font-style: 'bold';
+    font-size: 18px;
 }
 /*____________GREETING____________*/
 /*____________SUCCESS____________*/
-.success-theme-light {
-    background-color: rgb(20, 165, 76);
+.success-theme {
+    width: 25vw;
+    background-color: rgb(24, 208, 95);
     color: rgb(255, 255, 255);
     font-family: 'Century Gothic','Prompt';
     font-style: normal;
     font-size: 16px;
     border-radius: 50px;
+    border: 2px solid rgb(0, 0, 0);
+    border-bottom: 8px solid rgb(0, 0, 0);
+    border-right: 8px solid rgb(0, 0, 0);
     padding: 10px;
-    padding-bottom: 30px;
 }
-.success-theme-dark {
-    background-color: rgb(60, 188, 109);
-    color: rgb(0, 0, 0);
+.success-title {
+    color: rgb(13, 112, 51);
     font-family: 'Century Gothic','Prompt';
-    font-style: normal;
-    font-size: 16px;
-    border-radius: 50px;
-    padding: 10px;
-    padding-bottom: 30px;
-}
-.success-title-light {
-    color: rgb(60, 188, 109);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
-}
-.success-title-dark {
-    color: rgb(20, 165, 76);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
+    font-style: 'bold';
+    font-size: 18px;
 }
 /*____________SUCCESS____________*/
 /*____________WARNING____________*/
-.warning-theme-light {
-    background-color: rgb(250, 238, 66);
+.warning-theme {
+    width: 25vw;
+    background-color: rgb(252, 225, 50);
     color: rgb(0, 0, 0);
     font-family: 'Century Gothic','Prompt';
     font-style: normal;
     font-size: 16px;
     border-radius: 50px;
+    border: 2px solid rgb(0, 0, 0);
+    border-bottom: 8px solid rgb(0, 0, 0);
+    border-right: 8px solid rgb(0, 0, 0);
     padding: 10px;
-    padding-bottom: 30px;
 }
-.warning-theme-dark {
-    background-color: rgb(250, 184, 3);
-    color: rgb(0, 0, 0);
+.warning-title {
+    color: rgb(235, 108, 23);
     font-family: 'Century Gothic','Prompt';
-    font-style: normal;
-    font-size: 16px;
-    border-radius: 50px;
-    padding: 10px;
-    padding-bottom: 30px;
-}
-.warning-title-light {
-    color: rgb(250, 184, 3);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
-}
-.warning-title-dark {
-    color: rgb(250, 238, 66);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
+    font-style: 'bold';
+    font-size: 18px;
 }
 /*____________WARNING____________*/
 /*____________ERROR____________*/
-.error-theme-light {
-    background-color: rgb(155, 9, 9);
+.error-theme {
+    width: 25vw;
+    background-color: rgb(208, 31, 31);
     color: rgb(255, 255, 255);
     font-family: 'Century Gothic','Prompt';
     font-style: normal;
     font-size: 16px;
     border-radius: 50px;
+    border: 2px solid rgb(0, 0, 0);
+    border-bottom: 8px solid rgb(0, 0, 0);
+    border-right: 8px solid rgb(0, 0, 0);
     padding: 10px;
-    padding-bottom: 30px;
 }
-.error-theme-dark {
-    background-color: rgb(233, 23, 23);
-    color: rgb(255, 255, 255);
+.error-title {
+    color: rgb(100, 15, 15);
     font-family: 'Century Gothic','Prompt';
-    font-style: normal;
-    font-size: 16px;
-    border-radius: 50px;
-    padding: 10px;
-    padding-bottom: 30px;
-}
-.error-title-light {
-    color: rgb(233, 23, 23);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
-}
-.error-title-dark {
-    color: rgb(155, 9, 9);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
+    font-style: 'bold';
+    font-size: 18px;
 }
 /*____________ERROR____________*/
 /*____________LOGOUT____________*/
@@ -153,23 +111,6 @@
     padding: 10px;
     padding-bottom: 30px;
 }
-.logout-theme-dark {
-    background-color: rgb(221, 59, 59);
-    color: rgb(255, 255, 255);
-    font-family: 'Century Gothic','Prompt';
-    font-style: normal;
-    font-size: 16px;
-    border-radius: 50px;
-    padding: 10px;
-    padding-bottom: 30px;
-}
-.logout-title-light {
-    color: rgb(221, 59, 59);
-    font-family: 'Century Gothic','Prompt';
-    font-style: italic;
-    font-size: 30px;
-    padding: 0px
-}
 .logout-title-dark {
     color: rgb(252, 160, 160);
     font-family: 'Century Gothic','Prompt';
@@ -179,77 +120,127 @@
 }
 /*____________LOGOUT____________*/
 
+@media (max-width: 1300px) {
+    .greeting-theme {
+        width: 29vw;
+    }
+    .success-theme {
+        width: 29vw;
+    }
+    .warning-theme {
+        width: 29vw;
+    }
+    .error-theme {
+        width: 29vw;
+    }
+}
+@media (max-width: 1150px) {
+    .greeting-theme {
+        width: 33vw;
+    }
+    .success-theme {
+        width: 33vw;
+    }
+    .warning-theme {
+        width: 33vw;
+    }
+    .error-theme {
+        width: 33vw;
+    }
+}
+@media (max-width: 1000px) {
+    .greeting-theme {
+        width: 37vw;
+    }
+    .success-theme {
+        width: 37vw;
+    }
+    .warning-theme {
+        width: 37vw;
+    }
+    .error-theme {
+        width: 37vw;
+    }
+}
+@media (max-width: 850px) {
+    .greeting-theme {
+        width: 41vw;
+    }
+    .success-theme {
+        width: 41vw;
+    }
+    .warning-theme {
+        width: 41vw;
+    }
+    .error-theme {
+        width: 41vw;
+    }
+}
+@media (max-width: 700px) {
+    .greeting-theme {
+        width: 45vw;
+    }
+    .success-theme {
+        width: 45vw;
+    }
+    .warning-theme {
+        width: 45vw;
+    }
+    .error-theme {
+        width: 45vw;
+    }
+}
 @media (max-width: 768px) {
     /*____________GREETING____________*/
-    .greeting-theme-light {
+    .greeting-theme {
         font-size: 14px;
+        border-radius: 30px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 7px solid rgb(0, 0, 0);
+        border-right: 7px solid rgb(0, 0, 0);
         padding: 8px;
-        padding-bottom: 25px;
     }
-    .greeting-theme-dark {
-        font-size: 14px;
-        padding: 8px;
-        padding-bottom: 25px;
-    }
-    .greeting-title-light {
-        font-size: 25px;
-    }
-    .greeting-title-dark {
-        font-size: 25px;
+    .greeting-title {
+        font-size: 16px;
     }
     /*____________GREETING____________*/
     /*____________SUCCESS____________*/
-    .success-theme-light {
+    .success-theme {
         font-size: 14px;
+        border-radius: 30px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 7px solid rgb(0, 0, 0);
+        border-right: 7px solid rgb(0, 0, 0);
         padding: 8px;
-        padding-bottom: 25px;
     }
-    .success-theme-dark {
-        font-size: 14px;
-        padding: 8px;
-        padding-bottom: 25px;
-    }
-    .success-title-light {
-        font-size: 25px;
-    }
-    .success-title-dark {
-        font-size: 25px;
+    .success-title {
+        font-size: 16px;
     }
     /*____________SUCCESS____________*/
     /*____________WARNING____________*/
-    .warning-theme-light {
+    .warning-theme {
         font-size: 14px;
+        border-radius: 30px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 7px solid rgb(0, 0, 0);
+        border-right: 7px solid rgb(0, 0, 0);
         padding: 8px;
-        padding-bottom: 25px;
     }
-    .warning-theme-dark {
-        font-size: 14px;
-        padding: 8px;
-        padding-bottom: 25px;
-    }
-    .warning-title-light {
-        font-size: 25px;
-    }
-    .warning-title-dark {
-        font-size: 25px;
+    .warning-title {
+        font-size: 16px;
     }
     /*____________WARNING____________*/
     /*____________ERROR____________*/
-    .error-theme-light {
+    .error-theme {
         font-size: 14px;
+        border-radius: 30px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 7px solid rgb(0, 0, 0);
+        border-right: 7px solid rgb(0, 0, 0);
         padding: 8px;
-        padding-bottom: 25px;
     }
-    .error-theme-dark {
-        font-size: 14px;
-        padding: 8px;
-        padding-bottom: 25px;
-    }
-    .error-title-light {
-        font-size: 25px;
-    }
-    .error-title-dark {
-        font-size: 25px;
+    .error-title {
+        font-size: 16px;
     }
     /*____________ERROR____________*/
     /*____________LOGOUT____________*/
@@ -258,91 +249,108 @@
         padding: 8px;
         padding-bottom: 25px;
     }
-    .logout-theme-dark {
-        font-size: 14px;
-        padding: 8px;
-        padding-bottom: 25px;
-    }
     .logout-title-light {
-        font-size: 25px;
-    }
-    .logout-title-dark {
         font-size: 25px;
     }
     /*____________LOGOUT____________*/
 }
-
+@media (max-width: 700px) {
+    .greeting-theme {
+        width: 50vw;
+    }
+    .success-theme {
+        width: 50vw;
+    }
+    .warning-theme {
+        width: 50vw;
+    }
+    .error-theme {
+        width: 50vw;
+    }
+}
+@media (max-width: 600px) {
+    .greeting-theme {
+        width: 55vw;
+    }
+    .success-theme {
+        width: 55vw;
+    }
+    .warning-theme {
+        width: 55vw;
+    }
+    .error-theme {
+        width: 55vw;
+    }
+}
+@media (max-width: 500px) {
+    .greeting-theme {
+        width: 60vw;
+    }
+    .success-theme {
+        width: 60vw;
+    }
+    .warning-theme {
+        width: 60vw;
+    }
+    .error-theme {
+        width: 60vw;
+    }
+}
 @media (max-width: 480px) {
     /*____________GREETING____________*/
-    .greeting-theme-light {
+    .greeting-theme {
+        width: 70vw;
         font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
+        border-radius: 20px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 6px solid rgb(0, 0, 0);
+        border-right: 6px solid rgb(0, 0, 0);
+        padding: 6px;
     }
-    .greeting-theme-dark {
-        font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
-    }
-    .greeting-title-light {
-        font-size: 20px;
-    }
-    .greeting-title-dark {
-        font-size: 20px;
+    .greeting-title {
+        font-size: 14px;
     }
     /*____________GREETING____________*/
     /*____________SUCCESS____________*/
-    .success-theme-light {
+    .success-theme {
+        width: 70vw;
         font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
+        border-radius: 20px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 6px solid rgb(0, 0, 0);
+        border-right: 6px solid rgb(0, 0, 0);
+        padding: 6px;
     }
-    .success-theme-dark {
-        font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
-    }
-    .success-title-light {
-        font-size: 20px;
-    }
-    .success-title-dark {
-        font-size: 20px;
+    .success-title {
+        font-size: 14px;
     }
     /*____________SUCCESS____________*/
     /*____________WARNING____________*/
-    .warning-theme-light {
+    .warning-theme {
+        width: 70vw;
         font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
+        border-radius: 20px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 6px solid rgb(0, 0, 0);
+        border-right: 6px solid rgb(0, 0, 0);
+        padding: 6px;
     }
-    .warning-theme-dark {
-        font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
-    }
-    .warning-title-light {
-        font-size: 20px;
-    }
-    .warning-title-dark {
-        font-size: 20px;
+    .warning-title {
+        font-size: 14px;
     }
     /*____________WARNING____________*/
     /*____________ERROR____________*/
-    .error-theme-light {
+    .error-theme {
+        width: 70vw;
         font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
+        border-radius: 20px;
+        border: 2px solid rgb(0, 0, 0);
+        border-bottom: 6px solid rgb(0, 0, 0);
+        border-right: 6px solid rgb(0, 0, 0);
+        padding: 6px;
     }
-    .error-theme-dark {
-        font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
-    }
-    .error-title-light {
-        font-size: 20px;
-    }
-    .error-title-dark {
-        font-size: 20px;
+    .error-title {
+        font-size: 14px;
     }
     /*____________ERROR____________*/
     /*____________LOGOUT____________*/
@@ -351,16 +359,36 @@
         padding: 6px; 
         padding-bottom: 20px;
     }
-    .logout-theme-dark {
-        font-size: 12px;
-        padding: 6px; 
-        padding-bottom: 20px;
-    }
     .logout-title-light {
         font-size: 20px;
     }
-    .logout-title-dark {
-        font-size: 20px;
-    }
     /*____________LOGOUT____________*/
+}
+@media (max-width: 400px) {
+    .greeting-theme {
+        width: 80vw;
+    }
+    .success-theme {
+        width: 80vw;
+    }
+    .warning-theme {
+        width: 80vw;
+    }
+    .error-theme {
+        width: 80vw;
+    }
+}
+@media (max-width: 350px) {
+    .greeting-theme {
+        width: 100vw;
+    }
+    .success-theme {
+        width: 100vw;
+    }
+    .warning-theme {
+        width: 100vw;
+    }
+    .error-theme {
+        width: 100vw;
+    }
 }

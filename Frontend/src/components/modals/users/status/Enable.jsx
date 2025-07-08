@@ -23,11 +23,11 @@ import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Row_95_Center, Container_Row_NG_90_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_450,Container_Row_100_Center, Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_180,Button_Icon_Green_180,Button_Icon_Red_180 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Icon_20 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 // Componentes personalizados
 import Form_Verification from "../../../forms/Verification";
 import Error_Enable from "../../errors/Enable";
@@ -108,38 +108,38 @@ export default function Status_Enable(){
                 }
             });
 
-            Alert_Verification(promise,isTextFieldsStatus.estatus === 'Habilitado' ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
+            Alert_Sonner_Promise(promise,isTextFieldsStatus.estatus === 'Habilitado' ? '¡Deshabilitando usuario!...' : '¡Habilitando usuario!...');
         }
     },[isStatusEnable]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal ref={Modal_Status}>
+                <Container_Modal_Background_Black ref={Modal_Status}>
                     <Container_Form_450 ref={Form_Status} ThemeMode={themeMode} className={currentMView === 'Estatus-Habilitar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Text_Title_32_Black ThemeMode={themeMode}>{isTextFieldsStatus.estatus === 'Habilitado' ? 'DESHABILITAR USUARIO' : 'HABILITAR USUARIO'}</Text_Title_32_Black>
                         <Form_Verification/>
-                        <Container_Row_NG_90_Center>
+                        <Container_Row_NG_Auto_Center>
                             <Text_Color_Blue_16 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsStatus.usuario}</Text_Span_16_Center_Black>
-                        </Container_Row_NG_90_Center>
+                        </Container_Row_NG_Auto_Center>
                         {isTextFieldsStatus.estatus === 'Habilitado' ? (
                             <>
-                                <Container_Row_95_Center>
+                                <Container_Row_100_Center>
                                     <Text_Span_12_Justify_Black ThemeMode={themeMode}>Al deshabilitar al usuario, se forzará el cierre inmediato de la sesión del usuario si se encuentra activo.</Text_Span_12_Justify_Black>
-                                </Container_Row_95_Center>  
+                                </Container_Row_100_Center>  
                             </>
                         ):(
                             <></>
                         )}
-                        <Container_Row_95_Center>
+                        <Container_Row_100_Center>
                             <Tooltip title='Cancelar' placement="top">
                                 <span>
                                     <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalViewUsers('')}
                                         disabled={!isActionBlock && isVerificationBlock}
                                     >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Blue_180>
                                 </span>
                             </Tooltip>
@@ -151,7 +151,7 @@ export default function Status_Enable(){
                                                 onClick={() => handleStatusEnable()}
                                                 disabled={!isActionBlock}    
                                             >
-                                                <Icon_White_22><FaLock/></Icon_White_22>
+                                                <Icon_20><FaLock/></Icon_20>
                                             </Button_Icon_Red_180>
                                         </span>
                                     </Tooltip>
@@ -164,13 +164,13 @@ export default function Status_Enable(){
                                                 onClick={() => handleStatusEnable()}
                                                 disabled={!isActionBlock}    
                                             >
-                                                <Icon_White_22><FaLockOpen/></Icon_White_22>
+                                                <Icon_20><FaLockOpen/></Icon_20>
                                             </Button_Icon_Green_180>
                                         </span>
                                     </Tooltip>
                                 </>
                             )}
-                        </Container_Row_95_Center>
+                        </Container_Row_100_Center>
                     </Container_Form_450>
                     {isKeyboard ? (
                         <>
@@ -179,7 +179,7 @@ export default function Status_Enable(){
                     ):(
                         <></>
                     )}
-                </Container_Modal>
+                </Container_Modal_Background_Black>
             ):(
                 currentMView === 'Estatus-Habilitar' ? (
                     <>

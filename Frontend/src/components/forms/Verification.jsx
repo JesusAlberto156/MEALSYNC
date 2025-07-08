@@ -15,11 +15,11 @@ import { HandleVerificationBlock } from "../../hooks/Forms";
 import { FaUserCheck } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Column_90_Center,Container_Row_100_Center,Container_Row_NG_95_Center } from "../styled/Containers";
+import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../styled/Text";
-import { Input_Group, Input_Text_Black_100 } from "../styled/Inputs";
+import { Input_Group, Input_Text_100_Black } from "../styled/Inputs";
 import { Button_Icon_Blue_220 } from "../styled/Buttons";
-import { Icon_White_22 } from "../styled/Icons";
+import { Icon_20 } from "../styled/Icons";
 import { Label_Text_12_Black } from "../styled/Labels";
 import { Alert_Sonner_Warning } from "../styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -116,15 +116,15 @@ export default function Form_Verification(){
     // Estructura del componente
     return(
         <> 
-            <Container_Row_NG_95_Center>
+            <Container_Row_NG_Auto_Center>
                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>   
                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos de sesión...</Text_Span_16_Center_Black>
-            </Container_Row_NG_95_Center>
-            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+            </Container_Row_NG_Auto_Center>
+            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                 <Container_Row_100_Center>
                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Usuario:</Text_Span_16_Center_Black>
                     <Input_Group>
-                        <Input_Text_Black_100 ThemeMode={themeMode}
+                        <Input_Text_100_Black ThemeMode={themeMode}
                             id="Input-User"
                             placeholder="..."
                             type="text"
@@ -145,7 +145,7 @@ export default function Form_Verification(){
                 <Container_Row_100_Center>
                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Contraseña:</Text_Span_16_Center_Black>
                     <Input_Group>
-                        <Input_Text_Black_100 ThemeMode={themeMode}
+                        <Input_Text_100_Black ThemeMode={themeMode}
                             id="Input-Password"
                             placeholder="..."
                             type="password"
@@ -171,11 +171,11 @@ export default function Form_Verification(){
                                 handleVerificationBlock();
                             }}
                         >
-                            <Icon_White_22><FaUserCheck/></Icon_White_22>
+                            <Icon_20><FaUserCheck/></Icon_20>
                         </Button_Icon_Blue_220>
                     </span>
                 </Tooltip>
-            </Container_Column_90_Center>
+            </Container_Column_100_Center>
         </>  
     );
 }

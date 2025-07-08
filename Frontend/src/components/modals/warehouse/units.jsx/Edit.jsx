@@ -21,13 +21,13 @@ import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
-import { Input_Radio_16,Input_Text_Black_100 } from "../../../styled/Inputs";
-import { Alert_Verification } from "../../../styled/Alerts";
-import { Label_Text_16_Center } from "../../../styled/Labels";
+import { Icon_20 } from "../../../styled/Icons";
+import { Input_Radio_20,Input_Text_100_Black } from "../../../styled/Inputs";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
+import { Label_Button_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
 //____________IMPORT/EXPORT____________
@@ -81,7 +81,7 @@ export default function Unit_Edit(){
                 }
             });
 
-            Alert_Verification(promise,'actualizando una medida!...');
+            Alert_Sonner_Promise(promise,'actualizando una medida!...');
         }
     },[isUnitEdit]);
     // UseEffect para quitar la suscrpcion de socket
@@ -114,28 +114,28 @@ export default function Unit_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Title_32_Black ThemeMode={themeMode}>EDITAR MEDIDA</Text_Title_32_Black>
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsUnits.extent}
                                         onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, extent: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
-                                <Container_Row_NG_95_Center>
+                                <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Unidad...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Center>
-                                <Container_Row_95_Center>
+                                </Container_Row_NG_Auto_Center>
+                                <Container_Row_100_Center>
                                     {['Kilogramos','Litros'].map((item,index) => (
-                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                            <Input_Radio_16 ThemeMode={themeMode}
+                                        <Label_Button_16_Black ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_20 ThemeMode={themeMode}
                                                 type="radio"
                                                 name="group"
                                                 value={item}
@@ -143,42 +143,42 @@ export default function Unit_Edit(){
                                                 onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, unit: e.target.value}))}
                                             />
                                             {item}
-                                        </Label_Text_16_Center>
+                                        </Label_Button_16_Black>
                                     ))};
-                                </Container_Row_95_Center>
-                            </Container_Column_90_Center>
+                                </Container_Row_100_Center>
+                            </Container_Column_100_Center>
                             <Container_Row_100_Center>
                                 <Text_Span_12_Justify_Black ThemeMode={themeMode}>Si editas los datos generales, se modificarán para todas las medidas que compartan el mismo nombre, incluso si cambias el nombre en una de ellas.</Text_Span_12_Justify_Black>
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Cantidad:</Text_Span_16_Center_Black>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsUnits.amount}
                                         onChange={(e) => setIsTextFieldsUnits(prev => ({...prev, amount: e.target.value}))}
                                     />
                                 </Container_Row_100_Center>
-                            </Container_Column_90_Center>
-                            <Container_Row_95_Center>
+                            </Container_Column_100_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Red_210>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handleUnitEdit()}>
-                                        <Icon_White_22><MdEdit/></Icon_White_22>
+                                        <Icon_20><MdEdit/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </Tooltip>
-                            </Container_Row_95_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_500>
                     </Container_Modal>
                 </>

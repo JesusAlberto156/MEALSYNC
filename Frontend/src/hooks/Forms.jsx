@@ -6,7 +6,7 @@ import { LoggedLogContext,LoggedUserContext } from "../contexts/SessionProvider"
 import { TextFieldsUserContext } from "../contexts/FormsProvider";
 import { VerificationBlockContext,FunctionBlockContext } from "../contexts/VariablesProvider";
 // Estilos personalizados
-import { Alert_Verification } from "../components/styled/Alerts";
+import { Alert_Sonner_Promise } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Hook para empezar el inicio de sesión en el formulario de login o cerrar sesión ✔️
@@ -55,7 +55,7 @@ export const HandleVerificationBlock = () => {
             }
         });
 
-        Alert_Verification(promise,'Verificando datos...');
+        Alert_Sonner_Promise(promise,'Verificando datos...');
     }
     // Retorno de la función del hook
     return handleVerificationBlock;

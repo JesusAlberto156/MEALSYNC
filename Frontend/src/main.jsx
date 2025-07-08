@@ -26,13 +26,13 @@ import Index_Main from './pages/Indexs/Main';
 import Error from './pages/general/Error';
 import Loading from './pages/general/Loading';
 import Login from './pages/general/Login';
+import Verificacion_Login from './components/modals/General/VerificationLogin';
 import Out_Login from './components/modals/general/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
 import Administration_Home from './pages/administration/Home';
 import Administration_Index from './pages/administration/Index';
 import Table_Users from './components/tables/users/Users';
 import User_Add from './components/modals/users/users/Add';
-import User_Permissions_Add from './components/modals/users/users/PermissionsAdd';
 import User_Edit from './components/modals/users/users/Edit';
 import User_View from './components/modals/users/users/View';
 import User_Delete from './components/modals/users/users/Delete';
@@ -84,6 +84,10 @@ const router = createHashRouter([
     element: <Login/>
   },
   {
+    path: '/Login/Verification',
+    element: <Verificacion_Login/>
+  },
+  {
     path: '/Prueba',
     element: <Prueba/>
   },
@@ -98,10 +102,6 @@ const router = createHashRouter([
           {
             path: 'Administration/Index/Users/Users/Add',
             element: <User_Add/>,
-          },
-          {
-            path: 'Administration/Index/Users/Users/Add/Permissions',
-            element: <User_Permissions_Add/>,
           },
           {
             path: 'Administration/Index/Users/Users/Edit',

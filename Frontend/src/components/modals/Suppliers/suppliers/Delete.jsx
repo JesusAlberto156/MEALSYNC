@@ -25,11 +25,11 @@ import { MdCancel } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_500,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_Blue_30,Icon_Black_White_30,Icon_Red_30,Icon_Orange_30,Icon_Yellow_30,Icon_Lime_Green_30,Icon_Green_30 } from "../../../styled/Icons";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Icon_20,Icon_Blue_30,Icon_Black_28,Icon_Red_30,Icon_Orange_30,Icon_Yellow_30,Icon_Lime_Green_30,Icon_Green_30 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Delete from "../../errors/Delete";
 import Form_Verification from "../../../forms/Verification";
@@ -108,7 +108,7 @@ export default function Supplier_Delete(){
                 }
             });
 
-            Alert_Verification(promise,'Eliminando un proveedor!...');
+            Alert_Sonner_Promise(promise,'Eliminando un proveedor!...');
         }
     },[isSupplierDelete]);
     // Estructura del componente
@@ -116,42 +116,42 @@ export default function Supplier_Delete(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal_Suppliers}>
+                    <Container_Modal_Background_Black ref={Modal_Suppliers}>
                         <Container_Form_500 ref={Form_Suppliers} ThemeMode={themeMode} className={currentMView === 'Proveedor-Eliminar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Row_100_Center>
                                 <Text_Title_32_Black ThemeMode={themeMode}>ELIMINAR PROVEEDOR</Text_Title_32_Black>
                             </Container_Row_100_Center>
                             <Form_Verification/>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>Proveedor:</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}> {isTextFieldsSupplier.nombre || 'Desconocido'}...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Row_95_Center>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Row_100_Center>
                                 {isTextFieldsSupplier.calificacion === 0 ? (
                                     <>
                                         <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_30>
                                         <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_30>
                                         <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_30>
-                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                     </>
                                 ):(
                                     isTextFieldsSupplier.calificacion <= 1 ? (
                                         <>
                                             <Icon_Red_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Red_30>
-                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_White_30>
-                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_White_30>
-                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_28>
+                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
+                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                         </>
                                     ):(
                                         isTextFieldsSupplier.calificacion <=2 ? (
                                             <>
                                                 <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Orange_30>
                                                 <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Orange_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_White_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
+                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                             </>
                                         ):(
                                             isTextFieldsSupplier.calificacion <=3 ? (
@@ -159,8 +159,8 @@ export default function Supplier_Delete(){
                                                     <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Yellow_30>
                                                     <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Yellow_30>
                                                     <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Yellow_30>
-                                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                                    <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                                    <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                                 </>
                                             ):(
                                                 isTextFieldsSupplier.calificacion <=4 ? (
@@ -169,7 +169,7 @@ export default function Supplier_Delete(){
                                                         <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Lime_Green_30>
                                                         <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Lime_Green_30>
                                                         <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Lime_Green_30>
-                                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                                     </>
                                                 ):(
                                                     isTextFieldsSupplier.calificacion <=5 ? (
@@ -188,18 +188,18 @@ export default function Supplier_Delete(){
                                         )
                                     )
                                 )}
-                            </Container_Row_95_Center>
-                            <Container_Row_95_Center>
+                            </Container_Row_100_Center>
+                            <Container_Row_100_Center>
                                 <Text_Span_12_Justify_Black ThemeMode={themeMode}>La eliminación de este proveedor impedirá agregarle nuevos insumos o reasignar sus insumos a un proveedor distinto.</Text_Span_12_Justify_Black>
-                            </Container_Row_95_Center>
-                            <Container_Row_95_Center>
+                            </Container_Row_100_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <span>
                                         <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                             onClick={() => handleModalViewSuppliers('')}
                                             disabled={isActionBlock}  
                                         >
-                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                            <Icon_20><MdCancel/></Icon_20>
                                         </Button_Icon_Blue_210>
                                     </span>
                                 </Tooltip>
@@ -209,11 +209,11 @@ export default function Supplier_Delete(){
                                             onClick={() => handleSupplierDelete()}
                                             disabled={!isFunctionBlock || isActionBlock}    
                                         >
-                                            <Icon_White_22><MdDelete/></Icon_White_22>
+                                            <Icon_20><MdDelete/></Icon_20>
                                         </Button_Icon_Red_210>
                                     </span>
                                 </Tooltip>
-                            </Container_Row_95_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_500>
                         {isKeyboard ? (
                             <>
@@ -222,7 +222,7 @@ export default function Supplier_Delete(){
                         ):(
                             <></>
                         )}
-                    </Container_Modal>
+                    </Container_Modal_Background_Black>
                 </>
             ):(
                 currentMView === 'Proveedor-Eliminar' ? (

@@ -610,62 +610,6 @@ export const Icon_Rotate_Gray_50 = styled.div`
 //____________ROTATE____________
 //____________COLOR____________
 //---------- Sin color
-export const Icon_30 = styled.div`
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 28px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 26px;
-    }
-`;
-export const Icon_26 = styled.div`
-    font-size: 26px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 22px;
-    }
-`;
-export const Icon_22 = styled.div`
-    font-size: 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 18px;
-    }
-`;
-export const Icon_18 = styled.div`
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
-    }
-`;
 export const Icon_32 = styled.div`
     font-size: 32px;
     display: flex;
@@ -843,285 +787,99 @@ export const Icon_White_12 = styled.div`
     }
 `;
 //---------- Blanco
-//---------- White
-export const Icon_White_30 = styled.div`
-    font-size: 30px;
-    color: white;
+//---------- Negro
+export const Icon_Black_32 = styled.div`
+    font-size: 32px;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
 
     @media (max-width: 768px) {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 28px;
     }
+`;
+export const Icon_Black_28 = styled.div`
+    font-size: 28px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         font-size: 26px;
     }
-`;
-export const Icon_White_26 = styled.div`
-    font-size: 26px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         font-size: 24px;
     }
+`;
+export const Icon_Black_24 = styled.div`
+    font-size: 24px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         font-size: 22px;
     }
-`;
-export const Icon_White_22 = styled.div`
-    font-size: 22px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         font-size: 20px;
     }
+`;
+export const Icon_Black_20 = styled.div`
+    font-size: 20px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         font-size: 18px;
     }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
 `;
-export const Icon_White_18 = styled.div`
-    font-size: 18px;
-    color: white;
+export const Icon_Black_16 = styled.div`
+    font-size: 16px;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
 
     @media (max-width: 768px) {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     @media (max-width: 480px) {
-        font-size: 14px;
-    }
-`;
-export const Icon_White_14 = styled.div`
-    font-size: 14px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
         font-size: 12px;
     }
+`;
+export const Icon_Black_12 = styled.div`
+    font-size: 12px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         font-size: 10px;
     }
-`;
-//---------- White
-//---------- Black
-export const Icon_Black_30 = styled.div`
-    font-size: 30px;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 28px;
-    }
 
     @media (max-width: 480px) {
-        font-size: 26px;
+        font-size: 8px;
     }
 `;
-export const Icon_Black_26 = styled.div`
-    font-size: 26px;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+//---------- Negro
 
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 22px;
-    }
-`;
-export const Icon_Black_22 = styled.div`
-    font-size: 22px;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 18px;
-    }
-`;
-export const Icon_Black_18 = styled.div`
-    font-size: 18px;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
-    }
-`;
-//---------- Black
-//---------- White/Black
-export const Icon_White_Black_30 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 30px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 28px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 26px;
-    }
-`;
-export const Icon_White_Black_26 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 26px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 22px;
-    }
-`;
-export const Icon_White_Black_22 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 22px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 18px;
-    }
-`;
-export const Icon_White_Black_18 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 18px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
-    }
-`;
-//---------- White/Black
-//---------- Black/White
-export const Icon_Black_White_30 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 30px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 28px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 26px;
-    }
-`;
-export const Icon_Black_White_26 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 26px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 22px;
-    }
-`;
-export const Icon_Black_White_22 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 22px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 18px;
-    }
-`;
-export const Icon_Black_White_18 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 18px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
-    }
-`;
-//---------- Black/White
 //---------- Blue
 export const Icon_Blue_30 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',
@@ -1384,11 +1142,9 @@ export const Icon_Red_14 = styled.div.withConfig({
 `;
 //---------- Red
 //---------- Yellow
-export const Icon_Yellow_250 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+export const Icon_Yellow_250 = styled.div`
     font-size: 250px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(245, 223, 31)' : 'rgb(255, 210, 10)')};
+    color: rgb(255, 193, 10);
     display: flex;
     justify-content: center;
     align-items: center;

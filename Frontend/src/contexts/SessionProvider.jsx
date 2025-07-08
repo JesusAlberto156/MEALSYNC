@@ -44,10 +44,10 @@ export const Logged_User = ({ children }) => {
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('¡Datos de usuario cargados correctamente!...');
+                    console.log('¡Datos de usuario cargados correctamente!');
                     return JSON.parse(decryptedData);
                 }else{
-                    console.log('¡Error al desencriptar datos del sessionStorage!...');
+                    console.log('¡Error al desencriptar datos del sessionStorage!');
                     return [];
                 }
             } catch (error) {
@@ -76,10 +76,10 @@ export const Logged_Permissions = ({ children }) => {
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('¡Permisos del usuario cargados correctamente!...');
+                    console.log('¡Permisos del usuario cargados correctamente!');
                     return JSON.parse(decryptedData);
                 }else{
-                    console.log('¡Error al desencriptar datos del sessionStorage!...');
+                    console.log('¡Error al desencriptar datos del sessionStorage!');
                     return [];
                 }
             } catch (error) {
@@ -108,10 +108,10 @@ export const Logged_Status = ({ children }) => {
                 const decryptedData = decryptData(StoredData);
 
                 if(decryptedData){
-                    console.log('¡Estatus del usuario cargados correctamente!...');
+                    console.log('¡Estatus del usuario cargados correctamente!');
                     return JSON.parse(decryptedData);
                 }else{
-                    console.log('¡Error al desencriptar datos del sessionStorage!...');
+                    console.log('¡Error al desencriptar datos del sessionStorage!');
                     return [];
                 }
             } catch (error) {
@@ -150,7 +150,7 @@ export const Logged_Logged = ({ children }) => {
     const [isLoggedLogged,setIsLoggedLogged] = useState(() => {
         const logged = sessionStorage.getItem('Sesión') === 'true';
         if(logged){
-            console.log('¡Inicio de sesión cargado correctamente!...');
+            console.log('¡Inicio de sesión cargado correctamente!');
         }
         return logged
     });
@@ -177,7 +177,7 @@ export const Logged_Type = ({ children }) => {
     const [isLoggedType,setIsLoggedType] = useState(() => {
         const type = sessionStorage.getItem('Tipo de usuario');
         if(type !== null){
-            console.log('¡Tipo de usuario cargado correctamente!...');
+            console.log('¡Tipo de usuario cargado correctamente!');
         }
         return type || '';
     });

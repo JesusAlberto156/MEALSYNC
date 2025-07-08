@@ -15,7 +15,7 @@ import { useContext,useEffect } from "react";
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Left,Container_Row_90_Center } from "../../components/styled/Containers";
+import { Container_Row_100_Left,Container_Row_100_Center } from "../../components/styled/Containers";
 // Componentes personalizados
 //____________IMPORT/EXPORT____________
 

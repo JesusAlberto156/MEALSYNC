@@ -31,13 +31,13 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Right,Container_Column_Border_90_Center,Container_Column_90_Center,Container_Column_Blue_Width_95_Center,Container_Row_95_Center,Container_Row_NG_95_Center, Container_Row_NG_100_Center } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Right,Container_Column_Border_90_Center,Container_Column_100_Center,Container_Column_Blue_Width_95_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center, Container_Row_NG_100_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black,Text_Span_24_Center,Text_Span_16_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210,Button_Icon_Green_60,Button_Icon_Red_60 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_22, Icon_White_18 } from "../../../styled/Icons";
-import { Input_Text_Black_100,Input_Text_Black_50,Input_Radio_16 } from "../../../styled/Inputs";
-import { Alert_Verification } from "../../../styled/Alerts";
-import { Label_Text_16_Center } from "../../../styled/Labels";
+import { Icon_20,Icon_20, Icon_20 } from "../../../styled/Icons";
+import { Input_Text_100_Black,Input_Text_60_Black,Input_Radio_20 } from "../../../styled/Inputs";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
+import { Label_Button_16_Black } from "../../../styled/Labels";
 import { Calendar_Input_Custom_Black } from "../../../styled/Calendars";
 //____________IMPORT/EXPORT____________
 
@@ -99,7 +99,7 @@ export default function Warehouse_Add(){
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando una medida!...');
+            Alert_Sonner_Promise(promise,'¡Agregando una medida!...');
         }
     },[isUnitAdd]);
     // UseEffect para quitar la suscrpcion de socket
@@ -216,15 +216,15 @@ export default function Warehouse_Add(){
                             <Container_Row_100_Center>
                                 <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR PEDIDO PARA EL INVENTARIO</Text_Title_32_Black>
                             </Container_Row_100_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_NG_95_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Selección de fecha...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Center>
+                                </Container_Row_NG_Auto_Center>
                                 <Container_Row_100_Center>
                                     {['Automática','Personalizada'].map((item,index) => (
-                                        <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                            <Input_Radio_16 ThemeMode={themeMode}
+                                        <Label_Button_16_Black ThemeMode={themeMode} key={index}>
+                                            <Input_Radio_20 ThemeMode={themeMode}
                                                 type="radio"
                                                 name="state"
                                                 value={item}
@@ -232,19 +232,19 @@ export default function Warehouse_Add(){
                                                 onChange={(e) => setIsStateDate(e.target.value)}
                                             />
                                             {item}
-                                        </Label_Text_16_Center>
+                                        </Label_Button_16_Black>
                                     ))};
                                 </Container_Row_100_Center>
                                 {isStateDate === 'Automática' ? (
                                     <>
-                                        <Container_Row_95_Center>
-                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                        <Container_Row_100_Center>
+                                            <Input_Text_100_Black ThemeMode={themeMode}
                                                 placeholder="..."
                                                 type="text"
                                                 value={isTextFieldsWarehouse.dateA}
                                                 disabled
                                             />
-                                        </Container_Row_95_Center>
+                                        </Container_Row_100_Center>
                                     </>
                                 ):(
                                     <></>
@@ -279,7 +279,7 @@ export default function Warehouse_Add(){
                                                         border: '4px solid white',
                                                         borderRadius: '30px',
                                                     }}>
-                                                        <Container_Column_90_Center>
+                                                        <Container_Column_100_Center>
                                                             <Text_Span_24_Center>Selecciona Año y Mes</Text_Span_24_Center>
                                                             <Container_Row_100_Center>
                                                                 <select
@@ -318,7 +318,7 @@ export default function Warehouse_Add(){
                                                                     ))}
                                                                 </select>
                                                             </Container_Row_100_Center>
-                                                        </Container_Column_90_Center>
+                                                        </Container_Column_100_Center>
                                                     </div>
                                                 )}
                                             />
@@ -382,23 +382,23 @@ export default function Warehouse_Add(){
                                 ):(
                                     <></>
                                 )}
-                            </Container_Column_90_Center>
+                            </Container_Column_100_Center>
                             {isTextFieldsWarehouse.supplies.map((supply,index) => (
                                 <Container_Column_Border_90_Center key={index} ThemeMode={themeMode}>
                                     <Container_Row_100_Right>
                                         <Text_Span_20_Center_Black ThemeMode={themeMode}>INSUMO NO. {index+1}</Text_Span_20_Center_Black>
                                     </Container_Row_100_Right>
-                                    <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                        <Container_Row_NG_95_Center>
+                                    <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                        <Container_Row_NG_Auto_Center>
                                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                                        </Container_Row_NG_95_Center>
+                                        </Container_Row_NG_Auto_Center>
                                         <Text_Span_16_Center_Black ThemeMode={themeMode}>Proveedores...</Text_Span_16_Center_Black>
                                         {isSuppliers.length !== 0 ? (
                                             <>
                                                 <Container_Row_100_Center>
-                                                    <Icon_22><FcSearch/></Icon_22>
-                                                    <Input_Text_Black_50
+                                                    <Icon_20><FcSearch/></Icon_20>
+                                                    <Input_Text_60_Black
                                                         ThemeMode={themeMode}
                                                         type="text"
                                                         placeholder="Buscar..."
@@ -500,8 +500,8 @@ export default function Warehouse_Add(){
                                                 ):(
                                                     <>
                                                         <Container_Row_100_Center>
-                                                            <Icon_22><FcSearch/></Icon_22>
-                                                            <Input_Text_Black_50
+                                                            <Icon_20><FcSearch/></Icon_20>
+                                                            <Input_Text_60_Black
                                                                 ThemeMode={themeMode}
                                                                 type="text"
                                                                 placeholder="Buscar..."
@@ -598,15 +598,15 @@ export default function Warehouse_Add(){
                                                 </Container_Row_100_Center>
                                             </>
                                         )}
-                                    </Container_Column_90_Center>
-                                    <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                        <Container_Row_NG_95_Center>
+                                    </Container_Column_100_Center>
+                                    <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                        <Container_Row_NG_Auto_Center>
                                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
-                                        </Container_Row_NG_95_Center>
+                                        </Container_Row_NG_Auto_Center>
                                         <Container_Row_100_Center>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>Cantidad:</Text_Span_16_Center_Black>
-                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                            <Input_Text_100_Black ThemeMode={themeMode}
                                                 placeholder="..."
                                                 type="text"
                                                 value={supply.amount}
@@ -626,7 +626,7 @@ export default function Warehouse_Add(){
                                         </Container_Row_100_Center>
                                         <Container_Row_100_Center>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>Precio Unitario:</Text_Span_16_Center_Black>
-                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                            <Input_Text_100_Black ThemeMode={themeMode}
                                                 placeholder="..."
                                                 type="text"
                                                 value={supply.unitprice}
@@ -647,14 +647,14 @@ export default function Warehouse_Add(){
                                         </Container_Row_100_Center>
                                         <Container_Row_100_Center>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>Precio Total:</Text_Span_16_Center_Black>
-                                            <Input_Text_Black_100 ThemeMode={themeMode}
+                                            <Input_Text_100_Black ThemeMode={themeMode}
                                                 placeholder="..."
                                                 type="number"
                                                 disabled
                                                 value={supply.price}
                                             />
                                         </Container_Row_100_Center>
-                                    </Container_Column_90_Center>
+                                    </Container_Column_100_Center>
                                     <Container_Column_Blue_Width_95_Center ThemeMode={themeMode}>
                                         <Container_Column_100_Center>
                                             <Text_Span_24_Center>
@@ -663,9 +663,9 @@ export default function Warehouse_Add(){
                                             <Tooltip title='Eliminar Insumo' placement="top">
                                                 <Button_Icon_Red_60 ThemeMode={themeMode}
                                                     onClick={() => deleteSupply(index)}>
-                                                    <Icon_White_18>
+                                                    <Icon_20>
                                                         <LuPackageMinus/>
-                                                    </Icon_White_18>
+                                                    </Icon_20>
                                                 </Button_Icon_Red_60>
                                             </Tooltip>
                                         </Container_Column_100_Center>
@@ -680,27 +680,27 @@ export default function Warehouse_Add(){
                                     <Tooltip title='Agregar Insumo' placement="top">
                                         <Button_Icon_Green_60 ThemeMode={themeMode}
                                             onClick={() => addSupply()}>
-                                            <Icon_White_18>
+                                            <Icon_20>
                                                 <LuPackagePlus/>
-                                            </Icon_White_18>
+                                            </Icon_20>
                                         </Button_Icon_Green_60>
                                     </Tooltip>
                                 </Container_Column_100_Center>
                             </Container_Column_Blue_Width_95_Center>
-                            <Container_Row_95_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
                                     <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handleUnitAdd(isState)}>
-                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                        <Icon_20><IoIosAddCircle/></Icon_20>
                                     </Button_Icon_Green_210>
                                 </Tooltip>
-                            </Container_Row_95_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_500>
                     </Container_Modal>
                 </>

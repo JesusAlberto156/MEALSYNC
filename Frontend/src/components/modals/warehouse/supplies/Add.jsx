@@ -27,12 +27,12 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
-import { Input_Text_Black_100,Input_Text_Black_50 } from "../../../styled/Inputs";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Icon_20,Icon_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
+import { Input_Text_100_Black,Input_Text_60_Black } from "../../../styled/Inputs";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar insumos
@@ -89,7 +89,7 @@ export default function Supply_Add(){
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando un insumo!...');
+            Alert_Sonner_Promise(promise,'¡Agregando un insumo!...');
         }
     },[isSupplyAdd]);
     // UseEffect para quitar la suscrpcion de socket
@@ -115,14 +115,14 @@ export default function Supply_Add(){
                             <Container_Row_100_Center>
                                 <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR INSUMO</Text_Title_32_Black>
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupply.name}
@@ -131,7 +131,7 @@ export default function Supply_Add(){
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Descripción:</Text_Span_16_Center_Black>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupply.description}
@@ -146,7 +146,7 @@ export default function Supply_Add(){
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Imagen (URL):</Text_Span_16_Center_Black>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupply.image}
@@ -159,21 +159,21 @@ export default function Supply_Add(){
                                         <MdCancel/>
                                     </Icon_Button_Blue_16>
                                 </Container_Row_100_Center>
-                            </Container_Column_90_Center>
-                            <Container_Row_NG_95_Center>
+                            </Container_Column_100_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_NG_95_Center>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Proveedor...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Center>
+                                </Container_Row_NG_Auto_Center>
                                 {isSuppliers.length !== 0 ? (
                                     <>
                                         <Container_Row_100_Center>
-                                            <Icon_22><FcSearch/></Icon_22>
-                                            <Input_Text_Black_50 
+                                            <Icon_20><FcSearch/></Icon_20>
+                                            <Input_Text_60_Black 
                                                 ThemeMode={themeMode}
                                                 type="text"
                                                 placeholder="Buscar..."
@@ -256,15 +256,15 @@ export default function Supply_Add(){
                                         </Container_Row_100_Center>
                                     </>
                                 )}
-                                <Container_Row_NG_95_Center>
+                                <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Tipo de insumo...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Center>
+                                </Container_Row_NG_Auto_Center>
                                 {isSupplyTypes.length !== 0 && isUnits.length !== 0 ? (
                                     <>
                                         <Container_Row_100_Center>
-                                            <Icon_22><FcSearch/></Icon_22>
-                                            <Input_Text_Black_50 
+                                            <Icon_20><FcSearch/></Icon_20>
+                                            <Input_Text_60_Black 
                                                 ThemeMode={themeMode}
                                                 type="text"
                                                 placeholder="Buscar..."
@@ -352,21 +352,21 @@ export default function Supply_Add(){
                                         </Container_Row_100_Center>
                                     </>
                                 )}
-                            </Container_Column_90_Center>
-                            <Container_Row_95_Center>
+                            </Container_Column_100_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </Tooltip>
                                 <Tooltip title='Agregar' placement='top'>
                                     <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handleSupplyAdd()}>
-                                        <Icon_White_22><IoIosAddCircle/></Icon_White_22>
+                                        <Icon_20><IoIosAddCircle/></Icon_20>
                                     </Button_Icon_Green_210>
                                 </Tooltip>
-                            </Container_Row_95_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_500>
                     </Container_Modal>
                 </>

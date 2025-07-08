@@ -1,24 +1,25 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef,useState } from "react";
+import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 import Select from "react-select";
 // Contextos
 import { SocketContext } from "../../../../contexts/SocketProvider";
-import { ModalContext,SubModalContext,ThemeModeContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
+import { ModalContext,SubModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext,TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider";
 import { UserTypesContext,UserAddContext,PermissionsAddContext,StatusAddContext,UsersContext } from "../../../../contexts/UsersProvider";
 import { AnimationContext,ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
-import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
+import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
 import { ResetTextFieldsPermissions,ResetTextFieldsUser,ResetTextFieldsStatus } from "../../../../hooks/users/Texts";
+import { HandleKeyboard } from "../../../../hooks/Views";
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
 import { HandleUserAdd } from "../../../../hooks/users/Forms";
 //__________IMAGENES__________
-import Hospital from '../../../imgs/Logo-Hospital.png'
+import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
 //__________IMAGENES__________
 //__________ICONOS__________
 // Icono para cerrar el modal
@@ -27,26 +28,25 @@ import { MdCancel } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Form_White_50,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Center,Container_Row_Left,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
-import { Text_Title_28_Black,Text_Span_16_Left_Black,Text_Color_Blue_16,Text_Span_16_Center_Black } from "../../../styled/Text";
-import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
-import { Input_Text_100_Black,Input_Radio_16, Input_Group } from "../../../styled/Inputs";
-import { Label_Text_12_Black } from "../../../styled/Labels";
+import { Container_Modal_Background_Black,Container_Modal_Form_White_50,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Auto_Center,Container_Row_100_Left,Container_Row_100_Center,Container_Modal_Form_Button } from "../../../styled/Containers";
+import { Text_Title_28_Black,Text_Span_16_Left_Black,Text_Color_Blue_16,Text_Span_16_Center_Black,Text_Color_Green_16 } from "../../../styled/Text";
+import { Button_Icon_Blue_Auto_40,Button_Icon_Green_Auto_40 } from "../../../styled/Buttons";
+import { Icon_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
+import { Input_Text_100_Black,Input_Radio_20,Input_Checkbox_16,Input_Group } from "../../../styled/Inputs";
+import { Label_Text_12_Black,Label_Button_16_Black } from "../../../styled/Labels";
 import { Image_Modal_Fixed } from "../../../styled/Imgs";
-import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
+import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
 // Componentes personalizados
-import Virtual_Keyboard from "../../../forms/Keyboard";
+import Keyboard_Default from "../../../keyboards/Defaullt";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar usuarios a su tabla
 export default function User_Add(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
-    const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
+    const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isUserTypes] = useContext(UserTypesContext);
     const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -60,7 +60,8 @@ export default function User_Add(){
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
-    const [isTouch,setIsTouch] = useContext(TouchContext);
+    const isKeyboardTouch = useContext(RefKeyboardTouchContext);
+    const [isTouch] = useContext(TouchContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
@@ -68,14 +69,22 @@ export default function User_Add(){
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsPermissions = ResetTextFieldsPermissions();
     const resetTextFieldsStatus = ResetTextFieldsStatus();
+    const { KeyboardView,KeyboardClick,handleKeyboard } = HandleKeyboard();
     // Constantes con el valor de useState
     const [isTotalName,setIsTotalName] = useState(0);
     const [isTotalShortName,setIsTotalShortName] = useState(0);
     const [isTotalUser,setIsTotalUser] = useState(0);
     const [isTotalPassword,setIsTotalPassword] = useState(0);
-    // Constantes con el valor de useRef
-    const lastTouchTimeRef = useRef(0);
-    const isTouchRef = useRef(isTouch);
+    // UseEffets para controlar el teclado
+    useEffect(() => {
+        KeyboardView();
+    }, []);
+    useEffect(() => {
+        KeyboardClick();
+    }, [Keyboard]);
+    useEffect(() => {
+        isKeyboardTouch.current = isTouch;
+    }, [isTouch]);
     // UseEffects para advertir sobre el limite de caracteres de los campos del formulario
     useEffect(() => {
         setIsTotalName(isTextFieldsUser.nombre.length);
@@ -101,115 +110,6 @@ export default function User_Add(){
             Alert_Sonner_Warning('MEALSYNC','¡Ha alcanzado el límite de caracteres permitido en la contraseña!');
         }
     },[isTextFieldsUser.contrasena]);
-    // UseEffect que determina la visibilidad del teclado
-    useEffect(() => {
-        const handleTouchStart = () => {
-            lastTouchTimeRef.current = Date.now();
-            setIsTouch(true);
-        };
-
-        const handleMouseDown = () => {
-            const now = Date.now();
-            const timeSinceLastTouch = now - lastTouchTimeRef.current;
-
-            // Solo si no hubo un touch reciente, considera que es mouse
-            if (timeSinceLastTouch > 500) {
-                setIsTouch(false);
-            }
-        };
-
-        window.addEventListener('touchstart', handleTouchStart);
-        window.addEventListener('mousedown', handleMouseDown);
-
-        return () => {
-            window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('mousedown', handleMouseDown);
-        };
-    },[]);
-    // UseEffects que determina que se mantenga visible del teclado
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            setTimeout(() => {
-                const inputName = document.getElementById("Input-Name");
-                const inputShortName = document.getElementById("Input-ShortName");
-                const inputUser = document.getElementById("Input-User");
-                const inputPassword = document.getElementById("Input-Password");
-                const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
-    
-                const clickInsideInputs = 
-                    (inputName && inputName.contains(event.target)) ||
-                    (inputShortName && inputShortName.contains(event.target)) ||
-                    (inputUser && inputUser.contains(event.target)) ||
-                    (inputPassword && inputPassword.contains(event.target));
-    
-                if (!clickInsideInputs && !keyboard) {
-                    setIsKeyboardView('');
-                    setTimeout(() => {
-                        setIsKeyboard(false);
-                    }, 500);
-                }
-            }, 0);
-        };
-    
-        document.addEventListener("mousedown", handleClickOutside);
-        document.addEventListener("touchstart", handleClickOutside);
-    
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-            document.removeEventListener("touchstart", handleClickOutside);
-        };
-    }, [Keyboard]);
-    useEffect(() => {
-        isTouchRef.current = isTouch;
-    }, [isTouch]);
-    // useEffect para escribir en los campos del formulario
-    const handleKeyboard = (newValue) => {
-        if(isKeyboardView === 'Name' ){
-            if (newValue.length > 150) return;
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                nombre: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'ShortName' ){
-            if (newValue.length > 50) return;
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                nombrecorto: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'User' ){
-            if (newValue.length > 25) return;
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                usuario: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'Password' ){
-            if (newValue.length > 15) return;
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                contrasena: newValue, 
-            }));
-        }
-    };
-    // UseEffect para abrir modal de los permisos
-    useEffect(() => {
-        if(isTextFieldsUser.permisos === 'Personalizado' && !isAnimation && !isSubModal){
-            setIsSubModal(true);
-            sessionStorage.setItem('Estado del Sub-Modal',true);
-            setIsAnimation(true);
-            sessionStorage.setItem('Animación',true);
-            setTimeout(() => {
-                navigate('/Administration/Index/Users/Users/Add/Permissions',{ replace: true });
-            },200);
-        }if(isTextFieldsUser.permisos === 'Default'){
-            setIsAnimation(false);
-            sessionStorage.removeItem('Animación',false);
-            setIsSubModal(false);
-            sessionStorage.removeItem('Estado del Sub-Modal',false);
-        }
-    },[isTextFieldsUser]);
     // UseEffects para agregar datos a la base de datos
     useEffect(() => {
         if(isUserAdd){
@@ -249,7 +149,7 @@ export default function User_Add(){
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando un usuario!...');
+            Alert_Sonner_Promise(promise,'¡Agregando un usuario!...');
         }
     },[isUserAdd]);
     useEffect(() => {
@@ -311,7 +211,7 @@ export default function User_Add(){
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando permisos al usuario!...');
+            Alert_Sonner_Promise(promise,'¡Agregando permisos al usuario!...');
         }
     },[isPermissionsAdd]);
     useEffect(() => {
@@ -350,7 +250,7 @@ export default function User_Add(){
                 }
             });
 
-            Alert_Verification(promise,'¡Agregando estatus al usuario!...');
+            Alert_Sonner_Promise(promise,'¡Agregando estatus al usuario!...');
         }
     },[isStatusAdd]);
     // Estructura del componente
@@ -360,16 +260,16 @@ export default function User_Add(){
                 <>
                     <Container_Modal_Background_Black>
                         <Container_Modal_Image/>
-                        <Image_Modal_Fixed src={Hospital}/>
+                        <Image_Modal_Fixed src={Logo_Hospital}/>
                         <Container_Modal_Form_White_50 className={currentMView === 'Usuario-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Modal_Form>
                                 <Text_Title_28_Black>AGREGAR USUARIO</Text_Title_28_Black>
                                 <Container_Modal_Form_White className='shadow-out-container-light-infinite'>
-                                    <Container_Row_NG_Center>
+                                    <Container_Row_NG_Auto_Center>
                                         <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                         <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
-                                    </Container_Row_NG_Center>
-                                    <Container_Row_Left>
+                                    </Container_Row_NG_Auto_Center>
+                                    <Container_Row_100_Left>
                                         <Text_Span_16_Left_Black>Nombre:</Text_Span_16_Left_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
@@ -381,7 +281,7 @@ export default function User_Add(){
                                                 value={isTextFieldsUser.nombre}
                                                 onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombre: e.target.value}))}
                                                 onFocus={() => {
-                                                    if(isTouchRef.current){
+                                                    if(isKeyboardTouch.current){
                                                         setIsKeyboard(true);
                                                         setIsKeyboardView('Name');
                                                     }
@@ -397,8 +297,8 @@ export default function User_Add(){
                                         >
                                             <MdCancel/>
                                         </Icon_Button_Blue_16>
-                                    </Container_Row_Left>
-                                    <Container_Row_Left>
+                                    </Container_Row_100_Left>
+                                    <Container_Row_100_Left>
                                         <Text_Span_16_Left_Black>Nombre corto:</Text_Span_16_Left_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
@@ -410,7 +310,7 @@ export default function User_Add(){
                                                 value={isTextFieldsUser.nombrecorto}
                                                 onChange={(e) => setIsTextFieldsUser(prev => ({...prev, nombrecorto: e.target.value}))}
                                                 onFocus={() => {
-                                                    if(isTouchRef.current){
+                                                    if(isKeyboardTouch.current){
                                                         setIsKeyboard(true);
                                                         setIsKeyboardView('ShortName');
                                                     }
@@ -426,8 +326,8 @@ export default function User_Add(){
                                         >
                                             <MdCancel/>
                                         </Icon_Button_Blue_16>
-                                    </Container_Row_Left>
-                                    <Container_Row_Left>
+                                    </Container_Row_100_Left>
+                                    <Container_Row_100_Left>
                                         <Text_Span_16_Left_Black>Usuario:</Text_Span_16_Left_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
@@ -439,7 +339,7 @@ export default function User_Add(){
                                                 value={isTextFieldsUser.usuario}
                                                 onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
                                                 onFocus={() => {
-                                                    if(isTouchRef.current){
+                                                    if(isKeyboardTouch.current){
                                                         setIsKeyboard(true);
                                                         setIsKeyboardView('User');
                                                     }
@@ -447,8 +347,8 @@ export default function User_Add(){
                                             />
                                             <Label_Text_12_Black>{isTotalUser}/25</Label_Text_12_Black>
                                         </Input_Group>
-                                    </Container_Row_Left>
-                                    <Container_Row_Left>
+                                    </Container_Row_100_Left>
+                                    <Container_Row_100_Left>
                                         <Text_Span_16_Left_Black>Contraseña:</Text_Span_16_Left_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
@@ -460,7 +360,7 @@ export default function User_Add(){
                                                 value={isTextFieldsUser.contrasena}
                                                 onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
                                                 onFocus={() => {
-                                                    if(isTouchRef.current){
+                                                    if(isKeyboardTouch.current){
                                                         setIsKeyboard(true);
                                                         setIsKeyboardView('Password');
                                                     }
@@ -468,7 +368,7 @@ export default function User_Add(){
                                             />
                                             <Label_Text_12_Black>{isTotalPassword}/15</Label_Text_12_Black>
                                         </Input_Group>
-                                    </Container_Row_Left>
+                                    </Container_Row_100_Left>
                                     {isUserTypes.length !== 0 ? (
                                         <>
                                             <Select
@@ -532,7 +432,7 @@ export default function User_Add(){
                                                             }),
                                                         },
                                                     }),
-                                                    singleValue: (provided,state) => ({
+                                                    singleValue: (provided) => ({
                                                         ...provided,
                                                         textAlign: 'center', 
                                                         width: '100%',
@@ -608,44 +508,25 @@ export default function User_Add(){
                                         </>
                                     ):(
                                         <>
-                                            <Container_Row_95_Center>
-                                                <Text_Span_16_Left_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_16_Left_Black>
-                                            </Container_Row_95_Center>
+                                            <Container_Row_100_Center>
+                                                <Text_Span_16_Center_Black>¡No hay datos disponibles!</Text_Span_16_Center_Black>
+                                            </Container_Row_100_Center>
                                         </>
                                     )}
-                                </Container_Modal_Form_White>
-                                <Container_Row_NG_95_Center>
-                                    <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
-                                    <Text_Span_16_Left_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Left_Black>
-                                </Container_Row_NG_95_Center>
-                                <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                    <Container_Row_NG_95_Center>
-                                        <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
-                                        <Text_Span_16_Left_Black ThemeMode={themeMode}>- Permisos...</Text_Span_16_Left_Black>
-                                    </Container_Row_NG_95_Center>
+                                    <Container_Row_NG_Auto_Center>
+                                        <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
+                                        <Text_Span_16_Center_Black>: Datos especificos</Text_Span_16_Center_Black>
+                                    </Container_Row_NG_Auto_Center>
                                     <Container_Row_100_Center>
-                                        {['Default','Personalizado'].map((item,index) => (
-                                            <Label_Text_12_Black ThemeMode={themeMode} key={index}>
-                                                <Input_Radio_16 ThemeMode={themeMode}
-                                                    type="radio"
-                                                    name="permissions"
-                                                    disabled={isActionBlock}
-                                                    value={item}
-                                                    checked={isTextFieldsUser.permisos === item}
-                                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permisos: e.target.value}))}
-                                                />
-                                                {item}
-                                            </Label_Text_12_Black>
-                                        ))};
+                                        <Text_Color_Green_16>ESTATUS</Text_Color_Green_16>
                                     </Container_Row_100_Center>
-                                    <Container_Row_NG_95_Center>
-                                        <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
-                                        <Text_Span_16_Left_Black ThemeMode={themeMode}>- Estatus...</Text_Span_16_Left_Black>
-                                    </Container_Row_NG_95_Center>
                                     <Container_Row_100_Center>
                                         {['Habilitado','Deshabilitado'].map((item,index) => (
-                                            <Label_Text_12_Black ThemeMode={themeMode} key={index}>
-                                                <Input_Radio_16 ThemeMode={themeMode}
+                                            <Label_Button_16_Black 
+                                                Disabled={isActionBlock} 
+                                                key={index}
+                                            >
+                                                <Input_Radio_20
                                                     type="radio"
                                                     name="status"
                                                     disabled={isActionBlock}
@@ -654,35 +535,126 @@ export default function User_Add(){
                                                     onChange={(e) => setIsTextFieldsUser(prev => ({...prev, estatus: e.target.value}))}
                                                 />
                                                 {item}
-                                            </Label_Text_12_Black>
-                                        ))};
+                                            </Label_Button_16_Black>
+                                        ))}
                                     </Container_Row_100_Center>
-                                </Container_Column_90_Center>
-                                <Container_Row_95_Center>
+                                    <Container_Row_100_Center>
+                                        <Text_Color_Green_16>PERMISOS</Text_Color_Green_16>
+                                    </Container_Row_100_Center>
+                                    <Container_Row_100_Center>
+                                        {['Default','Personalizados'].map((item,index) => (
+                                            <Label_Button_16_Black 
+                                                Disabled={isActionBlock}
+                                                key={index}
+                                            >
+                                                <Input_Radio_20
+                                                    type="radio"
+                                                    name="permissions"
+                                                    disabled={isActionBlock}
+                                                    value={item}
+                                                    checked={isTextFieldsUser.permisos === item}
+                                                    onChange={(e) => setIsTextFieldsUser(prev => ({...prev, permisos: e.target.value}))}
+                                                />
+                                                {item}
+                                            </Label_Button_16_Black>
+                                        ))}
+                                    </Container_Row_100_Center>
+                                    {isTextFieldsUser.permisos === 'Personalizados' ? (
+                                        <>
+                                            <Container_Row_100_Center>
+                                                <Text_Color_Blue_16>Área de administración</Text_Color_Blue_16>
+                                            </Container_Row_100_Center>
+                                            <Container_Row_100_Center>
+                                                <Label_Button_16_Black Disabled={isActionBlock}>
+                                                    <Input_Checkbox_16
+                                                        value={isTextFieldsPermissions.administrador}
+                                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, administrador: e.target.checked ? 1 : 0}))}
+                                                        type="checkbox"
+                                                    />
+                                                    Administrador
+                                                </Label_Button_16_Black>
+                                                <Label_Button_16_Black Disabled={isActionBlock}>
+                                                    <Input_Checkbox_16
+                                                        value={isTextFieldsPermissions.chef}
+                                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, chef: e.target.checked ? 1 : 0}))}
+                                                        type="checkbox"
+                                                    />
+                                                    Chef
+                                                </Label_Button_16_Black>
+                                                <Label_Button_16_Black Disabled={isActionBlock}>
+                                                    <Input_Checkbox_16
+                                                        type="checkbox"
+                                                        value={isTextFieldsPermissions.almacenista}
+                                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, almacenista: e.target.checked ? 1 : 0}))}
+                                                    />
+                                                    Almacenista
+                                                </Label_Button_16_Black>
+                                            </Container_Row_100_Center>
+                                            <Container_Row_100_Center>
+                                                <Text_Color_Blue_16>Área de cocina</Text_Color_Blue_16>
+                                            </Container_Row_100_Center>
+                                            <Container_Row_100_Center>
+                                                <Label_Button_16_Black Disabled={isActionBlock}>
+                                                    <Input_Checkbox_16
+                                                        type="checkbox"
+                                                        value={isTextFieldsPermissions.cocinero}
+                                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, cocinero: e.target.checked ? 1 : 0}))}
+                                                    />
+                                                    Cocinero
+                                                </Label_Button_16_Black>
+                                                <Label_Button_16_Black Disabled={isActionBlock}>
+                                                    <Input_Checkbox_16
+                                                        type="checkbox"
+                                                        value={isTextFieldsPermissions.nutriologo}
+                                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, nutriologo: e.target.checked ? 1 : 0}))}
+                                                    />
+                                                    Nutriólogo
+                                                </Label_Button_16_Black>
+                                                <Label_Button_16_Black Disabled={true}>
+                                                    <Input_Checkbox_16
+                                                        type="checkbox"
+                                                        disabled
+                                                        value={true}
+                                                        defaultChecked
+                                                        onChange={(e) => setIsTextFieldsPermissions(prev => ({...prev, medico: e.target.checked ? 1 : 0}))}
+                                                    />
+                                                    Médico
+                                                </Label_Button_16_Black>
+                                            </Container_Row_100_Center>
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                </Container_Modal_Form_White>
+                                <Container_Modal_Form_Button>
                                     <Tooltip title='Cancelar' placement='top'>
-                                        <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
+                                        <Button_Icon_Blue_Auto_40
                                             onClick={() => handleModalViewUsers('')}
                                             disabled={isActionBlock}    
                                         >
-                                            <Icon_White_22><MdCancel/></Icon_White_22>
-                                        </Button_Icon_Blue_210>
+                                            <Icon_20><MdCancel/></Icon_20>
+                                        </Button_Icon_Blue_Auto_40>
                                     </Tooltip>
                                     <Tooltip title='Agregar' placement='top'>
-                                        <Button_Icon_Green_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
+                                        <Button_Icon_Green_Auto_40
                                             onClick={() => handleUserAdd()}
                                             disabled={isActionBlock}    
                                         >
-                                            <Icon_White_22><IoIosAddCircle/></Icon_White_22>
-                                        </Button_Icon_Green_210>
+                                            <Icon_20><IoIosAddCircle/></Icon_20>
+                                        </Button_Icon_Green_Auto_40>
                                     </Tooltip>
-                                </Container_Row_95_Center>
+                                </Container_Modal_Form_Button>
                             </Container_Modal_Form>
                         </Container_Modal_Form_White_50>
                         {isKeyboard ? (
                             <>
-                                <Virtual_Keyboard value={isKeyboardView === 'Name' ? isTextFieldsUser.nombre : 
-                                                         isKeyboardView === 'ShortName' ? isTextFieldsUser.nombrecorto :
-                                                         isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
+                                <Keyboard_Default 
+                                    value={isKeyboardView === 'Name' ? isTextFieldsUser.nombre :
+                                           isKeyboardView === 'ShortName' ? isTextFieldsUser.nombrecorto :
+                                           isKeyboardView === 'User' ? isTextFieldsUser.usuario :
+                                           isTextFieldsUser.contrasena} 
+                                    onChange={handleKeyboard}
+                                />  
                             </>
                         ):(
                             <></>

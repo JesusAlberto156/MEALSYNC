@@ -22,12 +22,12 @@ import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Column_90_Center,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_500,Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Input_Text_Black_100,Input_Group,Input_Area_Black_100 } from "../../../styled/Inputs";
-import { Icon_White_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
-import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
+import { Input_Text_100_Black,Input_Group,Input_Area_Black_100 } from "../../../styled/Inputs";
+import { Icon_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
 import { Label_Text_12_Black,Label_Total_Area_12_Center } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
@@ -178,27 +178,27 @@ export default function Supply_Category_Edit(){
                 }
             });
 
-            Alert_Verification(promise,'Editando una categoría!...');
+            Alert_Sonner_Promise(promise,'Editando una categoría!...');
         }
     },[isSupplyCategoryEdit]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal ref={Modal_Supply_Categories}>
+                <Container_Modal_Background_Black ref={Modal_Supply_Categories}>
                     <Container_Form_500 ref={Form_Supply_Categories} ThemeMode={themeMode} className={currentMView === 'Categoria-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_32_Black ThemeMode={themeMode}>EDITAR CATEGORÍA</Text_Title_32_Black>
                         </Container_Row_100_Center>
-                        <Container_Row_NG_95_Center>
+                        <Container_Row_NG_Auto_Center>
                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_95_Center>
-                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        </Container_Row_NG_Auto_Center>
+                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Name"
                                         placeholder="..."
                                         type="text"
@@ -254,18 +254,18 @@ export default function Supply_Category_Edit(){
                                     <MdCancel/>
                                 </Icon_Button_Blue_16>
                             </Container_Row_100_Center>
-                        </Container_Column_90_Center>
-                        <Container_Row_95_Center>
+                        </Container_Column_100_Center>
+                        <Container_Row_100_Center>
                             <Text_Span_12_Justify_Black ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los almacenes de los insumos agregados a esta categoría o para registrar nuevos insumos a su nombre.</Text_Span_12_Justify_Black>
-                        </Container_Row_95_Center>
-                        <Container_Row_95_Center>
+                        </Container_Row_100_Center>
+                        <Container_Row_100_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <span>
                                     <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalViewSuppliers('')}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Red_210>
                                 </span>
                             </Tooltip>
@@ -275,11 +275,11 @@ export default function Supply_Category_Edit(){
                                         onClick={() => handleSupplyCategoryEdit()}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><MdEdit/></Icon_White_22>
+                                        <Icon_20><MdEdit/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </span>
                             </Tooltip>
-                        </Container_Row_95_Center>
+                        </Container_Row_100_Center>
                     </Container_Form_500>
                     {isKeyboard ? (
                         <>
@@ -288,7 +288,7 @@ export default function Supply_Category_Edit(){
                     ):(
                         <></>
                     )}
-                </Container_Modal>
+                </Container_Modal_Background_Black>
             ):(
                 currentMView === 'Categoria-Editar' ? (
                     <>

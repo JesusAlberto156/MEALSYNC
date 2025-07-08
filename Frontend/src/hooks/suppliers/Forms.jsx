@@ -9,7 +9,7 @@ import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../
 import { ActionBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../../contexts/ViewsProvider";
 // Estilos personalizados
-import { Alert_Verification } from "../../components/styled/Alerts";
+import { Alert_Sonner_Promise } from "../../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Hook para agregar un proveedor desde el modal ✔️
@@ -82,7 +82,7 @@ export const HandleSupplierAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -166,7 +166,7 @@ export const HandleSupplierEdit = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -202,7 +202,7 @@ export const HandleSupplierDelete = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
@@ -260,7 +260,7 @@ export const HandleSupplyCategoryAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -326,7 +326,7 @@ export const HandleSupplyCategoryEdit = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -362,7 +362,7 @@ export const HandleSupplyCategoryDelete = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
@@ -436,7 +436,7 @@ export const HandleSupplyTypeAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -518,7 +518,7 @@ export const HandleSupplyTypeEdit = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -581,7 +581,7 @@ export const HandleCountSupplyTypeAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -617,7 +617,7 @@ export const HandleSupplyTypeDelete = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
@@ -772,7 +772,7 @@ export const HandleSupplyAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -847,7 +847,7 @@ export const HandleSupplyEdit = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -883,7 +883,7 @@ export const HandleSupplyDelete = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook

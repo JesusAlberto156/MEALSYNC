@@ -24,11 +24,11 @@ import { CgArrowsV } from "react-icons/cg";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_90_Center } from "../../styled/Containers";
+import { Container_Row_100_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
 import { Button_Icon_Blue_180 } from "../../styled/Buttons";
 import { Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
-import { Icon_White_18,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Icon_20,Icon_Button_Black_14 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
@@ -165,27 +165,27 @@ export default function Table_Sales(){
             </Table>
             {currentRecordsSales.length !== 0 ? (
                 <>
-                    <Container_Row_90_Center>
+                    <Container_Row_100_Center>
                         <Tooltip title='Página anterior' placement="top">
                             <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
                                 onClick={prevPage}>
-                                <Icon_White_18><GrPrevious/></Icon_White_18>
+                                <Icon_20><GrPrevious/></Icon_20>
                             </Button_Icon_Blue_180>
                         </Tooltip>
                         <Text_Span_16_Center_Black ThemeMode={themeMode}>Página {currentPage} de {totalPagesSales}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
                             <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesSales || totalPagesSales === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
                                 onClick={nextPageSales}>
-                                <Icon_White_18><GrNext/></Icon_White_18>
+                                <Icon_20><GrNext/></Icon_20>
                             </Button_Icon_Blue_180>
                         </Tooltip>
-                    </Container_Row_90_Center>
+                    </Container_Row_100_Center>
                 </>
             ):(
                 <>
-                    <Container_Row_90_Center>
+                    <Container_Row_100_Center>
                         <Text_Fade_Title_32_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_Title_32_Black>
-                    </Container_Row_90_Center>
+                    </Container_Row_100_Center>
                 </>
             )}
         </>

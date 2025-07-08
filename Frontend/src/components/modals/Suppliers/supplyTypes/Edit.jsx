@@ -28,13 +28,13 @@ import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_95_Center,Container_Column_90_Center,Container_Row_100_Center,Container_Row_90_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Input_Text_Black_100,Input_Area_Black_100,Input_Group,Input_Radio_16,Input_Text_Black_50 } from "../../../styled/Inputs";
-import { Icon_White_22,Icon_Button_Blue_16,Icon_26 } from "../../../styled/Icons";
-import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
-import { Label_Text_12_Black,Label_Total_Area_12_Center,Label_Text_16_Center } from "../../../styled/Labels";
+import { Input_Text_100_Black,Input_Area_Black_100,Input_Group,Input_Radio_20,Input_Text_60_Black } from "../../../styled/Inputs";
+import { Icon_20,Icon_Button_Blue_16,Icon_24 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
+import { Label_Text_12_Black,Label_Total_Area_12_Center,Label_Button_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
 import Keyboard_Default from "../../../keyboards/Defaullt";
@@ -202,27 +202,27 @@ export default function Supply_Type_Edit(){
                 }
             });
 
-            Alert_Verification(promise,'Editando un tipo de insumo!...');
+            Alert_Sonner_Promise(promise,'Editando un tipo de insumo!...');
         }
     },[isSupplyTypeEdit]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal ref={Modal_Supply_Types}>
+                <Container_Modal_Background_Black ref={Modal_Supply_Types}>
                     <Container_Form_500 ref={Form_Supply_Types} ThemeMode={themeMode} className={currentMView === 'Tipo-Insumo-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_32_Black ThemeMode={themeMode}>EDITAR TIPO DE INSUMO</Text_Title_32_Black>
                         </Container_Row_100_Center>
-                        <Container_Row_NG_95_Center>
+                        <Container_Row_NG_Auto_Center>
                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_95_Center>
-                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        </Container_Row_NG_Auto_Center>
+                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Type"
                                         placeholder="..."
                                         type="text"
@@ -278,20 +278,20 @@ export default function Supply_Type_Edit(){
                                     <MdCancel/>
                                 </Icon_Button_Blue_16>
                             </Container_Row_100_Center>
-                        </Container_Column_90_Center>
-                        <Container_Row_NG_95_Center>
+                        </Container_Column_100_Center>
+                        <Container_Row_NG_Auto_Center>
                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos específicos...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_95_Center>
-                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                            <Container_Row_NG_95_Center>
+                        </Container_Row_NG_Auto_Center>
+                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Unidad...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
+                            </Container_Row_NG_Auto_Center>
                             <Container_Row_100_Center>
                                 {['Kilogramos','Litros'].map((item,index) => (
-                                    <Label_Text_16_Center ThemeMode={themeMode} key={index}>
-                                        <Input_Radio_16 ThemeMode={themeMode}
+                                    <Label_Button_16_Black ThemeMode={themeMode} key={index}>
+                                        <Input_Radio_20 ThemeMode={themeMode}
                                             type="radio"
                                             name="permissions"
                                             disabled={isActionBlock}
@@ -300,25 +300,25 @@ export default function Supply_Type_Edit(){
                                             onChange={(e) => setIsTextFieldsSupplyType(prev => ({...prev, unidad: e.target.value}))}
                                         />
                                         {item}
-                                    </Label_Text_16_Center>
+                                    </Label_Button_16_Black>
                                 ))};
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Categoría...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
+                            </Container_Row_NG_Auto_Center>
                             {isSupplyCategories.length !== 0 ? (
                                 isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupplyType.idcategoria) ? (
                                     <>
-                                        <Container_Row_90_Center>
+                                        <Container_Row_100_Center>
                                             <Text_Span_16_Center_Black ThemeMode={themeMode}>{isSupplyCategories.find(category => category.idcategoria === isTextFieldsSupplyType.idcategoria)?.nombre || 'Desconocida...'}</Text_Span_16_Center_Black>
-                                        </Container_Row_90_Center>
+                                        </Container_Row_100_Center>
                                     </>
                                 ):(
                                         <>
                                         <Container_Row_100_Center>
-                                            <Icon_26><FcSearch/></Icon_26>
-                                            <Input_Text_Black_50 ThemeMode={themeMode}
+                                            <Icon_24><FcSearch/></Icon_24>
+                                            <Input_Text_60_Black ThemeMode={themeMode}
                                                 id="Input-Search"
                                                 type="text"
                                                 placeholder="Buscar..."
@@ -396,24 +396,24 @@ export default function Supply_Type_Edit(){
                                             </>
                                         ):(
                                             <>
-                                                <Container_Row_95_Center>
+                                                <Container_Row_100_Center>
                                                     <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
-                                                </Container_Row_95_Center>
+                                                </Container_Row_100_Center>
                                             </>
                                         )}
                                     </>
                                 )
                             ):(
                                 <>
-                                    <Container_Row_95_Center>
+                                    <Container_Row_100_Center>
                                         <Text_Span_20_Center_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Span_20_Center_Black>
-                                    </Container_Row_95_Center>
+                                    </Container_Row_100_Center>
                                 </>
                             )}
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Cantidad Mínima (Kg/Lt):</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Limit"
                                         placeholder="..."
                                         type="text"
@@ -429,18 +429,18 @@ export default function Supply_Type_Edit(){
                                     />
                                 </Input_Group>
                             </Container_Row_100_Center>
-                        </Container_Column_90_Center>
-                        <Container_Row_95_Center>
+                        </Container_Column_100_Center>
+                        <Container_Row_100_Center>
                             <Text_Span_12_Justify_Black ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los almacenes de los insumos agregados a este tipo, agregarle cantidades o para registrar nuevos insumos a su nombre. La modificación de la categoría puede afectar los resultados finales del inventario. La modificación de la cantidad mínima puede afectar las alertas de pocos insumos de este tipo.</Text_Span_12_Justify_Black>
-                        </Container_Row_95_Center>
-                        <Container_Row_95_Center>
+                        </Container_Row_100_Center>
+                        <Container_Row_100_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <span>
                                     <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalViewSuppliers('')}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Red_210>
                                 </span>
                             </Tooltip>
@@ -450,11 +450,11 @@ export default function Supply_Type_Edit(){
                                         onClick={() => handleSupplyTypeEdit()}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><MdEdit/></Icon_White_22>
+                                        <Icon_20><MdEdit/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </span>
                             </Tooltip>
-                        </Container_Row_95_Center>
+                        </Container_Row_100_Center>
                     </Container_Form_500>
                     {isKeyboard ? (
                         isKeyboardView === 'Type' || isKeyboardView === 'Description' || isKeyboardView === 'Search' ? (
@@ -470,7 +470,7 @@ export default function Supply_Type_Edit(){
                     ):(
                         <></>
                     )}
-                </Container_Modal>
+                </Container_Modal_Background_Black>
             ):(
                 currentMView === 'Tipo-Insumo-Editar' ? (
                     <>

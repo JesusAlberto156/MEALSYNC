@@ -18,19 +18,12 @@ export const StatusContext = createContext(null);
 export const StatusAddContext = createContext(null);
 export const StatusEnableContext = createContext(null);
 export const UserTypesContext = createContext(null);
-//__________IMAGES____________
-import Logo_Warning_Light from '../components/imgs/Logo-Warning-Light.png';
-import Logo_Warning_Dark from '../components/imgs/Logo-Warning-Dark.webp';
-import Logo_Success_Light from '../components/imgs/Logo-Success-Light.webp';
-import Logo_Success_Dark from '../components/imgs/Logo-Success-Dark.png';
-//__________IMAGES____________
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 import { LoggedLoggedContext,LoggedUserContext,LoggedTypeContext,LoggedLogContext,LoggedPermissionsContext } from "./SessionProvider";
-import { ThemeModeContext } from "./ViewsProvider";
 import { UserUpdatedContext,PermissionUpdatedContext } from "./VariablesProvider";
 // Estilos personalizados
-import { Alert_Warning,Alert_Success } from "../components/styled/Alerts";
+import { Alert_Swal_Warning,Alert_Swal_Success,Alert_Swal_Error } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para las funcionalidades de las tablas de los usuarios  ✔️
@@ -76,7 +69,6 @@ export const Users = ({ children }) => {
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
-    const [themeMode] = useContext(ThemeModeContext);
     // UseState para controlar el valor del contexto
     const [isUsers,setIsUsers] = useState([]);
     // UseRef para las alertas
@@ -88,10 +80,10 @@ export const Users = ({ children }) => {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Usuarios obtenidos!...');
+                    console.log('¡Usuarios obtenidos!');
                     setIsUsers(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar los usuarios!...');
+                    console.warn('¡Error al desencriptar los usuarios!');
                     setIsUsers([]);
                 }
             } catch (error) {
@@ -117,9 +109,8 @@ export const Users = ({ children }) => {
                     user.contrasena !== isLoggedUser.contrasena
                 );
                 if (userHasChanged) {
-                    const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                     alertShow.current = true;
-                    Alert_Warning('MEALSYNC','¡Se han modificado los datos para iniciar sesión, por un administrador!...',themeMode,Image_Warning);
+                    Alert_Swal_Warning('¡Se han modificado los datos para iniciar sesión, por un administrador!');
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     },3000);
@@ -131,7 +122,7 @@ export const Users = ({ children }) => {
                         sessionStorage.setItem('Usuario',encryptedUser);
                         setIsLoggedUser(JSON.parse(jsonUser));
                     }else{
-                        return console.log('¡Error al encriptar las credenciales!...');
+                        return console.log('¡Error al encriptar las credenciales!');
                     }
                 }
             }
@@ -186,7 +177,6 @@ export const Deleted_Users = ({ children }) => {
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
-    const [themeMode] = useContext(ThemeModeContext);
     // UseState para controlar el valor del contexto
     const [isDeletedUsers,setIsDeletedUsers] = useState([]);
     // UseRef para las alertas
@@ -198,10 +188,10 @@ export const Deleted_Users = ({ children }) => {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Usuarios eliminados obtenidos!...');
+                    console.log('¡Usuarios eliminados obtenidos!');
                     setIsDeletedUsers(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar los usuarios eliminados!...');
+                    console.warn('¡Error al desencriptar los usuarios eliminados!');
                     setIsDeletedUsers([]);
                 }
             } catch (error) {
@@ -223,8 +213,7 @@ export const Deleted_Users = ({ children }) => {
             const user = isDeletedUsers.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
                 alertShow.current = true;
-                const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
-                Alert_Warning('MEALSYNC','¡Su usuario ha sido eliminado, por un administrador!...',themeMode,Image_Warning);
+                Alert_Swal_Error('¡Su usuario ha sido eliminado, por un administrador!');
                 setTimeout(() => {
                     setIsLoggedLog(true);
                 },3000);
@@ -257,12 +246,11 @@ export const Permissions = ({ children }) => {
     const [socket] = useContext(SocketContext);
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [themeMode] = useContext(ThemeModeContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext); 
     const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
-    const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdatedContext);
+    const [isPermissionUpdated] = useContext(PermissionUpdatedContext);
     // UseRef para las alertas
     const alertShow = useRef(false);
     // UseState para controlar el valor del contexto
@@ -274,10 +262,10 @@ export const Permissions = ({ children }) => {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Permisos de usuarios obtenidos!...')
+                    console.log('¡Permisos de usuarios obtenidos!')
                     setIsPermissions(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los permisos!...');
+                    console.log('¡Error al desencriptar los permisos!');
                     setIsPermissions([]);
                 }
             } catch (error) {
@@ -298,12 +286,11 @@ export const Permissions = ({ children }) => {
         if (isLoggedLogged && isPermissionUpdated === 'super administrador') {
             const user = isPermissions.find(user => user.idusuario === isLoggedUser.idusuario && isLoggedUser.usuario === isUserUpdated);
             if (user) {
-                const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
-                const Image_Success = themeMode ? Logo_Success_Light : Logo_Success_Dark;
+                
 
                 if (!user.superadministrador) {
                     setIsUserUpdated('');
-                    Alert_Warning('MEALSYNC', '¡El super administrador ha sido deshabilitado!...', themeMode, Image_Warning);
+                    Alert_Swal_Warning('¡El super administrador ha sido deshabilitado!');
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     }, 3000);
@@ -311,7 +298,7 @@ export const Permissions = ({ children }) => {
                 } 
                 if(user.superadministrador) {
                     setIsUserUpdated('');
-                    Alert_Success('MEALSYNC', '¡El super administrador ha sido habilitado!...', themeMode, Image_Success);
+                    Alert_Swal_Success('¡El super administrador ha sido habilitado!');
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     }, 3000);
@@ -322,7 +309,6 @@ export const Permissions = ({ children }) => {
         if (isLoggedLogged && isPermissionUpdated === 'permisos') {
             const user = isPermissions.find(user => user.idusuario === isLoggedUser.idusuario && isLoggedUser.usuario === isUserUpdated);
             if (user) {
-                const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
 
                 if (!user.superadministrador) {
                     if (
@@ -334,7 +320,7 @@ export const Permissions = ({ children }) => {
                         (isLoggedType === 'Almacenista' && !user.almacenista)
                     ) {
                         alertShow.current = true;
-                        Alert_Warning('MEALSYNC', '¡Ha perdido su permiso de acceso, por un administrador!...', themeMode, Image_Warning);
+                        Alert_Swal_Warning('¡Ha perdido su permiso de acceso, por un administrador!');
                         setTimeout(() => {
                             setIsLoggedLog(true);
                         }, 3000);
@@ -348,7 +334,7 @@ export const Permissions = ({ children }) => {
                     sessionStorage.setItem('Permisos', encryptedPermission);
                     setIsLoggedPermissions(JSON.parse(jsonPermission));
                 } else {
-                    return console.log('¡Error al encriptar las credenciales!...');
+                    return console.log('¡Error al encriptar las credenciales!');
                 }
             }
         }
@@ -439,7 +425,6 @@ export const Status = ({ children }) => {
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [themeMode] = useContext(ThemeModeContext);
     const [socket] = useContext(SocketContext);
     // UseRef para las alertas
     const alertShow = useRef(false);
@@ -452,10 +437,10 @@ export const Status = ({ children }) => {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Estatus de usuarios obtenidos!....')
+                    console.log('¡Estatus de usuarios obtenidos!')
                     setIsStatus(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los estatus!...');
+                    console.log('¡Error al desencriptar los estatus!');
                     setIsStatus([]);
                 }
             } catch (error) {
@@ -478,9 +463,15 @@ export const Status = ({ children }) => {
             const user = isStatus.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
                 if(!user.habilitado){
-                    const Image_Warning = themeMode ? Logo_Warning_Light : Logo_Warning_Dark;
                     alertShow.current = true;
-                    Alert_Warning('MEALSYNC','¡Ha sido deshabilitado(a) por un administrador!...',themeMode,Image_Warning);
+                    Alert_Swal_Warning('¡Ha sido deshabilitado(a) por un administrador!');
+                    setTimeout(() => {
+                        setIsLoggedLog(true);
+                    },3000);
+                }
+                if(!user.activo){
+                    alertShow.current = true;
+                    Alert_Swal_Warning('¡Parece que has iniciado sesión en otra pestaña!');
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     },3000);
@@ -532,11 +523,11 @@ export const User_Types = ({ children }) => {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Tipos de usuario obtenidos!...')
+                    console.log('¡Tipos de usuario obtenidos!')
                     setIsUserTypes(parsedData);
                     
                 }else{
-                    console.log('¡Error al desencriptar los tipos de usuario!...');
+                    console.log('¡Error al desencriptar los tipos de usuario!');
                     setIsUserTypes([]);
                 }
             } catch (error) {

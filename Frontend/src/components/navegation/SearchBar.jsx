@@ -40,9 +40,9 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function } from "../styled/Containers";
-import { Button_Icon_Blue_Auto,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../styled/Buttons";
-import { Icon_White_20,Icon_White_16,Icon_Button_White_20,Icon_Button_Black_30,Icon_White_18 } from "../styled/Icons";
-import { Input_Search_Table_White,Input_Radio_16 } from "../styled/Inputs";
+import { Button_Text_Blue_Auto,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../styled/Buttons";
+import { Icon_White_20,Icon_White_16,Icon_Button_White_20,Icon_Button_Black_30,Icon_16 } from "../styled/Icons";
+import { Input_Search_Table_White,Input_Radio_20 } from "../styled/Inputs";
 import { Text_Span_12_Center_White } from "../styled/Text";
 // Componentes personalizados
 
@@ -132,7 +132,7 @@ export default function Search_Bar (){
                     {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionUsers.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
@@ -141,7 +141,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
@@ -171,7 +171,7 @@ export default function Search_Bar (){
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             {isOptionStatus.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionOrderPlus(option)}
                                     style={{
@@ -180,7 +180,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
@@ -192,7 +192,7 @@ export default function Search_Bar (){
                     {currentSView === 'Proveedores' && currentNView === 'Proveedores' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionSuppliers.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
@@ -201,7 +201,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
@@ -216,7 +216,7 @@ export default function Search_Bar (){
                     {currentSView === 'Proveedores' && currentNView === 'Observaciones de proveedores' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplierObservations.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
@@ -225,7 +225,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
@@ -252,7 +252,7 @@ export default function Search_Bar (){
                     {currentSView === 'Proveedores' && currentNView === 'Tipos de insumo' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplyTypes.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
@@ -261,7 +261,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
@@ -276,7 +276,7 @@ export default function Search_Bar (){
                     {currentSView === 'Proveedores' && currentNView === 'Insumos' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplies.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
@@ -285,7 +285,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
@@ -311,7 +311,7 @@ export default function Search_Bar (){
                                     {option}
                                 </Button_Icon_Blue_140>
                             ))}
-                            <Icon_White_18><IoSearch/></Icon_White_18>
+                            <Icon_16><IoSearch/></Icon_16>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
@@ -319,7 +319,7 @@ export default function Search_Bar (){
                     {currentSView === 'Inventario' && currentNView === 'Compras' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionWarehouse.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
@@ -328,13 +328,13 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             {isOptionPurchases.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionOrderPlus(option)}
                                     style={{
@@ -343,7 +343,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
@@ -355,7 +355,7 @@ export default function Search_Bar (){
                     {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionWarehouse.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
@@ -364,13 +364,13 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
                             </Tooltip>
                             {isOptionSales.map((option,index) => (
-                                <Button_Icon_Blue_Auto
+                                <Button_Text_Blue_Auto
                                     key={index}
                                     onClick={() => setIsSelectedOptionOrderPlus(option)}
                                     style={{
@@ -379,7 +379,7 @@ export default function Search_Bar (){
                                     }}
                                 >
                                     {option}
-                                </Button_Icon_Blue_Auto>
+                                </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
                                 <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
@@ -688,7 +688,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Proveedor-Editar');
                                                     navigate('/Administration/Index/Suppliers/Suppliers/Edit',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdEdit/></Icon_White_18>
+                                                    <Icon_16><MdEdit/></Icon_16>
                                                 </Button_Icon_Blue_60>
                                             </Tooltip>
                                         </>
@@ -700,7 +700,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Proveedor-Agregar');
                                                     navigate('/Administration/Index/Suppliers/Suppliers/Add',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                                    <Icon_16><IoIosAddCircle/></Icon_16>
                                                 </Button_Icon_Green_60>
                                             </Tooltip>
                                         </>
@@ -717,7 +717,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Proveedor-Eliminar');
                                                     navigate('/Administration/Index/Suppliers/Suppliers/Delete',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdDelete/></Icon_White_18>
+                                                    <Icon_16><MdDelete/></Icon_16>
                                                 </Button_Icon_Red_60>
                                             </Tooltip>
                                         </>
@@ -740,7 +740,7 @@ export default function Search_Bar (){
                                             handleModalViewSuppliers('Observacion-Detalles');
                                             navigate('/Administration/Index/Suppliers/Observations/View',{ replace: true });
                                         }}>
-                                            <Icon_White_18><FaEye/></Icon_White_18>
+                                            <Icon_16><FaEye/></Icon_16>
                                         </Button_Icon_Green_60>
                                     </Tooltip>
                                 </>
@@ -761,7 +761,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Categoria-Editar');
                                                     navigate('/Administration/Index/Suppliers/Supply/Categories/Edit',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdEdit/></Icon_White_18>
+                                                    <Icon_16><MdEdit/></Icon_16>
                                                 </Button_Icon_Blue_60>
                                             </Tooltip>
                                         </>
@@ -773,7 +773,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Categoria-Agregar');
                                                     navigate('/Administration/Index/Suppliers/Supply/Categories/Add',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                                    <Icon_16><IoIosAddCircle/></Icon_16>
                                                 </Button_Icon_Green_60>
                                             </Tooltip>
                                         </>
@@ -790,7 +790,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Categoria-Eliminar');
                                                     navigate('/Administration/Index/Suppliers/Supply/Categories/Delete',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdDelete/></Icon_White_18>
+                                                    <Icon_16><MdDelete/></Icon_16>
                                                 </Button_Icon_Red_60>
                                             </Tooltip>
                                         </>
@@ -815,7 +815,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Tipo-Insumo-Editar');
                                                     navigate('/Administration/Index/Suppliers/Supply/Types/Edit',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdEdit/></Icon_White_18>
+                                                    <Icon_16><MdEdit/></Icon_16>
                                                 </Button_Icon_Blue_60>
                                             </Tooltip>
                                         </>
@@ -827,7 +827,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Tipo-Insumo-Agregar');
                                                     navigate('/Administration/Index/Suppliers/Supply/Types/Add',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                                    <Icon_16><IoIosAddCircle/></Icon_16>
                                                 </Button_Icon_Green_60>
                                             </Tooltip>
                                         </>
@@ -844,7 +844,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Tipo-Insumo-Eliminar');
                                                     navigate('/Administration/Index/Suppliers/Supply/Types/Delete',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdDelete/></Icon_White_18>
+                                                    <Icon_16><MdDelete/></Icon_16>
                                                 </Button_Icon_Red_60>
                                             </Tooltip>
                                         </>
@@ -862,7 +862,7 @@ export default function Search_Bar (){
                                                 handleModalViewSuppliers('Tipo-Insumo-Cantidad-Agregar');
                                                 navigate('/Administration/Index/Suppliers/Supply/Types/Count/Add',{ replace: true });
                                             }}>
-                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                                <Icon_16><IoIosAddCircle/></Icon_16>
                                             </Button_Icon_Green_60>
                                         </Tooltip>
                                     ):(
@@ -880,7 +880,7 @@ export default function Search_Bar (){
                                                 handleModalViewSuppliers('Tipo-Insumo-Detalles');
                                                 navigate('/Administration/Index/Suppliers/Supply/Types/Detail',{ replace: true });
                                             }}>
-                                                <Icon_White_18><FaCubes/></Icon_White_18>
+                                                <Icon_16><FaCubes/></Icon_16>
                                             </Button_Icon_Orange_60>
                                         </Tooltip>
                                     </>
@@ -902,7 +902,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Insumo-Editar');
                                                     navigate('/Administration/Index/Suppliers/Supplies/Edit',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdEdit/></Icon_White_18>
+                                                    <Icon_16><MdEdit/></Icon_16>
                                                 </Button_Icon_Blue_60>
                                             </Tooltip>
                                         </>
@@ -914,7 +914,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Insumo-Agregar');
                                                     navigate('/Administration/Index/Suppliers/Supplies/Add',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                                    <Icon_16><IoIosAddCircle/></Icon_16>
                                                 </Button_Icon_Green_60>
                                             </Tooltip>
                                         </>
@@ -931,7 +931,7 @@ export default function Search_Bar (){
                                                     handleModalViewSuppliers('Insumo-Eliminar');
                                                     navigate('/Administration/Index/Suppliers/Supplies/Delete',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdDelete/></Icon_White_18>
+                                                    <Icon_16><MdDelete/></Icon_16>
                                                 </Button_Icon_Red_60>
                                             </Tooltip>
                                         </>
@@ -958,7 +958,7 @@ export default function Search_Bar (){
                                                             handleModalViewWarehouse('Observaciones-Pedido-Visualizar');
                                                             navigate('/Administration/Index/Warehouse/Supply/Orders/Observation/View',{ replace: true });
                                                         }}>
-                                                            <Icon_White_18><BiSolidMessageDetail/></Icon_White_18>
+                                                            <Icon_16><BiSolidMessageDetail/></Icon_16>
                                                         </Button_Icon_Green_60>
                                                     </Tooltip> 
                                                     <Tooltip title='Agregar observación' placement="top">
@@ -967,7 +967,7 @@ export default function Search_Bar (){
                                                             handleModalViewWarehouse('Observacion-Pedido-Agregar');
                                                             navigate('/Administration/Index/Warehouse/Supply/Orders/Observation/Add',{ replace: true });
                                                         }}>
-                                                            <Icon_White_18><BiSolidMessageAdd/></Icon_White_18>
+                                                            <Icon_16><BiSolidMessageAdd/></Icon_16>
                                                         </Button_Icon_Green_60>
                                                     </Tooltip> 
                                                     <Tooltip title='Editar' placement="top">
@@ -976,7 +976,7 @@ export default function Search_Bar (){
                                                             handleModalViewWarehouse('Pedido-Editar');
                                                             navigate('/Administration/Index/Warehouse/Supply/Orders/Edit',{ replace: true });
                                                         }}>
-                                                            <Icon_White_18><MdEdit/></Icon_White_18>
+                                                            <Icon_16><MdEdit/></Icon_16>
                                                         </Button_Icon_Blue_60>
                                                     </Tooltip> 
                                                     <Tooltip title='Finalizar' placement="top">
@@ -985,7 +985,7 @@ export default function Search_Bar (){
                                                             handleModalViewWarehouse('Pedido-Editar-Estado');
                                                             navigate('/Administration/Index/Warehouse/Supply/Orders/State/Edit',{ replace: true });
                                                         }}>
-                                                            <Icon_White_18><FaSyncAlt/></Icon_White_18>
+                                                            <Icon_16><FaSyncAlt/></Icon_16>
                                                         </Button_Icon_Orange_60>
                                                     </Tooltip>
                                                 </>
@@ -1001,7 +1001,7 @@ export default function Search_Bar (){
                                                     handleModalViewWarehouse('Pedido-Agregar');
                                                     navigate('/Administration/Index/Warehouse/Supply/Orders/Add',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                                    <Icon_16><IoIosAddCircle/></Icon_16>
                                                 </Button_Icon_Green_60>
                                             </Tooltip>
                                         </>
@@ -1018,7 +1018,7 @@ export default function Search_Bar (){
                                                     handleModalViewWarehouse('Pedido-Eliminar');
                                                     navigate('/Administration/Index/Warehouse/Supply/Orders/Delete',{ replace: true });
                                                 }}>
-                                                    <Icon_White_18><MdDelete/></Icon_White_18>
+                                                    <Icon_16><MdDelete/></Icon_16>
                                                 </Button_Icon_Red_60>
                                             </Tooltip>
                                         </>
@@ -1035,7 +1035,7 @@ export default function Search_Bar (){
                         {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus !== 'Normal' ? (
                             ['General','Totales'].map((item,index) => (
                                 <Text_Span_12_Center_White ThemeMode={themeMode} key={index}>
-                                    <Input_Radio_16 ThemeMode={themeMode}
+                                    <Input_Radio_20 ThemeMode={themeMode}
                                         type="radio"
                                         name="options"
                                         value={item}
@@ -1051,7 +1051,7 @@ export default function Search_Bar (){
                         {currentSView === 'Inventario' && currentNView === 'Ventas' && isSelectedOptionOrderPlus !== 'Normal' ? (
                             ['General','Totales'].map((item,index) => (
                                 <Text_Span_12_Center_White ThemeMode={themeMode} key={index}>
-                                    <Input_Radio_16 ThemeMode={themeMode}
+                                    <Input_Radio_20 ThemeMode={themeMode}
                                         type="radio"
                                         name="options"
                                         value={item}
@@ -1076,7 +1076,7 @@ export default function Search_Bar (){
                                                 handleModalViewWarehouse('Almacen-Tipo-Insumo-Agregar');
                                                 navigate('/Administration/Index/Warehouse/Sales/Add',{ replace: true });
                                             }}>
-                                                <Icon_White_18><IoIosAddCircle/></Icon_White_18>
+                                                <Icon_16><IoIosAddCircle/></Icon_16>
                                             </Button_Icon_Green_60>
                                         </Tooltip>
                                     </>

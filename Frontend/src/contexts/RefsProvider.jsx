@@ -1,9 +1,10 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { createContext,useRef } from "react"
+import { createContext,useRef,useContext } from "react"
 // Contextos
 export const RefAlertGreetingContext = createContext(null);
 export const RefKeyboardContext = createContext(null);
+export const RefKeyboardTouchContext = createContext(null);
 export const RefUsersContext = createContext(null);
 export const RefPermissionsContext = createContext(null);
 export const RefStatusContext = createContext(null);
@@ -13,6 +14,8 @@ export const RefSupplyCategoriesContext = createContext(null);
 export const RefSupplyTypesContext = createContext(null);
 export const RefSuppliesContext = createContext(null);
 export const RefSupplyOrdersContext = createContext(null);
+// Contextos personalizados
+import { TouchContext } from "./VariablesProvider";
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los Ref ✔️
@@ -20,25 +23,27 @@ export const Index_Refs = ({children}) => {
     return(
         <Ref_Alert_Greeting>
             <Ref_Keyboard>
-                <Ref_Users>
-                    <Ref_Permissions>
-                        <Ref_Status>
-                            <Ref_Suppliers>
-                                <Ref_Suppliers_Observations>
-                                    <Ref_Supply_Categories>
-                                        <Ref_Supply_Types>
-                                            <Ref_Supplies>
-                                                <Ref_Supply_Orders>
-                                                    {children}
-                                                </Ref_Supply_Orders>
-                                            </Ref_Supplies>
-                                        </Ref_Supply_Types>
-                                    </Ref_Supply_Categories>
-                                </Ref_Suppliers_Observations>
-                            </Ref_Suppliers>
-                        </Ref_Status>
-                    </Ref_Permissions>
-                </Ref_Users>
+                <Ref_Keyboard_Touch>
+                    <Ref_Users>
+                        <Ref_Permissions>
+                            <Ref_Status>
+                                <Ref_Suppliers>
+                                    <Ref_Suppliers_Observations>
+                                        <Ref_Supply_Categories>
+                                            <Ref_Supply_Types>
+                                                <Ref_Supplies>
+                                                    <Ref_Supply_Orders>
+                                                        {children}
+                                                    </Ref_Supply_Orders>
+                                                </Ref_Supplies>
+                                            </Ref_Supply_Types>
+                                        </Ref_Supply_Categories>
+                                    </Ref_Suppliers_Observations>
+                                </Ref_Suppliers>
+                            </Ref_Status>
+                        </Ref_Permissions>
+                    </Ref_Users>
+                </Ref_Keyboard_Touch>
             </Ref_Keyboard>
         </Ref_Alert_Greeting>
     );
@@ -57,13 +62,28 @@ export const Ref_Alert_Greeting = ({ children }) => {
 }
 // Función contexto para controlar el teclado de la pagina 
 export const Ref_Keyboard = ({ children }) => {
+    // constantes con el valor de los contextos
+    const [isTouch] = useContext(TouchContext);
     // UseRef para controlar el valor del contexto
-    const isKeyboard = useRef(null);
+    const isKeyboard = useRef(isTouch);
     // Return para darle valor al contexto y heredarlo
     return(
         <RefKeyboardContext.Provider value={isKeyboard}>
             {children}
         </RefKeyboardContext.Provider>
+    );
+}
+// Función contexto para controlar el touch referente al teclado de la pagina 
+export const Ref_Keyboard_Touch = ({ children }) => {
+    // constantes con el valor de los contextos
+    const [isTouch] = useContext(TouchContext);
+    // UseRef para controlar el valor del contexto
+    const isKeyboardTouch = useRef(isTouch);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefKeyboardTouchContext.Provider value={isKeyboardTouch}>
+            {children}
+        </RefKeyboardTouchContext.Provider>
     );
 }
 // Función contexto para controlar la tabla de usuarios con referencias ✔️

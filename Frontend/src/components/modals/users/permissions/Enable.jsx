@@ -24,11 +24,11 @@ import { MdCancel } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa6";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_450,Container_Row_90_Center,Container_Row_NG_90_Center,Container_Row_95_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_450,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Span_16_Left_Black,Text_Title_32_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_180,Button_Icon_Red_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
-import { Icon_White_22 } from "../../../styled/Icons";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Icon_20 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 // Componentes personalizados
 import Form_Verification from '../../../forms/Verification';
 import Error_Enable from "../../errors/Enable";
@@ -109,7 +109,7 @@ export default function Permissions_Enable(){
                 }
             }); 
             
-            Alert_Verification(promise,isTextFieldsPermissions.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
+            Alert_Sonner_Promise(promise,isTextFieldsPermissions.superadministrador ? '¡Deshabilitando el super administrador a un usuario!...' : '¡Habilitando el super administrador a un usuario!...');
         }
     },[isPermissionsEnable]);
     // Estructura del componente
@@ -117,25 +117,25 @@ export default function Permissions_Enable(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <>
-                    <Container_Modal ref={Modal_Permissions}>
+                    <Container_Modal_Background_Black ref={Modal_Permissions}>
                         <Container_Form_450 ref={Form_Permissions} ThemeMode={themeMode} className={currentMView === 'Permiso-Super-Administrador' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Text_Title_32_Black ThemeMode={themeMode}>{isTextFieldsPermissions.superadministrador ? 'DESHABILITAR SUPER ADMINISTRADOR':'HABILITAR SUPER ADMINISTRADOR'}</Text_Title_32_Black>
                             <Form_Verification/>
-                            <Container_Row_NG_90_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>Usuario:</Text_Color_Blue_16>
                                 <Text_Span_16_Left_Black ThemeMode={themeMode}> {isTextFieldsPermissions.usuario}</Text_Span_16_Left_Black>
-                            </Container_Row_NG_90_Center>
-                            <Container_Row_95_Center>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Row_100_Center>
                                 <Text_Span_12_Justify_Black ThemeMode={themeMode}>Al {isTextFieldsPermissions.superadministrador ? 'deshabilitar':'habilitar'} el rol de superadministrador, se forzará el cierre inmediato de la sesión del usuario si se encuentra activo.</Text_Span_12_Justify_Black>
-                            </Container_Row_95_Center>
-                            <Container_Row_90_Center>
+                            </Container_Row_100_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement="top">
                                     <span>
                                         <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
                                             onClick={() => handleModalViewUsers('')}
                                             disabled={!isActionBlock && isVerificationBlock}
                                         >
-                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                            <Icon_20><MdCancel/></Icon_20>
                                         </Button_Icon_Blue_180>
                                     </span>
                                 </Tooltip>
@@ -147,7 +147,7 @@ export default function Permissions_Enable(){
                                                     onClick={() => handlePermissionsEnable()}
                                                     disabled={!isActionBlock}    
                                                 >
-                                                    <Icon_White_22><FaUserTie/></Icon_White_22>
+                                                    <Icon_20><FaUserTie/></Icon_20>
                                                 </Button_Icon_Red_180>
                                             </span>
                                         </Tooltip>
@@ -160,13 +160,13 @@ export default function Permissions_Enable(){
                                                     onClick={() => handlePermissionsEnable()}
                                                     disabled={!isActionBlock} 
                                                 >
-                                                    <Icon_White_22><FaUserTie/></Icon_White_22>
+                                                    <Icon_20><FaUserTie/></Icon_20>
                                                 </Button_Icon_Green_180>
                                             </span>
                                         </Tooltip>
                                     </>
                                 )}
-                            </Container_Row_90_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_450>
                         {isKeyboard ? (
                             <>
@@ -175,7 +175,7 @@ export default function Permissions_Enable(){
                         ):(
                             <></>
                         )}
-                    </Container_Modal>  
+                    </Container_Modal_Background_Black>  
                 </>
             ):(
                 currentMView === 'Permiso-Super-Administrador' ? (

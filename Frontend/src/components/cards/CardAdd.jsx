@@ -24,8 +24,8 @@ export const Card_Menu = styled.div`
 import { ThemeModeContext } from '../../contexts/ViewsProvider';
 import { Text_Title_32_Black } from '../styled/Text';
 import { Icon_Image_90 } from '../styled/Icons';
-import { Button_Icon_Blue_200 } from '../styled/Buttons';
-import { Container_Row_90_Center } from '../styled/Containers';
+import { Button_Text_Blue_200 } from '../styled/Buttons';
+import { Container_Row_100_Center } from '../styled/Containers';
 import { IoIosAddCircle } from "react-icons/io";
 import { Icon_Green_100 } from '../styled/Icons';
 export default function Card_Add(){

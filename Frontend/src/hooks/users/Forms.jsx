@@ -12,7 +12,7 @@ import { NavbarViewContext,SidebarViewContext,ModalViewContext,ModalContext } fr
 // Hooks personalizados
 import { ResetTextFieldsUser } from "./Texts";
 // Estilos personalizados
-import { Alert_Verification } from "../../components/styled/Alerts";
+import { Alert_Sonner_Promise } from "../../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Hook para agregar un usuario desde el modal ✔️
@@ -98,7 +98,7 @@ export const HandleUserAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
@@ -145,7 +145,7 @@ export const HandleViewPassword = () => {
                 }
             })
             
-            Alert_Verification(promise,'¡Mostrando contraseñas!...');
+            Alert_Sonner_Promise(promise,'¡Mostrando contraseñas!...');
         }else{
             const promise = new Promise((resolve,reject) => {
                 if(isUsersViewPassword){
@@ -162,7 +162,7 @@ export const HandleViewPassword = () => {
                 }
             })
             if(isUsersViewPassword){
-                Alert_Verification(promise,'¡Ocultando contraseñas!...');
+                Alert_Sonner_Promise(promise,'¡Ocultando contraseñas!...');
             }
         }
     }
@@ -265,7 +265,7 @@ export const HandleUserEdit = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
@@ -305,7 +305,7 @@ export const HandleUserDelete = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
@@ -360,7 +360,7 @@ export const HandlePermissionsAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -420,7 +420,7 @@ export const HandlePermissionsEdit = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -462,7 +462,7 @@ export const HandlePermissionsEnable = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook
@@ -517,7 +517,7 @@ export const HandleStatusSAdd = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     } 
     // Retorno de la función del hook
@@ -573,7 +573,7 @@ export const HandleStatusEnable = () => {
                 }
             });
 
-            Alert_Verification(promise,'¡Verificando información!...');
+            Alert_Sonner_Promise(promise,'¡Verificando información!...');
         }
     }
     // Retorno de la función del hook

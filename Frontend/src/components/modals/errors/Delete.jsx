@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { ModalContext,ModalViewContext } from "../../../contexts/ViewsProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../contexts/VariablesProvider";
 // Estilos personalizados
-import { Container_Modal,Container_Column_90_Center } from "../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Column_100_Center } from "../../styled/Containers";
 import { Text_Title_36_White,Text_Title_40_White } from "../../styled/Text";
-import { Alert_Verification } from "../../styled/Alerts";
+import { Alert_Sonner_Promise } from "../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Modal para el error de editar de los modales
@@ -47,7 +47,7 @@ export default function Error_Delete(){
                 }
             });
     
-            return Alert_Verification(promise,'Buscando página...');
+            return Alert_Sonner_Promise(promise,'Buscando página...');
         }
 
         const intervalo = setInterval(() => {
@@ -59,13 +59,13 @@ export default function Error_Delete(){
     // Estructura del componente
     return(
         <>
-            <Container_Modal>
-                <Container_Column_90_Center>
+            <Container_Modal_Background_Black>
+                <Container_Column_100_Center>
                     <Text_Title_36_White>¡Ha perdido los datos para eliminar!</Text_Title_36_White>
                     <Text_Title_36_White>Redirigiendo en...</Text_Title_36_White>
                     <Text_Title_40_White>{contador}</Text_Title_40_White>
-                </Container_Column_90_Center>
-            </Container_Modal>
+                </Container_Column_100_Center>
+            </Container_Modal_Background_Black>
         </>
     );
 }

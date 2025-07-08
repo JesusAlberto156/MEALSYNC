@@ -8,9 +8,9 @@ import { ActionBlockContext,VerificationBlockContext } from "../../../contexts/V
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context } from "../../../contexts/SelectedesProvider";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Column_90_Center } from "../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Column_100_Center } from "../../styled/Containers";
 import { Text_Title_36_White,Text_Title_40_White } from "../../styled/Text";
-import { Alert_Verification } from "../../styled/Alerts";
+import { Alert_Sonner_Promise } from "../../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar permiso de super administrador a los usuarios
@@ -53,7 +53,7 @@ export default function Error_Enable(){
                     }
                 });
         
-                return Alert_Verification(promise,'Buscando página...');
+                return Alert_Sonner_Promise(promise,'Buscando página...');
             }
 
             const intervalo = setInterval(() => {
@@ -66,13 +66,13 @@ export default function Error_Enable(){
     // Estructura del componente
     return(
         <>
-            <Container_Modal>
-                <Container_Column_90_Center>
+            <Container_Modal_Background_Black>
+                <Container_Column_100_Center>
                     <Text_Title_36_White>¡Ha perdido los datos para habilitar/deshabilitar!</Text_Title_36_White>
                     <Text_Title_36_White>Redirigiendo en...</Text_Title_36_White>
                     <Text_Title_40_White>{contador}</Text_Title_40_White>
-                </Container_Column_90_Center>
-            </Container_Modal>
+                </Container_Column_100_Center>
+            </Container_Modal_Background_Black>
         </>
     );
 }

@@ -73,67 +73,23 @@ export const Image_Modal_Fixed = styled.img`
     }
 `;
 //____________MODAL____________
-//____________LOGO____________
-//---------- HOSPITAL ----------
-//-------- HORIZONTAL
-export const Img_Logo_Horizontal_Hospital_400 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode'
-})`
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 400px;
-    height: 172px;
-    flex-shrink: 0;
-    
-    @media (max-width: 768px) {
-        width: 300px;
-        height: 130px;    
-    }
-
-    @media (max-width: 480px) {
-        width: 200px;
-        height: 88px;    
-    }
-`;
-//-------- HORIZONTAL
-//-------- VERTICAL
-export const Img_Logo_Verical_Hospital_240 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode'
-})`
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 240px;
-    height: 240px;
-    flex-shrink: 0;
-    
-    @media (max-width: 768px) {
-        width: 230px;
-        height: 230px; 
-    }
-
-    @media (max-width: 480px) {
-        width: 220px;
-        height: 220px;  
-    }
-`;
-//-------- VERTICAL
-//-------- PURO LOGO
-export const Img_Logo_Hospital_70 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode'
-})`
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 5%; 
+//____________LOGIN____________
+export const Image_Login_Auto = styled.img`
+    width: 250px; 
     height: auto;
-    animation: ${Fade_Animation} 2s infinite;
+    object-fit: cover;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
 
     @media (max-width: 768px) {
+        width: 200px;
     }
 
     @media (max-width: 480px) {
-       
+        width: 150px;
     }
 `;
-//-------- PURO LOGO
-//---------- HOSPITAL ----------
-//____________LOGO____________
+//____________LOGIN____________

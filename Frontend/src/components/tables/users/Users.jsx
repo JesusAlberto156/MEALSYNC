@@ -35,7 +35,7 @@ import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Bo
 import { Button_Icon_Blue_220 } from "../../styled/Buttons";
 import { Text_Span_16_Center_White,Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
 import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
-import { Alert_Verification } from "../../styled/Alerts"
+import { Alert_Sonner_Promise } from "../../styled/Alerts"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
@@ -87,7 +87,7 @@ export default function Table_Users(){
                     }
                 });
 
-                Alert_Verification(promise,'¡Ocultando contraseñas!...');
+                Alert_Sonner_Promise(promise,'¡Ocultando contraseñas!...');
             },30000);            
         }
 

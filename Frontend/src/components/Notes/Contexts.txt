@@ -31,6 +31,7 @@ const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFields
 //____________REF____________
 const isAlertGreeting = useContext(RefAlertGreetingContext); ✔️
 const isKeyboard = useContext(RefKeyboardContext); ✔️
+const isKeyboardTouch = useContext(RefKeyboardTouchContext); ✔️
 const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext); ✔️
 const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext); ✔️
 const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext); ✔️
@@ -98,20 +99,20 @@ const [isDeletedSupplyCategories,setIsDeletedSupplyCategories] = useContext(Dele
 const [isSupplyCategoryDelete,setIsSupplyCategoryDelete] = useContext(SupplyCategoryDeleteContext); ✔️
 //____________SUPPLIERS____________
 //____________USERS____________
-const [isUsers,setIsUsers] = useContext(UsersContext); ✔️
+const [isUsers] = useContext(UsersContext); ✔️
 const [isUserAdd,setIsUserAdd] = useContext(UserAddContext); ✔️
 const [isUsersViewPassword,setIsUsersViewPassword] = useContext(UsersViewPasswordContext); ✔️
 const [isUserEdit,setIsUserEdit] = useContext(UserEditContext); ✔️
-const [isDeletedUsers,setIsDeletedUsers] = useContext(DeletedUsersContext); ✔️
+const [isDeletedUsers] = useContext(DeletedUsersContext); ✔️
 const [isUserDelete,setIsUserDelete] = useContext(UserDeleteContext); ✔️
-const [isPermissions,setIsPermissions] = useContext(PermissionsContext); ✔️
+const [isPermissions] = useContext(PermissionsContext); ✔️
 const [isPermissionsAdd,setIsPermissionsAdd] = useContext(PermissionsAddContext); ✔️
 const [isPermissionsEdit,setIsPermissionsEdit] = useContext(PermissionsEditContext); ✔️
 const [isPermissionsEnable,setIsPermissionsEnable] = useContext(PermissionsEnableContext); ✔️
-const [isStatus,setIsStatus] = useContext(StatusContext); ✔️
+const [isStatus] = useContext(StatusContext); ✔️
 const [isStatusAdd,setIsStatusAdd] = useContext(StatusAddContext); ✔️
 const [isStatusEnable,setIsStatusEnable] = useContext(StatusEnableContext); ✔️
-const [isUserTypes,setIsUserTypes] = useContext(UserTypesContext); ✔️
+const [isUserTypes] = useContext(UserTypesContext); ✔️
 //____________USERS____________
 //____________VARIABLES____________
 const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext); ✔️

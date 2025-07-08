@@ -23,12 +23,12 @@ import { MdEdit } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Column_90_Center,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_500,Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Input_Text_Black_100,Input_Group } from "../../../styled/Inputs";
-import { Icon_White_22,Icon_Button_Blue_16,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_White_30 } from "../../../styled/Icons";
-import { Alert_Verification,Alert_Sonner_Warning } from "../../../styled/Alerts";
+import { Input_Text_100_Black,Input_Group } from "../../../styled/Inputs";
+import { Icon_20,Icon_Button_Blue_16,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_28 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
 import { Label_Text_12_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
@@ -225,27 +225,27 @@ export default function Supplier_Edit(){
                 }
             });
 
-            Alert_Verification(promise,'Editando un proveedor!...');
+            Alert_Sonner_Promise(promise,'Editando un proveedor!...');
         }
     },[isSupplierEdit]);
     // Estructura del componente
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal ref={Modal_Suppliers}>
+                <Container_Modal_Background_Black ref={Modal_Suppliers}>
                     <Container_Form_500 ref={Form_Suppliers} ThemeMode={themeMode} className={currentMView === 'Proveedor-Editar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Row_100_Center>
                             <Text_Title_32_Black ThemeMode={themeMode}>EDITAR PROVEEDOR</Text_Title_32_Black>
                         </Container_Row_100_Center>
-                        <Container_Row_NG_95_Center>
+                        <Container_Row_NG_Auto_Center>
                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_95_Center>
-                        <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        </Container_Row_NG_Auto_Center>
+                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Name"
                                         placeholder="..."
                                         type="text"
@@ -274,7 +274,7 @@ export default function Supplier_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>RFC:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Rfc"
                                         placeholder="(Opcional)..."
                                         type="text"
@@ -295,7 +295,7 @@ export default function Supplier_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Domicilio:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Address"
                                         placeholder="(Opcional)..."
                                         type="text"
@@ -324,7 +324,7 @@ export default function Supplier_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Teléfono:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Phone"
                                         placeholder="(Opcional)..."
                                         type="text"
@@ -345,7 +345,7 @@ export default function Supplier_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Correo:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         id="Input-Email"
                                         placeholder="..."
                                         type="text"
@@ -371,33 +371,33 @@ export default function Supplier_Edit(){
                                     <MdCancel/>
                                 </Icon_Button_Blue_16>
                             </Container_Row_100_Center>
-                        </Container_Column_90_Center>
-                        <Container_Row_95_Center>
+                        </Container_Column_100_Center>
+                        <Container_Row_100_Center>
                             {isTextFieldsSupplier.calificacion === 0 ? (
                                 <>
                                     <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_30>
                                     <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_30>
                                     <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_30>
-                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                    <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                    <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                 </>
                             ):(
                                 isTextFieldsSupplier.calificacion <= 1 ? (
                                     <>
                                         <Icon_Red_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Red_30>
-                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_White_30>
-                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_White_30>
-                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_28>
+                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
+                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                     </>
                                 ):(
                                     isTextFieldsSupplier.calificacion <=2 ? (
                                         <>
                                             <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Orange_30>
                                             <Icon_Orange_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Orange_30>
-                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_White_30>
-                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                            <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
+                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                         </>
                                     ):(
                                         isTextFieldsSupplier.calificacion <=3 ? (
@@ -405,8 +405,8 @@ export default function Supplier_Edit(){
                                                 <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Yellow_30>
                                                 <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Yellow_30>
                                                 <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Yellow_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_White_30>
-                                                <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                             </>
                                         ):(
                                             isTextFieldsSupplier.calificacion <=4 ? (
@@ -415,7 +415,7 @@ export default function Supplier_Edit(){
                                                     <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Lime_Green_30>
                                                     <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Lime_Green_30>
                                                     <Icon_Lime_Green_30 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Lime_Green_30>
-                                                    <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                                    <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                                 </>
                                             ):(
                                                 isTextFieldsSupplier.calificacion <=5 ? (
@@ -434,18 +434,18 @@ export default function Supplier_Edit(){
                                     )
                                 )
                             )}
-                        </Container_Row_95_Center>
-                        <Container_Row_95_Center>
+                        </Container_Row_100_Center>
+                        <Container_Row_100_Center>
                             <Text_Span_12_Justify_Black ThemeMode={themeMode}>Es importante recordar la modificación del nombre, ya que este se emplea para identificar los insumos asociados al proveedor, para registrar nuevos insumos a su nombre o realizar solicitudes de insumos a su nombre. La modificación del correo puede afectar la recepción de solicitudes relacionadas con los pedidos de sus insumos.</Text_Span_12_Justify_Black>
-                        </Container_Row_95_Center>
-                        <Container_Row_95_Center>
+                        </Container_Row_100_Center>
+                        <Container_Row_100_Center>
                             <Tooltip title='Cancelar' placement='top'>
                                 <span>
                                     <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalViewSuppliers('')}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Red_210>
                                 </span>
                             </Tooltip>
@@ -455,11 +455,11 @@ export default function Supplier_Edit(){
                                         onClick={() => handleSupplierEdit()}
                                         disabled={isActionBlock}    
                                     >
-                                        <Icon_White_22><MdEdit/></Icon_White_22>
+                                        <Icon_20><MdEdit/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </span>
                             </Tooltip>
-                        </Container_Row_95_Center>
+                        </Container_Row_100_Center>
                     </Container_Form_500>
                     {isKeyboard ? (
                         isKeyboardView === 'Name' || isKeyboardView === 'Rfc' || isKeyboardView === 'Address' || isKeyboardView === 'Email' ? (
@@ -478,7 +478,7 @@ export default function Supplier_Edit(){
                     ):(
                         <></>
                     )}
-                </Container_Modal>
+                </Container_Modal_Background_Black>
             ):(
                 currentMView === 'Proveedor-Editar' ? (
                     <>

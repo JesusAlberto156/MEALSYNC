@@ -27,12 +27,12 @@ import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_90_Center,Container_Row_95_Center,Container_Row_NG_95_Center } from "../../../styled/Containers";
+import { Container_Modal,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_12_Justify_Black,Text_Span_20_Center_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Icon_White_22,Icon_22,Icon_Button_Blue_16 } from "../../../styled/Icons";
-import { Input_Text_Black_100,Input_Text_Black_50 } from "../../../styled/Inputs";
-import { Alert_Verification } from "../../../styled/Alerts";
+import { Icon_20,Icon_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
+import { Input_Text_100_Black,Input_Text_60_Black } from "../../../styled/Inputs";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
 //____________IMPORT/EXPORT____________
@@ -91,7 +91,7 @@ export default function Supply_Type_Edit(){
                 }
             });
 
-            Alert_Verification(promise,'Actualizando un tipo de insumo!...');
+            Alert_Sonner_Promise(promise,'Actualizando un tipo de insumo!...');
         }
     },[isSupplyTypeEdit]);
     // UseEffect para quitar la suscrpcion de socket
@@ -124,14 +124,14 @@ export default function Supply_Type_Edit(){
                             <Container_Row_100_Center>
                                 <Text_Title_32_Black ThemeMode={themeMode}>EDITAR TIPO DE INSUMO</Text_Title_32_Black>
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupplyTypes.type}
@@ -140,7 +140,7 @@ export default function Supply_Type_Edit(){
                                 </Container_Row_100_Center>
                                 <Container_Row_100_Center>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>Descripción:</Text_Span_16_Center_Black>
-                                    <Input_Text_Black_100 ThemeMode={themeMode}
+                                    <Input_Text_100_Black ThemeMode={themeMode}
                                         placeholder="..."
                                         type="text"
                                         value={isTextFieldsSupplyTypes.description}
@@ -153,24 +153,24 @@ export default function Supply_Type_Edit(){
                                         <MdCancel/>
                                     </Icon_Button_Blue_16>
                                 </Container_Row_100_Center>
-                            </Container_Column_90_Center>
+                            </Container_Column_100_Center>
                             <Container_Row_100_Center>
                                 <Text_Span_12_Justify_Black ThemeMode={themeMode}>Si editas los datos generales, se modificarán para todos los tipos de insumo que compartan el mismo nombre, incluso si cambias el nombre en uno de ellos.</Text_Span_12_Justify_Black>
                             </Container_Row_100_Center>
-                            <Container_Row_NG_95_Center>
+                            <Container_Row_NG_Auto_Center>
                                 <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_95_Center>
-                            <Container_Column_90_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                                <Container_Row_NG_95_Center>
+                            </Container_Row_NG_Auto_Center>
+                            <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Medidas...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Center>
+                                </Container_Row_NG_Auto_Center>
                                 {isUnits.length !== 0 ? (
                                     <>
                                         <Container_Row_100_Center>
-                                            <Icon_22><FcSearch/></Icon_22>
-                                            <Input_Text_Black_50 
+                                            <Icon_20><FcSearch/></Icon_20>
+                                            <Input_Text_60_Black 
                                                 ThemeMode={themeMode}
                                                 type="text"
                                                 placeholder="Buscar..."
@@ -253,21 +253,21 @@ export default function Supply_Type_Edit(){
                                         </Container_Row_100_Center>
                                     </>
                                 )}
-                            </Container_Column_90_Center>
-                            <Container_Row_95_Center>
+                            </Container_Column_100_Center>
+                            <Container_Row_100_Center>
                                 <Tooltip title='Cancelar' placement='top'>
                                     <Button_Icon_Red_210 ThemeMode={themeMode} className='pulsate-buttom'
                                         onClick={() => handleModalView('')}>
-                                        <Icon_White_22><MdCancel/></Icon_White_22>
+                                        <Icon_20><MdCancel/></Icon_20>
                                     </Button_Icon_Red_210>
                                 </Tooltip>
                                 <Tooltip title='Editar' placement='top'>
                                     <Button_Icon_Blue_210 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                         onClick={() => handleSupplyTypeEdit()}>
-                                        <Icon_White_22><MdEdit/></Icon_White_22>
+                                        <Icon_20><MdEdit/></Icon_20>
                                     </Button_Icon_Blue_210>
                                 </Tooltip>
-                            </Container_Row_95_Center>
+                            </Container_Row_100_Center>
                         </Container_Form_500>
                     </Container_Modal>
                 </>

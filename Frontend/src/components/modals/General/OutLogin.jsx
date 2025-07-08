@@ -16,10 +16,10 @@ import { MdCancel } from "react-icons/md";
 import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal,Container_Form_350,Container_Row_100_Center,Container_Row_95_Center,Container_Row_NG_95_Left } from "../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Form_350,Container_Row_100_Center,Container_Row_NG_100_Center } from "../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../../styled/Text";
 import { Button_Icon_Blue_120,Button_Icon_Red_120 } from "../../styled/Buttons";
-import { Icon_White_22 } from "../../styled/Icons";
+import { Icon_20 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Modal para cerrar sesión
@@ -38,31 +38,31 @@ export default function Out_Login(){
         <>
             {isModal ? (
                 <>
-                    <Container_Modal>
+                    <Container_Modal_Background_Black>
                         <Container_Form_350 className={currentMView === 'Cerrar-Sesión' ? 'slide-in-container-top' : 'slide-out-container-top'} ThemeMode={themeMode}>
                                 <Container_Row_100_Center>
                                     <Text_Title_32_Black ThemeMode={themeMode}>¿ESTAS SEGURO?</Text_Title_32_Black>
                                 </Container_Row_100_Center>
-                                <Container_Row_NG_95_Left>
+                                <Container_Row_NG_100_Center>
                                     <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black ThemeMode={themeMode}>- Cerrará la sesión...</Text_Span_16_Center_Black>
-                                </Container_Row_NG_95_Left>
-                                <Container_Row_95_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                                </Container_Row_NG_100_Center>
+                                <Container_Row_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
                                     <Tooltip title="Cancelar" placement="top">
                                         <Button_Icon_Blue_120 ThemeMode={themeMode} className={isAnimation ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleModalView('')}>
-                                            <Icon_White_22><MdCancel/></Icon_White_22>
+                                            <Icon_20><MdCancel/></Icon_20>
                                         </Button_Icon_Blue_120>
                                     </Tooltip>
                                     <Tooltip title="Cerrar sesión" placement="top">
                                         <Button_Icon_Red_120 ThemeMode={themeMode} className={isActionBlock ? 'roll-out-button-left' : 'roll-in-button-left'}
                                             onClick={() => handleLoggedLog()}>
-                                            <Icon_White_22><ImExit/></Icon_White_22>
+                                            <Icon_20><ImExit/></Icon_20>
                                         </Button_Icon_Red_120>
                                     </Tooltip>
-                                </Container_Row_95_Center>
+                                </Container_Row_100_Center>
                         </Container_Form_350>
-                    </Container_Modal>  
+                    </Container_Modal_Background_Black>  
                 </>
             ):(
                 <></>

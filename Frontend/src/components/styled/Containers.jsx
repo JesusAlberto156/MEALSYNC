@@ -11,6 +11,11 @@ import Background_Home from '../imgs/Background-Home.jpg';
 import Background_Users from '../imgs/Background-Users.jpg';
 // Proveedores
 import Background_Suppliers from '../imgs/Background-Suppliers.jpg';
+// Menus
+import Background_Menus_Menu from '../imgs/Background-Menu-Menu.jpg';
+import Background_Menus_Dishes from '../imgs/Background-Menu-Dishes.jpg';
+import Background_Menus_Side_Dishes from '../imgs/Background-Menu-Side-Dishes.jpg';
+import Background_Menus_Drinks from '../imgs/Background-Menu-Drinks.jpg';
 // AREÁ COCINA
 //__________IMAGE__________
 //____________IMPORT/EXPORT____________
@@ -19,7 +24,6 @@ import Background_Suppliers from '../imgs/Background-Suppliers.jpg';
 export const Container_Page = styled.div`
     display: flex;
     justify-content: flex-start;
-    flex-direction: column;
     width: 100vw;
     min-height: 100vh;
     max-height: none;
@@ -33,15 +37,14 @@ export const Container_Page_Login = styled.div`
     max-height: 100vh;
     height: 100vh;
     display: flex;
-    padding-top: 60px;
     flex-direction: column;
     align-Items: center;
-    justify-content: flex-start;
+    justify-content: center;
     overflow-y: auto
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
@@ -58,16 +61,15 @@ export const Container_Page_Login = styled.div`
         background-color: rgb(82, 126, 231);
     }
 
-    @media (max-width: 768px) {
-        padding-top: 80px;
-    }
-
     @media (max-width: 480px) {
-        padding-top: 100px;
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 `;
 export const Container_Page_Logged = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'TypeUser' && prop !== 'Logged' && prop !== 'Sidebar',
+    shouldForwardProp: (prop) => prop !== 'TypeUser' && prop !== 'Logged' && prop !== 'Sidebar' && prop !== 'Navbar',
 })`
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Inicio') && Logged ? 
         `background-image: url(${Background_Home});`:''
@@ -77,6 +79,18 @@ export const Container_Page_Logged = styled.div.withConfig({
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Proveedores') && Logged ? 
         `background-image: url(${Background_Suppliers});`:''
+    }
+    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Menus') && Logged ? 
+        `background-image: url(${Background_Menus_Menu});`:''
+    }
+    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Platillos') && Logged ? 
+        `background-image: url(${Background_Menus_Dishes});`:''
+    }
+    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Guarniciones') && Logged ? 
+        `background-image: url(${Background_Menus_Side_Dishes});`:''
+    }
+    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Bebidas') && Logged ? 
+        `background-image: url(${Background_Menus_Drinks});`:''
     }
     background-Size: cover;
     background-Position: center;
@@ -95,7 +109,7 @@ export const Container_Page_Elements = styled.div.withConfig({
     max-width: ${({ sidebarVisible }) => (sidebarVisible ? "81vw" : "100vw")}; 
     min-height: 100vh;
     overflow-y: auto;
-    gap: 15px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
     align-Items: center;
@@ -104,8 +118,8 @@ export const Container_Page_Elements = styled.div.withConfig({
     transition: all ${({ sidebarVisible }) => (sidebarVisible ? "0.3s" : "1.0s")} ease;
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
@@ -123,38 +137,37 @@ export const Container_Page_Elements = styled.div.withConfig({
     }
 
     @media (max-width: 768px) {
-        gap: 10px;
+        gap: 15px;
         margin-left: ${({ sidebarVisible }) => (sidebarVisible ? "28%" : "0%")};  
         max-width: ${({ sidebarVisible }) => (sidebarVisible ? "72vw" : "100vw")}; 
     }
 
     @media (max-width: 480px) {
-        gap: 5px;
+        gap: 10px;
         margin-left: ${({ sidebarVisible }) => (sidebarVisible ? "38%" : "0%")}; 
         max-width: ${({ sidebarVisible }) => (sidebarVisible ? "62vw" : "100vw")}; 
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 `;
 export const Container_Page_Error = styled.div`
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
-    position: fixed; 
-    justify-content: flex-start; 
+    justify-content: Center; 
     align-items: center;   
     flex-direction: column;
-    gap: 20px;      
-    top: 0; 
-    left: 0;
-    padding-top: 15vh;
+    gap: 20px;
     background: rgb(155, 9, 9);
 
     @media (max-width: 768px) {
-        padding-top: 20vh;
         gap: 15px;
     }
 
     @media (max-width: 480px) {
-        padding-top: 25vh;
         gap: 10px;
     }
 `;
@@ -279,42 +292,6 @@ export const Container_Form_400 = styled.div.withConfig({
 
     @media (max-width: 480px) {
         width: 300px;    
-        padding: 16px;
-        gap: 10px;
-    }
-`;
-export const Container_Form_350 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    z-index: 100;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    width: 350px;
-    max-height: 80vh;
-    padding: 20px;
-    gap: 14px;
-    border-radius: 50px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255,255,255)' : 'rgb(0,0,0)')};
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        width: 300px;
-        padding: 18px;
-        gap: 12px;
-    }
-
-    @media (max-width: 480px) {
-        width: 250px;    
         padding: 16px;
         gap: 10px;
     }
@@ -695,109 +672,127 @@ export const Container_Modal_Image = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    width: 0;
-    height: 0;
-    border-top: 200px solid rgba(255, 255, 255, 0.95);
-    border-right: 200px solid transparent;
+    width: 15vw;
+    height: 15vw;
+    background-color: rgba(255, 255, 255, 0.90);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
     z-index: 999;
 
+    @media (max-width: 1000px) { 
+        width: 20vw;
+        height: 20vw;
+    }
+
     @media (max-width: 768px) { 
-        border-top: 175px solid rgba(255, 255, 255, 0.95);
-        border-right: 175px solid transparent;
+        width: 25vw;
+        height: 25vw;
     }
 
     @media (max-width: 480px) {
-        border-top: 150px solid rgba(255, 255, 255, 0.95);
-        border-right: 150px solid transparent;
+        width: 30vw;
+        height: 30vw;
     }
 `;
-export const Container_Modal_Form_White_50 = styled.div`
+export const Container_Modal_Form_White_600 = styled.div`
     z-index: 100;
+    position: relative;
     display: flex;
     justify-content: flex-start;
-    box-sizing: border-box;
-    max-width: 50vw;
-    max-height: 70vh;
-    padding: 15px;
-    padding-top: 35px;
-    gap: 15px;
+    width: 600px;
+    height: auto;
+    max-height: 80vh;
+    padding: 20px;
     border-radius: 50px;
     border: 3px solid black;
-    border-right: 7px solid black;
-    border-bottom: 7px solid black;
+    border-right: 8px solid black;
+    border-bottom: 8px solid black;
     background-color: rgba(255, 255, 255, 0.75);
 
     @media (max-width: 768px) {
         border-radius: 30px;
         border: 2px solid black;
-        border-right: 6px solid black;
-        border-bottom: 6px solid black;
-        max-width: 70vw;
-        max-height: 60vh;
-        padding: 10px;
-        padding-top: 25px;
-        gap: 10px;
+        border-right: 7px solid black;
+        border-bottom: 7px solid black;
+        padding: 15px;
+        width: 450px;
+        max-height: 70vh;
     }
 
     @media (max-width: 480px) {
         border-radius: 20px;
         border: 1px solid black;
-        border-right: 5px solid black;
-        border-bottom: 5px solid black;
-        padding: 5px;
-        padding-top: 15px;
-        max-width: 80vw;
-        max-height: 50vh;
-        gap: 5px;
+        border-right: 6px solid black;
+        border-bottom: 6px solid black;
+        padding: 10px;
+        width: 300px;
+        max-height: 60vh;
     }
 `;
-export const Container_Modal_Form_White_35 = styled.div`
+export const Container_Modal_Form_White_500 = styled.div`
     z-index: 100;
+    position: relative;
     display: flex;
     justify-content: flex-start;
-    box-sizing: border-box;
-    max-width: 35vw;
-    max-height: 70vh;
-    padding: 15px;
-    padding-top: 35px;
-    gap: 15px;
+    width: 500px;
+    height: auto;
+    max-height: 80vh;
+    padding: 20px;
     border-radius: 50px;
     border: 3px solid black;
-    border-right: 7px solid black;
-    border-bottom: 7px solid black;
+    border-right: 8px solid black;
+    border-bottom: 8px solid black;
     background-color: rgba(255, 255, 255, 0.75);
 
     @media (max-width: 768px) {
         border-radius: 30px;
         border: 2px solid black;
-        border-right: 6px solid black;
-        border-bottom: 6px solid black;
-        max-width: 55vw;
-        max-height: 60vh;
-        padding: 10px;
-        padding-top: 25px;
-        gap: 10px;
+        border-right: 7px solid black;
+        border-bottom: 7px solid black;
+        padding: 15px;
+        width: 400px;
+        max-height: 70vh;
     }
 
     @media (max-width: 480px) {
         border-radius: 20px;
         border: 1px solid black;
-        border-right: 5px solid black;
-        border-bottom: 5px solid black;
-        padding: 5px;
-        padding-top: 15px;
-        max-width: 65vw;
-        max-height: 50vh;
-        gap: 5px;
+        border-right: 6px solid black;
+        border-bottom: 6px solid black;
+        padding: 10px;
+        width: 300px;
+        max-height: 60vh;
+    }
+`;
+export const Container_Modal_Form_White = styled.div`
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    padding: 20px;
+    padding-right: 10px;
+    background: rgb(255,255,255);
+    border-radius: 50px;
+    display: flex;            
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    @media (max-width: 768px) { 
+        border-radius: 30px;
+        padding: 15px;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 20px;
+        padding: 10px;
     }
 `;
 export const Container_Modal_Form = styled.div`
     width: 100%;
-    height: auto;
+    height: 100%;
     max-height: 100%;
-    gap: 10px;
-    background: transparent;
-    padding: 10px;
+    gap: 20px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     display: flex;            
     justify-content: flex-start;
     flex-direction: column;
@@ -805,8 +800,8 @@ export const Container_Modal_Form = styled.div`
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
@@ -823,61 +818,40 @@ export const Container_Modal_Form = styled.div`
         background-color: rgb(82, 126, 231);
     }
 
-    @media (max-width: 768px) { 
-        gap: 8px;
-        padding: 8px;
-    }
-
-    @media (max-width: 480px) {
-        gap: 6px;
-        padding: 6px;
-    }
-`;
-export const Container_Modal_Form_White = styled.div`
-    width: 93%;
-    height: auto;
-    margin-top: 20px;
-    padding: 20px;
-    gap: 20px;
-    border-radius: 50px;
-    background: white;
-    display: flex;            
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
-
-    @media (max-width: 768px) { 
-        border-radius: 30px;
-        margin-top: 15px;
-        padding: 15px;
+    @media (max-width: 768px) {
         gap: 15px;
+        padding-right: 8px;
+        padding-bottom: 8px;
+        padding-top: 8px;
     }
 
     @media (max-width: 480px) {
-        border-radius: 20px;
-        margin-top: 10px;
-        padding: 10px;
         gap: 10px;
+        padding-right: 6px;
+        padding-bottom: 6px;
+        padding-top: 6px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 `;
 export const Container_Modal_Form_Button = styled.div`
     width: 100%;
     height: auto;
-    padding: 20px;
-    gap: 25px;
+    gap: 30px;
     background: transparent;
     display: flex;            
     justify-content: center;
     align-items: center;
 
     @media (max-width: 768px) { 
-        padding: 15px;
-        gap: 20px;
+        gap: 25px;
     }
 
     @media (max-width: 480px) {
-        padding: 10px;
-        gap: 15px;
+        gap: 20px;
     }
 `;
 //____________MODAL____________
@@ -938,28 +912,67 @@ export const Container_Keyboard_Numeric = styled.div`
 `;
 //____________KEYBOARD____________
 //____________LOGIN____________
-export const Container_Login_Form_White_350 = styled.div`
+export const Container_Login_Form_White_Auto = styled.div`
     z-index: 100;
     position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
-    width: auto;
-    height: 70vh;
+    width: 35vw;
+    height: auto;
+    max-height: 70vh;
     padding: 20px;
     border-radius: 50px;
     border: 3px solid black;
     border-right: 7px solid black;
     border-bottom: 7px solid black;
+    margin-top: 10vh;
     background-color: rgba(255, 255, 255, 0.75);
     
+    @media (max-width: 1200px) {
+        width: 39vw;
+    }
+
+    @media (max-width: 1100px) {
+        width: 43vw;
+    }
+
+    @media (max-width: 1000px) {
+        width: 47vw;
+    }
+
+    @media (max-width: 900px) {
+        width: 51vw;
+    }
+
+    @media (max-width: 800px) {
+        width: 55vw;
+    }
+
     @media (max-width: 768px) {
         border-radius: 30px;
         border: 2px solid black;
         border-right: 6px solid black;
         border-bottom: 6px solid black;
         padding: 15px;
-        height: 60vh;
+        max-height: 60vh;
+        width: 50vw;
+        margin-top: 15vh;
+    }
+
+    @media (max-width: 700px) {
+        width: 54vw;
+    }
+
+    @media (max-width: 600px) {
+        width: 58vw;
+    }
+
+    @media (max-width: 550px) {
+        width: 64vw;
+    }
+
+    @media (max-width: 500px) {
+        width: 70vw;
     }
 
     @media (max-width: 480px) {
@@ -968,7 +981,49 @@ export const Container_Login_Form_White_350 = styled.div`
         border-right: 5px solid black;
         border-bottom: 5px solid black;   
         padding: 10px;
-        height: 50vh;
+        width: 60vw;
+        max-height: 50vh;
+        margin-top: 20vh;
+    }
+
+    @media (max-width: 400px) {
+        width: 70vw;
+    }
+    
+    @media (max-width: 350px) {
+        width: 80vw;
+    }
+
+    @media (max-width: 300px) {
+        width: 85vw;
+    }
+
+    @media (max-width: 250px) {
+        width: 90vw;
+    }
+`;
+export const Container_Login_Form_White = styled.div`
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    padding: 20px;
+    padding-right: 10px;
+    background: rgb(255,255,255);
+    border-radius: 50px;
+    display: flex;            
+    justify-content: flex-start;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        border-radius: 30px;
+        padding: 15px;
+        padding-right: 8px;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 20px;
+        padding: 10px;
+        padding-right: 6px;
     }
 `;
 export const Container_Login_Form = styled.div`
@@ -976,12 +1031,10 @@ export const Container_Login_Form = styled.div`
     height: auto;
     max-height: 100%;
     gap: 20px;
-    padding-bottom: 25px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background: rgb(255,255,255);
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
     display: flex;            
     justify-content: flex-start;
     flex-direction: column;
@@ -989,8 +1042,8 @@ export const Container_Login_Form = styled.div`
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
@@ -1008,23 +1061,376 @@ export const Container_Login_Form = styled.div`
     }
 
     @media (max-width: 768px) {
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px; 
         gap: 15px;
-        padding-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-right: 8px;
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 
     @media (max-width: 480px) {
-        border-radius: 20px;
         gap: 10px;
-        padding-bottom: 15px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-right: 6px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 `;
 //____________LOGIN____________
+//____________HOME____________
+export const Container_Home_Section = styled.div`
+    z-index: 10;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    background-color: transparent;
+`;
+export const Container_Home_Section_Title = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;        
+    background: rgba(255,255,255,0.85);
+    width: auto;
+    height: auto; 
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+    border: 2px solid black; 
+    border-right: 6px solid black;
+    border-bottom: 6px solid black;
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+        padding: 8px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 25px;
+        border: 2px solid black; 
+        border-right: 5px solid black;
+        border-bottom: 5px solid black;
+    }
+
+    @media (max-width: 480px) {
+        padding: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 20px;
+        border: 1px solid black; 
+        border-right: 4px solid black;
+        border-bottom: 4px solid black;
+    }
+}
+`;
+export const Container_Home_Section_Column_50_Center = styled.div`
+    width: 50%;
+    height: 100%;
+    gap: 10px;
+    background: transparent;
+    display: flex; 
+    flex-direction: column;           
+    justify-content: flex-start;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 6px;
+    }
+`;
+export const Container_Home_Section_Column_50_Left = styled.div`
+    width: 50%;
+    height: 100%;
+    gap: 10px;
+    background: transparent;
+    display: flex; 
+    flex-direction: column;           
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 6px;
+    }
+`;
+export const Container_Home_Section_Row_50_Center = styled.div`
+    width: 50%;
+    height: 100%;
+    gap: 10px;
+    background: transparent;
+    display: flex;           
+    justify-content: flex-start;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 6px;
+    }
+`;
+export const Container_Home_Section_Row_50_Left = styled.div`
+    width: 50%;
+    height: 100%;
+    gap: 10px;
+    background: transparent;
+    display: flex;           
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    @media (max-width: 768px) {
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 6px;
+    }
+`;
+export const Container_Home_Section_Header = styled.div`
+    width: 100%;
+    height: auto;
+    padding: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    border-top: 2px solid black;
+    border-bottom: 6px solid black;
+    display: flex;            
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-bottom: 5px solid black;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-top: 1px solid black;
+        border-bottom: 4px solid black;
+    }
+`;
+export const Container_Home_Section_Body = styled.div`
+    width: auto;
+    height: auto;
+    padding: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 30px;
+    display: flex;            
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        padding-left: 25px;
+        padding-right: 25px;
+        border-radius: 25px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 20px;
+    }
+`;
+//---------- Footer
+export const Container_Home_Section_Footer_Left = styled.div`
+    width: auto;
+    height: auto;
+    gap: 10px;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background: rgba(255, 255, 255, 0.85);
+    display: flex;            
+    justify-content: center;
+    flex-direction: column; 
+    align-items: flex-start;
+
+    @media (max-width: 768px) {
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        padding: 8px;
+        padding-left: 35px;
+        padding-right: 25px;
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        padding: 6px;
+        padding-left: 30px;
+        padding-right: 30px;
+        gap: 6px;
+    }
+`;
+export const Container_Home_Section_Footer_Right = styled.div`
+    width: auto;
+    height: auto;
+    gap: 10px;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 40px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background: rgba(255, 255, 255, 0.85);
+    display: flex;            
+    justify-content: center;
+    flex-direction: column; 
+    align-items: flex-end;
+
+    @media (max-width: 768px) {
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+        padding: 8px;
+        padding-left: 25px;
+        padding-right: 35px;
+        gap: 8px;
+    }
+
+    @media (max-width: 480px) {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        padding: 6px;
+        padding-left: 20px;
+        padding-right: 30px;
+        gap: 6px;
+    }
+`;
+//---------- Footer
+//----------Scroll
+export const Container_Home_Section_Column_Scroll_Left = styled.div`
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    gap: 20px;
+    background: transparent;
+    display: flex;            
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;          
+        height: 6px;  
+        background-color:rgb(255, 255, 255);
+        border-radius: 20px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(58,93,174);
+        border-radius: 30px;
+        border: 1px solid rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(82, 126, 231);
+    }
+
+    @media (max-width: 768px) {
+        gap: 15px;
+        padding-right: 8px;
+        padding-left: 8px;
+        padding-bottom: 8px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 10px;
+        padding-right: 6px;
+        padding-left: 6px;
+        padding-bottom: 6px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
+    }
+`;
+export const Container_Home_Section_Row_Scroll_Left = styled.div`
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    gap: 20px;
+    background: transparent;
+    display: flex;            
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;          
+        height: 6px;  
+        background-color:rgb(255, 255, 255);
+        border-radius: 20px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(58,93,174);
+        border-radius: 30px;
+        border: 1px solid rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(82, 126, 231);
+    }
+
+    @media (max-width: 768px) {
+        gap: 15px;
+        padding-right: 8px;
+        padding-left: 8px;
+        padding-bottom: 8px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 10px;
+        padding-right: 6px;
+        padding-left: 6px;
+        padding-bottom: 6px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
+    }
+`;
+//----------Scroll
+//____________HOME____________
 //____________SETTINGBAR____________
 export const Container_Settingbar_Row_White = styled.div`
     width: 100%;
@@ -1058,7 +1464,6 @@ export const Container_Settingbar_Row_White = styled.div`
 export const Container_Sidebar_Column_Black = styled.div`
     max-width: 19vw;
     height: 100vh;
-    padding: 10px;
     padding-top: 40px;
     gap: 15px;
     background-color:rgba(0, 0, 0, 0.85);
@@ -1075,8 +1480,8 @@ export const Container_Sidebar_Column_Black = styled.div`
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
@@ -1095,16 +1500,19 @@ export const Container_Sidebar_Column_Black = styled.div`
 
     @media (max-width: 768px) {
         max-width: 28vw;
-        padding: 8px;
         padding-top: 35px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
         max-width: 38vw;
-        padding: 6px;
         padding-top: 30px;
         gap: 5px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 
     &.hidden {
@@ -1118,7 +1526,7 @@ export const Container_Sidebar_Column_Black = styled.div`
 export const Container_Sidebar_Column = styled.div`
     max-width: 100%;
     height: auto;
-    padding: 10px;
+    padding: 25px;
     gap: 15px;
     box-sizing: border-box;
     margin-bottom: auto;
@@ -1130,8 +1538,8 @@ export const Container_Sidebar_Column = styled.div`
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
@@ -1150,14 +1558,19 @@ export const Container_Sidebar_Column = styled.div`
 
     @media (max-width: 768px) {
         max-width: 28vw;
-        padding: 8px;
-        gap: 10px;    
+        padding: 20px;
+        gap: 10px;   
     }
 
     @media (max-width: 480px) {
         max-width: 38vw;
-        padding: 6px;
+        padding: 15px;
         gap: 5px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 `;
 //____________SIDEBAR____________
@@ -1201,9 +1614,10 @@ export const Container_Navbar_Row_General = styled.div`
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
+        border: 1px solid rgba(0, 0, 0, 1);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
     }
@@ -1211,7 +1625,7 @@ export const Container_Navbar_Row_General = styled.div`
     &::-webkit-scrollbar-thumb {
         background-color: rgb(58,93,174);
         border-radius: 30px;
-        border: 1px solid rgb(255, 255, 255);
+        border: 1px solid rgba(0, 0, 0, 1);
         cursor: pointer;
     }
 
@@ -1225,12 +1639,17 @@ export const Container_Navbar_Row_General = styled.div`
 
     @media (max-width: 480px) {
         gap: 6px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 `;
 export const Container_Navbar_Row_Function_Blue = styled.div`
     width: auto;
     height: auto;
-    gap: 10px;
+    gap: 20px;
     background: rgb(58,93,174);
     border-radius: 50px;
     border: 4px solid black; 
@@ -1249,7 +1668,7 @@ export const Container_Navbar_Row_Function_Blue = styled.div`
         padding-bottom: 8px;
         padding-right: 15px;
         padding-left: 15px; 
-        gap: 8px;
+        gap: 15px;
     }
 
     @media (max-width: 480px) {
@@ -1259,7 +1678,7 @@ export const Container_Navbar_Row_Function_Blue = styled.div`
         padding-bottom: 6px;
         padding-right: 10px;
         padding-left: 10px; 
-        gap: 6px;
+        gap: 10px;
     }
 `;
 export const Container_Navbar_Row_Buttom = styled.div`
@@ -1340,8 +1759,8 @@ export const Container_Searchbar_Row_General = styled.div`
     overflow-x: auto;
 
     &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
+        width: 6px;          
+        height: 6px;  
         background-color:rgb(255, 255, 255);
         border-radius: 20px;
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
@@ -1368,6 +1787,11 @@ export const Container_Searchbar_Row_General = styled.div`
         width: 90%;
         max-width: 90%;
         gap: 6px;
+
+        &::-webkit-scrollbar {
+            width: 4px;          
+            height: 4px;  
+        }
     }
 }
 `;

@@ -10,6 +10,8 @@ export const LoggedStatusContext = createContext(null);
 export const LoggedLogContext = createContext(null);
 export const LoggedLoggedContext = createContext(null);
 export const LoggedTypeContext = createContext(null);
+// Hooks personalizados
+import { DeleteSessionStorage } from "../hooks/Session";
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 //____________IMPORT/EXPORT____________
@@ -154,6 +156,8 @@ export const Logged_Logged = ({ children }) => {
         }
         return logged
     });
+    // Constantes con el valor de los hooks
+    const deleteSessionStorage = DeleteSessionStorage();
     // UseEffect para actualizar datos en la base de datos de la sesión activa/inactiva
     useEffect(() => {
         if(isLoggedLogged && isLoggedUser.length !== 0){
@@ -164,6 +168,30 @@ export const Logged_Logged = ({ children }) => {
             socket.emit('Update-Status-Log',isLoggedUser.idusuario,isLoggedStatus.idestatus,0);
         }
     },[isLoggedLogged]);
+    // UseEffect verificar si la sesio se encuentra vigente
+    useEffect(() => {
+        const handleUsers = (result) => {
+            console.log("Sesión expirada detectada en frontend:", result);
+
+            const newSessionId = crypto.randomUUID();
+            sessionStorage.setItem('ID de la Sesión del Cliente',newSessionId);
+
+            socket.auth.clientSessionId = newSessionId;
+
+            socket.connect();
+
+            if(isLoggedLogged){
+                socket.emit('Update-Status-Log',isLoggedUser.idusuario,isLoggedStatus.idestatus,0);
+                deleteSessionStorage();
+            }
+        }
+
+        socket.on('Session-Expired',handleUsers);
+
+        return () => {
+            socket.off('Session-Expired',handleUsers);
+        }
+    },[]);
     // Return para darle valor al contexto y heredarlo
     return (
         <LoggedLoggedContext.Provider value={[isLoggedLogged,setIsLoggedLogged]}>

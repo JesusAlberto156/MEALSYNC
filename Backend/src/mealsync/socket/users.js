@@ -71,16 +71,41 @@ export const Users_GET = (socket) => {
 //______________INSERT______________
 export const Users_INSERT = (socket) => {
     //---------- USUARIOS ✔️
-    socket.on('Insert-User',async (idusuario,nombre,nombrecorto,usuario,contrasena,idtipo) => {
+    socket.on('Insert-User',async (idusuario,nombre,nombrecorto,usuario,contrasena,idtipo,permisos,administrador,chef,almacenista,cocinero,nutriologo,medico,estatus) => {
         try{
             await insertUserService(nombre,nombrecorto,usuario,contrasena,idtipo);
             const resultUsers = await getUsersService();
             const decryptedData = decryptData(resultUsers);
             const parsedData = JSON.parse(decryptedData);
+            
+            let resultPermissions;
+            let resultStatus;
+
+            if(permisos === 'Default' || permisos === 'Personalizado'){
+                await insertPermissionsService(administrador,chef,almacenista,cocinero,nutriologo,medico,parsedData.find(data => data.usuario === usuario)?.idusuario);
+                resultPermissions = await getPermissionsService();
+                const decryptedData = decryptData(resultPermissions);
+                const parsedDataPermission = JSON.parse(decryptedData);
+                await insertLogPermissionsService(parsedDataPermission.find(data => data.idusuario === idusuario)?.idpermiso,idusuario,String(administrador),String(chef),String(almacenista),String(cocinero),String(nutriologo),String(medico),String(parsedData.find(data => data.usuario === usuario)?.idusuario));
+            }
+            if(estatus === 'Habilitado' || estatus === 'Deshabilitado'){
+                await insertStatusService(estatus === 'Habilitado' ? 1 : 0,parsedData.find(data => data.usuario === usuario)?.idusuario);
+                resultStatus = await getStatusService();
+                const decryptedData = decryptData(resultStatus);
+                const parsedDataStatus = JSON.parse(decryptedData);
+                await insertLogStatusService(parsedDataStatus.find(data => data.idusuario === idusuario)?.idestatus,idusuario,String(estatus === 'Habilitado' ? 1 : 0),String(parsedData.find(data => data.usuario === usuario)?.idusuario));
+            }
+
             await insertLogUserService(parsedData.find(data => data.usuario === usuario)?.idusuario,idusuario,nombre,nombrecorto,usuario,contrasena,String(idtipo));
             const resultLogs = await getLogsService()
             io.emit('Get-Users',resultUsers);
             io.emit('Get-Logs',resultLogs);
+            if(resultPermissions !== undefined){
+                io.emit('Get-Permissions',resultPermissions);
+            }
+            if(resultStatus !== undefined){
+                io.emit('Get-Status',resultStatus);
+            }
         }catch(error){
             console.error('Error al agregar un usuario: ',error);
             return error;
@@ -184,7 +209,7 @@ export const Users_UPDATE = (socket) => {
         }
     });
     //---------- ESTATUS ✔️
-    socket.on('Update-Status-Log',async (idusuario,idestatus,activo) => {
+    socket.on('Update-Status-Log',async (idusuario,idestatus,activo,callback) => {
         try{
             await updateStatusLogService(idusuario,activo);
             const resultStatus = await getStatusService();
@@ -192,8 +217,15 @@ export const Users_UPDATE = (socket) => {
             const resultLogs = await getLogsService()
             io.emit('Get-Status',resultStatus);
             io.emit('Get-Logs',resultLogs);
+
+            if (typeof callback === 'function') {
+                callback({ success: true });
+            }
         }catch(error){
             console.error(`Error al ${activo ? 'iniciar sesión':'cerrar sesión'} el usuario: `,error);
+            if (typeof callback === 'function') {
+                callback({ success: false });
+            }
             return error;
         }
     });

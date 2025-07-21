@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 import { Toaster } from "sonner";
 // Contextos
 import { LoggedLoggedContext,LoggedTypeContext } from '../../contexts/SessionProvider';
-import { SidebarViewContext } from '../../contexts/ViewsProvider';
+import { SidebarViewContext,NavbarViewContext } from '../../contexts/ViewsProvider';
 // Estilos personalizados
 import { Container_Page,Container_Page_Logged } from "../../components/styled/Containers";
 import { Alert_Sonner_Styles } from '../../components/styled/Alerts';
@@ -20,11 +20,12 @@ export default function Index_Main(){
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
     const [currentSView] = useContext(SidebarViewContext);
+    const [currentNView] = useContext(NavbarViewContext);
     // Estructura del componente
     return(
         <>
             <Container_Page>
-                <Container_Page_Logged TypeUser={isLoggedType} Logged={isLoggedLogged} Sidebar={currentSView}>
+                <Container_Page_Logged TypeUser={isLoggedType} Logged={isLoggedLogged} Sidebar={currentSView} Navbar={currentNView}>
                     <Side_Bar/>
                     <Outlet/>
                 </Container_Page_Logged> 
@@ -32,6 +33,7 @@ export default function Index_Main(){
                     <Toaster
                         richColors
                         visibleToasts={5}
+                        expand={true}
                     />
                 </Alert_Sonner_Styles> 
             </Container_Page>

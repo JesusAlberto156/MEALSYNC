@@ -5,24 +5,23 @@ import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
-import { SidebarContext } from "../../contexts/ViewsProvider";
+import { SidebarContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext } from "../../contexts/SessionProvider";
+import { ActionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleSidebarView,HandleNavbarView } from "../../hooks/Views";
 //__________ICONOS__________
 // Icono para el inicio
 import { IoHome } from "react-icons/io5";
-// Iconos para las opciones del cocinero
-import { FaHospitalUser } from "react-icons/fa6";
-import { IoNutrition } from "react-icons/io5";
-// Icono para la opción de doctor
-import { FaUserDoctor } from "react-icons/fa6";
 // Iconos para la parte administrativa
 import { FaCircleUser } from "react-icons/fa6";
 import { GiHandTruck } from "react-icons/gi";
+import { FaBox } from "react-icons/fa";
+import { GiLiquidSoap } from "react-icons/gi";
+import { FaBroom } from "react-icons/fa6";
+import { GiMoneyStack } from "react-icons/gi";
 import { FaWarehouse } from "react-icons/fa";
 import { MdOutlineMenuBook } from "react-icons/md";
-import { FaHistory } from "react-icons/fa";
 //__________ICONOS__________
 //__________IMAGENES__________
 import Super_Administrator from '../imgs/Super-Administrator.jpg';
@@ -48,6 +47,8 @@ export default function Side_Bar() {
   const [isLoggedType] = useContext(LoggedTypeContext);
   const [isLoggedUser] = useContext(LoggedUserContext);
   const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
+  const [isActionBlock] = useContext(ActionBlockContext);
+  const [currentSView] = useContext(SidebarViewContext);
   // Constantes con el valor de los useState
   const [profileImage, setProfileImage] = useState('');
   // UseEffect con la imagen del usuario
@@ -87,18 +88,22 @@ export default function Side_Bar() {
             <Image_Sidebar_White src={profileImage}/>
           </Container_Row_100_Center>
           <Container_Row_100_Center>
-            <Text_Fade_Title_20_White>{isLoggedUser.nombre || 'Desconocido...'}</Text_Fade_Title_20_White>
+            <Text_Fade_Title_20_White>{isLoggedUser.nombre || 'Desconocido'}</Text_Fade_Title_20_White>
           </Container_Row_100_Center> 
           <Container_Row_100_Center>
-            <Tooltip title='Inicio' placement="right">
-              <Button_Text_Blue_200 onClick={() => {
+            <Button_Text_Blue_200 
+              disabled={isActionBlock}
+              style={{
+                backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Inicio' ? 'rgb(12, 54, 109)' : '',
+              }}
+              onClick={() => {
                 handleSidebarView('Inicio');
                 sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home');
                 navigate(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home',{ replace: true });
-              }}>
-                Inicio<Icon_20><IoHome/></Icon_20>
-              </Button_Text_Blue_200>
-            </Tooltip>
+              }}
+            >
+              Inicio<Icon_20><IoHome/></Icon_20>
+            </Button_Text_Blue_200>
           </Container_Row_100_Center>
           {isLoggedType === 'Cocinero' ? (
             <></>
@@ -118,114 +123,191 @@ export default function Side_Bar() {
           {isLoggedType === 'Administrador' ? (
             <>
               <Container_Row_100_Center>
-                <Tooltip title='Usuarios' placement="right">
-                  <Button_Text_Blue_200 onClick={() => {
+                <Button_Text_Blue_200 
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Usuarios' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
                     handleSidebarView('Usuarios');
                     handleNavbarView('Usuarios');
                     sessionStorage.setItem('Ruta','/Administration/Index/Users/Users');
                     navigate('/Administration/Index/Users/Users',{ replace: true });
-                  }}>
-                    Usuarios<Icon_20><FaCircleUser/></Icon_20>
-                  </Button_Text_Blue_200>
-                </Tooltip>
+                  }}
+                >
+                  Usuarios<Icon_20><FaCircleUser/></Icon_20>
+                </Button_Text_Blue_200>
               </Container_Row_100_Center>
               <Container_Row_100_Center>
-                <Tooltip title='Proveedores' placement="right">
-                  <Button_Text_Blue_200 onClick={() => {
+                <Button_Text_Blue_200
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Proveedores' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
                     handleSidebarView('Proveedores');
                     handleNavbarView('Proveedores');
                     sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Suppliers');
                     navigate('/Administration/Index/Suppliers/Suppliers',{ replace: true });
-                  }}>
-                    Proveedores<Icon_20><GiHandTruck/></Icon_20>
-                  </Button_Text_Blue_200>
-                </Tooltip>
+                  }}
+                >
+                  Proveedores<Icon_20><GiHandTruck/></Icon_20>
+                </Button_Text_Blue_200>
               </Container_Row_100_Center>
               <Container_Row_100_Center>
-                <Tooltip title='Inventario' placement="right">
-                  <Button_Text_Blue_200 onClick={() => {
+                <Button_Text_Blue_200
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Insumos' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
+                    handleSidebarView('Insumos');
+                    handleNavbarView('Categorias por insumo');
+                    sessionStorage.setItem('Ruta','/Administration/Index/Supplies/Supply/Categories');
+                    navigate('/Administration/Index/Supplies/Supply/Categories',{ replace: true });
+                  }}
+                >
+                  Insumos<Icon_20><FaBox/></Icon_20>
+                </Button_Text_Blue_200>
+              </Container_Row_100_Center>
+              <Container_Row_100_Center>
+                <Button_Text_Blue_200
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Extras' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
+                    handleSidebarView('Extras');
+                    handleNavbarView('Categorias de limpieza');
+                    sessionStorage.setItem('Ruta','/Administration/Index/Extras/Cleaning/Categories');
+                    navigate('/Administration/Index/Extras/Cleaning/Categories',{ replace: true });
+                  }}
+                >
+                  Extras<Icon_20><GiLiquidSoap/><FaBroom/><GiMoneyStack/></Icon_20>
+                </Button_Text_Blue_200>
+              </Container_Row_100_Center>
+              <Container_Row_100_Center>
+                <Button_Text_Blue_200 
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Inventario' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
                     handleSidebarView('Inventario');
                     handleNavbarView('Pedidos de insumo');
                     sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Supply/Orders');
                     navigate('/Administration/Index/Warehouse/Supply/Orders',{ replace: true });
-                  }}>
-                    Inventario<Icon_20><FaWarehouse/></Icon_20>
-                  </Button_Text_Blue_200>
-                </Tooltip>
+                  }}
+                >
+                  Inventario<Icon_20><FaWarehouse/></Icon_20>
+                </Button_Text_Blue_200>
               </Container_Row_100_Center>
               <Container_Row_100_Center>
-                <Tooltip title='Menús' placement="right">
-                  <Button_Text_Blue_200 onClick={() => {
+                <Button_Text_Blue_200 
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Menus' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
                     handleSidebarView('Menus');
                     handleNavbarView('Menus');
-                    sessionStorage.setItem('Ruta','/Administration/Index/Menus');
-                    navigate('/Administration/Index/Menus',{ replace: true });
-                  }}>
-                    Menús<Icon_20><MdOutlineMenuBook/></Icon_20>
-                  </Button_Text_Blue_200>
-                </Tooltip>
-              </Container_Row_100_Center>
+                    sessionStorage.setItem('Ruta','/Administration/Index/Menus/Menus');
+                    navigate('/Administration/Index/Menus/Menus',{ replace: true });
+                  }}
+                >
+                  Menús<Icon_20><MdOutlineMenuBook/></Icon_20>
+                </Button_Text_Blue_200>
+              </Container_Row_100_Center> 
               <Container_Row_100_Center>
-                <Tooltip title='Historial' placement="right">
-                  <Button_Text_Blue_200 onClick={() => {
-                    
-                  }}>
-                    Historial<Icon_20><FaHistory/></Icon_20>
-                  </Button_Text_Blue_200>
-                </Tooltip>
-              </Container_Row_100_Center>              
+                <Button_Text_Blue_200 
+                  disabled={isActionBlock}
+                  onClick={() => {
+                    const win = window.open('', '_blank');
+                    win.document.write('<html><body><p>Ticket de prueba</p></body></html>');
+                    win.document.close();
+                    win.print();
+                  }}
+                >
+                  Imprimir<Icon_20><MdOutlineMenuBook/></Icon_20>
+                </Button_Text_Blue_200>
+              </Container_Row_100_Center>          
             </>
           ):(
             <></>
           )}
           {isLoggedType === 'Chef' ? (
             <>
-              <Tooltip title='Proveedores' placement="right">
-                <Button_Text_Blue_200 onClick={() => {
-                  handleSidebarView('Proveedores');
-                  handleNavbarView('Proveedores');
-                  sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Suppliers');
-                  navigate('/Administration/Index/Suppliers/Suppliers',{ replace: true });
-                }}>
+              <Container_Row_100_Center>
+                <Button_Text_Blue_200
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Proveedores' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
+                    handleSidebarView('Proveedores');
+                    handleNavbarView('Proveedores');
+                    sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Suppliers');
+                    navigate('/Administration/Index/Suppliers/Suppliers',{ replace: true });
+                  }}
+                >
                   Proveedores<Icon_20><GiHandTruck/></Icon_20>
                 </Button_Text_Blue_200>
-              </Tooltip>
-              <Tooltip title='Inventario' placement="right">
-                <Button_Text_Blue_200 onClick={() => {
-                  handleSidebarView('Inventario');
-                  handleNavbarView('Pedidos de insumo');
-                  sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Supply/Orders');
-                  navigate('/Administration/Index/Warehouse/Supply/Orders',{ replace: true });
-                }}>
+              </Container_Row_100_Center>
+              <Container_Row_100_Center>
+                <Button_Text_Blue_200
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Insumos' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
+                    handleSidebarView('Insumos');
+                    handleNavbarView('Categorias por insumo');
+                    sessionStorage.setItem('Ruta','/Administration/Index/Supplies/Supply/Categories');
+                    navigate('/Administration/Index/Supplies/Supply/Categories',{ replace: true });
+                  }}
+                >
+                  Insumos<Icon_20><FaBox/></Icon_20>
+                </Button_Text_Blue_200>
+              </Container_Row_100_Center>
+              <Container_Row_100_Center>
+                <Button_Text_Blue_200
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Extras' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
+                    handleSidebarView('Extras');
+                    handleNavbarView('Categorias de limpieza');
+                    sessionStorage.setItem('Ruta','/Administration/Index/Extras/Cleaning/Categories');
+                    navigate('/Administration/Index/Extras/Cleaning/Categories',{ replace: true });
+                  }}
+                >
+                  Extras<Icon_20><GiLiquidSoap/><FaBroom/><GiMoneyStack/></Icon_20>
+                </Button_Text_Blue_200>
+              </Container_Row_100_Center>
+              <Container_Row_100_Center>
+                <Button_Text_Blue_200 
+                  disabled={isActionBlock}
+                  style={{
+                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Inventario' ? 'rgb(12, 54, 109)' : '',
+                  }}
+                  onClick={() => {
+                    handleSidebarView('Inventario');
+                    handleNavbarView('Pedidos de insumo');
+                    sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Supply/Orders');
+                    navigate('/Administration/Index/Warehouse/Supply/Orders',{ replace: true });
+                  }}
+                >
                   Inventario<Icon_20><FaWarehouse/></Icon_20>
                 </Button_Text_Blue_200>
-              </Tooltip>
+              </Container_Row_100_Center>
             </>
           ):(
             <></>
           )}
           {isLoggedType === 'Almacenista' ? (
             <>
-              <Tooltip title='Proveedores' placement="right">
-                <Button_Text_Blue_200 onClick={() => {
-                  handleSidebarView('Proveedores');
-                  handleNavbarView('Proveedores');
-                  sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Suppliers');
-                  navigate('/Administration/Index/Suppliers/Suppliers',{ replace: true });
-                }}>
-                  Proveedores<Icon_20><GiHandTruck/></Icon_20>
-                </Button_Text_Blue_200>
-              </Tooltip>
-              <Tooltip title='Inventario' placement="right">
-                <Button_Text_Blue_200 onClick={() => {
-                  handleSidebarView('Inventario');
-                  handleNavbarView('Pedidos de insumo');
-                  sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Supply/Orders');
-                  navigate('/Administration/Index/Warehouse/Supply/Orders',{ replace: true });
-                }}>
-                  Inventario<Icon_20><FaWarehouse/></Icon_20>
-                </Button_Text_Blue_200>
-              </Tooltip>
+              
             </>
           ):(
             <></>

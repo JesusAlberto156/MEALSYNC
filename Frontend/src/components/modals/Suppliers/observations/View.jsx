@@ -21,7 +21,7 @@ import { FaStar } from "react-icons/fa";
 import { Container_Modal_Background_Black,Container_Form_500,Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16, Text_Span_16_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210 } from "../../../styled/Buttons";
-import { Icon_20,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_30,Icon_Black_28 } from "../../../styled/Icons";
+import { Icon_20,Icon_Green_30,Icon_Lime_Green_30,Icon_Yellow_30,Icon_Orange_30,Icon_Red_30,Icon_Blue_28,Icon_Black_28 } from "../../../styled/Icons";
 // Componentes personalizados
 import Error_View from "../../errors/View";
 //____________IMPORT/EXPORT____________
@@ -64,9 +64,9 @@ export default function Supplier_Observation_View(){
                             <Container_Row_100_Center>
                                 {isTextFieldsObservation.calificacion === 0 ? (
                                     <>
-                                        <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_30>
-                                        <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_30>
-                                        <Icon_Blue_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_30>
+                                        <Icon_Blue_28 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_28>
+                                        <Icon_Blue_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_28>
+                                        <Icon_Blue_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_28>
                                         <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
                                         <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                     </>

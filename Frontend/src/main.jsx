@@ -26,7 +26,6 @@ import Index_Main from './pages/Indexs/Main';
 import Error from './pages/general/Error';
 import Loading from './pages/general/Loading';
 import Login from './pages/general/Login';
-import Verificacion_Login from './components/modals/General/VerificationLogin';
 import Out_Login from './components/modals/general/OutLogin';
 import Index_Administration from './pages/Indexs/Administration';
 import Administration_Home from './pages/administration/Home';
@@ -66,8 +65,11 @@ import Supply_Delete from './components/modals/Suppliers/supplies/Delete';
 
 import Table_Purchases from './components/tables/warehouse/Purchases';
 import Table_Sales from './components/tables/warehouse/Sales';
-import Menus from './pages/administration/Menus';
-import Record from './pages/administration/Record';
+import Table_Menus from './components/tables/menus/Menus';
+import Menu_Add from './components/modals/Menus/Menus/Add';
+import Table_Breakfasts from './components/tables/menus/Breakfast';
+import Table_Lunchs from './components/tables/menus/Lunch';
+import Table_Dinners from './components/tables/menus/Dinner';
 import Index_Kitchen from './pages/Indexs/Kitchen';
 import Home_Kitchen from './pages/kitchen/Home';
 
@@ -82,10 +84,6 @@ const router = createHashRouter([
   {
     path: '/Login',
     element: <Login/>
-  },
-  {
-    path: '/Login/Verification',
-    element: <Verificacion_Login/>
   },
   {
     path: '/Prueba',
@@ -217,6 +215,16 @@ const router = createHashRouter([
             path: 'Administration/Index/Warehouse/Sales/Add',
           },
           {
+            path: 'Administration/Index/Menus/Menus/Add',
+            element: <Menu_Add/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Menus/Edit',
+          },
+          {
+            path: 'Administration/Index/Menus/Menus/Delete',
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [
@@ -249,15 +257,15 @@ const router = createHashRouter([
                     element: <Table_Supplier_Observations/>
                   },
                   {
-                    path: 'Suppliers/Supply/Categories',
+                    path: 'Supplies/Supply/Categories',
                     element: <Table_Supply_Categories/>
                   },
                   {
-                    path: 'Suppliers/Supply/Types',
+                    path: 'Supplies/Supply/Types',
                     element: <Table_Supply_Types/>
                   },
                   {
-                    path: 'Suppliers/Supplies',
+                    path: 'Supplies/Supplies',
                     element: <Table_Supplies/>
                   },
                   {
@@ -267,17 +275,25 @@ const router = createHashRouter([
                   {
                     path: 'Warehouse/Sales',
                     element: <Table_Sales/>
+                  },
+                  {
+                    path: 'Menus/Menus',
+                    element: <Table_Menus/>
+                  },
+                  {
+                    path: 'Menus/Dishes',
+                    element: <Table_Breakfasts/>
+                  },
+                  {
+                    path: 'Menus/Side/Dishes',
+                    element: <Table_Lunchs/>
+                  },
+                  {
+                    path: 'Menus/Drinks',
+                    element: <Table_Dinners/>
                   }
                 ]
               },
-              {
-                path: 'Menus',
-                element: <Menus/>
-              },
-              {
-                path: 'Record',
-                element: <Record/>,
-              }
             ]
           },
           {

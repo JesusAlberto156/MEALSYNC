@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { createContext,useContext,useState,useEffect,useRef } from "react"
+import { createContext,useContext,useState,useEffect } from "react"
 // Servicios
 import { decryptData,encryptData } from "../services/Crypto";
 // Contextos
@@ -21,7 +21,7 @@ export const UserTypesContext = createContext(null);
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 import { LoggedLoggedContext,LoggedUserContext,LoggedTypeContext,LoggedLogContext,LoggedPermissionsContext } from "./SessionProvider";
-import { UserUpdatedContext,PermissionUpdatedContext } from "./VariablesProvider";
+import { UserUpdatedContext,PermissionUpdatedContext,ActionBlockContext } from "./VariablesProvider";
 // Estilos personalizados
 import { Alert_Swal_Warning,Alert_Swal_Success,Alert_Swal_Error } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -69,10 +69,9 @@ export const Users = ({ children }) => {
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedUser,setIsLoggedUser] = useContext(LoggedUserContext);
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // UseState para controlar el valor del contexto
     const [isUsers,setIsUsers] = useState([]);
-    // UseRef para las alertas
-    const alertShow = useRef(false);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
         const handleUsers = (result) => {
@@ -101,7 +100,7 @@ export const Users = ({ children }) => {
     },[]);
     // UseEffect para verificar que los datos existan
     useEffect(() => {
-        if(isLoggedLogged  && isLoggedUser.length !== 0 && !alertShow.current){
+        if(isLoggedLogged  && isLoggedUser.length !== 0){
             const user = isUsers.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
                 const userHasChanged = (
@@ -109,8 +108,8 @@ export const Users = ({ children }) => {
                     user.contrasena !== isLoggedUser.contrasena
                 );
                 if (userHasChanged) {
-                    alertShow.current = true;
                     Alert_Swal_Warning('¡Se han modificado los datos para iniciar sesión, por un administrador!');
+                    setIsActionBlock(true);
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     },3000);
@@ -130,7 +129,7 @@ export const Users = ({ children }) => {
     },[isUsers]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <UsersContext.Provider value={[isUsers,setIsUsers]}>
+        <UsersContext.Provider value={[isUsers]}>
             {children}
         </UsersContext.Provider>
     );
@@ -170,17 +169,16 @@ export const User_Edit = ({ children }) => {
 }
 // ---------- USUARIOS
 // ---------- USUARIOS ELIMINADOS
-// Función contexto para controlar los datos de la base de datos de usuarios ✔️
+// Función contexto para controlar los datos de la base de datos de usuarios eliminados ✔️
 export const Deleted_Users = ({ children }) => {
     // constantes con contextos perzonalizados
     const [socket] = useContext(SocketContext);
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
+    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext); 
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // UseState para controlar el valor del contexto
     const [isDeletedUsers,setIsDeletedUsers] = useState([]);
-    // UseRef para las alertas
-    const alertShow = useRef(false);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
         const handleDeletedUsers = (result) => {
@@ -209,11 +207,11 @@ export const Deleted_Users = ({ children }) => {
     },[]);
     // UseEffect para verificar que los datos existan
     useEffect(() => {
-        if(isLoggedLogged && isDeletedUsers.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current){
+        if(isLoggedLogged && isDeletedUsers.length !== 0 && isLoggedUser.length !== 0){
             const user = isDeletedUsers.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
-                alertShow.current = true;
                 Alert_Swal_Error('¡Su usuario ha sido eliminado, por un administrador!');
+                setIsActionBlock(true);
                 setTimeout(() => {
                     setIsLoggedLog(true);
                 },3000);
@@ -222,7 +220,7 @@ export const Deleted_Users = ({ children }) => {
     },[isDeletedUsers]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <DeletedUsersContext.Provider value={[isDeletedUsers,setIsDeletedUsers]}>
+        <DeletedUsersContext.Provider value={[isDeletedUsers]}>
             {children}
         </DeletedUsersContext.Provider>
     );
@@ -251,8 +249,7 @@ export const Permissions = ({ children }) => {
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext); 
     const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext);
     const [isPermissionUpdated] = useContext(PermissionUpdatedContext);
-    // UseRef para las alertas
-    const alertShow = useRef(false);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // UseState para controlar el valor del contexto
     const [isPermissions,setIsPermissions] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
@@ -291,6 +288,7 @@ export const Permissions = ({ children }) => {
                 if (!user.superadministrador) {
                     setIsUserUpdated('');
                     Alert_Swal_Warning('¡El super administrador ha sido deshabilitado!');
+                    setIsActionBlock(true);
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     }, 3000);
@@ -299,6 +297,7 @@ export const Permissions = ({ children }) => {
                 if(user.superadministrador) {
                     setIsUserUpdated('');
                     Alert_Swal_Success('¡El super administrador ha sido habilitado!');
+                    setIsActionBlock(true);
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     }, 3000);
@@ -319,8 +318,8 @@ export const Permissions = ({ children }) => {
                         (isLoggedType === 'Chef' && !user.chef) ||
                         (isLoggedType === 'Almacenista' && !user.almacenista)
                     ) {
-                        alertShow.current = true;
                         Alert_Swal_Warning('¡Ha perdido su permiso de acceso, por un administrador!');
+                        setIsActionBlock(true);
                         setTimeout(() => {
                             setIsLoggedLog(true);
                         }, 3000);
@@ -341,7 +340,7 @@ export const Permissions = ({ children }) => {
     }, [isPermissions,isUserUpdated,isPermissionUpdated]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <PermissionsContext.Provider value={[isPermissions,setIsPermissions]}>
+        <PermissionsContext.Provider value={[isPermissions]}>
             {children}
         </PermissionsContext.Provider>
     );
@@ -379,7 +378,7 @@ export const Permissions_Edit = ({ children }) => {
         return () => {
             socket.off('Update-Permissions',handleUpdatePermissions);
         }
-    },[socket]);
+    },[]);
     // Return para darle valor al contexto y heredarlo
     return(
         <PermissionsEditContext.Provider value={[isPermissionsEdit,setIsPermissionsEdit]}>
@@ -409,7 +408,7 @@ export const Permissions_Enable = ({ children }) => {
         return () => {
             socket.off('Update-Permission',handleUpdatePermission);
         }
-    },[socket])
+    },[])
     // Return para darle valor al contexto y heredarlo
     return(
         <PermissionsEnableContext.Provider value={[isPermissionsEnable,setIsPermissionsEnable]}>
@@ -419,15 +418,14 @@ export const Permissions_Enable = ({ children }) => {
 }
 // ---------- PERMISOS
 // ---------- ESTATUS
-// Función contexto para controlar los datos de la base de datos de estatus ✔️
+// Función contexto para controlar los datos de la base de datos de estatus de usuarios✔️
 export const Status = ({ children }) => {
     // constantes con contextos perzonalizados
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     const [isLoggedLogged] = useContext(LoggedLoggedContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [socket] = useContext(SocketContext);
-    // UseRef para las alertas
-    const alertShow = useRef(false);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // UseState para controlar el valor del contexto
     const [isStatus,setIsStatus] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
@@ -459,19 +457,19 @@ export const Status = ({ children }) => {
     },[]);
     // UseEffect para verificar que los datos existan
     useEffect(() => {
-        if(isLoggedLogged && isStatus.length !== 0 && isLoggedUser.length !== 0 && !alertShow.current){
+        if(isLoggedLogged && isStatus.length !== 0 && isLoggedUser.length !== 0){
             const user = isStatus.find(user => user.idusuario === isLoggedUser.idusuario);
             if(user){
                 if(!user.habilitado){
-                    alertShow.current = true;
                     Alert_Swal_Warning('¡Ha sido deshabilitado(a) por un administrador!');
+                    setIsActionBlock(true);
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     },3000);
                 }
                 if(!user.activo){
-                    alertShow.current = true;
-                    Alert_Swal_Warning('¡Parece que has iniciado sesión en otra pestaña!');
+                    Alert_Swal_Warning('¡Parece que has iniciado sesión en otra pestaña o ha expirado su sesión!');
+                    setIsActionBlock(true);
                     setTimeout(() => {
                         setIsLoggedLog(true);
                     },3000);
@@ -481,7 +479,7 @@ export const Status = ({ children }) => {
     },[isStatus]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <StatusContext.Provider value={[isStatus,setIsStatus]}>
+        <StatusContext.Provider value={[isStatus]}>
             {children}
         </StatusContext.Provider>
     );
@@ -545,7 +543,7 @@ export const User_Types = ({ children }) => {
     },[]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <UserTypesContext.Provider value={[isUserTypes,setIsUserTypes]}>
+        <UserTypesContext.Provider value={[isUserTypes]}>
             {children}
         </UserTypesContext.Provider>
     );

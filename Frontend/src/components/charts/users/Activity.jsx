@@ -1,22 +1,15 @@
 //____________IMPORT/EXPORT____________
-// Hooks de React
-import { useContext } from 'react';
 // Componentes de React externos
 import { PieChart,Pie,Cell,Tooltip,Legend,ResponsiveContainer } from 'recharts';
-// Contextos
-import { ThemeModeContext } from '../../../contexts/ViewsProvider';
 // Hooks personalizados
 import { TableActionsStatus } from '../../../hooks/users/Tables';
 // Estilos personalizados
-import { Container_Row_100_Center } from '../../styled/Containers';
-import { Text_Span_16_Center_Black,Text_Fade_Title_28_Black } from '../../styled/Text';
-import { Chart_Container_White_420x450,Chart_Tooltip_Custom_Name_Value } from '../../styled/Charts';
+import { Text_Fade_Title_28_Black } from '../../styled/Text';
+import { Chart_Container_White_45,Chart_Tooltip_Value_Black,Chart_Legend_Value } from '../../styled/Charts';
 //____________IMPORT/EXPORT____________
 
 // Grafico para mostrar la actividad de los usuarios
 export default function Chart_Activity() {
-    // Constantes con el valor de los contextos 
-    const [themeMode] = useContext(ThemeModeContext);
     // Constantes con la funcionalidad de los hooks
     const { filteredRecordsStatus } = TableActionsStatus();
     // Constantes para detalles de la grafica
@@ -26,26 +19,25 @@ export default function Chart_Activity() {
         { name: `Inactivo`, value: filteredRecordsStatus.length - active },
         { name: `Total de usuarios`, value: filteredRecordsStatus.length},
     ];
-    const COLORS = [themeMode ? 'rgb(20, 165, 76)' : 'rgb(60, 188, 109)', themeMode ? 'rgb(155, 9, 9)' : 'rgb(208, 31, 31)',  themeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)'];
+    const COLORS = ['rgb(20, 165, 76)','rgb(155, 9, 9)','rgb(58,93,174)'];
     // Estructura del componente
     return (
         <>
-            <Chart_Container_White_420x450 ThemeMode={themeMode}>
-                <Text_Span_16_Center_Black ThemeMode={themeMode}>ACTIVIDAD DE USUARIOS</Text_Span_16_Center_Black>
+            <Chart_Container_White_45>
                 {filteredRecordsStatus.length !== 0 ? (
                     <>
-                        <ResponsiveContainer width={'100%'} height={'80%'}>
+                        <ResponsiveContainer width={'100%'} height={'100%'}>
                             <PieChart >
                                 <Pie
                                     data={data}
-                                    cx="50%"
+                                    cx="60%"
                                     cy="50%"
-                                    innerRadius={'45%'}
-                                    outerRadius={'85%'}
+                                    innerRadius={'50%'}
+                                    outerRadius={'80%'}
                                     fill="#8884d8"
-                                    paddingAngle={5}
+                                    paddingAngle={0}
                                     dataKey="value"
-                                    stroke={themeMode ? 'rgb(0, 0, 0)':'rgb(255, 255, 255)'}
+                                    stroke={'rgba(0, 0, 0, 0.80)'}
                                     strokeWidth={2}
                                 >
                                     {data.map((entry, index) => (
@@ -53,30 +45,20 @@ export default function Chart_Activity() {
                                     ))}
                                 </Pie>
                                 <Tooltip 
-                                    wrapperStyle={{
-                                        fontFamily:'Century Gothic',
-                                        fontSize: '1.2vw',
-                                    }}
-                                    content={<Chart_Tooltip_Custom_Name_Value themeMode={themeMode}/>}
+                                    content={<Chart_Tooltip_Value_Black/>}
                                 />
                                 <Legend 
-                                    wrapperStyle={{
-                                        fontFamily:'Century Gothic',
-                                        fontSize: '1.8vw',
-                                        fontWeight: 'bold'
-                                    }}
+                                    content={<Chart_Legend_Value/>}
                                 />
                             </PieChart>
                         </ResponsiveContainer>
                     </>
                 ):(
                     <>
-                        <Container_Row_100_Center>
-                            <Text_Fade_Title_28_Black>No hay datos disponibles</Text_Fade_Title_28_Black>
-                        </Container_Row_100_Center>
+                        <Text_Fade_Title_28_Black>¡No hay datos disponibles!</Text_Fade_Title_28_Black>
                     </>
                 )}
-            </Chart_Container_White_420x450>     
+            </Chart_Container_White_45>     
         </>
     );
 }

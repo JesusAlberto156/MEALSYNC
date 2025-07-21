@@ -2,11 +2,31 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
+import { LoggedTypeContext } from "../contexts/SessionProvider";
+import { LoginViewContext } from "../contexts/ViewsProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../contexts/SearchsProvider";
 import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../contexts/SelectedesProvider";
 import { TextFieldsSearchDateContext } from "../contexts/FormsProvider";
+// Hooks personalizados
+import { ResetTextFieldsUser } from "./users/Texts";
 //____________IMPORT/EXPORT____________
 
+// Hook para reinciar las variables que controlan el login ✔️
+export const ResetLogin = () => {
+    // Constantes con el valor de los contextos 
+    const [currentLView,setCurrentLView] = useContext(LoginViewContext);
+    const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext);
+    // Constantes con el valor de los hooks
+    const resetTextFieldsUser = ResetTextFieldsUser();
+    // Función del hook
+    const resetLogin = () => {
+        setIsLoggedType('');
+        setCurrentLView('');
+        resetTextFieldsUser();
+    }
+    // Retorno de la función del hook
+    return resetLogin;
+}
 // Hook para reinciar los campos de texto de los buscadores ✔️
 export const ResetSearchTerms = () => {
     // Constantes con el valor de los contextos 

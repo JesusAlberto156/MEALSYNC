@@ -57,15 +57,16 @@ export const Supply_Orders = ({ children }) => {
     const [isSupplyOrders,setIsSupplyOrders] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleSupplyOrders = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Pedidos de insumos obtenidos!...');
+                    console.log('¡Pedidos de insumos obtenidos!');
                     setIsSupplyOrders(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar los pedidos de insumos!...');
+                    console.warn('¡Error al desencriptar los pedidos de insumos!');
                     setIsSupplyOrders([]);
                 }
             } catch (error) {
@@ -131,15 +132,16 @@ export const Supply_Order_Observations = ({ children }) => {
     const [isSupplyOrderObservations,setIsSupplyOrderObservations] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleSupplyOrderObservations = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Observaciones de los pedidos de insumos obtenidas!...');
+                    console.log('¡Observaciones de los pedidos de insumos obtenidas!');
                     setIsSupplyOrderObservations(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar las observaciones de los pedidos de insumos!...');
+                    console.warn('¡Error al desencriptar las observaciones de los pedidos de insumos!');
                     setIsSupplyOrderObservations([]);
                 }
             } catch (error) {
@@ -183,15 +185,16 @@ export const Deleted_Supply_Orders = ({ children }) => {
     const [isDeletedSupplyOrders,setIsDeletedSupplyOrders] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleDeletedSupplyOrders = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Pedidos de insumos eliminados obtenidos!...');
+                    console.log('¡Pedidos de insumos eliminados obtenidos!');
                     setIsDeletedSupplyOrders(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar los pedidos de insumos eliminados!...');
+                    console.warn('¡Error al desencriptar los pedidos de insumos eliminados!');
                     setIsDeletedSupplyOrders([]);
                 }
             } catch (error) {
@@ -235,15 +238,16 @@ export const Warehouse_Categories = ({ children }) => {
     const [isWarehouseCategories,setIsWarehouseCategories] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleWarehouseCategories = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Almacen por categorías obtenido!...');
+                    console.log('¡Almacen por categorías obtenido!');
                     setIsWarehouseCategories(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar el almacén por categorías!...');
+                    console.warn('¡Error al desencriptar el almacén por categorías!');
                     setIsWarehouseCategories([]);
                 }
             } catch (error) {
@@ -276,15 +280,16 @@ export const Warehouse_Supply_Types = ({ children }) => {
     const [isWarehouseSupplyTypes,setIsWarehouseSupplyTypes] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleWarehouseSupplyTypes = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Almacen por tipos de insumo obtenido!...');
+                    console.log('¡Almacen por tipos de insumo obtenido!');
                     setIsWarehouseSupplyTypes(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar el almacén por tipos de insumo!...');
+                    console.warn('¡Error al desencriptar el almacén por tipos de insumo!');
                     setIsWarehouseSupplyTypes([]);
                 }
             } catch (error) {

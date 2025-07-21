@@ -7,7 +7,7 @@ import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirec
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 //____________IMPORT/EXPORT____________
 
-// Hook para realizar las acciones de la tabla de usuarios
+// Hook para realizar las acciones de la tabla de usuarios ✔️
 export const TableActionsUsers = () => {
     // Constantes con el valor de los contextos 
     const [isUsers] = useContext(UsersContext);
@@ -16,8 +16,8 @@ export const TableActionsUsers = () => {
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isUserTypes] = useContext(UserTypesContext);
     const [isDeletedUsers] = useContext(DeletedUsersContext);
-    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
@@ -58,7 +58,7 @@ export const TableActionsUsers = () => {
                 ? a.nombre.localeCompare(b.nombre,'es', { sensitivity: 'base' })
                 : b.nombre.localeCompare(a.nombre,'es', { sensitivity: 'base' })
             }
-            if(isSelectedOptionOrder === 'Nombre-Corto'){
+            if(isSelectedOptionOrder === 'Nombre corto'){
                 return isSelectedOptionOrderDirection === 'Asc'
                 ? a.nombrecorto.localeCompare(b.nombrecorto,'es', { sensitivity: 'base' })
                 : b.nombrecorto.localeCompare(a.nombrecorto,'es', { sensitivity: 'base' })
@@ -77,14 +77,6 @@ export const TableActionsUsers = () => {
             return 0
         });
     }, [isUsers, isDeletedUsers, isUserTypes, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection, isSelectedOptionOrder]);
-    // Cambio de direccion del ordenamiento
-    const ToggleOrderDirection = () => {
-        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
-    };
-    // Cambio de lo que quiere ordenar
-    const ToggleOrder = (option) => {
-        setIsSelectedOptionOrder(option);
-    };
     // Total de registros visibles de la tabla
     const recordsPerPage = 6;
     // Indices de los registros
@@ -115,7 +107,7 @@ export const TableActionsUsers = () => {
         }
     },[isSearchTerm])
     // Retorno de la función del hook
-    return { handleRowClick,prevPage,currentPage,nextPageUsers,currentRecordsUsers,filteredRecordsUsers,ToggleOrder,ToggleOrderDirection,totalPagesUsers }
+    return { handleRowClick,prevPage,currentPage,nextPageUsers,currentRecordsUsers,filteredRecordsUsers,totalPagesUsers }
 }
 // Hook para realizar las acciones de la tabla de permisos ✔️
 export const TableActionsPermissions = () => {
@@ -125,8 +117,8 @@ export const TableActionsPermissions = () => {
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isDeletedUsers] = useContext(DeletedUsersContext);
-    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
@@ -191,14 +183,6 @@ export const TableActionsPermissions = () => {
             return 0
         });
     }, [isUsers, isDeletedUsers, isPermissions, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrder]);
-    // Cambio de direccion del ordenamiento
-    const ToggleOrderDirection = () => {
-        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
-    };
-    // Cambio de lo que quiere ordenar
-    const ToggleOrder = (option) => {
-        setIsSelectedOptionOrder(option);
-    };
     // Total de registros visibles de la tabla
     const recordsPerPage = 6;
     // Indices de los registros
@@ -229,7 +213,7 @@ export const TableActionsPermissions = () => {
         }
     },[isSearchTerm])
     // Retorno de la función del hook
-    return { handleRowClick,prevPage,currentPage,nextPagePermissions,currentRecordsPermissions,ToggleOrderDirection,ToggleOrder,filteredRecordsPermissions,totalPagesPermissions }
+    return { handleRowClick,prevPage,currentPage,nextPagePermissions,currentRecordsPermissions,filteredRecordsPermissions,totalPagesPermissions }
 }
 // Hook para realizar las acciones de la tabla de estatus ✔️
 export const TableActionsStatus = () => {
@@ -237,10 +221,11 @@ export const TableActionsStatus = () => {
     const [isUsers] = useContext(UsersContext);
     const [isStatus] = useContext(StatusContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isDeletedUsers] = useContext(DeletedUsersContext);
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
-    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
@@ -250,8 +235,24 @@ export const TableActionsStatus = () => {
             const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
             if (isDeleted) return false;
 
-            const user = isUsers.find(user => user.idusuario === data.idusuario)?.nombre;
-            return user?.toLowerCase().includes(isSearchTerm.toLowerCase());
+            const name = isUsers.find(user => user.idusuario === data.idusuario)?.nombre;
+            const user = isUsers.find(user => user.idusuario === data.idusuario)?.usuario;
+
+            if (isSelectedOptionSearch === 'General') {
+                
+                return [
+                    user,
+                    name,
+                ].some(value =>
+                    String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                );
+            }
+            if(isSelectedOptionSearch === 'Nombre'){
+                return name?.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Usuario'){
+                return user?.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
         });
 
         return [...filtered].sort((a, b) => {
@@ -307,15 +308,7 @@ export const TableActionsStatus = () => {
 
             return 0
         });
-    }, [isUsers, isDeletedUsers, isStatus, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder]);
-    // Cambio de direccion del ordenamiento
-    const ToggleOrderDirection = () => {
-        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
-    };
-    // Cambio de lo que quiere ordenar
-    const ToggleOrder = (option) => {
-        setIsSelectedOptionOrder(option);
-    };
+    }, [isUsers, isDeletedUsers, isStatus, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
     // Total de registros visibles de la tabla
     const recordsPerPage = 6;
     // Indices de los registros
@@ -346,5 +339,5 @@ export const TableActionsStatus = () => {
         }
     },[isSearchTerm])
     // Retorno de la función del hook
-    return { handleRowClick,prevPage,currentPage,nextPageStatus,currentRecordsStatus,filteredRecordsStatus,ToggleOrderDirection,ToggleOrder,totalPagesStatus }
+    return { handleRowClick,prevPage,currentPage,nextPageStatus,currentRecordsStatus,filteredRecordsStatus,totalPagesStatus }
 }

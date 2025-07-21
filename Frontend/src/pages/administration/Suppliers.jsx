@@ -10,7 +10,6 @@ import { HandleNavbarView } from "../../hooks/Views";
 import { HandleSidebarView } from "../../hooks/Views";
 // Estilos personalizados
 import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_100_Center,Container_Column_NG_100_Center } from "../../components/styled/Containers";
-import { Button_Link_Blue } from "../../components/styled/Buttons";
 // Componentes personalizados
 import MyRadialBarChart from "../../components/charts/suppliers/RatedSuppliers";
 //____________IMPORT/EXPORT____________

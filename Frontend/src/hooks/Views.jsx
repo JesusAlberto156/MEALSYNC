@@ -4,12 +4,12 @@ import { useContext,useRef,useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
-import { TouchContext,KeyboardViewContext,KeyboardContext } from "../contexts/VariablesProvider";
+import { TouchContext,KeyboardViewContext,KeyboardContext,ActionBlockContext } from "../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../contexts/RefsProvider";
-import { TextFieldsUserContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsMenuTypeContext } from "../contexts/FormsProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 // Hooks personalizados
-import { ResetSearchTerms,ResetSelectedOptions } from "./Texts";
+import { ResetSearchTerms,ResetSelectedOptions,ResetSelectedTables } from "./Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar la vista del login ✔️
@@ -43,11 +43,13 @@ export const HandleNavbarView = () => {
     // Constantes con la funcionalidad de los hooks
     const resetSearchTerms = ResetSearchTerms();
     const resetSelectedOptions = ResetSelectedOptions();
+    const resetSelectedTables = ResetSelectedTables();
     // Función del hook
     const handleNavbarView = (View) => {
         setCurrentNView(View);
         resetSearchTerms();
         resetSelectedOptions();
+        resetSelectedTables();
         sessionStorage.setItem('Vista del Navbar',View);
     };
     // Retorno de la función del hook
@@ -61,6 +63,8 @@ export const HandleKeyboard = () => {
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
+
+    const [isTextFieldsMenuType,setIsTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); 
     // Constantes con el valor de los useRef
     const lastTouchTimeRef = useRef(0);
     // Hook con callback para verificar si hubo touch o no en la pantalla 
@@ -92,18 +96,26 @@ export const HandleKeyboard = () => {
     const KeyboardClick = useCallback(() => {
         const handleClickOutside = (event) => {
             setTimeout(() => {
-                const inputName = document.getElementById("Input-Name");
-                const inputShortName = document.getElementById("Input-ShortName");
-                const inputUser = document.getElementById("Input-User");
-                const inputPassword = document.getElementById("Input-Password");
+                // Usuario
+                const inputNameUser = document.getElementById("Input-Nombre-Usuario");
+                const inputShortNameUser = document.getElementById("Input-Nombre-Corto-Usuario");
+                const inputUser = document.getElementById("Input-Usuario");
+                const inputPassword = document.getElementById("Input-Contraseña");
+
+                // Menu
+                const inputNameMenu = document.getElementById("Input-Nombre-Menu");
+
                 const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
-    
+
                 const clickInsideInputs = 
-                    (inputName && inputName.contains(event.target)) ||
-                    (inputShortName && inputShortName.contains(event.target)) ||
+                    // Usuario
+                    (inputNameUser && inputNameUser.contains(event.target)) ||
+                    (inputShortNameUser && inputShortNameUser.contains(event.target)) ||
                     (inputUser && inputUser.contains(event.target)) ||
-                    (inputPassword && inputPassword.contains(event.target));
-    
+                    (inputPassword && inputPassword.contains(event.target)) ||
+                    
+                    // Menu
+                    (inputNameMenu && inputNameMenu.contains(event.target));
                 if (!clickInsideInputs && !keyboard) {
                     setIsKeyboardView('');
                     setTimeout(() => {
@@ -124,21 +136,25 @@ export const HandleKeyboard = () => {
     // Hook con callback para escribir con el teclado
     const handleKeyboard = useCallback((newValue) => {
         switch (isKeyboardView) {
-            case 'Name':
+            case 'Nombre-Usuario':
                 if (newValue.length > 150) return;
                 setIsTextFieldsUser(prev => ({ ...prev, nombre: newValue }));
                 break;
-            case 'ShortName':
+            case 'Nombre-Corto-Usuario':
                 if (newValue.length > 50) return;
                 setIsTextFieldsUser(prev => ({ ...prev, nombrecorto: newValue }));
                 break;
-            case 'User':
+            case 'Usuario':
                 if (newValue.length > 25) return;
                 setIsTextFieldsUser(prev => ({ ...prev, usuario: newValue }));
                 break;
-            case 'Password':
+            case 'Contraseña':
                 if (newValue.length > 15) return;
                 setIsTextFieldsUser(prev => ({ ...prev, contrasena: newValue }));
+                break;
+            case 'Nombre-Menu':
+                if (newValue.length > 100) return;
+                setIsTextFieldsMenuType(prev => ({ ...prev, nombre: newValue }));
                 break;
         }
     }, [isKeyboardView]);
@@ -152,11 +168,13 @@ export const HandleSidebarView = () => {
     // Constantes con la funcionalidad de los hooks
     const resetSearchTerms = ResetSearchTerms();
     const resetSelectedOptions = ResetSelectedOptions();
+    const resetSelectedTables = ResetSelectedTables();
     // Función del hook
     const handleSidebarView = (View) => {
         setCurrentSView(View);
         resetSearchTerms();
         resetSelectedOptions();
+        resetSelectedTables();
         sessionStorage.setItem('Vista del Sidebar',View);
     };
     // Retorno de la función del hook
@@ -179,6 +197,8 @@ export const HandleModalView = () => {
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
@@ -188,12 +208,16 @@ export const HandleModalView = () => {
         setIsModal(true);
         sessionStorage.setItem('Estado del Modal',true);
         const route = sessionStorage.getItem('Ruta');
+        const sidebar = sessionStorage.getItem('Estado del Sidebar')
         // CERRAR SESIÓN
         if(currentMView === 'Cerrar-Sesión' && View === ''){
+            setIsActionBlock(true);
             setTimeout(() => {
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                navigate(route,{ replace: true });
+                if(sidebar === 'true'){setIsSidebar(true)};
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
             },750);
         }
         // CERRAR SESIÓN

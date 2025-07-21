@@ -1,8 +1,4 @@
 //____________IMPORT/EXPORT____________
-// Hooks de React
-import { useContext } from "react"
-// Contextos
-import { ThemeModeContext } from "../../../../contexts/ViewsProvider"
 // Hooks personalizados
 import { TableActionsPermissions } from "../../../../hooks/users/Tables"
 //__________ICONOS__________
@@ -10,33 +6,31 @@ import { TableActionsPermissions } from "../../../../hooks/users/Tables"
 import { FaUserTie } from "react-icons/fa"
 //__________ICONOS__________
 // Estilos personalizados
-import { Table,Td,Th,Tbody_White,Thead,TContainer_Icon } from "../../../styled/Tables"
-import { Icon_Blue_18 } from "../../../styled/Icons"
+import { Table_Container_Icon_Center,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td } from "../../../styled/Tables"
+import { Icon_Blue_16 } from "../../../styled/Icons"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios totales que cuentan con el permiso de super administrador
 export default function Table_Permissions_Super_Administrators(){
-    // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     // Constantes con la funcionalidad de los hooks
     const { filteredRecordsPermissions } = TableActionsPermissions();
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Super-Administrators">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            Super Administradores
-                        </Th>
-                    </tr>
-                </Thead>
-                <Tbody_White ThemeMode={themeMode}>
-                    <tr>
-                        <Td ThemeMode={themeMode}><TContainer_Icon>{filteredRecordsPermissions.filter(item => item.superadministrador).length}<Icon_Blue_18 ThemeMode={themeMode}><FaUserTie/></Icon_Blue_18></TContainer_Icon></Td>
-                    </tr>
-                </Tbody_White>
-            </Table>
+                <Table id="Table-Super-Administrators">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            <Table_Head_Th>
+                                Super Administradores
+                            </Table_Head_Th>
+                        </tr>
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        <tr>
+                            <Table_Body_Td><Table_Container_Icon_Center>{filteredRecordsPermissions.filter(item => item.superadministrador).length}<Icon_Blue_16><FaUserTie/></Icon_Blue_16></Table_Container_Icon_Center></Table_Body_Td>
+                        </tr>
+                    </Table_Body_Tbody_White>
+                </Table>
         </>
     );
 }

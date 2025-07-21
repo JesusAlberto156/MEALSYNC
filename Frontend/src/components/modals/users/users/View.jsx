@@ -1,107 +1,62 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext } from "react";
-// Componentes de React externos
-import { Tooltip } from "@mui/material";
+import { useContext,useEffect } from "react";
 // Contextos
-import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
-import { ActionBlockContext,VerificationBlockContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
-import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
+import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 // Hooks personalizados
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
-import { HandleViewPassword } from '../../../../hooks/users/Forms'; 
-//__________ICONOS__________
-// Icono para cerrar el modal
-import { MdCancel } from "react-icons/md";
-// Icono para realizar la función del modal
-import { FaEye } from "react-icons/fa";
-//__________ICONOS__________
+import { HandleViewPassword } from '../../../../hooks/users/Forms';
+//__________IMAGENES__________
+import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
+//__________IMAGENES__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Form_450,Container_Row_100_Center } from "../../../styled/Containers";
-import { Button_Icon_Blue_180,Button_Icon_Green_180 } from "../../../styled/Buttons";
-import { Text_Title_32_Black,Text_Span_12_Justify_Black } from "../../../styled/Text";
-import { Icon_20 } from "../../../styled/Icons";
+import { Container_Modal_Background_Black,Container_Modal_Image,Container_Modal_Form_White_500,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Text_Span_12_Justify_Black,Text_Title_28_Black } from "../../../styled/Text";
 // Componentes perzonalizados
 import Form_Verification from "../../../forms/Verification";
-import Virtual_Keyboard from "../../../forms/Keyboard";
+import { Keyboard_Verification } from "../../../keyboards/Verificacion";
+import { Image_Modal_Fixed } from "../../../styled/Imgs";
+import { Modal_Form_Button_View } from "../../../forms/Button";
 //____________IMPORT/EXPORT____________
 
-// Modal para ver la contraseña de usuarios
+// Modal para ver las contraseñas de los usuarios
 export default function User_View(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
-    const [isActionBlock] = useContext(ActionBlockContext);
     const [isModal] = useContext(ModalContext);
     const [currentMView] = useContext(ModalViewContext);
-    const [isVerificationBlock] = useContext(VerificationBlockContext);
-    const [isKeyboard] = useContext(KeyboardContext);
-    const [isKeyboardView] = useContext(KeyboardViewContext);
-    const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalViewUsers = HandleModalViewUsers();
     const handleViewPassword = HandleViewPassword();
-    // useEffect para escribir en los campos del login
-    const handleKeyboard = (newValue) => {
-        if(isKeyboardView === 'User' ){
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                usuario: newValue, 
-            }));
-        }else{
-            setIsTextFieldsUser(prev => ({
-                ...prev,
-                contrasena: newValue,
-            }));
+    // Useffect para controlar el sidebar
+    useEffect(() => {
+        if(isSidebar){
+            setIsSidebar(false);
         }
-    };
+    },[]);
     // Estructura del componente
     return(
         <>
             {isModal ? (
                 <>
                     <Container_Modal_Background_Black>
-                        <Container_Form_450 ThemeMode={themeMode} className={currentMView === 'Usuario-Ver-Contraseña' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                            <Container_Row_100_Center>
-                                <Text_Title_32_Black ThemeMode={themeMode}>VER CONTRASEÑAS</Text_Title_32_Black>
-                            </Container_Row_100_Center>
-                            <Form_Verification/>
-                            <Container_Row_100_Center>
-                                <Text_Span_12_Justify_Black ThemeMode={themeMode}>Las contraseñas podrán visualizarse, de todos los usuarios durante un periodo de 30 segundos.</Text_Span_12_Justify_Black>
-                            </Container_Row_100_Center>
-                            <Container_Row_100_Center>
-                                <Tooltip title='Cancelar' placement="top">
-                                    <span>
-                                        <Button_Icon_Blue_180 ThemeMode={themeMode} className='pulsate-buttom'
-                                            onClick={() => {
-                                                handleModalViewUsers('');
-                                            }}
-                                            disabled={!isActionBlock && isVerificationBlock}
-                                        >
-                                            <Icon_20><MdCancel/></Icon_20>
-                                        </Button_Icon_Blue_180>
-                                    </span>
-                                </Tooltip>
-                                <Tooltip title='Ver' placement="top">
-                                    <span>
-                                        <Button_Icon_Green_180 ThemeMode={themeMode} className={isActionBlock ? 'roll-in-button-left' : 'roll-out-button-left'}
-                                            onClick={() => {
-                                                handleViewPassword();
-                                            }}
-                                            disabled={!isActionBlock}
-                                        >
-                                            <Icon_20><FaEye/></Icon_20>
-                                        </Button_Icon_Green_180>
-                                    </span>
-                                </Tooltip>
-                            </Container_Row_100_Center>
-                        </Container_Form_450>
-                        {isKeyboard ? (
-                            <>
-                                <Virtual_Keyboard value={isKeyboardView === 'User' ? isTextFieldsUser.usuario : isTextFieldsUser.contrasena} onChange={handleKeyboard}/>  
-                            </>
-                        ):(
-                            <></>
-                        )}
+                        <Container_Modal_Image>
+                            <Image_Modal_Fixed src={Logo_Hospital}/>
+                        </Container_Modal_Image>
+                        <Container_Modal_Form_White_500 className={currentMView === 'Usuario-Ver-Contraseña' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                            <Container_Modal_Form_White>
+                                <Container_Modal_Form>
+                                    <Text_Title_28_Black>VER CONTRASEÑAS</Text_Title_28_Black>
+                                    <Form_Verification/>
+                                    <Text_Span_12_Justify_Black>Las contraseñas podrán visualizarse de todos los usuarios durante un periodo de 30 segundos.</Text_Span_12_Justify_Black>
+                                    <Modal_Form_Button_View
+                                        onCancel={() => handleModalViewUsers('')}
+                                        onAction={() => handleViewPassword()}
+                                    />
+                                </Container_Modal_Form>
+                            </Container_Modal_Form_White>
+                        </Container_Modal_Form_White_500>
+                        <Keyboard_Verification/>
                     </Container_Modal_Background_Black>  
                 </>
             ):(

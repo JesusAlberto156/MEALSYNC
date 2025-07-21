@@ -8,13 +8,14 @@ import { Tooltip } from "@mui/material";
 // Servicios
 import { encryptData } from "../../services/Crypto";
 // Contextos
+import { SocketContext } from "../../contexts/SocketProvider";
 import { LoginViewContext,ModalViewContext,ModalContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../contexts/FormsProvider";
-import { ActionBlockContext,KeyboardContext,KeyboardViewContext } from '../../contexts/VariablesProvider';
+import { ActionBlockContext,AnimationContext } from '../../contexts/VariablesProvider';
 import { LoggedLoggedContext,LoggedLogContext,LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext,LoggedStatusContext } from "../../contexts/SessionProvider";
-import { PermissionsContext,StatusContext } from "../../contexts/UsersProvider";
+import { PermissionsContext,StatusContext,UsersContext } from "../../contexts/UsersProvider";
 // Hooks personalizados
-import { HandleLoginView,HandleKeyboard } from "../../hooks/Views";
+import { HandleLoginView } from "../../hooks/Views";
 import { HandleLoggedLog } from "../../hooks/Forms";
 import { TableActionsUsers } from "../../hooks/users/Tables";
 //__________ICONOS__________
@@ -37,22 +38,23 @@ import { MdLogin } from "react-icons/md";
 import Logo_Vertical_Hospital from '../../components/imgs/Logo-Vertical-Hospital.png';
 //__________IMAGES____________
 // Estilos personalizados
-import { Container_Page,Container_Page_Login,Container_Login_Form_White_350,Container_Login_Form,Container_Row_100_Center } from "../../components/styled/Containers";
+import { Container_Page,Container_Page_Login,Container_Login_Form_White_Auto,Container_Login_Form_White,Container_Login_Form,Container_Row_100_Center } from "../../components/styled/Containers";
 import { Icon_20 } from "../../components/styled/Icons";
 import { Image_Login_Auto } from "../../components/styled/Imgs";
 import { Text_Fade_Title_20_Black,Text_Span_16_Justify_Black } from "../../components/styled/Text";
-import { Button_Icon_Blue_240,Button_Icon_Blue_Auto_40,Button_Icon_Green_Auto_40 } from "../../components/styled/Buttons";
-import { Alert_Swal_Greeting,Alert_Sonner_Loading,Alert_Sonner_Success,Alert_Sonner_Error,Alert_Sonner_Styles } from '../../components/styled/Alerts';
+import { Button_Icon_Blue_200,Button_Icon_Blue_Auto_40,Button_Icon_Green_Auto_40 } from "../../components/styled/Buttons";
+import { Alert_Swal_Greeting,Alert_Sonner_Loading,Alert_Sonner_Success,Alert_Sonner_Error,Alert_Sonner_Styles,Alert_Swal_Confirm } from '../../components/styled/Alerts';
 // Componentes personalizados
-import Setting_Bar from '../../components/navegation/SettingBar';
 import Footer from "../../components/navegation/Footer";
 import Form_Login from "../../components/forms/Login";
-import Keyboard_Default from "../../components/keyboards/Defaullt";
+import { Keyboard_Verification } from "../../components/keyboards/Verificacion";
 //____________IMPORT/EXPORT____________
 
 // Página para iniciar sesión
 export default function Login(){
     // Constantes con el valor de los contextos
+    const [socket] = useContext(SocketContext);
+    const [isUsers] = useContext(UsersContext);
     const [isPermissions] = useContext(PermissionsContext);
     const [isStatus] = useContext(StatusContext);
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
@@ -67,8 +69,7 @@ export default function Login(){
     const [currentSView,setCurrentSView] = useContext(SidebarViewContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
-    const [isKeyboard] = useContext(KeyboardContext);
-    const [isKeyboardView] = useContext(KeyboardViewContext);
+    const [isAnimation,setIsAnimation] = useContext(AnimationContext);
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC';
@@ -76,7 +77,6 @@ export default function Login(){
             await Alert_Swal_Greeting('¡Te da la Bienvenida!');
             await Alert_Swal_Greeting('¡Inicia sesión para acceder a la pagina principal!');
         }
-
         showAlerts();
     },[]);
     // useEffect con el inicio de sesión del login
@@ -93,28 +93,15 @@ export default function Login(){
                             const existsPermission = isPermissions.find(permissions => permissions.idusuario === existsUser.idusuario);
 
                             if(!existsStatus || !existsStatus.habilitado || !existsPermission){
-                                setIsLoggedLog(false);
                                 setIsActionBlock(false);
-                                setIsModal(false);
+                                setIsLoggedLog(false);
                                 return reject('¡No es posible utilizar este usuario!');
                             }
 
                             if(existsPermission.superadministrador){
                                 if(existsStatus.activo){
                                     reject('¡El usuario ya se encuentra activo!');
-
-                                    setCurrentMView('Verificar-Sesión');
-                                    sessionStorage.setItem('Vista del Modal','Verificar-Sesión');
-                                    setIsModal(true);
-                                    sessionStorage.setItem('Estado del Modal',true);
-
-                                    setTimeout(() => {
-                                        setIsLoggedLog(false);
-                                        setIsActionBlock(false);
-
-                                        sessionStorage.setItem('Ruta','/Login/Verification');
-                                        return navigate('/',{ replace: true });
-                                    },2500);
+                                    setIsLoggedLog(false);
                                 }
                                 if(!existsStatus.activo){
                                     const jsonUser = JSON.stringify(existsUser);
@@ -151,31 +138,32 @@ export default function Login(){
                                                 setIsModal(true);
                                                 sessionStorage.setItem('Estado del Modal',true);
 
+                                                setIsAnimation(true);
+
                                                 setTimeout(() => {
                                                     setIsTextFieldsUser(prev => ({
                                                         ...prev,             
                                                         usuario: '',      
                                                         contrasena: '',       
                                                     }));
-                                                    setIsLoggedLog(false);
                                                     setIsLoggedLogged(true);
+                                                    setIsLoggedLog(false);
                                                     setIsActionBlock(false);
                                                     setCurrentSView('Inicio');
                                                     sessionStorage.setItem('Vista del Sidebar','Inicio');
                                                     sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home');
+                                                    setIsAnimation(false);
                                                     return navigate('/',{ replace: true });
                                                 },2500);
                                             }else{
                                                 setIsLoggedLog(false);
                                                 setIsActionBlock(false);
-                                                setIsModal(false);
                                                 return reject('¡Error al encriptar las credenciales!');
                                             }
                                         },1000);
                                     }else{
                                         setIsLoggedLog(false);
                                         setIsActionBlock(false);
-                                        setIsModal(false);
                                         return reject('¡Error al encriptar las credenciales!');
                                     }
                                 }
@@ -193,19 +181,7 @@ export default function Login(){
                                 }
                                 if(existsStatus.activo){
                                     reject('¡El usuario ya se encuentra activo!');
-
-                                    setCurrentMView('Verificar-Sesión');
-                                    sessionStorage.setItem('Vista del Modal','Verificar-Sesión');
-                                    setIsModal(true);
-                                    sessionStorage.setItem('Estado del Modal',true);
-
-                                    setTimeout(() => {
-                                        setIsLoggedLog(false);
-                                        setIsActionBlock(false);
-
-                                        sessionStorage.setItem('Ruta','/Login/Verification');
-                                        return navigate('/',{ replace: true });
-                                    },2500);
+                                    setIsLoggedLog(false);
                                 }
                                 if(!existsStatus.activo){
                                     const jsonUser = JSON.stringify(existsUser);
@@ -242,6 +218,8 @@ export default function Login(){
                                                 setIsModal(true);
                                                 sessionStorage.setItem('Estado del Modal',true);
 
+                                                setIsAnimation(true);
+
                                                 setTimeout(() => {
                                                     setIsTextFieldsUser(prev => ({
                                                         ...prev,             
@@ -254,19 +232,18 @@ export default function Login(){
                                                     setCurrentSView('Inicio');
                                                     sessionStorage.setItem('Vista del Sidebar','Inicio');
                                                     sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home');
+                                                    setIsAnimation(false);
                                                     return navigate('/',{ replace: true });
                                                 },2500);
                                             }else{
                                                 setIsLoggedLog(false);
                                                 setIsActionBlock(false);
-                                                setIsModal(false);
                                                 return reject('¡Error al encriptar las credenciales!');
                                             }
                                         },1000);
                                     }else{
                                         setIsLoggedLog(false);
                                         setIsActionBlock(false);
-                                        setIsModal(false);
                                         return reject('¡Error al encriptar las credenciales!')
                                     }
                                 }
@@ -274,7 +251,6 @@ export default function Login(){
                         }else{
                             setIsLoggedLog(false);
                             setIsActionBlock(false);
-                            setIsModal(false);
                             return reject('¡Usuario o contraseña incorrectos!');
                         }
                     },1000);
@@ -282,6 +258,9 @@ export default function Login(){
                     setIsLoggedLog(false);
                     setIsActionBlock(false);
                     setIsModal(false);
+                    setIsLoggedLogged(false);
+                    setCurrentSView('');
+                    sessionStorage.clear();
                     return reject('¡Ocurrio un error inesperado!');
                 }
             });
@@ -294,7 +273,34 @@ export default function Login(){
                 })
                 .catch((msj) => {
                     Alert_Sonner_Error(msj,{id: 'Promise'});
+                    if(msj === '¡El usuario ya se encuentra activo!'){
+                        setTimeout(() => {
+                            Alert_Swal_Confirm('¿Desea cerrar la sesión activa del usuario?',onConfirm,onCancel);
+                        },2500);
+                    }
                 });
+            
+            const onConfirm = async () => {
+                const iduser = isUsers.find(user => user.usuario === isTextFieldsUser.usuario)?.idusuario;
+                const idstatus = isStatus.find(status => status.idusuario === iduser)?.idestatus;
+
+                socket.emit('Update-Status-Log',iduser,idstatus,0,(response) => {
+                    if(response.success){
+                        Alert_Sonner_Success('¡Sesión cerrada correctamente!',{});
+                        setTimeout(() => {
+                            setIsActionBlock(false);
+                        },2500);
+                    } else {
+                        Alert_Sonner_Error('¡Ha ocurrido un error inseperado!',{});
+                        setTimeout(() => {
+                            setIsActionBlock(false);
+                        },2500);
+                    }
+                });
+            };
+            const onCancel = async () => {
+                setIsActionBlock(false);
+            };
         }
     },[isLoggedLog]);
     // Constantes con la funcionalidad de los hooks
@@ -302,170 +308,169 @@ export default function Login(){
     const handleLoginView = HandleLoginView();
     const handleLoggedLog = HandleLoggedLog();
     const { filteredRecordsUsers } = TableActionsUsers();
-    const { handleKeyboard } = HandleKeyboard();
     // Estructura del componente
     return(
         <>
             <Container_Page>
                 <Container_Page_Login>
-                    <Setting_Bar/>
-                    <Container_Login_Form_White_350>
-                        <Container_Login_Form>
-                            <Image_Login_Auto src={Logo_Vertical_Hospital}/>
-                            {currentLView === '' ? (
-                                <>
-                                    <Text_Fade_Title_20_Black>BIENVENIDO(A)</Text_Fade_Title_20_Black>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {currentLView === 'Administration' || currentLView === 'Kitchen' ? (
-                                <>
-                                    <Text_Fade_Title_20_Black>SELECCIÓN DE USUARIO</Text_Fade_Title_20_Black>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {currentLView === 'Login' ? (
-                                <>
-                                    <Text_Fade_Title_20_Black>INICIAR SESIÓN</Text_Fade_Title_20_Black>
-                                    <Text_Span_16_Justify_Black>{isLoggedType}</Text_Span_16_Justify_Black>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {currentLView === '' || currentLView === 'Administration' || currentLView === 'Kitchen' ? (
-                                <>
-                                    {currentLView === '' ? (
-                                        <>  
-                                            <Tooltip title='Administración' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Administration','')}
-                                                >
-                                                    <Icon_20><MdManageAccounts/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip>
-                                            <Tooltip title='Cocina' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Kitchen','')}
-                                                >
-                                                    <Icon_20><GiRiceCooker/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip>
-                                        </>
-                                    ):(
-                                        <></>
-                                    )}
-                                    {currentLView === 'Administration' ? (
-                                        <>
-                                            <Tooltip title='Administrador' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Login','Administrador')}
-                                                >
-                                                    <Icon_20><FaUserTie/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip>
-                                            <Tooltip title='Chef' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Login','Chef')}
-                                                >
-                                                    <Icon_20><GiChefToque/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip>    
-                                            <Tooltip title='Almacenista' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Login','Almacenista')}
-                                                >
-                                                    <Icon_20><FaWarehouse/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip> 
-                                            <Tooltip title='Atrás' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('','')}  
-                                                >
+                    <Container_Login_Form_White_Auto className={!isAnimation ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Login_Form_White>
+                            <Container_Login_Form>
+                                <Image_Login_Auto src={Logo_Vertical_Hospital}/>
+                                {currentLView === '' ? (
+                                    <>
+                                        <Text_Fade_Title_20_Black>BIENVENIDO(A)</Text_Fade_Title_20_Black>
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {currentLView === 'Administration' || currentLView === 'Kitchen' ? (
+                                    <>
+                                        <Text_Fade_Title_20_Black>SELECCIÓN DE USUARIO</Text_Fade_Title_20_Black>
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {currentLView === 'Login' ? (
+                                    <>
+                                        <Text_Fade_Title_20_Black>INICIAR SESIÓN</Text_Fade_Title_20_Black>
+                                        <Text_Span_16_Justify_Black>{isLoggedType}</Text_Span_16_Justify_Black>
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {currentLView === '' || currentLView === 'Administration' || currentLView === 'Kitchen' ? (
+                                    <>
+                                        {currentLView === '' ? (
+                                            <>  
+                                                <Tooltip title='Administración' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Administration','')}
+                                                    >
+                                                        <Icon_20><MdManageAccounts/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip>
+                                                <Tooltip title='Cocina' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Kitchen','')}
+                                                    >
+                                                        <Icon_20><GiRiceCooker/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <></>
+                                        )}
+                                        {currentLView === 'Administration' ? (
+                                            <>
+                                                <Tooltip title='Administrador' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Login','Administrador')}
+                                                    >
+                                                        <Icon_20><FaUserTie/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip>
+                                                <Tooltip title='Chef' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Login','Chef')}
+                                                    >
+                                                        <Icon_20><GiChefToque/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip>    
+                                                <Tooltip title='Almacenista' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Login','Almacenista')}
+                                                    >
+                                                        <Icon_20><FaWarehouse/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip> 
+                                                <Tooltip title='Atrás' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('','')}  
+                                                    >
+                                                        <Icon_20><IoArrowBackCircle/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <></>
+                                        )}
+                                        {currentLView === 'Kitchen' ? (
+                                            <>
+                                                <Tooltip title='Cocinero' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Login','Cocinero')}
+                                                    >
+                                                        <Icon_20><GiCook/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip>  
+                                                <Tooltip title='Nutriólogo' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Login','Nutriólogo')}   
+                                                    >
+                                                        <Icon_20><IoNutrition/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip> 
+                                                <Tooltip title='Médico' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('Login','Médico')} 
+                                                    >
+                                                        <Icon_20><FaUserDoctor/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip> 
+                                                <Tooltip title='Atrás' placement="top">
+                                                    <Button_Icon_Blue_200
+                                                        onClick={() => handleLoginView('','')}  
+                                                    > 
+                                                        <Icon_20><IoArrowBackCircle/></Icon_20>
+                                                    </Button_Icon_Blue_200>
+                                                </Tooltip> 
+                                            </>
+                                        ):(
+                                            <></>
+                                        )}
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {currentLView === 'Login' ? (
+                                    <>
+                                        <Form_Login/>
+                                        {isActionBlock ? (
+                                            <Container_Row_100_Center>
+                                                <Button_Icon_Blue_Auto_40 disabled>
                                                     <Icon_20><IoArrowBackCircle/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip>
-                                        </>
-                                    ):(
-                                        <></>
-                                    )}
-                                    {currentLView === 'Kitchen' ? (
-                                        <>
-                                            <Tooltip title='Cocinero' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Login','Cocinero')}
-                                                >
-                                                    <Icon_20><GiCook/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip>  
-                                            <Tooltip title='Nutriólogo' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Login','Nutriólogo')}   
-                                                >
-                                                    <Icon_20><IoNutrition/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip> 
-                                            <Tooltip title='Médico' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('Login','Médico')} 
-                                                >
-                                                    <Icon_20><FaUserDoctor/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip> 
-                                            <Tooltip title='Atrás' placement="top">
-                                                <Button_Icon_Blue_240
-                                                    onClick={() => handleLoginView('','')}  
-                                                > 
-                                                    <Icon_20><IoArrowBackCircle/></Icon_20>
-                                                </Button_Icon_Blue_240>
-                                            </Tooltip> 
-                                        </>
-                                    ):(
-                                        <></>
-                                    )}
-                                </>
-                            ):(
-                                <></>
-                            )}
-                            {currentLView === 'Login' ? (
-                                <>
-                                    <Form_Login/>
-                                    <Container_Row_100_Center>
-                                        <Tooltip title='Atrás' placement="top">
-                                            <Button_Icon_Blue_Auto_40
-                                                disabled={isActionBlock}
-                                                onClick={() => handleLoginView(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? 'Kitchen' : 'Administration','')}
-                                            >
-                                                <Icon_20><IoArrowBackCircle/></Icon_20>
-                                            </Button_Icon_Blue_Auto_40>
-                                        </Tooltip>
-                                        <Tooltip title='Iniciar sesión' placement="top">
-                                            <Button_Icon_Green_Auto_40
-                                                disabled={isActionBlock}
-                                                onClick={() => handleLoggedLog()}
-                                            >
-                                                <Icon_20><MdLogin/></Icon_20>
-                                            </Button_Icon_Green_Auto_40>
-                                        </Tooltip>
-                                    </Container_Row_100_Center>
-                                </>
-                            ):(
-                                <></>
-                            )}
-                        </Container_Login_Form>
-                    </Container_Login_Form_White_350>
-                    {isKeyboard ? (
-                        <>
-                            <Keyboard_Default 
-                                value={isKeyboardView === 'User' ? isTextFieldsUser.usuario :
-                                        isTextFieldsUser.contrasena} 
-                                onChange={handleKeyboard}
-                            />  
-                        </>
-                    ):(
-                        <></>
-                    )}
+                                                </Button_Icon_Blue_Auto_40>
+                                                <Button_Icon_Green_Auto_40 disabled>
+                                                    <Icon_20><MdLogin/></Icon_20>
+                                                </Button_Icon_Green_Auto_40>
+                                            </Container_Row_100_Center>
+                                        ):(
+                                            <Container_Row_100_Center>
+                                                <Tooltip title='Atrás' placement="top">
+                                                    <Button_Icon_Blue_Auto_40
+                                                        onClick={() => handleLoginView(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? 'Kitchen' : 'Administration','')}
+                                                    >
+                                                        <Icon_20><IoArrowBackCircle/></Icon_20>
+                                                    </Button_Icon_Blue_Auto_40>
+                                                </Tooltip>
+                                                <Tooltip title='Iniciar sesión' placement="top">
+                                                    <Button_Icon_Green_Auto_40
+                                                        onClick={() => handleLoggedLog()}
+                                                    >
+                                                        <Icon_20><MdLogin/></Icon_20>
+                                                    </Button_Icon_Green_Auto_40>
+                                                </Tooltip>
+                                            </Container_Row_100_Center>
+                                        )}
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                            </Container_Login_Form>
+                        </Container_Login_Form_White>
+                    </Container_Login_Form_White_Auto>
+                    <Keyboard_Verification/>
                     <Footer/>
                 </Container_Page_Login> 
             </Container_Page>  

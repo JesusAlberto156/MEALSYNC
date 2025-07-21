@@ -15,43 +15,48 @@ const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
 const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext); ✔️
 const [isTextFieldsPermissions,setIsTextFieldsPermissions] = useContext(TextFieldsPermissionsContext); ✔️
 const [isTextFieldsStatus,setIsTextFieldsStatus] = useContext(TextFieldsStatusContext); ✔️
-const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext); ✔️
-const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext); ✔️
-const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext); ✔️
-const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext); ✔️
-const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext); ✔️
-const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useContext(TextFieldsSupplyOrderContext); ✔️
-const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext); ✔️
-const [isTextFieldsWarehouseSale,setIsTextFieldsWarehouseSale] = useContext(TextFieldsWarehouseSaleContext); ✔️
-const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); ✔️
+const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext); 
+const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext); 
+const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext); 
+const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext); 
+const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext); 
+const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useContext(TextFieldsSupplyOrderContext); 
+const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext); 
+const [isTextFieldsWarehouseSale,setIsTextFieldsWarehouseSale] = useContext(TextFieldsWarehouseSaleContext); 
+const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
+const [isTextFieldsMenuType,setIsTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); 
 //____________FORM____________
 //____________MENUS____________
-
+const [isMenus] = useContext(MenusContext); ✔️
+const [isMenuTypes] = useContext(MenuTypesContext); ✔️
+const [isMenuTypeAdd,setIsMenuTypeAdd] = useContext(MenuTypeAddContext);
+const [isMenuTypeEdit,setIsMenuTypeEdit] = useContext(MenuTypeEditContext);
+const [isDeletedMenuTypes] = useContext(DeletedMenuTypesContext); ✔️ 
+const [isMenuTypeDelete,setIsMenuTypeDelete] = useContext(MenuTypeDeleteContext);
+const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext); ✔️
+const [isMenuUbications] = useContext(MenuUbicationsContext); ✔️
 //____________MENUS____________
 //____________REF____________
-const isAlertGreeting = useContext(RefAlertGreetingContext); ✔️
+const isAlert = useContext(RefAlertsContext); ✔️
 const isKeyboard = useContext(RefKeyboardContext); ✔️
 const isKeyboardTouch = useContext(RefKeyboardTouchContext); ✔️
-const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext); ✔️
-const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext); ✔️
-const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext); ✔️
-const {Modal_Suppliers,Form_Suppliers,Button_Edit_Suppliers,Button_Delete_Suppliers} = useContext(RefSuppliersContext); ✔️
-const {Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations} = useContext(RefSupplierObservationsContext); ✔️
-const {Modal_Supply_Categories,Form_Supply_Categories,Button_Edit_Supply_Categories,Button_Delete_Supply_Categories} = useContext(RefSupplyCategoriesContext); ✔️
-const {Modal_Supply_Types,Form_Supply_Types,Button_Edit_Supply_Types,Button_Add_Supply_Types,Button_Delete_Supply_Types,Button_Count_Supply_Types} = useContext(RefSupplyTypesContext); ✔️
-const {Modal_Supplies,Form_Supplies,Button_Edit_Supplies,Button_Delete_Supplies} = useContext(RefSuppliesContext); ✔️
-const {Modal_Suppy_Orders,Form_Supply_Orders,Button_Edit_Supply_Orders,Button_Edit_State_Supply_Orders,Button_Add_Supply_Order_Observations,Button_View_Supply_Order_Observations,Button_Delete_Supply_Orders} = useContext(RefSupplyOrdersContext); ✔️  
+const isModal = useContext(RefModalContext); ✔️
+const isForm = useContext(RefFormContext); ✔️
+const isButtonEdit = useContext(RefButtonEditContext); ✔️
+const isButtonDelete = useContext(RefButtonDeleteContext); ✔️
+const isButtonEnable = useContext(RefButtonEnableContext); ✔️
+const isButtonDisable = useContext(RefButtonDisableContext); ✔️
 //____________REF____________
 //____________SEARCH____________
 const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext); ✔️
-const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context); ✔️
-const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context); ✔️
-const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context); ✔️
+const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context); 
+const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context); 
+const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context); 
 //____________SEARCH____________
 //____________SELECTED____________
 const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); ✔️
-const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context); ✔️
-const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context); ✔️
+const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context); 
+const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context); 
 const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext); ✔️
 const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext); ✔️
 const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext); ✔️
@@ -71,32 +76,32 @@ const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext); ✔️
 //____________SIDEDISHES____________
 //____________SOCKET____________
 const [socket] = useContext(SocketContext); ✔️
-const [isLogs,setIsLogs] = useContext(LogsContext); ✔️
+const [isLogs] = useContext(LogsContext); ✔️
 //____________SOCKET____________
 //____________SUPPLIERS____________
-const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext); ✔️
-const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext); ✔️
-const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext); ✔️
-const [isDeletedSuppliers,setIsDeletedSuppliers] = useContext(DeletedSuppliersContext); ✔️
-const [isSupplierDelete,setIsSupplierDelete] = useContext(SupplierDeleteContext); ✔️
-const [isObservations,setIsObservations] = useContext(ObservationsContext); ✔️
-const [isSupplies,setIsSupplies] = useContext(SuppliesContext); ✔️
-const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext); ✔️
-const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext); ✔️
-const [isDeletedSupplies,setIsDeletedSupplies] = useContext(DeletedSuppliesContext); ✔️
-const [isSupplyDelete,setIsSupplyDelete] = useContext(SupplyDeleteContext); ✔️
-const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext); ✔️
-const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext); ✔️
-const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext); ✔️
-const [isCountSupplyTypes,setIsCountSupplyTypes] = useContext(CountSupplyTypesContext); ✔️
-const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useContext(SupplyTypeCountAddContext); ✔️
-const [isDeletedSupplyTypes,setIsDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext); ✔️
-const [isSupplyTypeDelete,setIsSupplyTypeDelete] = useContext(SupplyTypeDeleteContext); ✔️
-const [isSupplyCategories,setIsSupplyCategories] = useContext(SupplyCategoriesContext); ✔️
-const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext); ✔️
-const [isSupplyCategoryEdit,setIsSupplyCategoryEdit] = useContext(SupplyCategoryEditContext); ✔️
-const [isDeletedSupplyCategories,setIsDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext); ✔️
-const [isSupplyCategoryDelete,setIsSupplyCategoryDelete] = useContext(SupplyCategoryDeleteContext); ✔️
+const [isSuppliers,setIsSuppliers] = useContext(SuppliersContext); 
+const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext); 
+const [isSupplierEdit,setIsSupplierEdit] = useContext(SupplierEditContext); 
+const [isDeletedSuppliers,setIsDeletedSuppliers] = useContext(DeletedSuppliersContext); 
+const [isSupplierDelete,setIsSupplierDelete] = useContext(SupplierDeleteContext); 
+const [isObservations,setIsObservations] = useContext(ObservationsContext); 
+const [isSupplies,setIsSupplies] = useContext(SuppliesContext); 
+const [isSupplyAdd,setIsSupplyAdd] = useContext(SupplyAddContext); 
+const [isSupplyEdit,setIsSupplyEdit] = useContext(SupplyEditContext); 
+const [isDeletedSupplies,setIsDeletedSupplies] = useContext(DeletedSuppliesContext); 
+const [isSupplyDelete,setIsSupplyDelete] = useContext(SupplyDeleteContext); 
+const [isSupplyTypes,setIsSupplyTypes] = useContext(SupplyTypesContext); 
+const [isSupplyTypeAdd,setIsSupplyTypeAdd] = useContext(SupplyTypeAddContext); 
+const [isSupplyTypeEdit,setIsSupplyTypeEdit] = useContext(SupplyTypeEditContext); 
+const [isCountSupplyTypes,setIsCountSupplyTypes] = useContext(CountSupplyTypesContext); 
+const [isSupplyTypeCountAdd,setIsSupplyTypeCountAdd] = useContext(SupplyTypeCountAddContext); 
+const [isDeletedSupplyTypes,setIsDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext); 
+const [isSupplyTypeDelete,setIsSupplyTypeDelete] = useContext(SupplyTypeDeleteContext); 
+const [isSupplyCategories,setIsSupplyCategories] = useContext(SupplyCategoriesContext); 
+const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext); 
+const [isSupplyCategoryEdit,setIsSupplyCategoryEdit] = useContext(SupplyCategoryEditContext); 
+const [isDeletedSupplyCategories,setIsDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext); 
+const [isSupplyCategoryDelete,setIsSupplyCategoryDelete] = useContext(SupplyCategoryDeleteContext); 
 //____________SUPPLIERS____________
 //____________USERS____________
 const [isUsers] = useContext(UsersContext); ✔️
@@ -126,25 +131,23 @@ const [isUserUpdated,setIsUserUpdated] = useContext(UserUpdatedContext); ✔️
 const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdatedContext); ✔️
 //____________VARIABLES____________
 //____________VIEWS____________
-const [themeMode,setThemeMode] = useContext(ThemeModeContext); ✔️
 const [currentLView,setCurrentLView] = useContext(LoginViewContext); ✔️
 const [currentNView,setCurrentNView] = useContext(NavbarViewContext); ✔️
 const [currentSView,setCurrentSView] = useContext(SidebarViewContext); ✔️
 const [isSidebar,setIsSidebar] = useContext(SidebarContext); ✔️
 const [currentMView,setCurrentMView] = useContext(ModalViewContext); ✔️
 const [isModal,setIsModal] = useContext(ModalContext); ✔️
-const [isSubModal,setIsSubModal] = useContext(SubModalContext); ✔️
 //____________VIEWS____________
 //____________WAREHOUSE____________
-const [isSupplyOrders,setIsSupplyOrders] = useContext(SupplyOrdersContext); ✔️
+const [isSupplyOrders,setIsSupplyOrders] = useContext(SupplyOrdersContext); 
 const [isSupplyOrderAdd,setIsSupplyOrderAdd] = useContext(SupplyOrderAddContext);
 const [isSupplyOrderEdit,setIsSupplyOrderEdit] = useContext(SupplyOrderEditContext);
 const [isSupplyOrderEditState,setIsSupplyOrderEditState] = useContext(SupplyOrderEditStateContext);
-const [isSupplyOrderObservations,setIsSupplyOrderObservations] = useContext(SupplyOrderObservationsContext); ✔️
+const [isSupplyOrderObservations,setIsSupplyOrderObservations] = useContext(SupplyOrderObservationsContext); 
 const [isSupplyOrderObservationAdd,setIsSupplyOrderObservationAdd] = useContext(SupplyOrderObservationAddContext);
-const [isDeletedSupplyOrders,setIsDeletedSupplyOrders] = useContext(DeletedSupplyOrdersContext); ✔️
+const [isDeletedSupplyOrders,setIsDeletedSupplyOrders] = useContext(DeletedSupplyOrdersContext); 
 const [isSupplyOrderDelete,setIsSupplyOrderDelete] = useContext(SupplyOrderDeleteContext);
-const [isWarehouseCategories,setIsWarehouseCategories] = useContext(WarhouseCategoriesContext); ✔️
-const [isWarehouseSupplyTypes,setIsWarehouseSupplyTypes] = useContext(WarhouseSupplyTypesContext); ✔️
+const [isWarehouseCategories,setIsWarehouseCategories] = useContext(WarhouseCategoriesContext); 
+const [isWarehouseSupplyTypes,setIsWarehouseSupplyTypes] = useContext(WarhouseSupplyTypesContext); 
 const [isWarehouseSupplyTypeAdd,setIsWarehouseSupplyTypeAdd] = useContext(WarhouseSupplyTypeAddContext);
 //____________WAREHOUSE____________

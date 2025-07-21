@@ -34,3 +34,7 @@ NORMAL - rgb(160, 187, 39);
 HOVER - rgb(125, 153, 1);
 DISABLE- 
 --------VERDE LIMA--------
+--------MORADO--------
+NORMAL -rgb(155, 28, 195);
+TITLE - rgb(120, 13, 137);
+--------MORADO--------

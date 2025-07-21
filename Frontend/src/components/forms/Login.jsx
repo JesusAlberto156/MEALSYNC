@@ -7,11 +7,15 @@ import { KeyboardContext,KeyboardViewContext,TouchContext,ActionBlockContext } f
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleKeyboard } from "../../hooks/Views";
+//__________ICONOS__________
+import { MdCancel } from "react-icons/md";
+//__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_100_Center,Container_Column_100_Left } from "../styled/Containers";
 import { Text_Span_16_Left_Black } from "../styled/Text";
 import { Input_Text_100_Black,Input_Group } from "../styled/Inputs";
 import { Label_Text_12_Black } from "../styled/Labels";
+import { Icon_Button_Blue_16 } from "../styled/Icons";
 import { Alert_Sonner_Warning } from "../styled/Alerts";
 //____________IMPORT/EXPORT____________
 
@@ -30,53 +34,59 @@ export default function Form_Login(){
     // Constantes con el valor de useState
     const [isTotalUser,setIsTotalUser] = useState(0);
     const [isTotalPassword,setIsTotalPassword] = useState(0);
-    // useEffect para controla el teclado
+    // useEffect para controlar el teclado
     useEffect(() => {
         KeyboardView();
-    }, []);
+    },[]);
     useEffect(() => {
         KeyboardClick();
-    }, [Keyboard]);
+    },[Keyboard]);
     useEffect(() => {
         isKeyboardTouch.current = isTouch;
-    }, [isTouch]);
-    // UseEffects para advertir sobre el limite de caracteres de los campos del formulario
+    },[isTouch]);
+    // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
         setIsTotalUser(isTextFieldsUser.usuario.length);
         if(isTextFieldsUser.usuario.length === 25){
-            Alert_Sonner_Warning('¡Ha alcanzado el límite de caracteres permitido en el usuario!');
+            Alert_Sonner_Warning('¡Ha alcanzado el límite de caracteres permitidos en el usuario!');
         }
     },[isTextFieldsUser.usuario]);
     useEffect(() => {
         setIsTotalPassword(isTextFieldsUser.contrasena.length);
         if(isTextFieldsUser.contrasena.length === 15){
-            Alert_Sonner_Warning('¡Ha alcanzado el límite de caracteres permitido en la contraseña!');
+            Alert_Sonner_Warning('¡Ha alcanzado el límite de caracteres permitidos en la contraseña!');
         }
     },[isTextFieldsUser.contrasena]);
     // Estructura del componente
     return(
         <> 
             <Container_Column_100_Left>
-                    <Container_Row_100_Center>
+                <Container_Row_100_Center>
                     <Text_Span_16_Left_Black>Usuario:</Text_Span_16_Left_Black>
                     <Input_Group>
                         <Input_Text_100_Black
                             placeholder="..."
                             type="text"
-                            id="Input-User"
+                            id="Input-Usuario"
                             maxLength={25}
                             value={isTextFieldsUser.usuario}
                             onChange={(e) => setIsTextFieldsUser(prev => ({...prev, usuario: e.target.value}))}
                             onFocus={() => {
                                 if(isKeyboardTouch.current){
                                     setIsKeyboard(true);
-                                    setIsKeyboardView('User');
+                                    setIsKeyboardView('Usuario');
                                 }
                             }}
                             disabled={isActionBlock}
                         />
                         <Label_Text_12_Black>{isTotalUser}/25</Label_Text_12_Black>
                     </Input_Group>
+                    <Icon_Button_Blue_16
+                        onClick={() => setIsTextFieldsUser(prev => ({...prev, usuario: ''}))}
+                        disabled={isActionBlock}
+                    >
+                        <MdCancel/>
+                    </Icon_Button_Blue_16>
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
                     <Text_Span_16_Left_Black>Contraseña:</Text_Span_16_Left_Black>
@@ -84,20 +94,26 @@ export default function Form_Login(){
                         <Input_Text_100_Black
                             placeholder="..."
                             type="password"
-                            id="Input-Password"
+                            id="Input-Contraseña"
                             maxLength={15}
                             value={isTextFieldsUser.contrasena}
                             onChange={(e) => setIsTextFieldsUser(prev => ({...prev, contrasena: e.target.value}))}
                             onFocus={() => {
                                 if(isKeyboardTouch.current){
                                     setIsKeyboard(true);
-                                    setIsKeyboardView('Password');
+                                    setIsKeyboardView('Contraseña');
                                 }
                             }}
                             disabled={isActionBlock}
                         />
                         <Label_Text_12_Black>{isTotalPassword}/15</Label_Text_12_Black>
                     </Input_Group>
+                    <Icon_Button_Blue_16
+                        onClick={() => setIsTextFieldsUser(prev => ({...prev, contrasena: ''}))}
+                        disabled={isActionBlock}
+                    >
+                        <MdCancel/>
+                    </Icon_Button_Blue_16>
                 </Container_Row_100_Center>
             </Container_Column_100_Left>
         </>  

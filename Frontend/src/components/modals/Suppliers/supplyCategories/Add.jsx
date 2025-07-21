@@ -25,10 +25,10 @@ import { IoIosAddCircle } from "react-icons/io";
 import { Container_Modal_Background_Black,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
-import { Input_Text_100_Black,Input_Area_Black_100, Input_Group } from "../../../styled/Inputs";
+import { Input_Text_100_Black,Input_Area_100_Black, Input_Group } from "../../../styled/Inputs";
 import { Icon_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
-import { Label_Text_12_Black,Label_Total_Area_12_Center } from "../../../styled/Labels";
+import { Label_Text_12_Black,Label_Area_12_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Keyboard_Default from "../../../keyboards/Defaullt";
 //____________IMPORT/EXPORT____________
@@ -191,7 +191,7 @@ export default function Supply_Category_Add(){
                             <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
                             <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
                         </Container_Row_NG_Auto_Center>
-                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
+                        <Container_Column_100_Center>
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
                                 <Input_Group>
@@ -224,7 +224,7 @@ export default function Supply_Category_Add(){
                             <Container_Row_100_Center>
                                 <Text_Span_16_Center_Black ThemeMode={themeMode}>Descripción:</Text_Span_16_Center_Black>
                                 <Input_Group>
-                                    <Input_Area_Black_100 ThemeMode={themeMode}
+                                    <Input_Area_100_Black ThemeMode={themeMode}
                                         id="Input-Description"
                                         placeholder="(Opcional)..."
                                         type="text"
@@ -240,7 +240,7 @@ export default function Supply_Category_Add(){
                                         }}
                                         rows={3}
                                     />
-                                    <Label_Total_Area_12_Center ThemeMode={themeMode}>{isTotalDescription}/250</Label_Total_Area_12_Center>
+                                    <Label_Area_12_Black ThemeMode={themeMode}>{isTotalDescription}/250</Label_Area_12_Black>
                                 </Input_Group>
                                 <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {

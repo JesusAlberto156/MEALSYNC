@@ -2,8 +2,8 @@
 // Hooks de React
 import { createContext,useEffect,useContext,useState } from "react"
 // Servicios
-import { io } from "socket.io-client";
 import { decryptData } from "../services/Crypto";
+import { socket } from "../services/Socket";
 // Contextos
 export const SocketContext = createContext(null);
 export const LogsContext = createContext(null);
@@ -11,8 +11,6 @@ export const LogsContext = createContext(null);
 
 // Función contexto para controlar la conexión a la base de datos ✔️
 export const Socket = ({ children }) => {
-    // Constante para controlar el valor del contexto
-    const socket = io('http://localhost:3500/');
     // Return para darle valor al contexto y heredarlo
     return (
         <SocketContext.Provider value={[socket]}>
@@ -33,10 +31,10 @@ export const Logs = ({ children }) => {
                 const decryptedData = decryptData(result);
                 if (decryptedData) {
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Registros obtenidos!...');
+                    console.log('¡Registros obtenidos!');
                     setIsLogs(parsedData);
                 } else {
-                    console.warn('¡Error al desencriptar los registros!...');
+                    console.warn('¡Error al desencriptar los registros!');
                     setIsLogs([]);
                 }
             } catch (error) {

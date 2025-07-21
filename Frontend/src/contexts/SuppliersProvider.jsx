@@ -93,15 +93,16 @@ export const Suppliers = ({ children }) => {
     const [isSuppliers,setIsSuppliers] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleSuppliers = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Proveedores obtenidos!....')
+                    console.log('¡Proveedores obtenidos!')
                     setIsSuppliers(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los proveedores!...');
+                    console.log('¡Error al desencriptar los proveedores!');
                     setIsSuppliers([]);
                 }
             } catch (error) {
@@ -116,7 +117,7 @@ export const Suppliers = ({ children }) => {
         return () => {
             socket.off('Get-Suppliers',handleSuppliers);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <SuppliersContext.Provider value={[isSuppliers,setIsSuppliers]}>
@@ -156,15 +157,16 @@ export const Deleted_Suppliers = ({ children }) => {
     const [isDeletedSuppliers,setIsDeletedSuppliers] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleDeletedSuppliers = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Proveedores eliminados obtenidos!....')
+                    console.log('¡Proveedores eliminados obtenidos!')
                     setIsDeletedSuppliers(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los proveedores eliminados!...');
+                    console.log('¡Error al desencriptar los proveedores eliminados!');
                     setIsDeletedSuppliers([]);
                 }
             } catch (error) {
@@ -179,7 +181,7 @@ export const Deleted_Suppliers = ({ children }) => {
         return () => {
             socket.off('Get-Deleted-Suppliers',handleDeletedSuppliers);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <DeletedSuppliersContext.Provider value={[isDeletedSuppliers,setIsDeletedSuppliers]}>
@@ -208,15 +210,16 @@ export const Observations = ({ children }) => {
     const [isObservations,setIsObservations] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleObservations = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Observaciones de proveedores obtenidas!....')
+                    console.log('¡Observaciones de proveedores obtenidas!')
                     setIsObservations(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar las observaciones de proveedores!...');
+                    console.log('¡Error al desencriptar las observaciones de proveedores!');
                     setIsObservations([]);
                 }
             } catch (error) {
@@ -231,7 +234,7 @@ export const Observations = ({ children }) => {
         return () => {
             socket.off('Get-Observations',handleObservations);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <ObservationsContext.Provider value={[isObservations,setIsObservations]}>
@@ -249,15 +252,16 @@ export const Supplies = ({ children }) => {
     const [isSupplies,setIsSupplies] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleSupplies = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Insumos obtenidos!....')
+                    console.log('¡Insumos obtenidos!')
                     setIsSupplies(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los insumos!...');
+                    console.log('¡Error al desencriptar los insumos!');
                     setIsSupplies([]);
                 }
             } catch (error) {
@@ -272,7 +276,7 @@ export const Supplies = ({ children }) => {
         return () => {
             socket.off('Get-Supplies',handleSupplies);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <SuppliesContext.Provider value={[isSupplies,setIsSupplies]}>
@@ -312,15 +316,16 @@ export const Deleted_Supplies = ({ children }) => {
     const [isDeletedSupplies,setIsDeletedSupplies] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleDeletedSupplies = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Insumos eliminados obtenidos!....')
+                    console.log('¡Insumos eliminados obtenidos!')
                     setIsDeletedSupplies(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los insumos eliminados!...');
+                    console.log('¡Error al desencriptar los insumos eliminados!');
                     setIsDeletedSupplies([]);
                 }
             } catch (error) {
@@ -335,7 +340,7 @@ export const Deleted_Supplies = ({ children }) => {
         return () => {
             socket.off('Get-Deleted-Supplies',handleDeletedSupplies);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <DeletedSuppliesContext.Provider value={[isDeletedSupplies,setIsDeletedSupplies]}>
@@ -364,15 +369,16 @@ export const Supply_Types = ({ children }) => {
     const [isSupplyTypes,setIsSupplyTypes] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleSupplyTypes = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Tipos de insumo obtenidos!....')
+                    console.log('¡Tipos de insumo obtenidos!')
                     setIsSupplyTypes(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los tipos de insumo!...');
+                    console.log('¡Error al desencriptar los tipos de insumo!');
                     setIsSupplyTypes([]);
                 }
             } catch (error) {
@@ -387,7 +393,7 @@ export const Supply_Types = ({ children }) => {
         return () => {
             socket.off('Get-Supply-Types',handleSupplyTypes);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <SupplyTypesContext.Provider value={[isSupplyTypes,setIsSupplyTypes]}>
@@ -427,15 +433,16 @@ export const Count_Supply_Types = ({ children }) => {
     const [isCountSupplyTypes,setIsCountSupplyTypes] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleCountSupplyTypes = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Cantidades de los tipos de insumo obtenidas!....')
+                    console.log('¡Cantidades de los tipos de insumo obtenidas!')
                     setIsCountSupplyTypes(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar las cantidades de los tipos de insumo!...');
+                    console.log('¡Error al desencriptar las cantidades de los tipos de insumo!');
                     setIsCountSupplyTypes([]);
                 }
             } catch (error) {
@@ -450,7 +457,7 @@ export const Count_Supply_Types = ({ children }) => {
         return () => {
             socket.off('Get-Count-Supply-Types',handleCountSupplyTypes);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <CountSupplyTypesContext.Provider value={[isCountSupplyTypes,setIsCountSupplyTypes]}>
@@ -479,15 +486,16 @@ export const Deleted_Supply_Types = ({ children }) => {
     const [isDeletedSupplyTypes,setIsDeletedSupplyTypes] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleDeletedSupplyTypes = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Tipos de insumo eliminados obtenidos!....')
+                    console.log('¡Tipos de insumo eliminados obtenidos!')
                     setIsDeletedSupplyTypes(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar los tipos de insumo eliminados!...');
+                    console.log('¡Error al desencriptar los tipos de insumo eliminados!');
                     setIsDeletedSupplyTypes([]);
                 }
             } catch (error) {
@@ -502,7 +510,7 @@ export const Deleted_Supply_Types = ({ children }) => {
         return () => {
             socket.off('Get-Deleted-Supply-Types',handleDeletedSupplyTypes);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <DeletedSupplyTypesContext.Provider value={[isDeletedSupplyTypes,setIsDeletedSupplyTypes]}>
@@ -531,15 +539,16 @@ export const Supply_Categories = ({ children }) => {
     const [isSupplyCategories,setIsSupplyCategories] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleSupplyCategories = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Categorías por insumo obtenidas!....')
+                    console.log('¡Categorías por insumo obtenidas!')
                     setIsSupplyCategories(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar las categorías por insumo!...');
+                    console.log('¡Error al desencriptar las categorías por insumo!');
                     setIsSupplyCategories([]);
                 }
             } catch (error) {
@@ -554,7 +563,7 @@ export const Supply_Categories = ({ children }) => {
         return () => {
             socket.off('Get-Supply-Categories',handleSupplyCategories);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <SupplyCategoriesContext.Provider value={[isSupplyCategories,setIsSupplyCategories]}>
@@ -594,15 +603,16 @@ export const Deleted_Supply_Categories = ({ children }) => {
     const [isDeletedSupplyCategories,setIsDeletedSupplyCategories] = useState([]);
     // UseEffect para obtener los datos desde la base de datos
     useEffect(() => {
+        if(!socket) return;
         const handleDeletedSupplyCategories = (result) => {
             try {
                 const decryptedData = decryptData(result);
                 if(decryptedData){
                     const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Categorías por insumo eliminadas obtenidas!....')
+                    console.log('¡Categorías por insumo eliminadas obtenidas!')
                     setIsDeletedSupplyCategories(parsedData);
                 }else{
-                    console.log('¡Error al desencriptar las categorías por insumo eliminadas!...');
+                    console.log('¡Error al desencriptar las categorías por insumo eliminadas!');
                     setIsDeletedSupplyCategories([]);
                 }
             } catch (error) {
@@ -617,7 +627,7 @@ export const Deleted_Supply_Categories = ({ children }) => {
         return () => {
             socket.off('Get-Deleted-Supply-Categories',handleDeletedSupplyCategories);
         }
-    },[]);
+    },[socket]);
     // Return para darle valor al contexto y heredarlo
     return (
         <DeletedSupplyCategoriesContext.Provider value={[isDeletedSupplyCategories,setIsDeletedSupplyCategories]}>

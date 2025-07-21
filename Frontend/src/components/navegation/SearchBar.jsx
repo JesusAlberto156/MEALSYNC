@@ -1,17 +1,18 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext, useEffect,useState } from "react";
+import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../contexts/ViewsProvider";
+import { ActionBlockContext } from "../../contexts/VariablesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { TextFieldsSearchDateContext } from "../../contexts/FormsProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../contexts/SessionProvider";
 import { UsersViewPasswordContext } from "../../contexts/UsersProvider";
-import { RefUsersContext,RefPermissionsContext,RefStatusContext,RefSuppliersContext,RefSupplierObservationsContext,RefSupplyCategoriesContext,RefSupplyTypesContext,RefSuppliesContext,RefSupplyOrdersContext } from "../../contexts/RefsProvider";
+import { RefButtonEditContext,RefButtonDeleteContext,RefButtonEnableContext,RefButtonDisableContext,RefSuppliersContext,RefSupplierObservationsContext,RefSupplyCategoriesContext,RefSupplyTypesContext,RefSuppliesContext,RefSupplyOrdersContext } from "../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalViewUsers } from "../../hooks/users/Views";
 import { HandleViewPassword } from "../../hooks/users/Forms";
@@ -21,7 +22,6 @@ import { ResetFilteredSearch,ResetFilteredOrder } from "../../hooks/Texts";
 //__________ICONOS__________
 // Icono para la seccion del buscador
 import { IoSearch } from "react-icons/io5";
-import { FaShoppingCart } from "react-icons/fa";
 import { LuArrowDownUp } from "react-icons/lu";
 // Iconos para un crud
 import { IoIosAddCircle } from "react-icons/io";
@@ -41,16 +41,17 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 // Estilos personalizados
 import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function } from "../styled/Containers";
 import { Button_Text_Blue_Auto,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../styled/Buttons";
-import { Icon_White_20,Icon_White_16,Icon_Button_White_20,Icon_Button_Black_30,Icon_16 } from "../styled/Icons";
+import { Icon_White_20,Icon_White_16,Icon_Button_White_20,Icon_16 } from "../styled/Icons";
 import { Input_Search_Table_White,Input_Radio_20 } from "../styled/Inputs";
 import { Text_Span_12_Center_White } from "../styled/Text";
 // Componentes personalizados
-
+import { Searchbar_Button_Search,Searchbar_Button_Order,Searchbar_Button_Search_Order } from "../forms/Button";
 //____________IMPORT/EXPORT____________
 
 // Componente para buscar elementos o acciones en las tablas
 export default function Search_Bar (){
     // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
     const [themeMode] = useContext(ThemeModeContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
@@ -59,9 +60,10 @@ export default function Search_Bar (){
     const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isUsersViewPassword] = useContext(UsersViewPasswordContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
-    const {Modal_Users,Form_Users,Button_Edit_Users,Button_Delete_Users} = useContext(RefUsersContext);
-    const {Modal_Permissions,Form_Permissions,Button_Edit_Permissions,Button_Enable_Permissions} = useContext(RefPermissionsContext);
-    const {Modal_Status,Form_Status,Button_Enable_Status} = useContext(RefStatusContext);
+    const isButtonEdit = useContext(RefButtonEditContext);
+    const isButtonDelete = useContext(RefButtonDeleteContext);
+    const isButtonEnable = useContext(RefButtonEnableContext);
+    const isButtonDisable = useContext(RefButtonDisableContext);
     const {Modal_Suppliers,Form_Suppliers,Button_Edit_Suppliers,Button_Delete_Suppliers} = useContext(RefSuppliersContext);
     const {Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations} = useContext(RefSupplierObservationsContext);
     const {Modal_Supply_Categories,Form_Supply_Categories,Button_Edit_Supply_Categories,Button_Delete_Supply_Categories} = useContext(RefSupplyCategoriesContext);
@@ -74,6 +76,7 @@ export default function Search_Bar (){
     const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext);
     // Constante con las opciones de los buscadores
     const isOptionUsers = ['General','Nombre','Nombre corto','Usuario','Tipo de usuario'];
+    const isOptionStatusSearch = ['General','Nombre','Usuario'];
     const isOptionStatus = ['Normal','Activo','Inactivo'];
     const isOptionSuppliers = ['General','Nombre','RFC','Domicilio','Teléfono','Correo'];
     const isOptionSupplierObservations = ['General','Proveedor','Fecha','Calificación'];
@@ -125,6 +128,7 @@ export default function Search_Bar (){
                                 type="text"
                                 placeholder="Buscar..."
                                 value={isSearchTerm}
+                                disabled={isActionBlock}
                                 onChange={(e) => setIsSearchTerm(e.target.value)}
                             />  
                         </>
@@ -134,66 +138,66 @@ export default function Search_Bar (){
                             {isOptionUsers.map((option,index) => (
                                 <Button_Text_Blue_Auto
                                     key={index}
+                                    disabled={isActionBlock}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
-                                        color: isSelectedOptionSearch === option ? 'white' : 'white',
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : '',
                                     }}
                                 >
                                     {option}
                                 </Button_Text_Blue_Auto>
                             ))}
-                            <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
-                            </Tooltip>
-                            <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
-                            </Tooltip>
+                            <Searchbar_Button_Search_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Usuarios' && currentNView === 'Permisos' ? (
                         <>
-                            <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
-                            </Tooltip>
-                            <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
-                            </Tooltip>
+                            <Searchbar_Button_Search_Order/>
                         </>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Usuarios' && currentNView === 'Estatus' ? (
                         <Container_Searchbar_Row_Search_Blue>
-                            <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
-                            </Tooltip>
-                            {isOptionStatus.map((option,index) => (
+                            {isOptionStatusSearch.map((option,index) => (
                                 <Button_Text_Blue_Auto
                                     key={index}
-                                    onClick={() => setIsSelectedOptionOrderPlus(option)}
+                                    disabled={isActionBlock}
+                                    onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
-                                        backgroundColor: isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
-                                        color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : '',
                                     }}
                                 >
                                     {option}
                                 </Button_Text_Blue_Auto>
                             ))}
-                            <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
-                            </Tooltip>
+                            <Searchbar_Button_Search/>
+                            {isOptionStatus.map((option,index) => (
+                                <Button_Text_Blue_Auto
+                                    key={index}
+                                    disabled={isActionBlock}
+                                    onClick={() => setIsSelectedOptionOrderPlus(option)}
+                                    style={{
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : '',
+                                    }}
+                                >
+                                    {option}
+                                </Button_Text_Blue_Auto>
+                            ))}
+                            <Searchbar_Button_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
+
                     {currentSView === 'Proveedores' && currentNView === 'Proveedores' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionSuppliers.map((option,index) => (
                                 <Button_Text_Blue_Auto
                                     key={index}
+                                    disabled={isActionBlock}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
                                         backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
@@ -204,10 +208,20 @@ export default function Search_Bar (){
                                 </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredSearch()}
+                                >
+                                    <IoSearch/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredOrder()}
+                                >
+                                    <LuArrowDownUp/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
@@ -218,6 +232,7 @@ export default function Search_Bar (){
                             {isOptionSupplierObservations.map((option,index) => (
                                 <Button_Text_Blue_Auto
                                     key={index}
+                                    disabled={isActionBlock}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
                                         backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
@@ -228,32 +243,53 @@ export default function Search_Bar (){
                                 </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredSearch()}
+                                >
+                                    <IoSearch/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredOrder()}
+                                >
+                                    <LuArrowDownUp/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Proveedores' && currentNView === 'Categorias por insumo' ? (
+                    {currentSView === 'Insumos' && currentNView === 'Categorias por insumo' ? (
                         <>
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredSearch()}
+                                >
+                                    <IoSearch/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredOrder()}
+                                >
+                                    <LuArrowDownUp/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                         </>
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Proveedores' && currentNView === 'Tipos de insumo' ? (
+                    {currentSView === 'Insumos' && currentNView === 'Tipos de insumo' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplyTypes.map((option,index) => (
                                 <Button_Text_Blue_Auto
                                     key={index}
+                                    disabled={isActionBlock}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
                                         backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
@@ -264,20 +300,31 @@ export default function Search_Bar (){
                                 </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredSearch()}
+                                >
+                                    <IoSearch/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredOrder()}
+                                >
+                                    <LuArrowDownUp/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
-                    {currentSView === 'Proveedores' && currentNView === 'Insumos' ? (
+                    {currentSView === 'Insumos' && currentNView === 'Insumos' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionSupplies.map((option,index) => (
                                 <Button_Text_Blue_Auto
                                     key={index}
+                                    disabled={isActionBlock}
                                     onClick={() => setIsSelectedOptionSearch(option)}
                                     style={{
                                         backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
@@ -288,10 +335,20 @@ export default function Search_Bar (){
                                 </Button_Text_Blue_Auto>
                             ))}
                             <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredSearch()}
+                                >
+                                    <IoSearch/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                             <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
+                                <Icon_Button_White_20 
+                                    disabled={isActionBlock}
+                                    onClick={() => resetFilteredOrder()}
+                                >
+                                    <LuArrowDownUp/>
+                                </Icon_Button_White_20>
                             </Tooltip>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
@@ -445,137 +502,155 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
+
+                    {currentSView === 'Menus' && currentNView === 'Menus' ? (
+                        <>
+                            <Searchbar_Button_Search_Order/>
+                        </>
+                    ):(
+                        <></>
+                    )}
                     <Container_Searchbar_Row_Function>
                         {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
-                            <>
-                                <Tooltip title='Agregar' placement="top">
-                                    <span>
-                                        <Button_Icon_Green_60 
-                                            disabled={isSelectedRow !== null}
-                                            onClick={() => {
-                                                handleModalViewUsers('Usuario-Agregar');
-                                                navigate('/Administration/Index/Users/Users/Add',{ replace: true });
-                                            }}
-                                        >
-                                            <Icon_White_16><IoIosAddCircle/></Icon_White_16>
-                                        </Button_Icon_Green_60>
-                                    </span>
-                                </Tooltip> 
-                                <Tooltip title='Editar' placement="top">
-                                    <span>
-                                        <Button_Icon_Blue_60 
-                                            ref={Button_Edit_Users} 
-                                            disabled={isSelectedRow === null}
-                                            onClick={() => {
-                                                handleModalViewUsers('Usuario-Editar');
-                                                navigate('/Administration/Index/Users/Users/Edit',{ replace: true });
-                                            }}
-                                        >
-                                            <Icon_White_16><MdEdit/></Icon_White_16>
-                                        </Button_Icon_Blue_60>
-                                    </span>
-                                </Tooltip>  
-                                {isLoggedPermissions.superadministrador ? (
-                                    <>
-                                        <Tooltip title='Eliminar' placement="top">
-                                            <span>
-                                                <Button_Icon_Red_60 
-                                                    ref={Button_Delete_Users} 
-                                                    disabled={isSelectedRow === null}
+                            isActionBlock ? (
+                                <>
+                                    <Button_Icon_Green_60 disabled>
+                                        <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                    </Button_Icon_Green_60>
+                                    <Button_Icon_Blue_60 disabled>
+                                        <Icon_White_16><MdEdit/></Icon_White_16>
+                                    </Button_Icon_Blue_60>
+                                    {isLoggedPermissions.superadministrador ? (
+                                        <Button_Icon_Red_60 disabled>
+                                            <Icon_White_16><MdDelete/></Icon_White_16>
+                                        </Button_Icon_Red_60>
+                                    ):(
+                                        <></>
+                                    )}
+                                    <Button_Icon_Red_60 disabled>
+                                        <Icon_White_16>{isUsersViewPassword ? <IoIosEyeOff/> : <FaEye/>}</Icon_White_16>
+                                    </Button_Icon_Red_60>
+                                </>
+                            ):(
+                                <>
+                                    {isSelectedRow !== null ? (
+                                        <>
+                                            <Button_Icon_Green_60 disabled>
+                                                <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                            </Button_Icon_Green_60>
+                                            <Tooltip title='Editar' placement="top">
+                                                <Button_Icon_Blue_60 
+                                                    ref={isButtonEdit}
                                                     onClick={() => {
-                                                        handleModalViewUsers('Usuario-Eliminar');
-                                                        navigate('/Administration/Index/Users/Users/Delete',{ replace: true });
+                                                        handleModalViewUsers('Usuario-Editar');
+                                                        navigate('/Administration/Index/Users/Users/Edit',{ replace: true });
                                                     }}
                                                 >
+                                                    <Icon_White_16><MdEdit/></Icon_White_16>
+                                                </Button_Icon_Blue_60>
+                                            </Tooltip>  
+                                            {isLoggedPermissions.superadministrador ? (
+                                                <Tooltip title='Eliminar' placement="top">
+                                                    <Button_Icon_Red_60 
+                                                        ref={isButtonDelete}
+                                                        onClick={() => {
+                                                            handleModalViewUsers('Usuario-Eliminar');
+                                                            navigate('/Administration/Index/Users/Users/Delete',{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_White_16><MdDelete/></Icon_White_16>
+                                                    </Button_Icon_Red_60>
+                                                </Tooltip>
+                                            ):(
+                                                <></>
+                                            )}
+                                        </>
+                                    ):(
+                                        <>
+                                            <Tooltip title='Agregar' placement="top">
+                                                <Button_Icon_Green_60 
+                                                    onClick={() => {
+                                                        handleModalViewUsers('Usuario-Agregar');
+                                                        navigate('/Administration/Index/Users/Users/Add',{ replace: true });
+                                                    }}
+                                                >
+                                                    <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                                </Button_Icon_Green_60>
+                                            </Tooltip> 
+                                            <Button_Icon_Blue_60 disabled>
+                                                <Icon_White_16><MdEdit/></Icon_White_16>
+                                            </Button_Icon_Blue_60>  
+                                            {isLoggedPermissions.superadministrador ? (
+                                                <Button_Icon_Red_60 disabled>
                                                     <Icon_White_16><MdDelete/></Icon_White_16>
                                                 </Button_Icon_Red_60>
-                                            </span>
-                                        </Tooltip>
-                                    </>
-                                ):(
-                                    <></>
-                                )}
-                                {isUsersViewPassword ? (
-                                    <>
-                                        <Tooltip title='Ocultar contraseñas' placement="top">
-                                            <span>
+                                            ):(
+                                                <></>
+                                            )}
+                                        </>
+                                    )}
+                                    <Tooltip title={isUsersViewPassword ? 'Ocultar contraseñas' : 'Mostrar contraseñas'} placement="top">
+                                        {isUsersViewPassword ? (
                                                 <Button_Icon_Red_60 
                                                     onClick={() => handleViewPassword()}
                                                 >
                                                     <Icon_White_16><IoIosEyeOff/></Icon_White_16>
-                                                </Button_Icon_Red_60>
-                                            </span>
-                                        </Tooltip> 
-                                    </>
-                                ):(
-                                    <>
-                                        <Tooltip title='Mostrar contraseñas' placement="top">
-                                            <span>
-                                                <Button_Icon_Green_60 
-                                                    onClick={() => {
-                                                        handleModalViewUsers('Usuario-Ver-Contraseña');
-                                                        navigate('/Administration/Index/Users/Users/View',{ replace: true });
-                                                    }}
-                                                >
-                                                    <Icon_White_16><FaEye/></Icon_White_16>
-                                                </Button_Icon_Green_60>
-                                            </span>
-                                        </Tooltip> 
-                                    </>
-                                )}
-                            </>
+                                                </Button_Icon_Red_60>  
+                                        ):(
+                                            <Button_Icon_Green_60 
+                                                onClick={() => {
+                                                    handleModalViewUsers('Usuario-Ver-Contraseña');
+                                                    navigate('/Administration/Index/Users/Users/View',{ replace: true });
+                                                }}
+                                            >
+                                                <Icon_White_16><FaEye/></Icon_White_16>
+                                            </Button_Icon_Green_60>
+                                        )}
+                                    </Tooltip> 
+                                </>
+                            )
                         ):(
                             <></>
                         )}
                         {currentSView === 'Usuarios' && currentNView === 'Permisos' ? (
-                            <>
-                                <Tooltip title='Agregar' placement="top">
-                                    <span>
-                                        <Button_Icon_Green_60 
-                                            disabled={isSelectedRow !== null}
-                                            onClick={() => {
-                                                handleModalViewUsers('Permisos-Agregar');
-                                                navigate('/Administration/Index/Users/Permissions/Add',{ replace: true });
-                                            }}
-                                        >
+                            isActionBlock ? (
+                                <>
+                                    <Button_Icon_Green_60 disabled>
+                                        <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                    </Button_Icon_Green_60>
+                                    <Button_Icon_Blue_60 disabled>
+                                        <Icon_White_16><MdEdit/></Icon_White_16>
+                                    </Button_Icon_Blue_60>
+                                    {isLoggedPermissions.superadministrador ? (
+                                        <Button_Icon_Orange_60 disabled>
+                                            <Icon_White_16><FaUserTie/></Icon_White_16>
+                                        </Button_Icon_Orange_60>
+                                    ):(
+                                        <></>
+                                    )}
+                                </>
+                            ):(
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Button_Icon_Green_60 disabled>
                                             <Icon_White_16><IoIosAddCircle/></Icon_White_16>
                                         </Button_Icon_Green_60>
-                                    </span>
-                                </Tooltip> 
-                                <Tooltip title='Editar' placement="top">
-                                    <span>
-                                        <Button_Icon_Blue_60 
-                                            ref={Button_Edit_Permissions}
-                                            disabled={isSelectedRow === null}
-                                            onClick={() => {
-                                                handleModalViewUsers('Permisos-Editar');
-                                                navigate('/Administration/Index/Users/Permissions/Edit',{ replace: true });
-                                            }}
-                                        >
-                                            <Icon_White_16><MdEdit/></Icon_White_16>
-                                        </Button_Icon_Blue_60>
-                                    </span>
-                                </Tooltip> 
-                                {isSelectedRow === null ? (
-                                    <>
-                                        <Tooltip title='Deshabilitar/Habilitar' placement="top">
-                                            <span>
-                                                <Button_Icon_Orange_60 
-                                                    disabled={isSelectedRow === null}
-                                                >
-                                                    <Icon_White_16><FaUserTie/></Icon_White_16>
-                                                </Button_Icon_Orange_60>
-                                            </span>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_60 
+                                                ref={isButtonEdit}
+                                                onClick={() => {
+                                                    handleModalViewUsers('Permisos-Editar');
+                                                    navigate('/Administration/Index/Users/Permissions/Edit',{ replace: true });
+                                                }}
+                                            >
+                                                <Icon_White_16><MdEdit/></Icon_White_16>
+                                            </Button_Icon_Blue_60>
                                         </Tooltip> 
-                                    </>
-                                ):(
-                                    isSelectedRow.superadministrador ? (
-                                        <>
-                                            <Tooltip title='Deshabilitar' placement="top">
-                                                <span>
+                                        {isLoggedPermissions.superadministrador ? (
+                                            <Tooltip title={isSelectedRow.superadministrador ? 'Deshabilitar' : 'Habilitar'} placement="top">
+                                                {isSelectedRow.superadministrador ? (
                                                     <Button_Icon_Red_60 
-                                                        ref={Button_Enable_Permissions}
-                                                        disabled={isSelectedRow === null}
+                                                        ref={isButtonDisable}
                                                         onClick={() => {
                                                             handleModalViewUsers('Permiso-Super-Administrador');
                                                             navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
@@ -583,16 +658,9 @@ export default function Search_Bar (){
                                                     >
                                                         <Icon_White_16><FaUserTie/></Icon_White_16>
                                                     </Button_Icon_Red_60>
-                                                </span>
-                                            </Tooltip> 
-                                        </>
-                                    ):(
-                                        <>
-                                            <Tooltip title='Habilitar' placement="top">
-                                                <span>
+                                                ):(
                                                     <Button_Icon_Green_60 
-                                                        ref={Button_Enable_Permissions}
-                                                        disabled={isSelectedRow === null}
+                                                        ref={isButtonEnable}
                                                         onClick={() => {
                                                             handleModalViewUsers('Permiso-Super-Administrador');
                                                             navigate('/Administration/Index/Users/Permissions/Enable',{ replace: true });
@@ -600,50 +668,61 @@ export default function Search_Bar (){
                                                     >
                                                         <Icon_White_16><FaUserTie/></Icon_White_16>
                                                     </Button_Icon_Green_60>
-                                                </span>
+                                                )}
                                             </Tooltip> 
-                                        </>                              
-                                    )
-                                )}
-                            </>
+                                        ):(
+                                            <></>
+                                        )}
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Agregar' placement="top">
+                                            <Button_Icon_Green_60
+                                                onClick={() => {
+                                                    handleModalViewUsers('Permisos-Agregar');
+                                                    navigate('/Administration/Index/Users/Permissions/Add',{ replace: true });
+                                                }}
+                                            >
+                                                <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip> 
+                                        <Button_Icon_Blue_60 disabled>
+                                            <Icon_White_16><MdEdit/></Icon_White_16>
+                                        </Button_Icon_Blue_60>
+                                        {isLoggedPermissions.superadministrador ? (
+                                            <Button_Icon_Orange_60 disabled>
+                                                <Icon_White_16><FaUserTie/></Icon_White_16>
+                                            </Button_Icon_Orange_60>
+                                        ):(
+                                            <></>
+                                        )}
+                                    </>
+                                )
+                            )
                         ):(
                             <></>
                         )}
                         {currentSView === 'Usuarios' && currentNView === 'Estatus' ? (
-                            <>
-                                <Tooltip title='Agregar' placement="top">
-                                    <span>
-                                        <Button_Icon_Green_60 
-                                            disabled={isSelectedRow !== null}
-                                            onClick={() => {
-                                                handleModalViewUsers('Estatus-Agregar');
-                                                navigate('/Administration/Index/Users/Status/Add',{ replace: true });
-                                            }}
-                                        >
+                            isActionBlock ? (
+                                <>
+                                    <Button_Icon_Green_60 disabled>
+                                        <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                    </Button_Icon_Green_60>
+                                    <Button_Icon_Orange_60 disabled>
+                                        <Icon_White_16><FaUnlock/></Icon_White_16>
+                                    </Button_Icon_Orange_60>
+                                </>
+                            ):(
+                                isSelectedRow !== null ? (
+                                    <>
+                                        <Button_Icon_Green_60 disabled>
                                             <Icon_White_16><IoIosAddCircle/></Icon_White_16>
                                         </Button_Icon_Green_60>
-                                    </span>
-                                </Tooltip> 
-                                {isSelectedRow === null ? (
-                                    <>
-                                        <Tooltip title='Deshabilitar/Habilitar' placement="top">
-                                            <span>
-                                                <Button_Icon_Orange_60 
-                                                    disabled={isSelectedRow === null}
-                                                >
-                                                    <Icon_White_16><FaUnlock/></Icon_White_16>
-                                                </Button_Icon_Orange_60>
-                                            </span>
-                                        </Tooltip> 
-                                    </>
-                                ):(
-                                    isSelectedRow.habilitado ? (
-                                        <>
-                                            <Tooltip title='Deshabilitar' placement="top">
-                                                <span>
+                                        {isSelectedRow.habilitado ? (
+                                            <>
+                                                <Tooltip title='Deshabilitar' placement="top">
                                                     <Button_Icon_Red_60 
-                                                        ref={Button_Enable_Status}
-                                                        disabled={isSelectedRow === null}
+                                                        ref={isButtonDisable}
                                                         onClick={() => {
                                                             handleModalViewUsers('Estatus-Habilitar');
                                                             navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
@@ -651,16 +730,13 @@ export default function Search_Bar (){
                                                     >
                                                         <Icon_White_16><FaLock/></Icon_White_16>
                                                     </Button_Icon_Red_60>
-                                                </span>
-                                            </Tooltip> 
-                                        </>
-                                    ):(
-                                        <>
-                                            <Tooltip title='Habilitar' placement="top">
-                                                <span>
+                                                </Tooltip> 
+                                            </>
+                                        ):(
+                                            <>
+                                                <Tooltip title='Habilitar' placement="top">
                                                     <Button_Icon_Green_60 
-                                                        ref={Button_Enable_Status}
-                                                        disabled={isSelectedRow === null}
+                                                        ref={isButtonEnable}
                                                         onClick={() => {
                                                             handleModalViewUsers('Estatus-Habilitar');
                                                             navigate('/Administration/Index/Users/Status/Enable',{ replace: true });
@@ -668,15 +744,32 @@ export default function Search_Bar (){
                                                     >
                                                         <Icon_White_16><FaLockOpen/></Icon_White_16>
                                                     </Button_Icon_Green_60>
-                                                </span>
-                                            </Tooltip> 
-                                        </>                              
-                                    )
-                                )}
-                            </>   
+                                                </Tooltip> 
+                                            </>                              
+                                        )}
+                                    </>
+                                ):(
+                                    <>
+                                        <Tooltip title='Agregar' placement="top">
+                                            <Button_Icon_Green_60 
+                                                onClick={() => {
+                                                    handleModalViewUsers('Estatus-Agregar');
+                                                    navigate('/Administration/Index/Users/Status/Add',{ replace: true });
+                                                }}
+                                            >
+                                                <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                            </Button_Icon_Green_60>
+                                        </Tooltip> 
+                                        <Button_Icon_Orange_60 disabled>
+                                            <Icon_White_16><FaUnlock/></Icon_White_16>
+                                        </Button_Icon_Orange_60>
+                                    </>
+                                )
+                            )
                         ):(
                             <></>
                         )}
+
                         {currentSView === 'Proveedores' && currentNView === 'Proveedores' ? (
                             <>
                                 {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
@@ -750,7 +843,7 @@ export default function Search_Bar (){
                         ):(
                             <></>
                         )}
-                        {currentSView === 'Proveedores' && currentNView === 'Categorias por insumo' ? (
+                        {currentSView === 'Insumos' && currentNView === 'Categorias por insumo' ? (
                             <>
                                 {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
                                     isSelectedRow !== null ? (
@@ -804,7 +897,7 @@ export default function Search_Bar (){
                         ):(
                             <></>
                         )}
-                        {currentSView === 'Proveedores' && currentNView === 'Tipos de insumo' ? (
+                        {currentSView === 'Insumos' && currentNView === 'Tipos de insumo' ? (
                             <>
                                 {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
                                     isSelectedRow !== null ? (
@@ -891,7 +984,7 @@ export default function Search_Bar (){
                         ):(
                             <></>
                         )}
-                        {currentSView === 'Proveedores' && currentNView === 'Insumos' ? (
+                        {currentSView === 'Insumos' && currentNView === 'Insumos' ? (
                             <>
                                 {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
                                     isSelectedRow !== null ? (
@@ -1083,6 +1176,87 @@ export default function Search_Bar (){
                                 )
                             ):(
                                 <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+
+                        {currentSView === 'Menus' && currentNView === 'Menus' ? (
+                            isActionBlock ? (
+                                <>
+                                    <Button_Icon_Green_60 disabled>
+                                        <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                    </Button_Icon_Green_60>
+                                    <Button_Icon_Blue_60 disabled>
+                                        <Icon_White_16><MdEdit/></Icon_White_16>
+                                    </Button_Icon_Blue_60>
+                                    {isLoggedPermissions.superadministrador ? (
+                                        <Button_Icon_Red_60 disabled>
+                                            <Icon_White_16><MdDelete/></Icon_White_16>
+                                        </Button_Icon_Red_60>
+                                    ):(
+                                        <></>
+                                    )}
+                                </>
+                            ):(
+                                <>
+                                    {isSelectedRow !== null ? (
+                                        <>
+                                            <Button_Icon_Green_60 disabled>
+                                                <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                            </Button_Icon_Green_60>
+                                            <Tooltip title='Editar' placement="top">
+                                                <Button_Icon_Blue_60 
+                                                    ref={isButtonEdit}
+                                                    onClick={() => {
+                                                        handleModalViewUsers('Tipo-Menu-Editar');
+                                                        navigate('/Administration/Index/Menus/Menus/Edit',{ replace: true });
+                                                    }}
+                                                >
+                                                    <Icon_White_16><MdEdit/></Icon_White_16>
+                                                </Button_Icon_Blue_60>
+                                            </Tooltip>  
+                                            {isLoggedPermissions.superadministrador ? (
+                                                <Tooltip title='Eliminar' placement="top">
+                                                    <Button_Icon_Red_60 
+                                                        ref={isButtonDelete}
+                                                        onClick={() => {
+                                                            handleModalViewUsers('Tipo-Menu-Eliminar');
+                                                            navigate('/Administration/Index/Menus/Menus/Delete',{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_White_16><MdDelete/></Icon_White_16>
+                                                    </Button_Icon_Red_60>
+                                                </Tooltip>
+                                            ):(
+                                                <></>
+                                            )}
+                                        </>
+                                    ):(
+                                        <>
+                                            <Tooltip title='Agregar' placement="top">
+                                                <Button_Icon_Green_60 
+                                                    onClick={() => {
+                                                        handleModalViewUsers('Tipo-Menu-Agregar');
+                                                        navigate('/Administration/Index/Menus/Menus/Add',{ replace: true });
+                                                    }}
+                                                >
+                                                    <Icon_White_16><IoIosAddCircle/></Icon_White_16>
+                                                </Button_Icon_Green_60>
+                                            </Tooltip> 
+                                            <Button_Icon_Blue_60 disabled>
+                                                <Icon_White_16><MdEdit/></Icon_White_16>
+                                            </Button_Icon_Blue_60>  
+                                            {isLoggedPermissions.superadministrador ? (
+                                                <Button_Icon_Red_60 disabled>
+                                                    <Icon_White_16><MdDelete/></Icon_White_16>
+                                                </Button_Icon_Red_60>
+                                            ):(
+                                                <></>
+                                            )}
+                                        </>
+                                    )}
+                                </>
                             )
                         ):(
                             <></>

@@ -31,10 +31,10 @@ import { MdEdit } from "react-icons/md";
 import { Container_Modal_Background_Black,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
 import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_20_Center_Black,Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Button_Icon_Blue_210,Button_Icon_Red_210 } from "../../../styled/Buttons";
-import { Input_Text_100_Black,Input_Area_Black_100,Input_Group,Input_Radio_20,Input_Text_60_Black } from "../../../styled/Inputs";
+import { Input_Text_100_Black,Input_Area_100_Black,Input_Group,Input_Radio_20,Input_Text_60_Black } from "../../../styled/Inputs";
 import { Icon_20,Icon_Button_Blue_16,Icon_24 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
-import { Label_Text_12_Black,Label_Total_Area_12_Center,Label_Button_16_Black } from "../../../styled/Labels";
+import { Label_Text_12_Black,Label_Area_12_Black,Label_Button_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
 import Keyboard_Default from "../../../keyboards/Defaullt";
@@ -267,7 +267,7 @@ export default function Supply_Type_Edit(){
                                         }}
                                         rows={3}
                                     />
-                                    <Label_Total_Area_12_Center ThemeMode={themeMode}>{isTotalDescription}/250</Label_Total_Area_12_Center>
+                                    <Label_Area_12_Black ThemeMode={themeMode}>{isTotalDescription}/250</Label_Area_12_Black>
                                 </Input_Group>
                                 <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
                                     onClick={() => {

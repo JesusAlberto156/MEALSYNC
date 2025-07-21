@@ -7,6 +7,7 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { NavbarViewContext,SidebarViewContext,SidebarContext } from "../../contexts/ViewsProvider";
 import { LoggedLoggedContext,LoggedTypeContext } from "../../contexts/SessionProvider";
+import { ActionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleNavbarView,ToggleSidebar,HandleModalView } from "../../hooks/Views";
 //__________IMAGENES__________
@@ -20,15 +21,16 @@ import { IoIosLock } from "react-icons/io";
 // Iconos para la opcion de proveedores del navbar
 import { FaStore } from "react-icons/fa";
 import { MdSpeakerNotes } from "react-icons/md";
+// Iconos para la opcion de insumos del navbar
 import { GiFruitBowl } from "react-icons/gi";
 import { GiMilkCarton } from "react-icons/gi";
 import { GiMeat } from "react-icons/gi";
 import { FaBoxes } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa6";
-import { GiBroom } from "react-icons/gi";
-import { FaSoap } from "react-icons/fa6";
-import { FaSprayCanSparkles } from "react-icons/fa6";
-import { FaMoneyBillWave } from "react-icons/fa";
+// Iconos para la opcion de extras del navbar
+import { FaBroom } from "react-icons/fa6";
+import { GiLiquidSoap } from "react-icons/gi";
+import { GiMoneyStack } from "react-icons/gi";
 // Iconos para la sección de inventario del navbar
 import { MdAssignment } from "react-icons/md";
 import { FaCashRegister } from "react-icons/fa";
@@ -37,9 +39,9 @@ import { FaMinus } from "react-icons/fa";
 import { TbReportAnalytics } from "react-icons/tb";
 // Iconos para la seccion de menus del navbar
 import { MdOutlineMenuBook } from "react-icons/md";
-import { MdFreeBreakfast } from "react-icons/md";
 import { GiMeal } from "react-icons/gi";
-import { MdDinnerDining } from "react-icons/md";
+import { GiBowlOfRice } from "react-icons/gi";
+import { GiGlassShot } from "react-icons/gi";
 // Iconos para el toggle
 import { BiSolidToggleLeft } from "react-icons/bi";
 import { BiSolidToggleRight } from "react-icons/bi";
@@ -48,7 +50,7 @@ import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Navbar_Row_General_White,Container_Navbar_Row_General,Container_Navbar_Row_Function_Blue,Container_Navbar_Text,Container_Navbar_Row_Buttom } from "../styled/Containers";
-import { Button_Icon_Gray_100,Button_Icon_Blue_80,Button_Icon_Red_80 } from '../styled/Buttons';
+import { Button_Icon_White_100,Button_Icon_Blue_80,Button_Icon_Red_80 } from '../styled/Buttons';
 import { Icon_16,Icon_24 } from "../styled/Icons";
 import { Text_Title_24_White } from '../styled/Text';
 import { Image_Navbar_Fade } from "../styled/Imgs";
@@ -62,6 +64,7 @@ export default function Nav_Bar(){
     const [isLogged] = useContext(LoggedLoggedContext);
     const [isTypeUser] = useContext(LoggedTypeContext);
     const [isSidebar] = useContext(SidebarContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleNavbarView = HandleNavbarView();
@@ -76,33 +79,51 @@ export default function Nav_Bar(){
                     <Container_Navbar_Row_Function_Blue>
                         {currentSView === 'Usuarios' ? (
                             <>
-                                <Tooltip title='Usuarios' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Usuarios' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Usuarios' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Usuarios' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Usuarios');
                                         sessionStorage.setItem('Ruta','/Administration/Index/Users/Users');
                                         navigate('/Administration/Index/Users/Users',{ replace: true });
-                                    }}>
-                                        <Icon_24><FaUser/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Permisos de usuarios' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                    }}
+                                >
+                                    <Icon_24><FaUser/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Permisos' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Permisos' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Permisos' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Permisos')
                                         sessionStorage.setItem('Ruta','/Administration/Index/Users/Permissions');
                                         navigate('/Administration/Index/Users/Permissions',{ replace: true });
-                                    }}>
-                                        <Icon_24><IoShieldHalfSharp/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Estatus de usuarios' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                    }}
+                                >
+                                    <Icon_24><IoShieldHalfSharp/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Estatus' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Estatus' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Estatus' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Estatus')
                                         sessionStorage.setItem('Ruta','/Administration/Index/Users/Status');
                                         navigate('/Administration/Index/Users/Status',{ replace: true });
-                                    }}>
-                                        <Icon_24><IoIosLock/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
+                                    }}
+                                >
+                                    <Icon_24><IoIosLock/></Icon_24>
+                                </Button_Icon_White_100>
                                 {currentNView === 'Usuarios' ? (
                                     <Container_Navbar_Text>
                                         <Text_Title_24_White>USUARIOS</Text_Title_24_White>
@@ -130,72 +151,36 @@ export default function Nav_Bar(){
                         )}
                         {currentSView === 'Proveedores' ? (
                             <>
-                                <Tooltip title='Proveedores' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Proveedores' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Proveedores' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Proveedores' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Proveedores');
                                         sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Suppliers');
                                         navigate('/Administration/Index/Suppliers/Suppliers',{ replace: true });
-                                    }}>
-                                        <Icon_24><FaStore/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Observaciones de proveedores' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                    }}
+                                >
+                                    <Icon_24><FaStore/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Observaciones de proveedores' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Observaciones de proveedores' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Observaciones de proveedores' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Observaciones de proveedores');
                                         sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Observations');
                                         navigate('/Administration/Index/Suppliers/Observations',{ replace: true });
-                                    }}>
-                                        <Icon_24><MdSpeakerNotes/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Categorías por insumo' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Categorias por insumo');
-                                        sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Supply/Categories');
-                                        navigate('/Administration/Index/Suppliers/Supply/Categories',{ replace: true });
-                                    }}>
-                                        <Icon_24><GiFruitBowl/><GiMilkCarton/><GiMeat/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Tipos de insumo' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Tipos de insumo');
-                                        sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Supply/Types');
-                                        navigate('/Administration/Index/Suppliers/Supply/Types',{ replace: true });
-                                    }}>
-                                        <Icon_24><FaBoxes/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Insumos' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Insumos');
-                                        sessionStorage.setItem('Ruta','/Administration/Index/Suppliers/Supplies');
-                                        navigate('/Administration/Index/Suppliers/Supplies',{ replace: true });
-                                    }}>
-                                        <Icon_24><FaBoxOpen/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Tipos de materiales de limpieza' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Gastos fijos');
-                                    }}>
-                                        <Icon_24><GiBroom/><FaSoap/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Materiales de limpieza' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Tipos de material de limpieza');
-                                    }}>
-                                        <Icon_24><FaMoneyBillWave/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Gastos fijos' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Gastos fijos');
-                                    }}>
-                                        <Icon_24><FaMoneyBillWave/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
+                                    }}
+                                >
+                                    <Icon_24><MdSpeakerNotes/></Icon_24>
+                                </Button_Icon_White_100>
                                 {currentNView === 'Proveedores' ? (
                                     <Container_Navbar_Text>
                                         <Text_Title_24_White>PROVEEDORES</Text_Title_24_White>
@@ -211,6 +196,57 @@ export default function Nav_Bar(){
                                 ):(
                                     <></>
                                 )}
+                            </>
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Insumos' ? (
+                            <>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Categorias por insumo' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Categorias por insumo' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Categorias por insumo' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Categorias por insumo');
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Supplies/Supply/Categories');
+                                        navigate('/Administration/Index/Supplies/Supply/Categories',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><GiFruitBowl/><GiMilkCarton/><GiMeat/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Tipos de insumo' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Tipos de insumo' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Tipos de insumo' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Tipos de insumo');
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Supplies/Supply/Types');
+                                        navigate('/Administration/Index/Supplies/Supply/Types',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><FaBoxes/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Insumos' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Insumos' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Insumos' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Insumos');
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Supplies/Supplies');
+                                        navigate('/Administration/Index/Supplies/Supplies',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><FaBoxOpen/></Icon_24>
+                                </Button_Icon_White_100>
                                 {currentNView === 'Categorias por insumo' ? (
                                     <Container_Navbar_Text>
                                         <Text_Title_24_White>CATEGORÍAS POR INSUMO</Text_Title_24_White>
@@ -232,10 +268,96 @@ export default function Nav_Bar(){
                                 ):(
                                     <></>
                                 )}
-
-                                {currentNView === 'Gastos fijos' ? (
+                            </>
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Extras' ? (
+                            <>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Categorias de limpieza' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Categorias de limpieza' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Categorias de limpieza' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Categorias de limpieza');
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Extras/Cleaning/Categories');
+                                        navigate('/Administration/Index/Extras/Cleaning/Categories',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><FaBroom/><GiLiquidSoap/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Suministros de limpieza' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Suministros de limpieza' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Suministros de limpieza' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Suministros de limpieza');
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Extras/Cleaning/Supplies');
+                                        navigate('/Administration/Index/Extras/Cleaning/Supplies',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><FaBoxes/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Categorias de gastos fijos' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Categorias de gastos fijos' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Categorias de gastos fijos' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Categorias de gastos fijos');
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Extras/Fixed/Expenses/Categories');
+                                        navigate('/Administration/Index/Extras/Fixed/Expenses/Categories',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><GiMoneyStack/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Articulos de gastos fijos' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Articulos de gastos fijos' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Articulos de gastos fijos' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Articulos de gastos fijos');
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Extras/Fixed/Expenses/Items');
+                                        navigate('/Administration/Index/Extras/Fixed/Expenses/Items',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><GiMoneyStack/></Icon_24>
+                                </Button_Icon_White_100>
+                                {currentNView === 'Categorias de limpieza' ? (
                                     <Container_Navbar_Text>
-                                        <Text_Title_24_White>GASTOS FIJOS</Text_Title_24_White>
+                                        <Text_Title_24_White>CATEGORÍAS DE LIMPIEZA</Text_Title_24_White>
+                                    </Container_Navbar_Text>
+                                ):(
+                                    <></>
+                                )}
+                                {currentNView === 'Suministros de limpieza' ? (
+                                    <Container_Navbar_Text>
+                                        <Text_Title_24_White>SUMINISTROS DE LIMPIEZA</Text_Title_24_White>
+                                    </Container_Navbar_Text>
+                                ):(
+                                    <></>
+                                )}
+                                {currentNView === 'Categorias de gastos fijos' ? (
+                                    <Container_Navbar_Text>
+                                        <Text_Title_24_White>CATEGORÍAS DE GASTOS FIJOS</Text_Title_24_White>
+                                    </Container_Navbar_Text>
+                                ):(
+                                    <></>
+                                )}
+                                {currentNView === 'Articulos de gastos fijos' ? (
+                                    <Container_Navbar_Text>
+                                        <Text_Title_24_White>ARTÍCULOS DE GASTOS FIJOS</Text_Title_24_White>
                                     </Container_Navbar_Text>
                                 ):(
                                     <></>
@@ -246,42 +368,66 @@ export default function Nav_Bar(){
                         )}
                         {currentSView === 'Inventario' ? (
                             <>
-                                <Tooltip title='Pedidos de insumo' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Pedidos de insumo' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Pedidos de insumo' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Pedidos de insumo' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Pedidos de insumo');
                                         sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Supply/Orders');
                                         navigate('/Administration/Index/Warehouse/Supply/Orders',{ replace: true });
-                                    }}>
-                                        <Icon_24><MdAssignment/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Compras' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                    }}
+                                >
+                                    <Icon_24><MdAssignment/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Compras' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Compras' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Compras' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Compras')
                                         sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Purchases');
                                         navigate('/Administration/Index/Warehouse/Purchases',{ replace: true });
-                                    }}>
-                                        <Icon_24><FaCashRegister/><FaPlus/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Ventas' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                    }}
+                                >
+                                    <Icon_24><FaCashRegister/><FaPlus/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Ventas' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Ventas' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Ventas' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Ventas')
                                         sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Sales');
                                         navigate('/Administration/Index/Warehouse/Sales',{ replace: true });
-                                    }}>
-                                        <Icon_24><FaCashRegister/><FaMinus/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Reportes' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                    }}
+                                >
+                                    <Icon_24><FaCashRegister/><FaMinus/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    disabled={isActionBlock}
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Reportes' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Reportes' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Reportes' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Reportes')
                                         sessionStorage.setItem('Ruta','/Administration/Index/Warehouse/Reports');
                                         navigate('/Administration/Index/Warehouse/Reports',{ replace: true });
-                                    }}>
-                                        <Icon_24><TbReportAnalytics/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
+                                    }}
+                                >
+                                    <Icon_24><TbReportAnalytics/></Icon_24>
+                                </Button_Icon_White_100>
                                 {currentNView === 'Pedidos de insumo' ? (
                                     <Container_Navbar_Text>
                                         <Text_Title_24_White>PEDIDOS DE INSUMOS</Text_Title_24_White>
@@ -317,67 +463,86 @@ export default function Nav_Bar(){
                         )}
                         {currentSView === 'Menus' ? (
                             <>
-                                <Tooltip title='Menus' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
+                                <Button_Icon_White_100 
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Menus' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Menus' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Menus' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
                                         handleNavbarView('Menus');
-                                        sessionStorage.setItem('Ruta','/Administration/Index/Menus');
-                                        navigate('/Administration/Index/Menus',{ replace: true });
-                                    }}>
-                                        <Icon_24><MdOutlineMenuBook/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Desayunos' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Desayunos')
-                                        sessionStorage.setItem('Ruta','/Administration/Index/Breakfasts');
-                                        navigate('/Administration/Index/Breakfasts',{ replace: true });
-                                    }}>
-                                        <Icon_24><MdFreeBreakfast/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Comidas' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Comidas')
-                                        sessionStorage.setItem('Ruta','/Administration/Index/Meals');
-                                        navigate('/Administration/Index/Meals',{ replace: true });
-                                    }}>
-                                        <Icon_24><GiMeal/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
-                                <Tooltip title='Cenas' placement="bottom">
-                                    <Button_Icon_Gray_100 onClick={() => {
-                                        handleNavbarView('Cenas')
-                                        sessionStorage.setItem('Ruta','/Administration/Index/Dinners');
-                                        navigate('/Administration/Index/Dinners',{ replace: true });
-                                    }}>
-                                        <Icon_24><MdDinnerDining/></Icon_24>
-                                    </Button_Icon_Gray_100>
-                                </Tooltip>
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Menus/Menus');
+                                        navigate('/Administration/Index/Menus/Menus',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><MdOutlineMenuBook/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Platillos' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Platillos' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Platillos' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Platillos')
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Menus/Dishes');
+                                        navigate('/Administration/Index/Menus/Dishes',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><GiMeal/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Guarniciones' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Guarniciones' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Guarniciones' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Guarniciones')
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Menus/Side/Dishes');
+                                        navigate('/Administration/Index/Menus/Side/Dishes',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><GiBowlOfRice/></Icon_24>
+                                </Button_Icon_White_100>
+                                <Button_Icon_White_100 
+                                    style={{ 
+                                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentNView === 'Bebidas' ? 'rgba(0, 0, 0, 1)' : '',
+                                        borderColor: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Bebidas' ? 'white' : '',
+                                        color: isActionBlock ? 'rgba(255, 255, 255, 0.75)' : currentNView === 'Bebidas' ? 'white' : '',
+                                    }}
+                                    onClick={() => {
+                                        handleNavbarView('Bebidas')
+                                        sessionStorage.setItem('Ruta','/Administration/Index/Menus/Drinks');
+                                        navigate('/Administration/Index/Menus/Drinks',{ replace: true });
+                                    }}
+                                >
+                                    <Icon_24><GiGlassShot/></Icon_24>
+                                </Button_Icon_White_100>
                                 {currentNView === 'Menus' ? (
                                     <Container_Navbar_Text>
                                         <Text_Title_24_White>MENÚS</Text_Title_24_White>
                                     </Container_Navbar_Text>
                                 ):(
-                                    <></>
-                                    
+                                    <></>                                   
                                 )}
-                                {currentNView === 'Desayunos' ? (
+                                {currentNView === 'Platillos' ? (
                                     <Container_Navbar_Text>
-                                        <Text_Title_24_White>DESAYUNOS</Text_Title_24_White>
+                                        <Text_Title_24_White>PLATILLOS</Text_Title_24_White>
                                     </Container_Navbar_Text>
                                 ):(
                                     <></>
                                 )}
-                                {currentNView === 'Comidas' ? (
+                                {currentNView === 'Guarniciones' ? (
                                     <Container_Navbar_Text>
-                                        <Text_Title_24_White>COMIDAS</Text_Title_24_White>
+                                        <Text_Title_24_White>GUARNICIONES</Text_Title_24_White>
                                     </Container_Navbar_Text>
                                 ):(
                                     <></>
                                 )}
-                                {currentNView === 'Cenas' ? (
+                                {currentNView === 'Bebidas' ? (
                                     <Container_Navbar_Text>
-                                        <Text_Title_24_White>CENAS</Text_Title_24_White>
+                                        <Text_Title_24_White>BEBIDAS</Text_Title_24_White>
                                     </Container_Navbar_Text>
                                 ):(
                                     <></>
@@ -388,23 +553,38 @@ export default function Nav_Bar(){
                         )}
                     </Container_Navbar_Row_Function_Blue>
                     {isLogged ? (
-                        <>  
-                            <Container_Navbar_Row_Buttom>
-                                <Tooltip title='Cerrar sesión' placement="bottom">
-                                    <Button_Icon_Red_80 onClick={() => {
-                                        handleModalView('Cerrar-Sesión');
-                                        navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
-                                    }}>
-                                        <Icon_16><ImExit/></Icon_16>
-                                    </Button_Icon_Red_80>
-                                </Tooltip>
-                                <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
-                                    <Button_Icon_Blue_80 onClick={() => toggleSidebar()}>
-                                        {isSidebar ? <Icon_16><BiSolidToggleRight/></Icon_16> : <Icon_16><BiSolidToggleLeft/></Icon_16>}
-                                    </Button_Icon_Blue_80>
-                                </Tooltip>
-                            </Container_Navbar_Row_Buttom>
-                        </>
+                        isActionBlock ? (
+                            <>
+                                <Button_Icon_Red_80 disabled>
+                                    <Icon_16><ImExit/></Icon_16>
+                                </Button_Icon_Red_80>
+                                <Button_Icon_Blue_80 disabled>
+                                    {isSidebar ? <Icon_16><BiSolidToggleRight/></Icon_16> : <Icon_16><BiSolidToggleLeft/></Icon_16>}
+                                </Button_Icon_Blue_80>
+                            </>
+                        ):(
+                            <>
+                                <Container_Navbar_Row_Buttom>
+                                    <Tooltip title='Cerrar sesión' placement="bottom">
+                                        <Button_Icon_Red_80 
+                                            onClick={() => {
+                                                handleModalView('Cerrar-Sesión');
+                                                navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
+                                            }}
+                                        >
+                                            <Icon_16><ImExit/></Icon_16>
+                                        </Button_Icon_Red_80>
+                                    </Tooltip>
+                                    <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
+                                        <Button_Icon_Blue_80
+                                            onClick={() => toggleSidebar()}
+                                        >
+                                            {isSidebar ? <Icon_16><BiSolidToggleRight/></Icon_16> : <Icon_16><BiSolidToggleLeft/></Icon_16>}
+                                        </Button_Icon_Blue_80>
+                                    </Tooltip>
+                                </Container_Navbar_Row_Buttom>
+                            </>
+                        )
                     ):(
                         <></>
                     )}

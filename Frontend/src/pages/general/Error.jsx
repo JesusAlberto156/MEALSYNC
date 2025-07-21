@@ -4,16 +4,20 @@ import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Toaster } from "sonner";
+//__________IMAGENES__________
+import Logo_Hospital from '../../components/imgs/Logo-Hospital.png'
+//__________IMAGENES__________
 //__________ICONOS__________
 // Iconos de decoración de la página
 import { IoIosWarning } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page_Error,Container_Row_100_Center } from "../../components/styled/Containers";
+import { Container_Page_Error,Container_Row_100_Center,Container_Modal_Image } from "../../components/styled/Containers";
 import { Icon_Rotate_Gray_50,Icon_Yellow_250 } from "../../components/styled/Icons";
 import { Text_Span_20_Center_White,Text_Title_40_White,Text_Title_52_White } from "../../components/styled/Text";
-import { Alert_Sonner_Styles,Alert_Sonner_Error,Alert_Sonner_Success,Alert_Sonner_Loading } from "../../components/styled/Alerts";
+import { Alert_Sonner_Styles,Alert_Sonner_Error,Alert_Sonner_Promise } from "../../components/styled/Alerts";
+import { Image_Modal_Fixed } from "../../components/styled/Imgs";
 //____________IMPORT/EXPORT____________
 
 // Página para captar los errores ocasionados por una mala ruta escrita
@@ -34,7 +38,7 @@ export default function Error(){
                         resolve('¡Página encontrada!');
 
                         setTimeout(() => {
-                            navigate('/',{replace: true});
+                             return navigate('/',{replace: true});
                         },2500);
                     },2000);
                 } catch (e) {
@@ -42,17 +46,7 @@ export default function Error(){
                 }
             });
     
-            Alert_Sonner_Loading('¡Buscando página!',{id: 'Promise'});
-            
-            promise
-                .then((msg) => {
-                    Alert_Sonner_Success(msg,{id: 'Promise'});
-                })
-                .catch((msj) => {
-                    Alert_Sonner_Error(msj,{id: 'Promise'});
-                });
-
-            return;
+            return Alert_Sonner_Promise(promise,'¡Buscando página!','1');
         }
 
         if (contador > 0) {
@@ -69,6 +63,9 @@ export default function Error(){
     return(
         <>
             <Container_Page_Error>
+                <Container_Modal_Image>
+                    <Image_Modal_Fixed src={Logo_Hospital}/>
+                </Container_Modal_Image>
                 <Icon_Yellow_250><IoIosWarning/></Icon_Yellow_250>
                 <Container_Row_100_Center>
                     <Text_Title_40_White>Ooops...</Text_Title_40_White>

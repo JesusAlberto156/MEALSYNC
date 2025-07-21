@@ -5,56 +5,6 @@ import styled from 'styled-components';
 import { Rotate_Animation } from './Animations';
 //____________IMPORT/EXPORT____________
 
-//____________IMAGE____________
-//---------- Black/White
-export const Icon_Image_Black_90 = styled.img.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 90px; 
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        width: 80px; 
-        height: 80px;
-    }
-
-    @media (max-width: 480px) {
-        width: 70px; 
-        height: 70px;
-    }
-`;
-export const Icon_Image_Black_60 = styled.img.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    width: 60px; 
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: ${({ ThemeMode }) => (ThemeMode ? '3px solid black' : '3px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'white' : 'black')};;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        width: 50px; 
-        height: 50px;
-    }
-
-    @media (max-width: 480px) {
-        width: 40px; 
-        height: 40px;
-    }
-`;
-//---------- Black/White
-//____________IMAGE____________
 //____________BUTTON____________
 //---------- Blanco
 export const Icon_Button_White_32 = styled.button`
@@ -69,9 +19,15 @@ export const Icon_Button_White_32 = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
-    &:hover {
+    &:not(:disabled):hover {
         transform: scale(1.2);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     @media (max-width: 768px) {
@@ -94,9 +50,15 @@ export const Icon_Button_White_28 = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
-    &:hover {
+    &:not(:disabled):hover {
         transform: scale(1.2);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     @media (max-width: 768px) {
@@ -119,9 +81,15 @@ export const Icon_Button_White_24 = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
-    &:hover {
+    &:not(:disabled):hover {
         transform: scale(1.2);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     @media (max-width: 768px) {
@@ -144,9 +112,15 @@ export const Icon_Button_White_20 = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
-    &:hover {
+    &:not(:disabled):hover {
         transform: scale(1.2);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     @media (max-width: 768px) {
@@ -169,9 +143,15 @@ export const Icon_Button_White_16 = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
-    &:hover {
+    &:not(:disabled):hover {
         transform: scale(1.2);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     @media (max-width: 768px) {
@@ -194,224 +174,40 @@ export const Icon_Button_White_12 = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
-    &:hover {
+    &:not(:disabled):hover {
         transform: scale(1.2);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
     @media (max-width: 768px) {
         font-size: 10px;
     }
 
     @media (max-width: 480px) {
-        font-size: 18px;
+        font-size: 8px;
     }
 `;
 //---------- Blanco
-//---------- White
-export const Icon_Button_White_30 = styled.button`
-    font-size: 30px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 28px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 26px;
-    }
-`;
-export const Icon_Button_White_26 = styled.button`
-    font-size: 26px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 22px;
-    }
-`;
-export const Icon_Button_White_22 = styled.button`
-    font-size: 22px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 18px;
-    }
-`;
-export const Icon_Button_White_18 = styled.button`
-    font-size: 18px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
-    }
-`;
-export const Icon_Button_White_14 = styled.button`
-    font-size: 14px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 12px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 10px;
-    }
-`;
-//---------- White
-//---------- Black/White
-export const Icon_Button_Black_30 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 30px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 28px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 26px;
-    }
-`;
-export const Icon_Button_Black_26 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 26px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 24px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 22px;
-    }
-`;
-export const Icon_Button_Black_22 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 22px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 18px;
-    }
-`;
-export const Icon_Button_Black_18 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 18px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 14px;
-    }
-`;
-export const Icon_Button_Black_14 = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 14px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        font-size: 12px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 10px;
-    }
-`;
-//---------- Black/White
 //---------- Azul
 export const Icon_Button_Blue_32 = styled.button`
-    font-size: 32px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     color: rgb(58,93,174);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 32px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
     &:not(:disabled):hover {
         color: rgb(12, 54, 109);
@@ -420,10 +216,9 @@ export const Icon_Button_Blue_32 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        color: rgb(82, 126, 231);
+        color: rgba(84, 88, 89, 0.6);
     }
-        
+
     @media (max-width: 768px) {
         font-size: 30px;
     }
@@ -433,14 +228,18 @@ export const Icon_Button_Blue_32 = styled.button`
     }
 `;
 export const Icon_Button_Blue_28 = styled.button`
-    font-size: 28px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     color: rgb(58,93,174);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 28px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
     &:not(:disabled):hover {
         color: rgb(12, 54, 109);
@@ -449,10 +248,9 @@ export const Icon_Button_Blue_28 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        color: rgb(82, 126, 231);
+        color: rgba(84, 88, 89, 0.6);
     }
-        
+
     @media (max-width: 768px) {
         font-size: 26px;
     }
@@ -462,14 +260,18 @@ export const Icon_Button_Blue_28 = styled.button`
     }
 `;
 export const Icon_Button_Blue_24 = styled.button`
-    font-size: 24px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     color: rgb(58,93,174);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 24px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
     &:not(:disabled):hover {
         color: rgb(12, 54, 109);
@@ -478,10 +280,9 @@ export const Icon_Button_Blue_24 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        color: rgb(82, 126, 231);
+        color: rgba(84, 88, 89, 0.6);
     }
-        
+
     @media (max-width: 768px) {
         font-size: 22px;
     }
@@ -491,14 +292,18 @@ export const Icon_Button_Blue_24 = styled.button`
     }
 `;
 export const Icon_Button_Blue_20 = styled.button`
-    font-size: 20px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     color: rgb(58,93,174);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
     &:not(:disabled):hover {
         color: rgb(12, 54, 109);
@@ -507,10 +312,9 @@ export const Icon_Button_Blue_20 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        color: rgb(82, 126, 231);
+        color: rgba(84, 88, 89, 0.6);
     }
-        
+
     @media (max-width: 768px) {
         font-size: 18px;
     }
@@ -520,24 +324,27 @@ export const Icon_Button_Blue_20 = styled.button`
     }
 `;
 export const Icon_Button_Blue_16 = styled.button`
-    font-size: 16px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     color: rgb(58,93,174);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
     &:not(:disabled):hover {
         color: rgb(12, 54, 109);
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        color: rgb(82, 126, 231);
+        color: rgba(84, 88, 89, 0.6);
     }
 
     @media (max-width: 768px) {
@@ -549,24 +356,27 @@ export const Icon_Button_Blue_16 = styled.button`
     }
 `;
 export const Icon_Button_Blue_12 = styled.button`
-    font-size: 12px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     color: rgb(58,93,174);
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.6s ease;
 
     &:not(:disabled):hover {
         color: rgb(12, 54, 109);
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        color: rgb(82, 126, 231);
+        color: rgba(84, 88, 89, 0.6);
     }
 
     @media (max-width: 768px) {
@@ -580,7 +390,7 @@ export const Icon_Button_Blue_12 = styled.button`
 //---------- Azul
 //____________BUTTON____________
 //____________ROTATE____________
-//---------- Gray
+//---------- Gris
 export const Icon_Rotate_Gray_50 = styled.div`
     width: 50px;
     height: 50px;    
@@ -606,7 +416,7 @@ export const Icon_Rotate_Gray_50 = styled.div`
         font-size: 30px;
     }
 `;
-//---------- Gray
+//---------- Gris
 //____________ROTATE____________
 //____________COLOR____________
 //---------- Sin color
@@ -879,77 +689,99 @@ export const Icon_Black_12 = styled.div`
     }
 `;
 //---------- Negro
-
-//---------- Blue
-export const Icon_Blue_30 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 30px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+//---------- Azul
+export const Icon_Blue_32 = styled.div`
+    font-size: 32px;
+    color: rgb(58,93,174);
     display: flex;
     justify-content: center;
     align-items: center;
 
     @media (max-width: 768px) {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
         font-size: 28px;
     }
+`;
+export const Icon_Blue_28 = styled.div`
+    font-size: 28px;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         font-size: 26px;
     }
-`;
-export const Icon_Blue_26 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 26px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         font-size: 24px;
     }
+`;
+export const Icon_Blue_24 = styled.div`
+    font-size: 24px;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         font-size: 22px;
     }
-`;
-export const Icon_Blue_22 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 22px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    @media (max-width: 768px) {
+    @media (max-width: 480px) {
         font-size: 20px;
     }
-
-    @media (max-width: 480px) {
-        font-size: 18px;
-    }
 `;
-export const Icon_Blue_18 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    font-size: 18px;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(82, 126, 231)')};
+export const Icon_Blue_20 = styled.div`
+    font-size: 20px;
+    color: rgb(58,93,174);
     display: flex;
     justify-content: center;
     align-items: center;
 
     @media (max-width: 768px) {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     @media (max-width: 480px) {
-        font-size: 14px;
+        font-size: 16px;
     }
 `;
-//---------- Blue
+export const Icon_Blue_16 = styled.div`
+    font-size: 16px;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
+export const Icon_Blue_12 = styled.div`
+    font-size: 12px;
+    color: rgb(58,93,174);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
+//---------- Azul
+
 //---------- Green
 export const Icon_Green_100 = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'ThemeMode',

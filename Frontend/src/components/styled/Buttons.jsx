@@ -19,7 +19,7 @@ export const Button_Icon_Blue_240 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -28,8 +28,7 @@ export const Button_Icon_Blue_240 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -58,7 +57,7 @@ export const Button_Icon_Blue_230 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -67,8 +66,7 @@ export const Button_Icon_Blue_230 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -97,7 +95,7 @@ export const Button_Icon_Blue_220 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -106,8 +104,7 @@ export const Button_Icon_Blue_220 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -136,7 +133,7 @@ export const Button_Icon_Blue_210 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -145,8 +142,7 @@ export const Button_Icon_Blue_210 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -158,45 +154,6 @@ export const Button_Icon_Blue_210 = styled.button`
         border-right: 3px solid black;
         border-bottom: 3px solid black;  
         width: 150px;    
-        padding: 2px;
-    }
-`;
-export const Button_Icon_Blue_190 = styled.button`
-    width: 190px;
-    height: auto;
-    font-family: Century Gothic,Prompt;
-    color: white;
-    padding: 6px;
-    border-radius: 30px;
-    border: 1px solid black;
-    border-right: 4px solid black;
-    border-bottom: 4px solid black;
-    background-color: rgb(58,93,174);
-    text-align: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
-    
-    &:not(:disabled):hover {
-        background-color: rgb(12, 54, 109);
-        transform: scale(1.15);
-    }
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
-    }
-
-    @media (max-width: 768px) {
-        border-right: 3px solid black;
-        border-bottom: 3px solid black;  
-        width: 160px;
-        padding: 4px;
-    }
-
-    @media (max-width: 480px) {
-        width: 130px;    
         padding: 2px;
     }
 `;
@@ -214,7 +171,7 @@ export const Button_Icon_Blue_200 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -223,8 +180,7 @@ export const Button_Icon_Blue_200 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -236,6 +192,44 @@ export const Button_Icon_Blue_200 = styled.button`
 
     @media (max-width: 480px) {
         width: 140px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Blue_190 = styled.button`
+    width: 190px;
+    height: auto;
+    font-family: Century Gothic,Prompt;
+    color: white;
+    padding: 6px;
+    border-radius: 30px;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    background-color: rgb(58,93,174);
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.4s, transform 0.4s;
+    
+    &:not(:disabled):hover {
+        background-color: rgb(12, 54, 109);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        background: rgba(84, 88, 89, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
+        width: 160px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        width: 130px;    
         padding: 2px;
     }
 `;
@@ -253,7 +247,7 @@ export const Button_Icon_Blue_180 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -262,8 +256,7 @@ export const Button_Icon_Blue_180 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -292,7 +285,7 @@ export const Button_Icon_Blue_170 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -301,8 +294,7 @@ export const Button_Icon_Blue_170 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -331,7 +323,7 @@ export const Button_Icon_Blue_160 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -340,8 +332,7 @@ export const Button_Icon_Blue_160 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -370,7 +361,7 @@ export const Button_Icon_Blue_150 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -379,8 +370,7 @@ export const Button_Icon_Blue_150 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -409,7 +399,7 @@ export const Button_Icon_Blue_140 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -418,8 +408,7 @@ export const Button_Icon_Blue_140 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -448,7 +437,7 @@ export const Button_Icon_Blue_120 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -457,8 +446,7 @@ export const Button_Icon_Blue_120 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -487,7 +475,7 @@ export const Button_Icon_Blue_100 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -496,8 +484,7 @@ export const Button_Icon_Blue_100 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -526,7 +513,7 @@ export const Button_Icon_Blue_80 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -535,8 +522,7 @@ export const Button_Icon_Blue_80 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -565,7 +551,7 @@ export const Button_Icon_Blue_60 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -574,8 +560,7 @@ export const Button_Icon_Blue_60 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.1);
     }
 
     @media (max-width: 768px) {
@@ -604,7 +589,7 @@ export const Button_Icon_Blue_Auto_50 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -613,8 +598,7 @@ export const Button_Icon_Blue_Auto_50 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -641,17 +625,16 @@ export const Button_Icon_Blue_Auto_40 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -680,7 +663,7 @@ export const Button_Icon_Green_240 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -689,8 +672,7 @@ export const Button_Icon_Green_240 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -719,7 +701,7 @@ export const Button_Icon_Green_230 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -728,8 +710,7 @@ export const Button_Icon_Green_230 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -758,7 +739,7 @@ export const Button_Icon_Green_220 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -767,8 +748,7 @@ export const Button_Icon_Green_220 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -797,7 +777,7 @@ export const Button_Icon_Green_210 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -806,8 +786,7 @@ export const Button_Icon_Green_210 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -836,7 +815,7 @@ export const Button_Icon_Green_200 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -845,8 +824,7 @@ export const Button_Icon_Green_200 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -875,7 +853,7 @@ export const Button_Icon_Green_190 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -884,8 +862,7 @@ export const Button_Icon_Green_190 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -914,7 +891,7 @@ export const Button_Icon_Green_180 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -923,8 +900,7 @@ export const Button_Icon_Green_180 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -953,7 +929,7 @@ export const Button_Icon_Green_170 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -962,8 +938,7 @@ export const Button_Icon_Green_170 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -992,7 +967,7 @@ export const Button_Icon_Green_160 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1001,8 +976,7 @@ export const Button_Icon_Green_160 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1031,7 +1005,7 @@ export const Button_Icon_Green_150 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1040,8 +1014,7 @@ export const Button_Icon_Green_150 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1070,7 +1043,7 @@ export const Button_Icon_Green_140 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1079,8 +1052,7 @@ export const Button_Icon_Green_140 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1109,7 +1081,7 @@ export const Button_Icon_Green_120 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1118,8 +1090,7 @@ export const Button_Icon_Green_120 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1148,7 +1119,7 @@ export const Button_Icon_Green_100 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1157,8 +1128,7 @@ export const Button_Icon_Green_100 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1187,7 +1157,7 @@ export const Button_Icon_Green_80 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1196,8 +1166,7 @@ export const Button_Icon_Green_80 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1226,7 +1195,7 @@ export const Button_Icon_Green_60 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1235,8 +1204,7 @@ export const Button_Icon_Green_60 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.1);
     }
 
     @media (max-width: 768px) {
@@ -1265,7 +1233,7 @@ export const Button_Icon_Green_Auto_50 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -1274,8 +1242,7 @@ export const Button_Icon_Green_Auto_50 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1302,17 +1269,16 @@ export const Button_Icon_Green_Auto_40 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1341,7 +1307,7 @@ export const Button_Icon_Red_240 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1350,8 +1316,7 @@ export const Button_Icon_Red_240 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1380,7 +1345,7 @@ export const Button_Icon_Red_230 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1389,8 +1354,7 @@ export const Button_Icon_Red_230 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1419,7 +1383,7 @@ export const Button_Icon_Red_220 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1428,8 +1392,7 @@ export const Button_Icon_Red_220 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1458,7 +1421,7 @@ export const Button_Icon_Red_210 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1467,8 +1430,7 @@ export const Button_Icon_Red_210 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1497,7 +1459,7 @@ export const Button_Icon_Red_200 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1506,8 +1468,7 @@ export const Button_Icon_Red_200 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1536,7 +1497,7 @@ export const Button_Icon_Red_190 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1545,8 +1506,7 @@ export const Button_Icon_Red_190 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1575,7 +1535,7 @@ export const Button_Icon_Red_180 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1584,8 +1544,7 @@ export const Button_Icon_Red_180 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1614,7 +1573,7 @@ export const Button_Icon_Red_170 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1623,8 +1582,7 @@ export const Button_Icon_Red_170 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1653,7 +1611,7 @@ export const Button_Icon_Red_160 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1662,8 +1620,7 @@ export const Button_Icon_Red_160 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1692,7 +1649,7 @@ export const Button_Icon_Red_150 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1701,8 +1658,7 @@ export const Button_Icon_Red_150 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1731,7 +1687,7 @@ export const Button_Icon_Red_140 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1740,8 +1696,7 @@ export const Button_Icon_Red_140 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1770,7 +1725,7 @@ export const Button_Icon_Red_120 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1779,8 +1734,7 @@ export const Button_Icon_Red_120 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1809,7 +1763,7 @@ export const Button_Icon_Red_100 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1818,8 +1772,7 @@ export const Button_Icon_Red_100 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1848,7 +1801,7 @@ export const Button_Icon_Red_80 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1857,8 +1810,7 @@ export const Button_Icon_Red_80 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1887,7 +1839,7 @@ export const Button_Icon_Red_60 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1896,8 +1848,7 @@ export const Button_Icon_Red_60 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.1);
     }
 
     @media (max-width: 768px) {
@@ -1926,7 +1877,7 @@ export const Button_Icon_Red_Auto_50 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -1935,8 +1886,7 @@ export const Button_Icon_Red_Auto_50 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1963,17 +1913,16 @@ export const Button_Icon_Red_Auto_40 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -1988,41 +1937,41 @@ export const Button_Icon_Red_Auto_40 = styled.button`
 `;
 //-------- Rojo
 //-------- Gris
-export const Button_Icon_Gray_100 = styled.button`
+export const Button_Icon_White_100 = styled.button`
     width: 100px;
     height: auto;
     font-family: Century Gothic,Prompt;
-    color: white;
+    color: black;
     padding: 6px;
     border-radius: 30px;
-    border: 1px solid white;
-    border-right: 4px solid white;
-    border-bottom: 4px solid white;
-    background-color: rgb(61, 61, 60);
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    background-color: rgba(255, 255, 255, 1);
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
-        background-color: rgb(84, 88, 89);
+        background-color: rgba(0, 0, 0, 1);
         transform: scale(1.15);
+
+        color: white;
+        border-color: white;
     }
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(155, 155, 155);
-    }
+        background: rgba(84, 88, 89, 0.5);
 
-    @media (max-width: 768px) {
-        width: 80px;
-        padding: 4px;
+        color: rgba(255, 255, 255, 0.75);
+        border-color: rgba(255, 255, 255, 0.75);
     }
 
     @media (max-width: 480px) {
-        border-right: 4px solid white;
-        border-bottom: 4px solid white;
+        border-right: 4px solid black;
+        border-bottom: 4px solid black;
         width: 60px;    
         padding: 2px;
     }
@@ -2043,7 +1992,7 @@ export const Button_Icon_Orange_60 = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(180, 86, 23);
@@ -2052,8 +2001,7 @@ export const Button_Icon_Orange_60 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(207, 122, 52);
+        background: rgba(84, 88, 89, 0.1);
     }
 
     @media (max-width: 768px) {
@@ -2090,7 +2038,7 @@ export const Button_Text_Blue_200 = styled.button`
     justify-content: space-between;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -2099,8 +2047,7 @@ export const Button_Text_Blue_200 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -2134,7 +2081,7 @@ export const Button_Text_Blue_Auto = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(12, 54, 109);
@@ -2143,8 +2090,7 @@ export const Button_Text_Blue_Auto = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(82, 126, 231);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -2183,7 +2129,7 @@ export const Button_Text_Green_200 = styled.button`
     justify-content: space-between;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -2192,8 +2138,7 @@ export const Button_Text_Green_200 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -2227,7 +2172,7 @@ export const Button_Text_Green_Auto = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(13, 112, 51);
@@ -2236,8 +2181,7 @@ export const Button_Text_Green_Auto = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(60, 188, 109);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -2276,7 +2220,7 @@ export const Button_Text_Red_200 = styled.button`
     justify-content: space-between;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -2285,8 +2229,7 @@ export const Button_Text_Red_200 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -2320,7 +2263,7 @@ export const Button_Text_Red_Auto = styled.button`
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.8s, transform 0.8s;
+    transition: background-color 0.4s, transform 0.4s;
     
     &:not(:disabled):hover {
         background-color: rgb(100, 15, 15);
@@ -2329,8 +2272,7 @@ export const Button_Text_Red_Auto = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
-        background: rgb(208, 31, 31);
+        background: rgba(84, 88, 89, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -2352,32 +2294,35 @@ export const Button_Text_Red_Auto = styled.button`
 //-------- Rojo
 //____________TEXT____________
 //____________LINK____________
-export const Button_Link_Blue = styled.button.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
+export const Button_Link_Blue_Auto = styled.button`
     width: auto;
-    padding: 6px;
     font-family: Century Gothic,Prompt;
+    font-size: 12px;
     background-color: transparent;
-    color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(58,93,174)' : 'rgb(141, 171, 240)')};
+    color:rgb(58,93,174);
     border: none;
     text-align: center;
     cursor: pointer;
-    box-sizing: border-box;
-    
-    &:hover {
-        color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(82, 126, 231)' : 'rgb(82, 129, 240)')};
-        transform: translateY(-2px);
+    transition: background-color 0.4s, transform 0.4s;
+
+    &:not(:disabled):hover {
+        color:rgb(12, 54, 109);
         text-decoration: underline;
         transform: scale(1.2);
     }
 
+    &:disabled {
+        cursor: not-allowed;
+        text-decoration: underline;
+        color: rgba(84, 88, 89, 0.5);
+    }
+
     @media (max-width: 768px) {
-        padding: 4px;
+       font-size: 10px;
     }
 
     @media (max-width: 480px) {
-        padding: 2px;
+        font-size: 8px;
     }
 `;
 //____________LINK____________

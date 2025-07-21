@@ -4,30 +4,26 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { LoggedTypeContext } from "../../contexts/SessionProvider";
-import { ThemeModeContext } from "../../contexts/ViewsProvider";
+import { ActionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleNavbarView } from "../../hooks/Views";
 import { HandleSidebarView } from "../../hooks/Views";
 // Estilos personalizados
-import { Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_100_Center,Container_Column_NG_100_Center } from "../../components/styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Span_12_Center_Black } from "../../components/styled/Text";
-import { Button_Link_Blue } from "../../components/styled/Buttons";
+import { Container_Home_Section,Container_Home_Section_Title,Container_Home_Section_Header,Container_Home_Section_Footer_Left,Container_Row_100_Center,Container_Home_Section_Column_50_Left,Container_Home_Section_Body,Container_Home_Section_Column_Scroll_Left,Container_Home_Section_Footer_Right,Container_Row_100_Right,Container_Column_NG_100_Left } from "../../components/styled/Containers";
+import { Text_Title_16_Black,Text_Title_28_Black,Text_Span_12_Center_Black } from "../../components/styled/Text";
+import { Button_Link_Blue_Auto } from "../../components/styled/Buttons";
 // Componentes personalizados
 import Chart_Activity from "../../components/charts/users/Activity";
 import Table_Permissions_Super_Administrators from "../../components/tables/totals/users/SuperAdministrators";
-import Table_Permissions_Administrators from "../../components/tables/totals/users/Administrators";
-import Table_Permissions_Chefs from "../../components/tables/totals/users/Chefs";
-import Table_Permissions_Storekeepers from "../../components/tables/totals/users/Storekeepers";
-import Table_Permissions_Cooks from "../../components/tables/totals/users/Cooks";
-import Table_Permissions_Nutritionists from "../../components/tables/totals/users/Nutritionists";
-import Table_Permissions_Doctors from "../../components/tables/totals/users/Doctors";
+import Table_Permissions_Administration from "../../components/tables/totals/users/Administration";
+import Table_Permissions_Kitchen from "../../components/tables/totals/users/Kitchen";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de inicio en administración/cocina
 export default function Administration_Users(){
     // Constantes con el valor de los contextos 
     const [isLoggedType] = useContext(LoggedTypeContext);
-    const [themeMode] = useContext(ThemeModeContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleSidebarView = HandleSidebarView();
@@ -36,67 +32,82 @@ export default function Administration_Users(){
     return(
         <> 
             {isLoggedType === 'Administrador' ? (
-                <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                    <Container_Row_100_Center>
-                        <Text_Title_32_Black ThemeMode={themeMode}>SECCIÓN DE USUARIOS</Text_Title_32_Black>
-                    </Container_Row_100_Center>
-                    <Container_Row_NG_100_Center>
-                        <Container_Column_NG_100_Center>
-                            <Chart_Activity/>
-                            <Container_Row_100_Center>
-                                <Button_Link_Blue ThemeMode={themeMode}
-                                    onClick={() => {
-                                        handleSidebarView('Usuarios');
-                                        handleNavbarView('Estatus')
-                                        sessionStorage.setItem('Route','/Administration/Index/Status');
-                                        navigate('/Administration/Index/Status',{ replace: true });
-                                    }}
-                                >
-                                    <Text_Span_12_Center_Black>Ver activos/inactivos...</Text_Span_12_Center_Black>
-                                </Button_Link_Blue>
-                                <Button_Link_Blue ThemeMode={themeMode}
-                                    onClick={() => {
-                                        handleSidebarView('Usuarios');
-                                        handleNavbarView('Usuarios')
-                                        sessionStorage.setItem('Route','/Administration/Index/Users');
-                                        navigate('/Administration/Index/Users',{ replace: true });
-                                    }}
-                                >
-                                    <Text_Span_12_Center_Black>Ver usuarios...</Text_Span_12_Center_Black>
-                                </Button_Link_Blue>
-                            </Container_Row_100_Center>
-                            
-                        </Container_Column_NG_100_Center>
-                        <Container_Column_NG_100_Center>
-                            <Text_Span_16_Center_Black ThemeMode={themeMode}>REPORTE DE PERMISOS</Text_Span_16_Center_Black>
-                            <Table_Permissions_Super_Administrators/>
-                            <Container_Row_NG_100_Center>
-                                <Container_Column_NG_100_Center>
-                                    <Text_Span_12_Center_Black ThemeMode={themeMode}>Área de administración</Text_Span_12_Center_Black>
-                                    <Table_Permissions_Administrators/>
-                                    <Table_Permissions_Chefs/>
-                                    <Table_Permissions_Storekeepers/>
-                                </Container_Column_NG_100_Center>
-                                <Container_Column_NG_100_Center>
-                                    <Text_Span_12_Center_Black ThemeMode={themeMode}>Área de cocina</Text_Span_12_Center_Black>
-                                    <Table_Permissions_Cooks/>
-                                    <Table_Permissions_Nutritionists/>
-                                    <Table_Permissions_Doctors/>
-                                </Container_Column_NG_100_Center>
-                            </Container_Row_NG_100_Center>
-                            <Button_Link_Blue ThemeMode={themeMode}
-                                onClick={() => {
-                                    handleSidebarView('Usuarios');
-                                    handleNavbarView('Permisos')
-                                    sessionStorage.setItem('Route','/Administration/Index/Permissions');
-                                    navigate('/Administration/Index/Permissions',{ replace: true });
-                                }}
-                            >
-                                ...jklloo
-                            </Button_Link_Blue>
-                        </Container_Column_NG_100_Center>
-                    </Container_Row_NG_100_Center>
-                </Container_Column_100_Center>  
+                <>
+                    <Container_Home_Section_Title>
+                        <Text_Title_28_Black>SECCIÓN DE USUARIOS</Text_Title_28_Black>
+                    </Container_Home_Section_Title>
+                    <Container_Home_Section>
+                        <Container_Home_Section_Column_50_Left>
+                            <Container_Home_Section_Header>
+                                <Text_Title_16_Black>ACTIVIDAD DE USUARIOS</Text_Title_16_Black>
+                            </Container_Home_Section_Header>
+                            <Container_Home_Section_Column_Scroll_Left>
+                                <Chart_Activity/>
+                            </Container_Home_Section_Column_Scroll_Left>
+                            <Container_Column_NG_100_Left>
+                                <Container_Home_Section_Footer_Left>
+                                    <Button_Link_Blue_Auto
+                                        disabled={isActionBlock}
+                                        onClick={() => {
+                                            handleSidebarView('Usuarios');
+                                            handleNavbarView('Estatus')
+                                            sessionStorage.setItem('Ruta','/Administration/Index/Users/Status');
+                                            navigate('/Administration/Index/Users/Status',{ replace: true });
+                                        }}
+                                    >
+                                        Ver activos/inactivos...
+                                    </Button_Link_Blue_Auto>
+                                    <Button_Link_Blue_Auto
+                                        disabled={isActionBlock}
+                                        onClick={() => {
+                                            handleSidebarView('Usuarios');
+                                            handleNavbarView('Usuarios')
+                                            sessionStorage.setItem('Ruta','/Administration/Index/Users/Users');
+                                            navigate('/Administration/Index/Users/Users',{ replace: true });
+                                        }}
+                                    >
+                                        Ver usuarios...
+                                    </Button_Link_Blue_Auto>
+                                </Container_Home_Section_Footer_Left>
+                            </Container_Column_NG_100_Left>
+                        </Container_Home_Section_Column_50_Left>
+                        <Container_Home_Section_Column_50_Left>
+                            <Container_Home_Section_Header>
+                                <Text_Title_16_Black>REPORTE DE PERMISOS</Text_Title_16_Black>
+                            </Container_Home_Section_Header>
+                            <Container_Home_Section_Column_Scroll_Left>
+                                <Table_Permissions_Super_Administrators/>
+                                <Container_Row_100_Center>
+                                    <Container_Home_Section_Body>
+                                        <Text_Span_12_Center_Black>Área de administración</Text_Span_12_Center_Black>
+                                    </Container_Home_Section_Body>
+                                </Container_Row_100_Center>
+                                <Table_Permissions_Administration/>
+                                <Container_Row_100_Center>
+                                    <Container_Home_Section_Body>
+                                        <Text_Span_12_Center_Black>Área de cocina</Text_Span_12_Center_Black>
+                                    </Container_Home_Section_Body>
+                                </Container_Row_100_Center>
+                                <Table_Permissions_Kitchen/>
+                            </Container_Home_Section_Column_Scroll_Left>
+                            <Container_Row_100_Right>
+                                <Container_Home_Section_Footer_Right>
+                                    <Button_Link_Blue_Auto
+                                        disabled={isActionBlock}
+                                        onClick={() => {
+                                            handleSidebarView('Usuarios');
+                                            handleNavbarView('Permisos')
+                                            sessionStorage.setItem('Ruta','/Administration/Index/Users/Permissions');
+                                            navigate('/Administration/Index/Users/Permissions',{ replace: true });
+                                        }}
+                                    >
+                                        Ver permisos...
+                                    </Button_Link_Blue_Auto>
+                                </Container_Home_Section_Footer_Right>
+                            </Container_Row_100_Right>
+                        </Container_Home_Section_Column_50_Left>
+                    </Container_Home_Section>
+                </>
             ):(
                 <></>
             )}   

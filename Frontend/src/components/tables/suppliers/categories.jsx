@@ -20,8 +20,8 @@ import { CgArrowsV } from "react-icons/cg";
 import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Table_Container_Auto,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td,Table_Container_Item_Center,Table_Container_Pagination,Table_Container_Data } from "../../styled/Tables";
-import { Button_Icon_Blue_220 } from "../../styled/Buttons";
+import { Table_Container,Table,Table_Head_Thead_Blue,Table_Head_Th,Table_Body_Tbody_White,Table_Body_Td,Table_Container_Item_Center,Table_Container_Pagination,Table_Container_Data } from "../../styled/Tables";
+import { Button_Icon_Blue_200 } from "../../styled/Buttons";
 import { Text_Fade_Title_32_Black,Text_Span_16_Center_Black,Text_Span_16_Center_White } from "../../styled/Text";
 import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
@@ -74,7 +74,7 @@ export default function Table_Supply_Categories(){
     // Estructura del componente
     return(
         <>
-            <Table_Container_Auto>
+            <Table_Container>
                 <Table id="Table-Supply-Categories">
                     <Table_Head_Thead_Blue>
                         <tr>
@@ -110,29 +110,29 @@ export default function Table_Supply_Categories(){
                         ))}
                     </Table_Body_Tbody_White>
                 </Table>
-            </Table_Container_Auto>
+            </Table_Container>
             {currentRecordsSupplyCategories.length !== 0 ? (
                 <>
                     <Table_Container_Pagination>
                         <Tooltip title='Página anterior' placement="top">
                             <span>
-                                <Button_Icon_Blue_220
+                                <Button_Icon_Blue_200
                                     disabled={currentPage === 1}
                                     onClick={() => prevPage()}
                                 >
                                     <Icon_20><GrPrevious/></Icon_20>
-                                </Button_Icon_Blue_220>
+                                </Button_Icon_Blue_200>
                             </span>
                         </Tooltip>
                         <Text_Span_16_Center_Black>Página {currentPage} de {totalPagesSupplyCategories}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
                             <span>
-                                <Button_Icon_Blue_220
+                                <Button_Icon_Blue_200
                                     disabled={currentPage === totalPagesSupplyCategories || totalPagesSupplyCategories === 0}
                                     onClick={() => nextPageSupplyCategories()}
                                 >
                                     <Icon_20><GrNext/></Icon_20>
-                                </Button_Icon_Blue_220>
+                                </Button_Icon_Blue_200>
                             </span>
                         </Tooltip>     
                     </Table_Container_Pagination>

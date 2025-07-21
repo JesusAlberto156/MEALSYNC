@@ -10,7 +10,6 @@ import Icon_Warning from '../../components/imgs/Icon-Warning.webp';
 import Icon_Error from '../../components/imgs/Icon-Error.png';
 //__________IMAGENES__________
 // Componentes personalizados
-import { Container_Column_NG_100_Left } from './Containers';
 import { Text_Span_16_Left_Black,Text_Color_Blue_16,Text_Color_Green_16,Text_Color_Yellow_16,Text_Color_Red_16 } from './Text';
 //____________IMPORT/EXPORT____________
 
@@ -147,6 +146,49 @@ export const Alert_Swal_Error = (Message) => {
         position: 'center',
     });
 }
+export const Alert_Swal_Confirm = (Message,onConfirm = () => {},onCancel = () => {}) => {
+    return Swal.fire({
+        title: 'MEALSYNC',
+        text: Message,
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonAriaLabel: 'Century Gothic',
+        cancelButtonColor: 'rgb(58,93,174)',
+        showConfirmButton: true,
+        confirmButtonText: 'Confirmar',
+        confirmButtonAriaLabel: 'Century Gothic',
+        confirmButtonColor: 'rgb(20, 165, 76)',
+        showCloseButton: false,
+        heightAuto: true,
+        backdrop: false,
+        customClass: {
+            popup: 'confirm-theme',
+            title: 'confirm-title',
+        },
+        showClass: {
+            popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+            `
+        },
+        hideClass: {
+            popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+            `
+        },
+        position: 'top-right',
+    }).then((result) => {
+        if(result.isConfirmed){
+            onConfirm();
+        }
+        if(result.isDismissed){
+            onCancel();
+        }
+    })
+}
 //____________SWAL____________
 //____________SONNER____________
 export const Alert_Sonner_Styles = styled.div`
@@ -243,38 +285,16 @@ export const Alert_Sonner_Loading = (Message,Options = {}) => {
         ...Options,
     });
 };
-export const Alert_Sonner_Promise = (promise,message) => {
-    toast.promise(promise,{
-        loading: (
-            <>
-                <Container_Column_NG_100_Left>
-                    <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
-                    <Text_Span_16_Left_Black>{message}</Text_Span_16_Left_Black>
-                </Container_Column_NG_100_Left>
-            </>
-        ),
-        success: {
-            render: (msj) => (
-                <Container_Column_NG_100_Left>
-                    <Text_Color_Green_16>MEALSYNC</Text_Color_Green_16>
-                    <Text_Span_16_Left_Black>{msj}</Text_Span_16_Left_Black>
-                </Container_Column_NG_100_Left>
-            ),
-            className: 'Promise',
-        },
-        error: {
-            render: (msj) => (
-                <Container_Column_NG_100_Left>
-                    <Text_Color_Green_16>MEALSYNC</Text_Color_Green_16>
-                    <Text_Span_16_Left_Black>{msj.data?.message || '¡Error inesperado!'}</Text_Span_16_Left_Black>
-                </Container_Column_NG_100_Left>
-            ),
-            className: 'Promise',
-        },
-        duration:4000,
-        className:'Promise',
-        position: 'top-right',
-    });
+export const Alert_Sonner_Promise = (promise,message,id) => {
+    Alert_Sonner_Loading(message,{id: id});
+                                    
+    promise
+        .then((msg) => {
+            Alert_Sonner_Success(msg,{id: id});
+        })
+        .catch((msj) => {
+            Alert_Sonner_Error(msj,{id: id});
+        });
 };
 //____________SONNER____________
 

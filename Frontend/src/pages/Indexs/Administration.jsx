@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 // Contextos
 import { SidebarContext } from "../../contexts/ViewsProvider";
 import { LoggedUserContext } from "../../contexts/SessionProvider";
-import { RefAlertGreetingContext } from "../../contexts/RefsProvider";
+import { RefAlertsContext } from "../../contexts/RefsProvider";
 // Estilos personalizados
 import { Container_Page_Elements } from "../../components/styled/Containers";
 import { Alert_Swal_Greeting } from "../../components/styled/Alerts";
@@ -19,7 +19,7 @@ export default function Index_Administration(){
     // Constantes con el valor de los contextos
     const [isSidebar] = useContext(SidebarContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
-    const isAlertGreeting = useContext(RefAlertGreetingContext);
+    const isAlert = useContext(RefAlertsContext); 
     // useEffect con el titulo de la página
     useEffect(() => {
         document.title = 'MEALSYNC_Administración';
@@ -28,9 +28,9 @@ export default function Index_Administration(){
             await Alert_Swal_Greeting(`¡Bienvenido(a)! ${isLoggedUser.nombrecorto}`);
             await Alert_Swal_Greeting('¡Le ofrece las siguientes funcionaidades!');
         }
-        if(!isAlertGreeting.current){
+        if(!isAlert.current){
             showAlerts();
-            isAlertGreeting.current = true;
+            isAlert.current = true;
         }
     },[]);
     // Estructura del componente

@@ -52,11 +52,10 @@ export const Image_Navbar_Fade = styled.img`
 //____________NAVBAR____________
 //____________MODAL____________
 export const Image_Modal_Fixed = styled.img`
-    position: fixed;
-    top: 1%;
-    left: 2%;
     width: auto; 
-    height: 10%;
+    height: 50%;
+    margin-top: 5%;
+    margin-left: 10%;
     object-fit: cover;
     background-color: transparent;
     display: flex;
@@ -65,11 +64,11 @@ export const Image_Modal_Fixed = styled.img`
     z-index: 2000;
 
     @media (max-width: 768px) {
-        height: 9%;
+
     }
 
     @media (max-width: 480px) {
-        height: 8%;
+
     }
 `;
 //____________MODAL____________

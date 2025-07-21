@@ -7,6 +7,7 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { SidebarContext,SidebarViewContext } from "../../contexts/ViewsProvider";
 import { LoggedLoggedContext,LoggedTypeContext } from "../../contexts/SessionProvider";
+import { ActionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { ToggleSidebar,HandleModalView } from "../../hooks/Views";
 //__________IMAGENES__________
@@ -33,6 +34,7 @@ export default function Setting_Bar(){
     const [isLogged] = useContext(LoggedLoggedContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [isTypeUser] = useContext(LoggedTypeContext);
+    const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const toggleSidebar = ToggleSidebar();
@@ -45,23 +47,36 @@ export default function Setting_Bar(){
                     <Container_Settingbar_Row_White>
                         <Image_Navbar_Fade src={Logo_Hospital}/>
                         <Container_Row_100_Right>
-                            <Tooltip title='Salir' placement="bottom">
-                                <Button_Icon_Red_80 
-                                    onClick={() => {
-                                        handleModalView('Cerrar-Sesión');
-                                        navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
-                                    }}
-                                >
-                                    <Icon_20><ImExit/></Icon_20>
-                                </Button_Icon_Red_80>
-                            </Tooltip>
-                            <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
-                                <Button_Icon_Blue_80 
-                                    onClick={() => toggleSidebar()}
-                                >
-                                    {isSidebar ? <Icon_20><BiSolidToggleRight/></Icon_20> : <Icon_20><BiSolidToggleLeft/></Icon_20>}
-                                </Button_Icon_Blue_80>
-                            </Tooltip>
+                            {isActionBlock ? (
+                                <>
+                                    <Button_Icon_Red_80 disabled>
+                                        <Icon_20><ImExit/></Icon_20>
+                                    </Button_Icon_Red_80>
+                                    <Button_Icon_Blue_80 disabled>
+                                        {isSidebar ? <Icon_20><BiSolidToggleRight/></Icon_20> : <Icon_20><BiSolidToggleLeft/></Icon_20>}
+                                    </Button_Icon_Blue_80>
+                                </>
+                            ):(
+                                <>
+                                    <Tooltip title='Salir' placement="bottom">
+                                        <Button_Icon_Red_80 
+                                            onClick={() => {
+                                                handleModalView('Cerrar-Sesión');
+                                                navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
+                                            }}
+                                        >
+                                            <Icon_20><ImExit/></Icon_20>
+                                        </Button_Icon_Red_80>
+                                    </Tooltip>
+                                    <Tooltip title={isSidebar ? 'Ocultar' : 'Mostrar'} placement="bottom">
+                                        <Button_Icon_Blue_80 
+                                            onClick={() => toggleSidebar()}
+                                        >
+                                            {isSidebar ? <Icon_20><BiSolidToggleRight/></Icon_20> : <Icon_20><BiSolidToggleLeft/></Icon_20>}
+                                        </Button_Icon_Blue_80>
+                                    </Tooltip>  
+                                </>
+                            )}
                         </Container_Row_100_Right>
                     </Container_Settingbar_Row_White>
                 </>

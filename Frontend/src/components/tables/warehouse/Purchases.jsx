@@ -26,9 +26,9 @@ import { GrNext,GrPrevious } from "react-icons/gr";
 // Estilos personalizados
 import { Container_Row_100_Center } from "../../styled/Containers";
 import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_180 } from "../../styled/Buttons";
+import { Button_Icon_Blue_160 } from "../../styled/Buttons";
 import { Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
-import { Icon_20,Icon_Button_Black_14 } from "../../styled/Icons";
+import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
@@ -70,25 +70,25 @@ export default function Table_Purchases(){
                             <TContainer_Center>
                                 {isSelectedOptionOrderPlus === 'Categorías' ? (
                                     <>
-                                        <Icon_Button_Black_14 onClick={() => {
+                                        <Icon_Button_White_16 onClick={() => {
                                                 ToggleOrder('Categorías')
                                                 ToggleOrderDirection()
                                             }}
                                         >
                                             {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categorías' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categorías' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
-                                        </Icon_Button_Black_14>
+                                        </Icon_Button_White_16>
                                     </>
                                 ):(
                                     <>
                                         {isSelectedOptionOrderPlus === 'Tipos de Insumo' ? (
                                             <>
-                                                <Icon_Button_Black_14 onClick={() => {
+                                                <Icon_Button_White_16 onClick={() => {
                                                         ToggleOrder('Tipos de Insumo')
                                                         ToggleOrderDirection()
                                                     }}
                                                 >
                                                     {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipos de Insumo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipos de Insumo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Tipo de Insumo
-                                                </Icon_Button_Black_14>
+                                                </Icon_Button_White_16>
                                             </>
                                         ):(
                                             <>Desconocido</>
@@ -101,13 +101,13 @@ export default function Table_Purchases(){
                             <>
                                 <Th>
                                     <TContainer_Center>
-                                        <Icon_Button_Black_14 onClick={() => {
+                                        <Icon_Button_White_16 onClick={() => {
                                                 ToggleOrder('Fecha')
                                                 ToggleOrderDirection()
                                             }}
                                         >
                                             {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Fecha
-                                        </Icon_Button_Black_14>
+                                        </Icon_Button_White_16>
                                     </TContainer_Center>
                                 </Th>  
                             </>
@@ -116,24 +116,24 @@ export default function Table_Purchases(){
                         )}
                         <Th>
                             <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
+                                <Icon_Button_White_16 onClick={() => {
                                         ToggleOrder('Cantidad')
                                         ToggleOrderDirection()
                                     }}
                                 >
                                     {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad (kg/Lt)
-                                </Icon_Button_Black_14>
+                                </Icon_Button_White_16>
                             </TContainer_Center>
                         </Th>
                         <Th>
                             <TContainer_Center>
-                                <Icon_Button_Black_14 onClick={() => {
+                                <Icon_Button_White_16 onClick={() => {
                                         ToggleOrder('Total')
                                         ToggleOrderDirection()
                                     }}
                                 >
                                     {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Total' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Total' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Total
-                                </Icon_Button_Black_14>
+                                </Icon_Button_White_16>
                             </TContainer_Center>
                         </Th>
                     </tr>
@@ -167,17 +167,17 @@ export default function Table_Purchases(){
                 <>
                     <Container_Row_100_Center>
                         <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                            <Button_Icon_Blue_160 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
                                 onClick={prevPage}>
                                 <Icon_20><GrPrevious/></Icon_20>
-                            </Button_Icon_Blue_180>
+                            </Button_Icon_Blue_160>
                         </Tooltip>
                         <Text_Span_16_Center_Black ThemeMode={themeMode}>Página {currentPage} de {totalPagesPurchases}</Text_Span_16_Center_Black>
                         <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_180 ThemeMode={themeMode} className={currentPage === totalPagesPurchases || totalPagesPurchases === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
+                            <Button_Icon_Blue_160 ThemeMode={themeMode} className={currentPage === totalPagesPurchases || totalPagesPurchases === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
                                 onClick={nextPagePurchases}>
                                 <Icon_20><GrNext/></Icon_20>
-                            </Button_Icon_Blue_180>
+                            </Button_Icon_Blue_160>
                         </Tooltip>
                     </Container_Row_100_Center>
                 </>

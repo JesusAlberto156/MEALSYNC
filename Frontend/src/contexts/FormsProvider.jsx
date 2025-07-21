@@ -14,6 +14,7 @@ export const TextFieldsSupplyOrderContext = createContext(null);
 export const TextFieldsSupplyOrderObservationContext = createContext(null);
 export const TextFieldsWarehouseSaleContext = createContext(null);
 export const TextFieldsSearchDateContext = createContext(null);
+export const TextFieldsMenuTypeContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los campos de texto para los formularios ✔️
@@ -31,7 +32,9 @@ export const Index_Text_Fields = ({children}) => {
                                             <Text_Fields_Supply_Order_Observation>
                                                 <Text_Fields_Warehouse_Sale>
                                                     <Text_Fields_Search_Date>
-                                                        {children}
+                                                        <Text_Fields_Menu_Type>
+                                                            {children}
+                                                        </Text_Fields_Menu_Type>
                                                     </Text_Fields_Search_Date>
                                                 </Text_Fields_Warehouse_Sale>
                                             </Text_Fields_Supply_Order_Observation>
@@ -58,7 +61,6 @@ export const Text_Fields_User = ({ children }) => {
         contrasena: '',
         idtipo: 0,
         permisos: '',
-        estatus: '',
         ideliminado: 0,
     });
     // Return para darle valor al contexto y heredarlo
@@ -278,5 +280,22 @@ export const Text_Fields_Search_Date = ({ children }) => {
         <TextFieldsSearchDateContext.Provider value={[isTextFieldsSearchDate,setIsTextFieldsSearchDate]}> 
             {children}
         </TextFieldsSearchDateContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un tipo de menú ✔️
+export const Text_Fields_Menu_Type = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsMenuType,setIsTextFieldsMenuType] = useState({
+        idtipo: 0,
+        nombre: '',
+        cocina: 0,
+        nutriologia: 0,
+        areaMedica: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsMenuTypeContext.Provider value={[isTextFieldsMenuType,setIsTextFieldsMenuType]}> 
+            {children}
+        </TextFieldsMenuTypeContext.Provider>
     );
 }

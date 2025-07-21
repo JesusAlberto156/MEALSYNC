@@ -13,20 +13,19 @@ export const Label_Text_12_Black = styled.label`
     cursor: default;
     position: absolute;
     top: 46px;
-    right: 20px;
+    right: 18px;
 
     @media (max-width: 768px) {
         font-size: 10px;
-        gap: 4px;
-        top: 39px;
-        right: 18px;
+        top: 40px;
+        right: 16px;
     }
 
     @media (max-width: 480px) {
         font-size: 8px;
         gap: 3px;
         top: 32px;
-        right: 16px;
+        right: 14px;
     }
 
 `;
@@ -34,7 +33,31 @@ export const Label_Text_12_Black = styled.label`
 //____________TEXT____________
 //____________AREA____________
 //-------- Negro
+export const Label_Area_12_Black = styled.label`
+    color: black;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 12px;
+    display: flex;
+    text-align: center;
+    cursor: default;
+    position: absolute;
+    top: 86px;
+    right: 14px;
 
+    @media (max-width: 768px) {
+        font-size: 10px;
+        top: 76px;
+        right: 12px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+        top: 62px;
+        right: 10px;
+    }
+
+`;
 //-------- Negro
 //____________AREA____________
 //____________BUTTOM____________
@@ -52,14 +75,15 @@ export const Label_Button_16_Black = styled.label.withConfig({
     display: flex;
     justify-content: center;
     gap: 6px;
-    transition: all 0.8s ease;
+    transition: all 0.4s ease;
 
     ${({ Disabled }) => (Disabled ? 
-        `cursor: not-allowed;` 
+        `cursor: not-allowed;
+         color: rgba(0, 0, 0, 0.6);` 
         : 
         `&:hover{
-            color: rgb(13, 112, 51);
-            transform: scale(1.1);
+            color: rgb(20, 165, 76);
+            transform: scale(1.15);
         }`)}
 
     @media (max-width: 768px) {
@@ -71,48 +95,15 @@ export const Label_Button_16_Black = styled.label.withConfig({
         font-size: 12px;
         gap: 2px;
         ${({ Disabled }) => (Disabled ? 
-        `cursor: not-allowed;` 
+        `cursor: not-allowed;
+         color: rgba(0, 0, 0, 0.6);` 
         : 
         `&:hover{
-            color: rgb(13, 112, 51);
-            transform: scale(1.05);
+            color: rgb(20, 165, 76);
+            transform: scale(1.15);
         }`)}
     }
 
 `;
 //-------- Negro
 //____________BUTTOM____________
-//____________TOTAL____________
-//---------- CENTER
-export const Label_Total_Area_12_Center = styled.label.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    color: ${({ ThemeMode }) => (ThemeMode ? 'black' : 'white')};
-    font-family: Century Gothic,Prompt;
-    font-style: normal;
-    font-size: 12px;
-    display: flex;
-    text-align: center;
-    gap: 5px;
-    cursor: default;
-    position: absolute;
-    top: 90px;
-    right: 5px;
-
-    @media (max-width: 768px) {
-        font-size: 10px;
-        gap: 4px;
-        top: 72px;
-        right: 10px;
-    }
-
-    @media (max-width: 480px) {
-        font-size: 8px;
-        gap: 3px;
-        top: 62px;
-        right: 15px;
-    }
-
-`;
-//---------- CENTER
-//____________TOTAL____________

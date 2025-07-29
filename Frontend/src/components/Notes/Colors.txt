@@ -27,7 +27,6 @@ DISABLE - rgb(207, 122, 52);
 --------AMARILLO--------
 NORMAL - rgb(255, 226, 108);
 HOVER - rgb(255, 193, 10);
-DISABLE- 
 --------AMARILLO--------
 --------VERDE LIMA--------
 NORMAL - rgb(160, 187, 39);

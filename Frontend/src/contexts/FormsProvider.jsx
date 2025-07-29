@@ -15,6 +15,8 @@ export const TextFieldsSupplyOrderObservationContext = createContext(null);
 export const TextFieldsWarehouseSaleContext = createContext(null);
 export const TextFieldsSearchDateContext = createContext(null);
 export const TextFieldsMenuTypeContext = createContext(null);
+export const TextFieldsDishContext = createContext(null);
+export const TextFieldsCustomizedContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los campos de texto para los formularios ✔️
@@ -33,7 +35,11 @@ export const Index_Text_Fields = ({children}) => {
                                                 <Text_Fields_Warehouse_Sale>
                                                     <Text_Fields_Search_Date>
                                                         <Text_Fields_Menu_Type>
-                                                            {children}
+                                                            <Text_Fields_Dish>
+                                                                <Text_Fields_Customized>
+                                                                    {children}
+                                                                </Text_Fields_Customized>
+                                                            </Text_Fields_Dish>
                                                         </Text_Fields_Menu_Type>
                                                     </Text_Fields_Search_Date>
                                                 </Text_Fields_Warehouse_Sale>
@@ -169,10 +175,10 @@ export const Text_Fields_Supply_Type = ({ children }) => {
         descripcion: '',
         unidad: '',
         idcategoria: 0,
-        limite: 0,
+        limite: '',
         cantidades: [
             {
-                cantidad: 0,
+                cantidad: '',
             }
         ],
     });
@@ -297,5 +303,58 @@ export const Text_Fields_Menu_Type = ({ children }) => {
         <TextFieldsMenuTypeContext.Provider value={[isTextFieldsMenuType,setIsTextFieldsMenuType]}> 
             {children}
         </TextFieldsMenuTypeContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un platillo ✔️
+export const Text_Fields_Dish = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsDish,setIsTextFieldsDish] = useState({
+        idplatillo: 0,
+        nombre: '',
+        idmenu: 0,
+        descripcion: '',
+        precio: '',
+        preparacion: '',
+        imagen: '',
+        tipos: [{
+            idtipo: 0,
+        }],
+        ingredientes: [{
+            idalmacen: 0,
+            idplatillo: 0,
+            cantidad: '',
+            idtipo: 0,
+            unidad: '',
+            buscador: '',
+        }]
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsDishContext.Provider value={[isTextFieldsDish,setIsTextFieldsDish]}> 
+            {children}
+        </TextFieldsDishContext.Provider>
+    );
+}
+
+// Función contexto para controlar los campos de registro de un formulario de una dieta personalizada ✔️
+export const Text_Fields_Customized = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsCustomized,setIsTextFieldsCustomized] = useState({
+        ingredients: [{
+            unidad: '',
+            cantidad: 0,
+            idcategoria: 0,
+            nombre: '',
+            idtipo: 0,
+            tipo: '',
+            searchCategoria: '',
+            searchTipo: ''
+        }],
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsCustomizedContext.Provider value={[isTextFieldsCustomized,setIsTextFieldsCustomized]}> 
+            {children}
+        </TextFieldsCustomizedContext.Provider>
     );
 }

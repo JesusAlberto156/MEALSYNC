@@ -2,7 +2,7 @@
 // Hooks de React
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
-import { MenuTypesContext,DeletedMenuTypesContext } from "../../contexts/MenusProvider";
+import { MenuTypesContext,DeletedMenuTypesContext,MenuTypeUbicationsContext } from "../../contexts/MenusProvider";
 import { SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
@@ -15,6 +15,7 @@ export const TableActionsMenuTypes = () => {
     const [isDeletedMenuTypes] = useContext(DeletedMenuTypesContext); 
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext);
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     // Paginación de la tabla
@@ -37,7 +38,7 @@ export const TableActionsMenuTypes = () => {
 
             return 0
         });
-    }, [isMenuTypes, isDeletedMenuTypes, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrder]);
+    }, [isMenuTypes, isMenuTypeUbications, isDeletedMenuTypes, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrder]);
     // Total de registros visibles de la tabla
     const recordsPerPage = 6;
     // Indices de los registros

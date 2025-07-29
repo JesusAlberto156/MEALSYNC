@@ -6,7 +6,7 @@ import { Outlet,useNavigate,Navigate } from "react-router-dom";
 import { ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
 import { ActionBlockContext } from "../contexts/VariablesProvider";
-import { TextFieldsUserContext,TextFieldsMenuTypeContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../contexts/FormsProvider";
 // Hooks personalizados
 import { DeleteSessionStorage,ResetViews,ResetVariables } from "../hooks/Session";
 // Estilos personalizados
@@ -18,9 +18,25 @@ export const PrivateRouteAdministration = () => {
     // Contantes con el valor de los usestate
     const [alertShown, setAlertShown] = useState({
         nombreUsuario: false,
-        nombreCortoUsuario: false,
+        nombreProveedor: false,
+        nombreCategoriaInsumo: false,
+        nombreTipoInsumo: false,
+        nombreInsumo: false,
+        nombreMenu: false,
+        nombrePlatillo: false,
+        nombreCorto: false,
         usuario: false,
         contrasena: false,
+        rfc: false,
+        domiclio: false,
+        telefono: false,
+        correo: false,
+        descripcionCategoriaInsumo: false,
+        descripcionTipoInsumo: false,
+        descripcionInsumo: false,
+        descripcionPaltillo: false,
+        imagenInsumo: false,
+        imagenPlatillo: false,
     });
     // Constantes con el valor de los contextos
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -33,10 +49,16 @@ export const PrivateRouteAdministration = () => {
     const [isLoggedPermissions,setIsLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
     const [isTextFieldsUser] = useContext(TextFieldsUserContext);
+    const [isTextFieldsSupplier] = useContext(TextFieldsSupplierContext); 
+    const [isTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
+    const [isTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
+    const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); 
+    const [isTextFieldsDish] = useContext(TextFieldsDishContext);
     // useEffects para advertir en los campos de los text fields
     useEffect(() => {
         const fields = [
+            // USUARIOS
             {
                 source: isTextFieldsUser,
                 key: 'nombre',
@@ -48,7 +70,7 @@ export const PrivateRouteAdministration = () => {
                 source: isTextFieldsUser,
                 key: 'nombrecorto',
                 limit: 50,
-                alertKey: 'nombreCortoUsuario',
+                alertKey: 'nombreCorto',
                 message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre corto!',
             },
             {
@@ -65,6 +87,102 @@ export const PrivateRouteAdministration = () => {
                 alertKey: 'contrasena',
                 message: '¡Ha alcanzado el límite de caracteres permitidos en la contraseña!',
             },
+            // PROVEEDORES
+            {
+                source: isTextFieldsSupplier,
+                key: 'nombre',
+                limit: 150,
+                alertKey: 'nombreProveedor',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsSupplier,
+                key: 'rfc',
+                limit: 30,
+                alertKey: 'rfc',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el RFC!',
+            },
+            {
+                source: isTextFieldsSupplier,
+                key: 'domicilio',
+                limit: 150,
+                alertKey: 'domicilio',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el domiclio!',
+            },
+            {
+                source: isTextFieldsSupplier,
+                key: 'domiclio',
+                limit: 150,
+                alertKey: 'domiclio',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el domiclio!',
+            },
+            {
+                source: isTextFieldsSupplier,
+                key: 'telefono',
+                limit: 20,
+                alertKey: 'telefono',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el teléfono!',
+            },
+            {
+                source: isTextFieldsSupplier,
+                key: 'correo',
+                limit: 150,
+                alertKey: 'correo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el correo!',
+            },
+            // CATEGORIAS DE INSUMOS
+            {
+                source: isTextFieldsSupplyCategory,
+                key: 'nombre',
+                limit: 150,
+                alertKey: 'nombreCategoriaInsumo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsSupplyCategory,
+                key: 'descripcion',
+                limit: 250,
+                alertKey: 'descripcionCategoriaInsumo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
+            },
+            // TIPOS DE INSUMOS
+            {
+                source: isTextFieldsSupplyType,
+                key: 'tipo',
+                limit: 150,
+                alertKey: 'nombreTipoInsumo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsSupplyType,
+                key: 'descripcion',
+                limit: 250,
+                alertKey: 'descripcionTipoInsumo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
+            },
+            // INSUMOS
+            {
+                source: isTextFieldsSupply,
+                key: 'nombre',
+                limit: 150,
+                alertKey: 'nombreInsumo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsSupply,
+                key: 'descripcion',
+                limit: 250,
+                alertKey: 'descripcionInsumo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
+            },
+            {
+                source: isTextFieldsSupply,
+                key: 'imagen',
+                limit: 10000,
+                alertKey: 'imagenInsumo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la imagen!',
+            },
+            // MENUS
             {
                 source: isTextFieldsMenuType,
                 key: 'nombre',
@@ -72,7 +190,29 @@ export const PrivateRouteAdministration = () => {
                 alertKey: 'nombreMenu',
                 message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
             },
-            // Puedes seguir agregando más campos y objetos aquí...
+            // PLATILLOS
+            {
+                source: isTextFieldsDish,
+                key: 'nombre',
+                limit: 100,
+                alertKey: 'nombrePlatillo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsDish,
+                key: 'descripcion',
+                limit: 500,
+                alertKey: 'descripcionPaltillo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
+            },
+            {
+                source: isTextFieldsDish,
+                key: 'imagen',
+                limit: 10000,
+                alertKey: 'imagenPlatillo',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la imagen!',
+            },
+
         ];
 
         fields.forEach(({ source, key, limit, alertKey, message }) => {
@@ -87,7 +227,7 @@ export const PrivateRouteAdministration = () => {
                 setAlertShown(prev => ({ ...prev, [alertKey]: false }));
             }
         });
-    }, [isTextFieldsUser,isTextFieldsMenuType,alertShown]);
+    }, [isTextFieldsUser,isTextFieldsSupplier,isTextFieldsSupplyCategory,isTextFieldsDish,isTextFieldsSupplyType,isTextFieldsSupply,isTextFieldsMenuType,alertShown]);
     // useEffect con el cerrado de sesión
     useEffect(() => {
         if(isLoggedLog && isLoggedLogged){

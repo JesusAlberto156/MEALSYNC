@@ -3,8 +3,10 @@
 import { Logs_GET } from './logs.js';
 import { Users_GET,Users_INSERT,Users_UPDATE,Users_DELETE } from './users.js';
 import { Suppliers_GET,Suppliers_INSERT,Suppliers_UPDATE,Suppliers_DELETE } from './suppliers.js';
+import { Supplies_GET,Supplies_INSERT,Supplies_UPDATE,Supplies_DELETE } from './supplies.js';
 import { Warehouse_GET,Warehouse_INSERT,Warehouse_UPDATE,Warehouse_DELETE } from './warehouse.js';
 import { Menus_GET,Menus_INSERT,Menus_UPDATE,Menus_DELETE } from './menus.js';
+import { Dishes_GET,Dishes_INSERT,Dishes_UPDATE,Dishes_DELETE } from './dishes.js';
 // Servidor socket
 import { io } from '../../index.js';
 //____________IMPORT/EXPORT____________
@@ -45,6 +47,13 @@ export const socketEvents = () => {
         Suppliers_INSERT(socket);
         Suppliers_UPDATE(socket);
         Suppliers_DELETE(socket);
+        // Insumos ✔️
+        Supplies_GET(socket);
+        Supplies_INSERT(socket);
+        Supplies_UPDATE(socket);
+        Supplies_DELETE(socket);
+        // Extras
+
         // Almacén ✔️
         Warehouse_GET(socket);
         Warehouse_INSERT(socket);
@@ -55,7 +64,15 @@ export const socketEvents = () => {
         Menus_INSERT(socket);
         Menus_UPDATE(socket);
         Menus_DELETE(socket);
-        
+        // Platillos ✔️
+        Dishes_GET(socket);
+        Dishes_INSERT(socket);
+        Dishes_UPDATE(socket);
+        Dishes_DELETE(socket);
+        // Guarniciones
+
+        // Bebidas
+
         socket.on('disconnect', () => {
             console.log(`Sesión desconectada: ${clientSessionId}`);
 

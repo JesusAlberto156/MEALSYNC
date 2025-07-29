@@ -52,7 +52,7 @@ export const Logs = ({ children }) => {
     },[]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <LogsContext.Provider value={[isLogs,setIsLogs]}>
+        <LogsContext.Provider value={[isLogs]}>
             {children}
         </LogsContext.Provider>
     );

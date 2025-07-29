@@ -6,17 +6,27 @@ import styled from 'styled-components';
 import Background_Login from '../imgs/Background-Login.webp';
 // AREÁ ADMINISTRATIVA
 // Inicio
-import Background_Home from '../imgs/Background-Home.jpg';
+import Background_Home_Administration from '../imgs/Background-Home-Administration.jpg';
 // Usuarios
 import Background_Users from '../imgs/Background-Users.jpg';
 // Proveedores
 import Background_Suppliers from '../imgs/Background-Suppliers.jpg';
+// Insumos
+import Background_Supplies from '../imgs/Background-Supplies.jpg';
+// Invetario
+import Background_Warehouse from '../imgs/Background-Warehouse.jpg';
 // Menus
 import Background_Menus_Menu from '../imgs/Background-Menu-Menu.jpg';
 import Background_Menus_Dishes from '../imgs/Background-Menu-Dishes.jpg';
 import Background_Menus_Side_Dishes from '../imgs/Background-Menu-Side-Dishes.jpg';
 import Background_Menus_Drinks from '../imgs/Background-Menu-Drinks.jpg';
 // AREÁ COCINA
+// Inicio
+import Background_Home_Kitchen from '../imgs/Background-Home-Kitchen.jpg';
+// Personalizado
+import Background_Customized from '../imgs/Background-Customized.jpg';
+// Menus
+
 //__________IMAGE__________
 //____________IMPORT/EXPORT____________
 
@@ -33,6 +43,15 @@ export const Container_Page_Login = styled.div`
     background-Size: cover;
     background-Position: center;
     background-repeat: no-repeat;
+    width: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    display: flex;
+    align-Items: center;
+    justify-content: center;
+`;
+export const Container_Page_White = styled.div`
+    background: rgba(255, 255, 255, 0.55);
     width: 100%;
     max-height: 100vh;
     height: 100vh;
@@ -72,13 +91,22 @@ export const Container_Page_Logged = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'TypeUser' && prop !== 'Logged' && prop !== 'Sidebar' && prop !== 'Navbar',
 })`
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Inicio') && Logged ? 
-        `background-image: url(${Background_Home});`:''
+        `background-image: url(${Background_Home_Administration});`:''
+    }
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Cocinero' || TypeUser === 'Nutriólogo' || TypeUser === 'Médico') && (Sidebar === 'Inicio') && Logged ? 
+        `background-image: url(${Background_Home_Kitchen});`:''
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Usuarios') && Logged ? 
         `background-image: url(${Background_Users});`:''
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Proveedores') && Logged ? 
         `background-image: url(${Background_Suppliers});`:''
+    }
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Insumos') && Logged ? 
+        `background-image: url(${Background_Supplies});`:''
+    }
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Inventario') && Logged ? 
+        `background-image: url(${Background_Warehouse});`:''
     }
     ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Menus') && Logged ? 
         `background-image: url(${Background_Menus_Menu});`:''
@@ -91,6 +119,10 @@ export const Container_Page_Logged = styled.div.withConfig({
     }
     ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Bebidas') && Logged ? 
         `background-image: url(${Background_Menus_Drinks});`:''
+    }
+
+    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Nutriólogo') && (Sidebar === 'Personalizado') && (Navbar === 'Personalizado') && Logged ? 
+        `background-image: url(${Background_Customized});`:''
     }
     background-Size: cover;
     background-Position: center;
@@ -400,6 +432,48 @@ export const Container_Row_Auto_Left = styled.div`
     }
 }
 `;
+export const Container_Row_NG_100_Left = styled.div` 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;        
+    background: transparent;
+    width: 100%;
+    height: auto; 
+    padding-top: 6px;
+    padding-bottom: 6px; 
+    
+    @media (max-width: 768px) {
+        padding-top: 5px;
+        padding-bottom: 5px;  
+    }
+
+    @media (max-width: 480px) {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+}
+`;
+export const Container_Row_NG_Auto_Left = styled.div` 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;        
+    background: transparent;
+    width: auto;
+    height: auto;  
+    padding-top: 6px;
+    padding-bottom: 6px;
+
+    @media (max-width: 768px) {
+        padding-top: 5px;
+        padding-bottom: 5px;  
+    }
+
+    @media (max-width: 480px) {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+}
+`;
 export const Container_Row_100_Right = styled.div` 
     display: flex;
     justify-content: flex-end;
@@ -693,6 +767,41 @@ export const Container_Modal_Image = styled.div`
         height: 30vw;
     }
 `;
+export const Container_Modal_Form_White_80 = styled.div`
+    z-index: 100;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+    height: auto;
+    max-height: 80vh;
+    padding: 20px;
+    border-radius: 50px;
+    border: 3px solid black;
+    border-right: 8px solid black;
+    border-bottom: 8px solid black;
+    background-color: rgba(255, 255, 255, 0.75);
+
+    @media (max-width: 768px) {
+        border-radius: 30px;
+        border: 2px solid black;
+        border-right: 7px solid black;
+        border-bottom: 7px solid black;
+        padding: 15px;
+        width: 85%;
+        max-height: 70vh;
+    }
+
+    @media (max-width: 480px) {
+        border-radius: 20px;
+        border: 1px solid black;
+        border-right: 6px solid black;
+        border-bottom: 6px solid black;
+        padding: 10px;
+        width: 90%;
+        max-height: 60vh;
+    }
+`;
 export const Container_Modal_Form_White_600 = styled.div`
     z-index: 100;
     position: relative;
@@ -856,7 +965,7 @@ export const Container_Modal_Form_Button = styled.div`
 `;
 //____________MODAL____________
 //____________KEYBOARD____________
-export const Container_Keyboard_Default = styled.div`
+export const Container_Keyboard = styled.div`
     position: fixed;    
     transform: translateX(-50%);
     display: flex;
@@ -878,35 +987,6 @@ export const Container_Keyboard_Default = styled.div`
         width: 100%;
         padding: 6px;
         bottom: 2px; 
-    }
-}
-`;
-export const Container_Keyboard_Numeric = styled.div`
-    position: fixed;
-    bottom: 20px;    
-    transform: translateX(-50%);
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center;         
-    background: transparent;
-    width: 40%;
-    height: auto;  
-    padding: 10px;
-    gap: 15px;
-    border-radius: 40px;
-    z-index: 999;
-
-    @media (max-width: 768px) {
-        border-radius: 35px;
-        padding: 8px;
-        gap: 10px;    
-    }
-
-    @media (max-width: 480px) {
-        border-radius: 30px;
-        padding: 6px;
-        gap: 5px;
     }
 }
 `;
@@ -1437,7 +1517,8 @@ export const Container_Settingbar_Row_White = styled.div`
     max-width: 100%;
     height: auto;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 1);
+    border-bottom: 5px solid black;
     display: flex;            
     justify-content: flex-start;
     align-items: center;
@@ -1446,6 +1527,7 @@ export const Container_Settingbar_Row_White = styled.div`
     padding-left: 30px;
 
     @media (max-width: 768px) { 
+        border-bottom: 4px solid black;
         padding: 2px;
         padding-right: 20px;
         padding-left: 20px;
@@ -1453,6 +1535,7 @@ export const Container_Settingbar_Row_White = styled.div`
     }
 
     @media (max-width: 480px) {
+        border-bottom: 3px solid black;
         padding: 2px;
         padding-right: 10px;
         padding-left: 10px;
@@ -1464,11 +1547,11 @@ export const Container_Settingbar_Row_White = styled.div`
 export const Container_Sidebar_Column_Black = styled.div`
     max-width: 19vw;
     height: 100vh;
-    padding-top: 40px;
+    padding-top: 10px;
     gap: 15px;
-    background-color:rgba(0, 0, 0, 0.85);
+    background-color:rgba(255, 255, 255, 1);
     box-sizing: border-box;
-    border-right: 5px solid white;
+    border-right: 5px solid black;
     position: fixed;
     display: flex;
     justify-content: flex-start;
@@ -1499,14 +1582,16 @@ export const Container_Sidebar_Column_Black = styled.div`
     }
 
     @media (max-width: 768px) {
+        border-right: 4px solid black;
         max-width: 28vw;
-        padding-top: 35px;
+        padding-top: 8px;
         gap: 10px;    
     }
 
     @media (max-width: 480px) {
+        border-right: 3px solid black;
         max-width: 38vw;
-        padding-top: 30px;
+        padding-top: 6px;
         gap: 5px;
 
         &::-webkit-scrollbar {
@@ -1581,6 +1666,7 @@ export const Container_Navbar_Row_General_White = styled.div`
     height: auto;
     gap: 10px;
     background: rgb(255, 255, 255);
+    border-bottom: 5px solid black;
     display: flex;            
     justify-content: flex-start;
     align-items: center;
@@ -1589,6 +1675,7 @@ export const Container_Navbar_Row_General_White = styled.div`
     padding-left: 30px;
 
     @media (max-width: 768px) { 
+        border-bottom: 4px solid black;
         padding: 2px;
         padding-right: 20px;
         padding-left: 20px;
@@ -1596,6 +1683,7 @@ export const Container_Navbar_Row_General_White = styled.div`
     }
 
     @media (max-width: 480px) {
+        border-bottom: 3px solid black;
         padding: 2px;
         padding-right: 10px;
         padding-left: 10px;
@@ -1887,3 +1975,77 @@ export const Container_Footer_Column_Black = styled.div`
     }
 `;
 //____________FOOTER____________
+//____________MENU____________
+export const Container_Menu_100_Center = styled.div` 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    padding: 10px;
+    flex-wrap: wrap;       
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        gap: 15px;  
+        padding: 8px;  
+    }
+
+    @media (max-width: 480px) {
+        gap: 10px;
+        padding: 6px;
+    }
+}
+`;
+//____________MENU____________
+//____________DIETA____________
+export const Container_Diet_100_Center = styled.div` 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start; 
+    padding: 20px;
+    border: 2px solid black;
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        gap: 15px;  
+        padding: 15px;  
+    }
+
+    @media (max-width: 480px) {
+        gap: 10px;
+        padding: 10px;
+    }
+}
+`;
+//____________DIETA____________
+//____________COMIDA____________
+export const Container_Meal_100_Center = styled.div` 
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center; 
+    padding: 20px;
+    border: 2px solid black;
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        gap: 15px;  
+        padding: 15px;  
+    }
+
+    @media (max-width: 480px) {
+        gap: 10px;
+        padding: 10px;
+    }
+}
+`;
+//____________COMIDA____________

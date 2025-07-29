@@ -15,23 +15,20 @@ import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts
 import { HandleModalViewMenuTypes } from "../../../../hooks/menus/Views";
 import { HandleMenuTypeAdd } from "../../../../hooks/menus/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
-//__________IMAGENES__________
-import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
-//__________IMAGENES__________
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Image,Container_Row_100_Left,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
-import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16,Text_Span_16_Left_Black } from "../../../styled/Text";
-import { Label_Button_16_Black,Label_Text_12_Black } from "../../../styled/Labels";
+import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16 } from "../../../styled/Text";
+import { Label_Button_16_Black,Label_Text_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 import { Icon_Button_Blue_20 } from "../../../styled/Icons";
 import { Input_Text_100_Black,Input_Checkbox_16,Input_Group } from "../../../styled/Inputs";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
-import { Image_Modal_Fixed } from "../../../styled/Imgs";
 // Componetes personalizados
+import { Image_Modal } from "../../../styled/Imgs";
 import { Keyboard_Form_Menu } from "../../../keyboards/Form";
 //____________IMPORT/EXPORT____________
 
@@ -85,7 +82,7 @@ export default function Menu_Add(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Menu-type',isLoggedUser.idusuario,isTextFieldsMenuType.nombre,isTextFieldsMenuType.cocina,isTextFieldsMenuType.nutriologia,isTextFieldsMenuType.areaMedica);
+                        socket.emit('Insert-Menu-Type',isLoggedUser.idusuario,isTextFieldsMenuType.nombre.trim(),isTextFieldsMenuType.cocina,isTextFieldsMenuType.nutriologia,isTextFieldsMenuType.areaMedica);
 
                         resolve('¡Agregó al menú!');
 
@@ -123,9 +120,7 @@ export default function Menu_Add(){
             {isModal ? (
                 <>
                     <Container_Modal_Background_Black>
-                        <Container_Modal_Image>
-                            <Image_Modal_Fixed src={Logo_Hospital}/>
-                        </Container_Modal_Image>
+                        <Image_Modal/>
                         <Container_Modal_Form_White_600 className={currentMView === 'Tipo-Menu-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Modal_Form_White>
                                 <Container_Modal_Form>
@@ -135,10 +130,10 @@ export default function Menu_Add(){
                                         <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Auto_Center>
                                     <Container_Row_100_Left>
-                                        <Text_Span_16_Left_Black>Nombre:</Text_Span_16_Left_Black>
+                                        <Label_Text_16_Black>Nombre:</Label_Text_16_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
-                                                id="Input-Nombre-Menu"
+                                                id="Input-Nombre"
                                                 placeholder="..."
                                                 type="text"
                                                 maxLength={100}
@@ -163,7 +158,6 @@ export default function Menu_Add(){
                                             <MdCancel/>
                                         </Icon_Button_Blue_20>
                                     </Container_Row_100_Left>
-                                    
                                     <Container_Row_NG_Auto_Center>
                                         <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                         <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>

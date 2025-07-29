@@ -15,22 +15,19 @@ import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { HandleKeyboard } from "../../../../hooks/Views";
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
 import { HandleUserAdd } from "../../../../hooks/users/Forms";
-//__________IMAGENES__________
-import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
-//__________IMAGENES__________
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Form_White_600,Container_Modal_Image,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Auto_Center,Container_Row_100_Left,Container_Row_100_Center,Container_Modal_Form_Button } from "../../../styled/Containers";
-import { Text_Title_28_Black,Text_Span_16_Left_Black,Text_Color_Blue_16,Text_Span_16_Center_Black,Text_Color_Green_16 } from "../../../styled/Text";
+import { Container_Modal_Background_Black,Container_Modal_Form_White_600,Container_Modal_Form,Container_Modal_Form_White,Container_Row_NG_Auto_Center,Container_Row_100_Left,Container_Row_100_Center,Container_Modal_Form_Button } from "../../../styled/Containers";
+import { Text_Title_28_Black,Text_Color_Blue_16,Text_Span_16_Center_Black,Text_Color_Green_16 } from "../../../styled/Text";
 import { Icon_Button_Blue_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
 import { Input_Text_100_Black,Input_Radio_20,Input_Checkbox_16,Input_Group } from "../../../styled/Inputs";
-import { Label_Text_12_Black,Label_Button_16_Black } from "../../../styled/Labels";
-import { Image_Modal_Fixed } from "../../../styled/Imgs";
+import { Label_Text_12_Black,Label_Button_16_Black,Label_Text_16_Black } from "../../../styled/Labels";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 // Componentes personalizados
+import { Image_Modal } from "../../../styled/Imgs";
 import { Keyboard_Form_User } from "../../../keyboards/Form";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
 import { Select_300 } from "../../../styled/Selects";
@@ -139,9 +136,7 @@ export default function User_Add(){
             {isModal ? (
                 <>
                     <Container_Modal_Background_Black>
-                        <Container_Modal_Image>
-                            <Image_Modal_Fixed src={Logo_Hospital}/>
-                        </Container_Modal_Image>
+                        <Image_Modal/>
                         <Container_Modal_Form_White_600 className={currentMView === 'Usuario-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Modal_Form_White>
                                 <Container_Modal_Form>
@@ -151,10 +146,10 @@ export default function User_Add(){
                                         <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Auto_Center>
                                     <Container_Row_100_Left>
-                                        <Text_Span_16_Left_Black>Nombre:</Text_Span_16_Left_Black>
+                                        <Label_Text_16_Black>Nombre:</Label_Text_16_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
-                                                id="Input-Nombre-Usuario"
+                                                id="Input-Nombre"
                                                 placeholder="..."
                                                 type="text"
                                                 maxLength={150}
@@ -180,10 +175,10 @@ export default function User_Add(){
                                         </Icon_Button_Blue_20>
                                     </Container_Row_100_Left>
                                     <Container_Row_100_Left>
-                                        <Text_Span_16_Left_Black>Nombre corto:</Text_Span_16_Left_Black>
+                                        <Label_Text_16_Black>Nombre corto:</Label_Text_16_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
-                                                id="Input-Nombre-Corto-Usuario"
+                                                id="Input-Nombre-Corto"
                                                 placeholder="..."
                                                 type="text"
                                                 maxLength={50}
@@ -209,7 +204,7 @@ export default function User_Add(){
                                         </Icon_Button_Blue_20>
                                     </Container_Row_100_Left>
                                     <Container_Row_100_Left>
-                                        <Text_Span_16_Left_Black>Usuario:</Text_Span_16_Left_Black>
+                                        <Label_Text_16_Black>Usuario:</Label_Text_16_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
                                                 id="Input-Usuario"
@@ -238,7 +233,7 @@ export default function User_Add(){
                                         </Icon_Button_Blue_20>
                                     </Container_Row_100_Left>
                                     <Container_Row_100_Left>
-                                        <Text_Span_16_Left_Black>Contraseña:</Text_Span_16_Left_Black>
+                                        <Label_Text_16_Black>Contraseña:</Label_Text_16_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
                                                 id="Input-Contraseña"

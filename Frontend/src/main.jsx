@@ -22,12 +22,12 @@ import 'animate.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-datepicker/dist/react-datepicker.css';
 // Componentes personalizados
-import Index_Main from './pages/Indexs/Main';
+import Index_Main from './pages/indexs/Main';
 import Error from './pages/general/Error';
 import Loading from './pages/general/Loading';
 import Login from './pages/general/Login';
 import Out_Login from './components/modals/general/OutLogin';
-import Index_Administration from './pages/Indexs/Administration';
+import Index_Administration from './pages/indexs/Administration';
 import Administration_Home from './pages/administration/Home';
 import Administration_Index from './pages/administration/Index';
 import Table_Users from './components/tables/users/Users';
@@ -42,37 +42,41 @@ import Permissions_Enable from './components/modals/users/permissions/Enable';
 import Table_Status from './components/tables/users/Status';
 import Status_Add from './components/modals/users/status/Add';
 import Status_Enable from './components/modals/users/status/Enable';
-import Table_Suppliers from './components/tables/suppliers/suppliers';
+import Table_Suppliers from './components/tables/suppliers/Suppliers';
 import Supplier_Add from './components/modals/Suppliers/suppliers/Add';
 import Supplier_Edit from './components/modals/Suppliers/suppliers/Edit';
 import Supplier_Delete from './components/modals/Suppliers/suppliers/Delete';
-import Table_Supplier_Observations from './components/tables/suppliers/observations';
+import Table_Supplier_Observations from './components/tables/suppliers/Observations';
 import Supplier_Observation_View from './components/modals/Suppliers/observations/View';
-import Table_Supply_Categories from './components/tables/suppliers/categories';
-import Supply_Category_Add from './components/modals/Suppliers/supplyCategories/Add';
-import Supply_Category_Edit from './components/modals/Suppliers/supplyCategories/Edit';
-import Supply_Category_Delete from './components/modals/Suppliers/supplyCategories/Delete';
-import Table_Supply_Types from './components/tables/suppliers/supplyTypes';
-import Supply_Type_Add from './components/modals/Suppliers/supplyTypes/Add';
-import Supply_Type_Edit from './components/modals/Suppliers/supplyTypes/Edit';
-import Count_Supply_Type_Add from './components/modals/Suppliers/supplyTypes/CountAdd';
-import Supply_Type_Details from './components/modals/Suppliers/supplyTypes/Detail';
-import Supply_Type_Delete from './components/modals/Suppliers/supplyTypes/Delete';
-import Table_Supplies from './components/tables/suppliers/supplies';
-import Supply_Add from './components/modals/Suppliers/supplies/Add';
-import Supply_Edit from './components/modals/Suppliers/supplies/Edit';
-import Supply_Delete from './components/modals/Suppliers/supplies/Delete';
+import Table_Supply_Categories from './components/tables/supplies/Categories';
+import Supply_Category_Add from './components/modals/supplies/supplyCategories/Add';
+import Supply_Category_Edit from './components/modals/supplies/supplyCategories/Edit';
+import Supply_Category_Delete from './components/modals/supplies/supplyCategories/Delete';
+import Table_Supply_Types from './components/tables/supplies/SupplyTypes';
+import Supply_Type_Add from './components/modals/supplies/supplyTypes/Add';
+import Supply_Type_Edit from './components/modals/supplies/supplyTypes/Edit';
+import Count_Supply_Type_Add from './components/modals/supplies/supplyTypes/CountAdd';
+import Supply_Type_Details from './components/modals/supplies/supplyTypes/Detail';
+import Supply_Type_Delete from './components/modals/supplies/supplyTypes/Delete';
+import Table_Supplies from './components/tables/supplies/Supplies';
+import Supply_Add from './components/modals/supplies/supplies/Add';
+import Supply_Edit from './components/modals/supplies/supplies/Edit';
+import Supply_Delete from './components/modals/supplies/supplies/Delete';
+import Supply_Details from './components/modals/supplies/supplies/Detail';
 
 import Table_Purchases from './components/tables/warehouse/Purchases';
 import Table_Sales from './components/tables/warehouse/Sales';
 import Table_Menus from './components/tables/menus/Menus';
-import Menu_Add from './components/modals/Menus/Menus/Add';
-import Table_Breakfasts from './components/tables/menus/Breakfast';
-import Table_Lunchs from './components/tables/menus/Lunch';
-import Table_Dinners from './components/tables/menus/Dinner';
-import Index_Kitchen from './pages/Indexs/Kitchen';
-import Home_Kitchen from './pages/kitchen/Home';
+import Menu_Add from './components/modals/menus/menus/Add';
+import Menu_Edit from './components/modals/menus/menus/Edit';
+import Menu_Delete from './components/modals/menus/menus/Delete';
+import Table_Dishes from './components/tables/menus/Dishes';
+import Dish_Add from './components/modals/menus/dishes/Add';
 
+
+import Index_Kitchen from './pages/indexs/Kitchen';
+import Home_Kitchen from './pages/kitchen/Home';
+import Nutritionist_Customized from './components/modals/Nutritionist/Customized';
 import Prueba from '../src/formats/ComandaMedica';
 //____________IMPORT/EXPORT____________
 
@@ -150,48 +154,52 @@ const router = createHashRouter([
             element: <Supplier_Observation_View/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Categories/Add',
+            path: 'Administration/Index/Supplies/Supply/Categories/Add',
             element: <Supply_Category_Add/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Categories/Edit',
+            path: 'Administration/Index/Supplies/Supply/Categories/Edit',
             element: <Supply_Category_Edit/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Categories/Delete',
+            path: 'Administration/Index/Supplies/Supply/Categories/Delete',
             element: <Supply_Category_Delete/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Types/Add',
+            path: 'Administration/Index/Supplies/Supply/Types/Add',
             element: <Supply_Type_Add/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Types/Edit',
+            path: 'Administration/Index/Supplies/Supply/Types/Edit',
             element: <Supply_Type_Edit/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Types/Count/Add',
+            path: 'Administration/Index/Supplies/Supply/Types/Count/Add',
             element: <Count_Supply_Type_Add/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Types/Delete',
+            path: 'Administration/Index/Supplies/Supply/Types/Delete',
             element: <Supply_Type_Delete/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supply/Types/Detail',
+            path: 'Administration/Index/Supplies/Supply/Types/Detail',
             element: <Supply_Type_Details/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supplies/Add',
+            path: 'Administration/Index/Supplies/Supplies/Add',
             element: <Supply_Add/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supplies/Edit',
+            path: 'Administration/Index/Supplies/Supplies/Edit',
             element: <Supply_Edit/>,
           },
           {
-            path: 'Administration/Index/Suppliers/Supplies/Delete',
+            path: 'Administration/Index/Supplies/Supplies/Delete',
             element: <Supply_Delete/>,
+          },
+          {
+            path: 'Administration/Index/Supplies/Supplies/Detail',
+            element: <Supply_Details/>,
           },
           {
             path: 'Administration/Index/Warehouse/Supply/Orders/Add',
@@ -220,9 +228,23 @@ const router = createHashRouter([
           },
           {
             path: 'Administration/Index/Menus/Menus/Edit',
+            element: <Menu_Edit/>,
           },
           {
             path: 'Administration/Index/Menus/Menus/Delete',
+            element: <Menu_Delete/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Dishes/Add',
+            element: <Dish_Add/>
+          },
+          {
+            path: 'Administration/Index/Menus/Dishes/Edit',
+            
+          },
+          {
+            path: 'Administration/Index/Menus/Dishes/Delete',
+            
           },
           {
             path: 'Administration',
@@ -282,15 +304,15 @@ const router = createHashRouter([
                   },
                   {
                     path: 'Menus/Dishes',
-                    element: <Table_Breakfasts/>
+                    element: <Table_Dishes/>,
                   },
                   {
                     path: 'Menus/Side/Dishes',
-                    element: <Table_Lunchs/>
+                   
                   },
                   {
                     path: 'Menus/Drinks',
-                    element: <Table_Dinners/>
+                    
                   }
                 ]
               },
@@ -313,6 +335,10 @@ const router = createHashRouter([
               {
                 path: 'Home',
                 element: <Home_Kitchen/>
+              },
+              {
+                path: 'Customized/Customized',
+                element: <Nutritionist_Customized/>,
               },
             ]
           },

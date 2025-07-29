@@ -9,6 +9,7 @@ import { TextFieldsMenuTypeContext } from "../../../contexts/FormsProvider"
 // Hooks personalizados
 import { TableActionsMenuTypes } from "../../../hooks/menus/Tables"
 import { ResetTextFieldsMenuType } from "../../../hooks/menus/Texts"
+import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
 // Estilos personalizados
 import { Table_Container,Table,Table_Head_Thead_Blue,Table_Body_Tbody_White,Table_Body_Td } from "../../styled/Tables"
 // Componentes personalizados
@@ -16,7 +17,7 @@ import { Table_Title_Text,Table_Title_Normal } from "../Titles"
 import { Table_Pagination } from "../Pagination"
 //____________IMPORT/EXPORT____________
 
-// Tabla de los estatus de usuarios
+// Tabla de los menús
 export default function Table_Menus(){
     // Constantes con el valor de los contextos
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
@@ -63,10 +64,12 @@ export default function Table_Menus(){
 
         }else{
             resetTextFieldsMenuType();
+            resetTextFieldsUser();
         }
     },[isSelectedRow])
     // Constantes con la funcionalidad de los hooks
     const resetTextFieldsMenuType = ResetTextFieldsMenuType();
+    const resetTextFieldsUser = ResetTextFieldsUser();
     const {handleRowClick,nextPageMenuTypes,prevPage,currentRecordsMenuTypes,currentPage,totalPagesMenutypes} = TableActionsMenuTypes();
     // Estructura del componente
     return(
@@ -97,7 +100,22 @@ export default function Table_Menus(){
                             >
                                 <Table_Body_Td style={{color: isSelectedRow === type ? 'white' : ''}}>{type.nombre || 'Desconocido'}</Table_Body_Td>
                                 <Table_Body_Td style={{color: isSelectedRow === type ? 'white' : ''}}>
-                                    </Table_Body_Td>    
+                                    {
+                                        isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 1) && isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 2) && isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 3) ?
+                                        `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` :
+
+                                        isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 1) && isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 2) ?
+                                        `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}` :
+                                        isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 1) && isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 3) ?
+                                        `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` :
+                                        isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 2) && isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 3) ?
+                                        `${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` :
+
+                                        isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 1) ? `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}` :
+                                        isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 2) ? `${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}` :
+                                        isMenuTypeUbications.some(t => t.idtipo === type.idtipo && t.idubicacion === 3) ? `${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` : 'Desconocidas'
+                                    }
+                                </Table_Body_Td>    
                             </tr>
                         ))}
                     </Table_Body_Tbody_White>

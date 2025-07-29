@@ -6,16 +6,13 @@ import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contex
 // Hooks personalizados
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
 import { HandleViewPassword } from '../../../../hooks/users/Forms';
-//__________IMAGENES__________
-import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
-//__________IMAGENES__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Image,Container_Modal_Form_White_500,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Modal_Form_White_500,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
 import { Text_Span_12_Justify_Black,Text_Title_28_Black } from "../../../styled/Text";
 // Componentes perzonalizados
 import Form_Verification from "../../../forms/Verification";
 import { Keyboard_Verification } from "../../../keyboards/Verificacion";
-import { Image_Modal_Fixed } from "../../../styled/Imgs";
+import { Image_Modal } from "../../../styled/Imgs";
 import { Modal_Form_Button_View } from "../../../forms/Button";
 //____________IMPORT/EXPORT____________
 
@@ -40,9 +37,7 @@ export default function User_View(){
             {isModal ? (
                 <>
                     <Container_Modal_Background_Black>
-                        <Container_Modal_Image>
-                            <Image_Modal_Fixed src={Logo_Hospital}/>
-                        </Container_Modal_Image>
+                        <Image_Modal/>
                         <Container_Modal_Form_White_500 className={currentMView === 'Usuario-Ver-Contraseña' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Modal_Form_White>
                                 <Container_Modal_Form>

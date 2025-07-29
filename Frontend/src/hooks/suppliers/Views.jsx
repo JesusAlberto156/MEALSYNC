@@ -3,10 +3,11 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
-import { ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
+import { ModalViewContext,ModalContext,SidebarContext } from "../../contexts/ViewsProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
+import { SelectedRowContext } from "../../contexts/SelectedesProvider";
 // Hooks personalizados
-import { ResetSearchTerms,ResetSelectedOptions,ResetSelectedTables } from "../Texts";
+import { ResetSearchTerms,ResetSelectedOptions } from "../Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modal
@@ -17,188 +18,76 @@ export const HandleModalViewSuppliers = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
-    const resetSelectedTables = ResetSelectedTables();
     const resetSelectedOptions = ResetSelectedOptions();
     // Función del hook
     const handleModalViewSuppliers = (View) => {
         setIsModal(true);
         sessionStorage.setItem('Estado del Modal',true);
         const route = sessionStorage.getItem('Ruta');
-        // PROVEEDORES
+        const sidebar = sessionStorage.getItem('Estado del Sidebar');
+        // PROVEEDORES ✔️
         if(currentMView === 'Proveedor-Agregar' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {
-                resetSelectedTables();
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
                 setIsActionBlock(false);
-                navigate(route,{ replace: true });
+                return navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Proveedor-Editar' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {
-                resetSelectedTables();
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
                 setIsActionBlock(false);
-                navigate(route,{ replace: true });
+                return navigate(route,{ replace: true });
             },750);
         }
         if(currentMView === 'Proveedor-Eliminar' && View === ''){
             setIsActionBlock(true);
-            setIsVerificationBlock(true);
-            setIsFunctionBlock(false);
             setTimeout(() => {
-                resetSelectedTables();
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
                 setIsActionBlock(false);
-                sessionStorage.removeItem('Función del Bloqueo');
+                setIsFunctionBlock(false)
                 setIsVerificationBlock(false);
+                sessionStorage.removeItem('Función del Bloqueo');
                 sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
+                return navigate(route,{ replace: true });
             },750);
         }
+        // OBSERVACIONES ✔️
         if(currentMView === 'Observacion-Detalles' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {
-                resetSelectedTables();
-                setIsActionBlock(false);
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Categoria-Agregar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
                 setIsActionBlock(false);
-                navigate(route,{ replace: true });
+                return navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Categoria-Editar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Categoria-Eliminar' && View === ''){
-            setIsActionBlock(true);
-            setIsVerificationBlock(true);
-            setIsFunctionBlock(false);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                sessionStorage.removeItem('Función del Bloqueo');
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Tipo-Insumo-Agregar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Tipo-Insumo-Editar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Tipo-Insumo-Cantidad-Agregar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Tipo-Insumo-Eliminar' && View === ''){
-            setIsActionBlock(true);
-            setIsVerificationBlock(true);
-            setIsFunctionBlock(false);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                sessionStorage.removeItem('Función del Bloqueo');
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Tipo-Insumo-Detalles' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsActionBlock(false);
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Insumo-Agregar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Insumo-Editar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                navigate(route,{ replace: true });
-            },750);
-        }
-        if(currentMView === 'Insumo-Eliminar' && View === ''){
-            setIsActionBlock(true);
-            setIsVerificationBlock(true);
-            setIsFunctionBlock(false);
-            setTimeout(() => {
-                resetSelectedTables();
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsActionBlock(false);
-                sessionStorage.removeItem('Función del Bloqueo');
-                setIsVerificationBlock(false);
-                sessionStorage.removeItem('Verificación del Bloqueo');
-                navigate(route,{ replace: true });
-            },750);
-        }
-        // PROVEEDORES
         setCurrentMView(View);
         sessionStorage.setItem('Vista del Modal',View);
         resetSelectedOptions();

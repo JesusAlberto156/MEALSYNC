@@ -14,15 +14,12 @@ import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
 import { HandleUserDelete } from "../../../../hooks/users/Forms";
-//__________IMAGENES__________
-import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
-//__________IMAGENES__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Image,Container_Row_NG_Auto_Center,Container_Modal_Form_White_500,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Row_NG_Auto_Center,Container_Modal_Form_White_500,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Span_12_Justify_Black,Text_Title_28_Black,Text_Color_Green_16 } from "../../../styled/Text";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
-import { Image_Modal_Fixed } from "../../../styled/Imgs";
 // Componentes personalizados
+import { Image_Modal } from "../../../styled/Imgs";
 import Error_Delete from "../../errors/Delete";
 import Form_Verification from "../../../forms/Verification";
 import { Modal_Form_Button_Delete } from "../../../forms/Button";
@@ -95,7 +92,7 @@ export default function User_Delete(){
                 }
             });
 
-            Alert_Sonner_Promise(promise,'Eliminando un usuario!','2');
+            return Alert_Sonner_Promise(promise,'¡Eliminando un usuario!','2');
         }
     },[isUserDelete]);
     // UseEffect para resetiar campos para el registro de verificación
@@ -112,9 +109,7 @@ export default function User_Delete(){
             {isModal && isSelectedRow !== null ? (
                 <>
                     <Container_Modal_Background_Black ref={Modal}>
-                        <Container_Modal_Image>
-                            <Image_Modal_Fixed src={Logo_Hospital}/>
-                        </Container_Modal_Image>
+                        <Image_Modal/>
                         <Container_Modal_Form_White_500 ref={isForm} className={currentMView === 'Usuario-Eliminar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Modal_Form_White>
                                 <Container_Modal_Form>

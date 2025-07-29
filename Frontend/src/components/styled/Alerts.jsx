@@ -10,7 +10,8 @@ import Icon_Warning from '../../components/imgs/Icon-Warning.webp';
 import Icon_Error from '../../components/imgs/Icon-Error.png';
 //__________IMAGENES__________
 // Componentes personalizados
-import { Text_Span_16_Left_Black,Text_Color_Blue_16,Text_Color_Green_16,Text_Color_Yellow_16,Text_Color_Red_16 } from './Text';
+import { Text_Color_Blue_16,Text_Color_Green_16,Text_Color_Yellow_16,Text_Color_Red_16 } from './Text';
+import { Label_Text_16_Black } from './Labels';
 //____________IMPORT/EXPORT____________
 
 //____________SWAL____________
@@ -239,7 +240,7 @@ export const Alert_Sonner_Styles = styled.div`
 `;
 export const Alert_Sonner_Info = (Message) => {
     toast.info(<Text_Color_Blue_16 style={{ justifyContent: 'flex-start'}}>MEALSYNC</Text_Color_Blue_16>,{
-        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        description: <Label_Text_16_Black>{Message}</Label_Text_16_Black>,
         duration:4000,
         className:'Error',
         position: 'top-right',
@@ -248,7 +249,7 @@ export const Alert_Sonner_Info = (Message) => {
 };
 export const Alert_Sonner_Success = (Message,Options = {}) => {
     toast.success(<Text_Color_Green_16 style={{ justifyContent: 'flex-start'}}>MEALSYNC</Text_Color_Green_16>,{
-        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        description: <Label_Text_16_Black>{Message}</Label_Text_16_Black>,
         duration:2000,
         className:'Success',
         position: 'top-right',
@@ -258,7 +259,7 @@ export const Alert_Sonner_Success = (Message,Options = {}) => {
 };
 export const Alert_Sonner_Warning = (Message) => {
     toast.warning(<Text_Color_Yellow_16 style={{ justifyContent: 'flex-start'}}>MEALSYNC</Text_Color_Yellow_16>,{
-        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        description: <Label_Text_16_Black>{Message}</Label_Text_16_Black>,
         duration:4000,
         className:'Warning',
         position: 'top-right',
@@ -267,7 +268,7 @@ export const Alert_Sonner_Warning = (Message) => {
 };
 export const Alert_Sonner_Error = (Message,Options = {}) => {
     toast.error(<Text_Color_Red_16 style={{ justifyContent: 'flex-start'}}>MEALSYNC</Text_Color_Red_16>,{
-        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        description: <Label_Text_16_Black>{Message}</Label_Text_16_Black>,
         duration:2000,
         className:'Error',
         position: 'top-right',
@@ -277,7 +278,7 @@ export const Alert_Sonner_Error = (Message,Options = {}) => {
 };
 export const Alert_Sonner_Loading = (Message,Options = {}) => {
     toast.loading(<Text_Color_Blue_16 style={{ justifyContent: 'flex-start'}}>MEALSYNC</Text_Color_Blue_16>,{
-        description: <Text_Span_16_Left_Black>{Message}</Text_Span_16_Left_Black>,
+        description: <Label_Text_16_Black>{Message}</Label_Text_16_Black>,
         duration:2000,
         className:'Loading',
         position: 'top-right',

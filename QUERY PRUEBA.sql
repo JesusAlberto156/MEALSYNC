@@ -1,5 +1,8 @@
 USE ComandaMedicaTepic
 
+ALTER TABLE especificacionesPlatillo
+ADD imagen VARCHAR(MAX) NOT NULL; 
+
 select * from almacenCategorias;
 select * from tipoInsumo;
 

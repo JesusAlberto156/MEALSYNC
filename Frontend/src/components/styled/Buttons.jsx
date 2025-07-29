@@ -1963,10 +1963,10 @@ export const Button_Icon_White_100 = styled.button`
 
     &:disabled {
         cursor: not-allowed;
-        background: rgba(84, 88, 89, 0.5);
+        background: rgba(84, 88, 89, 0.4);
 
-        color: rgba(255, 255, 255, 0.75);
-        border-color: rgba(255, 255, 255, 0.75);
+        color: rgba(255, 255, 255, 0.85);
+        border-color: rgba(255, 255, 255, 0.85);
     }
 
     @media (max-width: 480px) {
@@ -1978,6 +1978,44 @@ export const Button_Icon_White_100 = styled.button`
 `;
 //-------- Gris
 //-------- Naranja
+export const Button_Icon_Orange_160 = styled.button`
+    width: 160px;
+    height: auto;
+    font-family: Century Gothic,Prompt;
+    color: white;
+    padding: 6px;
+    border-radius: 30px;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    background-color: rgb(235, 108, 23);
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.4s, transform 0.4s;
+    
+    &:not(:disabled):hover {
+        background-color: rgb(180, 86, 23);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        background: rgba(84, 88, 89, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        width: 130px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
+        width: 100px;    
+        padding: 2px;
+    }
+`;
 export const Button_Icon_Orange_60 = styled.button`
     width: 60px;
     height: auto;
@@ -2029,9 +2067,9 @@ export const Button_Text_Blue_200 = styled.button`
     padding: 8px;
     padding-left: 20px;
     border-radius: 30px;
-    border: 1px solid white;
-    border-right: 4px solid white;
-    border-bottom: 4px solid white;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
     background-color: rgb(58,93,174);
     display: flex;
     align-items: center;
@@ -2058,8 +2096,8 @@ export const Button_Text_Blue_200 = styled.button`
 
     @media (max-width: 480px) {
         width: 140px;
-        border-right: 3px solid white;
-        border-bottom: 3px solid white;     
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;     
         padding: 4px;
         font-size: 12px;
     }
@@ -2074,9 +2112,9 @@ export const Button_Text_Blue_Auto = styled.button`
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 30px;
-    border: 1px solid white;
-    border-right: 4px solid white;
-    border-bottom: 4px solid white;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
     background-color: rgb(58,93,174);
     text-align: center;
     box-sizing: border-box;
@@ -2102,8 +2140,8 @@ export const Button_Text_Blue_Auto = styled.button`
 
     @media (max-width: 480px) { 
         font-size: 12px;
-        border-right: 3px solid white;
-        border-bottom: 3px solid white;  
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
         padding: 2px;
         padding-left: 10px;
         padding-right: 10px;
@@ -2120,9 +2158,9 @@ export const Button_Text_Green_200 = styled.button`
     padding: 8px;
     padding-left: 20px;
     border-radius: 30px;
-    border: 1px solid white;
-    border-right: 4px solid white;
-    border-bottom: 4px solid white;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
     background-color: rgb(20, 165, 76);
     display: flex;
     align-items: center;
@@ -2148,8 +2186,8 @@ export const Button_Text_Green_200 = styled.button`
     }
 
     @media (max-width: 480px) {
-        border-right: 3px solid white;
-        border-bottom: 3px solid white;  
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
         width: 140px;    
         padding: 4px;
         font-size: 12px;
@@ -2165,9 +2203,9 @@ export const Button_Text_Green_Auto = styled.button`
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 30px;
-    border: 1px solid white;
-    border-right: 4px solid white;
-    border-bottom: 4px solid white;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
     background-color: rgb(20, 165, 76);
     text-align: center;
     box-sizing: border-box;
@@ -2193,8 +2231,8 @@ export const Button_Text_Green_Auto = styled.button`
 
     @media (max-width: 480px) { 
         font-size: 12px;
-        border-right: 3px solid white;
-        border-bottom: 3px solid white;  
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
         padding: 2px;
         padding-left: 10px;
         padding-right: 10px;
@@ -2211,9 +2249,9 @@ export const Button_Text_Red_200 = styled.button`
     padding: 8px;
     padding-left: 20px;
     border-radius: 30px;
-    border: 1px solid white;
-    border-right: 4px solid white;
-    border-bottom: 4px solid white;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
     background-color: rgb(155, 9, 9);
     display: flex;
     align-items: center;
@@ -2239,8 +2277,8 @@ export const Button_Text_Red_200 = styled.button`
     }
 
     @media (max-width: 480px) {
-        border-right: 3px solid white;
-        border-bottom: 3px solid white;  
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
         width: 140px;    
         padding: 4px;
         font-size: 12px;
@@ -2256,9 +2294,9 @@ export const Button_Text_Red_Auto = styled.button`
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 30px;
-    border: 1px solid white;
-    border-right: 4px solid white;
-    border-bottom: 4px solid white;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
     background-color: rgb(155, 9, 9);
     text-align: center;
     box-sizing: border-box;
@@ -2284,8 +2322,8 @@ export const Button_Text_Red_Auto = styled.button`
 
     @media (max-width: 480px) { 
         font-size: 12px;
-        border-right: 3px solid white;
-        border-bottom: 3px solid white;  
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
         padding: 2px;
         padding-left: 10px;
         padding-right: 10px;

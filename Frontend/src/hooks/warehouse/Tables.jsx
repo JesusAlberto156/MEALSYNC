@@ -2,9 +2,9 @@
 // Hooks de React
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
-import { SuppliesContext } from "../../contexts/SuppliersProvider";
-import { SupplyOrdersContext,DeletedSupplyOrdersContext,WarhouseSupplyTypesContext,WarhouseCategoriesContext } from "../../contexts/WarehouseProvider";
-import { SupplyCategoriesContext,SupplyTypesContext } from "../../contexts/SuppliersProvider";
+import { SuppliesContext } from "../../contexts/SuppliesProvider";
+import { SupplyOrdersContext,DeletedSupplyOrdersContext,WarehouseSupplyTypesContext,WarhouseCategoriesContext } from "../../contexts/WarehouseProvider";
+import { SupplyCategoriesContext,SupplyTypesContext } from "../../contexts/SuppliesProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { TextFieldsSearchDateContext } from "../../contexts/FormsProvider";
@@ -155,7 +155,7 @@ export const TableActionsSupplyOrders = () => {
 export const TableActionsPurchases = () => {
     // Constantes con el valor de los contextos 
     const [isWarehouseCategories] = useContext(WarhouseCategoriesContext);
-    const [isWarehouseSupplyTypes] = useContext(WarhouseSupplyTypesContext); 
+    const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); 
     const [isSupplyCategories,] = useContext(SupplyCategoriesContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
@@ -459,7 +459,7 @@ export const TableActionsPurchases = () => {
 export const TableActionsSales = () => {
     // Constantes con el valor de los contextos 
     const [isWarehouseCategories] = useContext(WarhouseCategoriesContext);
-    const [isWarehouseSupplyTypes] = useContext(WarhouseSupplyTypesContext); 
+    const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); 
     const [isSupplyCategories,] = useContext(SupplyCategoriesContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);

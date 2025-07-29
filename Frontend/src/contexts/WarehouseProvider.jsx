@@ -13,7 +13,7 @@ export const SupplyOrderObservationAddContext = createContext(null);
 export const DeletedSupplyOrdersContext = createContext(null);
 export const SupplyOrderDeleteContext = createContext(null);
 export const WarhouseCategoriesContext = createContext(null);
-export const WarhouseSupplyTypesContext = createContext(null);
+export const WarehouseSupplyTypesContext = createContext(null);
 export const WarhouseSupplyTypeAddContext = createContext(null);
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
@@ -307,9 +307,9 @@ export const Warehouse_Supply_Types = ({ children }) => {
     },[]);
     // Return para darle valor al contexto y heredarlo
     return (
-        <WarhouseSupplyTypesContext.Provider value={[isWarehouseSupplyTypes,setIsWarehouseSupplyTypes]}>
+        <WarehouseSupplyTypesContext.Provider value={[isWarehouseSupplyTypes,setIsWarehouseSupplyTypes]}>
             {children}
-        </WarhouseSupplyTypesContext.Provider>
+        </WarehouseSupplyTypesContext.Provider>
     );
 }
 // Función contexto para controlar los datos agregados de un almacen por tipos de insumo ✔️

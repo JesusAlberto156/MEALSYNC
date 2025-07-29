@@ -7,7 +7,6 @@ import { Tooltip } from "@mui/material";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { HandleVerificationBlock } from "../../hooks/Forms";
-import { ResetFilteredOrder,ResetFilteredSearch } from "../../hooks/Texts";
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
@@ -17,16 +16,13 @@ import { ImExit } from "react-icons/im";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
-// Icono para la seccion del buscador
-import { IoSearch } from "react-icons/io5";
-import { LuArrowDownUp } from "react-icons/lu";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal_Form_Button } from "../styled/Containers";
 import { Button_Icon_Blue_Auto_40,Button_Icon_Green_Auto_40,Button_Icon_Red_Auto_40,Button_Icon_Blue_Auto_50 } from "../styled/Buttons";
-import { Icon_20,Icon_Button_White_20 } from "../styled/Icons";
+import { Icon_20 } from "../styled/Icons";
 //____________IMPORT/EXPORT____________
 
 // Componentes con las diferentes funcionalidades de los botones de los modales 
@@ -101,7 +97,7 @@ export const Modal_Form_Button_Verification = () => {
         </>
     );
 };
-export const Modal_Form_Button_Add = ({ onCancel = () => {}, onAction = () => {} }) => {
+export const Modal_Form_Button_Add = ({ onCancel = () => {}, onAction = () => {}, icon = <IoIosAddCircle/> }) => {
     // Constantes con el valor de los contextos
     const [isActionBlock] = useContext(ActionBlockContext);
     // Estructura del componente
@@ -117,7 +113,7 @@ export const Modal_Form_Button_Add = ({ onCancel = () => {}, onAction = () => {}
                     <Button_Icon_Green_Auto_40
                         disabled  
                     >
-                        <Icon_20><IoIosAddCircle/></Icon_20>
+                        <Icon_20>{icon}</Icon_20>
                     </Button_Icon_Green_Auto_40>
                 </Container_Modal_Form_Button>
             ):(
@@ -133,7 +129,7 @@ export const Modal_Form_Button_Add = ({ onCancel = () => {}, onAction = () => {}
                         <Button_Icon_Green_Auto_40
                             onClick={() => onAction()}   
                         >
-                            <Icon_20><IoIosAddCircle/></Icon_20>
+                            <Icon_20>{icon}</Icon_20>
                         </Button_Icon_Green_Auto_40>
                     </Tooltip>
                 </Container_Modal_Form_Button>
@@ -369,98 +365,30 @@ export const Modal_Form_Button_View = ({ onCancel = () => {}, onAction = () => {
         </>
     );
 };
-// Componetes de los botones de ordenamiento y busqueda
-export const Searchbar_Button_Search = () => {
+export const Modal_Form_Button_Return = ({ onHandleModalView = () => {} }) => {
     // Constantes con el valor de los contextos
     const [isActionBlock] = useContext(ActionBlockContext);
-    // Constantes con la funcionalidad de los hooks
-    const resetFilteredSearch = ResetFilteredSearch();
     // Estructura del componente
     return (
         <>
             {isActionBlock ? (
-                <>
-                    <Icon_Button_White_20 disabled>
-                        <IoSearch/>
-                    </Icon_Button_White_20>
-                </>
+                <Container_Modal_Form_Button>
+                    <Button_Icon_Blue_Auto_50
+                        disabled
+                    >
+                        <Icon_20><FaArrowAltCircleLeft/></Icon_20>
+                    </Button_Icon_Blue_Auto_50>
+                </Container_Modal_Form_Button>
             ):(
-                <>
-                    <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                        <Icon_Button_White_20 
-                            onClick={() => resetFilteredSearch()}
+                <Container_Modal_Form_Button>
+                    <Tooltip title='Regresar' placement='top'>
+                        <Button_Icon_Blue_Auto_50
+                            onClick={() => onHandleModalView()}   
                         >
-                            <IoSearch/>
-                        </Icon_Button_White_20>
+                            <Icon_20><FaArrowAltCircleLeft/></Icon_20>
+                        </Button_Icon_Blue_Auto_50>
                     </Tooltip>
-                </>
-            )}
-        </>
-    );
-};
-export const Searchbar_Button_Order = () => {
-    // Constantes con el valor de los contextos
-    const [isActionBlock] = useContext(ActionBlockContext);
-    // Constantes con la funcionalidad de los hooks
-    const resetFilteredOrder = ResetFilteredOrder();
-    // Estructura del componente
-    return (
-        <>
-            {isActionBlock ? (
-                                <>
-                                    <Icon_Button_White_20 disabled>
-                                        <LuArrowDownUp/>
-                                    </Icon_Button_White_20>
-                                </>
-            ):(
-                <>
-                    <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                        <Icon_Button_White_20
-                            onClick={() => resetFilteredOrder()}
-                        >
-                            <LuArrowDownUp/>
-                        </Icon_Button_White_20>
-                    </Tooltip>
-                </>
-            )}
-        </>
-    );
-};
-export const Searchbar_Button_Search_Order = () => {
-    // Constantes con el valor de los contextos
-    const [isActionBlock] = useContext(ActionBlockContext);
-    // Constantes con la funcionalidad de los hooks
-    const resetFilteredSearch = ResetFilteredSearch();
-    const resetFilteredOrder = ResetFilteredOrder();
-    // Estructura del componente
-    return (
-        <>
-            {isActionBlock ? (
-                <>
-                    <Icon_Button_White_20 disabled>
-                        <IoSearch/>
-                    </Icon_Button_White_20>
-                    <Icon_Button_White_20 disabled>
-                        <LuArrowDownUp/>
-                    </Icon_Button_White_20>
-                </>
-            ):(
-                <>
-                    <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                        <Icon_Button_White_20 
-                            onClick={() => resetFilteredSearch()}
-                        >
-                            <IoSearch/>
-                        </Icon_Button_White_20>
-                    </Tooltip>
-                    <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                        <Icon_Button_White_20
-                            onClick={() => resetFilteredOrder()}
-                        >
-                            <LuArrowDownUp/>
-                        </Icon_Button_White_20>
-                    </Tooltip>
-                </>
+                </Container_Modal_Form_Button>
             )}
         </>
     );

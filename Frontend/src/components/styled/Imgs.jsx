@@ -1,20 +1,21 @@
 //____________IMPORT/EXPORT____________
 // Componentes de React externos
 import styled from 'styled-components';
-//__________IMAGE__________
-//__________IMAGE__________
-// Estilos personalizados
-import { Fade_Animation } from './Animations';
+//__________IMAGENES__________
+import Logo_Hospital from '../imgs/Logo-Hospital.png'
+//__________IMAGENES__________
+
+import { Container_Modal_Image } from './Containers';
 //____________IMPORT/EXPORT____________
 
 //____________SIDEBAR____________
 export const Image_Sidebar_White = styled.img`
-    width: 100px; 
-    height: 100px;
+    width: 120px; 
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid white;
-    background-color: white;
+    border: 5px solid black;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,16 +23,18 @@ export const Image_Sidebar_White = styled.img`
     @media (max-width: 768px) {
         width: 90px; 
         height: 90px;    
+        border: 4px solid black;
     }
 
     @media (max-width: 480px) {
-        width: 80px; 
-        height: 80px;
+        width: 60px; 
+        height: 60px;
+        border: 3px solid black;
     }
 `;
 //____________SIDEBAR____________
 //____________NAVBAR____________
-export const Image_Navbar_Fade = styled.img`
+export const Image_Navbar = styled.img`
     width: auto; 
     height: 80px;
     object-fit: cover;
@@ -39,7 +42,6 @@ export const Image_Navbar_Fade = styled.img`
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: ${Fade_Animation} 2s infinite;
 
     @media (max-width: 768px) {
         height: 70px;    
@@ -51,7 +53,7 @@ export const Image_Navbar_Fade = styled.img`
 `;
 //____________NAVBAR____________
 //____________MODAL____________
-export const Image_Modal_Fixed = styled.img`
+const Image_Modal_Fixed = styled.img`
     width: auto; 
     height: 50%;
     margin-top: 5%;
@@ -69,6 +71,39 @@ export const Image_Modal_Fixed = styled.img`
 
     @media (max-width: 480px) {
 
+    }
+`;
+export function Image_Modal(){
+    return(
+        <Container_Modal_Image>
+            <Image_Modal_Fixed src={Logo_Hospital}/>
+        </Container_Modal_Image>
+    )
+}
+export const Image_Modal_150 = styled.img`
+    width: auto; 
+    height: 150px;
+    object-fit: cover;
+    background-color: white;
+    border: 2px solid black;
+    border-right: 6px solid black;
+    border-bottom: 6px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+
+    @media (max-width: 768px) {
+        height: 110px;
+        border-right: 5px solid black;
+        border-bottom: 5px solid black;
+    }
+
+    @media (max-width: 480px) {
+        height: 70px;
+        border: 1px solid black;
+        border-right: 4px solid black;
+        border-bottom: 4px solid black;
     }
 `;
 //____________MODAL____________
@@ -92,3 +127,29 @@ export const Image_Login_Auto = styled.img`
     }
 `;
 //____________LOGIN____________
+//____________MENU____________
+export const Image_Menu_100 = styled.img`
+    width: 100%; 
+    height: auto;
+    object-fit: cover;
+    background-color: white;
+    border: 2px solid black;
+    border-right: 6px solid black;
+    border-bottom: 6px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+
+    @media (max-width: 768px) {
+        border-right: 5px solid black;
+        border-bottom: 5px solid black;
+    }
+
+    @media (max-width: 480px) {
+        border: 1px solid black;
+        border-right: 4px solid black;
+        border-bottom: 4px solid black;
+    }
+`;
+//____________MENU____________

@@ -6,7 +6,7 @@ import { Tooltip } from "@mui/material"
 // Contextos
 import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../../contexts/SelectedesProvider"
 import { ThemeModeContext } from "../../../contexts/ViewsProvider"
-import { SupplyTypesContext,SupplyCategoriesContext } from "../../../contexts/SuppliersProvider"
+import { SupplyTypesContext,SupplyCategoriesContext } from "../../../contexts/SuppliesProvider"
 // Hooks personalizados
 import { TableActionsPurchases } from "../../../hooks/warehouse/Tables"
 import { Dates } from "../../../hooks/Dates"

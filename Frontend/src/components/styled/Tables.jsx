@@ -366,129 +366,12 @@ export const Table_Body_Td = styled.td`
 //__________BODY____________
 
 
-
-
-export const Tbody_White = styled.tbody.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    background-color: ${({ ThemeMode }) => (ThemeMode ?'white':'black')};
-    box-shadow: 0 ${({ ThemeMode }) => (ThemeMode ?'8px 10px -4px rgba(0, 0, 0, 0.88)':'2px 14px 2px rgb(255, 255, 255)')};
-`;
 export const TContainer_Center = styled.div`
     display: flex;
     justify-content: center;    
     align-items: center;
     gap: 10px;
     white-space: nowrap;
-`;
-export const TContainer_Icon = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    white-space: nowrap;
-    width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-    box-sizing: border-box;
-`;
-
-export const Container_Table = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;        
-    background: transparent;
-    width: 95%;
-    height: auto;
-    max-width: 95%; 
-    padding: 6px;
-    max-height: 60vh;
-    overflow-x: auto;
-
-    &::-webkit-scrollbar {
-        width: 8px;          
-        height: 8px;  
-        background-color:rgb(255, 255, 255);
-        border-radius: 20px;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.41);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: rgb(58,93,174);
-        border-radius: 30px;
-        border: 1px solid rgb(255, 255, 255);
-        cursor: pointer;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(82, 126, 231);
-    }
-
-    @media (max-width: 1000px) {
-        max-width: 950px;
-    }
-
-    @media (max-width: 950px) {
-        max-width: 900px;
-    }
-
-    @media (max-width: 900px) {
-        max-width: 850px;
-    }
-
-    @media (max-width: 850px) {
-        max-width: 800px;
-    }
-
-    @media (max-width: 800px) {
-        max-width: 750px;
-    }
-
-    @media (max-width: 750px) {
-        max-width: 700px;
-    }
-
-    @media (max-width: 700px) {
-        max-width: 650px;
-    }
-    
-    @media (max-width: 650px) {
-        max-width: 600px;
-    }
-
-    @media (max-width: 600px) {
-        max-width: 550px;
-    }
-
-    @media (max-width: 550px) {
-        max-width: 500px;
-    }
-
-    @media (max-width: 500px) {
-        max-width: 450px;
-
-        &::-webkit-scrollbar {
-            width: 6px;          
-            height: 6px;  
-        }
-    }
-
-    @media (max-width: 450px) {
-        max-width: 400px;
-    }
-
-    @media (max-width: 400px) {
-        max-width: 350px;
-    }
-
-    @media (max-width: 350px) {
-        max-width: 300px;
-    }
-
-    @media (max-width: 300px) {
-        max-width: 250px;
-    }
-}
 `;
 export const Thead = styled.thead`
     background-color: rgb(58,93,174);

@@ -10,7 +10,7 @@ import { RefAlertsContext } from "../../contexts/RefsProvider";
 import { Container_Page_Elements } from "../../components/styled/Containers";
 import { Alert_Swal_Greeting } from "../../components/styled/Alerts";
 // Componentes personalizados
-import Setting_Bar from "../../components/navegation/SettingBar";
+import Nav_Bar from "../../components/navegation/navbar/Navbar";
 import Footer from "../../components/navegation/Footer";
 //____________IMPORT/EXPORT____________
 
@@ -37,7 +37,7 @@ export default function Index_Kitchen(){
     return(
         <>
             <Container_Page_Elements sidebarVisible={isSidebar}>
-                <Setting_Bar/>
+                <Nav_Bar/>
                 <Outlet/>
                 <Footer/>
             </Container_Page_Elements>

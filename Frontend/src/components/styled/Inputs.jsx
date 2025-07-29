@@ -76,19 +76,34 @@ export const Input_Text_60_Black = styled.input`
     width: 60%;
     height: auto;
     font-family: Century Gothic,Prompt;
-    color: white;
+    color: black;
     font-size: 16px;
     padding: 8px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     border-bottom: 2px solid black;
     background: transparent;
-    transition: 0.6s ease;
+    transition: 0.4s ease;
     outline: none;
     cursor: text;
 
-    &:placeholder {
+    &::placeholder {
         color: black; 
+    }
+
+    &:not(:disabled):hover {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 1);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        border-bottom: 2px dashed rgba(0, 0, 0, 0.8);
+        box-shadow: none;
+        color: rgba(0, 0, 0, 0.8);
+
+        &::placeholder {
+            color: rgba(0, 0, 0, 0.8);
+        }
     }
 
     @media (max-width: 768px) {
@@ -103,8 +118,8 @@ export const Input_Text_60_Black = styled.input`
         padding: 4px;
     }
 
-    &:focus {
-        box-shadow: 0 0 8px rgb(0, 0, 0);
+    &:not(:disabled):focus {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 1);
     }
 `;
 //-------- Negro

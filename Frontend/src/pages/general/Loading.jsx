@@ -7,19 +7,17 @@ import { SidebarContext } from "../../contexts/ViewsProvider";
 // Hooks personalizados
 import { ResetSearchTerms,ResetSelectedTables,ResetSelectedOptions,ResetLogin } from "../../hooks/Texts";
 import { ResetViewsAll,ResetVariablesAll,ResetLoggeds } from "../../hooks/Session";
-//__________IMAGENES__________
-import Logo_Hospital from '../../components/imgs/Logo-Hospital.png'
-//__________IMAGENES__________
 //__________ICONOS__________
 // Icono de carga
 import { IoSettings } from "react-icons/io5";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Page_Loading,Container_Row_100_Center,Container_Modal_Image } from "../../components/styled/Containers";
+import { Container_Page_Loading,Container_Row_100_Center } from "../../components/styled/Containers";
 import { Text_Title_40_White } from "../../components/styled/Text";
 import { Icon_Rotate_Gray_50 } from "../../components/styled/Icons";
 import { Alert_Swal_Greeting } from '../../components/styled/Alerts';
-import { Image_Modal_Fixed } from "../../components/styled/Imgs";
+// Componentes personalizados
+import { Image_Modal } from "../../components/styled/Imgs";
 //____________IMPORT/EXPORT____________
 
 // Página para cargar otra página
@@ -69,9 +67,7 @@ export default function Loading(){
     return(
         <>
             <Container_Page_Loading>
-                <Container_Modal_Image>
-                    <Image_Modal_Fixed src={Logo_Hospital}/>
-                </Container_Modal_Image>
+                <Image_Modal/>
                 <Container_Row_100_Center>
                     <Text_Title_40_White>Cargando...</Text_Title_40_White>
                     <Icon_Rotate_Gray_50><IoSettings/></Icon_Rotate_Gray_50>

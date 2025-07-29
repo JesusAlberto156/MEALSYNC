@@ -13,15 +13,12 @@ import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 // Hooks personalizados
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
 import { HandleStatusSAdd,FilteredRecordsHasStatus } from "../../../../hooks/users/Forms";
-//__________IMAGENES__________
-import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
-//__________IMAGENES__________
 //__________ICONOS__________
 // Icono para cerrar el modal
 import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Image,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16 } from "../../../styled/Text";
 import { Label_Button_16_Black } from "../../../styled/Labels";
 import { Icon_Button_Blue_20 } from "../../../styled/Icons";
@@ -29,7 +26,8 @@ import { Input_Radio_20 } from "../../../styled/Inputs";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 import { Select_300 } from "../../../styled/Selects";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
-import { Image_Modal_Fixed } from "../../../styled/Imgs";
+// Componentes personalizados
+import { Image_Modal } from "../../../styled/Imgs";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar estatus al usuario
@@ -99,9 +97,7 @@ export default function Status_Add(){
             {isModal ? (
                 <>
                     <Container_Modal_Background_Black>
-                        <Container_Modal_Image>
-                            <Image_Modal_Fixed src={Logo_Hospital}/>
-                        </Container_Modal_Image>
+                        <Image_Modal/>
                         <Container_Modal_Form_White_600 className={currentMView === 'Estatus-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                             <Container_Modal_Form_White>
                                 <Container_Modal_Form>

@@ -12,9 +12,8 @@ import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Row_100_Center,Container_Column_100_Left } from "../styled/Containers";
-import { Text_Span_16_Left_Black } from "../styled/Text";
 import { Input_Text_100_Black,Input_Group } from "../styled/Inputs";
-import { Label_Text_12_Black } from "../styled/Labels";
+import { Label_Text_12_Black,Label_Text_16_Black } from "../styled/Labels";
 import { Icon_Button_Blue_16 } from "../styled/Icons";
 import { Alert_Sonner_Warning } from "../styled/Alerts";
 //____________IMPORT/EXPORT____________
@@ -62,7 +61,7 @@ export default function Form_Login(){
         <> 
             <Container_Column_100_Left>
                 <Container_Row_100_Center>
-                    <Text_Span_16_Left_Black>Usuario:</Text_Span_16_Left_Black>
+                    <Label_Text_16_Black>Usuario:</Label_Text_16_Black>
                     <Input_Group>
                         <Input_Text_100_Black
                             placeholder="..."
@@ -89,7 +88,7 @@ export default function Form_Login(){
                     </Icon_Button_Blue_16>
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
-                    <Text_Span_16_Left_Black>Contraseña:</Text_Span_16_Left_Black>
+                    <Label_Text_16_Black>Contraseña:</Label_Text_16_Black>
                     <Input_Group>
                         <Input_Text_100_Black
                             placeholder="..."

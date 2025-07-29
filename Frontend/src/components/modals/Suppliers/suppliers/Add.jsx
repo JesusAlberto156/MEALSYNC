@@ -1,195 +1,96 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useRef,useState } from "react";
+import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
-// Componentes de React externos
-import { Tooltip } from "@mui/material";
 // Contextos
-import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
+import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplierContext } from "../../../../contexts/FormsProvider";
 import { SupplierAddContext } from "../../../../contexts/SuppliersProvider";
-import { RefKeyboardContext } from "../../../../contexts/RefsProvider";
+import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
+import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
 import { HandleSupplierAdd } from "../../../../hooks/suppliers/Forms";
-import { ResetSelectedTables } from "../../../../hooks/Texts";
+import { HandleKeyboard } from "../../../../hooks/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
-// Icono para realizar la función del modal
-import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Form_500,Container_Row_100_Center,Container_Column_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../../../styled/Text";
-import { Button_Icon_Blue_210,Button_Icon_Green_210 } from "../../../styled/Buttons";
+import { Container_Modal_Background_Black,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form,Container_Row_100_Left } from "../../../styled/Containers";
+import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black } from "../../../styled/Text";
 import { Input_Group, Input_Text_100_Black } from "../../../styled/Inputs";
-import { Icon_20,Icon_Button_Blue_16 } from "../../../styled/Icons";
-import { Alert_Sonner_Promise,Alert_Sonner_Warning } from "../../../styled/Alerts";
-import { Label_Text_12_Black } from "../../../styled/Labels";
+import { Icon_Button_Blue_20 } from "../../../styled/Icons";
+import { Alert_Sonner_Promise } from "../../../styled/Alerts";
+import { Label_Text_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
-import Keyboard_Default from "../../../keyboards/Defaullt";
-import Keyboard_Numeric from "../../../keyboards/Numeric";
+import { Image_Modal } from "../../../styled/Imgs";
+import { Modal_Form_Button_Add } from "../../../forms/Button";
+import { Keyboard_Form_Supplier } from "../../../keyboards/Form";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar proveedores a su tabla
 export default function Supplier_Add(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isSupplierAdd,setIsSupplierAdd] = useContext(SupplierAddContext);
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [socket] = useContext(SocketContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
-    const [isTouch,setIsTouch] = useContext(TouchContext);
+    const isKeyboardTouch = useContext(RefKeyboardTouchContext);
+    const [isTouch] = useContext(TouchContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleSupplierAdd = HandleSupplierAdd();
-    const resetSelectedTables = ResetSelectedTables();
-    // Constantes con el valor de useRef
-    const lastTouchTimeRef = useRef(0);
-    const isTouchRef = useRef(isTouch);
+    const { KeyboardView,KeyboardClick } = HandleKeyboard();
     // Constantes con el valor de useState
     const [isTotalName,setIsTotalName] = useState(0);
     const [isTotalRFC,setIsTotalRFC] = useState(0);
     const [isTotalAddress,setIsTotalAddress] = useState(0);
     const [isTotalPhone,setIsTotalPhone] = useState(0);
     const [isTotalEmail,setIsTotalEmail] = useState(0);
-    // useEffect para calcular el total escrito en los campos
+    // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
         setIsTotalName(isTextFieldsSupplier.nombre.length)
-        if(isTextFieldsSupplier.nombre.length === 150){
-            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el nombre!...')
-        }
     },[isTextFieldsSupplier.nombre]);
     useEffect(() => {
         setIsTotalRFC(isTextFieldsSupplier.rfc.length);
-        if(isTextFieldsSupplier.rfc.length === 30){
-            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el RFC!...')
-        }
     },[isTextFieldsSupplier.rfc]);
     useEffect(() => {
         setIsTotalAddress(isTextFieldsSupplier.domicilio.length);
-        if(isTextFieldsSupplier.domicilio.length === 150){
-            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el domicilio!...')
-        }
     },[isTextFieldsSupplier.domicilio]);
     useEffect(() => {
         setIsTotalPhone(isTextFieldsSupplier.telefono.length);
-        if(isTextFieldsSupplier.telefono.length === 20){
-            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el teléfono!...')
-        }
     },[isTextFieldsSupplier.telefono]);
     useEffect(() => {
         setIsTotalEmail(isTextFieldsSupplier.correo.length);
-        if(isTextFieldsSupplier.correo.length === 150){
-            Alert_Sonner_Warning('¡MEALSYNC ha alcanzado el límite de caracteres permitido en el correo!...')
-        }
     },[isTextFieldsSupplier.correo]);
-    // UseEffect que determina la visibilidad del teclado
+    // Useffect para controlar el sidebar
     useEffect(() => {
-        const handleTouchStart = () => {
-            lastTouchTimeRef.current = Date.now();
-            setIsTouch(true);
-        };
-
-        const handleMouseDown = () => {
-            const now = Date.now();
-            const timeSinceLastTouch = now - lastTouchTimeRef.current;
-
-            // Solo si no hubo un touch reciente, considera que es mouse
-            if (timeSinceLastTouch > 500) {
-                setIsTouch(false);
-            }
-        };
-
-        window.addEventListener('touchstart', handleTouchStart);
-        window.addEventListener('mousedown', handleMouseDown);
-
-        return () => {
-            window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('mousedown', handleMouseDown);
-        };
+        if(isSidebar){
+            setIsSidebar(false);
+        }
     },[]);
-    // UseEffect que determina que se mantenga visible del teclado
+    // UseEffets para controlar el teclado
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            setTimeout(() => {
-                const inputName = document.getElementById("Input-Name");
-                const inputRfc = document.getElementById("Input-Rfc");
-                const inputAddress = document.getElementById("Input-Address");
-                const inputPhone = document.getElementById("Input-Phone");
-                const inputEmail = document.getElementById("Input-Email");
-                const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
-    
-                const clickInsideInputs = 
-                    (inputName && inputName.contains(event.target)) ||
-                    (inputRfc && inputRfc.contains(event.target)) ||
-                    (inputAddress && inputAddress.contains(event.target)) ||
-                    (inputPhone && inputPhone.contains(event.target)) ||
-                    (inputEmail && inputEmail.contains(event.target));
-    
-                if (!clickInsideInputs && !keyboard) {
-                    setIsKeyboardView('');
-                    setTimeout(() => {
-                        setIsKeyboard(false);
-                    }, 500);
-                }
-            }, 0);
-        };
-    
-        document.addEventListener("mousedown", handleClickOutside);
-        document.addEventListener("touchstart", handleClickOutside);
-    
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-            document.removeEventListener("touchstart", handleClickOutside);
-        };
-    }, [Keyboard]);
-    // useEffect para escribir en los campos del login
-    const handleKeyboard = (newValue) => {
-        if(isKeyboardView === 'Name' ){
-            setIsTextFieldsSupplier(prev => ({
-                ...prev,
-                nombre: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'Rfc' ){
-            setIsTextFieldsSupplier(prev => ({
-                ...prev,
-                rfc: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'Address' ){
-            setIsTextFieldsSupplier(prev => ({
-                ...prev,
-                domicilio: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'Phone' ){
-            setIsTextFieldsSupplier(prev => ({
-                ...prev,
-                telefono: newValue, 
-            }));
-        }
-        if(isKeyboardView === 'Email' ){
-            setIsTextFieldsSupplier(prev => ({
-                ...prev,
-                correo: newValue, 
-            }));
-        }
-    };
+        KeyboardView();
+    },[]);
     useEffect(() => {
-        isTouchRef.current = isTouch;
-    }, [isTouch]);
+        KeyboardClick();
+    },[Keyboard]);
+    useEffect(() => {
+        isKeyboardTouch.current = isTouch;
+    },[isTouch]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isSupplierAdd){
@@ -198,30 +99,34 @@ export default function Supplier_Add(){
                     setTimeout(() => {
                         socket.emit('Insert-Supplier',isLoggedUser.idusuario,isTextFieldsSupplier.nombre.trim(),isTextFieldsSupplier.rfc.trim(),isTextFieldsSupplier.domicilio.trim(),isTextFieldsSupplier.telefono.trim(),isTextFieldsSupplier.correo.trim())
 
-                        resolve('¡MEALSYNC agregó al proveedor!...');
+                        resolve('¡Agregó al proveedor!');
 
                         setIsSupplierAdd(false)
 
                         const route = sessionStorage.getItem('Ruta');
+                        const sidebar = sessionStorage.getItem('Estado del Sidebar');
 
                         setCurrentMView('');
                         sessionStorage.setItem('Vista del Modal','');
                         setTimeout(() => {
+                            if(sidebar === 'true'){
+                                setIsSidebar(true);
+                            }
                             setIsModal(false);
                             sessionStorage.setItem('Estado del Modal',false);
-                            resetSelectedTables();
+                            setIsSelectedRow(null);
                             setIsActionBlock(false);
-                            navigate(route,{ replace: true });
+                            return navigate(route,{ replace: true });
                         },750);
-                    },2000);
+                    },1000);
                 }catch(e){
                     setIsActionBlock(false);
                     setIsSupplierAdd(false);
-                    return reject('¡Ocurrio un error inesperado!...');
+                    return reject('¡Ocurrio un error inesperado!');
                 }
             });
 
-            Alert_Sonner_Promise(promise,'Agregando un proveedor!...');
+            return Alert_Sonner_Promise(promise,'¡Agregando un proveedor!','2');
         }
     },[isSupplierAdd]);
     // Estructura del componente
@@ -229,185 +134,172 @@ export default function Supplier_Add(){
         <>
             {isModal ? (
                 <Container_Modal_Background_Black>
-                    <Container_Form_500 ThemeMode={themeMode} className={currentMView === 'Proveedor-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                        <Container_Row_100_Center>
-                            <Text_Title_32_Black ThemeMode={themeMode}>AGREGAR PROVEEDOR</Text_Title_32_Black>
-                        </Container_Row_100_Center>
-                        <Container_Row_NG_Auto_Center>
-                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
-                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_Auto_Center>
-                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                            <Container_Row_100_Center>
-                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Nombre:</Text_Span_16_Center_Black>
-                                <Input_Group>
-                                    <Input_Text_100_Black ThemeMode={themeMode}
-                                        id="Input-Name"
-                                        placeholder="..."
-                                        type="text"
-                                        maxLength={150}
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsSupplier.nombre}
-                                        onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, nombre: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Name');
-                                            }
+                    <Image_Modal/>
+                    <Container_Modal_Form_White_600 className={currentMView === 'Proveedor-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Modal_Form_White>
+                            <Container_Modal_Form>
+                                <Text_Title_28_Black>AGREGAR PROVEEDOR</Text_Title_28_Black>
+                                <Container_Row_NG_Auto_Center>
+                                    <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
+                                    <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
+                                </Container_Row_NG_Auto_Center>
+                                <Container_Row_100_Left>
+                                    <Label_Text_16_Black>Nombre:</Label_Text_16_Black>
+                                    <Input_Group>
+                                        <Input_Text_100_Black
+                                            id="Input-Nombre"
+                                            placeholder="..."
+                                            type="text"
+                                            maxLength={150}
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsSupplier.nombre}
+                                            onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, nombre: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Nombre-Proveedor');
+                                                }
+                                            }}
+                                        />
+                                        <Label_Text_12_Black>{isTotalName}/150</Label_Text_12_Black>
+                                    </Input_Group>
+                                    <Icon_Button_Blue_20
+                                        onClick={() => {
+                                            setIsTextFieldsSupplier(prev => ({...prev, nombre: ''}))
                                         }}
-                                    />
-                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalName}/150</Label_Text_12_Black>
-                                </Input_Group>
-                                <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
-                                    onClick={() => {
-                                        setIsTextFieldsSupplier(prev => ({...prev, nombre: ''}))
-                                    }}
-                                    disabled={isActionBlock}
-                                >
-                                    <MdCancel/>
-                                </Icon_Button_Blue_16>
-                            </Container_Row_100_Center>
-                            <Container_Row_100_Center>
-                                <Text_Span_16_Center_Black ThemeMode={themeMode}>RFC:</Text_Span_16_Center_Black>
-                                <Input_Group>
-                                    <Input_Text_100_Black ThemeMode={themeMode}
-                                        id="Input-Rfc"
-                                        placeholder="(Opcional)..."
-                                        type="text"
-                                        maxLength={30}
                                         disabled={isActionBlock}
-                                        value={isTextFieldsSupplier.rfc}
-                                        onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, rfc: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Rfc');
-                                            }
-                                        }}
-                                    />
-                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalRFC}/30</Label_Text_12_Black>
-                                </Input_Group>
-                            </Container_Row_100_Center>
-                            <Container_Row_100_Center>
-                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Domicilio:</Text_Span_16_Center_Black>
-                                <Input_Group>
-                                    <Input_Text_100_Black ThemeMode={themeMode}
-                                        id="Input-Address"
-                                        placeholder="(Opcional)..."
-                                        type="text"
-                                        maxLength={150}
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsSupplier.domicilio}
-                                        onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, domicilio: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Address');
-                                            }
-                                        }}
-                                    />
-                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalAddress}/150</Label_Text_12_Black>
-                                </Input_Group>
-                                <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
-                                    onClick={() => {
-                                        setIsTextFieldsSupplier(prev => ({...prev, domicilio: ''}))
-                                    }}
-                                    disabled={isActionBlock}
-                                >
-                                    <MdCancel/>
-                                </Icon_Button_Blue_16>
-                            </Container_Row_100_Center>
-                            <Container_Row_100_Center>
-                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Teléfono:</Text_Span_16_Center_Black>
-                                <Input_Group>
-                                    <Input_Text_100_Black ThemeMode={themeMode}
-                                        id="Input-Phone"
-                                        placeholder="(Opcional)..."
-                                        type="text"
-                                        maxLength={20}
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsSupplier.telefono}
-                                        onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, telefono: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Phone');
-                                            }
-                                        }}
-                                    />
-                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalPhone}/20</Label_Text_12_Black>
-                                </Input_Group>
-                            </Container_Row_100_Center>
-                            <Container_Row_100_Center>
-                                <Text_Span_16_Center_Black ThemeMode={themeMode}>Correo:</Text_Span_16_Center_Black>
-                                <Input_Group>
-                                    <Input_Text_100_Black ThemeMode={themeMode}
-                                        id="Input-Email"
-                                        placeholder="..."
-                                        type="text"
-                                        maxLength={150}
-                                        disabled={isActionBlock}
-                                        value={isTextFieldsSupplier.correo}
-                                        onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, correo: e.target.value}))}
-                                        onFocus={() => {
-                                            if(isTouchRef.current){
-                                                setIsKeyboard(true);
-                                                setIsKeyboardView('Email');
-                                            }
-                                        }}
-                                    />
-                                    <Label_Text_12_Black ThemeMode={themeMode}>{isTotalEmail}/150</Label_Text_12_Black>
-                                </Input_Group>
-                                <Icon_Button_Blue_16 ThemeMode={themeMode} className="pulsate-buttom"
-                                    onClick={() => {
-                                        setIsTextFieldsSupplier(prev => ({...prev, correo: ''}))
-                                    }}
-                                    disabled={isActionBlock}
-                                >
-                                    <MdCancel/>
-                                </Icon_Button_Blue_16>
-                            </Container_Row_100_Center>
-                        </Container_Column_100_Center>
-                        <Container_Row_100_Center>
-                            <Tooltip title='Cancelar' placement='top'>
-                                <span>
-                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalViewSuppliers('')}
-                                        disabled={isActionBlock}    
                                     >
-                                        <Icon_20><MdCancel/></Icon_20>
-                                    </Button_Icon_Blue_210>
-                                </span>
-                            </Tooltip>
-                            <Tooltip title='Agregar' placement='top'>
-                                <span>
-                                    <Button_Icon_Green_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleSupplierAdd()}
-                                        disabled={isActionBlock}    
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_20>
+                                </Container_Row_100_Left>
+                                <Container_Row_100_Left>
+                                    <Label_Text_16_Black>RFC:</Label_Text_16_Black>
+                                    <Input_Group>
+                                        <Input_Text_100_Black
+                                            id="Input-RFC"
+                                            placeholder="..."
+                                            type="text"
+                                            maxLength={30}
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsSupplier.rfc}
+                                            onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, rfc: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('RFC');
+                                                }
+                                            }}
+                                        />
+                                        <Label_Text_12_Black>{isTotalRFC}/30</Label_Text_12_Black>
+                                    </Input_Group>
+                                    <Icon_Button_Blue_20
+                                        onClick={() => {
+                                            setIsTextFieldsSupplier(prev => ({...prev, rfc: ''}))
+                                        }}
+                                        disabled={isActionBlock}
                                     >
-                                        <Icon_20><IoIosAddCircle/></Icon_20>
-                                    </Button_Icon_Green_210>
-                                </span>
-                            </Tooltip>
-                        </Container_Row_100_Center>
-                    </Container_Form_500>
-                    {isKeyboard ? (
-                        isKeyboardView === 'Name' || isKeyboardView === 'Rfc' || isKeyboardView === 'Address' || isKeyboardView === 'Email' ? (
-                            <>
-                                <Keyboard_Default value={isKeyboardView === 'Name' ? isTextFieldsSupplier.nombre : 
-                                                        isKeyboardView === 'Rfc' ? isTextFieldsSupplier.rfc :
-                                                        isKeyboardView === 'Address' ? isTextFieldsSupplier.domicilio : isTextFieldsSupplier.correo} onChange={handleKeyboard}/>  
-                        
-                            </>
-                        ):(
-                            <>
-                                <Keyboard_Numeric value={isKeyboardView === 'Phone' ? isTextFieldsSupplier.telefono : ''} onChange={handleKeyboard}/>  
-                        
-                            </>
-                        )
-                    ):(
-                        <></>
-                    )}
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_20>
+                                </Container_Row_100_Left>
+                                <Container_Row_100_Left>
+                                    <Label_Text_16_Black>Domicilio:</Label_Text_16_Black>
+                                    <Input_Group>
+                                        <Input_Text_100_Black
+                                            id="Input-Domicilio"
+                                            placeholder="..."
+                                            type="text"
+                                            maxLength={150}
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsSupplier.domicilio}
+                                            onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, domicilio: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Domicilio');
+                                                }
+                                            }}
+                                        />
+                                        <Label_Text_12_Black>{isTotalAddress}/150</Label_Text_12_Black>
+                                    </Input_Group>
+                                    <Icon_Button_Blue_20
+                                        onClick={() => {
+                                            setIsTextFieldsSupplier(prev => ({...prev, domicilio: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_20>
+                                </Container_Row_100_Left>
+                                <Container_Row_100_Left>
+                                    <Label_Text_16_Black>Teléfono:</Label_Text_16_Black>
+                                    <Input_Group>
+                                        <Input_Text_100_Black
+                                            id="Input-Telefono"
+                                            placeholder="..."
+                                            type="text"
+                                            maxLength={20}
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsSupplier.telefono}
+                                            onChange={(e) => {
+                                                if(!isNaN(Number(e.target.value))){
+                                                    setIsTextFieldsSupplier(prev => ({...prev, telefono: e.target.value}))
+                                                }
+                                            }}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Telefono');
+                                                }
+                                            }}
+                                        />
+                                        <Label_Text_12_Black>{isTotalPhone}/20</Label_Text_12_Black>
+                                    </Input_Group>
+                                    <Icon_Button_Blue_20
+                                        onClick={() => {
+                                            setIsTextFieldsSupplier(prev => ({...prev, telefono: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_20>
+                                </Container_Row_100_Left>
+                                <Container_Row_100_Left>
+                                    <Label_Text_16_Black>Correo:</Label_Text_16_Black>
+                                    <Input_Group>
+                                        <Input_Text_100_Black
+                                            id="Input-Correo"
+                                            placeholder="..."
+                                            type="text"
+                                            maxLength={150}
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsSupplier.correo}
+                                            onChange={(e) => setIsTextFieldsSupplier(prev => ({...prev, correo: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Correo');
+                                                }
+                                            }}
+                                        />
+                                        <Label_Text_12_Black>{isTotalEmail}/150</Label_Text_12_Black>
+                                    </Input_Group>
+                                    <Icon_Button_Blue_20
+                                        onClick={() => {
+                                            setIsTextFieldsSupplier(prev => ({...prev, correo: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_20>
+                                </Container_Row_100_Left>
+                                <Modal_Form_Button_Add
+                                    onCancel={() => handleModalViewSuppliers('')}
+                                    onAction={() => handleSupplierAdd()}
+                                />
+                            </Container_Modal_Form>
+                        </Container_Modal_Form_White>
+                    </Container_Modal_Form_White_600>
+                    <Keyboard_Form_Supplier/>
                 </Container_Modal_Background_Black>
             ):(
                 <></>

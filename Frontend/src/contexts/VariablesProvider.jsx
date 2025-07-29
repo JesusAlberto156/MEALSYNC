@@ -11,6 +11,8 @@ export const KeyboardViewContext = createContext(null);
 export const TouchContext = createContext(null);
 export const UserUpdatedContext = createContext(null);
 export const PermissionUpdatedContext = createContext(null);
+export const IndexSearchContext = createContext(null);
+export const IndexCountContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para las variables generales para funcionalidades ✔️
@@ -25,7 +27,11 @@ export const Index_Variables = ({children}) => {
                                 <Touch>
                                     <User_Updated>
                                         <Permission_Updated>
-                                            {children}
+                                            <Index_Search>
+                                                <Index_Count>
+                                                    {children}
+                                                </Index_Count>
+                                            </Index_Search>
                                         </Permission_Updated>
                                     </User_Updated>
                                 </Touch>
@@ -141,5 +147,27 @@ export const Permission_Updated = ({children}) => {
         <PermissionUpdatedContext.Provider value={[isPermissionUpdated,setIsPermissionUpdated]}>
             {children}
         </PermissionUpdatedContext.Provider>
+    );
+}
+// Función Contexto para controlar el index del buscador ✔️
+export const Index_Search = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isIndexSearch,setIsIndexSearch] = useState(null);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <IndexSearchContext.Provider value={[isIndexSearch,setIsIndexSearch]}>
+            {children}
+        </IndexSearchContext.Provider>
+    );
+}
+// Función Contexto para controlar el index de la cantidad ✔️
+export const Index_Count = ({children}) => {
+    // UseState para controlar el valor del contexto
+    const [isIndexCount,setIsIndexCount] = useState(null);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <IndexCountContext.Provider value={[isIndexCount,setIsIndexCount]}>
+            {children}
+        </IndexCountContext.Provider>
     );
 }

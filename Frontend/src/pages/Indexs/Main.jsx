@@ -11,7 +11,7 @@ import { SidebarViewContext,NavbarViewContext } from '../../contexts/ViewsProvid
 import { Container_Page,Container_Page_Logged } from "../../components/styled/Containers";
 import { Alert_Sonner_Styles } from '../../components/styled/Alerts';
 // Componentes personalizados
-import Side_Bar from '../../components/navegation/Sidebar';
+import Side_Bar from '../../components/navegation/sidebar/Sidebar';
 //____________IMPORT/EXPORT____________
 
 // Página para gestionar la parte principal de las paginas

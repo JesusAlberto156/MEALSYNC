@@ -14,20 +14,17 @@ import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleStatusEnable } from "../../../../hooks/users/Forms";
 import { HandleModalViewUsers } from "../../../../hooks/users/Views";
-//__________IMAGENES__________
-import Logo_Hospital from '../../../imgs/Logo-Hospital.png'
-//__________IMAGENES__________
 //__________ICONOS__________
 // Icono para realizar la función del modal
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Modal_Image,Container_Row_NG_Auto_Center,Container_Modal_Form_White_500,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Row_NG_Auto_Center,Container_Modal_Form_White_500,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Span_12_Justify_Black,Text_Title_28_Black,Text_Color_Green_16 } from "../../../styled/Text";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
-import { Image_Modal_Fixed } from "../../../styled/Imgs";
 // Componentes personalizados
+import { Image_Modal } from "../../../styled/Imgs";
 import Form_Verification from "../../../forms/Verification";
 import Error_Enable from "../../errors/Enable";
 import { Keyboard_Verification } from "../../../keyboards/Verificacion";
@@ -54,6 +51,12 @@ export default function Status_Enable(){
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
     const handleStatusEnable = HandleStatusEnable();
+    // Useffect para controlar el sidebar
+    useEffect(() => {
+        if(isSidebar){
+            setIsSidebar(false);
+        }
+    },[]);
     // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isStatusEnable){
@@ -105,9 +108,7 @@ export default function Status_Enable(){
         <>
             {isModal && isSelectedRow !== null ? (
                 <Container_Modal_Background_Black ref={Modal}>
-                    <Container_Modal_Image>
-                        <Image_Modal_Fixed src={Logo_Hospital}/>
-                    </Container_Modal_Image>
+                    <Image_Modal/>
                     <Container_Modal_Form_White_500 ref={isForm}  className={currentMView === 'Estatus-Habilitar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Modal_Form_White>
                             <Container_Modal_Form>

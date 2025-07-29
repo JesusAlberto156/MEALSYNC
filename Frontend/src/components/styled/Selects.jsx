@@ -165,7 +165,8 @@ export const Select_300 = ({
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
-                    isDisabled={isDisabled}
+                    isDisabled={isDisabled || data === 0}
+                    isSearchable={false}
                 />
             ):(
                 <Container_Row_100_Center>

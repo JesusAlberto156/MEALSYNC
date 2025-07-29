@@ -41,7 +41,7 @@ export const Menus_GET = (socket) => {
         try {
           const result = await getDeletedMenuTypesService();
           console.log('Tipos de menú eliminados obtenidos...');
-          io.emit('Get-Deleted-Menu-Type', result);
+          io.emit('Get-Deleted-Menu-Types', result);
         } catch (error) {
           console.error('Error al obtener los datos: ', error);
         }
@@ -71,7 +71,7 @@ export const Menus_GET = (socket) => {
 //______________INSERT______________
 export const Menus_INSERT = (socket) => {
     // ---------- TIPOS DE MENUS ✔️
-    socket.on('Insert-Menu-type',async (idusuario,nombre,ubicacion1,ubicacion2,ubicacion3) => {
+    socket.on('Insert-Menu-Type',async (idusuario,nombre,ubicacion1,ubicacion2,ubicacion3) => {
         try{
             await insertMenuTypeService(nombre);
             const resultMenuTypes = await getMenuTypesService();
@@ -85,22 +85,22 @@ export const Menus_INSERT = (socket) => {
                 await insertMenuTypeUbicationService(parsedData.find(data => data.nombre === nombre)?.idtipo,1);
                 resultMenuTypeUbications = await getMenuTypeUbicationsService();
                 const decryptedData = decryptData(resultMenuTypeUbications);
-                const parsedData = JSON.parse(decryptedData);
-                await insertLogMenuTypeUbicationService(idusuario,String(parsedData.find(data => data.nombre === nombre)?.idtipo),'1');
+                const parsedData1 = JSON.parse(decryptedData);
+                await insertLogMenuTypeUbicationService(idusuario,String(parsedData1.find(data => data.nombre === nombre)?.idtipo),'1');
             }
             if(ubicacion2){
                 await insertMenuTypeUbicationService(parsedData.find(data => data.nombre === nombre)?.idtipo,2);
                 resultMenuTypeUbications = await getMenuTypeUbicationsService();
                 const decryptedData = decryptData(resultMenuTypeUbications);
-                const parsedData = JSON.parse(decryptedData);
-                await insertLogMenuTypeUbicationService(idusuario,String(parsedData.find(data => data.nombre === nombre)?.idtipo),'2');
+                const parsedData2 = JSON.parse(decryptedData);
+                await insertLogMenuTypeUbicationService(idusuario,String(parsedData2.find(data => data.nombre === nombre)?.idtipo),'2');
             }
             if(ubicacion3){
                 await insertMenuTypeUbicationService(parsedData.find(data => data.nombre === nombre)?.idtipo,3);
                 resultMenuTypeUbications = await getMenuTypeUbicationsService();
                 const decryptedData = decryptData(resultMenuTypeUbications);
-                const parsedData = JSON.parse(decryptedData);
-                await insertLogMenuTypeUbicationService(idusuario,String(parsedData.find(data => data.nombre === nombre)?.idtipo),'3');
+                const parsedData3 = JSON.parse(decryptedData);
+                await insertLogMenuTypeUbicationService(idusuario,String(parsedData3.find(data => data.nombre === nombre)?.idtipo),'3');
             }
 
             const resultLogs = await getLogsService();
@@ -143,31 +143,57 @@ export const Menus_UPDATE = (socket) => {
             
             let resultMenuTypeUbications;
 
-            if(ubicacion1){
-                await deleteMenuTypeUbicationService(idtipo,1);
-                resultMenuTypeUbications = await getMenuTypeUbicationsService();
-                await deleteLogMenuTypeUbicationService(idusuario,String(idtipo),'1');
+            resultMenuTypeUbications = await getMenuTypeUbicationsService();
+            const decryptedData = decryptData(resultMenuTypeUbications);
+            const parsedData = JSON.parse(decryptedData);
+
+            if(!ubicacion1){
+                if(parsedData.some(type => type.idtipo === idtipo && type.idubicacion === 1)){
+                    await deleteMenuTypeUbicationService(idtipo,1);
+                    resultMenuTypeUbications = await getMenuTypeUbicationsService();
+                    await deleteLogMenuTypeUbicationService(idusuario,String(idtipo),'1');
+                }
+            }else{
+                if(!parsedData.some(type => type.idtipo === idtipo && type.idubicacion === 1)){
+                    await insertMenuTypeUbicationService(idtipo,1);
+                    resultMenuTypeUbications = await getMenuTypeUbicationsService();
+                    await insertLogMenuTypeUbicationService(idusuario,String(idtipo),'1');
+                }
             }
-            if(ubicacion2){
-                await deleteMenuTypeUbicationService(idtipo,2);
-                resultMenuTypeUbications = await getMenuTypeUbicationsService();
-                await deleteLogMenuTypeUbicationService(idusuario,String(idtipo),'2');
+            if(!ubicacion2){
+                if(parsedData.some(type => type.idtipo === idtipo && type.idubicacion === 2)){
+                    await deleteMenuTypeUbicationService(idtipo,2);
+                    resultMenuTypeUbications = await getMenuTypeUbicationsService();
+                    await deleteLogMenuTypeUbicationService(idusuario,String(idtipo),'2');
+                }
+            }else{
+                if(!parsedData.some(type => type.idtipo === idtipo && type.idubicacion === 2)){
+                    await insertMenuTypeUbicationService(idtipo,2);
+                    resultMenuTypeUbications = await getMenuTypeUbicationsService();
+                    await insertLogMenuTypeUbicationService(idusuario,String(idtipo),'2');
+                }   
             }
-            if(ubicacion3){
-                await deleteMenuTypeUbicationService(idtipo,3);
-                resultMenuTypeUbications = await getMenuTypeUbicationsService();
-                await deleteLogMenuTypeUbicationService(idusuario,String(idtipo),'3');
+            if(!ubicacion3){
+                if(parsedData.some(type => type.idtipo === idtipo && type.idubicacion === 3)){
+                    await deleteMenuTypeUbicationService(idtipo,3);
+                    resultMenuTypeUbications = await getMenuTypeUbicationsService();
+                    await deleteLogMenuTypeUbicationService(idusuario,String(idtipo),'3');
+                }
+            }else{
+                if(!parsedData.some(type => type.idtipo === idtipo && type.idubicacion === 3)){
+                    await insertMenuTypeUbicationService(idtipo,3);
+                    resultMenuTypeUbications = await getMenuTypeUbicationsService();
+                    await insertLogMenuTypeUbicationService(idusuario,String(idtipo),'3');
+                }
             }
 
             const resultLogs = await getLogsService();
             io.emit('Get-Menu-Types',resultMenuTypes);
             io.emit('Get-Logs',resultLogs);
-            if(resultMenuTypeUbications !== undefined){
-                io.emit('Get-Menu-Type-Ubications',resultMenuTypeUbications);
-            }
+            io.emit('Get-Menu-Type-Ubications',resultMenuTypeUbications);
         }catch(error){
             console.error('Error al editar al tipo de menú: ',error);
-            return error;
+            callback({ error: error.message });
         }
     });
 }

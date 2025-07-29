@@ -5,17 +5,18 @@ import { createContext,useRef,useContext } from "react"
 export const RefAlertsContext = createContext(null);
 export const RefKeyboardContext = createContext(null);
 export const RefKeyboardTouchContext = createContext(null);
+export const RefKeyboardWritingContext = createContext(null);
 export const RefModalContext = createContext(null);
 export const RefFormContext = createContext(null);
+export const RefButtonAddContext = createContext(null);
 export const RefButtonEditContext = createContext(null);
 export const RefButtonDeleteContext = createContext(null);
 export const RefButtonEnableContext = createContext(null);
 export const RefButtonDisableContext = createContext(null);
+export const RefButtonViewContext = createContext(null);
+export const RefButtonDetailContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
 export const RefSupplierObservationsContext = createContext(null);
-export const RefSupplyCategoriesContext = createContext(null);
-export const RefSupplyTypesContext = createContext(null);
-export const RefSuppliesContext = createContext(null);
 export const RefSupplyOrdersContext = createContext(null);
 // Contextos personalizados
 import { TouchContext } from "./VariablesProvider";
@@ -27,31 +28,33 @@ export const Index_Refs = ({children}) => {
         <Ref_Alerts>
             <Ref_Keyboard>
                 <Ref_Keyboard_Touch>
-                    <Ref_Modals>
-                        <Ref_Form>
-                            <Ref_Button_Edit>
-                                <Ref_Button_Delete>
-                                    <Ref_Button_Enable>
-                                        <Ref_Button_Disable>
-                                            <Ref_Suppliers>
-                                                <Ref_Suppliers_Observations>
-                                                    <Ref_Supply_Categories>
-                                                        <Ref_Supply_Types>
-                                                            <Ref_Supplies>
-                                                                <Ref_Supply_Orders>
-                                                                    {children}
-                                                                </Ref_Supply_Orders>
-                                                            </Ref_Supplies>
-                                                        </Ref_Supply_Types>
-                                                    </Ref_Supply_Categories>
-                                                </Ref_Suppliers_Observations>
-                                            </Ref_Suppliers>
-                                        </Ref_Button_Disable>
-                                    </Ref_Button_Enable>
-                                </Ref_Button_Delete>
-                            </Ref_Button_Edit>
-                        </Ref_Form>
-                    </Ref_Modals>
+                    <Ref_Keyboard_Writing>
+                        <Ref_Modals>
+                            <Ref_Form>
+                                <Ref_Button_Add>
+                                    <Ref_Button_Edit>
+                                        <Ref_Button_Delete>
+                                            <Ref_Button_Enable>
+                                                <Ref_Button_Disable>
+                                                    <Ref_Button_View>
+                                                        <Ref_Button_Detail>
+                                                            <Ref_Suppliers>
+                                                                <Ref_Suppliers_Observations>
+                                                                    <Ref_Supply_Orders>
+                                                                        {children}
+                                                                    </Ref_Supply_Orders>
+                                                                </Ref_Suppliers_Observations>
+                                                            </Ref_Suppliers>
+                                                        </Ref_Button_Detail>
+                                                    </Ref_Button_View>
+                                                </Ref_Button_Disable>
+                                            </Ref_Button_Enable>
+                                        </Ref_Button_Delete>
+                                    </Ref_Button_Edit>
+                                </Ref_Button_Add>
+                            </Ref_Form>
+                        </Ref_Modals>
+                    </Ref_Keyboard_Writing>
                 </Ref_Keyboard_Touch>
             </Ref_Keyboard>
         </Ref_Alerts>
@@ -95,6 +98,17 @@ export const Ref_Keyboard_Touch = ({ children }) => {
         </RefKeyboardTouchContext.Provider>
     );
 }
+// Función contexto para controlar la escritura del teclado ✔️
+export const Ref_Keyboard_Writing = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isKeyboardWriting = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefKeyboardWritingContext.Provider value={isKeyboardWriting}>
+            {children}
+        </RefKeyboardWritingContext.Provider>
+    );
+}
 // Función contexto para controlar las tablas con referencia a traves del modal ✔️
 export const Ref_Modals = ({ children }) => {
     // UseRef para controlar el valor del contexto
@@ -115,6 +129,17 @@ export const Ref_Form = ({ children }) => {
         <RefFormContext.Provider value={isForm}>
             {children}
         </RefFormContext.Provider>
+    );
+}
+// Función contexto para controlar las tablas con referencia a traves del boton de agregar ✔️
+export const Ref_Button_Add = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isButtonAdd =  useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefButtonAddContext.Provider value={isButtonAdd}>
+            {children}
+        </RefButtonAddContext.Provider>
     );
 }
 // Función contexto para controlar las tablas con referencia a traves del boton de editar ✔️
@@ -161,6 +186,28 @@ export const Ref_Button_Disable = ({ children }) => {
         </RefButtonDisableContext.Provider>
     );
 }
+// Función contexto para controlar las tablas con referencia a traves del boton de visualizar ✔️
+export const Ref_Button_View = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isButtonView = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefButtonViewContext.Provider value={isButtonView}>
+            {children}
+        </RefButtonViewContext.Provider>
+    );
+}
+// Función contexto para controlar las tablas con referencia a traves del boton de detalles ✔️
+export const Ref_Button_Detail = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isButtonDetail = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefButtonDetailContext.Provider value={isButtonDetail}>
+            {children}
+        </RefButtonDetailContext.Provider>
+    );
+}
 
 // Función contexto para controlar la tabla de proveedores con referencias ✔️
 export const Ref_Suppliers = ({ children }) => {
@@ -191,56 +238,6 @@ export const Ref_Suppliers_Observations = ({ children }) => {
         <RefSupplierObservationsContext.Provider value={isSupplierObservations}>
             {children}
         </RefSupplierObservationsContext.Provider>
-    );
-}
-// Función contexto para controlar la tabla de las categorias por insumos con referencias ✔️
-export const Ref_Supply_Categories = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isSupplyCategories = {
-        Modal_Supply_Categories: useRef(null),
-        Form_Supply_Categories: useRef(null),
-        Button_Edit_Supply_Categories: useRef(null),
-        Button_Delete_Supply_Categories: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefSupplyCategoriesContext.Provider value={isSupplyCategories}>
-            {children}
-        </RefSupplyCategoriesContext.Provider>
-    );
-}
-// Función contexto para controlar la tabla de los tipos de insumo con referencias ✔️
-export const Ref_Supply_Types = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isSupplyTypes = {
-        Modal_Supply_Types: useRef(null),
-        Form_Supply_Types: useRef(null),
-        Button_Edit_Supply_Types: useRef(null),
-        Button_Add_Supply_Types: useRef(null),
-        Button_Delete_Supply_Types: useRef(null),
-        Button_Count_Supply_Types: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefSupplyTypesContext.Provider value={isSupplyTypes}>
-            {children}
-        </RefSupplyTypesContext.Provider>
-    );
-}
-// Función contexto para controlar la tabla de los insumos con referencias ✔️
-export const Ref_Supplies = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isSupplies = {
-        Modal_Supplies: useRef(null),
-        Form_Supplies: useRef(null),
-        Button_Edit_Supplies: useRef(null),
-        Button_Delete_Supplies: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefSuppliesContext.Provider value={isSupplies}>
-            {children}
-        </RefSuppliesContext.Provider>
     );
 }
 // Función contexto para controlar la tabla de los pedidos por insumo con referencias ✔️

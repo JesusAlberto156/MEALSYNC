@@ -8,8 +8,10 @@ import { Index_Searchs } from './SearchsProvider';
 import { Index_Variables } from './VariablesProvider';
 import { Index_Users } from './UsersProvider';
 import { Index_Suppliers } from './SuppliersProvider';
+import { Index_Supplies } from './SuppliesProvider';
 import { Index_Warehouse } from './WarehouseProvider';
 import { Index_Menus } from './MenusProvider';
+import { Index_Dishes } from './DishesProvider';
 import { Index_Text_Fields } from './FormsProvider';
 import { Index_Charts } from './ChartsProvider';
 import { Index_Refs } from './RefsProvider';
@@ -27,17 +29,21 @@ export const AppProviders = ({children}) => {
                                 <Index_Variables>
                                     <Index_Users>
                                         <Index_Suppliers>
-                                            <Index_Warehouse>
-                                                <Index_Menus>
-                                                    <Index_Text_Fields>
-                                                        <Index_Charts>
-                                                            <Index_Refs>
-                                                                {children}
-                                                            </Index_Refs>
-                                                        </Index_Charts>
-                                                    </Index_Text_Fields>
-                                                </Index_Menus>
-                                            </Index_Warehouse>
+                                            <Index_Supplies>
+                                                <Index_Warehouse>
+                                                    <Index_Menus>
+                                                        <Index_Dishes>
+                                                            <Index_Text_Fields>
+                                                                <Index_Charts>
+                                                                    <Index_Refs>
+                                                                        {children}
+                                                                    </Index_Refs>
+                                                                </Index_Charts>
+                                                            </Index_Text_Fields>
+                                                        </Index_Dishes>
+                                                    </Index_Menus>
+                                                </Index_Warehouse>
+                                            </Index_Supplies>
                                         </Index_Suppliers>
                                     </Index_Users>
                                 </Index_Variables>

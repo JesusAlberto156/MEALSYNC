@@ -969,6 +969,9 @@ export const Text_Span_24_Center_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -987,6 +990,9 @@ export const Text_Span_20_Center_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1005,6 +1011,9 @@ export const Text_Span_16_Center_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1023,6 +1032,9 @@ export const Text_Span_12_Center_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1043,6 +1055,9 @@ export const Text_Span_24_Center_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1061,6 +1076,9 @@ export const Text_Span_20_Center_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1079,6 +1097,9 @@ export const Text_Span_16_Center_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1097,6 +1118,9 @@ export const Text_Span_12_Center_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1119,6 +1143,9 @@ export const Text_Span_24_Justify_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1137,6 +1164,9 @@ export const Text_Span_20_Justify_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1155,6 +1185,9 @@ export const Text_Span_16_Justify_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1173,6 +1206,9 @@ export const Text_Span_12_Justify_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1193,6 +1229,9 @@ export const Text_Span_24_Justify_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1211,6 +1250,9 @@ export const Text_Span_20_Justify_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1229,6 +1271,9 @@ export const Text_Span_16_Justify_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1247,6 +1292,9 @@ export const Text_Span_12_Justify_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1269,6 +1317,9 @@ export const Text_Span_24_Left_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1287,6 +1338,9 @@ export const Text_Span_20_Left_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1305,6 +1359,9 @@ export const Text_Span_16_Left_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1323,6 +1380,9 @@ export const Text_Span_12_Left_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1343,6 +1403,9 @@ export const Text_Span_24_Left_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1361,6 +1424,9 @@ export const Text_Span_20_Left_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1379,6 +1445,9 @@ export const Text_Span_16_Left_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1397,6 +1466,9 @@ export const Text_Span_12_Left_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1419,6 +1491,9 @@ export const Text_Span_24_Right_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1437,6 +1512,9 @@ export const Text_Span_20_Right_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1455,6 +1533,9 @@ export const Text_Span_16_Right_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1473,6 +1554,9 @@ export const Text_Span_12_Right_White = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;
@@ -1493,6 +1577,9 @@ export const Text_Span_24_Right_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 22px;
@@ -1511,6 +1598,9 @@ export const Text_Span_20_Right_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 18px;
@@ -1529,6 +1619,9 @@ export const Text_Span_16_Right_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -1547,6 +1640,9 @@ export const Text_Span_12_Right_Black = styled.span`
     width: auto;
     margin: 0px;
     cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 
     @media (max-width: 768px) {
         font-size: 10px;

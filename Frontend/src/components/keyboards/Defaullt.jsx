@@ -1,13 +1,13 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useRef,useState,useEffect,useContext } from "react";
+import { useState,useEffect,useContext } from "react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 // Contextos
-import { RefKeyboardContext } from '../../contexts/RefsProvider';
+import { RefKeyboardContext,RefKeyboardWritingContext } from '../../contexts/RefsProvider';
 import { KeyboardViewContext } from "../../contexts/VariablesProvider";
 // Estilos personalizados
-import { Container_Keyboard_Default } from '../styled/Containers';
+import { Container_Keyboard } from '../styled/Containers';
 //____________IMPORT/EXPORT____________
 
 // Teclado virtual
@@ -15,8 +15,7 @@ export default function Keyboard_Default ({ value, onChange }) {
     // Constantes con el valor de los contextos
     const isKeyboard = useContext(RefKeyboardContext);
     const [isKeyboardView] = useContext(KeyboardViewContext);
-    // Constantes con el valor de los useRef
-    const keyboardRef = useRef(null);
+    const isKeyboardWriting = useContext(RefKeyboardWritingContext);
     // Constantes con el valor de los useState
     const [layoutName, setLayoutName] = useState("default");
     // Estilo del teclado
@@ -38,8 +37,8 @@ export default function Keyboard_Default ({ value, onChange }) {
     };
     // UseEffect sincronizar el valor del input externo al teclado
     useEffect(() => {
-        if (keyboardRef.current) {
-            keyboardRef.current.setInput(value);
+        if (isKeyboardWriting.current) {
+            isKeyboardWriting.current.setInput(value);
         }
     }, [value]);
     // UseEffect para determinar la vista del teclado
@@ -51,9 +50,9 @@ export default function Keyboard_Default ({ value, onChange }) {
     // Estructura del componente
     return (
         <>
-            <Container_Keyboard_Default ref={isKeyboard} className={isKeyboardView ? 'slide-in-container-bottom' : 'slide-out-container-bottom'}>
+            <Container_Keyboard ref={isKeyboard} className={isKeyboardView ? 'slide-in-container-bottom' : 'slide-out-container-bottom'}>
                 <Keyboard
-                    keyboardRef={(r) => (keyboardRef.current = r)}
+                    keyboardRef={(r) => (isKeyboardWriting.current = r)}
                     layoutName={layoutName}
                     layout={spanishCustomLayout}
                     display={{
@@ -65,7 +64,7 @@ export default function Keyboard_Default ({ value, onChange }) {
                     onChange={onChange}
                     onKeyPress={handleKeyPress}
                 />
-            </Container_Keyboard_Default>
+            </Container_Keyboard>
         </>
     );
 };

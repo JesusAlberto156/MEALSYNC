@@ -38,7 +38,7 @@ import { MdLogin } from "react-icons/md";
 import Logo_Vertical_Hospital from '../../components/imgs/Logo-Vertical-Hospital.png';
 //__________IMAGES____________
 // Estilos personalizados
-import { Container_Page,Container_Page_Login,Container_Login_Form_White_Auto,Container_Login_Form_White,Container_Login_Form,Container_Row_100_Center } from "../../components/styled/Containers";
+import { Container_Page,Container_Page_Login,Container_Page_White,Container_Login_Form_White_Auto,Container_Login_Form_White,Container_Login_Form,Container_Row_100_Center } from "../../components/styled/Containers";
 import { Icon_20 } from "../../components/styled/Icons";
 import { Image_Login_Auto } from "../../components/styled/Imgs";
 import { Text_Fade_Title_20_Black,Text_Span_16_Justify_Black } from "../../components/styled/Text";
@@ -313,165 +313,167 @@ export default function Login(){
         <>
             <Container_Page>
                 <Container_Page_Login>
-                    <Container_Login_Form_White_Auto className={!isAnimation ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                        <Container_Login_Form_White>
-                            <Container_Login_Form>
-                                <Image_Login_Auto src={Logo_Vertical_Hospital}/>
-                                {currentLView === '' ? (
-                                    <>
-                                        <Text_Fade_Title_20_Black>BIENVENIDO(A)</Text_Fade_Title_20_Black>
-                                    </>
-                                ):(
-                                    <></>
-                                )}
-                                {currentLView === 'Administration' || currentLView === 'Kitchen' ? (
-                                    <>
-                                        <Text_Fade_Title_20_Black>SELECCIÓN DE USUARIO</Text_Fade_Title_20_Black>
-                                    </>
-                                ):(
-                                    <></>
-                                )}
-                                {currentLView === 'Login' ? (
-                                    <>
-                                        <Text_Fade_Title_20_Black>INICIAR SESIÓN</Text_Fade_Title_20_Black>
-                                        <Text_Span_16_Justify_Black>{isLoggedType}</Text_Span_16_Justify_Black>
-                                    </>
-                                ):(
-                                    <></>
-                                )}
-                                {currentLView === '' || currentLView === 'Administration' || currentLView === 'Kitchen' ? (
-                                    <>
-                                        {currentLView === '' ? (
-                                            <>  
-                                                <Tooltip title='Administración' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Administration','')}
-                                                    >
-                                                        <Icon_20><MdManageAccounts/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip>
-                                                <Tooltip title='Cocina' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Kitchen','')}
-                                                    >
-                                                        <Icon_20><GiRiceCooker/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip>
-                                            </>
-                                        ):(
-                                            <></>
-                                        )}
-                                        {currentLView === 'Administration' ? (
-                                            <>
-                                                <Tooltip title='Administrador' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Login','Administrador')}
-                                                    >
-                                                        <Icon_20><FaUserTie/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip>
-                                                <Tooltip title='Chef' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Login','Chef')}
-                                                    >
-                                                        <Icon_20><GiChefToque/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip>    
-                                                <Tooltip title='Almacenista' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Login','Almacenista')}
-                                                    >
-                                                        <Icon_20><FaWarehouse/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip> 
-                                                <Tooltip title='Atrás' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('','')}  
-                                                    >
-                                                        <Icon_20><IoArrowBackCircle/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip>
-                                            </>
-                                        ):(
-                                            <></>
-                                        )}
-                                        {currentLView === 'Kitchen' ? (
-                                            <>
-                                                <Tooltip title='Cocinero' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Login','Cocinero')}
-                                                    >
-                                                        <Icon_20><GiCook/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip>  
-                                                <Tooltip title='Nutriólogo' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Login','Nutriólogo')}   
-                                                    >
-                                                        <Icon_20><IoNutrition/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip> 
-                                                <Tooltip title='Médico' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('Login','Médico')} 
-                                                    >
-                                                        <Icon_20><FaUserDoctor/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip> 
-                                                <Tooltip title='Atrás' placement="top">
-                                                    <Button_Icon_Blue_200
-                                                        onClick={() => handleLoginView('','')}  
-                                                    > 
-                                                        <Icon_20><IoArrowBackCircle/></Icon_20>
-                                                    </Button_Icon_Blue_200>
-                                                </Tooltip> 
-                                            </>
-                                        ):(
-                                            <></>
-                                        )}
-                                    </>
-                                ):(
-                                    <></>
-                                )}
-                                {currentLView === 'Login' ? (
-                                    <>
-                                        <Form_Login/>
-                                        {isActionBlock ? (
-                                            <Container_Row_100_Center>
-                                                <Button_Icon_Blue_Auto_40 disabled>
-                                                    <Icon_20><IoArrowBackCircle/></Icon_20>
-                                                </Button_Icon_Blue_Auto_40>
-                                                <Button_Icon_Green_Auto_40 disabled>
-                                                    <Icon_20><MdLogin/></Icon_20>
-                                                </Button_Icon_Green_Auto_40>
-                                            </Container_Row_100_Center>
-                                        ):(
-                                            <Container_Row_100_Center>
-                                                <Tooltip title='Atrás' placement="top">
-                                                    <Button_Icon_Blue_Auto_40
-                                                        onClick={() => handleLoginView(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? 'Kitchen' : 'Administration','')}
-                                                    >
+                    <Container_Page_White>
+                        <Container_Login_Form_White_Auto className={!isAnimation ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                            <Container_Login_Form_White>
+                                <Container_Login_Form>
+                                    <Image_Login_Auto src={Logo_Vertical_Hospital}/>
+                                    {currentLView === '' ? (
+                                        <>
+                                            <Text_Fade_Title_20_Black>BIENVENIDO(A)</Text_Fade_Title_20_Black>
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                    {currentLView === 'Administration' || currentLView === 'Kitchen' ? (
+                                        <>
+                                            <Text_Fade_Title_20_Black>SELECCIÓN DE USUARIO</Text_Fade_Title_20_Black>
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                    {currentLView === 'Login' ? (
+                                        <>
+                                            <Text_Fade_Title_20_Black>INICIAR SESIÓN</Text_Fade_Title_20_Black>
+                                            <Text_Span_16_Justify_Black>{isLoggedType}</Text_Span_16_Justify_Black>
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                    {currentLView === '' || currentLView === 'Administration' || currentLView === 'Kitchen' ? (
+                                        <>
+                                            {currentLView === '' ? (
+                                                <>  
+                                                    <Tooltip title='Administración' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Administration','')}
+                                                        >
+                                                            <Icon_20><MdManageAccounts/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip>
+                                                    <Tooltip title='Cocina' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Kitchen','')}
+                                                        >
+                                                            <Icon_20><GiRiceCooker/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip>
+                                                </>
+                                            ):(
+                                                <></>
+                                            )}
+                                            {currentLView === 'Administration' ? (
+                                                <>
+                                                    <Tooltip title='Administrador' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Login','Administrador')}
+                                                        >
+                                                            <Icon_20><FaUserTie/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip>
+                                                    <Tooltip title='Chef' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Login','Chef')}
+                                                        >
+                                                            <Icon_20><GiChefToque/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip>    
+                                                    <Tooltip title='Almacenista' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Login','Almacenista')}
+                                                        >
+                                                            <Icon_20><FaWarehouse/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip> 
+                                                    <Tooltip title='Atrás' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('','')}  
+                                                        >
+                                                            <Icon_20><IoArrowBackCircle/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip>
+                                                </>
+                                            ):(
+                                                <></>
+                                            )}
+                                            {currentLView === 'Kitchen' ? (
+                                                <>
+                                                    <Tooltip title='Cocinero' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Login','Cocinero')}
+                                                        >
+                                                            <Icon_20><GiCook/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip>  
+                                                    <Tooltip title='Nutriólogo' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Login','Nutriólogo')}   
+                                                        >
+                                                            <Icon_20><IoNutrition/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip> 
+                                                    <Tooltip title='Médico' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('Login','Médico')} 
+                                                        >
+                                                            <Icon_20><FaUserDoctor/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip> 
+                                                    <Tooltip title='Atrás' placement="top">
+                                                        <Button_Icon_Blue_200
+                                                            onClick={() => handleLoginView('','')}  
+                                                        > 
+                                                            <Icon_20><IoArrowBackCircle/></Icon_20>
+                                                        </Button_Icon_Blue_200>
+                                                    </Tooltip> 
+                                                </>
+                                            ):(
+                                                <></>
+                                            )}
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                    {currentLView === 'Login' ? (
+                                        <>
+                                            <Form_Login/>
+                                            {isActionBlock ? (
+                                                <Container_Row_100_Center>
+                                                    <Button_Icon_Blue_Auto_40 disabled>
                                                         <Icon_20><IoArrowBackCircle/></Icon_20>
                                                     </Button_Icon_Blue_Auto_40>
-                                                </Tooltip>
-                                                <Tooltip title='Iniciar sesión' placement="top">
-                                                    <Button_Icon_Green_Auto_40
-                                                        onClick={() => handleLoggedLog()}
-                                                    >
+                                                    <Button_Icon_Green_Auto_40 disabled>
                                                         <Icon_20><MdLogin/></Icon_20>
                                                     </Button_Icon_Green_Auto_40>
-                                                </Tooltip>
-                                            </Container_Row_100_Center>
-                                        )}
-                                    </>
-                                ):(
-                                    <></>
-                                )}
-                            </Container_Login_Form>
-                        </Container_Login_Form_White>
-                    </Container_Login_Form_White_Auto>
-                    <Keyboard_Verification/>
-                    <Footer/>
+                                                </Container_Row_100_Center>
+                                            ):(
+                                                <Container_Row_100_Center>
+                                                    <Tooltip title='Atrás' placement="top">
+                                                        <Button_Icon_Blue_Auto_40
+                                                            onClick={() => handleLoginView(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? 'Kitchen' : 'Administration','')}
+                                                        >
+                                                            <Icon_20><IoArrowBackCircle/></Icon_20>
+                                                        </Button_Icon_Blue_Auto_40>
+                                                    </Tooltip>
+                                                    <Tooltip title='Iniciar sesión' placement="top">
+                                                        <Button_Icon_Green_Auto_40
+                                                            onClick={() => handleLoggedLog()}
+                                                        >
+                                                            <Icon_20><MdLogin/></Icon_20>
+                                                        </Button_Icon_Green_Auto_40>
+                                                    </Tooltip>
+                                                </Container_Row_100_Center>
+                                            )}
+                                        </>
+                                    ):(
+                                        <></>
+                                    )}
+                                </Container_Login_Form>
+                            </Container_Login_Form_White>
+                        </Container_Login_Form_White_Auto>
+                        <Keyboard_Verification/>
+                        <Footer/>
+                    </Container_Page_White>
                 </Container_Page_Login> 
             </Container_Page>  
             <Alert_Sonner_Styles>

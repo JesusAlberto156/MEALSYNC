@@ -29,6 +29,24 @@ export const Label_Text_12_Black = styled.label`
     }
 
 `;
+export const Label_Text_16_Black = styled.label`
+    color: black;    
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    text-align: left;
+    width: auto;
+    margin: 0px;
+    cursor: default;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+    }
+`;
 //-------- Negro
 //____________TEXT____________
 //____________AREA____________
@@ -42,12 +60,12 @@ export const Label_Area_12_Black = styled.label`
     text-align: center;
     cursor: default;
     position: absolute;
-    top: 86px;
+    top: 88px;
     right: 14px;
 
     @media (max-width: 768px) {
         font-size: 10px;
-        top: 76px;
+        top: 75px;
         right: 12px;
     }
 

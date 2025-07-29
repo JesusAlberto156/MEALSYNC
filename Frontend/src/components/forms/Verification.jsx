@@ -13,10 +13,10 @@ import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Column_100_Left,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../styled/Containers";
-import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_16_Left_Black } from "../styled/Text";
+import { Text_Span_16_Center_Black,Text_Color_Blue_16 } from "../styled/Text";
 import { Input_Group, Input_Text_100_Black } from "../styled/Inputs";
 import { Icon_Button_Blue_16 } from "../styled/Icons";
-import { Label_Text_12_Black } from "../styled/Labels";
+import { Label_Text_12_Black,Label_Text_16_Black } from "../styled/Labels";
 // Componentes personalizados
 import { Modal_Form_Button_Verification } from "./Button";
 //____________IMPORT/EXPORT____________
@@ -63,7 +63,7 @@ export default function Form_Verification(){
             </Container_Row_NG_Auto_Center>
             <Container_Column_100_Left>
                 <Container_Row_100_Center>
-                    <Text_Span_16_Left_Black>Usuario:</Text_Span_16_Left_Black>
+                    <Label_Text_16_Black>Usuario:</Label_Text_16_Black>
                     <Input_Group>
                         <Input_Text_100_Black
                             id="Input-Usuario"
@@ -90,7 +90,7 @@ export default function Form_Verification(){
                     </Icon_Button_Blue_16>
                 </Container_Row_100_Center>
                 <Container_Row_100_Center>
-                    <Text_Span_16_Left_Black>Contraseña:</Text_Span_16_Left_Black>
+                    <Label_Text_16_Black>Contraseña:</Label_Text_16_Black>
                     <Input_Group>
                         <Input_Text_100_Black
                             id="Input-Contraseña"

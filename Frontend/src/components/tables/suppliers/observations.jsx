@@ -3,6 +3,7 @@
 import { useContext,useEffect } from "react"
 // Contextos
 import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
+import { TextFieldsObservationContext } from "../../../contexts/FormsProvider"
 import { RefModalContext,RefFormContext,RefButtonDetailContext } from "../../../contexts/RefsProvider"
 import { SuppliersContext } from "../../../contexts/SuppliersProvider"
 // Hooks personalizados
@@ -24,6 +25,7 @@ export default function Table_Supplier_Observations(){
     const isForm = useContext(RefFormContext); 
     const isButtonDetail = useContext(RefButtonDetailContext);
     const [isSuppliers] = useContext(SuppliersContext);
+    const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext); 
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {

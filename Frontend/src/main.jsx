@@ -239,6 +239,10 @@ const router = createHashRouter([
             element: <Dish_Add/>
           },
           {
+            path: 'Administration/Index/Menus/Dishes/Detail',
+            
+          },
+          {
             path: 'Administration/Index/Menus/Dishes/Edit',
             
           },

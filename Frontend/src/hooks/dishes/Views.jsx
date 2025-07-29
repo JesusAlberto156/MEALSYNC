@@ -4,11 +4,10 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalViewContext,ModalContext,SidebarContext } from "../../contexts/ViewsProvider";
+import { SelectedRowContext } from "../../contexts/SelectedesProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { ResetSearchTerms,ResetSelectedOptions } from "../Texts";
-import { ResetTextFieldsDish } from "./Texts";
-import { ResetTextFieldsUser } from "../users/Texts";
 //____________IMPORT/EXPORT____________
 
 // Hook para cambiar el modal ✔️
@@ -20,12 +19,11 @@ export const HandleModalViewDishes = () => {
     const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
     const resetSelectedOptions = ResetSelectedOptions();
-    const resetTextFieldsDish = ResetTextFieldsDish();
-    const resetTextFieldsUser = ResetTextFieldsUser();
     // Función del hook
     const handleModalViewDishes = (View) => {
         setIsModal(true);
@@ -41,7 +39,20 @@ export const HandleModalViewDishes = () => {
                 }
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsDish();
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Platillo-Detalles' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
                 setIsActionBlock(false);
                 return navigate(route,{ replace: true });
             },750);
@@ -54,7 +65,7 @@ export const HandleModalViewDishes = () => {
                 }
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsDish();
+                setIsSelectedRow(null);
                 setIsActionBlock(false);
                 return navigate(route,{ replace: true });
             },750);
@@ -67,8 +78,7 @@ export const HandleModalViewDishes = () => {
                 }
                 setIsModal(false);
                 sessionStorage.setItem('Estado del Modal',false);
-                resetTextFieldsDish();
-                resetTextFieldsUser();
+                setIsSelectedRow(null);
                 setIsActionBlock(false);
                 setIsFunctionBlock(false)
                 setIsVerificationBlock(false);

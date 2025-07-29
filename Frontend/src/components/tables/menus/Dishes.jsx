@@ -7,7 +7,9 @@ import { RefModalContext,RefFormContext,RefButtonDetailContext,RefButtonEditCont
 import { DishesContext,DishSpecificationsContext } from "../../../contexts/DishesProvider"
 // Hooks personalizados
 import { HandleModalViewDishes } from "../../../hooks/dishes/Views"
+//____________IMAGENES______________
 import Dish from '../../imgs/Meal.png'
+//____________IMAGENES______________
 // Estilos personalizados
 import { Container_Menu_100_Center } from "../../styled/Containers";
 // Componentes personalizados
@@ -64,6 +66,7 @@ export default function Table_Dishes(){
                     const spec = isDishSpecifications.find(spec => spec.idplatillo === dish.idplatillo);
                     return (
                         <Card_Information
+                            data={dish}
                             onHandleView={() => setIsSelectedRow(dish)}
                             id='Card-Dish'
                             key={dish.idplatillo}
@@ -71,6 +74,12 @@ export default function Table_Dishes(){
                             image={spec?.imagen || Dish}
                             preparation={spec?.preparacion || 'Desconocido'}
                             price={spec?.precio || 'Desconocido'}
+                            onHandleModalViewDetail={() => handleModalViewDishes('Platillo-Detalles')}
+                            routeDetail="/Administration/Index/Menus/Dishes/Detail"
+                            onHandleModalViewEdit={() => handleModalViewDishes('Platillo-Editar')}
+                            routeEdit="/Administration/Index/Menus/Dishes/Edit"
+                            onHandleModalViewDelete={() => handleModalViewDishes('Platillo-Eliminar')}
+                            routeDelete="/Administration/Index/Menus/Dishes/Delete"
                         />
                     )
                 })}

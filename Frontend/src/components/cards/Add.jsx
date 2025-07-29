@@ -13,7 +13,7 @@ import { IoIosAddCircle } from "react-icons/io";
 //__________ICONOS__________
 // Estilos personalizados
 import { Icon_Green_120,Icon_White_120 } from '../styled/Icons';
-import { Card_Menu_White_300_Button,Card_Menu_White,Card_Menu_Functions,Card_Menu_Gray } from '../styled/Cards';
+import { Card_Menu_White_300_Button,Card_Menu_White,Card_Menu_Functions } from '../styled/Cards';
 //____________IMPORT/EXPORT____________
 
 // Componente para agregar cosas al menú
@@ -31,13 +31,13 @@ export default function Card_Add({
         <>
             {isActionBlock || isSelectedRow !== null ? (
                 <Card_Menu_White_300_Button disabled>
-                    <Card_Menu_Gray>
+                    <Card_Menu_White isDisabled={isActionBlock || isSelectedRow !== null}>
                         <Card_Menu_Functions>
                             <Icon_White_120>
                                 <IoIosAddCircle/>
                             </Icon_White_120>
                         </Card_Menu_Functions>
-                    </Card_Menu_Gray>
+                    </Card_Menu_White>
                 </Card_Menu_White_300_Button>
             ):(
                 <Tooltip title='Agregar' placement="top">

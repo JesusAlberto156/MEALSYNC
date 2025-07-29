@@ -87,6 +87,8 @@ export default function Search_Bar (){
     const isOptionPurchases = ['Categorías','Tipos de Insumo'];
     const isOptionSales = ['Categorías','Tipos de Insumo'];
     const isOptionWarehouse = ['Nombre','Fecha'];
+    const isOptionsMaelSearch = ['General','Nombre','Tiempo de preparación','Precio','Menú'];
+    const isOptionsMaelOrder = ['Desayuno','Comida','Cena'];
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
@@ -386,6 +388,22 @@ export default function Search_Bar (){
                     {currentSView === 'Menus' && currentNView === 'Menus' ? (
                         <>
                             <Search_Bar_Icon_Button_Search_Order/>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Menus' && currentNView === 'Platillos' ? (
+                        <>
+                            <Container_Searchbar_Row_Search_Blue>
+                                <Search_Bar_Button_Search
+                                    options={isOptionsMaelSearch}
+                                />
+                                <Search_Bar_Icon_Button_Search/>
+                                <Search_Bar_Button_Order
+                                    options={isOptionsMaelOrder}
+                                />
+                                <Search_Bar_Icon_Button_Order/>
+                            </Container_Searchbar_Row_Search_Blue>
                         </>
                     ):(
                         <></>

@@ -19,6 +19,9 @@ import { HandleFiltered,HandleTextDishes } from "../../../../hooks/dishes/Forms"
 import { ResetTextFieldsDish } from "../../../../hooks/dishes/Texts";
 import { HandleDishAdd } from "../../../../hooks/dishes/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
+//____________IMAGENES______________
+import Dish from '../../../imgs/Meal.png'
+//____________IMAGENES______________
 //__________ICONOS__________
 import { MdDelete, MdOutlineAttachMoney } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
@@ -34,10 +37,10 @@ import { Input_Text_100_Black,Input_Group,Input_Area_100_Black,Input_Text_60_Bla
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
 // Componetes personalizados
-import { Image_Modal } from "../../../styled/Imgs";
+import { Image_Modal, Image_Modal_150 } from "../../../styled/Imgs";
 import { Keyboard_Form_Dish } from "../../../keyboards/Form";
 import { Select_300 } from "../../../styled/Selects";
-import { Button_Icon_Green_60, Button_Icon_Red_60 } from "../../../styled/Buttons";
+import { Button_Icon_Green_60, Button_Icon_Red_60, Button_Text_Blue_Auto } from "../../../styled/Buttons";
 import { Tooltip } from "@mui/material";
 //____________IMPORT/EXPORT____________
 
@@ -74,6 +77,7 @@ export default function Dish_Add(){
     const [isTotalName,setIsTotalName] = useState(0);
     const [isTotalImage,setIsTotalImage] = useState(0);
     const [isTotalDescription,setIsTotalDescription] = useState(0);
+    const [isImage,setIsImage] = useState('');
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){
@@ -224,6 +228,12 @@ export default function Dish_Add(){
                                             />
                                             <Label_Text_12_Black>{isTotalImage}/10000</Label_Text_12_Black>
                                         </Input_Group>
+                                        <Button_Text_Blue_Auto
+                                            onClick={() => setIsImage(isTextFieldsDish.imagen)}
+                                            disabled={isActionBlock}
+                                        >
+                                            Verificar
+                                        </Button_Text_Blue_Auto>
                                         <Icon_Button_Blue_20
                                             onClick={() => {
                                                 setIsTextFieldsDish(prev => ({...prev, imagen: ''}))
@@ -233,6 +243,7 @@ export default function Dish_Add(){
                                             <MdCancel/>
                                         </Icon_Button_Blue_20>
                                     </Container_Row_100_Left>
+                                    <Image_Modal_150 src={isImage || Dish}/>
                                     <Select_300
                                         data={isMenus.length}
                                         options={isMenus.map((menu) => ({

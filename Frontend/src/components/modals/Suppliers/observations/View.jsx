@@ -1,41 +1,37 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext } from "react";
-// Componentes de React externos
-import { Tooltip } from "@mui/material";
 // Contextos
-import { ThemeModeContext,ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
+import { ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsObservationContext } from "../../../../contexts/FormsProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { RefSupplierObservationsContext } from "../../../../contexts/RefsProvider";
-import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
+import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
 import { Dates } from "../../../../hooks/Dates";
 //__________ICONOS__________
-import { MdCancel } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Form_500,Container_Column_100_Center,Container_Row_100_Center,Container_Row_NG_Auto_Center } from "../../../styled/Containers";
-import { Text_Title_32_Black,Text_Span_16_Center_Black,Text_Color_Blue_16, Text_Span_16_Justify_Black } from "../../../styled/Text";
-import { Button_Icon_Blue_210 } from "../../../styled/Buttons";
-import { Icon_20,Icon_Green_28,Icon_Lime_Green_28,Icon_Yellow_28,Icon_Orange_28,Icon_Red_28,Icon_Blue_28,Icon_Black_28 } from "../../../styled/Icons";
+import { Container_Modal_Background_Black,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Span_16_Justify_Black,Text_Title_28_Black,Text_Color_Green_16 } from "../../../styled/Text";
+import { Icon_Green_28,Icon_Lime_Green_28,Icon_Yellow_28,Icon_Orange_28,Icon_Red_28,Icon_Blue_28,Icon_Black_28 } from "../../../styled/Icons";
 // Componentes personalizados
 import Error_View from "../../errors/View";
+import { Image_Modal } from "../../../styled/Imgs";
+import { Modal_Form_Button_Return } from "../../../forms/Button";
 //____________IMPORT/EXPORT____________
 
 // Modal para visualizar las observaciones de proveedores de su tabla
 export default function Supplier_Observation_View(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
-    const [isActionBlock] = useContext(ActionBlockContext);
     const [isSelectedRow] = useContext(SelectedRowContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isModal] = useContext(ModalContext);
     const [isTextFieldsObservation] = useContext(TextFieldsObservationContext);
-    const {Modal_Supplier_Observations,Form_Supplier_Observations,Button_Detail_Supplier_Observations} = useContext(RefSupplierObservationsContext);
+    const Modal = useContext(RefModalContext);
+    const isForm = useContext(RefFormContext);
     const [isSuppliers] = useContext(SuppliersContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalViewSuppliers = HandleModalViewSuppliers();
@@ -44,107 +40,95 @@ export default function Supplier_Observation_View(){
     return(
         <>
             {isModal && isSelectedRow !== null ? (
-                <Container_Modal_Background_Black ref={Modal_Supplier_Observations}>
-                    <Container_Form_500 ref={Form_Supplier_Observations} ThemeMode={themeMode} className={currentMView === 'Observacion-Detalles' ? 'slide-in-container-top' : 'slide-out-container-top'}>
-                        <Container_Row_100_Center>
-                            <Text_Title_32_Black ThemeMode={themeMode}>DETALLES DE LA OBSERVACIÓN</Text_Title_32_Black>
-                        </Container_Row_100_Center>
-                        <Container_Row_NG_Auto_Center>
-                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
-                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos generales...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_Auto_Center>
-                        <Container_Column_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                            <Container_Row_NG_Auto_Center>
-                                <Text_Color_Blue_16 ThemeMode={themeMode}>Proveedor</Text_Color_Blue_16>
-                                <Text_Span_16_Center_Black ThemeMode={themeMode}>- {isSuppliers.find(supplier => supplier.idproveedor === isTextFieldsObservation.idproveedor)?.nombre || 'Desconocido'}...</Text_Span_16_Center_Black>
-                            </Container_Row_NG_Auto_Center>
-                            <Container_Row_NG_Auto_Center>
-                                <Text_Span_16_Center_Black ThemeMode={themeMode}>{getDate(isTextFieldsObservation.fecha)}</Text_Span_16_Center_Black>
-                            </Container_Row_NG_Auto_Center>
-                            <Container_Row_100_Center>
-                                {isTextFieldsObservation.calificacion === 0 ? (
-                                    <>
-                                        <Icon_Blue_28 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_28>
-                                        <Icon_Blue_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_28>
-                                        <Icon_Blue_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_28>
-                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
-                                        <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
-                                    </>
-                                ):(
-                                    isTextFieldsObservation.calificacion <= 1 ? (
+                <Container_Modal_Background_Black ref={Modal}>
+                    <Image_Modal/>
+                    <Container_Modal_Form_White_600 ref={isForm} className={currentMView === 'Observacion-Detalles' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                        <Container_Modal_Form_White>
+                            <Container_Modal_Form>
+                                <Text_Title_28_Black>DETALLES DE LA OBSERVACIÓN</Text_Title_28_Black>
+                                <Container_Row_NG_Auto_Center>
+                                    <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
+                                    <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
+                                </Container_Row_NG_Auto_Center>
+                                <Container_Row_NG_Auto_Center>
+                                    <Text_Color_Green_16>Proveedor</Text_Color_Green_16>
+                                    <Text_Span_16_Center_Black>: {isSuppliers.find(supplier => supplier.idproveedor === isTextFieldsObservation.idproveedor)?.nombre || 'Desconocido'}</Text_Span_16_Center_Black>
+                                </Container_Row_NG_Auto_Center>
+                                <Text_Span_16_Center_Black>{getDate(isTextFieldsObservation.fecha)}</Text_Span_16_Center_Black>
+                                <Container_Row_100_Center>
+                                    {isTextFieldsObservation.calificacion === 0 ? (
                                         <>
-                                            <Icon_Red_28 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Red_28>
-                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_28>
-                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
-                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
-                                            <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
+                                            <Icon_Blue_28 className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_28>
+                                            <Icon_Blue_28 className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_28>
+                                            <Icon_Blue_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_28>
+                                            <Icon_Black_28 className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                            <Icon_Black_28 className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                         </>
                                     ):(
-                                        isTextFieldsObservation.calificacion <=2 ? (
+                                        isTextFieldsObservation.calificacion <= 1 ? (
                                             <>
-                                                <Icon_Orange_28 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Orange_28>
-                                                <Icon_Orange_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Orange_28>
-                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
-                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
-                                                <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
+                                                <Icon_Red_28 className='pulsate-icon-fwd-0'><FaStar/></Icon_Red_28>
+                                                <Icon_Black_28 className='pulsate-icon-fwd-1'><FaStar/></Icon_Black_28>
+                                                <Icon_Black_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
+                                                <Icon_Black_28 className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                                <Icon_Black_28 className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                             </>
                                         ):(
-                                            isTextFieldsObservation.calificacion <=3 ? (
+                                            isTextFieldsObservation.calificacion <=2 ? (
                                                 <>
-                                                    <Icon_Yellow_28 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Yellow_28>
-                                                    <Icon_Yellow_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Yellow_28>
-                                                    <Icon_Yellow_30 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Yellow_30>
-                                                    <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
-                                                    <Icon_Black_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
+                                                    <Icon_Orange_28 className='pulsate-icon-fwd-0'><FaStar/></Icon_Orange_28>
+                                                    <Icon_Orange_28 className='pulsate-icon-fwd-1'><FaStar/></Icon_Orange_28>
+                                                    <Icon_Black_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Black_28>
+                                                    <Icon_Black_28 className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                                    <Icon_Black_28 className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                                 </>
                                             ):(
-                                                isTextFieldsObservation.calificacion <=4 ? (
+                                                isTextFieldsObservation.calificacion <=3 ? (
                                                     <>
-                                                        <Icon_Lime_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Lime_Green_28>
-                                                        <Icon_Lime_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Lime_Green_28>
-                                                        <Icon_Lime_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Lime_Green_28>
-                                                        <Icon_Lime_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Lime_Green_28>
-                                                        <Icon_Black_White_30 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_White_30>
+                                                        <Icon_Yellow_28 className='pulsate-icon-fwd-0'><FaStar/></Icon_Yellow_28>
+                                                        <Icon_Yellow_28 className='pulsate-icon-fwd-1'><FaStar/></Icon_Yellow_28>
+                                                        <Icon_Yellow_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Yellow_28>
+                                                        <Icon_Black_28 className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
+                                                        <Icon_Black_28 className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                                     </>
                                                 ):(
-                                                    isTextFieldsObservation.calificacion <=5 ? (
+                                                    isTextFieldsObservation.calificacion <=4 ? (
                                                         <>
-                                                            <Icon_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-0'><FaStar/></Icon_Green_28>
-                                                            <Icon_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-1'><FaStar/></Icon_Green_28>
-                                                            <Icon_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-2'><FaStar/></Icon_Green_28>
-                                                            <Icon_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-3'><FaStar/></Icon_Green_28>
-                                                            <Icon_Green_28 ThemeMode={themeMode} className='pulsate-icon-fwd-4'><FaStar/></Icon_Green_28>
+                                                            <Icon_Lime_Green_28 className='pulsate-icon-fwd-0'><FaStar/></Icon_Lime_Green_28>
+                                                            <Icon_Lime_Green_28 className='pulsate-icon-fwd-1'><FaStar/></Icon_Lime_Green_28>
+                                                            <Icon_Lime_Green_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Lime_Green_28>
+                                                            <Icon_Lime_Green_28 className='pulsate-icon-fwd-3'><FaStar/></Icon_Lime_Green_28>
+                                                            <Icon_Black_28 className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
                                                         </>
                                                     ):(
-                                                        <></>
+                                                        isTextFieldsObservation.calificacion <=5 ? (
+                                                            <>
+                                                                <Icon_Green_28 className='pulsate-icon-fwd-0'><FaStar/></Icon_Green_28>
+                                                                <Icon_Green_28 className='pulsate-icon-fwd-1'><FaStar/></Icon_Green_28>
+                                                                <Icon_Green_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Green_28>
+                                                                <Icon_Green_28 className='pulsate-icon-fwd-3'><FaStar/></Icon_Green_28>
+                                                                <Icon_Green_28 className='pulsate-icon-fwd-4'><FaStar/></Icon_Green_28>
+                                                            </>
+                                                        ):(
+                                                            <></>
+                                                        )
                                                     )
                                                 )
                                             )
                                         )
-                                    )
-                                )}
-                            </Container_Row_100_Center>
-                        </Container_Column_100_Center>
-                        <Container_Row_NG_Auto_Center>
-                            <Text_Color_Blue_16 ThemeMode={themeMode}>MEALSYNC</Text_Color_Blue_16>
-                            <Text_Span_16_Center_Black ThemeMode={themeMode}>- Datos especificos...</Text_Span_16_Center_Black>
-                        </Container_Row_NG_Auto_Center>
-                        <Container_Row_100_Center className={themeMode ? 'shadow-out-container-light-infinite' : 'shadow-out-container-dark-infinite'}>
-                            <Text_Span_16_Justify_Black ThemeMode={themeMode}>{isTextFieldsObservation.observacion}</Text_Span_16_Justify_Black>
-                        </Container_Row_100_Center>
-                        <Container_Row_100_Center>
-                            <Tooltip title='Cancelar' placement='top'>
-                                <span>
-                                    <Button_Icon_Blue_210 ThemeMode={themeMode} className='pulsate-buttom'
-                                        onClick={() => handleModalViewSuppliers('')}   
-                                        disabled={isActionBlock}
-                                    >
-                                        <Icon_20><MdCancel/></Icon_20>
-                                    </Button_Icon_Blue_210>
-                                </span>
-                            </Tooltip>
-                        </Container_Row_100_Center>
-                    </Container_Form_500>
+                                    )}
+                                </Container_Row_100_Center>
+                                <Container_Row_NG_Auto_Center>
+                                    <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
+                                    <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>
+                                </Container_Row_NG_Auto_Center>
+                                <Text_Span_16_Justify_Black>{isTextFieldsObservation.observacion}</Text_Span_16_Justify_Black>
+                                <Modal_Form_Button_Return
+                                    onHandleModalView={() => handleModalViewSuppliers('')}
+                                />
+                            </Container_Modal_Form>
+                        </Container_Modal_Form_White>
+                    </Container_Modal_Form_White_600>
                 </Container_Modal_Background_Black>
             ):(
                 currentMView === 'Observacion-Detalles' ? (

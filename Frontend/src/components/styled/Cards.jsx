@@ -126,40 +126,6 @@ export const Card_Menu_White = styled.div.withConfig({
         border-radius: 20px;
     }
 `;
-export const Card_Menu_Gray = styled.div`
-    border: none;
-    border-radius: 50px;
-    padding: 20px;
-    width: 100%;
-    height: 100%;
-    background: rgba(84, 88, 89, 0.5);
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 768px) {
-        padding: 15px;
-        border-radius: 30px;
-    }
-
-    @media (max-width: 480px) {
-        padding: 10px;
-        border-radius: 20px;
-    }
-`;
-export const Card_Menu = styled.div`
-    border: none;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    background-color: transparent;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-`;
 export const Card_Menu_Functions = styled.div`
     border: none;
     width: 100%;
@@ -169,6 +135,6 @@ export const Card_Menu_Functions = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 `;
 //____________MENU____________

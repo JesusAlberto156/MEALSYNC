@@ -6,7 +6,7 @@ import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contex
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
-import { CountSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
+import { CountSupplyTypesContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 // Hooks personalizados
 import { HandleModalViewSupplies } from "../../../../hooks/supplies/Views";
 // Estilos personalizados
@@ -21,7 +21,7 @@ import { Image_Modal } from "../../../styled/Imgs";
 // Modal para visualizar los detalles de los tipos de insumo de su tabla
 export default function Supply_Type_Details(){
     // Constantes con el valor de los contextos
-    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isModal] = useContext(ModalContext);
     const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
@@ -29,8 +29,17 @@ export default function Supply_Type_Details(){
     const Modal = useContext(RefModalContext);
     const isForm = useContext(RefFormContext); 
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalViewSupplies = HandleModalViewSupplies();
+    // UseEffct para verificar la eliminacion del tipo de insumo
+    useEffect(() => {
+        if(isDeletedSupplyTypes.length !== 0){
+            if(isDeletedSupplyTypes.some(type => type.idtipo === isTextFieldsSupplyType.idtipo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplyTypes]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

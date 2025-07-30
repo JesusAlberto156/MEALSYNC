@@ -17,6 +17,9 @@ import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { HandleModalViewSupplies } from "../../../../hooks/supplies/Views";
 import { HandleKeyboard } from "../../../../hooks/Views";
 import { HandleSupplyAdd,FilteredRecordsSupplyCategoriesDeleted,FilteredRecordsSuppliersDeleted,FilteredRecordsSuppliers,FilteredRecordsSupplyCategories,FilteredRecordsSupplyTypes,FilteredRecordsCountSupplyTypes } from "../../../../hooks/supplies/Forms";
+//__________IMAGENES__________
+import Supply from '../../../imgs/Supply.jpg'
+//__________IMAGENES__________
 //__________ICONOS__________
 // Icono para el buscador
 import { FcSearch } from "react-icons/fc";
@@ -29,12 +32,13 @@ import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_C
 import { Input_Text_100_Black,Input_Area_100_Black,Input_Group,Input_Text_60_Black } from "../../../styled/Inputs";
 import { Icon_24,Icon_Button_Blue_20 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
+import { Button_Text_Blue_Auto } from "../../../styled/Buttons";
 import { Label_Text_12_Black,Label_Area_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import { Select_300 } from "../../../styled/Selects";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
 import { Keyboard_Form_Supply } from "../../../keyboards/Form";
-import { Image_Modal } from "../../../styled/Imgs";
+import { Image_Modal,Image_Modal_150 } from "../../../styled/Imgs";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar insumos a su tabla
@@ -76,6 +80,7 @@ export default function Supply_Add(){
     const [isTotalDescription,setIsTotalDescription] = useState(0)
     const [isTotalName,setIsTotalName] = useState(0)
     const [isTotalImage,setIsTotalImage] = useState(0)
+    const [isImage,setIsImage] = useState('');
     // useEffect para resetiar los select
     useEffect(() => {
         setIsTextFieldsSupply(prev => ({
@@ -297,6 +302,12 @@ export default function Supply_Add(){
                                         />
                                         <Label_Text_12_Black>{isTotalImage}/10000</Label_Text_12_Black>
                                     </Input_Group>
+                                    <Button_Text_Blue_Auto
+                                        onClick={() => setIsImage(isTextFieldsSupply.imagen)}
+                                        disabled={isActionBlock}
+                                    >
+                                        Verificar
+                                    </Button_Text_Blue_Auto>
                                     <Icon_Button_Blue_20
                                         onClick={() => {
                                             setIsTextFieldsSupply(prev => ({...prev, imagen: ''}))
@@ -306,6 +317,7 @@ export default function Supply_Add(){
                                         <MdCancel/>
                                     </Icon_Button_Blue_20>
                                 </Container_Row_100_Left>
+                                <Image_Modal_150 src={isImage || Supply}/>
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>

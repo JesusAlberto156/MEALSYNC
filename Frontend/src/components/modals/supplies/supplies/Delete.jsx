@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
-import { SupplyDeleteContext } from "../../../../contexts/SuppliesProvider";
+import { SupplyDeleteContext,DeletedSuppliesContext } from "../../../../contexts/SuppliesProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefModalContext,RefFormContext } from '../../../../contexts/RefsProvider';
@@ -42,10 +42,19 @@ export default function Supply_Delete(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSupplies] = useContext(DeletedSuppliesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
     const handleSupplyDelete = HandleSupplyDelete();
+    // UseEffct para verificar la eliminacion del insumo
+    useEffect(() => {
+        if(isDeletedSupplies.length !== 0){
+            if(isDeletedSupplies.some(supply => supply.idinsumo === isTextFieldsSupply.idinsumo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplies]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

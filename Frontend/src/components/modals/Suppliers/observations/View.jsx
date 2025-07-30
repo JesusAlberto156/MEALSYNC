@@ -1,11 +1,11 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 // Contextos
 import { ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsObservationContext } from "../../../../contexts/FormsProvider";
-import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
+import { SuppliersContext,DeletedSuppliersContext } from "../../../../contexts/SuppliersProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalViewSuppliers } from "../../../../hooks/suppliers/Views";
@@ -26,16 +26,25 @@ import { Modal_Form_Button_Return } from "../../../forms/Button";
 // Modal para visualizar las observaciones de proveedores de su tabla
 export default function Supplier_Observation_View(){
     // Constantes con el valor de los contextos
-    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isModal] = useContext(ModalContext);
     const [isTextFieldsObservation] = useContext(TextFieldsObservationContext);
     const Modal = useContext(RefModalContext);
     const isForm = useContext(RefFormContext);
     const [isSuppliers] = useContext(SuppliersContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const { getDate } = Dates();
+    // UseEffct para verificar la eliminacion del proveedor
+    useEffect(() => {
+        if(isDeletedSuppliers.length !== 0){
+            if(isDeletedSuppliers.some(supplier => supplier.idproveedor === isTextFieldsObservation.idproveedor)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSuppliers]);
     // Estructura del componente
     return(
         <>

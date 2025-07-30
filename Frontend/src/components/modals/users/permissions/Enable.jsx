@@ -4,7 +4,7 @@ import { useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
-import { PermissionsEnableContext } from "../../../../contexts/UsersProvider";
+import { PermissionsEnableContext,DeletedUsersContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
@@ -48,10 +48,19 @@ export default function Permissions_Enable(){
     const [isTextFieldsPermissions] = useContext(TextFieldsPermissionsContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isUsers] = useContext(UsersContext);
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
     const handlePermissionsEnable = HandlePermissionsEnable();
+    // UseEffct para verificar la eliminacion del usuario
+    useEffect(() => {
+        if(isDeletedUsers.length !== 0){
+            if(isDeletedUsers.some(user => user.idusuario === isTextFieldsPermissions.idusuario)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedUsers]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

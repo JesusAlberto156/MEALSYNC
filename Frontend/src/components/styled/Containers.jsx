@@ -975,7 +975,7 @@ export const Container_Keyboard = styled.div`
     width: 60%;
     height: auto;  
     bottom: 8px;
-    z-index: 999;
+    z-index: 10000;
 
     @media (max-width: 768px) {
         width: 100%;

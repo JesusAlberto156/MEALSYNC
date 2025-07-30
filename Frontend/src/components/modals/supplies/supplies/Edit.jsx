@@ -8,7 +8,7 @@ import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
 import { SuppliersContext,DeletedSuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { SupplyCategoriesContext,SupplyTypesContext,SupplyEditContext,DeletedSupplyCategoriesContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
+import { SupplyCategoriesContext,SupplyTypesContext,SupplyEditContext,DeletedSupplyCategoriesContext,DeletedSuppliesContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 import { RefKeyboardContext,RefModalContext,RefFormContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
@@ -17,6 +17,9 @@ import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { HandleModalViewSupplies } from "../../../../hooks/supplies/Views";
 import { HandleSupplyEdit,FilteredRecordsSuppliers,FilteredRecordsSuppliersDeleted,FilteredRecordsSupplyCategoriesDeleted,FilteredRecordsSupplyCategories,FilteredRecordsSupplyTypes,FilteredRecordsCountSupplyTypes } from "../../../../hooks/supplies/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
+//__________IMAGENES__________
+import Supply from '../../../imgs/Supply.jpg'
+//__________IMAGENES__________
 //__________ICONOS__________
 // Icono para el buscador
 import { FcSearch } from "react-icons/fc";
@@ -28,11 +31,12 @@ import { Container_Modal_Background_Black,Container_Row_100_Center,Container_Row
 import { Text_Span_16_Center_Black,Text_Color_Green_16,Text_Color_Blue_16,Text_Span_12_Justify_Black,Text_Title_28_Black } from "../../../styled/Text";
 import { Input_Text_100_Black,Input_Area_100_Black,Input_Group,Input_Text_60_Black } from "../../../styled/Inputs";
 import { Icon_24,Icon_Button_Blue_20 } from "../../../styled/Icons";
+import { Button_Text_Blue_Auto } from "../../../styled/Buttons";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
 import { Label_Text_12_Black,Label_Area_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import Error_Edit from "../../errors/Edit";
-import { Image_Modal } from "../../../styled/Imgs";
+import { Image_Modal,Image_Modal_150 } from "../../../styled/Imgs";
 import { Keyboard_Form_Supply } from "../../../keyboards/Form";
 import { Modal_Form_Button_Edit } from "../../../forms/Button";
 import { Select_300 } from "../../../styled/Selects";
@@ -66,6 +70,7 @@ export default function Supply_Edit(){
     const [isTouch] = useContext(TouchContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isDeletedSupplies] = useContext(DeletedSuppliesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
@@ -81,6 +86,15 @@ export default function Supply_Edit(){
     const [isTotalDescription,setIsTotalDescription] = useState(0)
     const [isTotalName,setIsTotalName] = useState(0)
     const [isTotalImage,setIsTotalImage] = useState(0)
+    const [isImage,setIsImage] = useState('');
+    // UseEffct para verificar la eliminacion del insumo
+    useEffect(() => {
+        if(isDeletedSupplies.length !== 0){
+            if(isDeletedSupplies.some(supply => supply.idinsumo === isTextFieldsSupply.idinsumo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplies]);
     // useEffect para resetiar los select
     useEffect(() => {
         if (!isSelectedRow) return;
@@ -326,6 +340,12 @@ export default function Supply_Edit(){
                                         />
                                         <Label_Text_12_Black>{isTotalImage}/10000</Label_Text_12_Black>
                                     </Input_Group>
+                                    <Button_Text_Blue_Auto
+                                        onClick={() => setIsImage(isTextFieldsSupply.imagen)}
+                                        disabled={isActionBlock}
+                                    >
+                                        Verificar
+                                    </Button_Text_Blue_Auto>
                                     <Icon_Button_Blue_20
                                         onClick={() => {
                                             setIsTextFieldsSupply(prev => ({...prev, imagen: ''}))
@@ -335,6 +355,7 @@ export default function Supply_Edit(){
                                         <MdCancel/>
                                     </Icon_Button_Blue_20>
                                 </Container_Row_100_Left>
+                                <Image_Modal_150 src={isImage || Supply}/>
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>

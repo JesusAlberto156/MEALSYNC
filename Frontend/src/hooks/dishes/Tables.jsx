@@ -2,103 +2,93 @@
 // Hooks de React
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
-import { SuppliersContext } from "../../contexts/SuppliersProvider";
-import { SupplyTypesContext,DeletedSupplyTypesContext,SupplyCategoriesContext,DeletedSupplyCategoriesContext,SuppliesContext,DeletedSuppliesContext,CountSupplyTypesContext } from "../../contexts/SuppliesProvider";
-import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../contexts/SelectedesProvider";
+import { DeletedDishesContext,DishesContext,MenuTypeDishesContext,DishSpecificationsContext } from "../../contexts/DishesProvider";
+import { MenuTypesContext } from "../../contexts/MenusProvider";
+import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 //____________IMPORT/EXPORT____________
 
-// Hook para realizar las acciones de la tabla de categorias por insumos ✔️
-export const TableActionsSupplyCategories = () => {
+// Hook para realizar las acciones de la tabla de los platillos ✔️
+export const TableActionsDishes = () => {
     // Constantes con el valor de los contextos 
-    const [isSupplyCategories] = useContext(SupplyCategoriesContext);
-    const [isDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isDeletedDishes] = useContext(DeletedDishesContext);
+    const [isDishes] = useContext(DishesContext);
+    const [isDishSpecifications] = useContext(DishSpecificationsContext);
+    const [isMenuTypeDishes] = useContext(MenuTypeDishesContext);
+    const [isMenuTypes] = useContext(MenuTypesContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsDishes = useMemo(() => {
-        const filtered = isStatus.filter((data) => {
-            const isDeleted = isDeletedUsers.some(user => user.idusuario === data.idusuario);
+        const filtered = isDishes.filter((data) => {
+            const isDeleted = isDeletedDishes.some(dish => dish.idplatillo === data.idplatillo);
             if (isDeleted) return false;
 
-            const name = isUsers.find(user => user.idusuario === data.idusuario)?.nombre;
-            const user = isUsers.find(user => user.idusuario === data.idusuario)?.usuario;
+            const specifications = isDishSpecifications.find(specification => specification.idplatillo === data.idplatillo);
+            const menus = isMenuTypeDishes.filter(menu => menu.idplatillo === data.idplatillo);
+            const types = isMenuTypes.filter(type =>
+                menus.some(menu => menu.idtipo === type.idtipo)
+            );
 
             if (isSelectedOptionSearch === 'General') {
                 
                 return [
-                    user,
-                    name,
+                    data.nombre,
+                    specifications?.preparacion || '',
+                    specifications?.precio || '',
+                    ...types.map(type => type.nombre)
                 ].some(value =>
                     String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
                 );
             }
             if(isSelectedOptionSearch === 'Nombre'){
-                return name?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
-            if(isSelectedOptionSearch === 'Usuario'){
-                return user?.toLowerCase().includes(isSearchTerm.toLowerCase());
+            if(isSelectedOptionSearch === 'Tiempo de preparación'){
+                return String(specifications?.preparacion || '').toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Precio'){
+                return String(specifications?.precio || '').toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Menú'){
+                return types.some(type =>
+                    type.nombre.toLowerCase().includes(isSearchTerm.toLowerCase())
+                );
             }
         });
 
         return [...filtered].sort((a, b) => {
             if(isSelectedOptionOrderPlus === 'Normal'){
-                if(isSelectedOptionOrder === 'Nombre'){
-                    return isSelectedOptionOrderDirection === 'Asc'
-                    ? isUsers.find(user => user.idusuario === a.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombre, 'es', { sensitivity: 'base' })
-                    : isUsers.find(user => user.idusuario === b.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombre, 'es', { sensitivity: 'base' });
-                }
-
-                if(isSelectedOptionOrder === 'Habilitado'){
-                    return isSelectedOptionOrderDirection === 'Asc'
-                    ? b.habilitado - a.habilitado
-                    : a.habilitado - b.habilitado
-                }
+                return 0;
             }
 
-            if(isSelectedOptionOrderPlus === 'Activo'){
-                const active = b.activo - a.activo
+            if(isSelectedOptionOrderPlus === 'Desayuno'){
+                const desayuno = b.idmenu - a.idmenu
                 
-                if(active !== 0)return active
-
-                if(isSelectedOptionOrder === 'Nombre'){
-                    return isSelectedOptionOrderDirection === 'Asc'
-                    ? isUsers.find(user => user.idusuario === a.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombre, 'es', { sensitivity: 'base' })
-                    : isUsers.find(user => user.idusuario === b.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombre, 'es', { sensitivity: 'base' });
-                }
-
-                if(isSelectedOptionOrder === 'Habilitado'){
-                    return isSelectedOptionOrderDirection === 'Asc'
-                    ? b.habilitado - a.habilitado
-                    : a.habilitado - b.habilitado
-                }
+                if(desayuno !== 1)return desayuno
             }
 
-            if(isSelectedOptionOrderPlus === 'Inactivo'){
-                const active = a.activo - b.activo
+            if(isSelectedOptionOrderPlus === 'Comida'){
+                const comida = b.idmenu - a.idmenu
                 
-                if(active !== 0)return active
+                if(comida !== 2)return comida
+            }
 
-                if(isSelectedOptionOrder === 'Nombre'){
-                    return isSelectedOptionOrderDirection === 'Asc'
-                    ? isUsers.find(user => user.idusuario === a.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombre, 'es', { sensitivity: 'base' })
-                    : isUsers.find(user => user.idusuario === b.idusuario)?.nombre.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombre, 'es', { sensitivity: 'base' });
-                }
-
-                if(isSelectedOptionOrder === 'Habilitado'){
-                    return isSelectedOptionOrderDirection === 'Asc'
-                    ? b.habilitado - a.habilitado
-                    : a.habilitado - b.habilitado
-                }
+            if(isSelectedOptionOrderPlus === 'Cena'){
+                const cena = b.idmenu - a.idmenu
+                
+                if(cena !== 3)return cena
             }
 
             return 0
         });
-    }, [isUsers, isDeletedUsers, isStatus, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
+    }, [isDishes, isDeletedDishes, isDishSpecifications, isMenuTypeDishes, isMenuTypes, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
     // Total de registros visibles de la tabla
     const recordsPerPage = 12;
     // Indices de los registros

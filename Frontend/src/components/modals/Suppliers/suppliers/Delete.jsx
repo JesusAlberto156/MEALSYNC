@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplierContext } from "../../../../contexts/FormsProvider";
-import { SupplierDeleteContext } from "../../../../contexts/SuppliersProvider";
+import { SupplierDeleteContext,DeletedSuppliersContext } from "../../../../contexts/SuppliersProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefModalContext,RefFormContext } from '../../../../contexts/RefsProvider';
@@ -46,10 +46,19 @@ export default function Supplier_Delete(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isTextFieldsSupplier] = useContext(TextFieldsSupplierContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleSupplierDelete = HandleSupplierDelete();
+    // UseEffct para verificar la eliminacion del proveedor
+    useEffect(() => {
+        if(isDeletedSuppliers.length !== 0){
+            if(isDeletedSuppliers.some(supplier => supplier.idproveedor === isTextFieldsSupplier.idproveedor)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSuppliers]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

@@ -6,11 +6,10 @@ import { TextFieldsDishContext } from "../../contexts/FormsProvider";
 import { MenuTypesContext,DeletedMenuTypesContext } from "../../contexts/MenusProvider";
 import { ActionBlockContext } from "../../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../../contexts/ViewsProvider";
-import { DishAddContext,DishesContext } from "../../contexts/DishesProvider";
+import { DishAddContext,DishesContext,DishDeleteContext,DishEditContext } from "../../contexts/DishesProvider";
 // Estilos personalizados
 import { Alert_Sonner_Promise } from "../../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
-
 
 // Hook para agregar o eliminar menu en los platillos  ✔️
 export const HandleTextDishes = () => {
@@ -124,7 +123,7 @@ export const HandleDishAdd = () => {
                             return reject('¡El precio no es válido, debe de ser mayor a 0!');
                         }
 
-                        if(isTextFieldsDish.precio > 999999.9999){
+                        if(isTextFieldsDish.precio > 1000.9999){
                             setIsActionBlock(false);
                             return reject('¡El precio no es válido, excede el valor máximo posible!');
                         }
@@ -134,7 +133,7 @@ export const HandleDishAdd = () => {
                             return reject('¡El tiempo de preparación no es válido, debe de ser mayor a 0!');
                         }
 
-                        if(isTextFieldsDish.preparacion > 999999.9999){
+                        if(isTextFieldsDish.preparacion > 600){
                             setIsActionBlock(false);
                             return reject('¡El tiempo de preparación no es válido, excede el valor máximo posible!');
                         }
@@ -244,3 +243,22 @@ export const HandleDishAdd = () => {
     // Retorno de la función del hook
     return handleDishAdd;
 }
+
+// Hook para eliminar un platillo desde el modal ✔️
+export const HandleDishDelete = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isDishDelete,setIsDishDelete] = useContext(DishDeleteContext);
+    // Función del hook
+    const handleDishDelete = () => {
+        if(currentNView === 'Platillos' && currentSView === 'Menus' && currentMView === 'Platillo-Eliminar'){
+            setIsActionBlock(true);
+            return setIsDishDelete(true);
+        }
+    } 
+    // Retorno de la función del hook
+    return handleDishDelete;
+} 

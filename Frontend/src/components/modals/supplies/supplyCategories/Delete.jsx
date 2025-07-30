@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplyCategoryContext } from "../../../../contexts/FormsProvider";
-import { SupplyCategoryDeleteContext } from "../../../../contexts/SuppliesProvider";
+import { SupplyCategoryDeleteContext,DeletedSupplyCategoriesContext } from "../../../../contexts/SuppliesProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefModalContext,RefFormContext } from '../../../../contexts/RefsProvider';
@@ -42,10 +42,19 @@ export default function Supply_Category_Delete(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
     const handleSupplyCategoryDelete = HandleSupplyCategoryDelete();
+    // UseEffct para verificar la eliminacion de la categoría de insumo
+    useEffect(() => {
+        if(isDeletedSupplyCategories.length !== 0){
+            if(isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupplyCategory.idcategoria)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplyCategories]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

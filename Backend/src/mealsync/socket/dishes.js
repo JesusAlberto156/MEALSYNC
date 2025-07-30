@@ -2,8 +2,12 @@
 // Consultas de sql
 import { getDishesService,getDishSpecificationsService,getDeletedDishesService,getWarehouseDishesService,getMenuTypeDishesService } from "../services/dishes.js";
 import { insertDishService,insertDishSpecificationsService,insertDeletedDishService,insertWarehouseDishService,insertMenuTypeDishService } from "../services/dishes.js";
+
+import { deleteMenuTypeDishService,deleteWarehouseDishService } from "../services/dishes.js";
 import { getLogsService } from "../services/logs.js";
 import { insertLogDishService,insertLogDishSpecificationsService,insertLogDeletedDishService,insertLogWarehouseDishService,insertLogMenuTypeDishService } from "../services/dishes.js";
+
+import { deleteLogMenuTypeDishService,deleteLogWarehouseDishService } from "../services/dishes.js";
 // Servidor socket
 import { io } from "../../index.js";
 // Servicios
@@ -118,15 +122,42 @@ export const Dishes_INSERT = (socket) => {
         }
     });
     // ---------- PLATILLOS ELIMINADOS ✔️
-    socket.on('Insert-Deleted-Dish',async (idusuario,idplatillo) => {
+    socket.on('Insert-Deleted-Dish',async (idusuario,idplatillo,tipos,ingredientes) => {
         try{
             await insertDeletedDishService(idplatillo);
             const resultDeletedDishes = await getDeletedDishesService();
             const decryptedData = decryptData(resultDeletedDishes);
             const parsedData = JSON.parse(decryptedData);
             await insertLogDeletedDishService(parsedData.find(data => data.idplatillo === idplatillo)?.ideliminado,idusuario,String(idplatillo));
+            
+            let resultMenuTypeDishes;
+            let resultWarehouseDishes;
+
+            if(Array.isArray(tipos) && tipos.length > 0){
+                for (const tipo of tipos) {
+                    await deleteMenuTypeDishService(tipo.idtipo, idplatillo);
+                    await deleteLogMenuTypeDishService(idusuario,String(tipo.idtipo),String(idplatillo));
+                }
+                resultMenuTypeDishes = await getMenuTypeDishesService();
+            }
+
+            if(Array.isArray(ingredientes) && ingredientes.length > 0){
+                for (const ingrediente of ingredientes) {
+                    await deleteWarehouseDishService(ingrediente.idalmacen,idplatillo);
+                    await deleteLogWarehouseDishService(idusuario,String(ingrediente.idalmacen),String(idplatillo));
+                }
+                resultWarehouseDishes = await getWarehouseDishesService();
+            }
+            
             const resultLogs = await getLogsService();
+            
             io.emit('Get-Deleted-Dishes',resultDeletedDishes)
+            if(resultMenuTypeDishes !== undefined){
+                io.emit('Get-Menu-Type-Dishes',resultMenuTypeDishes);
+            }
+            if(resultWarehouseDishes !== undefined){
+                io.emit('Get-Warehouse-Dishes',resultWarehouseDishes);
+            }
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al eliminar al platillo: ',error);
@@ -145,9 +176,7 @@ export const Dishes_UPDATE = (socket) => {
 //______________UPDATE______________
 //______________DELETE______________
 export const Dishes_DELETE = (socket) => {
-    // ---------- PLATILLOS ELIMINADOS
-
-    // ---------- TIPO DE MENU PLATILLOS
+    // ---------- PLATILLOS ELIMINADOS ✔️
 
 }
 //______________DELETE______________

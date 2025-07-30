@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsMenuTypeContext } from "../../../../contexts/FormsProvider";
-import { MenuTypeDeleteContext } from "../../../../contexts/MenusProvider";
+import { MenuTypeDeleteContext,DeletedMenuTypesContext } from "../../../../contexts/MenusProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefModalContext,RefFormContext } from '../../../../contexts/RefsProvider';
@@ -42,10 +42,19 @@ export default function Menu_Delete(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
+    const [isDeletedMenuTypes] = useContext(DeletedMenuTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewMenuTypes = HandleModalViewMenuTypes();
     const handleMenuTypeDelete = HandleMenuTypeDelete();
+    // UseEffct para verificar la eliminacion del menú
+    useEffect(() => {
+        if(isDeletedMenuTypes.length !== 0){
+            if(isDeletedMenuTypes.some(type => type.idtipo === isTextFieldsMenuType.idtipo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedMenuTypes]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){
@@ -91,7 +100,7 @@ export default function Menu_Delete(){
                 }
             });
 
-            return Alert_Sonner_Promise(promise,'Eliminando un menú!','1');
+            return Alert_Sonner_Promise(promise,'¡Eliminando un menú!','1');
         }
     },[isMenuTypeDelete]);
     // Estructura del componente

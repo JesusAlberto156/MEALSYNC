@@ -7,7 +7,7 @@ import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contex
 import { ActionBlockContext,TouchContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsSupplierContext } from "../../../../contexts/FormsProvider";
-import { SupplierEditContext } from "../../../../contexts/SuppliersProvider";
+import { SupplierEditContext,DeletedSuppliersContext } from "../../../../contexts/SuppliersProvider";
 import { RefModalContext,RefFormContext,RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
@@ -52,6 +52,7 @@ export default function Supplier_Edit(){
     const isKeyboardTouch = useContext(RefKeyboardTouchContext);
     const [isTouch] = useContext(TouchContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
@@ -63,6 +64,14 @@ export default function Supplier_Edit(){
     const [isTotalAddress,setIsTotalAddress] = useState(0);
     const [isTotalPhone,setIsTotalPhone] = useState(0);
     const [isTotalEmail,setIsTotalEmail] = useState(0);
+    // UseEffct para verificar la eliminacion del proveedor
+    useEffect(() => {
+        if(isDeletedSuppliers.length !== 0){
+            if(isDeletedSuppliers.some(supplier => supplier.idproveedor === isTextFieldsSupplier.idproveedor)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSuppliers]);
     // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
         setIsTotalName(isTextFieldsSupplier.nombre.length)

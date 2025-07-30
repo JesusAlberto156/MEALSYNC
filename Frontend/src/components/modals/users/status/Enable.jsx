@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
-import { StatusEnableContext } from "../../../../contexts/UsersProvider";
+import { StatusEnableContext,DeletedUsersContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 import { TextFieldsStatusContext } from "../../../../contexts/FormsProvider";
@@ -47,10 +47,19 @@ export default function Status_Enable(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext); 
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
     const handleStatusEnable = HandleStatusEnable();
+    // UseEffct para verificar la eliminacion del usuario
+    useEffect(() => {
+        if(isDeletedUsers.length !== 0){
+            if(isDeletedUsers.some(user => user.idusuario === isTextFieldsStatus.idusuario)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedUsers]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

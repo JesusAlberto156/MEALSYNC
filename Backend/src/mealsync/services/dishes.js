@@ -438,7 +438,7 @@ export const updateLogWarehouseDishService = async (idusuario,idalmacen,idplatil
 }
 //______________UPDATE______________
 //______________DELETE______________
-// ---------- PLATILLOS ELIMINADOS
+// ---------- PLATILLOS ELIMINADOS ✔️
 export const deleteDeletedDishService = async (idplatillo) => {
     try{
         const pool = await conexionDB();
@@ -477,7 +477,7 @@ export const deleteLogDeletedDishService = async (ideliminado,idusuario,idplatil
         throw error;
     }
 }
-// ---------- TIPO DE MENU PLATILLOS
+// ---------- TIPO DE MENU PLATILLOS ✔️
 export const deleteMenuTypeDishService = async (idtipo,idplatillo) => {
     try{
         const pool = await conexionDB();
@@ -505,6 +505,47 @@ export const deleteLogMenuTypeDishService = async (idusuario,idtipo,idplatillo) 
             .input('idtabla',sql.Int,0)
             .input('idusuario',sql.Int,idusuario)
             .input('campo2',sql.VarChar(500),idtipo)
+            .input('campo3',sql.VarChar(500),idplatillo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+// ---------- ALMACÉN DE PLATILLOS ✔️
+export const deleteWarehouseDishService = async (idalmacen,idplatillo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idalmacen',sql.Int,idalmacen)
+            .input('idplatillo',sql.Int,idplatillo)
+            .query('DELETE FROM almacenPlatillo WHERE idalmacen = @idalmacen AND idplatillo = @idplatillo');
+
+        if(result.rowsAffected[0]>0){
+            return 'Almacén de platillo eliminado...';
+        }else{
+            return 'No se pudo eliminar al almacén de platillo...';
+        }
+    }catch(error){
+        console.error('Error al eliminar al almacén de platillo: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogWarehouseDishService = async (idusuario,idalmacen,idplatillo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Almacén de Platillos')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,0)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idalmacen)
             .input('campo3',sql.VarChar(500),idplatillo)
             .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
 

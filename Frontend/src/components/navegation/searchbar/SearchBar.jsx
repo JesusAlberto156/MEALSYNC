@@ -88,7 +88,7 @@ export default function Search_Bar (){
     const isOptionSales = ['Categorías','Tipos de Insumo'];
     const isOptionWarehouse = ['Nombre','Fecha'];
     const isOptionsMaelSearch = ['General','Nombre','Tiempo de preparación','Precio','Menú'];
-    const isOptionsMaelOrder = ['Desayuno','Comida','Cena'];
+    const isOptionsMaelOrder = ['Normal','Desayuno','Comida','Cena'];
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
@@ -141,7 +141,7 @@ export default function Search_Bar (){
                         <>
                             <Icon_White_20><IoSearch/></Icon_White_20>
                             <Input_Search_Table_White
-                                id="Input-Buscador"
+                                className="Input-Buscador"
                                 type="text"
                                 placeholder="Buscar..."
                                 value={isSearchTerm}

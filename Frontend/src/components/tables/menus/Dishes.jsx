@@ -3,10 +3,16 @@
 import { useContext,useEffect } from "react"
 // Contextos
 import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
+import { TextFieldsDishContext } from "../../../contexts/FormsProvider"
 import { RefModalContext,RefFormContext,RefButtonDetailContext,RefButtonEditContext,RefButtonDeleteContext } from "../../../contexts/RefsProvider"
-import { DishesContext,DishSpecificationsContext } from "../../../contexts/DishesProvider"
+import { DishSpecificationsContext,WarehouseDishesContext,MenuTypeDishesContext } from "../../../contexts/DishesProvider"
+import { WarehouseSupplyTypesContext } from "../../../contexts/WarehouseProvider"
+import { SupplyTypesContext } from "../../../contexts/SuppliesProvider"
 // Hooks personalizados
 import { HandleModalViewDishes } from "../../../hooks/dishes/Views"
+import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
+import { ResetTextFieldsDish } from "../../../hooks/dishes/Texts"
+import { TableActionsDishes } from "../../../hooks/dishes/Tables"
 //____________IMAGENES______________
 import Dish from '../../imgs/Meal.png'
 //____________IMAGENES______________
@@ -15,21 +21,29 @@ import { Container_Menu_100_Center } from "../../styled/Containers";
 // Componentes personalizados
 import Card_Add from "../../cards/Add"
 import Card_Information from "../../cards/Information"
+import { Table_Pagination } from "../Pagination"
 //____________IMPORT/EXPORT____________
 
 // Tabla de los usuarios
 export default function Table_Dishes(){
     // Constantes con el valor de los contextos
-    const [isDishes] = useContext(DishesContext);
+    const [isWarehouseDishes] = useContext(WarehouseDishesContext);
+    const [isMenuTypeDishes] = useContext(MenuTypeDishesContext);
     const [isDishSpecifications] = useContext(DishSpecificationsContext);
+    const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext);
+    const [isSupplyTypes] = useContext(SupplyTypesContext); 
     const isModal = useContext(RefModalContext); 
     const isForm = useContext(RefFormContext);
     const isButtonDetail = useContext(RefButtonDetailContext);
     const isButtonEdit = useContext(RefButtonEditContext); 
     const isButtonDelete = useContext(RefButtonDeleteContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext); 
     // Constantes con la funcionalidad de los hooks
     const handleModalViewDishes = HandleModalViewDishes();
+    const resetTextFieldsDish = ResetTextFieldsDish();
+    const resetTextFieldsUser = ResetTextFieldsUser();
+    const {currentRecordsDishes,handleRowClick,prevPage,nextPageDishes,currentPage,totalPagesDishes} = TableActionsDishes();
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -50,10 +64,49 @@ export default function Table_Dishes(){
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     },[isModal,isForm,isButtonDetail,isButtonEdit,isButtonDelete]);
-
+    // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
-        console.log(isSelectedRow);
-    },[isSelectedRow])
+        if(isSelectedRow !== null){
+            
+            const specification = isDishSpecifications.find(specification => specification.idplatillo === isSelectedRow.idplatillo);
+            const types = isMenuTypeDishes.filter(type => type.idplatillo === isSelectedRow.idplatillo);
+            const ingredients = isWarehouseDishes.filter(warehouse => warehouse.idplatillo === isSelectedRow.idplatillo);
+
+            setIsTextFieldsDish(prev => ({
+                ...prev,
+                idplatillo: isSelectedRow.idplatillo,
+                nombre: isSelectedRow.nombre,
+                idmenu: isSelectedRow.idmenu,
+                descripcion: specification?.descripcion || '',
+                precio: specification?.precio || '',
+                preparacion: specification?.preparacion || '',
+                imagen: specification?.imagen || '',
+                tipos: types.length > 0 
+                    ? types.map(type => ({ idtipo: type.idtipo }))
+                    : [{ idtipo: 0 }],
+                ingredientes: ingredients.length > 0 
+                    ? ingredients.map(ingredient => ({ 
+                            idalmacen: ingredient.idalmacen,
+                            idplatillo: ingredient.idplatillo,
+                            cantidad: ingredient.cantidad,
+                            idtipo: isWarehouseSupplyTypes.find(warehouse => warehouse.idalmacen === ingredient.idalmacen)?.idtipo,
+                            unidad: isSupplyTypes.find(type => type.idtipo === isWarehouseSupplyTypes.find(warehouse => warehouse.idalmacen === ingredient.idalmacen)?.idtipo)?.unidad,
+                            buscador: '',
+                        }))
+                    : [{ 
+                        idalmacen: 0,
+                        idplatillo: 0,
+                        cantidad: '',
+                        idtipo: 0,
+                        unidad: '',
+                        buscador: '', 
+                    }]
+            }))
+        }else{
+            resetTextFieldsDish();
+            resetTextFieldsUser();
+        }
+    },[isSelectedRow]);
     // Estructura del componente
     return(
         <>
@@ -62,12 +115,12 @@ export default function Table_Dishes(){
                     onHandleModalView={() => handleModalViewDishes('Platillo-Agregar')}
                     route="/Administration/Index/Menus/Dishes/Add"
                 />
-                {isDishes.map((dish) => {
+                {currentRecordsDishes.map((dish) => {
                     const spec = isDishSpecifications.find(spec => spec.idplatillo === dish.idplatillo);
                     return (
                         <Card_Information
                             data={dish}
-                            onHandleView={() => setIsSelectedRow(dish)}
+                            onHandleView={() => handleRowClick(dish)}
                             id='Card-Dish'
                             key={dish.idplatillo}
                             title={dish.nombre}
@@ -84,6 +137,13 @@ export default function Table_Dishes(){
                     )
                 })}
             </Container_Menu_100_Center>
+            <Table_Pagination
+                onNextPage={() => nextPageDishes()}
+                onPrevPage={() => prevPage()}
+                currentPage={currentPage}
+                currentRecords={currentRecordsDishes}
+                totalPage={totalPagesDishes}
+            />
         </>
     );
 }

@@ -209,6 +209,7 @@ export const Text_Fields_Supply = ({ children }) => {
         </TextFieldsSupplyContext.Provider>
     );
 }
+
 // Función contexto para controlar los campos de registro de un formulario de pedido de insumo ✔️
 export const Text_Fields_Supply_Order = ({ children }) => {
     // UseState para controlar el valor del contexto
@@ -288,6 +289,7 @@ export const Text_Fields_Search_Date = ({ children }) => {
         </TextFieldsSearchDateContext.Provider>
     );
 }
+
 // Función contexto para controlar los campos de registro de un formulario de un tipo de menú ✔️
 export const Text_Fields_Menu_Type = ({ children }) => {
     // UseState para controlar el valor del contexto

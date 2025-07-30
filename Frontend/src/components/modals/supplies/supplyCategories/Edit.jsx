@@ -7,7 +7,7 @@ import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contex
 import { ActionBlockContext,TouchContext,KeyboardContext,KeyboardViewContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsSupplyCategoryContext } from "../../../../contexts/FormsProvider";
-import { SupplyCategoryEditContext } from "../../../../contexts/SuppliesProvider";
+import { SupplyCategoryEditContext,DeletedSupplyCategoriesContext } from "../../../../contexts/SuppliesProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext,RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
@@ -51,6 +51,7 @@ export default function Supply_Category_Edit(){
     const [isTouch] = useContext(TouchContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
@@ -59,6 +60,14 @@ export default function Supply_Category_Edit(){
     // Constantes con el valor de useState
     const [isTotalName,setIsTotalName] = useState(0);
     const [isTotalDescription,setIsTotalDescription] = useState(0);
+    // UseEffct para verificar la eliminacion de la categoría de insumo
+    useEffect(() => {
+        if(isDeletedSupplyCategories.length !== 0){
+            if(isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupplyCategory.idcategoria)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplyCategories]);
     // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
         setIsTotalName(isTextFieldsSupplyCategory.nombre.length)

@@ -8,7 +8,7 @@ import { TextFieldsPermissionsContext } from "../../../../contexts/FormsProvider
 import { ActionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
-import { PermissionsEditContext } from "../../../../contexts/UsersProvider";
+import { PermissionsEditContext,DeletedUsersContext } from "../../../../contexts/UsersProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 import { UsersContext } from "../../../../contexts/UsersProvider";
@@ -42,10 +42,19 @@ export default function Permissions_Edit(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isUsers] = useContext(UsersContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext); 
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
     const handlePermissionsEdit = HandlePermissionsEdit();
+    // UseEffct para verificar la eliminacion del usuario
+    useEffect(() => {
+        if(isDeletedUsers.length !== 0){
+            if(isDeletedUsers.some(user => user.idusuario === isTextFieldsPermissions.idusuario)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedUsers]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

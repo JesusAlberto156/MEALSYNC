@@ -73,6 +73,7 @@ import Menu_Delete from './components/modals/menus/menus/Delete';
 import Table_Dishes from './components/tables/menus/Dishes';
 import Dish_Add from './components/modals/menus/dishes/Add';
 
+import Dish_Delete from './components/modals/menus/dishes/Delete';
 
 import Index_Kitchen from './pages/indexs/Kitchen';
 import Home_Kitchen from './pages/kitchen/Home';
@@ -248,7 +249,7 @@ const router = createHashRouter([
           },
           {
             path: 'Administration/Index/Menus/Dishes/Delete',
-            
+            element: <Dish_Delete/>,
           },
           {
             path: 'Administration',

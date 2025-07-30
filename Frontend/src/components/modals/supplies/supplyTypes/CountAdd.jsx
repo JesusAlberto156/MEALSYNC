@@ -7,7 +7,7 @@ import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contex
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
-import { SupplyCategoriesContext,SupplyTypeCountAddContext } from "../../../../contexts/SuppliesProvider";
+import { SupplyCategoriesContext,SupplyTypeCountAddContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext,RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
@@ -54,11 +54,20 @@ export default function Count_Supply_Type_Add(){
     const Modal = useContext(RefModalContext);
     const isForm = useContext(RefFormContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
     const handleCountSupplyTypeAdd = HandleCountSupplyTypeAdd();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
+    // UseEffct para verificar la eliminacion del tipo de insumo
+    useEffect(() => {
+        if(isDeletedSupplyTypes.length !== 0){
+            if(isDeletedSupplyTypes.some(type => type.idtipo === isTextFieldsSupplyType.idtipo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplyTypes]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

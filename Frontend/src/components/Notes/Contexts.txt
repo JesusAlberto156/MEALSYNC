@@ -11,7 +11,7 @@ const [isDishAdd,setIsDishAdd] = useContext(DishAddContext); ✔️
 const [isDishEdit,setIsDishEdit] = useContext(DishEditContext);
 const [isDishSpecifications] = useContext(DishSpecificationsContext); ✔️
 const [isDeletedDishes] = useContext(DeletedDishesContext); ✔️
-const [isDishDelete,setIsDishDelete] = useContext(DishDeleteContext);
+const [isDishDelete,setIsDishDelete] = useContext(DishDeleteContext); ✔️
 const [isWarehouseDishes] = useContext(WarehouseDishesContext); ✔️
 const [isMenuTypeDishes] = useContext(MenuTypeDishesContext); ✔️
 //____________DISHES____________

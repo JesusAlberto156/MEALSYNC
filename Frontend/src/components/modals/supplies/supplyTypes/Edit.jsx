@@ -7,7 +7,7 @@ import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contex
 import { SearchTermContext } from "../../../../contexts/SearchsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
-import { SupplyTypeEditContext,DeletedSupplyCategoriesContext,SupplyCategoriesContext } from "../../../../contexts/SuppliesProvider";
+import { SupplyTypeEditContext,DeletedSupplyCategoriesContext,SupplyCategoriesContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext,RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
@@ -60,6 +60,7 @@ export default function Supply_Type_Edit(){
     const isForm = useContext(RefFormContext);
     const [isDeletedSupplyCategories] = useContext(DeletedSupplyCategoriesContext);
     const [isSupplyCategories] = useContext(SupplyCategoriesContext);
+    const [isDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
@@ -70,6 +71,14 @@ export default function Supply_Type_Edit(){
     // Constantes con el valor de useState
     const [isTotalDescription,setIsTotalDescription] = useState(0)
     const [isTotalType,setIsTotalType] = useState(0)
+    // UseEffct para verificar la eliminacion del tipo de insumo
+    useEffect(() => {
+        if(isDeletedSupplyTypes.length !== 0){
+            if(isDeletedSupplyTypes.some(type => type.idtipo === isTextFieldsSupplyType.idtipo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplyTypes]);
     // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
         if (!isSelectedRow) return;

@@ -60,7 +60,7 @@ export default function Card_Information({
                 className={id}
             >
                 <Card_Menu_White isDisabled={isActionBlock}>
-                    <Card_Menu_Functions isDisabled={isActionBlock}>
+                    <Card_Menu_Functions>
                         {!isSelected ? (
                             <>
                                 <Text_Title_16_Black style={{ color: isActionBlock ? 'rgba(255, 255, 255, 1)': ''}}>{title}</Text_Title_16_Black>
@@ -92,7 +92,8 @@ export default function Card_Information({
                                     <Tooltip title='Detalles' placement="top">
                                         <Button_Icon_Orange_160
                                             ref={isButtonDetail}
-                                            onClick={() => {
+                                            onClick={(e) => {
+                                                e.stopPropagation();
                                                 onHandleModalViewDetail();
                                                 navigate(routeDetail,{ replace: true });
                                             }}
@@ -103,7 +104,8 @@ export default function Card_Information({
                                     <Tooltip title='Editar' placement="top">
                                         <Button_Icon_Blue_160
                                             ref={isButtonEdit}
-                                            onClick={() => {
+                                            onClick={(e) => {
+                                                e.stopPropagation();
                                                 onHandleModalViewEdit();
                                                 navigate(routeEdit,{ replace: true });
                                             }}
@@ -114,7 +116,8 @@ export default function Card_Information({
                                     <Tooltip title='Eliminar' placement="top">
                                         <Button_Icon_Red_160
                                             ref={isButtonDelete}
-                                            onClick={() => {
+                                            onClick={(e) => {
+                                                e.stopPropagation();
                                                 onHandleModalViewDelete();
                                                 navigate(routeDelete,{ replace: true });
                                             }}

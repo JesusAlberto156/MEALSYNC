@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsUserContext } from "../../../../contexts/FormsProvider";
-import { UserTypesContext,UserEditContext } from "../../../../contexts/UsersProvider";
+import { UserTypesContext,UserEditContext,DeletedUsersContext } from "../../../../contexts/UsersProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefKeyboardContext,RefModalContext,RefFormContext,RefKeyboardTouchContext } from '../../../../contexts/RefsProvider';
@@ -54,6 +54,7 @@ export default function User_Edit(){
     const Keyboard = useContext(RefKeyboardContext);
     const [isTouch] = useContext(TouchContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext); 
+    const [isDeletedUsers] = useContext(DeletedUsersContext);
     // Constantes con el valor de useState
     const [isTotalName,setIsTotalName] = useState(0);
     const [isTotalShortName,setIsTotalShortName] = useState(0);
@@ -64,6 +65,14 @@ export default function User_Edit(){
     const handleModalViewUsers = HandleModalViewUsers();
     const handleUserEdit = HandleUserEdit();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
+    // UseEffct para verificar la eliminacion del usuario
+    useEffect(() => {
+        if(isDeletedUsers.length !== 0){
+            if(isDeletedUsers.some(user => user.idusuario === isTextFieldsUser.idusuario)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedUsers]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

@@ -16,7 +16,6 @@ export const RefButtonDisableContext = createContext(null);
 export const RefButtonViewContext = createContext(null);
 export const RefButtonDetailContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
-export const RefSupplierObservationsContext = createContext(null);
 export const RefSupplyOrdersContext = createContext(null);
 // Contextos personalizados
 import { TouchContext } from "./VariablesProvider";
@@ -39,11 +38,9 @@ export const Index_Refs = ({children}) => {
                                                     <Ref_Button_View>
                                                         <Ref_Button_Detail>
                                                             <Ref_Suppliers>
-                                                                <Ref_Suppliers_Observations>
                                                                     <Ref_Supply_Orders>
                                                                         {children}
                                                                     </Ref_Supply_Orders>
-                                                                </Ref_Suppliers_Observations>
                                                             </Ref_Suppliers>
                                                         </Ref_Button_Detail>
                                                     </Ref_Button_View>
@@ -223,21 +220,6 @@ export const Ref_Suppliers = ({ children }) => {
         <RefSuppliersContext.Provider value={isSuppliers}>
             {children}
         </RefSuppliersContext.Provider>
-    );
-}
-// Función contexto para controlar la tabla de las observaciones a proveedor con referencias ✔️
-export const Ref_Suppliers_Observations = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isSupplierObservations = {
-        Modal_Supplier_Observations: useRef(null),
-        Form_Supplier_Observations: useRef(null),
-        Button_Detail_Supplier_Observations: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefSupplierObservationsContext.Provider value={isSupplierObservations}>
-            {children}
-        </RefSupplierObservationsContext.Provider>
     );
 }
 // Función contexto para controlar la tabla de los pedidos por insumo con referencias ✔️

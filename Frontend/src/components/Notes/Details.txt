@@ -1,5 +1,4 @@
  - Falta agregar acciones a la pagina en caso de que se desconecte del servidor.
  - Falta agregar el cerrado de session automatico por actividad.
- - Falta acomodar los detalles de todas las imagenes mostradas por URL, como poner una por default.
-
+ 
 KZHdayW6Us

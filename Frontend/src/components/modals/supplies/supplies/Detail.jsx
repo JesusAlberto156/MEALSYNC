@@ -6,6 +6,7 @@ import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contex
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsSupplyContext } from "../../../../contexts/FormsProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
+import { DeletedSuppliesContext } from "../../../../contexts/SuppliesProvider";
 // Hooks personalizados
 import { HandleModalViewSupplies } from "../../../../hooks/supplies/Views";
 //__________IMAGENES__________
@@ -24,15 +25,24 @@ import { Image_Modal } from "../../../styled/Imgs";
 // Modal para visualizar los detalles de los tipos de insumo de su tabla
 export default function Supply_Details(){
     // Constantes con el valor de los contextos
-    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isModal] = useContext(ModalContext);
     const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const Modal = useContext(RefModalContext);
     const isForm = useContext(RefFormContext); 
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSupplies] = useContext(DeletedSuppliesContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalViewSupplies = HandleModalViewSupplies();
+    // UseEffct para verificar la eliminacion del insumo
+    useEffect(() => {
+        if(isDeletedSupplies.length !== 0){
+            if(isDeletedSupplies.some(supply => supply.idinsumo === isTextFieldsSupply.idinsumo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplies]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

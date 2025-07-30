@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsSupplyTypesContext } from "../../../../contexts/FormsProvider";
-import { SupplyTypeDeleteContext } from "../../../../contexts/SuppliesProvider";
+import { SupplyTypeDeleteContext,DeletedSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefModalContext,RefFormContext } from '../../../../contexts/RefsProvider';
@@ -42,10 +42,19 @@ export default function Supply_Type_Delete(){
     const [isLoggedUser] = useContext(LoggedUserContext);
     const [isTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isDeletedSupplyTypes] = useContext(DeletedSupplyTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
     const handleSupplyTypeDelete = HandleSupplyTypeDelete();
+    // UseEffct para verificar la eliminacion del tipo de insumo
+    useEffect(() => {
+        if(isDeletedSupplyTypes.length !== 0){
+            if(isDeletedSupplyTypes.some(type => type.idtipo === isTextFieldsSupplyType.idtipo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedSupplyTypes]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

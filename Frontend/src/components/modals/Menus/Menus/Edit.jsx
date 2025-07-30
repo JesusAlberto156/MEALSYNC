@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsMenuTypeContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,KeyboardViewContext,KeyboardContext,TouchContext } from "../../../../contexts/VariablesProvider";
-import { MenuTypeEditContext } from "../../../../contexts/MenusProvider";
+import { MenuTypeEditContext,DeletedMenuTypesContext } from "../../../../contexts/MenusProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
@@ -50,6 +50,7 @@ export default function Menu_Edit(){
     const Keyboard = useContext(RefKeyboardContext);
     const isKeyboardTouch = useContext(RefKeyboardTouchContext);
     const [isTouch] = useContext(TouchContext);
+    const [isDeletedMenuTypes] = useContext(DeletedMenuTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewMenuTypes = HandleModalViewMenuTypes();
@@ -57,6 +58,14 @@ export default function Menu_Edit(){
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
     // Constantes con el valor de useState
     const [isTotalName,setIsTotalName] = useState(0);
+    // UseEffct para verificar la eliminacion del menú
+    useEffect(() => {
+        if(isDeletedMenuTypes.length !== 0){
+            if(isDeletedMenuTypes.some(type => type.idtipo === isTextFieldsMenuType.idtipo)){
+                setIsSelectedRow(null);
+            }
+        }
+    },[isDeletedMenuTypes]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){

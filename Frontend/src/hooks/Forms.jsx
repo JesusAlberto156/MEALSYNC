@@ -17,7 +17,7 @@ export const HandleLoggedLog = () => {
     // Función del hook
     const handleLoggedLog = () => {
         setIsLoggedLog(!isLoggedLog);
-        setIsActionBlock(false);
+        setIsActionBlock(true);
     }
     // Retorno de la función del hook
     return handleLoggedLog;

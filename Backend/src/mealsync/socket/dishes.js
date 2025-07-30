@@ -80,11 +80,11 @@ export const Dishes_INSERT = (socket) => {
             const idplatillo = parsedDataDishes.find(data => data.nombre === nombre)?.idplatillo;
             await insertLogDishService(idplatillo,idusuario,nombre,String(idmenu));         
 
-            await insertDishSpecificationsService(descripcion,precio,preparacion,parsedDataDishes.find(data => data.nombre === nombre)?.idplatillo,imagen);
+            await insertDishSpecificationsService(descripcion,precio,preparacion,idplatillo,imagen);
             const resultDishSpecifications = await getDishSpecificationsService();
-            const decryptedDataSpecifications = decryptData(resultDishSpecifications);
-            const parseDataSpecifications = JSON.parse(decryptedDataSpecifications);
-            await insertLogDishSpecificationsService(parseDataSpecifications.find(data => data.idplatillo === idplatillo)?.idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idplatillo),imagen);
+            const decryptedDataDishSpecifications = decryptData(resultDishSpecifications);
+            const parseDataDishSpecifications = JSON.parse(decryptedDataDishSpecifications);
+            await insertLogDishSpecificationsService(parseDataDishSpecifications.find(data => data.idplatillo === idplatillo)?.idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idplatillo),imagen);
             
             let resultMenuTypeDishes;
             let resultWarehouseDishes;

@@ -408,6 +408,38 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
+                    {currentSView === 'Menus' && currentNView === 'Guarniciones' ? (
+                        <>
+                            <Container_Searchbar_Row_Search_Blue>
+                                <Search_Bar_Button_Search
+                                    options={isOptionsMaelSearch}
+                                />
+                                <Search_Bar_Icon_Button_Search/>
+                                <Search_Bar_Button_Order
+                                    options={isOptionsMaelOrder}
+                                />
+                                <Search_Bar_Icon_Button_Order/>
+                            </Container_Searchbar_Row_Search_Blue>
+                        </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Menus' && currentNView === 'Bebidas' ? (
+                        <>
+                            <Container_Searchbar_Row_Search_Blue>
+                                <Search_Bar_Button_Search
+                                    options={isOptionsMaelSearch}
+                                />
+                                <Search_Bar_Icon_Button_Search/>
+                                <Search_Bar_Button_Order
+                                    options={isOptionsMaelOrder}
+                                />
+                                <Search_Bar_Icon_Button_Order/>
+                            </Container_Searchbar_Row_Search_Blue>
+                        </>
+                    ):(
+                        <></>
+                    )}
                     <Container_Searchbar_Row_Function>
                         {currentSView === 'Usuarios' && currentNView === 'Usuarios' ? (
                             <>

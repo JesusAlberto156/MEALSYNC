@@ -158,7 +158,7 @@ export const insertLogDishSpecificationsService = async (idespecificacion,idusua
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Especificaciones de Platillo')
+            .input('tabla', sql.VarChar(50), 'Especificaciones de Platillos')
             .input('operacion', sql.VarChar(20), 'INSERT')
             .input('idtabla',sql.Int,idespecificacion)
             .input('idusuario',sql.Int,idusuario)
@@ -372,7 +372,7 @@ export const updateLogDishSpecificationsService = async (idespecificacion,idusua
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Especificaciones de Platillo')
+            .input('tabla', sql.VarChar(50), 'Especificaciones de Platillos')
             .input('operacion', sql.VarChar(20), 'UPDATE')
             .input('idtabla',sql.Int,idespecificacion)
             .input('idusuario',sql.Int,idusuario)

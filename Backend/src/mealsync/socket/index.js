@@ -7,6 +7,8 @@ import { Supplies_GET,Supplies_INSERT,Supplies_UPDATE,Supplies_DELETE } from './
 import { Warehouse_GET,Warehouse_INSERT,Warehouse_UPDATE,Warehouse_DELETE } from './warehouse.js';
 import { Menus_GET,Menus_INSERT,Menus_UPDATE,Menus_DELETE } from './menus.js';
 import { Dishes_GET,Dishes_INSERT,Dishes_UPDATE,Dishes_DELETE } from './dishes.js';
+import { Side_Dishes_GET,Side_Dishes_INSERT,Side_Dishes_UPDATE,Side_Dishes_DELETE } from './sideDishes.js';
+import { Drinks_GET,Drinks_INSERT,Drinks_UPDATE,Drinks_DELETE } from './drinks.js';
 // Servidor socket
 import { io } from '../../index.js';
 //____________IMPORT/EXPORT____________
@@ -69,10 +71,16 @@ export const socketEvents = () => {
         Dishes_INSERT(socket);
         Dishes_UPDATE(socket);
         Dishes_DELETE(socket);
-        // Guarniciones
-
-        // Bebidas
-
+        // Guarniciones ✔️
+        Side_Dishes_GET(socket);
+        Side_Dishes_INSERT(socket);
+        Side_Dishes_UPDATE(socket);
+        Side_Dishes_DELETE(socket);
+        // Bebidas ✔️
+        Drinks_GET(socket);
+        Drinks_INSERT(socket);
+        Drinks_UPDATE(socket);
+        Drinks_DELETE(socket);
         socket.on('disconnect', () => {
             console.log(`Sesión desconectada: ${clientSessionId}`);
 

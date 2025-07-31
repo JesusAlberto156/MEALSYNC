@@ -460,7 +460,7 @@ export const deleteLogDeletedDrinkService = async (ideliminado,idusuario,idbebid
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Bebidas Eliminados')
+            .input('tabla', sql.VarChar(50), 'Bebidas Eliminadas')
             .input('operacion', sql.VarChar(20), 'DELETE')
             .input('idtabla',sql.Int,ideliminado)
             .input('idusuario',sql.Int,idusuario)

@@ -169,9 +169,7 @@ export const Drinks_INSERT = (socket) => {
 //______________UPDATE______________
 export const Drinks_UPDATE = (socket) => {
     // ---------- BEBIDAS
-
-    // ---------- ALMACÉN DE BEBIDAS
-
+    
 }
 //______________UPDATE______________
 //______________DELETE______________

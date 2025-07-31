@@ -169,9 +169,7 @@ export const Side_Dishes_INSERT = (socket) => {
 //______________UPDATE______________
 export const Side_Dishes_UPDATE = (socket) => {
     // ---------- GUARNICIONES
-
-    // ---------- ALMACÉN DE GUARNICIONES
-
+    
 }
 //______________UPDATE______________
 //______________DELETE______________

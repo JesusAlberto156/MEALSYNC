@@ -14,7 +14,7 @@ export const ResetTextFieldsDish = () => {
         idplatillo: 0,
         nombre: '',
         idmenu: 0,
-        idespecifiacion: 0,
+        idespecificacion: 0,
         descripcion: '',
         precio: '',
         preparacion: '',

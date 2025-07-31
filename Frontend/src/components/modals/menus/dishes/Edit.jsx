@@ -30,7 +30,7 @@ import { FcSearch } from "react-icons/fc";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form,Container_Meal_100_Center,Container_Row_100_Right } from "../../../styled/Containers";
-import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16,Text_Title_20_Black } from "../../../styled/Text";
+import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16,Text_Title_20_Black, Text_Span_12_Justify_Black } from "../../../styled/Text";
 import { Label_Area_12_Black, Label_Text_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 import { Icon_Button_Blue_20,Icon_Black_20,Icon_20,Icon_24 } from "../../../styled/Icons";
 import { Input_Text_100_Black,Input_Group,Input_Area_100_Black,Input_Text_60_Black } from "../../../styled/Inputs";
@@ -93,6 +93,9 @@ export default function Dish_Edit(){
             setIsSidebar(false);
         }
     },[]);
+    useEffect(() => {
+        console.log(isTextFieldsDish)
+    },[isTextFieldsDish]);
     // UseEffct para verificar la eliminacion del platillo
     useEffect(() => {
         if(isDeletedDishes.length !== 0){
@@ -160,7 +163,7 @@ export default function Dish_Edit(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Update-Dish',isLoggedUser.idusuario,isTextFieldsDish.nombre.trim(),isTextFieldsDish.idmenu,isTextFieldsDish.descripcion.trim(),isTextFieldsDish.precio,isTextFieldsDish.preparacion,isTextFieldsDish.imagen,isTextFieldsDish.tipos,isTextFieldsDish.ingredientes);
+                        socket.emit('Update-Dish',isLoggedUser.idusuario,isTextFieldsDish.idplatillo,isTextFieldsDish.idespecificacion,isTextFieldsDish.nombre.trim(),isTextFieldsDish.idmenu,isTextFieldsDish.descripcion.trim(),isTextFieldsDish.precio,isTextFieldsDish.preparacion,isTextFieldsDish.imagen,isTypes,isTextFieldsDish.tipos,isIngredients,isTextFieldsDish.ingredientes);
 
                         resolve('Editó al platillo!');
 
@@ -670,6 +673,7 @@ export default function Dish_Edit(){
                                             </Button_Icon_Green_60>
                                         </Tooltip>
                                     )}
+                                    <Text_Span_12_Justify_Black>Recuerde que los datos editados pueden afectar directamente el funcionamiento del sistema, incluyendo el control de inventario y la gestión de pedidos. Verifique cuidadosamente antes de guardar los cambios.</Text_Span_12_Justify_Black>
                                     <Modal_Form_Button_Edit
                                         onCancel={() => handleModalViewDishes('')}
                                         onAction={() => handleDishEdit()}

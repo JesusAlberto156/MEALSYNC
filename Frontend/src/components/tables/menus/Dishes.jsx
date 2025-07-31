@@ -77,7 +77,7 @@ export default function Table_Dishes(){
                 idplatillo: isSelectedRow.idplatillo,
                 nombre: isSelectedRow.nombre,
                 idmenu: isSelectedRow.idmenu,
-                idespecifiacion: specification?.idespecifiacion || 0,
+                idespecificacion: specification?.idespecificacion || 0,
                 descripcion: specification?.descripcion || '',
                 precio: specification?.precio || '',
                 preparacion: specification?.preparacion || '',
@@ -104,6 +104,13 @@ export default function Table_Dishes(){
     // Estructura del componente
     return(
         <>
+            <Table_Pagination
+                onNextPage={() => nextPageDishes()}
+                onPrevPage={() => prevPage()}
+                currentPage={currentPage}
+                currentRecords={currentRecordsDishes}
+                totalPage={totalPagesDishes}
+            />
             <Container_Menu_100_Center>
                 <Card_Add
                     onHandleModalView={() => handleModalViewDishes('Platillo-Agregar')}

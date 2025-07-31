@@ -14,10 +14,10 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Card_Menu_White,Card_Menu_White_300,Card_Menu_Functions } from '../styled/Cards';
+import { Card_Menu_White,Card_Menu_White_300,Card_Menu_Functions,Card_Menu_Column_100_Information } from '../styled/Cards';
 import { Text_Color_Blue_12, Text_Span_12_Justify_Black,Text_Title_16_Black } from "../styled/Text";
 import { Image_Menu_100 } from "../styled/Imgs";
-import { Container_Column_100_Center, Container_Row_NG_100_Left } from "../styled/Containers";
+import { Container_Row_NG_100_Left } from "../styled/Containers";
 import { Button_Icon_Blue_160,Button_Icon_Red_160,Button_Icon_Orange_160 } from "../styled/Buttons";
 import { Icon_20 } from "../styled/Icons";
 //____________IMPORT/EXPORT____________
@@ -77,7 +77,7 @@ export default function Card_Information({
                         ):(
                             isActionBlock ? (
                                 <>
-                                    <Container_Column_100_Center style={{paddingTop: '90px'}}>
+                                    <Card_Menu_Column_100_Information>
                                         <Button_Icon_Orange_160 disabled>
                                             <Icon_20><BiSolidMessageDetail/></Icon_20>
                                         </Button_Icon_Orange_160>
@@ -87,11 +87,11 @@ export default function Card_Information({
                                         <Button_Icon_Red_160 disabled>
                                             <Icon_20><MdDelete/></Icon_20>
                                         </Button_Icon_Red_160>
-                                    </Container_Column_100_Center>
+                                    </Card_Menu_Column_100_Information>
                                 </>
                             ):(
                                 <>
-                                    <Container_Column_100_Center style={{paddingTop: '90px'}}>
+                                    <Card_Menu_Column_100_Information>
                                         <Tooltip title='Detalles' placement="top">
                                             <Button_Icon_Orange_160
                                                 ref={isButtonDetail}
@@ -128,7 +128,7 @@ export default function Card_Information({
                                                 <Icon_20><MdDelete/></Icon_20>
                                             </Button_Icon_Red_160>
                                         </Tooltip>
-                                    </Container_Column_100_Center>
+                                    </Card_Menu_Column_100_Information>
                                 </>  
                             )
                         )}

@@ -159,7 +159,7 @@ export const HandleDishAdd = () => {
 
                         const indexError = isTextFieldsDish.ingredientes.findIndex((ing, index, arr) => {
                             const idalmacenInvalido = ing.idalmacen === 0;
-                            const cantidadVacia = ing.cantidad.trim() === '';
+                            const cantidadVacia = String(ing.cantidad).trim() === '';
                             const idsAnteriores = arr.slice(0, index).map(prev => prev.idalmacen);
                             const almacenRepetido = idsAnteriores.includes(ing.idalmacen);
 
@@ -330,7 +330,7 @@ export const HandleDishEdit = () => {
 
                         const indexError = isTextFieldsDish.ingredientes.findIndex((ing, index, arr) => {
                             const idalmacenInvalido = ing.idalmacen === 0;
-                            const cantidadVacia = ing.cantidad.trim() === '';
+                            const cantidadVacia = String(ing.cantidad).trim() === '';
                             const idsAnteriores = arr.slice(0, index).map(prev => prev.idalmacen);
                             const almacenRepetido = idsAnteriores.includes(ing.idalmacen);
 

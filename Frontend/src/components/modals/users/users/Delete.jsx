@@ -52,7 +52,9 @@ export default function User_Delete(){
     useEffect(() => {
         if(isDeletedUsers.length !== 0){
             if(isDeletedUsers.some(user => user.idusuario === isTextFieldsUser.idusuario)){
-                setIsSelectedRow(null);
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000);
             }
         }
     },[isDeletedUsers]);

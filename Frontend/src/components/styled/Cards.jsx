@@ -133,7 +133,7 @@ export const Card_Menu_Functions = styled.div`
     background-color: transparent;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
 `;

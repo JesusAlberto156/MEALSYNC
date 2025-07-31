@@ -123,7 +123,8 @@ export const Menus_INSERT = (socket) => {
             const parsedData = JSON.parse(decryptedData);
             await insertLogDeletedMenuTypeService(parsedData.find(data => data.idtipo === idtipo)?.ideliminado,idusuario,String(idtipo));
             const resultLogs = await getLogsService();
-            io.emit('Get-Deleted-Menu-Types',resultDeletedMenuTypes)
+
+            io.emit('Get-Deleted-Menu-Types',resultDeletedMenuTypes);
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al eliminar al tipo de menú: ',error);

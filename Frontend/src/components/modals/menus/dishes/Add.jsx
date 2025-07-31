@@ -4,7 +4,7 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
-import { MenusContext } from "../../../../contexts/MenusProvider";
+import { MenusContext,MenuTypesContext,DeletedMenuTypesContext } from "../../../../contexts/MenusProvider";
 import { TextFieldsDishContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,KeyboardViewContext,KeyboardContext,TouchContext,IndexSearchContext,IndexCountContext } from "../../../../contexts/VariablesProvider";
 import { DishAddContext } from "../../../../contexts/DishesProvider";
@@ -12,11 +12,11 @@ import { SupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 import { WarehouseSupplyTypesContext } from "../../../../contexts/WarehouseProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
+import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalViewDishes } from "../../../../hooks/dishes/Views";
-import { HandleFiltered,HandleTextDishes } from "../../../../hooks/dishes/Forms";
-import { ResetTextFieldsDish } from "../../../../hooks/dishes/Texts";
+import { HandleTextDishes } from "../../../../hooks/dishes/Forms";
 import { HandleDishAdd } from "../../../../hooks/dishes/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
 //____________IMAGENES______________
@@ -54,6 +54,7 @@ export default function Dish_Add(){
     const [isDishAdd,setIsDishAdd] = useContext(DishAddContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
     const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); 
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [socket] = useContext(SocketContext);
     const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
@@ -65,13 +66,13 @@ export default function Dish_Add(){
     const [isTouch] = useContext(TouchContext);
     const [isIndexSearch,setIsIndexSearch] = useContext(IndexSearchContext);
     const [isIndexCount,setIsIndexCount] = useContext(IndexCountContext);
+    const [isMenuTypes] = useContext(MenuTypesContext);
+    const [isDeletedMenuTypes] = useContext(DeletedMenuTypesContext); 
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewDishes = HandleModalViewDishes();
     const handleDishAdd = HandleDishAdd();
-    const resetTextFieldsDish = ResetTextFieldsDish()
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
-    const { filteredRecordsMenuTypes } = HandleFiltered();
     const { MenuAdd,MenuDelete,IngredientAdd,IngredientDelete } = HandleTextDishes();
     // Constantes con el valor de useState
     const [isTotalName,setIsTotalName] = useState(0);
@@ -105,27 +106,16 @@ export default function Dish_Add(){
         setIsTotalDescription(isTextFieldsDish.descripcion.length);
     },[isTextFieldsDish.descripcion]);
     useEffect(() => {
-        if (isTextFieldsDish.tipos.length > 0) {
-            const validMenuIds = filteredRecordsMenuTypes.map(menu => menu.idtipo);
-
-            const updatedMenus = isTextFieldsDish.tipos.map(menu => {
-                if (!validMenuIds.includes(menu.idtipo)) {
-                    // Si el menú ya no existe, lo marcamos como idtipo = 0
-                    return { ...menu, idtipo: 0 };
+        if(isTextFieldsDish.tipos.length !== 0){
+            isTextFieldsDish.tipos.map(tipo => {
+                if(isDeletedMenuTypes.some(type => type.idtipo === tipo.idtipo)) {
+                    return {...tipo, idtipo: 0};
                 }
-                return menu;
-            });
 
-            // Solo actualizamos si hubo algún cambio
-            const isDifferent = JSON.stringify(updatedMenus) !== JSON.stringify(isTextFieldsDish.tipos);
-            if (isDifferent) {
-                setIsTextFieldsDish(prev => ({
-                    ...prev,
-                    tipos: updatedMenus,
-                }));
-            }
+                return tipo;
+            });
         }
-    },[filteredRecordsMenuTypes]);
+    },[isDeletedMenuTypes]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
         if(isDishAdd){
@@ -150,7 +140,7 @@ export default function Dish_Add(){
                             setIsModal(false);
                             sessionStorage.setItem('Estado del Modal',false);
                             setIsActionBlock(false);
-                            resetTextFieldsDish();
+                            setIsSelectedRow(null);
                             return navigate(route,{ replace: true });
                         },750);
                     },1000);
@@ -374,55 +364,70 @@ export default function Dish_Add(){
                                         <Text_Span_16_Center_Black>:</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Auto_Center>
                                     {isTextFieldsDish.tipos.length !== 0 ? (
-                                        isTextFieldsDish.tipos.map((menu,index) => (
-                                            <Container_Meal_100_Center key={index}>
-                                                <Select_300
-                                                    data={filteredRecordsMenuTypes.length}
-                                                    options={filteredRecordsMenuTypes.map((menu) => ({
-                                                        value: menu.idtipo,
-                                                        label: menu.nombre
-                                                    }))}
-                                                    placeholder='Menus...'
-                                                    value={filteredRecordsMenuTypes
-                                                        .map(menu => ({ value: menu.idtipo, label: menu.nombre }))
-                                                        .find(option => option.value === menu.idtipo)
-                                                    }
-                                                    onChange={(e) => {
-                                                        const newMenus = [...isTextFieldsDish.tipos];
-                                                        if (e) {
-                                                            newMenus[index].idtipo = e.value;
-                                                        } else {
-                                                            newMenus[index].idtipo = 0;           
+                                        isTextFieldsDish.tipos.map((menu,index) => {
+                                            const filteredRecordsMenuTypes = isMenuTypes.filter((data) => {
+                                                const isDeleted = isDeletedMenuTypes.some(type => type.idtipo === data.idtipo);
+                                                
+                                                const isAlreadySelected = isTextFieldsDish.tipos.some((ing, i) => 
+                                                    i !== index && ing.idtipo === data.idtipo
+                                                );
+
+                                                return (
+                                                    !isDeleted &&
+                                                    !isAlreadySelected
+                                                );
+                                            });
+
+                                            return (
+                                                <Container_Meal_100_Center key={index}>
+                                                    <Select_300
+                                                        data={filteredRecordsMenuTypes.length}
+                                                        options={filteredRecordsMenuTypes.map((menu) => ({
+                                                            value: menu.idtipo,
+                                                            label: menu.nombre
+                                                        }))}
+                                                        placeholder='Menus...'
+                                                        value={filteredRecordsMenuTypes
+                                                            .map(menu => ({ value: menu.idtipo, label: menu.nombre }))
+                                                            .find(option => option.value === menu.idtipo)
                                                         }
-                                                        setIsTextFieldsDish(prev => ({
-                                                            ...prev,
-                                                            tipos: newMenus
-                                                        }));
-                                                    }}
-                                                    isDisabled={isActionBlock}
-                                                />
-                                                <Container_Row_100_Center>
-                                                    <Container_Row_100_Left>
-                                                        <Text_Title_20_Black>No. Menú: {index+1}</Text_Title_20_Black>
-                                                    </Container_Row_100_Left>
-                                                    <Container_Row_100_Right>
-                                                        {isActionBlock ? (
-                                                            <Button_Icon_Red_60 disabled>
-                                                                <Icon_20><MdDelete/></Icon_20>
-                                                            </Button_Icon_Red_60>
-                                                        ):(
-                                                            <Tooltip title='Eliminar' placement="top">
-                                                                <Button_Icon_Red_60
-                                                                    onClick={() => MenuDelete(index)}
-                                                                >
+                                                        onChange={(e) => {
+                                                            const newMenus = [...isTextFieldsDish.tipos];
+                                                            if (e) {
+                                                                newMenus[index].idtipo = e.value;
+                                                            } else {
+                                                                newMenus[index].idtipo = 0;           
+                                                            }
+                                                            setIsTextFieldsDish(prev => ({
+                                                                ...prev,
+                                                                tipos: newMenus
+                                                            }));
+                                                        }}
+                                                        isDisabled={isActionBlock}
+                                                    />
+                                                    <Container_Row_100_Center>
+                                                        <Container_Row_100_Left>
+                                                            <Text_Title_20_Black>No. Menú: {index+1}</Text_Title_20_Black>
+                                                        </Container_Row_100_Left>
+                                                        <Container_Row_100_Right>
+                                                            {isActionBlock ? (
+                                                                <Button_Icon_Red_60 disabled>
                                                                     <Icon_20><MdDelete/></Icon_20>
                                                                 </Button_Icon_Red_60>
-                                                            </Tooltip>
-                                                        )}
-                                                    </Container_Row_100_Right>
-                                                </Container_Row_100_Center>
-                                            </Container_Meal_100_Center>
-                                        ))
+                                                            ):(
+                                                                <Tooltip title='Eliminar' placement="top">
+                                                                    <Button_Icon_Red_60
+                                                                        onClick={() => MenuDelete(index)}
+                                                                    >
+                                                                        <Icon_20><MdDelete/></Icon_20>
+                                                                    </Button_Icon_Red_60>
+                                                                </Tooltip>
+                                                            )}
+                                                        </Container_Row_100_Right>
+                                                    </Container_Row_100_Center>
+                                                </Container_Meal_100_Center>
+                                            );
+                                        })
                                     ):(
                                         <Container_Row_100_Center>
                                             <Text_Span_16_Center_Black>¡No hay asignaciones!</Text_Span_16_Center_Black>
@@ -450,9 +455,15 @@ export default function Dish_Add(){
                                             const filteredRecordsWarehouse = isWarehouseSupplyTypes.filter((data) => {
                                                 const typeName = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo?.toLowerCase() || '';
                                                 const search = ingredient.buscador.toLowerCase();
+
+                                                const isAlreadySelected = isTextFieldsDish.ingredientes.some((ing, i) => 
+                                                    i !== index && ing.idalmacen === data.idalmacen
+                                                );
+
                                                 return (
                                                     data.transaccion === 'Inicial' &&
-                                                    typeName.includes(search)
+                                                    typeName.includes(search) &&
+                                                    !isAlreadySelected
                                                 );
                                             });
                                             return(

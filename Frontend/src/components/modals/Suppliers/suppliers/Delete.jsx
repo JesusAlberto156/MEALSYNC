@@ -55,7 +55,9 @@ export default function Supplier_Delete(){
     useEffect(() => {
         if(isDeletedSuppliers.length !== 0){
             if(isDeletedSuppliers.some(supplier => supplier.idproveedor === isTextFieldsSupplier.idproveedor)){
-                setIsSelectedRow(null);
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000);
             }
         }
     },[isDeletedSuppliers]);

@@ -8,7 +8,7 @@ const [isItemDate,setIsItemDate] = useContext(ItemDateContext);
 //____________DISHES____________
 const [isDishes] = useContext(DishesContext); ✔️
 const [isDishAdd,setIsDishAdd] = useContext(DishAddContext); ✔️
-const [isDishEdit,setIsDishEdit] = useContext(DishEditContext);
+const [isDishEdit,setIsDishEdit] = useContext(DishEditContext); ✔️
 const [isDishSpecifications] = useContext(DishSpecificationsContext); ✔️
 const [isDeletedDishes] = useContext(DeletedDishesContext); ✔️
 const [isDishDelete,setIsDishDelete] = useContext(DishDeleteContext); ✔️

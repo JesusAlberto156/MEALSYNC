@@ -14,6 +14,7 @@ import { IoIosAddCircle } from "react-icons/io";
 // Estilos personalizados
 import { Icon_Green_120,Icon_White_120 } from '../styled/Icons';
 import { Card_Menu_White_300_Button,Card_Menu_White,Card_Menu_Functions } from '../styled/Cards';
+import { Container_Column_100_Center } from "../styled/Containers";
 //____________IMPORT/EXPORT____________
 
 // Componente para agregar cosas al menú
@@ -33,9 +34,11 @@ export default function Card_Add({
                 <Card_Menu_White_300_Button disabled>
                     <Card_Menu_White isDisabled={isActionBlock || isSelectedRow !== null}>
                         <Card_Menu_Functions>
-                            <Icon_White_120>
-                                <IoIosAddCircle/>
-                            </Icon_White_120>
+                            <Container_Column_100_Center style={{paddingTop: '100px'}}>
+                                <Icon_White_120>
+                                    <IoIosAddCircle/>
+                                </Icon_White_120>
+                            </Container_Column_100_Center>
                         </Card_Menu_Functions>
                     </Card_Menu_White>
                 </Card_Menu_White_300_Button>
@@ -49,9 +52,11 @@ export default function Card_Add({
                     >
                         <Card_Menu_White>
                             <Card_Menu_Functions>
-                                <Icon_Green_120>
-                                    <IoIosAddCircle/>
-                                </Icon_Green_120>
+                                <Container_Column_100_Center style={{paddingTop: '100px'}}>
+                                    <Icon_Green_120>
+                                        <IoIosAddCircle/>
+                                    </Icon_Green_120>
+                                </Container_Column_100_Center>
                             </Card_Menu_Functions>
                         </Card_Menu_White>
                     </Card_Menu_White_300_Button>

@@ -2,11 +2,11 @@
 // Consultas de sql
 import { getDishesService,getDishSpecificationsService,getDeletedDishesService,getWarehouseDishesService,getMenuTypeDishesService } from "../services/dishes.js";
 import { insertDishService,insertDishSpecificationsService,insertDeletedDishService,insertWarehouseDishService,insertMenuTypeDishService } from "../services/dishes.js";
-
+import { updateDishService,updateDishSpecificationsService,updateWarehouseDishService } from "../services/dishes.js";
 import { deleteMenuTypeDishService,deleteWarehouseDishService } from "../services/dishes.js";
 import { getLogsService } from "../services/logs.js";
 import { insertLogDishService,insertLogDishSpecificationsService,insertLogDeletedDishService,insertLogWarehouseDishService,insertLogMenuTypeDishService } from "../services/dishes.js";
-
+import { updateLogDishService,updateLogDishSpecificationsService,updateLogWarehouseDishService } from "../services/dishes.js";
 import { deleteLogMenuTypeDishService,deleteLogWarehouseDishService } from "../services/dishes.js";
 // Servidor socket
 import { io } from "../../index.js";
@@ -169,9 +169,51 @@ export const Dishes_INSERT = (socket) => {
 //______________UPDATE______________
 export const Dishes_UPDATE = (socket) => {
     // ---------- PLATILLOS
+    socket.on('Update-Dish',async (idusuario,idplatillo,idespecificacion,nombre,idmenu,descripcion,precio,preparacion,imagen,tiposOriginales,tiposNuevos,,ingredientes) => {
+        try{
+            await updateDishService(idplatillo,nombre,idmenu);
+            const resultDishes = await getDishesService();
+            await updateLogDishService(idplatillo,idusuario,nombre,String(idmenu));         
 
-    // ---------- ALMACÉN DE PLATILLOS
+            await updateDishSpecificationsService(idespecificacion,descripcion,precio,preparacion,imagen);
+            const resultDishSpecifications = await getDishSpecificationsService();
+            await updateLogDishSpecificationsService(idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idplatillo),imagen);
+            
+            let resultMenuTypeDishes;
+            let resultWarehouseDishes;
 
+            if(Array.isArray(tiposOriginales) && tiposOriginales.length > 0){
+                for (const tipo of tipos) {
+                    await insertMenuTypeDishService(tipo.idtipo, idplatillo);
+                    await insertLogMenuTypeDishService(idusuario,String(tipo.idtipo),String(idplatillo));
+                }
+                resultMenuTypeDishes = await getMenuTypeDishesService();
+            }
+
+            if(Array.isArray(ingredientes) && ingredientes.length > 0){
+                for (const ingrediente of ingredientes) {
+                    await insertWarehouseDishService(ingrediente.idalmacen,idplatillo,ingrediente.cantidad);
+                    await insertLogWarehouseDishService(idusuario,String(ingrediente.idalmacen),String(idplatillo),String(ingrediente.cantidad));
+                }
+                resultWarehouseDishes = await getWarehouseDishesService();
+            }
+
+            const resultLogs = await getLogsService();
+            
+            io.emit('Get-Dishes',resultDishes);
+            io.emit('Get-Dish-Specifications',resultDishSpecifications);
+            if(resultMenuTypeDishes !== undefined){
+                io.emit('Get-Menu-Type-Dishes',resultMenuTypeDishes);
+            }
+            if(resultWarehouseDishes !== undefined){
+                io.emit('Get-Warehouse-Dishes',resultWarehouseDishes);
+            }
+            io.emit('Get-Logs',resultLogs); 
+        }catch(error){
+            console.error('Error al agregar al platillo: ',error);
+            return error;
+        }
+    });
 }
 //______________UPDATE______________
 //______________DELETE______________

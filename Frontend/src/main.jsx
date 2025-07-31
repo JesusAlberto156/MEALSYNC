@@ -72,7 +72,8 @@ import Menu_Edit from './components/modals/menus/menus/Edit';
 import Menu_Delete from './components/modals/menus/menus/Delete';
 import Table_Dishes from './components/tables/menus/Dishes';
 import Dish_Add from './components/modals/menus/dishes/Add';
-
+import Dish_Details from './components/modals/menus/dishes/Detail';
+import Dish_Edit from './components/modals/menus/dishes/Edit';
 import Dish_Delete from './components/modals/menus/dishes/Delete';
 
 import Index_Kitchen from './pages/indexs/Kitchen';
@@ -237,15 +238,15 @@ const router = createHashRouter([
           },
           {
             path: 'Administration/Index/Menus/Dishes/Add',
-            element: <Dish_Add/>
+            element: <Dish_Add/>,
           },
           {
             path: 'Administration/Index/Menus/Dishes/Detail',
-            
+            element: <Dish_Details/>,
           },
           {
             path: 'Administration/Index/Menus/Dishes/Edit',
-            
+            element: <Dish_Edit/>,
           },
           {
             path: 'Administration/Index/Menus/Dishes/Delete',

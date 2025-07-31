@@ -12,9 +12,10 @@ export const encryptData = (data) => {
 // Función para desencriptar datos
 export const decryptData = (encryptedData) => {
     try {
-        // Verificamos que se haya recibido algún dato
-        if (!encryptedData) {
-            throw new Error("No hay datos encriptados para desencriptar...");
+        // Validamos que sea un string no vacío
+        if (typeof encryptedData !== "string" || encryptedData.trim() === "") {
+            // Aquí simplemente no hacemos nada (opcional: puedes retornar null o un valor por defecto)
+            return null;
         }
         // Desencriptamos los datos usando la clave secreta
         const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);

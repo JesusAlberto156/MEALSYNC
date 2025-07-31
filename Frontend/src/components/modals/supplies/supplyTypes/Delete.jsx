@@ -51,7 +51,9 @@ export default function Supply_Type_Delete(){
     useEffect(() => {
         if(isDeletedSupplyTypes.length !== 0){
             if(isDeletedSupplyTypes.some(type => type.idtipo === isTextFieldsSupplyType.idtipo)){
-                setIsSelectedRow(null);
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000);
             }
         }
     },[isDeletedSupplyTypes]);

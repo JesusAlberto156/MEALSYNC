@@ -51,7 +51,9 @@ export default function Menu_Delete(){
     useEffect(() => {
         if(isDeletedMenuTypes.length !== 0){
             if(isDeletedMenuTypes.some(type => type.idtipo === isTextFieldsMenuType.idtipo)){
-                setIsSelectedRow(null);
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000);
             }
         }
     },[isDeletedMenuTypes]);
@@ -119,7 +121,7 @@ export default function Menu_Delete(){
                                         <Text_Color_Green_16>Menú</Text_Color_Green_16>
                                         <Text_Span_16_Center_Black>: {isTextFieldsMenuType.nombre || 'Desconocido'}</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Auto_Center>
-                                    <Text_Span_12_Justify_Black>Al eliminar este menú, los platillos, guarniciones y bebidas asociados se eliminarán de forma permanente, siempre y cuando no estén vinculados a otros menús. En caso de recuperar el menú, los elementos que fueron agregados antes de eliminarlo no se restaurarán automáticamente. Tampoco podrá realizar nuevos pedidos a este menú.</Text_Span_12_Justify_Black>
+                                    <Text_Span_12_Justify_Black>Si elimina este menú, no podrá realizar pedidos asociados a él ni desvincularlo de los platillos, guarniciones o bebidas que se encuentren asignados.</Text_Span_12_Justify_Black>
                                     <Modal_Form_Button_Delete
                                         onCancel={() => handleModalViewMenuTypes('')}
                                         onAction={() => handleMenuTypeDelete()}

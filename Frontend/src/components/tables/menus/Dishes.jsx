@@ -77,13 +77,14 @@ export default function Table_Dishes(){
                 idplatillo: isSelectedRow.idplatillo,
                 nombre: isSelectedRow.nombre,
                 idmenu: isSelectedRow.idmenu,
+                idespecifiacion: specification?.idespecifiacion || 0,
                 descripcion: specification?.descripcion || '',
                 precio: specification?.precio || '',
                 preparacion: specification?.preparacion || '',
                 imagen: specification?.imagen || '',
                 tipos: types.length > 0 
                     ? types.map(type => ({ idtipo: type.idtipo }))
-                    : [{ idtipo: 0 }],
+                    : [],
                 ingredientes: ingredients.length > 0 
                     ? ingredients.map(ingredient => ({ 
                             idalmacen: ingredient.idalmacen,
@@ -93,14 +94,7 @@ export default function Table_Dishes(){
                             unidad: isSupplyTypes.find(type => type.idtipo === isWarehouseSupplyTypes.find(warehouse => warehouse.idalmacen === ingredient.idalmacen)?.idtipo)?.unidad,
                             buscador: '',
                         }))
-                    : [{ 
-                        idalmacen: 0,
-                        idplatillo: 0,
-                        cantidad: '',
-                        idtipo: 0,
-                        unidad: '',
-                        buscador: '', 
-                    }]
+                    : []
             }))
         }else{
             resetTextFieldsDish();

@@ -51,7 +51,9 @@ export default function Supply_Delete(){
     useEffect(() => {
         if(isDeletedSupplies.length !== 0){
             if(isDeletedSupplies.some(supply => supply.idinsumo === isTextFieldsSupply.idinsumo)){
-                setIsSelectedRow(null);
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000);
             }
         }
     },[isDeletedSupplies]);

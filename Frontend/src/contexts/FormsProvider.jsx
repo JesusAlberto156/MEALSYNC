@@ -314,6 +314,7 @@ export const Text_Fields_Dish = ({ children }) => {
         idplatillo: 0,
         nombre: '',
         idmenu: 0,
+        idespecifiacion: 0,
         descripcion: '',
         precio: '',
         preparacion: '',

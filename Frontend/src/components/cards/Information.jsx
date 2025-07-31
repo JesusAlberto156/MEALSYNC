@@ -17,7 +17,7 @@ import { MdDelete } from "react-icons/md";
 import { Card_Menu_White,Card_Menu_White_300,Card_Menu_Functions } from '../styled/Cards';
 import { Text_Color_Blue_12, Text_Span_12_Justify_Black,Text_Title_16_Black } from "../styled/Text";
 import { Image_Menu_100 } from "../styled/Imgs";
-import { Container_Row_NG_100_Left } from "../styled/Containers";
+import { Container_Column_100_Center, Container_Row_NG_100_Left } from "../styled/Containers";
 import { Button_Icon_Blue_160,Button_Icon_Red_160,Button_Icon_Orange_160 } from "../styled/Buttons";
 import { Icon_20 } from "../styled/Icons";
 //____________IMPORT/EXPORT____________
@@ -77,54 +77,58 @@ export default function Card_Information({
                         ):(
                             isActionBlock ? (
                                 <>
-                                    <Button_Icon_Orange_160 disabled>
-                                        <Icon_20><BiSolidMessageDetail/></Icon_20>
-                                    </Button_Icon_Orange_160>
-                                    <Button_Icon_Blue_160 disabled>
-                                        <Icon_20><MdEdit/></Icon_20>
-                                    </Button_Icon_Blue_160>
-                                    <Button_Icon_Red_160 disabled>
-                                        <Icon_20><MdDelete/></Icon_20>
-                                    </Button_Icon_Red_160>
+                                    <Container_Column_100_Center style={{paddingTop: '90px'}}>
+                                        <Button_Icon_Orange_160 disabled>
+                                            <Icon_20><BiSolidMessageDetail/></Icon_20>
+                                        </Button_Icon_Orange_160>
+                                        <Button_Icon_Blue_160 disabled>
+                                            <Icon_20><MdEdit/></Icon_20>
+                                        </Button_Icon_Blue_160>
+                                        <Button_Icon_Red_160 disabled>
+                                            <Icon_20><MdDelete/></Icon_20>
+                                        </Button_Icon_Red_160>
+                                    </Container_Column_100_Center>
                                 </>
                             ):(
                                 <>
-                                    <Tooltip title='Detalles' placement="top">
-                                        <Button_Icon_Orange_160
-                                            ref={isButtonDetail}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                onHandleModalViewDetail();
-                                                navigate(routeDetail,{ replace: true });
-                                            }}
-                                        >
-                                            <Icon_20><BiSolidMessageDetail/></Icon_20>
-                                        </Button_Icon_Orange_160>
-                                    </Tooltip>
-                                    <Tooltip title='Editar' placement="top">
-                                        <Button_Icon_Blue_160
-                                            ref={isButtonEdit}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                onHandleModalViewEdit();
-                                                navigate(routeEdit,{ replace: true });
-                                            }}
-                                        >
-                                            <Icon_20><MdEdit/></Icon_20>
-                                        </Button_Icon_Blue_160>
-                                    </Tooltip>
-                                    <Tooltip title='Eliminar' placement="top">
-                                        <Button_Icon_Red_160
-                                            ref={isButtonDelete}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                onHandleModalViewDelete();
-                                                navigate(routeDelete,{ replace: true });
-                                            }}
-                                        >
-                                            <Icon_20><MdDelete/></Icon_20>
-                                        </Button_Icon_Red_160>
-                                    </Tooltip>
+                                    <Container_Column_100_Center style={{paddingTop: '90px'}}>
+                                        <Tooltip title='Detalles' placement="top">
+                                            <Button_Icon_Orange_160
+                                                ref={isButtonDetail}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onHandleModalViewDetail();
+                                                    navigate(routeDetail,{ replace: true });
+                                                }}
+                                            >
+                                                <Icon_20><BiSolidMessageDetail/></Icon_20>
+                                            </Button_Icon_Orange_160>
+                                        </Tooltip>
+                                        <Tooltip title='Editar' placement="top">
+                                            <Button_Icon_Blue_160
+                                                ref={isButtonEdit}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onHandleModalViewEdit();
+                                                    navigate(routeEdit,{ replace: true });
+                                                }}
+                                            >
+                                                <Icon_20><MdEdit/></Icon_20>
+                                            </Button_Icon_Blue_160>
+                                        </Tooltip>
+                                        <Tooltip title='Eliminar' placement="top">
+                                            <Button_Icon_Red_160
+                                                ref={isButtonDelete}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onHandleModalViewDelete();
+                                                    navigate(routeDelete,{ replace: true });
+                                                }}
+                                            >
+                                                <Icon_20><MdDelete/></Icon_20>
+                                            </Button_Icon_Red_160>
+                                        </Tooltip>
+                                    </Container_Column_100_Center>
                                 </>  
                             )
                         )}

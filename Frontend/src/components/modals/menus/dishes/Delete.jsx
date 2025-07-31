@@ -51,7 +51,9 @@ export default function Dish_Delete(){
     useEffect(() => {
         if(isDeletedDishes.length !== 0){
             if(isDeletedDishes.some(dish => dish.idplatillo === isTextFieldsDish.idplatillo)){
-                setIsSelectedRow(null);
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000); 
             }
         }
     },[isDeletedDishes]);

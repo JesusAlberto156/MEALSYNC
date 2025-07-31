@@ -51,7 +51,9 @@ export default function Supply_Category_Delete(){
     useEffect(() => {
         if(isDeletedSupplyCategories.length !== 0){
             if(isDeletedSupplyCategories.some(category => category.idcategoria === isTextFieldsSupplyCategory.idcategoria)){
-                setIsSelectedRow(null);
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000);
             }
         }
     },[isDeletedSupplyCategories]);

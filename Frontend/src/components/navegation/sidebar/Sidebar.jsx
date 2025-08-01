@@ -1,12 +1,15 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useState,useContext,useEffect } from "react";
+import { Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 // Contextos
 import { SidebarContext,SidebarViewContext } from "../../../contexts/ViewsProvider";
 import { LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext } from "../../../contexts/SessionProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
 import { NutritionistData } from "../../../hooks/nutritionist/Data";
+import { HandleSidebarView,HandleNavbarView } from "../../../hooks/Views";
 //__________ICONOS__________
 // Icono para el inicio
 import { IoHome } from "react-icons/io5";
@@ -78,6 +81,9 @@ export default function Side_Bar() {
   },[isLoggedPermissions]);
   // Constantes con la funcionalidad de los hooks
   const { filteredRecordsMenuTypes } = NutritionistData();
+  const navigate = useNavigate();
+  const handleSidebarView = HandleSidebarView();
+  const handleNavbarView = HandleNavbarView();
   // Estructura del componente
   return (
     <>
@@ -120,15 +126,31 @@ export default function Side_Bar() {
                 <></>
               )}
               {filteredRecordsMenuTypes.map((type) => (
-                <Side_Bar_Button
-                  key={type.idtipo}
-                  title={type.nombre}
-                  viewSidebar="Menus"
-                  viewNavbar="Menus"
-                  text={type.nombre}
-                  icon={<MdOutlineMenuBook/>}
-                  route="/Kitchen/Index/Menus"
-                />
+                <Container_Row_100_Center key={type.idtipo}> 
+                  {isActionBlock ? (
+                      <>
+                          <Button_Text_Blue_200 disabled>
+                              {type.nombre}<Icon_20><MdOutlineMenuBook/></Icon_20>
+                          </Button_Text_Blue_200>
+                      </>
+                  ):(
+                      <Tooltip title={type.nombre} placement="right">
+                          <Button_Text_Blue_200 
+                              style={{
+                                  backgroundColor: currentSView === type.nombre ? 'rgb(12, 54, 109)' : '',
+                              }}
+                              onClick={() => {
+                                  handleSidebarView(type.nombre);
+                                  handleNavbarView('Platillos');
+                                  sessionStorage.setItem('Ruta','/Kitchen/Index/Menus');
+                                  navigate('/Kitchen/Index/Menus',{ replace: true });
+                              }}
+                          >
+                              {type.nombre}<Icon_20><MdOutlineMenuBook/></Icon_20>
+                          </Button_Text_Blue_200>
+                      </Tooltip>
+                  )}
+                </Container_Row_100_Center>
               ))}
             </>
           ):(

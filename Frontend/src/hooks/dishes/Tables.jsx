@@ -6,6 +6,7 @@ import { DeletedDishesContext,DishesContext,MenuTypeDishesContext,DishSpecificat
 import { MenuTypesContext } from "../../contexts/MenusProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
+import { LoggedTypeContext } from "../../contexts/SessionProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para realizar las acciones de la tabla de los platillos ✔️
@@ -22,6 +23,7 @@ export const TableActionsDishes = () => {
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
@@ -63,31 +65,33 @@ export const TableActionsDishes = () => {
             }
         });
 
-        return [...filtered].sort((a, b) => {
-            if(isSelectedOptionOrderPlus === 'Normal'){
-                return 0;
+        const TimeFiltered = filtered.filter(item => {
+            if (isSelectedOptionOrderPlus === 'Normal') {
+                return true; // No filtra nada, muestra todo
             }
 
-            if(isSelectedOptionOrderPlus === 'Desayuno'){
-                const desayuno = b.idmenu - a.idmenu
-                
-                if(desayuno !== 1)return desayuno
+            if (isSelectedOptionOrderPlus === 'Desayuno') {
+                return item.idmenu === 1;
             }
 
-            if(isSelectedOptionOrderPlus === 'Comida'){
-                const comida = b.idmenu - a.idmenu
-                
-                if(comida !== 2)return comida
+            if (isSelectedOptionOrderPlus === 'Comida') {
+                return item.idmenu === 2;
             }
 
-            if(isSelectedOptionOrderPlus === 'Cena'){
-                const cena = b.idmenu - a.idmenu
-                
-                if(cena !== 3)return cena
+            if (isSelectedOptionOrderPlus === 'Cena') {
+                return item.idmenu === 3;
             }
 
-            return 0
+            return false
         });
+
+        if(isLoggedType === 'Nutriólogo'){
+            
+
+            return TimeFiltered;
+        }else{
+            return TimeFiltered;
+        }
     }, [isDishes, isDeletedDishes, isDishSpecifications, isMenuTypeDishes, isMenuTypes, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
     // Total de registros visibles de la tabla
     const recordsPerPage = 12;

@@ -20,7 +20,7 @@ import Background_Menus_Dishes from '../imgs/Background-Menu-Dishes.jpg';
 import Background_Menus_Side_Dishes from '../imgs/Background-Menu-Side-Dishes.jpg';
 import Background_Menus_Drinks from '../imgs/Background-Menu-Drinks.jpg';
 // Personalizado
-import Background_Customized from '../imgs/Background-Customized.jpg';
+import Background_Customized from '../imgs/Background-Menus-Nutritionist.jpg';
 // Menus
 
 //__________IMAGE__________
@@ -114,7 +114,7 @@ export const Container_Page_Logged = styled.div.withConfig({
         `background-image: url(${Background_Menus_Drinks});`:''
     }
 
-    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Nutriólogo') && (Sidebar === 'Personalizado') && (Navbar === 'Personalizado') && Logged ? 
+    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Nutriólogo') && (Sidebar !== 'Inicio' && Sidebar !== 'Menus') && (Navbar === 'Platillos') && Logged ? 
         `background-image: url(${Background_Customized});`:''
     }
     background-Size: cover;

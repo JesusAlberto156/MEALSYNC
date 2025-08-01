@@ -49,7 +49,7 @@ export default function Table_Side_Dishes(){
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
-            const cards = document.querySelectorAll(".Card-Side-Dishes");
+            const cards = document.querySelectorAll(".Card-Side-Dish");
 
             const isClickInsideCard = Array.from(cards).some(card => card.contains(event.target));
             const isClickInsideModal = isModal?.current?.contains(event.target);
@@ -128,7 +128,7 @@ export default function Table_Side_Dishes(){
                         <Card_Information
                             data={sideDish}
                             onHandleView={() => handleRowClick(sideDish)}
-                            id='Card-Side-Dishes'
+                            id='Card-Side-Dish'
                             key={sideDish.idguarnicion}
                             title={sideDish.nombre}
                             image={spec?.imagen || SideDish}

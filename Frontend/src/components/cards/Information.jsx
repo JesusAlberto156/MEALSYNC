@@ -7,6 +7,7 @@ import { Tooltip } from "@mui/material";
 // Contextos
 import { ActionBlockContext } from "../../contexts/VariablesProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
+import { LoggedTypeContext } from "../../contexts/SessionProvider";
 import { RefButtonDetailContext,RefButtonEditContext,RefButtonDeleteContext } from "../../contexts/RefsProvider";
 //__________ICONOS__________
 import { BiSolidMessageDetail } from "react-icons/bi";
@@ -44,10 +45,20 @@ export default function Card_Information({
     const isButtonDetail = useContext(RefButtonDetailContext);
     const isButtonEdit = useContext(RefButtonEditContext); 
     const isButtonDelete = useContext(RefButtonDeleteContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     // constantes con el valor de los hooks
     const navigate = useNavigate();
     // Constantes
-    const isSelected = isSelectedRow?.idplatillo === data?.idplatillo
+    let isSelected
+    if(id === 'Card-Dish'){
+        isSelected = isSelectedRow?.idplatillo === data?.idplatillo
+    }
+    if(id === 'Card-Side-Dish'){
+        isSelected = isSelectedRow?.idguarnicion === data?.idguarnicion
+    }
+    if(id === 'Card-Drink'){
+        isSelected = isSelectedRow?.idbebida === data?.idbebida
+    }
     // Estructura del componente
     return(
         <>
@@ -81,12 +92,18 @@ export default function Card_Information({
                                         <Button_Icon_Orange_160 disabled>
                                             <Icon_20><BiSolidMessageDetail/></Icon_20>
                                         </Button_Icon_Orange_160>
-                                        <Button_Icon_Blue_160 disabled>
-                                            <Icon_20><MdEdit/></Icon_20>
-                                        </Button_Icon_Blue_160>
-                                        <Button_Icon_Red_160 disabled>
-                                            <Icon_20><MdDelete/></Icon_20>
-                                        </Button_Icon_Red_160>
+                                        {isLoggedType !== 'Administrador' && isLoggedType !== 'Almacenista' ? (
+                                            <>
+                                                <Button_Icon_Blue_160 disabled>
+                                                    <Icon_20><MdEdit/></Icon_20>
+                                                </Button_Icon_Blue_160>
+                                                <Button_Icon_Red_160 disabled>
+                                                    <Icon_20><MdDelete/></Icon_20>
+                                                </Button_Icon_Red_160>
+                                            </>
+                                        ):(
+                                            <></>
+                                        )}
                                     </Card_Menu_Column_100_Information>
                                 </>
                             ):(
@@ -104,30 +121,36 @@ export default function Card_Information({
                                                 <Icon_20><BiSolidMessageDetail/></Icon_20>
                                             </Button_Icon_Orange_160>
                                         </Tooltip>
-                                        <Tooltip title='Editar' placement="top">
-                                            <Button_Icon_Blue_160
-                                                ref={isButtonEdit}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    onHandleModalViewEdit();
-                                                    navigate(routeEdit,{ replace: true });
-                                                }}
-                                            >
-                                                <Icon_20><MdEdit/></Icon_20>
-                                            </Button_Icon_Blue_160>
-                                        </Tooltip>
-                                        <Tooltip title='Eliminar' placement="top">
-                                            <Button_Icon_Red_160
-                                                ref={isButtonDelete}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    onHandleModalViewDelete();
-                                                    navigate(routeDelete,{ replace: true });
-                                                }}
-                                            >
-                                                <Icon_20><MdDelete/></Icon_20>
-                                            </Button_Icon_Red_160>
-                                        </Tooltip>
+                                        {isLoggedType !== 'Administrador' && isLoggedType !== 'Almacenista' ? (
+                                            <>
+                                                <Tooltip title='Editar' placement="top">
+                                                    <Button_Icon_Blue_160
+                                                        ref={isButtonEdit}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onHandleModalViewEdit();
+                                                            navigate(routeEdit,{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_20><MdEdit/></Icon_20>
+                                                    </Button_Icon_Blue_160>
+                                                </Tooltip>
+                                                <Tooltip title='Eliminar' placement="top">
+                                                    <Button_Icon_Red_160
+                                                        ref={isButtonDelete}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onHandleModalViewDelete();
+                                                            navigate(routeDelete,{ replace: true });
+                                                        }}
+                                                    >
+                                                        <Icon_20><MdDelete/></Icon_20>
+                                                    </Button_Icon_Red_160>
+                                                </Tooltip>
+                                            </>
+                                        ):(
+                                            <></>
+                                        )}
                                     </Card_Menu_Column_100_Information>
                                 </>  
                             )

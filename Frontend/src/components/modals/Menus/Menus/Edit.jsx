@@ -8,7 +8,7 @@ import { TextFieldsMenuTypeContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,KeyboardViewContext,KeyboardContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { MenuTypeEditContext,DeletedMenuTypesContext } from "../../../../contexts/MenusProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
-import { LoggedUserContext } from "../../../../contexts/SessionProvider";
+import { LoggedUserContext,LoggedTypeContext } from "../../../../contexts/SessionProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
@@ -33,7 +33,7 @@ import { Modal_Form_Button_Edit } from "../../../forms/Button";
 import Error_Edit from "../../errors/Edit";
 //____________IMPORT/EXPORT____________
 
-// Modal para agregar un menú
+// Modal para editar un menú
 export default function Menu_Edit(){
     // Constantes con el valor de los contextos
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -51,6 +51,7 @@ export default function Menu_Edit(){
     const isKeyboardTouch = useContext(RefKeyboardTouchContext);
     const [isTouch] = useContext(TouchContext);
     const [isDeletedMenuTypes] = useContext(DeletedMenuTypesContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewMenuTypes = HandleModalViewMenuTypes();
@@ -86,7 +87,7 @@ export default function Menu_Edit(){
     useEffect(() => {
         setIsTotalName(isTextFieldsMenuType.nombre.length);
     },[isTextFieldsMenuType.nombre]);
-    // UseEffect para agregar datos a la base de datos
+    // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isMenuTypeEdit){
             const promise = new Promise((resolve,reject) => {
@@ -176,15 +177,19 @@ export default function Menu_Edit(){
                                         <Text_Color_Green_16>Ubicaciones</Text_Color_Green_16>
                                     </Container_Row_100_Center>
                                     <Container_Row_100_Center>
-                                        <Label_Button_16_Black Disabled={isActionBlock}>
-                                            <Input_Checkbox_16
-                                                disabled={isActionBlock}
-                                                checked={isTextFieldsMenuType.cocina}
-                                                onChange={(e) => setIsTextFieldsMenuType(prev => ({...prev, cocina: e.target.checked ? 1 : 0}))}
-                                                type="checkbox"
-                                            />
-                                            Cocina
-                                        </Label_Button_16_Black>
+                                        {isLoggedType !== 'Nutriólogo' ? (
+                                            <Label_Button_16_Black Disabled={isActionBlock}>
+                                                <Input_Checkbox_16
+                                                    disabled={isActionBlock}
+                                                    checked={isTextFieldsMenuType.cocina}
+                                                    onChange={(e) => setIsTextFieldsMenuType(prev => ({...prev, cocina: e.target.checked ? 1 : 0}))}
+                                                    type="checkbox"
+                                                />
+                                                Cocina
+                                            </Label_Button_16_Black>
+                                        ):(
+                                            <></>
+                                        )}
                                         <Label_Button_16_Black Disabled={isActionBlock}>
                                             <Input_Checkbox_16
                                                 disabled={isActionBlock}
@@ -194,15 +199,19 @@ export default function Menu_Edit(){
                                             />
                                             Nutriólogia
                                         </Label_Button_16_Black>
-                                        <Label_Button_16_Black Disabled={isActionBlock}>
-                                            <Input_Checkbox_16
-                                                type="checkbox"
-                                                disabled={isActionBlock}
-                                                checked={isTextFieldsMenuType.areaMedica}
-                                                onChange={(e) => setIsTextFieldsMenuType(prev => ({...prev, areaMedica: e.target.checked ? 1 : 0}))}
-                                            />
-                                            Área médica
-                                        </Label_Button_16_Black>
+                                        {isLoggedType !== 'Nutriólogo' ? (
+                                            <Label_Button_16_Black Disabled={isActionBlock}>
+                                                <Input_Checkbox_16
+                                                    type="checkbox"
+                                                    disabled={isActionBlock}
+                                                    checked={isTextFieldsMenuType.areaMedica}
+                                                    onChange={(e) => setIsTextFieldsMenuType(prev => ({...prev, areaMedica: e.target.checked ? 1 : 0}))}
+                                                />
+                                                Área médica
+                                            </Label_Button_16_Black>
+                                        ):(
+                                            <></>
+                                        )}
                                     </Container_Row_100_Center>
                                     <Text_Span_12_Justify_Black>Cualquier modificación en el nombre del menú debe ser registrada, ya que este valor se utiliza como criterio para filtrar platillos, guarniciones y bebidas durante la realización de pedidos. Asimismo, cualquier cambio en la ubicación asociada al menú puede afectar directamente el correcto funcionamiento de dicho filtrado y el flujo de pedidos.</Text_Span_12_Justify_Black>
                                     <Modal_Form_Button_Edit

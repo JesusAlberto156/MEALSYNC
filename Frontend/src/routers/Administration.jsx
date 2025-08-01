@@ -6,7 +6,7 @@ import { Outlet,useNavigate,Navigate } from "react-router-dom";
 import { ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
 import { ActionBlockContext } from "../contexts/VariablesProvider";
-import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../contexts/FormsProvider";
 // Hooks personalizados
 import { DeleteSessionStorage,ResetViews,ResetVariables } from "../hooks/Session";
 // Estilos personalizados
@@ -24,6 +24,8 @@ export const PrivateRouteAdministration = () => {
         nombreInsumo: false,
         nombreMenu: false,
         nombrePlatillo: false,
+        nombreGuarnicion: false,
+        nombreBebida: false,
         nombreCorto: false,
         usuario: false,
         contrasena: false,
@@ -34,9 +36,13 @@ export const PrivateRouteAdministration = () => {
         descripcionCategoriaInsumo: false,
         descripcionTipoInsumo: false,
         descripcionInsumo: false,
-        descripcionPaltillo: false,
+        descripcionPlatillo: false,
+        descripcionGuarnicion: false,
+        descripcionBebida: false,
         imagenInsumo: false,
         imagenPlatillo: false,
+        imagenGuarnicion: false,
+        imagenBebida: false,
     });
     // Constantes con el valor de los contextos
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -55,6 +61,8 @@ export const PrivateRouteAdministration = () => {
     const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); 
     const [isTextFieldsDish] = useContext(TextFieldsDishContext);
+    const [isTextFieldsSideDish] = useContext(TextFieldsSideDishContext);
+    const [isTextFieldsDrink] = useContext(TextFieldsDrinkContext);
     // useEffects para advertir en los campos de los text fields
     useEffect(() => {
         const fields = [
@@ -202,7 +210,7 @@ export const PrivateRouteAdministration = () => {
                 source: isTextFieldsDish,
                 key: 'descripcion',
                 limit: 500,
-                alertKey: 'descripcionPaltillo',
+                alertKey: 'descripcionPlatillo',
                 message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
             },
             {
@@ -212,7 +220,50 @@ export const PrivateRouteAdministration = () => {
                 alertKey: 'imagenPlatillo',
                 message: '¡Ha alcanzado el límite de caracteres permitidos en la imagen!',
             },
-
+            // GUARNICIONES
+            {
+                source: isTextFieldsSideDish,
+                key: 'nombre',
+                limit: 100,
+                alertKey: 'nombreGuarnicion',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsSideDish,
+                key: 'descripcion',
+                limit: 500,
+                alertKey: 'descripcionGuarnicion',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
+            },
+            {
+                source: isTextFieldsSideDish,
+                key: 'imagen',
+                limit: 10000,
+                alertKey: 'imagenGuarnicion',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la imagen!',
+            },
+            // BEBIDAS
+            {
+                source: isTextFieldsDrink,
+                key: 'nombre',
+                limit: 100,
+                alertKey: 'nombreBebida',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsDrink,
+                key: 'descripcion',
+                limit: 500,
+                alertKey: 'descripcionBebida',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
+            },
+            {
+                source: isTextFieldsDrink,
+                key: 'imagen',
+                limit: 10000,
+                alertKey: 'imagenBebida',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la imagen!',
+            },
         ];
 
         fields.forEach(({ source, key, limit, alertKey, message }) => {
@@ -227,7 +278,7 @@ export const PrivateRouteAdministration = () => {
                 setAlertShown(prev => ({ ...prev, [alertKey]: false }));
             }
         });
-    }, [isTextFieldsUser,isTextFieldsSupplier,isTextFieldsSupplyCategory,isTextFieldsDish,isTextFieldsSupplyType,isTextFieldsSupply,isTextFieldsMenuType,alertShown]);
+    }, [isTextFieldsUser,isTextFieldsSupplier,isTextFieldsSupplyCategory,isTextFieldsDish,isTextFieldsSideDish,isTextFieldsDrink,isTextFieldsSupplyType,isTextFieldsSupply,isTextFieldsMenuType,alertShown]);
     // useEffect con el cerrado de sesión
     useEffect(() => {
         if(isLoggedLog && isLoggedLogged){

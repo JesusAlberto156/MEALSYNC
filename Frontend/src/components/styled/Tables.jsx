@@ -161,6 +161,46 @@ export const Table_Container_Data = styled.div`
     }
 }
 `;
+export const Table_Container_Data_Top = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;        
+    background: rgba(255, 255, 255, 0.9);
+    width: 96%;
+    height: auto; 
+    padding: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border: 3px solid black; 
+    border-right: 8px solid black;
+    border-top: 8px solid black;
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        padding-left: 25px;
+        padding-right: 25px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border: 2px solid black; 
+        border-right: 7px solid black;
+        border-top: 7px solid black;
+    }
+
+    @media (max-width: 480px) {
+        padding: 4px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border: 1px solid black; 
+        border-right: 6px solid black;
+        border-top: 6px solid black;
+    }
+}
+`;
 //__________CONTAINER____________
 //__________IMAGE__________
 export const Table_Image_Black = styled.img`

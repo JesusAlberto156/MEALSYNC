@@ -20,7 +20,7 @@ import { HandleTextDishes } from "../../../../hooks/dishes/Forms";
 import { HandleDishAdd } from "../../../../hooks/dishes/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
 //____________IMAGENES______________
-import Dish from '../../../imgs/Meal.png'
+import Dish from '../../../imgs/Dish.png'
 //____________IMAGENES______________
 //__________ICONOS__________
 import { MdDelete, MdOutlineAttachMoney } from "react-icons/md";

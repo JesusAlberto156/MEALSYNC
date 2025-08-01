@@ -4,6 +4,7 @@ import { useContext,useEffect } from "react"
 // Contextos
 import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
 import { TextFieldsDishContext } from "../../../contexts/FormsProvider"
+import { LoggedTypeContext } from "../../../contexts/SessionProvider"
 import { RefModalContext,RefFormContext,RefButtonDetailContext,RefButtonEditContext,RefButtonDeleteContext } from "../../../contexts/RefsProvider"
 import { DishSpecificationsContext,WarehouseDishesContext,MenuTypeDishesContext } from "../../../contexts/DishesProvider"
 import { WarehouseSupplyTypesContext } from "../../../contexts/WarehouseProvider"
@@ -14,17 +15,17 @@ import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
 import { ResetTextFieldsDish } from "../../../hooks/dishes/Texts"
 import { TableActionsDishes } from "../../../hooks/dishes/Tables"
 //____________IMAGENES______________
-import Dish from '../../imgs/Meal.png'
+import Dish from '../../imgs/Dish.png'
 //____________IMAGENES______________
 // Estilos personalizados
 import { Container_Menu_100_Center } from "../../styled/Containers";
 // Componentes personalizados
 import Card_Add from "../../cards/Add"
 import Card_Information from "../../cards/Information"
-import { Table_Pagination } from "../Pagination"
+import { Table_Pagination,Table_Pagination_Top } from "../Pagination"
 //____________IMPORT/EXPORT____________
 
-// Tabla de los usuarios
+// Tabla de los platillos
 export default function Table_Dishes(){
     // Constantes con el valor de los contextos
     const [isWarehouseDishes] = useContext(WarehouseDishesContext);
@@ -38,7 +39,8 @@ export default function Table_Dishes(){
     const isButtonEdit = useContext(RefButtonEditContext); 
     const isButtonDelete = useContext(RefButtonDeleteContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext); 
+    const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext);
+    const [isLoggedType] = useContext(LoggedTypeContext); 
     // Constantes con la funcionalidad de los hooks
     const handleModalViewDishes = HandleModalViewDishes();
     const resetTextFieldsDish = ResetTextFieldsDish();
@@ -104,7 +106,7 @@ export default function Table_Dishes(){
     // Estructura del componente
     return(
         <>
-            <Table_Pagination
+            <Table_Pagination_Top
                 onNextPage={() => nextPageDishes()}
                 onPrevPage={() => prevPage()}
                 currentPage={currentPage}
@@ -112,10 +114,14 @@ export default function Table_Dishes(){
                 totalPage={totalPagesDishes}
             />
             <Container_Menu_100_Center>
-                <Card_Add
-                    onHandleModalView={() => handleModalViewDishes('Platillo-Agregar')}
-                    route="/Administration/Index/Menus/Dishes/Add"
-                />
+                {isLoggedType !== 'Almacenista' && isLoggedType !== 'Administrador' ? (
+                    <Card_Add
+                        onHandleModalView={() => handleModalViewDishes('Platillo-Agregar')}
+                        route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes/Add" : "/Administration/Index/Menus/Dishes/Add"}
+                    />
+                ):(
+                    <></>
+                )}
                 {currentRecordsDishes.map((dish) => {
                     const spec = isDishSpecifications.find(spec => spec.idplatillo === dish.idplatillo);
                     return (
@@ -129,11 +135,11 @@ export default function Table_Dishes(){
                             preparation={spec?.preparacion || 'Desconocido'}
                             price={spec?.precio || 'Desconocido'}
                             onHandleModalViewDetail={() => handleModalViewDishes('Platillo-Detalles')}
-                            routeDetail="/Administration/Index/Menus/Dishes/Detail"
+                            routeDetail={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes/Detail" : "/Administration/Index/Menus/Dishes/Detail"}
                             onHandleModalViewEdit={() => handleModalViewDishes('Platillo-Editar')}
-                            routeEdit="/Administration/Index/Menus/Dishes/Edit"
+                            routeEdit={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes/Edit" : "/Administration/Index/Menus/Dishes/Edit"}
                             onHandleModalViewDelete={() => handleModalViewDishes('Platillo-Eliminar')}
-                            routeDelete="/Administration/Index/Menus/Dishes/Delete"
+                            routeDelete={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes/Delete" : "/Administration/Index/Menus/Dishes/Delete"}
                         />
                     )
                 })}

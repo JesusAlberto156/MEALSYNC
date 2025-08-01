@@ -12,7 +12,6 @@ import { Alert_Swal_Greeting } from "../../components/styled/Alerts";
 // Componentes personalizados
 import Footer from "../../components/navegation/Footer";
 import Nav_Bar from "../../components/navegation/navbar/Navbar";
-import { Keyboard_Form_Search } from "../../components/keyboards/Form";
 //____________IMPORT/EXPORT____________
 
 // Página para mostrar el área de administración
@@ -41,7 +40,6 @@ export default function Index_Administration(){
                 <Nav_Bar/>
                 <Outlet/>
                 <Footer/>
-                <Keyboard_Form_Search/>
             </Container_Page_Elements> 
         </>
     );

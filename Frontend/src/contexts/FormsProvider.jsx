@@ -16,6 +16,9 @@ export const TextFieldsWarehouseSaleContext = createContext(null);
 export const TextFieldsSearchDateContext = createContext(null);
 export const TextFieldsMenuTypeContext = createContext(null);
 export const TextFieldsDishContext = createContext(null);
+export const TextFieldsSideDishContext = createContext(null);
+export const TextFieldsDrinkContext = createContext(null);
+
 export const TextFieldsCustomizedContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
@@ -30,21 +33,19 @@ export const Index_Text_Fields = ({children}) => {
                             <Text_Fields_Supply_Category>
                                 <Text_Fields_Supply_Type>
                                     <Text_Fields_Supply>
-                                        <Text_Fields_Supply_Order>
-                                            <Text_Fields_Supply_Order_Observation>
-                                                <Text_Fields_Warehouse_Sale>
-                                                    <Text_Fields_Search_Date>
-                                                        <Text_Fields_Menu_Type>
-                                                            <Text_Fields_Dish>
-                                                                <Text_Fields_Customized>
-                                                                    {children}
-                                                                </Text_Fields_Customized>
-                                                            </Text_Fields_Dish>
-                                                        </Text_Fields_Menu_Type>
-                                                    </Text_Fields_Search_Date>
-                                                </Text_Fields_Warehouse_Sale>
-                                            </Text_Fields_Supply_Order_Observation>
-                                        </Text_Fields_Supply_Order>
+                                        <Text_Fields_Search_Date>
+                                            <Text_Fields_Menu_Type>
+                                                <Text_Fields_Dish>
+                                                    <Text_Fields_Side_Dish>
+                                                        <Text_Fields_Drink>
+                                                            <Text_Fields_Customized>
+                                                                {children}
+                                                            </Text_Fields_Customized>
+                                                        </Text_Fields_Drink>
+                                                    </Text_Fields_Side_Dish>
+                                                </Text_Fields_Dish>
+                                            </Text_Fields_Menu_Type>
+                                        </Text_Fields_Search_Date>
                                     </Text_Fields_Supply>
                                 </Text_Fields_Supply_Type>
                             </Text_Fields_Supply_Category>
@@ -210,72 +211,7 @@ export const Text_Fields_Supply = ({ children }) => {
     );
 }
 
-// Función contexto para controlar los campos de registro de un formulario de pedido de insumo ✔️
-export const Text_Fields_Supply_Order = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useState({
-        numeroPedido: '',
-        fechaA: '',
-        fechaP: null,
-        hora: '',
-        minutos: '',
-        insumos: [{
-            idpedido: 0,
-            idinsumo: 0,
-            cantidad: 0,
-            precioUnitario: 0,
-            precioTotal: 0,
-            estado: '', 
-        }]
-    });
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <TextFieldsSupplyOrderContext.Provider value={[isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder]}> 
-            {children}
-        </TextFieldsSupplyOrderContext.Provider>
-    );
-}
-// Función contexto para controlar los campos de registro de un formulario de una observacion de un pedido de insumo ✔️
-export const Text_Fields_Supply_Order_Observation = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useState({
-        numeroPedido: '',
-        idpedido: 0,
-        observaciones: [{
-            fechaA: '',
-            fechaP: null,
-            hora: '',
-            minutos: '',
-            idobservacion: 0,
-            observacion: '',
-            categoria: '',
-        }]
-    });
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <TextFieldsSupplyOrderObservationContext.Provider value={[isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation]}> 
-            {children}
-        </TextFieldsSupplyOrderObservationContext.Provider>
-    );
-}
-// Función contexto para controlar los campos de registro de un formulario de un almacen por categoria ✔️
-export const Text_Fields_Warehouse_Sale = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isTextFieldsWarehouseSale,setIsTextFieldsWarehouseSale] = useState({
-        idcategoria: 0,
-        idtipo: 0,
-        cantidadreal: 0,
-        precio: 0,
-        transaccion: 'Venta'
-    });
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <TextFieldsWarehouseSaleContext.Provider value={[isTextFieldsWarehouseSale,setIsTextFieldsWarehouseSale]}> 
-            {children}
-        </TextFieldsWarehouseSaleContext.Provider>
-    );
-}
-// Función contexto para controlar los campos de busqueda ✔️
+// Función contexto para controlar los campos de busqueda
 export const Text_Fields_Search_Date = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useState({
@@ -338,8 +274,71 @@ export const Text_Fields_Dish = ({ children }) => {
         </TextFieldsDishContext.Provider>
     );
 }
+// Función contexto para controlar los campos de registro de un formulario de una guarnicion ✔️
+export const Text_Fields_Side_Dish = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useState({
+        idguarnicion: 0,
+        nombre: '',
+        idmenu: 0,
+        idespecificacion: 0,
+        descripcion: '',
+        precio: '',
+        preparacion: '',
+        imagen: '',
+        tipos: [{
+            idtipo: 0,
+        }],
+        ingredientes: [{
+            idalmacen: 0,
+            idguarnicion: 0,
+            cantidad: '',
+            idtipo: 0,
+            unidad: '',
+            buscador: '',
+        }]
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsSideDishContext.Provider value={[isTextFieldsSideDish,setIsTextFieldsSideDish]}> 
+            {children}
+        </TextFieldsSideDishContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de una bebida ✔️
+export const Text_Fields_Drink = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsDrink,setIsTextFieldsDrink] = useState({
+        idbebida: 0,
+        nombre: '',
+        idmenu: 0,
+        idespecificacion: 0,
+        descripcion: '',
+        precio: '',
+        preparacion: '',
+        imagen: '',
+        tipos: [{
+            idtipo: 0,
+        }],
+        ingredientes: [{
+            idalmacen: 0,
+            idbebida: 0,
+            cantidad: '',
+            idtipo: 0,
+            unidad: '',
+            buscador: '',
+        }]
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsDrinkContext.Provider value={[isTextFieldsDrink,setIsTextFieldsDrink]}> 
+            {children}
+        </TextFieldsDrinkContext.Provider>
+    );
+}
 
-// Función contexto para controlar los campos de registro de un formulario de una dieta personalizada ✔️
+
+// Función contexto para controlar los campos de registro de un formulario de una dieta personalizada
 export const Text_Fields_Customized = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsCustomized,setIsTextFieldsCustomized] = useState({

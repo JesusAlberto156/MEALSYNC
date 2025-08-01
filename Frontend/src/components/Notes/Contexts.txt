@@ -16,7 +16,14 @@ const [isWarehouseDishes] = useContext(WarehouseDishesContext); ✔️
 const [isMenuTypeDishes] = useContext(MenuTypeDishesContext); ✔️
 //____________DISHES____________
 //____________DRINKS____________
-
+const [isDrinks] = useContext(DrinksContext); ✔️
+const [isDrinkAdd,setIsDrinkAdd] = useContext(DrinkAddContext); ✔️
+const [isDrinkEdit,setIsDrinkEdit] = useContext(DrinkEditContext); ✔️
+const [isDrinkSpecifications] = useContext(DrinkSpecificationsContext); ✔️
+const [isDeletedDrinks] = useContext(DeletedDrinksContext); ✔️
+const [isDrinkDelete,setIsDrinkDelete] = useContext(DrinkDeleteContext); ✔️
+const [isWarehouseDrinks] = useContext(WarehouseDrinksContext); ✔️
+const [isMenuTypeDrinks] = useContext(MenuTypeDrinksContext); ✔️
 //____________DRINKS____________
 //____________FORM____________
 const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext); ✔️
@@ -27,12 +34,11 @@ const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFiel
 const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext); ✔️ 
 const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext); ✔️
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext); ✔️
-const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useContext(TextFieldsSupplyOrderContext); 
-const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext); 
-const [isTextFieldsWarehouseSale,setIsTextFieldsWarehouseSale] = useContext(TextFieldsWarehouseSaleContext); 
 const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
 const [isTextFieldsMenuType,setIsTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); ✔️
 const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext); ✔️
+const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useContext(TextFieldsSideDishContext); ✔️
+const [isTextFieldsDrink,setIsTextFieldsDrink] = useContext(TextFieldsDrinkContext); ✔️
 
 const [isTextFieldsCustomized,setIsTextFieldsCustomized] = useContext(TextFieldsCustomizedContext); 
 //____________FORM____________
@@ -86,7 +92,14 @@ const [isLoggedLogged,setIsLoggedLogged] = useContext(LoggedLoggedContext); ✔�
 const [isLoggedType,setIsLoggedType] = useContext(LoggedTypeContext); ✔️
 //____________SESSION____________
 //____________SIDEDISHES____________
-
+const [iSidesDishes] = useContext(SideDishesContext); ✔️
+const [isSideDishAdd,setIsSideDishAdd] = useContext(SideDishAddContext); ✔️
+const [isSideDishEdit,setIsSideDishEdit] = useContext(SideDishEditContext); ✔️
+const [isSideDishSpecifications] = useContext(SideDishSpecificationsContext); ✔️
+const [isDeletedSideDishes] = useContext(DeletedSideDishesContext); ✔️
+const [isSideDishDelete,setIsSideDishDelete] = useContext(SideDishDeleteContext); ✔️
+const [isWarehouseSideDishes] = useContext(WarehouseSideDishesContext); ✔️
+const [isMenuTypeSideDishes] = useContext(MenuTypeSideDishesContext); ✔️
 //____________SIDEDISHES____________
 //____________SOCKET____________
 const [socket] = useContext(SocketContext); ✔️

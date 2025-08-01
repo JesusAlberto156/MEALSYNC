@@ -12,7 +12,7 @@ import { TextFieldsSearchDateContext } from "../../../contexts/FormsProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../../contexts/SessionProvider";
 import { UsersViewPasswordContext } from "../../../contexts/UsersProvider";
-import { RefKeyboardContext,RefKeyboardTouchContext,RefSupplyOrdersContext } from "../../../contexts/RefsProvider";
+import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../contexts/RefsProvider";
 // Hooks personalizados
 import { HandleModalViewUsers } from "../../../hooks/users/Views";
 import { HandleViewPassword } from "../../../hooks/users/Forms";
@@ -65,7 +65,6 @@ export default function Search_Bar (){
     const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isUsersViewPassword] = useContext(UsersViewPasswordContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
-    const {Modal_Suppy_Orders,Form_Supply_Orders,Button_Edit_Supply_Orders,Button_Edit_State_Supply_Orders,Button_Add_Supply_Order_Observations,Button_View_Supply_Order_Observations,Button_Delete_Supply_Orders} = useContext(RefSupplyOrdersContext);
     const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext); 
@@ -837,26 +836,26 @@ export default function Search_Bar (){
 
                         {currentSView === 'Menus' && currentNView === 'Menus' ? (
                             <>
-                                {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                {isLoggedType === 'Chef' || isLoggedType === 'Nutriólogo' ? (
                                     <>
                                         <Search_Bar_Button_Add
                                             row={isSelectedRow}
-                                            route="/Administration/Index/Menus/Menus/Add"
+                                            route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Menus/Add" : "/Administration/Index/Menus/Menus/Add"}
                                             onHandleModalView={() => handleModalViewMenuTypes('Tipo-Menu-Agregar')}
                                         />
                                         <Search_Bar_Button_Edit
                                             row={isSelectedRow}
-                                            route="/Administration/Index/Menus/Menus/Edit"
+                                            route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Menus/Edit" : "/Administration/Index/Menus/Menus/Edit"}
                                             onHandleModalView={() => handleModalViewMenuTypes('Tipo-Menu-Editar')}
                                         />
                                     </>
                                 ):(
                                     <></>
                                 )}
-                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' || isLoggedType === 'Nutriólogo' ? (
                                     <Search_Bar_Button_Delete
                                         row={isSelectedRow}
-                                        route="/Administration/Index/Menus/Menus/Delete"
+                                        route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Menus/Delete" : "/Administration/Index/Menus/Menus/Delete"}
                                         onHandleModalView={() => handleModalViewMenuTypes('Tipo-Menu-Eliminar')}
                                     />
                                 ):(

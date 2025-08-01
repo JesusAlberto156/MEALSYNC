@@ -8,12 +8,12 @@ import { TextFieldsDishContext } from "../../../../contexts/FormsProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 import { DeletedDishesContext } from "../../../../contexts/DishesProvider";
 import { SupplyTypesContext } from "../../../../contexts/SuppliesProvider";
-import { MenusContext,MenuTypeUbicationsContext,MenuUbicationsContext,MenuTypesContext } from "../../../../contexts/MenusProvider";
+import { MenusContext,MenuUbicationsContext,MenuTypesContext,MenuTypeUbicationsContext } from "../../../../contexts/MenusProvider";
 import { LoggedTypeContext } from "../../../../contexts/SessionProvider";
 // Hooks personalizados
 import { HandleModalViewDishes } from "../../../../hooks/dishes/Views";
 //____________IMAGENES______________
-import Dish from '../../../imgs/Meal.png'
+import Dish from '../../../imgs/Dish.png'
 //____________IMAGENES______________
 //____________ICONOS____________
 import { MdOutlineMenuBook } from "react-icons/md";

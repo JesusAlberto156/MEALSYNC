@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { TouchContext,KeyboardViewContext,KeyboardContext,ActionBlockContext,IndexCountContext,IndexSearchContext } from "../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../contexts/RefsProvider";
-import { TextFieldsUserContext,TextFieldsMenuTypeContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyTypesContext,TextFieldsSupplyCategoryContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsMenuTypeContext,TextFieldsSupplierContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyTypesContext,TextFieldsSupplyCategoryContext } from "../contexts/FormsProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../contexts/SearchsProvider";
 // Hooks personalizados
@@ -74,8 +74,10 @@ export const HandleKeyboard = () => {
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isTextFieldsMenuType,setIsTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); 
     const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext);
-    const [isIndexSearch,setIsIndexSearch] = useContext(IndexSearchContext);
-    const [isIndexCount,setIsIndexCount] = useContext(IndexCountContext);
+    const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useContext(TextFieldsSideDishContext);
+    const [isTextFieldsDrink,setIsTextFieldsDrink] = useContext(TextFieldsDrinkContext);
+    const [isIndexSearch] = useContext(IndexSearchContext);
+    const [isIndexCount] = useContext(IndexCountContext);
     // Constantes con el valor de los useRef
     const lastTouchTimeRef = useRef(0);
     // Hook con callback para verificar si hubo touch o no en la pantalla 
@@ -126,7 +128,7 @@ export const HandleKeyboard = () => {
                 const inputSearch1 = document.getElementById("Input-Buscador-1");
                 const inputSearch2 = document.getElementById("Input-Buscador-2");
                 const inputSearch3 = document.getElementById("Input-Buscador-3");
-                // Platillos
+                // Platillos-Guarniciones-Bebidas
                 const inputsSearch = document.querySelectorAll(".Input-Buscador");
                 const inputsCount = document.querySelectorAll(".Input-Cantidad");
                 const inputPrice = document.getElementById("Input-Precio");
@@ -156,7 +158,7 @@ export const HandleKeyboard = () => {
                     (inputSearch1 && inputSearch1.contains(event.target)) ||
                     (inputSearch2 && inputSearch2.contains(event.target)) ||
                     (inputSearch3 && inputSearch3.contains(event.target)) ||
-                    // Platillos
+                    // Platillos-Guarniciones-Bebidas
                     (inputPrice && inputPrice.contains(event.target)) ||
                     (inputPreparation && inputPreparation.contains(event.target));
 
@@ -304,7 +306,76 @@ export const HandleKeyboard = () => {
                     return { ...prev, ingredientes: newIngredientes };
                 });
                 break;
-                
+            case 'Nombre-Guarnicion':
+                if (newValue.length > 100) return;
+                setIsTextFieldsSideDish(prev => ({ ...prev, nombre: newValue }));
+                break;
+            case 'Descripcion-Guarnicion':
+                if (newValue.length > 500) return;
+                setIsTextFieldsSideDish(prev => ({ ...prev, descripcion: newValue }));
+                break;
+            case 'Imagen-Guarnicion':
+                if (newValue.length > 10000) return;
+                setIsTextFieldsSideDish(prev => ({ ...prev, imagen: newValue }));
+                break;
+            case 'Precio-Guarnicion':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsSideDish(prev => ({...prev, precio: newValue }))
+                break;
+            case 'Preparacion-Guarnicion':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsSideDish(prev => ({...prev, preparacion: newValue }))
+                break;
+            case `Buscador-Guarnicion-${isIndexSearch}`:
+                setIsTextFieldsSideDish(prev => {
+                    const newIngredientes = [...prev.ingredientes];
+                    newIngredientes[isIndexSearch].buscador = newValue;
+                    return { ...prev, ingredientes: newIngredientes };
+                });
+                break;
+            case `Cantidad-Guarnicion-${isIndexCount}`:
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsSideDish(prev => {
+                    const newIngredientes = [...prev.ingredientes];
+                    newIngredientes[isIndexCount].cantidad = newValue;
+                    return { ...prev, ingredientes: newIngredientes };
+                });
+                break;  
+            case 'Nombre-Bebida':
+                if (newValue.length > 100) return;
+                setIsTextFieldsDrink(prev => ({ ...prev, nombre: newValue }));
+                break;
+            case 'Descripcion-Bebida':
+                if (newValue.length > 500) return;
+                setIsTextFieldsDrink(prev => ({ ...prev, descripcion: newValue }));
+                break;
+            case 'Imagen-Bebida':
+                if (newValue.length > 10000) return;
+                setIsTextFieldsDrink(prev => ({ ...prev, imagen: newValue }));
+                break;
+            case 'Precio-Bebida':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsDrink(prev => ({...prev, precio: newValue }))
+                break;
+            case 'Preparacion-Bebida':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsDrink(prev => ({...prev, preparacion: newValue }))
+                break;
+            case `Buscador-Bebida-${isIndexSearch}`:
+                setIsTextFieldsDrink(prev => {
+                    const newIngredientes = [...prev.ingredientes];
+                    newIngredientes[isIndexSearch].buscador = newValue;
+                    return { ...prev, ingredientes: newIngredientes };
+                });
+                break;
+            case `Cantidad-Bebida-${isIndexCount}`:
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsDrink(prev => {
+                    const newIngredientes = [...prev.ingredientes];
+                    newIngredientes[isIndexCount].cantidad = newValue;
+                    return { ...prev, ingredientes: newIngredientes };
+                });
+                break;
         }
     }, [isKeyboardView]);
     // Retorno de las funciónes del hook

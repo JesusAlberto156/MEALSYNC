@@ -4,9 +4,8 @@ import styled from 'styled-components';
 //__________IMAGE__________
 // Imagenes de fondo para login
 import Background_Login from '../imgs/Background-Login.webp';
-// AREÁ ADMINISTRATIVA
 // Inicio
-import Background_Home_Administration from '../imgs/Background-Home-Administration.jpg';
+import Background_Home from '../imgs/Background-Home.jpg';
 // Usuarios
 import Background_Users from '../imgs/Background-Users.jpg';
 // Proveedores
@@ -20,9 +19,6 @@ import Background_Menus_Menu from '../imgs/Background-Menu-Menu.jpg';
 import Background_Menus_Dishes from '../imgs/Background-Menu-Dishes.jpg';
 import Background_Menus_Side_Dishes from '../imgs/Background-Menu-Side-Dishes.jpg';
 import Background_Menus_Drinks from '../imgs/Background-Menu-Drinks.jpg';
-// AREÁ COCINA
-// Inicio
-import Background_Home_Kitchen from '../imgs/Background-Home-Kitchen.jpg';
 // Personalizado
 import Background_Customized from '../imgs/Background-Customized.jpg';
 // Menus
@@ -90,11 +86,8 @@ export const Container_Page_White = styled.div`
 export const Container_Page_Logged = styled.div.withConfig({
     shouldForwardProp: (prop) => prop !== 'TypeUser' && prop !== 'Logged' && prop !== 'Sidebar' && prop !== 'Navbar',
 })`
-    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Inicio') && Logged ? 
-        `background-image: url(${Background_Home_Administration});`:''
-    }
-    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Cocinero' || TypeUser === 'Nutriólogo' || TypeUser === 'Médico') && (Sidebar === 'Inicio') && Logged ? 
-        `background-image: url(${Background_Home_Kitchen});`:''
+    ${({ Sidebar,Logged }) => (Sidebar === 'Inicio') && Logged ? 
+        `background-image: url(${Background_Home});`:''
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Usuarios') && Logged ? 
         `background-image: url(${Background_Users});`:''
@@ -108,16 +101,16 @@ export const Container_Page_Logged = styled.div.withConfig({
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Inventario') && Logged ? 
         `background-image: url(${Background_Warehouse});`:''
     }
-    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Menus') && Logged ? 
+    ${({ Sidebar,Navbar,Logged }) => (Sidebar === 'Menus') && (Navbar === 'Menus') && Logged ? 
         `background-image: url(${Background_Menus_Menu});`:''
     }
-    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Platillos') && Logged ? 
+    ${({ Sidebar,Navbar,Logged }) => (Sidebar === 'Menus') && (Navbar === 'Platillos') && Logged ? 
         `background-image: url(${Background_Menus_Dishes});`:''
     }
-    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Guarniciones') && Logged ? 
+    ${({ Sidebar,Navbar,Logged }) => (Sidebar === 'Menus') && (Navbar === 'Guarniciones') && Logged ? 
         `background-image: url(${Background_Menus_Side_Dishes});`:''
     }
-    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Menus') && (Navbar === 'Bebidas') && Logged ? 
+    ${({ Sidebar,Navbar,Logged }) => (Sidebar === 'Menus') && (Navbar === 'Bebidas') && Logged ? 
         `background-image: url(${Background_Menus_Drinks});`:''
     }
 

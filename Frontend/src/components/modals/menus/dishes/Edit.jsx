@@ -20,7 +20,7 @@ import { HandleTextDishes } from "../../../../hooks/dishes/Forms";
 import { HandleDishEdit } from "../../../../hooks/dishes/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
 //____________IMAGENES______________
-import Dish from '../../../imgs/Meal.png'
+import Dish from '../../../imgs/Dish.png'
 //____________IMAGENES______________
 //__________ICONOS__________
 import { MdDelete, MdOutlineAttachMoney } from "react-icons/md";
@@ -45,7 +45,7 @@ import { Tooltip } from "@mui/material";
 import Error_Edit from "../../errors/Edit";
 //____________IMPORT/EXPORT____________
 
-// Modal para agregar un platillo
+// Modal para editar un platillo
 export default function Dish_Edit(){
     // Constantes con el valor de los contextos
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -93,9 +93,6 @@ export default function Dish_Edit(){
             setIsSidebar(false);
         }
     },[]);
-    useEffect(() => {
-        console.log(isTextFieldsDish)
-    },[isTextFieldsDish]);
     // UseEffct para verificar la eliminacion del platillo
     useEffect(() => {
         if(isDeletedDishes.length !== 0){
@@ -157,7 +154,7 @@ export default function Dish_Edit(){
             });
         }
     },[isDeletedMenuTypes]);
-    // UseEffect para agregar datos a la base de datos
+    // UseEffect para editar datos a la base de datos
     useEffect(() => {
         if(isDishEdit){
             const promise = new Promise((resolve,reject) => {
@@ -165,7 +162,7 @@ export default function Dish_Edit(){
                     setTimeout(() => {
                         socket.emit('Update-Dish',isLoggedUser.idusuario,isTextFieldsDish.idplatillo,isTextFieldsDish.idespecificacion,isTextFieldsDish.nombre.trim(),isTextFieldsDish.idmenu,isTextFieldsDish.descripcion.trim(),isTextFieldsDish.precio,isTextFieldsDish.preparacion,isTextFieldsDish.imagen,isTypes,isTextFieldsDish.tipos,isIngredients,isTextFieldsDish.ingredientes);
 
-                        resolve('Editó al platillo!');
+                        resolve('¡Editó al platillo!');
 
                         setIsDishEdit(false);
 

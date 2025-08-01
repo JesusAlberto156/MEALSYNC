@@ -75,9 +75,22 @@ import Dish_Add from './components/modals/menus/dishes/Add';
 import Dish_Details from './components/modals/menus/dishes/Detail';
 import Dish_Edit from './components/modals/menus/dishes/Edit';
 import Dish_Delete from './components/modals/menus/dishes/Delete';
+import Table_Side_Dishes from './components/tables/menus/SideDishes';
+import Side_Dish_Add from './components/modals/menus/sideDishes/Add';
+import Side_Dish_Details from './components/modals/menus/sideDishes/Detail';
+import Side_Dish_Edit from './components/modals/menus/sideDishes/Edit';
+import Side_Dish_Delete from './components/modals/menus/sideDishes/Delete';
+import Table_Drinks from './components/tables/menus/Drinks';
+import Drink_Add from './components/modals/menus/drinks/Add';
+import Drink_Details from './components/modals/menus/drinks/Detail';
+import Drink_Edit from './components/modals/menus/drinks/Edit';
+import Drink_Delete from './components/modals/menus/drinks/Delete';
 
 import Index_Kitchen from './pages/indexs/Kitchen';
 import Home_Kitchen from './pages/kitchen/Home';
+import Kitchen_Index from './pages/kitchen/Index';
+import Menus from './pages/kitchen/Menus';
+
 import Nutritionist_Customized from './components/modals/Nutritionist/Customized';
 import Prueba from '../src/formats/ComandaMedica';
 //____________IMPORT/EXPORT____________
@@ -253,6 +266,38 @@ const router = createHashRouter([
             element: <Dish_Delete/>,
           },
           {
+            path: 'Administration/Index/Menus/Side/Dishes/Add',
+            element: <Side_Dish_Add/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Side/Dishes/Detail',
+            element: <Side_Dish_Details/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Side/Dishes/Edit',
+            element: <Side_Dish_Edit/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Side/Dishes/Delete',
+            element: <Side_Dish_Delete/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Drinks/Add',
+            element: <Drink_Add/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Drinks/Detail',
+            element: <Drink_Details/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Drinks/Edit',
+            element: <Drink_Edit/>,
+          },
+          {
+            path: 'Administration/Index/Menus/Drinks/Delete',
+            element: <Drink_Delete/>,
+          },
+          {
             path: 'Administration',
             element: <Index_Administration/>,
             children: [
@@ -314,11 +359,11 @@ const router = createHashRouter([
                   },
                   {
                     path: 'Menus/Side/Dishes',
-                   
+                    element: <Table_Side_Dishes/>,
                   },
                   {
                     path: 'Menus/Drinks',
-                    
+                    element: <Table_Drinks/>,
                   }
                 ]
               },
@@ -335,6 +380,66 @@ const router = createHashRouter([
         element: <PrivateRouteKitchen/>,
         children: [
           {
+            path: 'Kitchen/Index/Menus/Menus/Add',
+            element: <Menu_Add/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Menus/Edit',
+            element: <Menu_Edit/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Menus/Delete',
+            element: <Menu_Delete/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Dishes/Add',
+            element: <Dish_Add/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Dishes/Detail',
+            element: <Dish_Details/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Dishes/Edit',
+            element: <Dish_Edit/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Dishes/Delete',
+            element: <Dish_Delete/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Side/Dishes/Add',
+            element: <Side_Dish_Add/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Side/Dishes/Detail',
+            element: <Side_Dish_Details/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Side/Dishes/Edit',
+            element: <Side_Dish_Edit/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Side/Dishes/Delete',
+            element: <Side_Dish_Delete/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Drinks/Add',
+            element: <Drink_Add/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Drinks/Detail',
+            element: <Drink_Details/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Drinks/Edit',
+            element: <Drink_Edit/>,
+          },
+          {
+            path: 'Kitchen/Index/Menus/Drinks/Delete',
+            element: <Drink_Delete/>,
+          },
+          {
             path: 'Kitchen',
             element: <Index_Kitchen/>,
             children: [
@@ -343,8 +448,34 @@ const router = createHashRouter([
                 element: <Home_Kitchen/>
               },
               {
-                path: 'Customized/Customized',
-                element: <Nutritionist_Customized/>,
+                path: 'Index',
+                element: <Kitchen_Index/>,
+                children: [
+                  {
+                    path: 'Customized/Customized',
+                    element: <Nutritionist_Customized/>,
+                  },
+                  {
+                    path: 'Menus',
+                    element: <Menus/>
+                  },
+                  {
+                    path: 'Menus/Menus',
+                    element: <Table_Menus/>
+                  },
+                  {
+                    path: 'Menus/Dishes',
+                    element: <Table_Dishes/>,
+                  },
+                  {
+                    path: 'Menus/Side/Dishes',
+                    element: <Table_Side_Dishes/>,
+                  },
+                  {
+                    path: 'Menus/Drinks',
+                    element: <Table_Drinks/>,
+                  }
+                ]
               },
             ]
           },

@@ -63,7 +63,7 @@ export default function Nav_Bar(){
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [isLogged] = useContext(LoggedLoggedContext);
-    const [isTypeUser] = useContext(LoggedTypeContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     const [isSidebar] = useContext(SidebarContext);
     const [isActionBlock] = useContext(ActionBlockContext);
     // Constantes con la funcionalidad de los hooks
@@ -201,6 +201,7 @@ export default function Nav_Bar(){
                             ):(
                                 <></>
                             )}
+
                             {currentSView === 'Extras' ? (
                                 <>
                                     <Nav_Bar_Button_White
@@ -318,30 +319,35 @@ export default function Nav_Bar(){
                             ):(
                                 <></>
                             )}
+
                             {currentSView === 'Menus' ? (
                                 <>
-                                    <Nav_Bar_Button_White
-                                        title="Menús"
-                                        view="Menus"
-                                        route="/Administration/Index/Menus/Menus"
-                                        icon={<MdOutlineMenuBook/>}
-                                    />
+                                    {isLoggedType !== 'Almacenista' ? (
+                                        <Nav_Bar_Button_White
+                                            title="Menús"
+                                            view="Menus"
+                                            route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Menus" : "/Administration/Index/Menus/Menus"}
+                                            icon={<MdOutlineMenuBook/>}
+                                        />
+                                    ):(
+                                        <></>
+                                    )}
                                     <Nav_Bar_Button_White
                                         title="Platillos"
                                         view="Platillos"
-                                        route="/Administration/Index/Menus/Dishes"
+                                        route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes" : "/Administration/Index/Menus/Dishes"}
                                         icon={<GiMeal/>}
                                     />
                                     <Nav_Bar_Button_White
                                         title="Guarniciones"
                                         view="Guarniciones"
-                                        route="/Administration/Index/Menus/Side/Dishes"
+                                        route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Side/Dishes" : "/Administration/Index/Menus/Side/Dishes"}
                                         icon={<GiBowlOfRice/>}
                                     />
                                     <Nav_Bar_Button_White
                                         title="Bebidas"
                                         view="Bebidas"
-                                        route="/Administration/Index/Menus/Drinks"
+                                        route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Drinks" : "/Administration/Index/Menus/Drinks"}
                                         icon={<GiGlassShot/>}
                                     />
                                     {currentNView === 'Menus' ? (
@@ -397,7 +403,7 @@ export default function Nav_Bar(){
                                         <Button_Icon_Red_80 
                                             onClick={() => {
                                                 handleModalView('Cerrar-Sesión');
-                                                navigate(isTypeUser === 'Cocinero' || isTypeUser === 'Nutriólogo' || isTypeUser === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
+                                                navigate(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Out_Login' : '/Administration/Out_Login',{ replace: true });
                                             }}
                                         >
                                             <Icon_16><ImExit/></Icon_16>

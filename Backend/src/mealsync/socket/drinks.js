@@ -2,12 +2,12 @@
 // Consultas de sql
 import { getDrinksService,getDrinkSpecificationsService,getDeletedDrinksService,getWarehouseDrinksService,getMenuTypeDrinksService } from "../services/drinks.js";
 import { insertDrinkService,insertDrinkSpecificationsService,insertDeletedDrinkService,insertWarehouseDrinkService,insertMenuTypeDrinkService } from "../services/drinks.js";
-
-import { deleteMenuTypeDrinkService,deleteWarehouseDrinkService } from "../services/drinks.js";
+import { updateDrinkService,updateDrinkSpecificationsService,updateWarehouseDrinkService } from "../services/drinks.js";
+import { deleteMenuTypeDrinkService,deleteWarehouseDrinkService,deleteDeletedDrinkService } from "../services/drinks.js";
 import { getLogsService } from "../services/logs.js";
 import { insertLogDrinkService,insertLogDrinkSpecificationsService,insertLogDeletedDrinkService,insertLogWarehouseDrinkService,insertLogMenuTypeDrinkService } from "../services/drinks.js";
-
-import { deleteLogMenuTypeDrinkService,deleteLogWarehouseDrinkService } from "../services/drinks.js";
+import { updateLogDrinkService,updateLogDrinkSpecificationsService,updateLogWarehouseDrinkService } from "../services/drinks.js";
+import { deleteLogMenuTypeDrinkService,deleteLogWarehouseDrinkService,deleteLogDeletedDrinkService } from "../services/drinks.js";
 // Servidor socket
 import { io } from "../../index.js";
 // Servicios
@@ -168,13 +168,131 @@ export const Drinks_INSERT = (socket) => {
 //______________INSERT______________
 //______________UPDATE______________
 export const Drinks_UPDATE = (socket) => {
-    // ---------- BEBIDAS
-    
+    // ---------- BEBIDAS ✔️
+    socket.on('Update-Drink',async (idusuario,idbebida,idespecificacion,nombre,idmenu,descripcion,precio,preparacion,imagen,tiposOriginales,tiposNuevos,ingredientesOriginales,ingredientesNuevos) => {
+        try{
+            await updateDrinkService(idbebida,nombre,idmenu);
+            const resultDrinks = await getDrinksService();
+            await updateLogDrinkService(idbebida,idusuario,nombre,String(idmenu));         
+
+            let resultDrinkSpecifications
+            if(idespecificacion === 0){
+                await insertDrinkSpecificationsService(descripcion,precio,preparacion,idbebida,imagen);
+                resultDrinkSpecifications = await getDrinkSpecificationsService();
+                const decryptedDataDrinkSpecifications = decryptData(resultDrinkSpecifications);
+                const parseDataDrinkSpecifications = JSON.parse(decryptedDataDrinkSpecifications);
+                await insertLogDrinkSpecificationsService(parseDataDrinkSpecifications.find(data => data.idbebida === idbebida)?.idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idbebida),imagen);
+            }else{
+                await updateDrinkSpecificationsService(idespecificacion,descripcion,precio,preparacion,imagen);
+                resultDrinkSpecifications = await getDrinkSpecificationsService();
+                await updateLogDrinkSpecificationsService(idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idbebida),imagen);
+            }
+            
+            let resultMenuTypeDrinks;
+            let resultWarehouseDrinks;
+
+            if(Array.isArray(tiposOriginales) && tiposOriginales.length > 0){
+                if(Array.isArray(tiposNuevos) && tiposNuevos.length > 0){
+                    for (const tipo of tiposNuevos) {
+                        const existe = tiposOriginales.some(t => t.idtipo === tipo.idtipo);
+
+                        if (!existe) {
+                            await insertMenuTypeDrinkService(tipo.idtipo, idbebida);
+                            await insertLogMenuTypeDrinkService(idusuario,String(tipo.idtipo),String(idbebida));
+                        }
+                    }
+                    for (const tipo of tiposOriginales) {
+                        const existe = tiposNuevos.some(t => t.idtipo === tipo.idtipo);
+
+                        if (!existe) {
+                            await deleteMenuTypeDrinkService(tipo.idtipo, idbebida);
+                            await deleteLogMenuTypeDrinkService(idusuario,String(tipo.idtipo),String(idbebida));
+                        }
+                    }
+                    resultMenuTypeDrinks = await getMenuTypeDrinksService();
+                }else{
+                    for (const tipo of tiposOriginales) {
+                        await deleteMenuTypeDrinkService(tipo.idtipo, idbebida);
+                        await deleteLogMenuTypeDrinkService(idusuario,String(tipo.idtipo),String(idbebida));
+                    }
+                    resultMenuTypeDrinks = await getMenuTypeDrinksService();
+                }
+            }else{
+                if(Array.isArray(tiposNuevos) && tiposNuevos.length > 0){
+                    for (const tipo of tiposNuevos) {
+                        await insertMenuTypeDrinkService(tipo.idtipo, idbebida);
+                        await insertLogMenuTypeDrinkService(idusuario,String(tipo.idtipo),String(idbebida));
+                    }
+                    resultMenuTypeDrinks = await getMenuTypeDrinksService();
+                }
+            }
+
+            if(Array.isArray(ingredientesOriginales) && ingredientesOriginales.length > 0){
+                if(Array.isArray(ingredientesNuevos) && ingredientesNuevos.length > 0){
+                    for (const ingrediente of ingredientesNuevos) {
+                        const existe = ingredientesOriginales.some(i => i.idalmacen === ingrediente.idalmacen && i.idbebida === idbebida);
+
+                        if(existe){
+                            await updateWarehouseDrinkService(ingrediente.idalmacen,idbebida,ingrediente.cantidad);
+                            await updateLogWarehouseDrinkService(idusuario,String(ingrediente.idalmacen),String(idbebida),String(ingrediente.cantidad));
+                        }else{
+                            await insertWarehouseDrinkService(ingrediente.idalmacen,idbebida,ingrediente.cantidad);
+                            await insertLogWarehouseDrinkService(idusuario,String(ingrediente.idalmacen),String(idbebida),String(ingrediente.cantidad));
+                        }
+                    }
+                    for (const ingrediente of ingredientesOriginales) {
+                        const existe = ingredientesNuevos.some(i => i.idalmacen === ingrediente.idalmacen && i.idbebida === idbebida);
+                        
+                        if(!existe){
+                            await deleteWarehouseDrinkService(ingrediente.idalmacen,idbebida);
+                            await deleteLogWarehouseDrinkService(idusuario,String(ingrediente.idalmacen),String(idbebida));
+                        }
+                    }
+                    resultWarehouseDrinks = await getWarehouseDrinksService();
+                }
+            }else{
+                if(Array.isArray(ingredientesNuevos) && ingredientesNuevos.length > 0){
+                    for (const ingrediente of ingredientesNuevos) {
+                        await insertWarehouseDrinkService(ingrediente.idalmacen,idbebida,ingrediente.cantidad);
+                        await insertLogWarehouseDrinkService(idusuario,String(ingrediente.idalmacen),String(idbebida),String(ingrediente.cantidad));
+                    }
+                    resultWarehouseDrinks = await getWarehouseDrinksService();
+                }
+            }
+
+            const resultLogs = await getLogsService();
+            
+            io.emit('Get-Drinks',resultDrinks);
+            io.emit('Get-Drink-Specifications',resultDrinkSpecifications);
+            if(resultMenuTypeDrinks !== undefined){
+                io.emit('Get-Menu-Type-Drinks',resultMenuTypeDrinks);
+            }
+            if(resultWarehouseDrinks !== undefined){
+                io.emit('Get-Warehouse-Drinks',resultWarehouseDrinks);
+            }
+            io.emit('Get-Logs',resultLogs); 
+        }catch(error){
+            console.error('Error al editar la bebida: ',error);
+            return error;
+        }
+    });
 }
 //______________UPDATE______________
 //______________DELETE______________
 export const Drinks_DELETE = (socket) => {
     // ---------- BEBIDAS ELIMINADAS ✔️
-
+    socket.on('Delete-Deleted-Drink',async (idusuario,ideliminado,idbebida) => {
+        try{
+            await deleteDeletedDrinkService(idbebida);
+            const resultDeletedDrinks = await getDeletedDrinksService();
+            await deleteLogDeletedDrinkService(ideliminado,idusuario,String(idbebida));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Drinks',resultDeletedDrinks)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al recuperar la bebida: ',error);
+            return error;
+        }
+    });
 }
 //______________DELETE______________

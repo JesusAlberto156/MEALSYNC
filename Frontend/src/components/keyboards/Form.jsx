@@ -3,7 +3,7 @@
 import { useContext } from "react";
 // Contextos
 import { KeyboardContext,KeyboardViewContext,IndexCountContext,IndexSearchContext } from "../../contexts/VariablesProvider";
-import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsSupplyCategoryContext,TextFieldsDishContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsSupplyCategoryContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsDishContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../../contexts/FormsProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../contexts/SearchsProvider";
 // Hooks personalizados 
 import { HandleKeyboard } from "../../hooks/Views";
@@ -241,6 +241,92 @@ export const Keyboard_Form_Dish = () => {
                             value={isKeyboardView === 'Precio-Platillo' ? isTextFieldsDish.precio :
                                 isKeyboardView === 'Preparacion-Platillo' ? isTextFieldsDish.preparacion :
                                 isKeyboardView === `Cantidad-Platillo-${isIndexCount}` ? isTextFieldsDish.ingredientes[isIndexCount].cantidad : null
+                            }
+                            onChange={handleKeyboard}
+                        />
+                    ):(
+                        <></> 
+                    )}
+                </>
+            ):(
+                <></>
+            )}
+        </>
+    );
+};
+export const Keyboard_Form_Side_Dish = () => {
+    // Constantes con el valor de los contextos
+    const [isTextFieldsSideDish] = useContext(TextFieldsSideDishContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext); 
+    const [isIndexSearch] = useContext(IndexSearchContext); 
+    const [isIndexCount] = useContext(IndexCountContext);
+    // Constantes con la funcionalidad de los hooks
+    const { handleKeyboard } = HandleKeyboard();
+    // Estructura del componente
+    return (
+        <>
+            {isKeyboard ? (
+                <>
+                    {isKeyboardView === 'Nombre-Guarnicion' || isKeyboardView === 'Descripcion-Guarnicion' || isKeyboardView === 'Imagen-Guarnicion' || isKeyboardView === `Buscador-Guarnicion-${isIndexSearch}` ? (
+                        <Keyboard_Default 
+                            value={isKeyboardView === 'Nombre-Guarnicion' ? isTextFieldsSideDish.nombre :
+                                isKeyboardView === 'Descripcion-Guarnicion' ? isTextFieldsSideDish.descripcion :
+                                isKeyboardView === 'Imagen-Guarnicion' ? isTextFieldsSideDish.imagen :
+                                isKeyboardView === `Buscador-Guarnicion-${isIndexSearch}` ? isTextFieldsSideDish.ingredientes[isIndexSearch].buscador : null} 
+                            onChange={handleKeyboard}
+                    />
+                    ):(
+                        <></>
+                    )}
+                    {isKeyboardView === 'Precio-Guarnicion' || isKeyboardView === 'Preparacion-Guarnicion' || isKeyboardView === `Cantidad-Guarnicion-${isIndexCount}` ? (
+                        <Keyboard_Numeric
+                            value={isKeyboardView === 'Precio-Guarnicion' ? isTextFieldsSideDish.precio :
+                                isKeyboardView === 'Preparacion-Guarnicion' ? isTextFieldsSideDish.preparacion :
+                                isKeyboardView === `Cantidad-Guarnicion-${isIndexCount}` ? isTextFieldsSideDish.ingredientes[isIndexCount].cantidad : null
+                            }
+                            onChange={handleKeyboard}
+                        />
+                    ):(
+                        <></> 
+                    )}
+                </>
+            ):(
+                <></>
+            )}
+        </>
+    );
+};
+export const Keyboard_Form_Drink = () => {
+    // Constantes con el valor de los contextos
+    const [isTextFieldsDrink] = useContext(TextFieldsDrinkContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext); 
+    const [isIndexSearch] = useContext(IndexSearchContext); 
+    const [isIndexCount] = useContext(IndexCountContext);
+    // Constantes con la funcionalidad de los hooks
+    const { handleKeyboard } = HandleKeyboard();
+    // Estructura del componente
+    return (
+        <>
+            {isKeyboard ? (
+                <>
+                    {isKeyboardView === 'Nombre-Bebida' || isKeyboardView === 'Descripcion-Bebida' || isKeyboardView === 'Imagen-Bebida' || isKeyboardView === `Buscador-Bebida-${isIndexSearch}` ? (
+                        <Keyboard_Default 
+                            value={isKeyboardView === 'Nombre-Bebida' ? isTextFieldsDrink.nombre :
+                                isKeyboardView === 'Descripcion-Bebida' ? isTextFieldsDrink.descripcion :
+                                isKeyboardView === 'Imagen-Bebida' ? isTextFieldsDrink.imagen :
+                                isKeyboardView === `Buscador-Bebida-${isIndexSearch}` ? isTextFieldsDrink.ingredientes[isIndexSearch].buscador : null} 
+                            onChange={handleKeyboard}
+                    />
+                    ):(
+                        <></>
+                    )}
+                    {isKeyboardView === 'Precio-Bebida' || isKeyboardView === 'Preparacion-Bebida' || isKeyboardView === `Cantidad-Bebida-${isIndexCount}` ? (
+                        <Keyboard_Numeric
+                            value={isKeyboardView === 'Precio-Bebida' ? isTextFieldsDrink.precio :
+                                isKeyboardView === 'Preparacion-Bebida' ? isTextFieldsDrink.preparacion :
+                                isKeyboardView === `Cantidad-Bebida-${isIndexCount}` ? isTextFieldsDrink.ingredientes[isIndexCount].cantidad : null
                             }
                             onChange={handleKeyboard}
                         />

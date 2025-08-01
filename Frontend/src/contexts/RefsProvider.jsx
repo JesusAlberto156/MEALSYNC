@@ -16,7 +16,6 @@ export const RefButtonDisableContext = createContext(null);
 export const RefButtonViewContext = createContext(null);
 export const RefButtonDetailContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
-export const RefSupplyOrdersContext = createContext(null);
 // Contextos personalizados
 import { TouchContext } from "./VariablesProvider";
 //____________IMPORT/EXPORT____________
@@ -38,9 +37,7 @@ export const Index_Refs = ({children}) => {
                                                     <Ref_Button_View>
                                                         <Ref_Button_Detail>
                                                             <Ref_Suppliers>
-                                                                    <Ref_Supply_Orders>
-                                                                        {children}
-                                                                    </Ref_Supply_Orders>
+                                                                {children}
                                                             </Ref_Suppliers>
                                                         </Ref_Button_Detail>
                                                     </Ref_Button_View>
@@ -220,24 +217,5 @@ export const Ref_Suppliers = ({ children }) => {
         <RefSuppliersContext.Provider value={isSuppliers}>
             {children}
         </RefSuppliersContext.Provider>
-    );
-}
-// Función contexto para controlar la tabla de los pedidos por insumo con referencias ✔️
-export const Ref_Supply_Orders = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isSupplyOrders = {
-        Modal_Suppy_Orders: useRef(null),
-        Form_Supply_Orders: useRef(null),
-        Button_Edit_Supply_Orders: useRef(null),
-        Button_Edit_State_Supply_Orders: useRef(null),
-        Button_Add_Supply_Order_Observations: useRef(null),
-        Button_View_Supply_Order_Observations: useRef(null),
-        Button_Delete_Supply_Orders: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefSupplyOrdersContext.Provider value={isSupplyOrders}>
-            {children}
-        </RefSupplyOrdersContext.Provider>
     );
 }

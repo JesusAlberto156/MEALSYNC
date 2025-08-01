@@ -1,13 +1,11 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useState,useContext,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 // Contextos
 import { SidebarContext,SidebarViewContext } from "../../../contexts/ViewsProvider";
 import { LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext } from "../../../contexts/SessionProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { HandleSidebarView,HandleNavbarView } from "../../../hooks/Views";
 import { NutritionistData } from "../../../hooks/nutritionist/Data";
 //__________ICONOS__________
 // Icono para el inicio
@@ -79,9 +77,6 @@ export default function Side_Bar() {
     }
   },[isLoggedPermissions]);
   // Constantes con la funcionalidad de los hooks
-  const navigate = useNavigate();
-  const handleSidebarView = HandleSidebarView();
-  const handleNavbarView = HandleNavbarView();
   const { filteredRecordsMenuTypes } = NutritionistData();
   // Estructura del componente
   return (
@@ -94,13 +89,17 @@ export default function Side_Bar() {
           <Container_Row_100_Center>
             <Text_Title_20_Black>{isLoggedUser.nombre || 'Desconocido'}</Text_Title_20_Black>
           </Container_Row_100_Center> 
-          <Side_Bar_Button
-            title="Inicio"
-            viewSidebar="Inicio"
-            text="Inicio"
-            icon={<IoHome/>}
-            route={isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home'}
-          />
+          {isLoggedType !== 'Médico' ? (
+            <Side_Bar_Button
+              title="Inicio"
+              viewSidebar="Inicio"
+              text="Inicio"
+              icon={<IoHome/>}
+              route={isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home'}
+            />
+          ):(
+            <></>
+          )}
           {isLoggedType === 'Cocinero' ? (
             <></>
           ):(
@@ -108,36 +107,28 @@ export default function Side_Bar() {
           )}
           {isLoggedType === 'Nutriólogo' ? (
             <>
-              <Container_Row_100_Center>
-                <Button_Text_Blue_200 
-                  disabled={isActionBlock}
-                  style={{
-                    backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Usuarios' ? 'rgb(12, 54, 109)' : '',
-                  }}
-                  onClick={() => {
-                    handleSidebarView('Personalizado');
-                    handleNavbarView('Personalizado');
-                    sessionStorage.setItem('Ruta','/Kitchen/Customized/Customized');
-                    navigate('/Kitchen/Customized/Customized',{ replace: true });
-                  }}
-                >
-                  Personalizado<Icon_20><GiForkKnifeSpoon/></Icon_20>
-                </Button_Text_Blue_200>
-              </Container_Row_100_Center>
+              {isLoggedPermissions.superadministrador ? (
+                <Side_Bar_Button
+                  title="Menús"
+                  viewSidebar="Menus"
+                  viewNavbar="Menus"
+                  text="Menús"
+                  icon={<MdOutlineMenuBook/>}
+                  route="/Kitchen/Index/Menus/Menus"
+                />
+              ):(
+                <></>
+              )}
               {filteredRecordsMenuTypes.map((type) => (
-                <Container_Row_100_Center key={type.idtipo}>
-                  <Button_Text_Blue_200 
-                    disabled={isActionBlock}
-                    style={{
-                      backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : currentSView === 'Usuarios' ? 'rgb(12, 54, 109)' : '',
-                    }}
-                    onClick={() => {
-                      
-                    }}
-                  >
-                    {type.nombre}<Icon_20><MdOutlineMenuBook/></Icon_20>
-                  </Button_Text_Blue_200>
-                </Container_Row_100_Center>
+                <Side_Bar_Button
+                  key={type.idtipo}
+                  title={type.nombre}
+                  viewSidebar="Menus"
+                  viewNavbar="Menus"
+                  text={type.nombre}
+                  icon={<MdOutlineMenuBook/>}
+                  route="/Kitchen/Index/Menus"
+                />
               ))}
             </>
           ):(
@@ -298,10 +289,10 @@ export default function Side_Bar() {
               <Side_Bar_Button
                 title="Menús"
                 viewSidebar="Menus"
-                viewNavbar="Menus"
+                viewNavbar="Platillos"
                 text="Menús"
                 icon={<MdOutlineMenuBook/>}
-                route="/Administration/Index/Menus/Menus"
+                route="/Administration/Index/Menus/Dishes"
               />
             </>
           ):(

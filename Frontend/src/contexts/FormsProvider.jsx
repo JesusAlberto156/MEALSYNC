@@ -10,10 +10,14 @@ export const TextFieldsObservationContext = createContext(null);
 export const TextFieldsSupplyCategoryContext = createContext(null);
 export const TextFieldsSupplyTypesContext = createContext(null);
 export const TextFieldsSupplyContext = createContext(null);
-export const TextFieldsSupplyOrderContext = createContext(null);
-export const TextFieldsSupplyOrderObservationContext = createContext(null);
+export const TextFieldsCleaningCategoryContext = createContext(null);
+export const TextFieldsCleaningSupplyContext = createContext(null);
+export const TextFieldsFixedExpenseContext = createContext(null);
+export const TextFieldsWarehouseOrderContext = createContext(null);
+
 export const TextFieldsWarehouseSaleContext = createContext(null);
 export const TextFieldsSearchDateContext = createContext(null);
+
 export const TextFieldsMenuTypeContext = createContext(null);
 export const TextFieldsDishContext = createContext(null);
 export const TextFieldsSideDishContext = createContext(null);
@@ -33,19 +37,27 @@ export const Index_Text_Fields = ({children}) => {
                             <Text_Fields_Supply_Category>
                                 <Text_Fields_Supply_Type>
                                     <Text_Fields_Supply>
-                                        <Text_Fields_Search_Date>
-                                            <Text_Fields_Menu_Type>
-                                                <Text_Fields_Dish>
-                                                    <Text_Fields_Side_Dish>
-                                                        <Text_Fields_Drink>
-                                                            <Text_Fields_Customized>
-                                                                {children}
-                                                            </Text_Fields_Customized>
-                                                        </Text_Fields_Drink>
-                                                    </Text_Fields_Side_Dish>
-                                                </Text_Fields_Dish>
-                                            </Text_Fields_Menu_Type>
-                                        </Text_Fields_Search_Date>
+                                        <Text_Fields_Cleaning_Category>
+                                            <Text_Fields_Cleaning_Supply>
+                                                <Text_Fields_Fixed_Expense>
+                                                    <Text_Fields_Warehouse_Order>
+                                                        <Text_Fields_Search_Date>
+                                                            <Text_Fields_Menu_Type>
+                                                                <Text_Fields_Dish>
+                                                                    <Text_Fields_Side_Dish>
+                                                                        <Text_Fields_Drink>
+                                                                            <Text_Fields_Customized>
+                                                                                {children}
+                                                                            </Text_Fields_Customized>
+                                                                        </Text_Fields_Drink>
+                                                                    </Text_Fields_Side_Dish>
+                                                                </Text_Fields_Dish>
+                                                            </Text_Fields_Menu_Type>
+                                                        </Text_Fields_Search_Date>
+                                                    </Text_Fields_Warehouse_Order>
+                                                </Text_Fields_Fixed_Expense>
+                                            </Text_Fields_Cleaning_Supply>
+                                        </Text_Fields_Cleaning_Category>
                                     </Text_Fields_Supply>
                                 </Text_Fields_Supply_Type>
                             </Text_Fields_Supply_Category>
@@ -194,6 +206,7 @@ export const Text_Fields_Supply_Type = ({ children }) => {
 export const Text_Fields_Supply = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useState({
+        codigo: '',
         idinsumo: 0,
         nombre: '',
         descripcion: '',
@@ -208,6 +221,119 @@ export const Text_Fields_Supply = ({ children }) => {
         <TextFieldsSupplyContext.Provider value={[isTextFieldsSupply,setIsTextFieldsSupply]}> 
             {children}
         </TextFieldsSupplyContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de una categoria de limpieza ✔️
+export const Text_Fields_Cleaning_Category = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsCleaningCategory,setIsTextFieldsCleaningCategory] = useState({
+        idcategoria: 0,
+        nombre: '',
+        descripcion: '',
+        unidad: '',
+        limite: '',
+        cantidades: [
+            {
+                cantidad: '',
+            }
+        ],
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsCleaningCategoryContext.Provider value={[isTextFieldsCleaningCategory,setIsTextFieldsCleaningCategory]}> 
+            {children}
+        </TextFieldsCleaningCategoryContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un suministro de limpieza ✔️
+export const Text_Fields_Cleaning_Supply = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsCleaningSupply,setIsTextFieldsCleaningSupply] = useState({
+        codigo: '',
+        idsuministro: 0,
+        nombre: '',
+        descripcion: '',
+        imagen: '',
+        idproveedor: 0,
+        idcategoria: 0,
+        idcantidad: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsCleaningSupplyContext.Provider value={[isTextFieldsCleaningSupply,setIsTextFieldsCleaningSupply]}> 
+            {children}
+        </TextFieldsCleaningSupplyContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un gasto fijo ✔️
+export const Text_Fields_Fixed_Expense = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsFixedExpense,setIsTextFieldsFixedExpense] = useState({
+        idgasto: 0,
+        nombre: '',
+        descripcion: '',
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsFixedExpenseContext.Provider value={[isTextFieldsFixedExpense,setIsTextFieldsFixedExpense]}> 
+            {children}
+        </TextFieldsFixedExpenseContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un pedido de almacén ✔️
+export const Text_Fields_Warehouse_Order = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsWarehouseOrder,setIsTextFieldsWarehouseOrder] = useState({
+        idpedido: '',
+        fecha: '',
+        campus: '',
+        precio: '',
+        estado: '',
+        idproveedor: 0,
+        idusuario: 0,
+        tipo: '',
+        insumos: [{
+            idpedidoindividual: 0,
+            fecha: '',
+            idinsumo: 0,
+            cantidad: '',
+            preciounitario: '',
+            preciototal: '',
+            idpedido: '',
+            estado: '',
+            mensajes: [{
+                idmensaje: 0,
+                fecha: '',
+                mensaje: '',
+                idpedidoindividual: 0,
+                tipo: '',
+                estado: '',
+            }],
+        }],
+        suministros: [{
+            idpedidoindividual: 0,
+            fecha: '',
+            idsuministro: 0,
+            cantidad: '',
+            preciounitario: '',
+            preciototal: '',
+            idpedido: '',
+            estado: '',
+            mensajes: [{
+                idmensaje: 0,
+                fecha: '',
+                mensaje: '',
+                idpedidoindividual: 0,
+                tipo: '',
+                estado: '',
+            }],
+        }]
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsWarehouseOrderContext.Provider value={[isTextFieldsWarehouseOrder,setIsTextFieldsWarehouseOrder]}> 
+            {children}
+        </TextFieldsWarehouseOrderContext.Provider>
     );
 }
 

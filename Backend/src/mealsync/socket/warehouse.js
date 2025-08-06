@@ -1,9 +1,9 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getWarehouseCategoriesService,getWarehouseSupplyTypesService,getWarehouseCleaningService,getWarehouseFixedExpensesService } from "../services/warehouse.js";
-import { insertWarehouseCategoryService,insertWarehouseSupplyTypeService,insertWarehouseCleaningService,insertWarehouseFixedExpenseService } from "../services/warehouse.js";
+import { getWarehouseCategoriesService,getWarehouseSupplyTypesService,getWarehouseCleaningService,getWarehouseFixedExpensesService,getOrdersService,getDeletedOrdersService,getSupplyOrdersService,getCleaningSupplyOrdersService,getMessageSupplyOrdersService,getMessageCleaningSupplyOrdersService } from "../services/warehouse.js";
+import { insertWarehouseCategoryService,insertWarehouseSupplyTypeService,insertWarehouseCleaningService,insertWarehouseFixedExpenseService,insertOrderService,insertDeletedOrderService,insertSupplyOrderService,insertCleaningSupplyOrderService } from "../services/warehouse.js";
 import { getLogsService } from "../services/logs.js";
-import { insertLogWarehouseCategoryService,insertLogWarehouseSupplyTypeService,insertLogWarehouseCleaningService,insertLogWarehouseFixedExpenseService } from "../services/warehouse.js";
+import { insertLogWarehouseCategoryService,insertLogWarehouseSupplyTypeService,insertLogWarehouseCleaningService,insertLogWarehouseFixedExpenseService,insertLogOrderService,insertLogDeletedOrderService,insertLogSupplyOrderService,insertLogCleaningSupplyOrderService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 // Servicios
@@ -48,6 +48,66 @@ export const Warehouse_GET = (socket) => {
             const result = await getWarehouseFixedExpensesService();
             console.log('Almacenes por gastos fijos obtenidos...');
             io.emit('Get-Warehouse-Fixed-Expenses', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- PEDIDOS ✔️
+    socket.on('Get-Orders', async () => {
+        try {
+            const result = await getOrdersService();
+            console.log('Pedidos del almacén obtenidos...');
+            io.emit('Get-Orders', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- PEDIDOS ELIMINADOS ✔️
+    socket.on('Get-Deleted-Orders', async () => {
+        try {
+            const result = await getDeletedOrdersService();
+            console.log('Pedidos del almacén eliminados obtenidos...');
+            io.emit('Get-Deleted-Orders', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- PEDIDOS DE INSUMOS ✔️
+    socket.on('Get-Supply-Orders', async () => {
+        try {
+            const result = await getSupplyOrdersService();
+            console.log('Pedidos del almacén de insumos obtenidos...');
+            io.emit('Get-Supply-Orders', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+    socket.on('Get-Cleaning-Supply-Orders', async () => {
+        try {
+            const result = await getCleaningSupplyOrdersService();
+            console.log('Pedidos del almacén de suministros de limpieza obtenidos...');
+            io.emit('Get-Cleaning-Supply-Orders', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- MENSAJES PEDIDOS DE INSUMOS ✔️
+    socket.on('Get-Message-Supply-Orders', async () => {
+        try {
+            const result = await getMessageSupplyOrdersService();
+            console.log('Mensajes de pedidos del almacén de insumos obtenidos...');
+            io.emit('Get-Message-Supply-Orders', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- MENSAJES PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+    socket.on('Get-Message-Cleaning-Supply-Orders', async () => {
+        try {
+            const result = await getMessageCleaningSupplyOrdersService();
+            console.log('Mensajes de pedidos del almacén de suministros de limpieza obtenidos...');
+            io.emit('Get-Message-Cleaning-Supply-Orders', result);
         } catch (error) {
             console.error('Error al obtener los datos: ', error);
         }
@@ -117,6 +177,84 @@ export const Warehouse_INSERT = (socket) => {
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al agregar un almacén por gasto fijo: ',error);
+            return error;
+        }
+    });
+    //---------- PEDIDOS ELIMINADOS ✔️
+    socket.on('Insert-Deleted-Order',async (idusuario,idpedido) => {
+        try{
+            await insertDeletedOrderService(idpedido);
+            const resultDeletedOrders = await getDeletedOrdersService();
+            const decryptedData = decryptData(resultDeletedOrders);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogDeletedOrderService(parsedData.find(data => data.idpedido === idpedido)?.ideliminado,idusuario,String(idpedido));
+            const resultLogs = await getLogsService()
+            io.emit('Get-Deleted-Orders',resultDeletedOrders);
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al eliminar un pedido de almacén: ',error);
+            return error;
+        }
+    });
+    //---------- PEDIDOS DE INSUMOS ✔️
+    socket.on('Insert-Supply-Order',async (usuario,idpedido,campus,idproveedor,idusuario,insumos) => {
+        try{
+            await insertOrderService(idpedido,campus,idproveedor,idusuario);
+            const resultOrders = await getOrdersService();
+            await insertLogOrderService(idpedido,usuario,campus,String(idproveedor),String(idusuario));
+
+            let resultSupplyOrders;
+
+            if(Array.isArray(insumos) && insumos.length > 0){
+                for (const insumo of insumos) {
+                    await insertSupplyOrderService(insumo.idinsumo,insumo.cantidad,insumo.idpedido);
+                    resultSupplyOrders = await getSupplyOrdersService();
+                    const decryptedDataSupplyOrders = decryptData(resultSupplyOrders);
+                    const parseDataSupplyOrders = JSON.parse(decryptedDataSupplyOrders);
+                    await insertLogSupplyOrderService(parseDataSupplyOrders.find(data => data.idpedido === Number(insumo.idpedido) && data.idinsumo === Number(insumo.idinsumo))?.idpedidoindividual,usuario,String(insumo.idinsumo),String(insumo.cantidad),String(insumo.idpedido));
+                }
+                resultSupplyOrders = await getSupplyOrdersService();
+            }
+
+            const resultLogs = await getLogsService()
+            io.emit('Get-Orders',resultOrders);
+            if(resultSupplyOrders !== undefined){
+                io.emit('Get-Supply-Orders',resultSupplyOrders);
+            }
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al agregar un pedido de insumo: ',error);
+            return error;
+        }
+    });
+    //---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+    socket.on('Insert-Cleaning-Supply-Order',async (usuario,idpedido,campus,idproveedor,idusuario,suministros) => {
+        try{
+            await insertOrderService(idpedido,campus,idproveedor,idusuario);
+            const resultOrders = await getOrdersService();
+            await insertLogOrderService(idpedido,usuario,campus,String(idproveedor),String(idusuario));
+
+            let resultCleaningSupplyOrders;
+
+            if(Array.isArray(suministros) && suministros.length > 0){
+                for (const suministro of suministros) {
+                    await insertCleaningSupplyOrderService(suministro.idsuministro,suministro.cantidad,suministro.idpedido);
+                    resultCleaningSupplyOrders = await getCleaningSupplyOrdersService();
+                    const decryptedDataCleaningSupplyOrders = decryptData(resultCleaningSupplyOrders);
+                    const parseDataCleaningSupplyOrders = JSON.parse(decryptedDataCleaningSupplyOrders);
+                    await insertLogCleaningSupplyOrderService(parseDataCleaningSupplyOrders.find(data => data.idpedido === Number(suministro.idpedido) && data.idsuministro === Number(suministro.idsuministro))?.idpedidoindividual,usuario,String(suministro.idsuministro),String(suministro.cantidad),String(suministro.idpedido));
+                }
+                resultCleaningSupplyOrders = await getCleaningSupplyOrdersService();
+            }
+
+            const resultLogs = await getLogsService()
+            io.emit('Get-Orders',resultOrders);
+            if(resultCleaningSupplyOrders !== undefined){
+                io.emit('Get-Cleaning-Supply-Orders',resultCleaningSupplyOrders);
+            }
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al agregar un pedido de suministro: ',error);
             return error;
         }
     });

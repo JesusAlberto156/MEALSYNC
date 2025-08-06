@@ -18,6 +18,7 @@ import { HandleModalViewUsers } from "../../../hooks/users/Views";
 import { HandleViewPassword } from "../../../hooks/users/Forms";
 import { HandleModalViewSuppliers } from "../../../hooks/suppliers/Views";
 import { HandleModalViewSupplies } from "../../../hooks/supplies/Views";
+import { HandleModalViewExtras } from "../../../hooks/extras/Views";
 import { HandleModalViewMenuTypes } from "../../../hooks/menus/Views";
 import { HandleModalViewWarehouse } from "../../../hooks/warehouse/Views";
 import { ResetFilteredSearch,ResetFilteredOrder } from "../../../hooks/Texts";
@@ -27,30 +28,29 @@ import { HandleKeyboard } from "../../../hooks/Views";
 import { IoSearch } from "react-icons/io5";
 import { LuArrowDownUp } from "react-icons/lu";
 // Iconos para un crud
+import { MdEdit,MdDelete } from "react-icons/md";
+
 import { IoIosAddCircle } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
+
 import { FaEye } from "react-icons/fa";
 import { IoIosEyeOff } from "react-icons/io";
 import { FaUnlock } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
-import { FaSyncAlt } from "react-icons/fa";
-import { BiSolidMessageAdd } from "react-icons/bi";
-import { BiSolidMessageDetail } from "react-icons/bi";
 import { MdAddBox } from "react-icons/md";
 import { MdOutlineMessage } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function } from "../../styled/Containers";
-import { Button_Text_Blue_Auto,Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Icon_Blue_140 } from "../../styled/Buttons";
+import { Button_Text_Blue_Auto,Button_Icon_Green_60 } from "../../styled/Buttons";
 import { Icon_White_20,Icon_Button_White_20,Icon_16 } from "../../styled/Icons";
 import { Input_Search_Table_White,Input_Radio_20 } from "../../styled/Inputs";
 import { Text_Span_12_Center_White } from "../../styled/Text";
 // Componentes personalizados
-import { Search_Bar_Button_Search,Search_Bar_Button_Order,Search_Bar_Icon_Button_Order,Search_Bar_Icon_Button_Search,Search_Bar_Icon_Button_Search_Order } from "./Buttons";
-import { Search_Bar_Button_Add,Search_Bar_Button_Edit,Search_Bar_Button_Delete,Search_Bar_Button_Enable,Search_Bar_Button_View,Search_Bar_Button_Detail } from "./Buttons";
+import { Search_Bar_Button_Search,Search_Bar_Button_Order,Search_Bar_Icon_Button_Order,Search_Bar_Icon_Button_Search,Search_Bar_Icon_Button_Search_Order, Search_Bar_Button_Verification_Blue_Edit } from "./Buttons";
+import { Search_Bar_Button_Add,Search_Bar_Button_Verification_Blue,Search_Bar_Button_Verification_Red,Search_Bar_Button_Edit,Search_Bar_Button_Verification_Green,Search_Bar_Button_Delete,Search_Bar_Button_Enable,Search_Bar_Button_View,Search_Bar_Button_Detail } from "./Buttons";
+import { Keyboard_Form_Search } from "../../keyboards/Form";
 //____________IMPORT/EXPORT____________
 
 // Componente para buscar elementos o acciones en las tablas
@@ -81,11 +81,15 @@ export default function Search_Bar (){
     const isOptionSuppliers = ['General','Nombre','RFC','Domicilio','Teléfono','Correo'];
     const isOptionSupplierObservations = ['General','Proveedor','Fecha','Calificación'];
     const isOptionSupplyTypes = ['General','Tipo','Unidad','Categoría','Cantidad Mínima'];
-    const isOptionSupplies = ['General','Nombre','Proveedor','Categoría','Tipo','Cantidad'];
-    const isOptionSupplyOrders = ['General','Número de Pedido','Fecha','Insumo','Cantidad','Precio Unitario','Precio Total','Estado'];
+    const isOptionSupplies = ['General','Código','Nombre','Proveedor','Categoría','Tipo','Cantidad'];
+    const isOptionCleaningCategories = ['General','Nombre','Unidad','Cantidad Mínima'];
+    const isOptionCleaningSupplies = ['General','Código','Nombre','Proveedor','Categoría','Cantidad'];
+    const isOptionOrders = ['General','ID Pedido','Fecha','Campus','Estado','Proveedor','Usuario','Precio Total'];
+
     const isOptionPurchases = ['Categorías','Tipos de Insumo'];
     const isOptionSales = ['Categorías','Tipos de Insumo'];
     const isOptionWarehouse = ['Nombre','Fecha'];
+    
     const isOptionsMaelSearch = ['General','Nombre','Tiempo de preparación','Precio','Menú'];
     const isOptionsMaelOrder = ['Normal','Desayuno','Comida','Cena'];
     // Constantes con la funcionalidad de los hooks
@@ -94,6 +98,7 @@ export default function Search_Bar (){
     const handleViewPassword = HandleViewPassword();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const handleModalViewSupplies = HandleModalViewSupplies();
+    const handleModalViewExtras = HandleModalViewExtras();
     const handleModalViewMenuTypes = HandleModalViewMenuTypes();
     const handleModalViewWarehouse = HandleModalViewWarehouse();
     const resetFilteredSearch = ResetFilteredSearch();
@@ -233,27 +238,43 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
-
-
-                    {currentSView === 'Inventario' && currentNView === 'Pedidos de insumo' ? (
-                        <Container_Searchbar_Row_Search_Blue ThemeMode={themeMode}>                   
-                            {isOptionSupplyOrders.map((option,index) => (
-                                <Button_Icon_Blue_140 ThemeMode={themeMode}
-                                    key={index}
-                                    onClick={() => setIsSelectedOptionSearch(option)}
-                                    style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? themeMode ? 'rgb(208, 31, 31)' : 'rgb(155, 9, 9)' : themeMode ? 'rgb(82, 126, 231)' : 'rgb(58,93,174)',
-                                        color: isSelectedOptionSearch === option ? 'white' : 'white',
-                                    }}
-                                >
-                                    {option}
-                                </Button_Icon_Blue_140>
-                            ))}
-                            <Icon_16><IoSearch/></Icon_16>
+                    {currentSView === 'Extras' && currentNView === 'Categorias de limpieza' ? (
+                        <Container_Searchbar_Row_Search_Blue>
+                            <Search_Bar_Button_Search
+                                options={isOptionCleaningCategories}
+                            />
+                            <Search_Bar_Icon_Button_Search_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
+                    {currentSView === 'Extras' && currentNView === 'Suministros de limpieza' ? (
+                        <Container_Searchbar_Row_Search_Blue>
+                            <Search_Bar_Button_Search
+                                options={isOptionCleaningSupplies}
+                            />
+                            <Search_Bar_Icon_Button_Search_Order/>
+                        </Container_Searchbar_Row_Search_Blue>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Extras' && currentNView === 'Gastos fijos' ? (
+                        <Search_Bar_Icon_Button_Search_Order/>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Inventario' && currentNView === 'Pedidos de almacen' ? (
+                        <Container_Searchbar_Row_Search_Blue>
+                            <Search_Bar_Button_Search
+                                options={isOptionOrders}
+                            /> 
+                            <Search_Bar_Icon_Button_Search_Order/>
+                        </Container_Searchbar_Row_Search_Blue>
+                    ):(
+                        <></>
+                    )}
+
+
                     {currentSView === 'Inventario' && currentNView === 'Compras' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             {isOptionWarehouse.map((option,index) => (
@@ -689,88 +710,118 @@ export default function Search_Bar (){
                         ):(
                             <></>
                         )}
-
-
-                        {currentSView === 'Inventario' && currentNView === 'Pedidos de insumo' ? (
+                        {currentSView === 'Extras' && currentNView === 'Categorias de limpieza' ? (
                             <>
                                 {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
-                                    isSelectedRow !== null ? (
-                                        <>
-                                            {isSelectedRow.insumos.estado !== 'Finalizado' ? (
-                                                <>
-                                                    <Tooltip title='Ver observaciones' placement="top">
-                                                        <Button_Icon_Green_60 ref={Button_View_Supply_Order_Observations} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                                        onClick={() => {
-                                                            handleModalViewWarehouse('Observaciones-Pedido-Visualizar');
-                                                            navigate('/Administration/Index/Warehouse/Supply/Orders/Observation/View',{ replace: true });
-                                                        }}>
-                                                            <Icon_16><BiSolidMessageDetail/></Icon_16>
-                                                        </Button_Icon_Green_60>
-                                                    </Tooltip> 
-                                                    <Tooltip title='Agregar observación' placement="top">
-                                                        <Button_Icon_Green_60 ref={Button_Add_Supply_Order_Observations} ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                                        onClick={() => {
-                                                            handleModalViewWarehouse('Observacion-Pedido-Agregar');
-                                                            navigate('/Administration/Index/Warehouse/Supply/Orders/Observation/Add',{ replace: true });
-                                                        }}>
-                                                            <Icon_16><BiSolidMessageAdd/></Icon_16>
-                                                        </Button_Icon_Green_60>
-                                                    </Tooltip> 
-                                                    <Tooltip title='Editar' placement="top">
-                                                        <Button_Icon_Blue_60 ref={Button_Edit_Supply_Orders} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
-                                                        onClick={() => {
-                                                            handleModalViewWarehouse('Pedido-Editar');
-                                                            navigate('/Administration/Index/Warehouse/Supply/Orders/Edit',{ replace: true });
-                                                        }}>
-                                                            <Icon_16><MdEdit/></Icon_16>
-                                                        </Button_Icon_Blue_60>
-                                                    </Tooltip> 
-                                                    <Tooltip title='Finalizar' placement="top">
-                                                        <Button_Icon_Orange_60 ref={Button_Edit_State_Supply_Orders} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
-                                                        onClick={() => {
-                                                            handleModalViewWarehouse('Pedido-Editar-Estado');
-                                                            navigate('/Administration/Index/Warehouse/Supply/Orders/State/Edit',{ replace: true });
-                                                        }}>
-                                                            <Icon_16><FaSyncAlt/></Icon_16>
-                                                        </Button_Icon_Orange_60>
-                                                    </Tooltip>
-                                                </>
-                                            ):(
-                                                <></>
-                                            )}
-                                        </>
-                                    ):(
-                                        <>
-                                            <Tooltip title='Agregar' placement="top">
-                                                <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                                onClick={() => {
-                                                    handleModalViewWarehouse('Pedido-Agregar');
-                                                    navigate('/Administration/Index/Warehouse/Supply/Orders/Add',{ replace: true });
-                                                }}>
-                                                    <Icon_16><IoIosAddCircle/></Icon_16>
-                                                </Button_Icon_Green_60>
-                                            </Tooltip>
-                                        </>
-                                    )
+                                    <>
+                                        <Search_Bar_Button_Add
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Cleaning/Categories/Add"
+                                            onHandleModalView={() => handleModalViewExtras('Categoria-Limpieza-Agregar')}
+                                        />
+                                        <Search_Bar_Button_Edit
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Cleaning/Categories/Edit"
+                                            onHandleModalView={() => handleModalViewExtras('Categoria-Limpieza-Editar')}
+                                        />
+                                    </>
                                 ):(
                                     <></>
                                 )}
                                 {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
-                                    isSelectedRow !== null && isSelectedRow.insumos.estado !== 'Finalizado' ? (
-                                        <>
-                                            <Tooltip title='Eliminar' placement="top">
-                                                <Button_Icon_Red_60 ref={Button_Delete_Supply_Orders} ThemeMode={themeMode} className={isSelectedRow !== null ? 'fade-button-in':'fade-button-out'}
-                                                onClick={() => {
-                                                    handleModalViewWarehouse('Pedido-Eliminar');
-                                                    navigate('/Administration/Index/Warehouse/Supply/Orders/Delete',{ replace: true });
-                                                }}>
-                                                    <Icon_16><MdDelete/></Icon_16>
-                                                </Button_Icon_Red_60>
-                                            </Tooltip>
-                                        </>
-                                    ):(
-                                        <></>
-                                    )
+                                    <Search_Bar_Button_Delete
+                                        row={isSelectedRow}
+                                        route="/Administration/Index/Extras/Cleaning/Categories/Delete"
+                                        onHandleModalView={() => handleModalViewExtras('Categoria-Limpieza-Eliminar')}
+                                    />
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                    <Search_Bar_Button_Add
+                                        title="Agregar cantidades"
+                                        row={isSelectedRow}
+                                        icon={<MdAddBox/>}
+                                        route="/Administration/Index/Extras/Cleaning/Categories/Count/Add"
+                                        onHandleModalView={() => handleModalViewExtras('Categoria-Limpieza-Cantidad-Agregar')}
+                                        mode={true}
+                                    />
+                                ):(
+                                    <></>
+                                )}
+                                <Search_Bar_Button_Detail
+                                    icon={<MdOutlineMessage/>}
+                                    title="Detalles de categoría de limpieza"
+                                    route="/Administration/Index/Extras/Cleaning/Categories/Detail"
+                                    row={isSelectedRow}
+                                    onHandleModalView={() => handleModalViewExtras('Categoria-Limpieza-Detalles')}
+                                />
+                            </>
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Extras' && currentNView === 'Suministros de limpieza' ? (
+                            <>
+                                {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                    <>
+                                        <Search_Bar_Button_Add
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Cleaning/Supplies/Add"
+                                            onHandleModalView={() => handleModalViewExtras('Suministro-Limpieza-Agregar')}
+                                        />
+                                        <Search_Bar_Button_Edit
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Cleaning/Supplies/Edit"
+                                            onHandleModalView={() => handleModalViewExtras('Suministro-Limpieza-Editar')}
+                                        />
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
+                                    <Search_Bar_Button_Delete
+                                        row={isSelectedRow}
+                                        route="/Administration/Index/Extras/Cleaning/Supplies/Delete"
+                                        onHandleModalView={() => handleModalViewExtras('Suministro-Limpieza-Eliminar')}
+                                    />
+                                ):(
+                                    <></>
+                                )}
+                                <Search_Bar_Button_Detail
+                                    icon={<MdOutlineMessage/>}
+                                    title="Detalles de suministro de limpieza"
+                                    route="/Administration/Index/Extras/Cleaning/Supplies/Detail"
+                                    row={isSelectedRow}
+                                    onHandleModalView={() => handleModalViewExtras('Suministro-Limpieza-Detalles')}
+                                />
+                            </>
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Extras' && currentNView === 'Gastos fijos' ? (
+                            <>
+                                {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                    <>
+                                        <Search_Bar_Button_Add
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Fixed/Expenses/Add"
+                                            onHandleModalView={() => handleModalViewExtras('Gasto-Fijo-Agregar')}
+                                        />
+                                        <Search_Bar_Button_Edit
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Fixed/Expenses/Edit"
+                                            onHandleModalView={() => handleModalViewExtras('Gasto-Fijo-Editar')}
+                                        />
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
+                                    <Search_Bar_Button_Delete
+                                        row={isSelectedRow}
+                                        route="/Administration/Index/Extras/Fixed/Expenses/Delete"
+                                        onHandleModalView={() => handleModalViewExtras('Gasto-Fijo-Eliminar')}
+                                    />
                                 ):(
                                     <></>
                                 )}
@@ -778,6 +829,73 @@ export default function Search_Bar (){
                         ):(
                             <></>
                         )}
+                        {currentSView === 'Inventario' && currentNView === 'Pedidos de almacen' ? (
+                            <>
+                                {isLoggedType === 'Almacenista' ? (
+                                    <>
+                                        <Search_Bar_Button_Add
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Warehouse/Orders/Add"
+                                            onHandleModalView={() => handleModalViewWarehouse('Pedido-Almacen-Agregar')}
+                                        />
+                                        <Search_Bar_Button_Verification_Blue_Edit
+                                            title="Editar"
+                                            icon={<MdEdit/>}
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Warehouse/Orders/Edit"
+                                            onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Editar')}
+                                            condition={isSelectedRow?.estado === 'Solicitud'}
+                                        />
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                    <Search_Bar_Button_Verification_Red
+                                            title="Eliminar"
+                                            icon={<MdDelete/>}
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Warehouse/Orders/Delete"
+                                            onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Eliminar')}
+                                            condition={isSelectedRow?.estado === 'Solicitud'}
+                                        />
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedType === 'Almacenista' ? (
+                                    <Search_Bar_Button_Verification_Blue
+                                        title="Editar revisión"
+                                        row={isSelectedRow}
+                                        route="/Administration/Index/Warehouse/Orders/Verification/Edit"
+                                        onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Verificacion-Editar')}
+                                        condition={isSelectedRow?.estado === 'Rechazado'}
+                                    />
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedType === 'Chef' ? (
+                                    <Search_Bar_Button_Verification_Green
+                                        title="Agregar revisión"
+                                        row={isSelectedRow}
+                                        route="/Administration/Index/Warehouse/Orders/Verification/Add"
+                                        onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Verificacion-Agregar')}
+                                        condition={isSelectedRow?.estado === 'Solicitud'}
+                                    />
+                                ):(
+                                    <></>
+                                )}
+                                <Search_Bar_Button_Detail
+                                    icon={<MdOutlineMessage/>}
+                                    title="Detalles de pedido de almacén"
+                                    route="/Administration/Index/Warehouse/Orders/Detail"
+                                    row={isSelectedRow}
+                                    onHandleModalView={() => handleModalViewExtras('Pedido-Almacen-Detalles')}
+                                />
+                            </>
+                        ):(
+                            <></>
+                        )}
+
                         {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus !== 'Normal' ? (
                             ['General','Totales'].map((item,index) => (
                                 <Text_Span_12_Center_White ThemeMode={themeMode} key={index}>
@@ -867,6 +985,7 @@ export default function Search_Bar (){
                         )}
                     </Container_Searchbar_Row_Function>
                 </Container_Searchbar_Row_General>
+                <Keyboard_Form_Search/>
             </Container_Searchbar_Row_General_Black>
         </>
     );

@@ -2,8 +2,9 @@
 // Hooks de React
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
-import { SuppliesContext } from "../../contexts/SuppliesProvider";
-import { SupplyOrdersContext,DeletedSupplyOrdersContext,WarehouseSupplyTypesContext,WarhouseCategoriesContext } from "../../contexts/WarehouseProvider";
+import { SuppliersContext } from "../../contexts/SuppliersProvider";
+import { UsersContext } from "../../contexts/UsersProvider";
+import { OrdersContext,DeletedOrdersContext,WarehouseSupplyTypesContext,WarehouseCategoriesContext } from "../../contexts/WarehouseProvider";
 import { SupplyCategoriesContext,SupplyTypesContext } from "../../contexts/SuppliesProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
@@ -12,131 +13,127 @@ import { TextFieldsSearchDateContext } from "../../contexts/FormsProvider";
 import { Dates } from "../Dates";
 //____________IMPORT/EXPORT____________
 
-// Hook para realizar las acciones de la tabla de pedidos de insumo ✔️
-export const TableActionsSupplyOrders = () => {
+
+// Hook para realizar las acciones de la tabla de pedidos de almacen ✔️
+export const TableActionsWarehouseOrders = () => {
     // Constantes con el valor de los contextos 
-    const [isSupplyOrders] = useContext(SupplyOrdersContext);
-    const [isDeletedSupplyOrders] = useContext(DeletedSupplyOrdersContext);
-    const [isSupplies] = useContext(SuppliesContext);
+    const [isOrders] = useContext(OrdersContext);
+    const [isDeletedOrders] = useContext(DeletedOrdersContext);
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isUsers] = useContext(UsersContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
-    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const { getDate } = Dates();
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
-    const filteredRecordsSupplyOrders = useMemo(() => {
-        const filtered = isSupplyOrders.filter((data) => {
-            const isDeleted = isDeletedSupplyOrders.some(supplyOrder => supplyOrder.idpedido === data.idpedido);
+    const filteredRecordsWarehouseOrders = useMemo(() => {
+        const filtered = isOrders.filter((data) => {
+            const isDeleted = isDeletedOrders.some(order => order.idpedido === data.idpedido);
             if (isDeleted) return false;
             
             if (isSelectedOptionSearch === 'General') {
-                const insumo = isSupplies.find(supply => supply.idinsumo === data.idinsumo)?.nombre;
                 const fecha = getDate(data.fecha);
+                const proveedor = isSuppliers.find(supplier => supplier.idproveedor === data.idproveedor)?.nombre
+                const usuario = isUsers.find(user => user.idusuario === data.idusuario)?.nombrecorto
                 return [
-                    data.numeropedido,
+                    data.idpedido,
                     fecha,
-                    insumo,
-                    data.cantidad,
-                    data.preciounitario,
-                    data.preciototal,
+                    data.campus,
+                    data.precio,
                     data.estado,
+                    proveedor,
+                    usuario,
                 ].some(value =>
                     String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
                 );
             }
-            if(isSelectedOptionSearch === 'Número de Pedido'){
-                return data.numeropedido.toLowerCase().includes(isSearchTerm.toLowerCase());
+            if(isSelectedOptionSearch === 'ID Pedido'){
+                return String(data.idpedido).toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Fecha'){
                 const fecha = getDate(data.fecha);
                 return fecha.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
-            if(isSelectedOptionSearch === 'Insumo'){
-                const insumo = isSupplies.find(supply => supply.idinsumo === data.idinsumo)?.nombre;
-                return insumo.toLowerCase().includes(isSearchTerm.toLowerCase());
-            }
-            if(isSelectedOptionSearch === 'Cantidad'){
-                return data.cantidad.toLowerCase().includes(isSearchTerm.toLowerCase());
-            }
-            if(isSelectedOptionSearch === 'Precio Unitario'){
-                return data.preciounitario.toLowerCase().includes(isSearchTerm.toLowerCase());
-            }
-            if(isSelectedOptionSearch === 'Precio Total'){
-                return data.preciototal.toLowerCase().includes(isSearchTerm.toLowerCase());
+            if(isSelectedOptionSearch === 'Campus'){
+                return data.campus.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Estado'){
                 return data.estado.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
+            if(isSelectedOptionSearch === 'Proveedor'){
+                const proveedor = isSuppliers.find(supplier => supplier.idproveedor === data.idproveedor)?.nombre
+                return proveedor.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Usuario'){
+                const usuario = isUsers.find(user => user.idusuario === data.idusuario)?.nombrecorto
+                return usuario.toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'Precio Total'){
+                return String(data.precio).toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
         });
         return [...filtered].sort((a, b) => {
-            if(isSelectedOptionOrder === 'Número de Pedido'){
+            if(isSelectedOptionOrder === 'ID Pedido'){
                 return isSelectedOptionOrderDirection === 'Asc'
-                ? a.numeropedido.localeCompare(b.numeropedido,'es', { sensitivity: 'base' })
-                : b.numeropedido.localeCompare(a.numeropedido,'es', { sensitivity: 'base' })
+                ? a.idpedido - b.idpedido
+                : b.idpedido - a.idpedido
             }
             if(isSelectedOptionOrder === 'Fecha'){
                 return isSelectedOptionOrderDirection === 'Asc'
                 ? new Date(a.fecha) - new Date(b.fecha)
                 : new Date(b.fecha) - new Date(a.fecha)
             }
-            if(isSelectedOptionOrder === 'Insumo'){
+            if(isSelectedOptionOrder === 'Campus'){
                 return isSelectedOptionOrderDirection === 'Asc'
-                ? isSupplies.find(supply => supply.idinsumo === a.idinsumo)?.nombre.localeCompare(isSupplies.find(supply => supply.idinsumo === b.idinsumo)?.nombre,'es', { sensitivity: 'base' })
-                : isSupplies.find(supply => supply.idinsumo === b.idinsumo)?.nombre.localeCompare(isSupplies.find(supply => supply.idinsumo === a.idinsumo)?.nombre,'es', { sensitivity: 'base' })
-            }
-            if(isSelectedOptionOrder === 'Cantidad'){
-                return isSelectedOptionOrderDirection === 'Asc'
-                ? a.cantidad - b.cantidad
-                : b.cantidad - a.cantidad
-            }
-            if(isSelectedOptionOrder === 'Precio Unitario'){
-                return isSelectedOptionOrderDirection === 'Asc'
-                ? a.preciounitario - b.preciounitario
-                : b.preciounitario - a.preciounitario
-            }
-            if(isSelectedOptionOrder === 'Precio Total'){
-                return isSelectedOptionOrderDirection === 'Asc'
-                ? a.preciototal - b.preciototal
-                : b.preciototal - a.preciototal
+                ? a.campus.localeCompare(b.campus,'es', { sensitivity: 'base' })
+                : b.campus.localeCompare(a.campus,'es', { sensitivity: 'base' })
             }
             if(isSelectedOptionOrder === 'Estado'){
                 return isSelectedOptionOrderDirection === 'Asc'
                 ? a.estado.localeCompare(b.estado,'es', { sensitivity: 'base' })
                 : b.estado.localeCompare(a.estado,'es', { sensitivity: 'base' })
             }
+            if(isSelectedOptionOrder === 'Proveedor'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? isSuppliers.find(supplier => supplier.idproveedor === a.idproveedor)?.nombre.localeCompare(isSuppliers.find(supplier => supplier.idproveedor === b.idproveedor)?.nombre,'es', { sensitivity: 'base' })
+                : isSuppliers.find(supplier => supplier.idproveedor === b.idproveedor)?.nombre.localeCompare(isSuppliers.find(supplier => supplier.idproveedor === a.idproveedor)?.nombre,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Usuario'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? isUsers.find(user => user.idusuario === a.idusuario)?.nombrecorto.localeCompare(isUsers.find(user => user.idusuario === b.idusuario)?.nombrecorto,'es', { sensitivity: 'base' })
+                : isUsers.find(user => user.idusuario === b.idusuario)?.nombrecorto.localeCompare(isUsers.find(user => user.idusuario === a.idusuario)?.nombrecorto,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Precio Total'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.precio - b.precio
+                : b.precio - a.precio
+            }
 
             return 0
         });
-    }, [isSupplies, isDeletedSupplyOrders, isSupplyOrders, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrderDirection]);
-    // Cambio de direccion del ordenamiento
-    const ToggleOrderDirection = () => {
-        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
-    };
-    // Cambio de lo que quiere ordenar
-    const ToggleOrder = (option) => {
-        setIsSelectedOptionOrder(option);
-    };
+    }, [isOrders, isDeletedOrders, isSuppliers, isUsers, isSearchTerm, isSelectedOptionSearch, isSelectedOptionOrder, isSelectedOptionOrderDirection]);
     // Total de registros visibles de la tabla
-    const recordsPerPage = 8;
+    const recordsPerPage = 6;
     // Indices de los registros
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     // Total de páginas 
-    const totalPagesSupplyOrders = Math.ceil(filteredRecordsSupplyOrders.length / recordsPerPage);
+    const totalPagesWarehouseOrders = Math.ceil(filteredRecordsWarehouseOrders.length / recordsPerPage);
     // Filtrado de datos por página
-    const currentRecordsSupplyOrders = filteredRecordsSupplyOrders.slice(indexOfFirstRecord, indexOfLastRecord);
+    const currentRecordsWarehouseOrders = filteredRecordsWarehouseOrders.slice(indexOfFirstRecord, indexOfLastRecord);
     // Función de selección de los renglones de la tabla
-    const handleRowClick = (supplyOrder) => {
+    const handleRowClick = (WarehouseOrder) => {
         setIsSelectedRow((prevSelected) => {
-            return prevSelected?.idpedido === supplyOrder.idpedido ? null : supplyOrder;
+            return prevSelected?.idpedido === WarehouseOrder.idpedido ? null : WarehouseOrder;
         });
     };
     // Función de siguiente de registros de la tabla
-    const nextPageSupplyOrders = () => {
-        if (currentPage < totalPagesSupplyOrders) setCurrentPage(currentPage + 1);
+    const nextPageWarehouseOrders = () => {
+        if (currentPage < totalPagesWarehouseOrders) setCurrentPage(currentPage + 1);
     };
     // Función de retroceso de registros de la tabla
     const prevPage = () => {
@@ -144,17 +141,18 @@ export const TableActionsSupplyOrders = () => {
     };
     // UseEffect para actualizar la paginación
     useEffect(() => {
-        if(currentPage > totalPagesSupplyOrders){
+        if(currentPage > totalPagesWarehouseOrders){
             setCurrentPage(1);
         }
     },[isSearchTerm])
     // Retorno de la función del hook
-    return { handleRowClick,prevPage,currentPage,nextPageSupplyOrders,currentRecordsSupplyOrders,filteredRecordsSupplyOrders,ToggleOrder,ToggleOrderDirection,totalPagesSupplyOrders}
+    return { handleRowClick,prevPage,currentPage,nextPageWarehouseOrders,currentRecordsWarehouseOrders,filteredRecordsWarehouseOrders,totalPagesWarehouseOrders}
 }
+
 // Hook para realizar las acciones de la tabla de compras ✔️
 export const TableActionsPurchases = () => {
     // Constantes con el valor de los contextos 
-    const [isWarehouseCategories] = useContext(WarhouseCategoriesContext);
+    const [isWarehouseCategories] = useContext(WarehouseCategoriesContext);
     const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); 
     const [isSupplyCategories,] = useContext(SupplyCategoriesContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
@@ -458,7 +456,7 @@ export const TableActionsPurchases = () => {
 // Hook para realizar las acciones de la tabla de ventas ✔️
 export const TableActionsSales = () => {
     // Constantes con el valor de los contextos 
-    const [isWarehouseCategories] = useContext(WarhouseCategoriesContext);
+    const [isWarehouseCategories] = useContext(WarehouseCategoriesContext);
     const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); 
     const [isSupplyCategories,] = useContext(SupplyCategoriesContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 

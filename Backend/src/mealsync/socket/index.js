@@ -1,9 +1,11 @@
 //____________IMPORT/EXPORT____________
 // Eventos socket
 import { Logs_GET } from './logs.js';
+import { Notifications_GET,Notifications_INSERT,Notifications_UPDATE } from './notifications.js';
 import { Users_GET,Users_INSERT,Users_UPDATE,Users_DELETE } from './users.js';
 import { Suppliers_GET,Suppliers_INSERT,Suppliers_UPDATE,Suppliers_DELETE } from './suppliers.js';
 import { Supplies_GET,Supplies_INSERT,Supplies_UPDATE,Supplies_DELETE } from './supplies.js';
+import { Extras_GET,Extras_INSERT,Extras_UPDATE,Extras_DELETE } from './extras.js';
 import { Warehouse_GET,Warehouse_INSERT,Warehouse_UPDATE,Warehouse_DELETE } from './warehouse.js';
 import { Menus_GET,Menus_INSERT,Menus_UPDATE,Menus_DELETE } from './menus.js';
 import { Dishes_GET,Dishes_INSERT,Dishes_UPDATE,Dishes_DELETE } from './dishes.js';
@@ -39,6 +41,10 @@ export const socketEvents = () => {
         }
         // Registros ✔️
         Logs_GET(socket)
+        // Notificaciones ✔️
+        Notifications_GET(socket);
+        Notifications_INSERT(socket);
+        Notifications_UPDATE(socket);
         // Usuarios ✔️
         Users_GET(socket);
         Users_INSERT(socket);
@@ -55,7 +61,10 @@ export const socketEvents = () => {
         Supplies_UPDATE(socket);
         Supplies_DELETE(socket);
         // Extras
-
+        Extras_GET(socket);
+        Extras_INSERT(socket);
+        Extras_UPDATE(socket);
+        Extras_DELETE(socket);
         // Almacén ✔️
         Warehouse_GET(socket);
         Warehouse_INSERT(socket);

@@ -15,6 +15,9 @@ export const RefButtonEnableContext = createContext(null);
 export const RefButtonDisableContext = createContext(null);
 export const RefButtonViewContext = createContext(null);
 export const RefButtonDetailContext = createContext(null);
+export const RefButtonVerificationGreenContext = createContext(null);
+export const RefButtonVerificationBlueContext = createContext(null);
+export const RefButtonVerificationRedContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
 // Contextos personalizados
 import { TouchContext } from "./VariablesProvider";
@@ -35,11 +38,17 @@ export const Index_Refs = ({children}) => {
                                             <Ref_Button_Enable>
                                                 <Ref_Button_Disable>
                                                     <Ref_Button_View>
-                                                        <Ref_Button_Detail>
-                                                            <Ref_Suppliers>
-                                                                {children}
-                                                            </Ref_Suppliers>
-                                                        </Ref_Button_Detail>
+                                                        <Ref_Button_Verification_Green>
+                                                            <Ref_Button_Verification_Blue>
+                                                                <Ref_Button_Verification_Red>
+                                                                    <Ref_Button_Detail>
+                                                                        <Ref_Suppliers>
+                                                                            {children}
+                                                                        </Ref_Suppliers>
+                                                                    </Ref_Button_Detail>
+                                                                </Ref_Button_Verification_Red>
+                                                            </Ref_Button_Verification_Blue>
+                                                        </Ref_Button_Verification_Green>
                                                     </Ref_Button_View>
                                                 </Ref_Button_Disable>
                                             </Ref_Button_Enable>
@@ -189,6 +198,39 @@ export const Ref_Button_View = ({ children }) => {
         <RefButtonViewContext.Provider value={isButtonView}>
             {children}
         </RefButtonViewContext.Provider>
+    );
+}
+// Función contexto para controlar las tablas con referencia a traves del boton de verificación verde ✔️
+export const Ref_Button_Verification_Green = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isButtonVerificationGreen = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefButtonVerificationGreenContext.Provider value={isButtonVerificationGreen}>
+            {children}
+        </RefButtonVerificationGreenContext.Provider>
+    );
+}
+// Función contexto para controlar las tablas con referencia a traves del boton de verificación azul ✔️
+export const Ref_Button_Verification_Blue = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isButtonVerificationBlue = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefButtonVerificationBlueContext.Provider value={isButtonVerificationBlue}>
+            {children}
+        </RefButtonVerificationBlueContext.Provider>
+    );
+}
+// Función contexto para controlar las tablas con referencia a traves del boton de verificación roja ✔️
+export const Ref_Button_Verification_Red = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isButtonVerificationRed = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefButtonVerificationRedContext.Provider value={isButtonVerificationRed}>
+            {children}
+        </RefButtonVerificationRedContext.Provider>
     );
 }
 // Función contexto para controlar las tablas con referencia a traves del boton de detalles ✔️

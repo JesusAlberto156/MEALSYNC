@@ -81,7 +81,7 @@ export const Users_INSERT = (socket) => {
             let resultPermissions;
             let resultStatus;
 
-            if(permisos === 'Default' || permisos === 'Personalizado'){
+            if(permisos === 'Default' || permisos === 'Personalizados'){
                 await insertPermissionsService(administrador,chef,almacenista,cocinero,nutriologo,medico,parsedData.find(data => data.usuario === usuario)?.idusuario);
                 resultPermissions = await getPermissionsService();
                 const decryptedData = decryptData(resultPermissions);

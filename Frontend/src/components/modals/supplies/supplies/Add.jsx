@@ -77,6 +77,7 @@ export default function Supply_Add(){
     const filteredRecordsCountSupplyTypes = FilteredRecordsCountSupplyTypes();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
     // Constantes con el valor de useState
+    const [isTotalCode,setIsTotalCode] = useState(0)
     const [isTotalDescription,setIsTotalDescription] = useState(0)
     const [isTotalName,setIsTotalName] = useState(0)
     const [isTotalImage,setIsTotalImage] = useState(0)
@@ -147,6 +148,9 @@ export default function Supply_Add(){
     },[isDeletedSupplyTypes]);
     // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
+        setIsTotalCode(isTextFieldsSupply.codigo.length);
+    },[isTextFieldsSupply.codigo]);
+    useEffect(() => {
         setIsTotalName(isTextFieldsSupply.nombre.length);
     },[isTextFieldsSupply.nombre]);
     useEffect(() => {
@@ -177,7 +181,7 @@ export default function Supply_Add(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Supply',isLoggedUser.idusuario,isTextFieldsSupply.nombre.trim(),isTextFieldsSupply.descripcion.trim(),isTextFieldsSupply.imagen,isTextFieldsSupply.idproveedor,isTextFieldsSupply.idtipo,isTextFieldsSupply.idcategoria,isTextFieldsSupply.idcantidad);
+                        socket.emit('Insert-Supply',isLoggedUser.idusuario,isTextFieldsSupply.codigo.trim(),isTextFieldsSupply.nombre.trim(),isTextFieldsSupply.descripcion.trim(),isTextFieldsSupply.imagen,isTextFieldsSupply.idproveedor,isTextFieldsSupply.idtipo,isTextFieldsSupply.idcategoria,isTextFieldsSupply.idcantidad);
 
                         resolve('¡Agregó al insumo!');
 
@@ -223,6 +227,35 @@ export default function Supply_Add(){
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
+                                <Container_Row_100_Left>
+                                    <Label_Text_16_Black>Código:</Label_Text_16_Black>
+                                    <Input_Group>
+                                        <Input_Text_100_Black
+                                            id="Input-Codigo"
+                                            placeholder="..."
+                                            type="text"
+                                            maxLength={20}
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsSupply.codigo}
+                                            onChange={(e) => setIsTextFieldsSupply(prev => ({...prev, codigo: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Codigo-Insumo');
+                                                }
+                                            }}
+                                        />
+                                        <Label_Text_12_Black>{isTotalCode}/20</Label_Text_12_Black>
+                                    </Input_Group>
+                                    <Icon_Button_Blue_20
+                                        onClick={() => {
+                                            setIsTextFieldsSupply(prev => ({...prev, codigo: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_20>
+                                </Container_Row_100_Left>
                                 <Container_Row_100_Left>
                                     <Label_Text_16_Black>Nombre:</Label_Text_16_Black>
                                     <Input_Group>

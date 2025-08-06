@@ -63,6 +63,28 @@ import Supply_Add from './components/modals/supplies/supplies/Add';
 import Supply_Edit from './components/modals/supplies/supplies/Edit';
 import Supply_Delete from './components/modals/supplies/supplies/Delete';
 import Supply_Details from './components/modals/supplies/supplies/Detail';
+import Table_Cleaning_Categories from './components/tables/extras/CleaningCategories';
+import Cleaning_Category_Add from './components/modals/extras/cleaningCategories/Add';
+import Cleaning_Category_Edit from './components/modals/extras/cleaningCategories/Edit';
+import Count_Cleaning_Category_Add from './components/modals/extras/cleaningCategories/CountAdd';
+import Cleaning_Category_Delete from './components/modals/extras/cleaningCategories/Delete';
+import Cleaning_Category_Details from './components/modals/extras/cleaningCategories/Detail';
+import Table_Cleaning_Supplies from './components/tables/extras/CleaningSupplies';
+import Cleaning_Supply_Add from './components/modals/extras/cleaningSupplies/Add';
+import Cleaning_Supply_Edit from './components/modals/extras/cleaningSupplies/Edit';
+import Cleaning_Supply_Delete from './components/modals/extras/cleaningSupplies/Delete';
+import Cleaning_Supply_Details from './components/modals/extras/cleaningSupplies/Detail';
+import Table_Fixed_Expenses from './components/tables/extras/FixedExpenses';
+import Fixed_Expense_Add from './components/modals/extras/fixedExpenses/Add';
+import Fixed_Expense_Edit from './components/modals/extras/fixedExpenses/Edit';
+import Fixed_Expense_Delete from './components/modals/extras/fixedExpenses/Delete';
+import Table_Orders from './components/tables/warehouse/Orders';
+import Warehouse_Order_Add from './components/modals/warehouse/orders/Add';
+
+import Warehouse_Order_Delete from './components/modals/warehouse/orders/Delete';
+import Warehouse_Order_Verification_Add from './components/modals/warehouse/orders/verification/Add';
+
+import Warehouse_Order_Details from './components/modals/warehouse/orders/Detail';
 
 import Table_Purchases from './components/tables/warehouse/Purchases';
 import Table_Sales from './components/tables/warehouse/Sales';
@@ -217,8 +239,78 @@ const router = createHashRouter([
             element: <Supply_Details/>,
           },
           {
-            path: 'Administration/Index/Warehouse/Supply/Orders/Add',
+            path: 'Administration/Index/Extras/Cleaning/Categories/Add',
+            element: <Cleaning_Category_Add/>,
           },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Categories/Edit',
+            element: <Cleaning_Category_Edit/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Categories/Count/Add',
+            element: <Count_Cleaning_Category_Add/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Categories/Delete',
+            element: <Cleaning_Category_Delete/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Categories/Detail',
+            element: <Cleaning_Category_Details/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Supplies/Add',
+            element: <Cleaning_Supply_Add/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Supplies/Edit',
+            element: <Cleaning_Supply_Edit/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Supplies/Delete',
+            element: <Cleaning_Supply_Delete/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Cleaning/Supplies/Detail',
+            element: <Cleaning_Supply_Details/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Fixed/Expenses/Add',
+            element: <Fixed_Expense_Add/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Fixed/Expenses/Edit',
+            element: <Fixed_Expense_Edit/>,
+          },
+          {
+            path: 'Administration/Index/Extras/Fixed/Expenses/Delete',
+            element: <Fixed_Expense_Delete/>,
+          },
+          {
+            path: 'Administration/Index/Warehouse/Orders/Add',
+            element: <Warehouse_Order_Add/>,
+          },
+          {
+            path: 'Administration/Index/Warehouse/Orders/Edit',
+
+          },
+          {
+            path: 'Administration/Index/Warehouse/Orders/Delete',
+            element: <Warehouse_Order_Delete/>,
+          },
+          {
+            path: 'Administration/Index/Warehouse/Orders/Verification/Add',
+            element: <Warehouse_Order_Verification_Add/>,
+          },
+          {
+            path: 'Administration/Index/Warehouse/Orders/Verification/Edit',
+            
+          },
+          {
+            path: 'Administration/Index/Warehouse/Orders/Detail',
+            element: <Warehouse_Order_Details/>,
+          },
+
           {
             path: 'Administration/Index/Warehouse/Supply/Orders/Edit',
           },
@@ -340,6 +432,22 @@ const router = createHashRouter([
                   {
                     path: 'Supplies/Supplies',
                     element: <Table_Supplies/>
+                  },
+                  {
+                    path: 'Extras/Cleaning/Categories',
+                    element: <Table_Cleaning_Categories/>,
+                  },
+                  {
+                    path: 'Extras/Cleaning/Supplies',
+                    element: <Table_Cleaning_Supplies/>,
+                  },
+                  {
+                    path: 'Extras/Fixed/Expenses',
+                    element: <Table_Fixed_Expenses/>,
+                  },
+                  {
+                    path: 'Warehouse/Orders',
+                    element: <Table_Orders/>,
                   },
                   {
                     path: 'Warehouse/Purchases',

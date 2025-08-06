@@ -3,7 +3,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
-import { ModalViewContext,ModalContext } from "../../contexts/ViewsProvider";
+import { ModalViewContext,ModalContext,SidebarContext } from "../../contexts/ViewsProvider";
+import { SelectedRowContext } from "../../contexts/SelectedesProvider";
+import { ActionBlockContext,VerificationBlockContext,FunctionBlockContext } from "../../contexts/VariablesProvider";
 // Hooks personalizados
 import { ResetSearchTerms,ResetSelectedOptions } from "../Texts";
 //____________IMPORT/EXPORT____________
@@ -13,6 +15,11 @@ export const HandleModalViewWarehouse = () => {
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
+    const [isFunctionBlock,setIsFunctionBlock] = useContext(FunctionBlockContext);
+    const [isVerificationBlock,setIsVerificationBlock] = useContext(VerificationBlockContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const resetSearchTerms = ResetSearchTerms();
@@ -22,29 +29,90 @@ export const HandleModalViewWarehouse = () => {
         setIsModal(true);
         sessionStorage.setItem('Estado del Modal',true);
         const route = sessionStorage.getItem('Ruta');
-        // INVENTARIOS
-        if(currentMView === 'Pedido-Agregar' && View === ''){
-
+        const sidebar = sessionStorage.getItem('Estado del Sidebar');
+        // PEDIDOS ✔️
+        if(currentMView === 'Pedido-Almacen-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
         }
-        if(currentMView === 'Pedido-Editar' && View === ''){
-
+        if(currentMView === 'Pedido-Almacen-Editar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
         }
-        if(currentMView === 'Pedido-Editar-Estado' && View === ''){
-
+        if(currentMView === 'Pedido-Almacen-Eliminar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                setIsFunctionBlock(false)
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Función del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
+                return navigate(route,{ replace: true });
+            },750);
         }
-        if(currentMView === 'Observaciones-Pedido-Visualizar' && View === ''){
-
+        if(currentMView === 'Pedido-Almacen-Verificacion-Editar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
         }
-        if(currentMView === 'Observacion-Pedido-Agregar' && View === ''){
-
+        if(currentMView === 'Pedido-Almacen-Verificacion-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
         }
-        if(currentMView === 'Pedido-Eliminar' && View === ''){
-
+        if(currentMView === 'Pedido-Almacen-Detalles' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
         }
-        if(currentMView === 'Almacen-Tipo-Insumo-Agregar' && View === ''){
-
-        }
-        // INVENTARIOS
         setCurrentMView(View);
         sessionStorage.setItem('Vista del Modal',View);
         resetSelectedOptions();

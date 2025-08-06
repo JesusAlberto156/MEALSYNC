@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
-import { RefButtonAddContext,RefButtonEditContext,RefButtonDeleteContext,RefButtonDisableContext,RefButtonEnableContext,RefButtonViewContext,RefButtonDetailContext } from "../../../contexts/RefsProvider";
+import { RefButtonAddContext,RefButtonEditContext,RefButtonVerificationGreenContext,RefButtonVerificationBlueContext,RefButtonVerificationRedContext,RefButtonDeleteContext,RefButtonDisableContext,RefButtonEnableContext,RefButtonDetailContext } from "../../../contexts/RefsProvider";
 import { SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../../../contexts/SelectedesProvider";
 // Hooks personalizados
 import { ResetFilteredOrder,ResetFilteredSearch } from "../../../hooks/Texts";
@@ -15,6 +15,8 @@ import { ResetFilteredOrder,ResetFilteredSearch } from "../../../hooks/Texts";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { BsClipboardPlusFill } from "react-icons/bs";
+import { BsClipboardFill } from "react-icons/bs";
 // Iconos para metodos de ordenamiento y busqueda
 import { IoSearch } from "react-icons/io5";
 import { LuArrowDownUp } from "react-icons/lu";
@@ -252,7 +254,6 @@ export const Search_Bar_Button_View = ({
 }) => {
     // Constantes con el valor de los contextos
     const [isActionBlock] = useContext(ActionBlockContext);
-    const isButtonView = useContext(RefButtonViewContext);
     // constantes con el valor de los hooks
     const navigate = useNavigate();
     // Estructura del componente
@@ -283,6 +284,182 @@ export const Search_Bar_Button_View = ({
                         </Button_Icon_Green_60>
                     )}
                 </Tooltip> 
+            )}
+        </>
+    );
+}
+export const Search_Bar_Button_Verification_Green = ({
+    route = '',
+    onHandleAction = () => {},
+    row = null,
+    icon = <BsClipboardPlusFill/>,
+    title = '',
+    condition = false,
+}) => {
+    // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const isButtonVerificationGreen = useContext(RefButtonVerificationGreenContext);
+    // constantes con el valor de los hooks
+    const navigate = useNavigate();
+    // Estructura del componente
+    return(
+        <>
+            {isActionBlock ? (
+                <>
+                    <Button_Icon_Green_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Green_60>
+                </>
+            ):(
+                row !== null && condition  ? (
+                    <Tooltip title={title} placement="top">
+                        <Button_Icon_Green_60 
+                            ref={isButtonVerificationGreen}
+                            onClick={() => {
+                                onHandleAction();
+                                navigate(route,{ replace: true });
+                            }}
+                        >
+                            <Icon_16>{icon}</Icon_16>
+                        </Button_Icon_Green_60>  
+                    </Tooltip>
+                ):(
+                    <Button_Icon_Green_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Green_60>
+                ) 
+            )}
+        </>
+    );
+}
+export const Search_Bar_Button_Verification_Blue = ({
+    route = '',
+    onHandleAction = () => {},
+    row = null,
+    icon = <BsClipboardFill/>,
+    title = '',
+    condition = false,
+}) => {
+    // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const isButtonVerificationBlue = useContext(RefButtonVerificationBlueContext);
+    // constantes con el valor de los hooks
+    const navigate = useNavigate();
+    // Estructura del componente
+    return(
+        <>
+            {isActionBlock ? (
+                <>
+                    <Button_Icon_Blue_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Blue_60>
+                </>
+            ):(
+                row !== null && condition  ? (
+                    <Tooltip title={title} placement="top">
+                        <Button_Icon_Blue_60 
+                            ref={isButtonVerificationBlue}
+                            onClick={() => {
+                                onHandleAction();
+                                navigate(route,{ replace: true });
+                            }}
+                        >
+                            <Icon_16>{icon}</Icon_16>
+                        </Button_Icon_Blue_60>  
+                    </Tooltip>
+                ):(
+                    <Button_Icon_Blue_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Blue_60>
+                ) 
+            )}
+        </>
+    );
+}
+export const Search_Bar_Button_Verification_Blue_Edit = ({
+    route = '',
+    onHandleAction = () => {},
+    row = null,
+    icon = null,
+    title = '',
+    condition = false,
+}) => {
+    // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const isButtonEdit = useContext(RefButtonEditContext);
+    // constantes con el valor de los hooks
+    const navigate = useNavigate();
+    // Estructura del componente
+    return(
+        <>
+            {isActionBlock ? (
+                <>
+                    <Button_Icon_Blue_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Blue_60>
+                </>
+            ):(
+                row !== null && condition  ? (
+                    <Tooltip title={title} placement="top">
+                        <Button_Icon_Blue_60 
+                            ref={isButtonEdit}
+                            onClick={() => {
+                                onHandleAction();
+                                navigate(route,{ replace: true });
+                            }}
+                        >
+                            <Icon_16>{icon}</Icon_16>
+                        </Button_Icon_Blue_60>  
+                    </Tooltip>
+                ):(
+                    <Button_Icon_Blue_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Blue_60>
+                ) 
+            )}
+        </>
+    );
+}
+export const Search_Bar_Button_Verification_Red = ({
+    route = '',
+    onHandleAction = () => {},
+    row = null,
+    icon = null,
+    title = '',
+    condition = false,
+}) => {
+    // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const isButtonVerificationRed = useContext(RefButtonVerificationRedContext);
+    // constantes con el valor de los hooks
+    const navigate = useNavigate();
+    // Estructura del componente
+    return(
+        <>
+            {isActionBlock ? (
+                <>
+                    <Button_Icon_Red_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Red_60>
+                </>
+            ):(
+                row !== null && condition  ? (
+                    <Tooltip title={title} placement="top">
+                        <Button_Icon_Red_60 
+                            ref={isButtonVerificationRed}
+                            onClick={() => {
+                                onHandleAction();
+                                navigate(route,{ replace: true });
+                            }}
+                        >
+                            <Icon_16>{icon}</Icon_16>
+                        </Button_Icon_Red_60>  
+                    </Tooltip>
+                ):(
+                    <Button_Icon_Red_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Red_60>
+                ) 
             )}
         </>
     );

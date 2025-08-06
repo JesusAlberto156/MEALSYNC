@@ -123,10 +123,11 @@ export const getDeletedSupplyCategoriesService = async () => {
 //______________GET______________
 //______________INSERT______________
 //---------- INSUMOS ✔️
-export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
+export const insertSupplyService = async (codigo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
+            .input('codigo',sql.VarChar(20),codigo)
             .input('nombre',sql.VarChar(150),nombre)
             .input('descripcion',sql.VarChar(250),descripcion)
             .input('imagen',sql.VarChar(sql.MAX),imagen)
@@ -134,7 +135,7 @@ export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,
             .input('idtipo',sql.Int,idtipo)
             .input('idcategoria',sql.Int,idcategoria)
             .input('idcantidad',sql.Int,idcantidad)
-            .query('INSERT INTO insumos (nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) VALUES (@nombre,@descripcion,@imagen,@idproveedor,@idtipo,@idcategoria,@idcantidad)');
+            .query('INSERT INTO insumos (codigo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) VALUES (@codigo,@nombre,@descripcion,@imagen,@idproveedor,@idtipo,@idcategoria,@idcantidad)');
 
         if(result.rowsAffected[0]>0){
             return 'Insumo insertado...';
@@ -146,7 +147,7 @@ export const insertSupplyService = async (nombre,descripcion,imagen,idproveedor,
         throw error;
     }
 }
-export const insertLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria,idcantidad) => {
+export const insertLogSupplyService = async (idinsumo,idusuario,imagen,codigo,nombre,descripcion,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -155,13 +156,14 @@ export const insertLogSupplyService = async (idinsumo,idusuario,imagen,nombre,de
             .input('idtabla',sql.Int,idinsumo)
             .input('idusuario',sql.Int,idusuario)
             .input('campo1',sql.VarChar(500),imagen)
-            .input('campo2',sql.VarChar(500),nombre)
-            .input('campo3',sql.VarChar(500),descripcion)
-            .input('campo4',sql.VarChar(500),idproveedor)
-            .input('campo5',sql.VarChar(500),idtipo)
-            .input('campo6',sql.VarChar(500),idcategoria)
-            .input('campo7',sql.VarChar(500),idcantidad)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7)');
+            .input('campo2',sql.VarChar(500),codigo)
+            .input('campo3',sql.VarChar(500),nombre)
+            .input('campo4',sql.VarChar(500),descripcion)
+            .input('campo5',sql.VarChar(500),idproveedor)
+            .input('campo6',sql.VarChar(500),idtipo)
+            .input('campo7',sql.VarChar(500),idcategoria)
+            .input('campo8',sql.VarChar(500),idcantidad)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -422,11 +424,12 @@ export const insertLogDeletedSupplyCategoryService = async (ideliminado,idusuari
 //______________INSERT______________
 //______________UPDATE______________
 //---------- INSUMOS ✔️
-export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
+export const updateSupplyService = async (idinsumo,codigo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idinsumo',sql.Int,idinsumo)
+            .input('codigo',sql.VarChar(20),codigo)
             .input('nombre',sql.VarChar(150),nombre)
             .input('descripcion',sql.VarChar(250),descripcion)
             .input('imagen',sql.VarChar(sql.MAX),imagen)
@@ -434,7 +437,7 @@ export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idp
             .input('idtipo',sql.Int,idtipo)
             .input('idcategoria',sql.Int,idcategoria)
             .input('idcantidad',sql.Int,idcantidad)
-            .query('UPDATE insumos SET nombre = @nombre, descripcion = @descripcion, imagen = @imagen, idproveedor = @idproveedor, idtipo = @idtipo, idcategoria = @idcategoria, idcantidad = @idcantidad WHERE idinsumo = @idinsumo');
+            .query('UPDATE insumos SET codigo = @codigo, nombre = @nombre, descripcion = @descripcion, imagen = @imagen, idproveedor = @idproveedor, idtipo = @idtipo, idcategoria = @idcategoria, idcantidad = @idcantidad WHERE idinsumo = @idinsumo');
 
         if(result.rowsAffected[0]>0){
             return 'Insumo actualizado...';
@@ -446,7 +449,7 @@ export const updateSupplyService = async (idinsumo,nombre,descripcion,imagen,idp
         throw error;
     }
 }
-export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,descripcion,idproveedor,idtipo,idcategoria,idcantidad) => {
+export const updateLogSupplyService = async (idinsumo,idusuario,imagen,codigo,nombre,descripcion,idproveedor,idtipo,idcategoria,idcantidad) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -455,13 +458,14 @@ export const updateLogSupplyService = async (idinsumo,idusuario,imagen,nombre,de
             .input('idtabla',sql.Int,idinsumo)
             .input('idusuario',sql.Int,idusuario)
             .input('campo1',sql.VarChar(500),imagen)
-            .input('campo2',sql.VarChar(500),nombre)
-            .input('campo3',sql.VarChar(500),descripcion)
-            .input('campo4',sql.VarChar(500),idproveedor)
-            .input('campo5',sql.VarChar(500),idtipo)
-            .input('campo6',sql.VarChar(500),idcategoria)
-            .input('campo7',sql.VarChar(500),idcantidad)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7)');
+            .input('campo2',sql.VarChar(500),codigo)
+            .input('campo3',sql.VarChar(500),nombre)
+            .input('campo4',sql.VarChar(500),descripcion)
+            .input('campo5',sql.VarChar(500),idproveedor)
+            .input('campo6',sql.VarChar(500),idtipo)
+            .input('campo7',sql.VarChar(500),idcategoria)
+            .input('campo8',sql.VarChar(500),idcantidad)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';

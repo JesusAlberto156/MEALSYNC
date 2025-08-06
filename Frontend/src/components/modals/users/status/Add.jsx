@@ -107,7 +107,7 @@ export default function Status_Add(){
                                         <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Auto_Center>
                                     <Select_300
-                                        data={filteredRecordsHasStatus}
+                                        data={filteredRecordsHasStatus.length}
                                         options={filteredRecordsHasStatus.map((user) => ({
                                             value: user.idusuario,
                                             label: user.usuario

@@ -198,10 +198,10 @@ export default function Side_Bar() {
               <Side_Bar_Button
                 title="Inventario"
                 viewSidebar="Inventario"
-                viewNavbar="Pedidos de insumo"
+                viewNavbar="Pedidos de almacen"
                 text="Inventario"
                 icon={<FaWarehouse/>}
-                route="/Administration/Index/Warehouse/Purchases"
+                route="/Administration/Index/Warehouse/Orders"
               />
               <Side_Bar_Button
                 title="Menús"
@@ -257,10 +257,10 @@ export default function Side_Bar() {
               <Side_Bar_Button
                 title="Inventario"
                 viewSidebar="Inventario"
-                viewNavbar="Pedidos de insumo"
+                viewNavbar="Pedidos de almacen"
                 text="Inventario"
                 icon={<FaWarehouse/>}
-                route="/Administration/Index/Warehouse/Purchases"
+                route="/Administration/Index/Warehouse/Orders"
               />
               <Side_Bar_Button
                 title="Menús"
@@ -303,10 +303,10 @@ export default function Side_Bar() {
               <Side_Bar_Button
                 title="Inventario"
                 viewSidebar="Inventario"
-                viewNavbar="Pedidos de insumo"
+                viewNavbar="Pedidos de almacen"
                 text="Inventario"
                 icon={<FaWarehouse/>}
-                route="/Administration/Index/Warehouse/Purchases"
+                route="/Administration/Index/Warehouse/Orders"
               />
               <Side_Bar_Button
                 title="Menús"

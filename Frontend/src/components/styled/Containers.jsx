@@ -12,6 +12,8 @@ import Background_Users from '../imgs/Background-Users.jpg';
 import Background_Suppliers from '../imgs/Background-Suppliers.jpg';
 // Insumos
 import Background_Supplies from '../imgs/Background-Supplies.jpg';
+// Extras
+import Background_Extras from '../imgs/Background-Extras.jpg'
 // Invetario
 import Background_Warehouse from '../imgs/Background-Warehouse.jpg';
 // Menus
@@ -97,6 +99,9 @@ export const Container_Page_Logged = styled.div.withConfig({
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Insumos') && Logged ? 
         `background-image: url(${Background_Supplies});`:''
+    }
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Extras') && Logged ? 
+        `background-image: url(${Background_Extras});`:''
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Administrador' || TypeUser === 'Chef' || TypeUser === 'Almacenista') && (Sidebar === 'Inventario') && Logged ? 
         `background-image: url(${Background_Warehouse});`:''
@@ -206,122 +211,6 @@ export const Container_Page_Loading = styled.div`
     background: rgb(58,93,174);
 `;
 //____________PAGE____________
-//____________LOGIN____________
-export const Container_Form_500 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    width: 60vw;
-    height: 80vh;
-    padding: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
-    gap: 15px;
-    border-radius: 50px;
-    border: 3px solid black;
-    border-right: 7px solid black;
-    border-bottom: 7px solid black;
-    background-color: rgba(255, 255, 255, 0.85);
-    
-    @media (max-width: 768px) {
-        border: 2px solid black;
-        border-right: 6px solid black;
-        border-bottom: 6px solid black;
-        width: 70vw;
-        padding: 15px;
-        padding-left: 30px;
-        padding-right: 30px;
-        gap: 10px;
-    }
-
-    @media (max-width: 480px) {
-        border: 1px solid black;
-        border-right: 5px solid black;
-        border-bottom: 5px solid black;
-        width: 80vw;
-        padding: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        gap: 5px;
-    }
-`;
-export const Container_Form_450 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    z-index: 100;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    width: 450px;
-    max-height: 80vh;
-    padding: 20px;
-    gap: 14px;
-    border-radius: 50px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255,255,255)' : 'rgb(0,0,0)')};
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        width: 400px;
-        padding: 18px;
-        gap: 12px;
-    }
-
-    @media (max-width: 480px) {
-        width: 350px;    
-        padding: 16px;
-        gap: 10px;
-    }
-`;
-export const Container_Form_400 = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'ThemeMode',
-})`
-    z-index: 100;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    width: 400px;
-    max-height: 80vh;
-    padding: 20px;
-    gap: 14px;
-    border-radius: 50px;
-    border: ${({ ThemeMode }) => (ThemeMode ? '4px solid black' : '4px solid white')};
-    background-color: ${({ ThemeMode }) => (ThemeMode ? 'rgb(255,255,255)' : 'rgb(0,0,0)')};
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        width: 350px;
-        padding: 18px;
-        gap: 12px;
-    }
-
-    @media (max-width: 480px) {
-        width: 300px;    
-        padding: 16px;
-        gap: 10px;
-    }
-`;
-//____________LOGIN____________
 //____________ROW____________
 export const Container_Row_100_Center = styled.div` 
     display: flex;
@@ -2042,3 +1931,28 @@ export const Container_Meal_100_Center = styled.div`
 }
 `;
 //____________COMIDA____________
+//____________PEDIDO____________
+export const Container_Order_100_Center = styled.div` 
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center; 
+    padding: 20px;
+    border: 2px solid black;
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    gap: 20px;
+     
+    @media (max-width: 768px) {
+        gap: 15px;  
+        padding: 15px;  
+    }
+
+    @media (max-width: 480px) {
+        gap: 10px;
+        padding: 10px;
+    }
+}
+`;
+//____________PEDIDO____________

@@ -2,8 +2,8 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { KeyboardContext,KeyboardViewContext,IndexCountContext,IndexSearchContext } from "../../contexts/VariablesProvider";
-import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsSupplyCategoryContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsDishContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../../contexts/FormsProvider";
+import { KeyboardContext,KeyboardViewContext,IndexCountContext,IndexSearchContext,IndexDetailContext } from "../../contexts/VariablesProvider";
+import { TextFieldsUserContext,TextFieldsSupplierContext,TextFieldsWarehouseOrderContext,TextFieldsCleaningCategoryContext,TextFieldsFixedExpenseContext,TextFieldsCleaningSupplyContext,TextFieldsSupplyCategoryContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsDishContext,TextFieldsSupplyContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../../contexts/FormsProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../contexts/SearchsProvider";
 // Hooks personalizados 
 import { HandleKeyboard } from "../../hooks/Views";
@@ -173,7 +173,8 @@ export const Keyboard_Form_Supply = () => {
         <>
             {isKeyboard ? (
                 <Keyboard_Default 
-                    value={isKeyboardView === 'Nombre-Insumo' ? isTextFieldsSupply.nombre :
+                    value={isKeyboardView === 'Codigo-Insumo' ? isTextFieldsSupply.codigo :
+                        isKeyboardView === 'Nombre-Insumo' ? isTextFieldsSupply.nombre :
                         isKeyboardView === 'Descripcion-Insumo' ? isTextFieldsSupply.descripcion : 
                         isKeyboardView === 'Imagen-Insumo' ? isTextFieldsSupply.imagen :
                         isKeyboardView === 'Buscador-Proveedor' ? isSearchTerm1 : 
@@ -187,9 +188,137 @@ export const Keyboard_Form_Supply = () => {
         </>
     );
 };
-
-
-
+export const Keyboard_Form_Cleaning_Category = () => {
+    // Constantes con el valor de los contextos
+    const [isTextFieldsCleaningCategory] = useContext(TextFieldsCleaningCategoryContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext);
+    // Constantes con la funcionalidad de los hooks
+    const { handleKeyboard } = HandleKeyboard();
+    // Estructura del componente
+    return (
+        <>
+            {isKeyboard ? (
+                <>
+                    {isKeyboardView === 'Nombre-Categoria-Limpieza' || isKeyboardView === 'Descripcion-Categoria-Limpieza' ? (
+                        <Keyboard_Default 
+                            value={isKeyboardView === 'Nombre-Categoria-Limpieza' ? isTextFieldsCleaningCategory.nombre :
+                                isKeyboardView === 'Descripcion-Categoria-Limpieza' ? isTextFieldsCleaningCategory.descripcion : null} 
+                            onChange={handleKeyboard}
+                        />
+                    ):(
+                        <></>
+                    )}
+                    {isKeyboardView === 'Limite-Categoria-Limpieza' || isKeyboardView === 'Cantidad-Categoria-Limpieza' ? (
+                        <Keyboard_Numeric
+                            value={isKeyboardView === 'Limite-Categoria-Limpieza' ? isTextFieldsCleaningCategory.limite : 
+                                isKeyboardView === 'Cantidad-Categoria-Limpieza' ? isTextFieldsCleaningCategory.cantidades?.[0]?.cantidad ?? '' : null}
+                            onChange={handleKeyboard}
+                        />
+                    ):(
+                        <></>
+                    )}
+                </>
+            ):(
+                <></>
+            )}
+        </>
+    );
+};
+export const Keyboard_Form_Cleaning_Supply = () => {
+    // Constantes con el valor de los contextos
+    const [isTextFieldsCleaningSupply] = useContext(TextFieldsCleaningSupplyContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext);
+    const [isSearchTerm1] = useContext(SearchTerm1Context); 
+    const [isSearchTerm2] = useContext(SearchTerm2Context);  
+    // Constantes con la funcionalidad de los hooks
+    const { handleKeyboard } = HandleKeyboard();
+    // Estructura del componente
+    return (
+        <>
+            {isKeyboard ? (
+                <Keyboard_Default 
+                    value={isKeyboardView === 'Codigo-Suministro' ? isTextFieldsCleaningSupply.codigo :
+                        isKeyboardView === 'Nombre-Suministro' ? isTextFieldsCleaningSupply.nombre :
+                        isKeyboardView === 'Descripcion-Suministro' ? isTextFieldsCleaningSupply.descripcion : 
+                        isKeyboardView === 'Imagen-Suministro' ? isTextFieldsCleaningSupply.imagen :
+                        isKeyboardView === 'Buscador-Proveedor-Suministro' ? isSearchTerm1 : 
+                        isKeyboardView === 'Buscador-Categoria-Suministro' ? isSearchTerm2 : null} 
+                    onChange={handleKeyboard}
+                />
+            ):(
+                <></>
+            )}
+        </>
+    );
+};
+export const Keyboard_Form_Fixed_Expense = () => {
+    // Constantes con el valor de los contextos
+    const [isTextFieldsFixedExpense] = useContext(TextFieldsFixedExpenseContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext); 
+    // Constantes con la funcionalidad de los hooks
+    const { handleKeyboard } = HandleKeyboard();
+    // Estructura del componente
+    return (
+        <>
+            {isKeyboard ? (
+                <Keyboard_Default 
+                    value={isKeyboardView === 'Nombre-Gasto-Fijo' ? isTextFieldsFixedExpense.nombre :
+                        isKeyboardView === 'Descripcion-Gasto-Fijo' ? isTextFieldsFixedExpense.descripcion : null} 
+                    onChange={handleKeyboard}
+                />
+            ):(
+                <></>
+            )}
+        </>
+    );
+};
+export const Keyboard_Form_Warehouse_Order = () => {
+    // Constantes con el valor de los contextos
+    const [isTextFieldsWarehouseOrder] = useContext(TextFieldsWarehouseOrderContext);
+    const [isKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView] = useContext(KeyboardViewContext); 
+    const [isIndexCount] = useContext(IndexCountContext);
+    const [isIndexDetail] = useContext(IndexDetailContext);
+    const [isSearchTerm1] = useContext(SearchTerm1Context);
+    // Constantes con la funcionalidad de los hooks
+    const { handleKeyboard } = HandleKeyboard();
+    // Estructura del componente
+    return (
+        <>
+            {isKeyboard ? (
+                <>
+                    {isKeyboardView === 'Campus-Pedido-Almacen' || isKeyboardView === 'Buscador-Proveedor-Pedido-Almacen' || isKeyboardView === `Detalle-Pedido-Almacen-Sumnistro-${isIndexDetail}` || isKeyboardView === `Detalle-Pedido-Almacen-Insumo-${isIndexDetail}` ? (
+                        <Keyboard_Default 
+                            value={isKeyboardView === 'Campus-Pedido-Almacen' ? isTextFieldsWarehouseOrder.campus :
+                                isKeyboardView === 'Buscador-Proveedor-Pedido-Almacen' ? isSearchTerm1 :
+                                isKeyboardView === `Detalle-Pedido-Almacen-Sumnistro-${isIndexDetail}` ? isTextFieldsWarehouseOrder.suministros[isIndexDetail].mensajes[0].mensaje :
+                                isKeyboardView === `Detalle-Pedido-Almacen-Insumo-${isIndexDetail}` ? isTextFieldsWarehouseOrder.insumos[isIndexDetail].mensajes[0].mensaje : null} 
+                            onChange={handleKeyboard}
+                    />
+                    ):(
+                        <></>
+                    )}
+                    {isKeyboardView === 'ID-Pedido-Almacen' || isKeyboardView === `Cantidad-Pedido-Almacen-Insumo-${isIndexCount}` || isKeyboardView === `Cantidad-Pedido-Almacen-Suministro-${isIndexCount}` ? (
+                        <Keyboard_Numeric
+                            value={isKeyboardView === 'ID-Pedido-Almacen' ? isTextFieldsWarehouseOrder.idpedido :
+                                isKeyboardView === `Cantidad-Pedido-Almacen-Insumo-${isIndexCount}` ? isTextFieldsWarehouseOrder.insumos[isIndexCount].cantidad :
+                                isKeyboardView === `Cantidad-Pedido-Almacen-Suministro-${isIndexCount}` ? isTextFieldsWarehouseOrder.suministros[isIndexCount].cantidad : null
+                            }
+                            onChange={handleKeyboard}
+                        />
+                    ):(
+                        <></> 
+                    )}
+                </>
+            ):(
+                <></>
+            )}
+        </>
+    );
+};
 export const Keyboard_Form_Menu = () => {
     // Constantes con el valor de los contextos
     const [isTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); 

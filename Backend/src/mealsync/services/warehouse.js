@@ -72,6 +72,102 @@ export const getWarehouseFixedExpensesService = async () => {
         throw error;
     }
 }
+//---------- PEDIDOS ✔️
+export const getOrdersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM pedidos');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los pedidos del almacén: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS ELIMINADOS ✔️
+export const getDeletedOrdersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM pedidosEliminados');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los pedidos del almacén eliminados: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE INSUMOS ✔️
+export const getSupplyOrdersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM pedidoInsumo');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los pedidos de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+export const getCleaningSupplyOrdersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM pedidoSuministro');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los pedidos de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE INSUMOS ✔️
+export const getMessageSupplyOrdersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM mensajesPedidoInsumo');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los mensajes de pedidos de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+export const getMessageCleaningSupplyOrdersService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM mensajesPedidoSuministro');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los mensajes de pedidos de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
 //______________GET______________
 //______________INSERT______________
 //---------- ALMACEN DE CATEGORIAS ✔️
@@ -427,10 +523,841 @@ export const insertLogWarehouseFixedExpenseService = async (idalmacen,idusuario,
         throw error;
     }
 }
+//---------- PEDIDOS ✔️
+export const insertOrderService = async (idpedido,campus,idproveedor,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedido',sql.Int,idpedido)
+            .input('campus',sql.VarChar(50),campus)
+            .input('estado',sql.VarChar(30),'Solicitud')
+            .input('idproveedor',sql.Int,idproveedor)
+            .input('idusuario',sql.Int,idusuario)
+            .query('INSERT INTO pedidos (idpedido,campus,estado,idproveedor,idusuario) VALUES (@idpedido,@campus,@estado,@idproveedor,@idusuario)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de almacén insertado...'
+        }else{
+            return 'No se pudo insertar el pedido de almacén...';
+        }
+    }catch(error){
+        console.error('Error al insertar el pedido de almacén: ',error.message);
+        throw error;
+    }
+}
+export const insertLogOrderService = async (idpedido,usuario,campus,idproveedor,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Almacen')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idpedido)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo2',sql.VarChar(500),new Date().toISOString())
+            .input('campo3',sql.VarChar(500),campus)
+            .input('campo5',sql.VarChar(500),'Solicitud')
+            .input('campo6',sql.VarChar(500),idproveedor)
+            .input('campo7',sql.VarChar(500),idusuario)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo5,@campo6,@campo7)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS ELIMINADOS ✔️
+export const insertDeletedOrderService = async (idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedido',sql.Int,idpedido)
+            .query('INSERT INTO pedidosEliminados (idpedido) VALUES (@idpedido)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de almacén eliminado...';
+        }else{
+            return 'No se pudo eliminar al pedido de almacén...';
+        }
+    }catch(error){
+        console.error('Error al eliminar al pedido de almacén: ',error.message);
+        throw error;
+    }
+}
+export const insertLogDeletedOrderService = async (ideliminado,idusuario,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Almacen Eliminados')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idpedido)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE INSUMOS ✔️
+export const insertSupplyOrderService = async (idinsumo,cantidad,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idinsumo',sql.Int,idinsumo)
+            .input('cantidad',sql.Int,cantidad)
+            .input('idpedido',sql.Int,idpedido)
+            .input('estado',sql.VarChar(20),'En espera')
+            .query('INSERT INTO pedidoInsumo (idinsumo,cantidad,idpedido,estado) VALUES (@idinsumo,@cantidad,@idpedido,@estado)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de insumo del almacén insertado...'
+        }else{
+            return 'No se pudo insertar el pedido de insumo del almacén...';
+        }
+    }catch(error){
+        console.error('Error al insertar el pedido de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+export const insertLogSupplyOrderService = async (idpedidoindividual,idusuario,idinsumo,cantidad,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Insumo del Almacen')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),new Date().toISOString())
+            .input('campo3',sql.VarChar(500),idinsumo)
+            .input('campo4',sql.VarChar(500),cantidad)
+            .input('campo7',sql.VarChar(500),idpedido)
+            .input('campo8',sql.VarChar(500),'En espera')
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo7,@campo8)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+export const insertCleaningSupplyOrderService = async (idsuministro,cantidad,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idsuministro',sql.Int,idsuministro)
+            .input('cantidad',sql.Int,cantidad)
+            .input('idpedido',sql.Int,idpedido)
+            .input('estado',sql.VarChar(20),'En espera')
+            .query('INSERT INTO pedidoSuministro (idsuministro,cantidad,idpedido,estado) VALUES (@idsuministro,@cantidad,@idpedido,@estado)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de suministro del alamcén insertado...'
+        }else{
+            return 'No se pudo insertar el pedido de suministro del almacén...';
+        }
+    }catch(error){
+        console.error('Error al insertar el pedido de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
+export const insertLogCleaningSupplyOrderService = async (idpedidoindividual,idusuario,idsuministro,cantidad,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Suministro del Almacen')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),new Date().toISOString())
+            .input('campo3',sql.VarChar(500),idsuministro)
+            .input('campo4',sql.VarChar(500),cantidad)
+            .input('campo7',sql.VarChar(500),idpedido)
+            .input('campo8',sql.VarChar(500),'En espera')
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo7,@campo8)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE INSUMOS ✔️
+export const insertMessageSupplyOrderService = async (mensaje,idpedidoindividual,tipo,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('mensaje',sql.VarChar(500),mensaje)
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('tipo',sql.VarChar(20),tipo)
+            .input('estado',sql.VarChar(20),estado)
+            .query('INSERT INTO mensajesPedidoInsumo (mensaje,idpedidoindividual,tipo,estado) VALUES (@mensaje,@idpedidoindividual,@tipo,@estado)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Mensaje de pedido de insumo del alamcén insertado...'
+        }else{
+            return 'No se pudo insertar el mensaje de pedido de insumo del almacén...';
+        }
+    }catch(error){
+        console.error('Error al insertar el mensaje de pedido de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+export const insertLogMessageSupplyOrderService = async (idmensaje,idusuario,mensaje,idpedidoindividual,tipo,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Insumo del Almacen')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idmensaje)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),new Date().toISOString())
+            .input('campo3',sql.VarChar(500),mensaje)
+            .input('campo4',sql.VarChar(500),idpedidoindividual)
+            .input('campo5',sql.VarChar(500),tipo)
+            .input('campo6',sql.VarChar(500),estado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+export const insertMessageCleaningSupplyOrderService = async (mensaje,idpedidoindividual,tipo,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('mensaje',sql.VarChar(500),mensaje)
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('tipo',sql.VarChar(20),tipo)
+            .input('tipo',sql.VarChar(20),estado)
+            .query('INSERT INTO mensajesPedidoSuministro (mensaje,idpedidoindividual,tipo,estado) VALUES (@mensaje,@idpedidoindividual,@tipo,@estado)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Mensaje de pedido de suministro del alamcén insertado...'
+        }else{
+            return 'No se pudo insertar el mensaje de pedido de suministro del almacén...';
+        }
+    }catch(error){
+        console.error('Error al insertar el mensaje de pedido de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
+export const insertLogMessageCleaningSupplyOrderService = async (idmensaje,idusuario,mensaje,idpedidoindividual,tipo,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Suministro del Almacen')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idmensaje)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),new Date().toISOString())
+            .input('campo3',sql.VarChar(500),mensaje)
+            .input('campo4',sql.VarChar(500),idpedidoindividual)
+            .input('campo5',sql.VarChar(500),tipo)
+            .input('campo6',sql.VarChar(500),estado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //______________INSERT______________
 //______________UPDATE______________
+//---------- PEDIDOS ✔️
+export const updateOrderService = async (idpedido,idpedidonuevo,campus,idproveedor,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedido',sql.Int,idpedido)
+            .input('idpedidonuevo',sql.Int,idpedidonuevo)
+            .input('campus',sql.VarChar(50),campus)
+            .input('idproveedor',sql.Int,idproveedor)
+            .input('idusuario',sql.Int,idusuario)
+            .query('UPDATE pedidos SET idpedido = @idpedidonuevo, campus = @campus, idproveedor = @idproveedor, idusuario = @idusuario WHERE idpedido = @idpedido');
 
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogOrderService = async (idpedido,usuario,idpedidonuevo,campus,idproveedor,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedido)
+            .input('idusuario',sql.Int,usuario)
+            .input('campo3',sql.VarChar(500),campus)
+            .input('campo6',sql.VarChar(500),idproveedor)
+            .input('campo7',sql.VarChar(500),idusuario)
+            .input('campo8',sql.VarChar(500),idpedidonuevo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo3,campo6,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo3,@campo6,@campo7,@campo8)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const updateOrderStateService = async (idpedido,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedido',sql.Int,idpedido)
+            .input('estado',sql.VarChar(20),estado)
+            .query('UPDATE pedidos SET estado = @estado WHERE idpedido = @idpedido');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogOrderStateService = async (idpedido,idusuario,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedido)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo5',sql.VarChar(500),estado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo5)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const updateOrderPriceService = async (idpedido,precio) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedido',sql.Int,idpedido)
+            .input('precio',sql.Decimal(12,4),precio)
+            .query('UPDATE pedidos SET precio = @precio WHERE idpedido = @idpedido');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogOrderPriceService = async (idpedido,idusuario,precio) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedido)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo4',sql.VarChar(500),precio)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo4)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE INSUMOS ✔️
+export const updateSupplyOrderStateService = async (idpedidoindividual,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('estado',sql.VarChar(20),estado)
+            .query('UPDATE pedidoInsumo SET estado = @estado WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de insumo del almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de insumo del almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogSupplyOrderStateService = async (idpedidoindividual,idusuario,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Insumo del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo8',sql.VarChar(500),estado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo8)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const updateSupplyOrderCountService = async (idpedidoindividual,cantidad) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('cantidad',sql.Int,cantidad)
+            .query('UPDATE pedidoInsumo SET cantidad = @cantidad WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de insumo del almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de insumo del almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogSupplyOrderCountService = async (idpedidoindividual,idusuario,cantidad) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Insumo del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo4',sql.VarChar(500),cantidad)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo4)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const updateSupplyOrderPriceService = async (idpedidoindividual,preciounitario,preciototal) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('preciounitario',sql.Decimal(10,4),preciounitario)
+            .input('preciototal',sql.Decimal(12,4),preciototal)
+            .query('UPDATE pedidoInsumo SET preciounitario = @preciounitario, preciototal = @preciototal WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de insumo del almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de insumo del almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogSupplyOrderPriceService = async (idpedidoindividual,idusuario,preciounitario,preciototal) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Insumo del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo5',sql.VarChar(500),preciounitario)
+            .input('campo6',sql.VarChar(500),preciototal)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+export const updateCleaningSupplyOrderStateService = async (idpedidoindividual,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('estado',sql.VarChar(20),estado)
+            .query('UPDATE pedidoSuministro SET estado = @estado WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de suministro del almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de suministro del almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogCleaningSupplyOrderStateService = async (idpedidoindividual,idusuario,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Suministro del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo8',sql.VarChar(500),estado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo8)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const updateCleaningSupplyOrderCountService = async (idpedidoindividual,cantidad) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('cantidad',sql.Int,cantidad)
+            .query('UPDATE pedidoSuministro SET cantidad = @cantidad WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de suministro del almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de suministro del almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogCleaningSupplyOrderCountService = async (idpedidoindividual,idusuario,cantidad) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Suministro del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo4',sql.VarChar(500),cantidad)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo4) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo4)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const updateCleaningSupplyOrderPriceService = async (idpedidoindividual,preciounitario,preciototal) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('preciounitario',sql.Decimal(10,4),preciounitario)
+            .input('preciototal',sql.Decimal(12,4),preciototal)
+            .query('UPDATE pedidoSuministro SET preciounitario = @preciounitario, preciototal = @preciototal WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de suministro del almacén actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de suministro del almacén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogCleaningSupplyOrderPriceService = async (idpedidoindividual,idusuario,preciounitario,preciototal) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Suministro del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo5',sql.VarChar(500),preciounitario)
+            .input('campo6',sql.VarChar(500),preciototal)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE INSUMOS ✔️
+export const updateMessageSupplyOrderService = async (idmensaje,mensaje,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idmensaje',sql.Int,idmensaje)
+            .input('mensaje',sql.VarChar(500),mensaje)
+            .input('estado',sql.VarChar(20),estado)
+            .query('UPDATE mensajesPedidoInsumo SET mensaje = @mensaje, estado = @estado WHERE idmensaje = @idmensaje');
+
+        if(result.rowsAffected[0]>0){
+            return 'Mensaje de pedido de insumo del alamcén actualizado...';
+        }else{
+            return 'No se pudo actualizar al mensaje de pedido de insumo del alamcén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al mensaje de pedido de insumo del alamcén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogMessageSupplyOrderService = async (idmensaje,idusuario,mensaje,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Insumo del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idmensaje)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo3',sql.VarChar(500),mensaje)
+            .input('campo6',sql.VarChar(500),estado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo3,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo3,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+export const updateMessageCleaningSupplyOrderService = async (idmensaje,mensaje,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idmensaje',sql.Int,idmensaje)
+            .input('mensaje',sql.VarChar(500),mensaje)
+            .input('estado',sql.VarChar(20),estado)
+            .query('UPDATE mensajesPedidoSuministro SET mensaje = @mensaje, estado = @estado WHERE idmensaje = @idmensaje');
+
+        if(result.rowsAffected[0]>0){
+            return 'Mensaje de pedido de suministro del alamcén actualizado...';
+        }else{
+            return 'No se pudo actualizar al mensaje de pedido de suministro del alamcén...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al mensaje de pedido de suministro del alamcén: ',error.message);
+        throw error;
+    }
+}
+export const updateLogMessageCleaningSupplyOrderService = async (idmensaje,idusuario,mensaje,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Suministro del Almacen')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idmensaje)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo3',sql.VarChar(500),mensaje)
+            .input('campo6',sql.VarChar(500),estado)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo3,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo3,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //______________UPDATE______________
 //______________DELETE______________
+//---------- PEDIDOS ELIMINADOS ✔️
+export const deleteDeletedOrderService = async (idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedido',sql.Int,idpedido)
+            .query('DELETE FROM pedidosEliminados WHERE idpedido = @idpedido');
 
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de almacén recuperado...';
+        }else{
+            return 'No se pudo recuperar al pedido de almacén...';
+        }
+    }catch(error){
+        console.error('Error al recuperar al pedido de almacén: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogDeletedOrderService = async (ideliminado,idusuario,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Almacen Eliminados')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idpedido)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE INSUMOS ✔️
+export const deleteSupplyOrderService = async (idpedidoindividual) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .query('DELETE FROM pedidoInsumo WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de insumo del almacén eliminado...';
+        }else{
+            return 'No se pudo eliminar al pedido de insumo del almacén...';
+        }
+    }catch(error){
+        console.error('Error al eliminar al pedido de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogSupplyOrderService = async (idpedidoindividual,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Insumo del Almacen')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario) VALUES (@tabla,@operacion,@idtabla,@idusuario)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
+export const deleteCleaningSupplyOrderService = async (idpedidoindividual) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .query('DELETE FROM pedidoSuministro WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de suministro del almacén eliminado...';
+        }else{
+            return 'No se pudo eliminar al pedido de suministro del almacén...';
+        }
+    }catch(error){
+        console.error('Error al eliminar al pedido de suministro del almacén: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogCleaningSupplyOrderService = async (idpedidoindividual,idusuario) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Pedidos de Suministro del Almacen')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,idpedidoindividual)
+            .input('idusuario',sql.Int,idusuario)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario) VALUES (@tabla,@operacion,@idtabla,@idusuario)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //______________DELETE______________

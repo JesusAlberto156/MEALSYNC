@@ -18,7 +18,7 @@ import Supply from '../../imgs/Supply.jpg'
 import { Table_Container,Table,Table_Head_Thead_Blue,Table_Body_Tbody_White,Table_Body_Td,Table_Image_Black,Table_Container_Item_Center } from "../../styled/Tables"
 import { Text_Background_Green_12,Text_Background_Lime_Green_12,Text_Background_Yellow_12,Text_Background_Orange_12,Text_Background_Red_12,Text_Background_Blue_12 } from "../../styled/Text";
 // Componentes personalizados
-import { Table_Title_Normal, Table_Title_Numeric, Table_Title_Text } from "../Titles"
+import { Table_Title_Normal, Table_Title_Number, Table_Title_Numeric, Table_Title_Text } from "../Titles"
 import { Table_Pagination } from "../Pagination"
 //____________IMPORT/EXPORT____________
 
@@ -63,6 +63,7 @@ export default function Table_Supplies(){
         if(isSelectedRow !== null){
             setIsTextFieldsSupply(prev => ({
             ...prev,
+                codigo: isSelectedRow.codigo,
                 idinsumo: isSelectedRow.idinsumo,
                 nombre: isSelectedRow.nombre,
                 descripcion: isSelectedRow.descripcion,
@@ -111,6 +112,10 @@ export default function Table_Supplies(){
                 <Table id="Table-Supplies">
                     <Table_Head_Thead_Blue>
                         <tr>
+                            <Table_Title_Number
+                                title="Código"
+                                order="Codigo"
+                            />
                             <Table_Title_Text
                                 title="Nombre"
                                 order="Nombre"
@@ -147,6 +152,7 @@ export default function Table_Supplies(){
                                     transition: 'background-color 1s ease',
                                 }}
                             >
+                                <Table_Body_Td style={{ color: isSelectedRow === supply ? 'white': ''}}>{supply.codigo || 'Desconocido'}</Table_Body_Td>
                                 <Table_Body_Td style={{ color: isSelectedRow === supply ? 'white': ''}}>{supply.nombre || 'Desconocido'}</Table_Body_Td>
                                 <Table_Body_Td><Table_Container_Item_Center><Table_Image_Black style={{border: isSelectedRow === supply ? '2px solid white' : ''}} src={supply.imagen || Supply}/></Table_Container_Item_Center></Table_Body_Td>
                                 <Table_Body_Td>

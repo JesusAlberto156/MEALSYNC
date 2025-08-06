@@ -202,10 +202,14 @@ export const TableActionsSupplies = () => {
                     category,
                     type,
                     data.nombre,
+                    data.codigo,
                     count
                 ].some(value =>
                     String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
                 );
+            }
+            if(isSelectedOptionSearch === 'Código'){
+                return data.codigo.toLowerCase().includes(isSearchTerm.toLowerCase());
             }
             if(isSelectedOptionSearch === 'Nombre'){
                 return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
@@ -228,6 +232,11 @@ export const TableActionsSupplies = () => {
             }
         });
         return [...filtered].sort((a, b) => {
+            if(isSelectedOptionOrder === 'Codigo'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.codigo.localeCompare(b.codigo,'es', { sensitivity: 'base' })
+                : b.codigo.localeCompare(a.codigo,'es', { sensitivity: 'base' })
+            }
             if(isSelectedOptionOrder === 'Nombre'){
                 return isSelectedOptionOrderDirection === 'Asc'
                 ? a.nombre.localeCompare(b.tipo,'es', { sensitivity: 'base' })

@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsSupplyContext } from "../../contexts/FormsProvider";
 import { SuppliersContext,DeletedSuppliersContext } from "../../contexts/SuppliersProvider";
 import { DeletedSupplyTypesContext,DeletedSupplyCategoriesContext,SupplyCategoriesContext,SupplyCategoryAddContext,SupplyCategoryEditContext,SupplyCategoryDeleteContext,SupplyTypesContext,SupplyTypeAddContext,SupplyTypeEditContext,CountSupplyTypesContext,SupplyTypeCountAddContext,SupplyTypeDeleteContext,SuppliesContext,SupplyAddContext,SupplyEditContext,SupplyDeleteContext } from "../../contexts/SuppliesProvider";
+import { CleaningSuppliesContext } from "../../contexts/ExtrasProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
 import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../contexts/SearchsProvider";
 import { ActionBlockContext } from "../../contexts/VariablesProvider";
@@ -194,7 +195,7 @@ export const HandleSupplyTypeAdd = () => {
 
                         if(isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyType.tipo)){
                             setIsActionBlock(false);
-                            return reject('Tipo de insumo ya existente!');
+                            return reject('¡Tipo de insumo ya existente!');
                         }
 
                         const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
@@ -287,7 +288,7 @@ export const HandleSupplyTypeEdit = () => {
                         if(isSelectedRow.tipo !== isTextFieldsSupplyType.tipo){
                             if(isSupplyTypes.some(type => type.tipo === isTextFieldsSupplyType.tipo)){
                                 setIsActionBlock(false);
-                                return reject('Tipo de insumo ya existente!');
+                                return reject('¡Tipo de insumo ya existente!');
                             }
                         }
 
@@ -452,7 +453,7 @@ export const FilteredRecordsSuppliers = () => {
         const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
         if (isDeleted) return false;
         
-        return data.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase());;
+        return data.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase());
     });
     // Retorno de la función del hook
     return filtered;
@@ -535,6 +536,7 @@ export const HandleSupplyAdd = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isSupplies] = useContext(SuppliesContext);
+    const [isCleaningSupplies] = useContext(CleaningSuppliesContext);
     // Función del hook
     const handleSupplyAdd = () => {
         if(currentNView === 'Insumos' && currentSView === 'Insumos' && currentMView === 'Insumo-Agregar'){
@@ -542,19 +544,30 @@ export const HandleSupplyAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupply.nombre === '' || isTextFieldsSupply.idproveedor === 0 || isTextFieldsSupply.idcategoria === 0 || isTextFieldsSupply.idtipo === 0 || isTextFieldsSupply.idcantidad === 0){
+                        if(isTextFieldsSupply.codigo === '' || isTextFieldsSupply.nombre === '' || isTextFieldsSupply.idproveedor === 0 || isTextFieldsSupply.idcategoria === 0 || isTextFieldsSupply.idtipo === 0 || isTextFieldsSupply.idcantidad === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del insumo!')
                         };
 
-                        if(isSupplies.some(supply => supply.nombre === isTextFieldsSupply.nombre && supply.idproveedor === isTextFieldsSupply.idproveedor)){
+                        if(isSupplies.some(supply => supply.codigo === isTextFieldsSupply.codigo || isCleaningSupplies.some(supply => supply.codigo === isTextFieldsSupply.codigo))){
                             setIsActionBlock(false);
-                            return reject('Insumo ya existente!');
+                            return reject('¡Código ya existente!');
                         }
 
+                        if(isSupplies.some(supply => supply.nombre === isTextFieldsSupply.nombre)){
+                            setIsActionBlock(false);
+                            return reject('¡Insumo ya existente!');
+                        }
+
+                        const regexCode = /^[A-Za-z0-9_-]+$/;
                         const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
                         const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
 
+                        if(!regexCode.test(isTextFieldsSupply.codigo.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El código no es válido, solo puede contener letras, números, guiones medios (-) y guiones bajos (_). No se permiten espacios ni caracteres especiales!');
+                        }
+                        
                         if(!regexNames.test(isTextFieldsSupply.nombre.trim())){
                             setIsActionBlock(false);
                             return reject('¡El nombre no es válido, solo puede contener letras, números, espacios y los siguientes caracteres: - . , & ( )!');
@@ -603,6 +616,7 @@ export const HandleSupplyEdit = () => {
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isSupplies] = useContext(SuppliesContext);
+    const [isCleaningSupplies] = useContext(CleaningSuppliesContext);
     // Función del hook
     const handleSupplyEdit = () => {
         if(currentNView === 'Insumos' && currentSView === 'Insumos' && currentMView === 'Insumo-Editar'){
@@ -610,25 +624,38 @@ export const HandleSupplyEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isSelectedRow.nombre === isTextFieldsSupply.nombre && isSelectedRow.descripcion === isTextFieldsSupply.descripcion && isSelectedRow.imagen === isTextFieldsSupply.imagen && isSelectedRow.idproveedor === isTextFieldsSupply.idproveedor && isSelectedRow.idtipo === isTextFieldsSupply.idtipo && isSelectedRow.idcategoria === isTextFieldsSupply.idcategoria && isSelectedRow.idcantidad === isTextFieldsSupply.idcantidad){
+                        if(isSelectedRow.codigo === isTextFieldsSupply.codigo && isSelectedRow.nombre === isTextFieldsSupply.nombre && isSelectedRow.descripcion === isTextFieldsSupply.descripcion && isSelectedRow.imagen === isTextFieldsSupply.imagen && isSelectedRow.idproveedor === isTextFieldsSupply.idproveedor && isSelectedRow.idtipo === isTextFieldsSupply.idtipo && isSelectedRow.idcategoria === isTextFieldsSupply.idcategoria && isSelectedRow.idcantidad === isTextFieldsSupply.idcantidad){
                             setIsActionBlock(false);
                             return reject('¡No hay información del insumo modificada!')
                         }
 
-                        if(isTextFieldsSupply.nombre === '' || isTextFieldsSupply.idproveedor === 0 || isTextFieldsSupply.idcategoria === 0 || isTextFieldsSupply.idtipo === 0 || isTextFieldsSupply.idcantidad === 0){
+                        if(isTextFieldsSupply.codigo === '' || isTextFieldsSupply.nombre === '' || isTextFieldsSupply.idproveedor === 0 || isTextFieldsSupply.idcategoria === 0 || isTextFieldsSupply.idtipo === 0 || isTextFieldsSupply.idcantidad === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del insumo!')
                         };
 
-                        if(isSelectedRow.nombre !== isTextFieldsSupply.nombre){
-                            if(isSupplies.some(supply => supply.nombre === isTextFieldsSupply.nombre && supply.idproveedor === isTextFieldsSupply.idproveedor)){
+                        if(isSelectedRow.codigo !== isTextFieldsSupply.codigo){
+                            if(isSupplies.some(supply => supply.codigo === isTextFieldsSupply.codigo || isCleaningSupplies.some(supply => supply.codigo === isTextFieldsSupply.codigo))){
                                 setIsActionBlock(false);
-                                return reject('Insumo ya existente!');
+                                return reject('¡Código ya existente!');
                             }
                         }
 
-                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
+                        if(isSelectedRow.nombre !== isTextFieldsSupply.nombre){
+                            if(isSupplies.some(supply => supply.nombre === isTextFieldsSupply.nombre)){
+                                setIsActionBlock(false);
+                                return reject('¡Insumo ya existente!');
+                            }
+                        }
+
+                        const regexCode = /^[A-Za-z0-9_-]+$/;
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/;
                         const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(!regexCode.test(isTextFieldsSupply.codigo.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El código no es válido, solo puede contener letras, números, guiones medios (-) y guiones bajos (_). No se permiten espacios ni caracteres especiales!');
+                        }
 
                         if(!regexNames.test(isTextFieldsSupply.nombre.trim())){
                             setIsActionBlock(false);

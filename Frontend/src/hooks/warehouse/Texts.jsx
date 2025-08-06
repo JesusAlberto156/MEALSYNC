@@ -2,61 +2,69 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsSupplyOrderContext,TextFieldsSupplyOrderObservationContext,TextFieldsWarehouseSaleContext } from "../../contexts/FormsProvider";
+import { TextFieldsWarehouseOrderContext,TextFieldsWarehouseSaleContext } from "../../contexts/FormsProvider";
 //____________IMPORT/EXPORT____________
 
-// Hook para reinciar los campos de texto de los pedidos de insumo ✔️
-export const ResetTextFieldsSupplyOrder = () => {
+// Hook para reinciar los campos de texto de los pedidos de almacen ✔️
+export const ResetTextFieldsWarehouseOrder = () => {
     // Constantes con el valor de los contextos 
-    const [isTextFieldsSupplyOrder,setIsTextFieldsSupplyOrder] = useContext(TextFieldsSupplyOrderContext);
+    const [isTextFieldsWarehouseOrder,setIsTextFieldsWarehouseOrder] = useContext(TextFieldsWarehouseOrderContext);
     // Estados iniciales de los contextos
-    const initialTextFieldsSupplyOrder = {
-        numeroPedido: '',
-        fechaA: '',
-        fechaP: null,
-        hora: '',
-        minutos: '',
+    const initialTextFieldsWarehouseOrder = {
+        idpedido: '',
+        fecha: '',
+        campus: '',
+        precio: '',
+        estado: '',
+        idproveedor: 0,
+        idusuario: 0,
+        tipo: '',
         insumos: [{
-            idpedido: 0,
+            idpedidoindividual: 0,
+            fecha: '',
             idinsumo: 0,
-            cantidad: 0,
-            precioUnitario: 0,
-            precioTotal: 0,
-            estado: '', 
+            cantidad: '',
+            preciounitario: '',
+            preciototal: '',
+            idpedido: '',
+            estado: '',
+            mensajes: [{
+                idmensaje: 0,
+                fecha: '',
+                mensaje: '',
+                idpedidoindividual: 0,
+                tipo: '',
+                estado: '',
+            }],
+        }],
+        suministros: [{
+            idpedidoindividual: 0,
+            fecha: '',
+            idsuministro: 0,
+            cantidad: '',
+            preciounitario: '',
+            preciototal: '',
+            idpedido: '',
+            estado: '',
+            mensajes: [{
+                idmensaje: 0,
+                fecha: '',
+                mensaje: '',
+                idpedidoindividual: 0,
+                tipo: '',
+                estado: '',
+            }],
         }]
     };
     // Función del hook
-    const resetTextFieldsSupplyOrder = () => {
-        setIsTextFieldsSupplyOrder(initialTextFieldsSupplyOrder);
+    const resetTextFieldsWarehouseOrder = () => {
+        setIsTextFieldsWarehouseOrder(initialTextFieldsWarehouseOrder);
     }
     // Retorno de la función del hook
-    return resetTextFieldsSupplyOrder;
+    return resetTextFieldsWarehouseOrder;
 }
-// Hook para reinciar los campos de texto de las observaciones de los pedidos de insumo ✔️
-export const ResetTextFieldsSupplyOrderObservation = () => {
-    // Constantes con el valor de los contextos 
-    const [isTextFieldsSupplyOrderObservation,setIsTextFieldsSupplyOrderObservation] = useContext(TextFieldsSupplyOrderObservationContext);
-    // Estados iniciales de los contextos
-    const initialTextFieldsSupplyOrderObservation = {
-        numeroPedido: '',
-        idpedido: 0,
-        observaciones: [{
-            fechaA: '',
-            fechaP: null,
-            hora: '',
-            minutos: '',
-            idobservacion: 0,
-            observacion: '',
-            categoria: '',
-        }]
-    };
-    // Función del hook
-    const resetTextFieldsSupplyOrderObservation = () => {
-        setIsTextFieldsSupplyOrderObservation(initialTextFieldsSupplyOrderObservation);
-    }
-    // Retorno de la función del hook
-    return resetTextFieldsSupplyOrderObservation;
-}
+
+
 // Hook para reinciar los campos de texto de los almacenes de venta ✔️
 export const ResetTextFieldsWarehouseSale = () => {
     // Constantes con el valor de los contextos 

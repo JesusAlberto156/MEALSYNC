@@ -94,13 +94,13 @@ export const Supplies_GET = (socket) => {
 //______________INSERT______________
 export const Supplies_INSERT = (socket) => {
     //---------- INSUMOS ✔️
-    socket.on('Insert-Supply',async (idusuario,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
+    socket.on('Insert-Supply',async (idusuario,codigo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
         try{
-            await insertSupplyService(nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
+            await insertSupplyService(codigo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
             const resultSupplies = await getSuppliesService();
             const decryptedData = decryptData(resultSupplies);
             const parsedData = JSON.parse(decryptedData);
-            await insertLogSupplyService(parsedData.find(data => data.nombre === nombre && data.idproveedor === idproveedor)?.idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria),String(idcantidad));
+            await insertLogSupplyService(parsedData.find(data => data.nombre === nombre && data.idproveedor === idproveedor)?.idinsumo,idusuario,imagen,codigo,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria),String(idcantidad));
             const resultLogs = await getLogsService();
             io.emit('Get-Supplies',resultSupplies)
             io.emit('Get-Logs',resultLogs);
@@ -224,11 +224,11 @@ export const Supplies_INSERT = (socket) => {
 //______________UPDATE______________
 export const Supplies_UPDATE = (socket) => {
     //---------- INSUMOS ✔️
-    socket.on('Update-Supply',async (idusuario,idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
+    socket.on('Update-Supply',async (idusuario,idinsumo,codigo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad) => {
         try{
-            await updateSupplyService(idinsumo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
+            await updateSupplyService(idinsumo,codigo,nombre,descripcion,imagen,idproveedor,idtipo,idcategoria,idcantidad);
             const resultSupplies = await getSuppliesService();
-            await updateLogSupplyService(idinsumo,idusuario,imagen,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria),String(idcantidad));
+            await updateLogSupplyService(idinsumo,idusuario,imagen,codigo,nombre,descripcion,String(idproveedor),String(idtipo),String(idcategoria),String(idcantidad));
             const resultLogs = await getLogsService();
             io.emit('Get-Supplies',resultSupplies);
             io.emit('Get-Logs',resultLogs);
@@ -298,7 +298,7 @@ export const Supplies_DELETE = (socket) => {
         }
     });
     //---------- CATEGORIAS DE INSUMO ELIMINADAS ✔️
-    socket.on('Delete-Deleted-Supply-Category',async (idusuario,idcategoria) => {
+    socket.on('Delete-Deleted-Supply-Category',async (idusuario,ideliminado,idcategoria) => {
         try{
             await deleteDeletedSupplyCategoryService(idcategoria);
             const resultDeletedSupplyCategories = await getDeletedSupplyCategoriesService();

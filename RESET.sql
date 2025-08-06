@@ -9,6 +9,7 @@ ALTER TABLE (Tabla)
 DROP COLUMN (Nombre de columna)
 ALTER TABLE almacenTipoInsumo
 ADD CONSTRAINT DF_almacenTipoInsumo_Fecha DEFAULT GETDATE() FOR fecha;
+EXEC sp_rename 'NombreTabla.NombreColumnaAntigua', 'NombreColumnaNueva', 'COLUMN';
 /*--------LOGS--------*/
 /*______GET______*/
 SELECT * FROM logComandaMedicaTepic;
@@ -109,6 +110,12 @@ SELECT * FROM almacenCategorias;
 SELECT * FROM almacenTipoInsumo;
 SELECT * FROM almacenLimpieza;
 SELECT * FROM almacenGastosFijos;
+SELECT * FROM pedidos;
+SELECT * FROM pedidosEliminados;
+SELECT * FROM pedidoInsumo;
+SELECT * FROM pedidoSuministro;
+SELECT * FROM mensajesPedidoInsumo;
+SELECT * FROM mensajesPedidoSuministro;
 /*______DELETE______*/
 DELETE FROM almacenCategorias;
 DBCC CHECKIDENT (almacenCategorias, RESEED, 0);
@@ -118,6 +125,18 @@ DELETE FROM almacenLimpieza;
 DBCC CHECKIDENT (almacenLimpieza, RESEED, 0);
 DELETE FROM almacenGastosFijos;
 DBCC CHECKIDENT (almacenGastosFijos, RESEED, 0);
+DELETE FROM pedidos;
+DBCC CHECKIDENT (pedidos, RESEED, 0);
+DELETE FROM pedidosEliminados;
+DBCC CHECKIDENT (pedidosEliminados, RESEED, 0);
+DELETE FROM pedidoInsumo;
+DBCC CHECKIDENT (pedidoInsumo, RESEED, 0);
+DELETE FROM pedidoSuministro;
+DBCC CHECKIDENT (pedidoSuministro, RESEED, 0);
+DELETE FROM mensajesPedidoInsumo;
+DBCC CHECKIDENT (mensajesPedidoInsumo, RESEED, 0);
+DELETE FROM mensajesPedidoSuministro;
+DBCC CHECKIDENT (mensajesPedidoSuministro, RESEED, 0);
 /*--------MENUS--------*/
 /*______GET______*/
 SELECT * FROM menu;

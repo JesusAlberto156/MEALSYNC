@@ -201,7 +201,6 @@ export default function Nav_Bar(){
                             ):(
                                 <></>
                             )}
-
                             {currentSView === 'Extras' ? (
                                 <>
                                     <Nav_Bar_Button_White
@@ -217,15 +216,9 @@ export default function Nav_Bar(){
                                         icon={<FaBoxes/>}
                                     />
                                     <Nav_Bar_Button_White
-                                        title="Categorías de gastos fijos"
-                                        view="Categorias de gastos fijos"
-                                        route="/Administration/Index/Extras/Fixed/Expenses/Categories"
-                                        icon={<GiMoneyStack/>}
-                                    />
-                                    <Nav_Bar_Button_White
-                                        title="Artículos de gastos fijos"
-                                        view="Articulos de gastos fijos"
-                                        route="/Administration/Index/Extras/Fixed/Expenses/Items"
+                                        title="Gastos fijos"
+                                        view="Gastos fijos"
+                                        route="/Administration/Index/Extras/Fixed/Expenses"
                                         icon={<GiMoneyStack/>}
                                     />
                                     {currentNView === 'Categorias de limpieza' ? (
@@ -242,16 +235,9 @@ export default function Nav_Bar(){
                                     ):(
                                         <></>
                                     )}
-                                    {currentNView === 'Categorias de gastos fijos' ? (
+                                    {currentNView === 'Gastos fijos' ? (
                                         <Container_Navbar_Text>
-                                            <Text_Title_24_White>CATEGORÍAS DE GASTOS FIJOS</Text_Title_24_White>
-                                        </Container_Navbar_Text>
-                                    ):(
-                                        <></>
-                                    )}
-                                    {currentNView === 'Articulos de gastos fijos' ? (
-                                        <Container_Navbar_Text>
-                                            <Text_Title_24_White>ARTÍCULOS DE GASTOS FIJOS</Text_Title_24_White>
+                                            <Text_Title_24_White>GASTOS FIJOS</Text_Title_24_White>
                                         </Container_Navbar_Text>
                                     ):(
                                         <></>
@@ -263,9 +249,9 @@ export default function Nav_Bar(){
                             {currentSView === 'Inventario' ? (
                                 <>
                                     <Nav_Bar_Button_White
-                                        title="Pedidos de insumo"
-                                        view="Pedidos de insumo"
-                                        route="/Administration/Index/Warehouse/Supply/Orders"
+                                        title="Pedidos de almacén"
+                                        view="Pedidos de almacen"
+                                        route="/Administration/Index/Warehouse/Orders"
                                         icon={<MdAssignment/>}
                                     />
                                     <Nav_Bar_Button_White
@@ -286,9 +272,9 @@ export default function Nav_Bar(){
                                         route="/Administration/Index/Warehouse/Reports"
                                         icon={<TbReportAnalytics/>}
                                     />
-                                    {currentNView === 'Pedidos de insumo' ? (
+                                    {currentNView === 'Pedidos de almacen' ? (
                                         <Container_Navbar_Text>
-                                            <Text_Title_24_White>PEDIDOS DE INSUMOS</Text_Title_24_White>
+                                            <Text_Title_24_White>PEDIDOS DE ALMACÉN</Text_Title_24_White>
                                         </Container_Navbar_Text>
                                     ):(
                                         <></>

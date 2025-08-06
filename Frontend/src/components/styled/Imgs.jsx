@@ -91,7 +91,7 @@ export const Image_Modal_150 = styled.img`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 0;
 
     @media (max-width: 768px) {
         height: 110px;

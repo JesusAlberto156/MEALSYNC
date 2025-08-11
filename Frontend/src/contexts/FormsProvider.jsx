@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { createContext,useState } from "react"
+import { createContext,useState,useEffect } from "react"
 // Contextos
 export const TextFieldsUserContext = createContext(null);
 export const TextFieldsPermissionsContext = createContext(null);
@@ -11,19 +11,21 @@ export const TextFieldsSupplyCategoryContext = createContext(null);
 export const TextFieldsSupplyTypesContext = createContext(null);
 export const TextFieldsSupplyContext = createContext(null);
 export const TextFieldsCleaningCategoryContext = createContext(null);
+export const TextFieldsCleaningTypeContext = createContext(null);
 export const TextFieldsCleaningSupplyContext = createContext(null);
 export const TextFieldsFixedExpenseContext = createContext(null);
 export const TextFieldsWarehouseOrderContext = createContext(null);
-
-export const TextFieldsWarehouseSaleContext = createContext(null);
+export const TextFieldsWarehouseFixedExpenseContext = createContext(null);
+export const TextFieldsWarehouseSupplyContext = createContext(null);
+export const TextFieldsWarehouseCleaningContext = createContext(null);
 export const TextFieldsSearchDateContext = createContext(null);
-
 export const TextFieldsMenuTypeContext = createContext(null);
 export const TextFieldsDishContext = createContext(null);
 export const TextFieldsSideDishContext = createContext(null);
 export const TextFieldsDrinkContext = createContext(null);
-
-export const TextFieldsCustomizedContext = createContext(null);
+export const TextFieldsSearchOrdersContext = createContext(null);
+export const TextFieldsOrderKitchenContext = createContext(null);
+export const TextFieldsKitchenContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los campos de texto para los formularios ✔️
@@ -38,25 +40,37 @@ export const Index_Text_Fields = ({children}) => {
                                 <Text_Fields_Supply_Type>
                                     <Text_Fields_Supply>
                                         <Text_Fields_Cleaning_Category>
-                                            <Text_Fields_Cleaning_Supply>
-                                                <Text_Fields_Fixed_Expense>
-                                                    <Text_Fields_Warehouse_Order>
-                                                        <Text_Fields_Search_Date>
-                                                            <Text_Fields_Menu_Type>
-                                                                <Text_Fields_Dish>
-                                                                    <Text_Fields_Side_Dish>
-                                                                        <Text_Fields_Drink>
-                                                                            <Text_Fields_Customized>
-                                                                                {children}
-                                                                            </Text_Fields_Customized>
-                                                                        </Text_Fields_Drink>
-                                                                    </Text_Fields_Side_Dish>
-                                                                </Text_Fields_Dish>
-                                                            </Text_Fields_Menu_Type>
-                                                        </Text_Fields_Search_Date>
-                                                    </Text_Fields_Warehouse_Order>
-                                                </Text_Fields_Fixed_Expense>
-                                            </Text_Fields_Cleaning_Supply>
+                                            <Text_Fields_Cleaning_Type>
+                                                <Text_Fields_Cleaning_Supply>
+                                                    <Text_Fields_Fixed_Expense>
+                                                        <Text_Fields_Warehouse_Order>
+                                                            <Text_Fields_Warehouse_Fixed_Expense>
+                                                                <Text_Fields_Warehouse_Supply>
+                                                                    <Text_Fields_Warehouse_Cleaning>
+                                                                        <Text_Fields_Search_Date>
+                                                                            <Text_Fields_Menu_Type>
+                                                                                <Text_Fields_Dish>
+                                                                                    <Text_Fields_Side_Dish>
+                                                                                        <Text_Fields_Drink>
+                                                                                            <Text_Fields_Search_Orders>
+                                                                                                <Text_Fields_Order_Kitchen>
+                                                                                                    <Text_Fields_Kitchen>
+                                                                                                        {children}
+                                                                                                    </Text_Fields_Kitchen>
+                                                                                                </Text_Fields_Order_Kitchen>
+                                                                                            </Text_Fields_Search_Orders>
+                                                                                        </Text_Fields_Drink>
+                                                                                    </Text_Fields_Side_Dish>
+                                                                                </Text_Fields_Dish>
+                                                                            </Text_Fields_Menu_Type>
+                                                                        </Text_Fields_Search_Date>
+                                                                    </Text_Fields_Warehouse_Cleaning>
+                                                                </Text_Fields_Warehouse_Supply>
+                                                            </Text_Fields_Warehouse_Fixed_Expense>
+                                                        </Text_Fields_Warehouse_Order>
+                                                    </Text_Fields_Fixed_Expense>
+                                                </Text_Fields_Cleaning_Supply>
+                                            </Text_Fields_Cleaning_Type> 
                                         </Text_Fields_Cleaning_Category>
                                     </Text_Fields_Supply>
                                 </Text_Fields_Supply_Type>
@@ -156,6 +170,7 @@ export const Text_Fields_Supplier_Observation = ({ children }) => {
         calificacion: 0,
         fecha: '',
         idproveedor: 0,
+        idpedido: 0,
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -230,7 +245,23 @@ export const Text_Fields_Cleaning_Category = ({ children }) => {
         idcategoria: 0,
         nombre: '',
         descripcion: '',
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsCleaningCategoryContext.Provider value={[isTextFieldsCleaningCategory,setIsTextFieldsCleaningCategory]}> 
+            {children}
+        </TextFieldsCleaningCategoryContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario del tipo de limpieza ✔️
+export const Text_Fields_Cleaning_Type = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsCleaningType,setIsTextFieldsCleaningType] = useState({
+        idtipo: 0,
+        tipo: '',
+        descripcion: '',
         unidad: '',
+        idcategoria: 0,
         limite: '',
         cantidades: [
             {
@@ -240,9 +271,9 @@ export const Text_Fields_Cleaning_Category = ({ children }) => {
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <TextFieldsCleaningCategoryContext.Provider value={[isTextFieldsCleaningCategory,setIsTextFieldsCleaningCategory]}> 
+        <TextFieldsCleaningTypeContext.Provider value={[isTextFieldsCleaningType,setIsTextFieldsCleaningType]}> 
             {children}
-        </TextFieldsCleaningCategoryContext.Provider>
+        </TextFieldsCleaningTypeContext.Provider>
     );
 }
 // Función contexto para controlar los campos de registro de un formulario de un suministro de limpieza ✔️
@@ -256,6 +287,7 @@ export const Text_Fields_Cleaning_Supply = ({ children }) => {
         imagen: '',
         idproveedor: 0,
         idcategoria: 0,
+        idtipo: 0,
         idcantidad: 0,
     });
     // Return para darle valor al contexto y heredarlo
@@ -296,6 +328,9 @@ export const Text_Fields_Warehouse_Order = ({ children }) => {
             idpedidoindividual: 0,
             fecha: '',
             idinsumo: 0,
+            idtipo: 0,
+            idcategoria: 0,
+            cantidadreal: 0,
             cantidad: '',
             preciounitario: '',
             preciototal: '',
@@ -314,6 +349,9 @@ export const Text_Fields_Warehouse_Order = ({ children }) => {
             idpedidoindividual: 0,
             fecha: '',
             idsuministro: 0,
+            idtipo: 0,
+            idcategoria: 0,
+            cantidadreal: 0,
             cantidad: '',
             preciounitario: '',
             preciototal: '',
@@ -336,8 +374,70 @@ export const Text_Fields_Warehouse_Order = ({ children }) => {
         </TextFieldsWarehouseOrderContext.Provider>
     );
 }
-
-// Función contexto para controlar los campos de busqueda
+// Función contexto para controlar los campos de de registro de un formulario de compra de gasto fijo
+export const Text_Fields_Warehouse_Fixed_Expense = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsWarehouseFixedExpense,setIsTextFieldsWarehouseFixedExpense] = useState({
+        idalmacen: 0,
+        precio: '',
+        idgasto: 0,
+        fecha: '',
+        transaccion: '',
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsWarehouseFixedExpenseContext.Provider value={[isTextFieldsWarehouseFixedExpense,setIsTextFieldsWarehouseFixedExpense]}> 
+            {children}
+        </TextFieldsWarehouseFixedExpenseContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de de registro de un formulario de venta de insumo
+export const Text_Fields_Warehouse_Supply = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsWarehouseSupply,setIsTextFieldsWarehouseSupply] = useState({
+        idalmacen: 0,
+        precio: '',
+        cantidadreal:'',
+        idtipo: 0,
+        idcategoria: 0,
+        unidad: '',
+        cantidadtotal: 0,
+        preciototal: 0,
+        preciounitario: 0,
+        fecha: '',
+        transaccion: '',
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsWarehouseSupplyContext.Provider value={[isTextFieldsWarehouseSupply,setIsTextFieldsWarehouseSupply]}> 
+            {children}
+        </TextFieldsWarehouseSupplyContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de de registro de un formulario de venta de suministro
+export const Text_Fields_Warehouse_Cleaning = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsWarehouseCleaning,setIsTextFieldsWarehouseCleaning] = useState({
+        idalmacen: 0,
+        precio: '',
+        cantidadreal:'',
+        idtipo: 0,
+        idcategoria: 0,
+        unidad: '',
+        cantidadtotal: 0,
+        preciototal: 0,
+        preciounitario: 0,
+        fecha: '',
+        transaccion: '',
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsWarehouseCleaningContext.Provider value={[isTextFieldsWarehouseCleaning,setIsTextFieldsWarehouseCleaning]}> 
+            {children}
+        </TextFieldsWarehouseCleaningContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de busqueda para fecha
 export const Text_Fields_Search_Date = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useState({
@@ -351,7 +451,6 @@ export const Text_Fields_Search_Date = ({ children }) => {
         </TextFieldsSearchDateContext.Provider>
     );
 }
-
 // Función contexto para controlar los campos de registro de un formulario de un tipo de menú ✔️
 export const Text_Fields_Menu_Type = ({ children }) => {
     // UseState para controlar el valor del contexto
@@ -462,27 +561,88 @@ export const Text_Fields_Drink = ({ children }) => {
         </TextFieldsDrinkContext.Provider>
     );
 }
-
-
-// Función contexto para controlar los campos de registro de un formulario de una dieta personalizada
-export const Text_Fields_Customized = ({ children }) => {
+// Función contexto para controlar los campos de busqueda para los pedidos en los menus ✔️
+export const Text_Fields_Search_Orders = ({ children }) => {
     // UseState para controlar el valor del contexto
-    const [isTextFieldsCustomized,setIsTextFieldsCustomized] = useState({
-        ingredients: [{
-            unidad: '',
-            cantidad: 0,
-            idcategoria: 0,
-            nombre: '',
-            idtipo: 0,
-            tipo: '',
-            searchCategoria: '',
-            searchTipo: ''
-        }],
+    const [isTextFieldsSearchOrders,setIsTextFieldsSearchOrders] = useState({
+        idtipo: 0,
+        fecha: '',
+        tiempo: '',
+    });
+    // Funcion para formatear la fecha
+    function getFormattedDateTime() {
+        const now = new Date();
+        const pad = (n) => n.toString().padStart(2, '0');
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const hours = pad(now.getHours());
+        const minutes = pad(now.getMinutes());
+        const seconds = pad(now.getSeconds());
+    
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+    // UseEffect para obtener la hora a tiepo real
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsTextFieldsSearchOrders((prev) => ({
+                ...prev,
+                fecha: getFormattedDateTime()
+            }));
+        }, 1000);
+
+        return () => clearInterval(interval);
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsSearchOrdersContext.Provider value={[isTextFieldsSearchOrders,setIsTextFieldsSearchOrders]}> 
+            {children}
+        </TextFieldsSearchOrdersContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un pedido de cocina ✔️
+export const Text_Fields_Order_Kitchen = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useState({
+        idpedido: 0,
+        tipoubicacion: '',
+        ubicacion: '',
+        encargado: '',
+        precio: '',
+        idusuario: 0,
+        pedidos: [{
+            idpedidoindividual: 0,
+            cantidad: '',
+            estado: '',
+            idplatillo: 0,
+            idguarnicion: 0,
+            idbebida: 0,
+            idpedido: 0,
+        }]
     });
     // Return para darle valor al contexto y heredarlo
     return(
-        <TextFieldsCustomizedContext.Provider value={[isTextFieldsCustomized,setIsTextFieldsCustomized]}> 
+        <TextFieldsOrderKitchenContext.Provider value={[isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen]}> 
             {children}
-        </TextFieldsCustomizedContext.Provider>
+        </TextFieldsOrderKitchenContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de cocina ✔️
+export const Text_Fields_Kitchen = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsKitchen,setIsTextFieldsKitchen] = useState({
+        idpedidoindividual: 0,
+        cantidad: '',
+        estado: '',
+        idplatillo: 0,
+        idguarnicion: 0,
+        idbebida: 0,
+        idpedido: 0,
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsKitchenContext.Provider value={[isTextFieldsKitchen,setIsTextFieldsKitchen]}> 
+            {children}
+        </TextFieldsKitchenContext.Provider>
     );
 }

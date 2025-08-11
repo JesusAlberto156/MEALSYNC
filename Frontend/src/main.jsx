@@ -66,9 +66,13 @@ import Supply_Details from './components/modals/supplies/supplies/Detail';
 import Table_Cleaning_Categories from './components/tables/extras/CleaningCategories';
 import Cleaning_Category_Add from './components/modals/extras/cleaningCategories/Add';
 import Cleaning_Category_Edit from './components/modals/extras/cleaningCategories/Edit';
-import Count_Cleaning_Category_Add from './components/modals/extras/cleaningCategories/CountAdd';
 import Cleaning_Category_Delete from './components/modals/extras/cleaningCategories/Delete';
-import Cleaning_Category_Details from './components/modals/extras/cleaningCategories/Detail';
+import Table_Cleaning_Types from './components/tables/extras/CleaningTypes';
+import Cleaning_Type_Add from './components/modals/extras/cleaningTypes/Add';
+import Cleaning_Type_Edit from './components/modals/extras/cleaningTypes/Edit';
+import Cleaning_Type_Delete from './components/modals/extras/cleaningTypes/Delete';
+import Count_Cleaning_Type_Add from './components/modals/extras/cleaningTypes/CountAdd';
+import Cleaning_Type_Details from './components/modals/extras/cleaningTypes/Detail';
 import Table_Cleaning_Supplies from './components/tables/extras/CleaningSupplies';
 import Cleaning_Supply_Add from './components/modals/extras/cleaningSupplies/Add';
 import Cleaning_Supply_Edit from './components/modals/extras/cleaningSupplies/Edit';
@@ -80,14 +84,17 @@ import Fixed_Expense_Edit from './components/modals/extras/fixedExpenses/Edit';
 import Fixed_Expense_Delete from './components/modals/extras/fixedExpenses/Delete';
 import Table_Orders from './components/tables/warehouse/Orders';
 import Warehouse_Order_Add from './components/modals/warehouse/orders/Add';
-
 import Warehouse_Order_Delete from './components/modals/warehouse/orders/Delete';
 import Warehouse_Order_Verification_Add from './components/modals/warehouse/orders/verification/Add';
-
+import Warehouse_Order_Verification_Edit from './components/modals/warehouse/orders/verification/Edit';
 import Warehouse_Order_Details from './components/modals/warehouse/orders/Detail';
-
+import Warehouse_Order_End from './components/modals/warehouse/orders/End';
 import Table_Purchases from './components/tables/warehouse/Purchases';
+import Warehouse_Fixed_Expense_Add from './components/modals/warehouse/fixedExpenses/Add';
 import Table_Sales from './components/tables/warehouse/Sales';
+import Warehouse_Cleaning_Supply_Add from './components/modals/warehouse/cleaning/Add';
+import Warehouse_Supply_Add from './components/modals/warehouse/supplies/Add';
+import Table_Reports from './components/tables/warehouse/Reports';
 import Table_Menus from './components/tables/menus/Menus';
 import Menu_Add from './components/modals/menus/menus/Add';
 import Menu_Edit from './components/modals/menus/menus/Edit';
@@ -107,13 +114,14 @@ import Drink_Add from './components/modals/menus/drinks/Add';
 import Drink_Details from './components/modals/menus/drinks/Detail';
 import Drink_Edit from './components/modals/menus/drinks/Edit';
 import Drink_Delete from './components/modals/menus/drinks/Delete';
-
 import Index_Kitchen from './pages/indexs/Kitchen';
 import Home_Kitchen from './pages/kitchen/Home';
 import Kitchen_Index from './pages/kitchen/Index';
-import Menus from './pages/kitchen/Menus';
-
-import Nutritionist_Customized from './components/modals/Nutritionist/Customized';
+import Kitchen_Orders from './pages/kitchen/KitchenOrders';
+import Order_Kitchen_Add from './components/modals/orders/kitchen/Add';
+import Nutritionist_Orders from './pages/kitchen/NutritionistOrders';
+import Doctor_Orders from './pages/kitchen/DoctorOrders';
+import Alert_Medico from './components/modals/general/AlertDoctor';
 import Prueba from '../src/formats/ComandaMedica';
 //____________IMPORT/EXPORT____________
 
@@ -247,16 +255,28 @@ const router = createHashRouter([
             element: <Cleaning_Category_Edit/>,
           },
           {
-            path: 'Administration/Index/Extras/Cleaning/Categories/Count/Add',
-            element: <Count_Cleaning_Category_Add/>,
-          },
-          {
             path: 'Administration/Index/Extras/Cleaning/Categories/Delete',
             element: <Cleaning_Category_Delete/>,
           },
           {
-            path: 'Administration/Index/Extras/Cleaning/Categories/Detail',
-            element: <Cleaning_Category_Details/>,
+            path: 'Administration/Index/Extras/Cleaning/Types/Add',
+            element: <Cleaning_Type_Add/>,
+          }, 
+          {
+            path: 'Administration/Index/Extras/Cleaning/Types/Edit',
+            element: <Cleaning_Type_Edit/>,
+          }, 
+          {
+            path: 'Administration/Index/Extras/Cleaning/Types/Delete',
+            element: <Cleaning_Type_Delete/>,
+          }, 
+          {
+            path: 'Administration/Index/Extras/Cleaning/Types/Count/Add',
+            element: <Count_Cleaning_Type_Add/>,
+          },         
+          {
+            path: 'Administration/Index/Extras/Cleaning/Types/Detail',
+            element: <Cleaning_Type_Details/>,
           },
           {
             path: 'Administration/Index/Extras/Cleaning/Supplies/Add',
@@ -291,10 +311,6 @@ const router = createHashRouter([
             element: <Warehouse_Order_Add/>,
           },
           {
-            path: 'Administration/Index/Warehouse/Orders/Edit',
-
-          },
-          {
             path: 'Administration/Index/Warehouse/Orders/Delete',
             element: <Warehouse_Order_Delete/>,
           },
@@ -304,30 +320,27 @@ const router = createHashRouter([
           },
           {
             path: 'Administration/Index/Warehouse/Orders/Verification/Edit',
-            
+            element: <Warehouse_Order_Verification_Edit/>,
           },
           {
             path: 'Administration/Index/Warehouse/Orders/Detail',
             element: <Warehouse_Order_Details/>,
           },
-
           {
-            path: 'Administration/Index/Warehouse/Supply/Orders/Edit',
+            path: 'Administration/Index/Warehouse/Orders/End',
+            element: <Warehouse_Order_End/>,
           },
           {
-            path: 'Administration/Index/Warehouse/Supply/Orders/State/Edit',
+            path: 'Administration/Index/Warehouse/Purchases/Fixed/Expanses/Add',
+            element: <Warehouse_Fixed_Expense_Add/>,
           },
           {
-            path: 'Administration/Index/Warehouse/Supply/Orders/Observation/View',
+            path: 'Administration/Index/Warehouse/Sales/Supplies/Add',
+            element: <Warehouse_Supply_Add/>,
           },
           {
-            path: 'Administration/Index/Warehouse/Supply/Orders/Observation/Add',
-          },
-          {
-            path: 'Administration/Index/Warehouse/Supply/Orders/Delete',
-          },
-          {
-            path: 'Administration/Index/Warehouse/Sales/Add',
+            path: 'Administration/Index/Warehouse/Sales/Cleaning/Supplies/Add',
+            element: <Warehouse_Cleaning_Supply_Add/>,
           },
           {
             path: 'Administration/Index/Menus/Menus/Add',
@@ -438,6 +451,10 @@ const router = createHashRouter([
                     element: <Table_Cleaning_Categories/>,
                   },
                   {
+                    path: 'Extras/Cleaning/Types',
+                    element: <Table_Cleaning_Types/>,
+                  },
+                  {
                     path: 'Extras/Cleaning/Supplies',
                     element: <Table_Cleaning_Supplies/>,
                   },
@@ -456,6 +473,10 @@ const router = createHashRouter([
                   {
                     path: 'Warehouse/Sales',
                     element: <Table_Sales/>
+                  },
+                  {
+                    path: 'Warehouse/Reports',
+                    element: <Table_Reports/>
                   },
                   {
                     path: 'Menus/Menus',
@@ -548,6 +569,14 @@ const router = createHashRouter([
             element: <Drink_Delete/>,
           },
           {
+            path: 'Kitchen/Index/Orders/Kitchen/Add',
+            element: <Order_Kitchen_Add/>,
+          },
+          {
+            path: 'Kitchen/Index/Verification',
+            element: <Alert_Medico/>,
+          },
+          {
             path: 'Kitchen',
             element: <Index_Kitchen/>,
             children: [
@@ -559,14 +588,6 @@ const router = createHashRouter([
                 path: 'Index',
                 element: <Kitchen_Index/>,
                 children: [
-                  {
-                    path: 'Customized/Customized',
-                    element: <Nutritionist_Customized/>,
-                  },
-                  {
-                    path: 'Menus',
-                    element: <Menus/>
-                  },
                   {
                     path: 'Menus/Menus',
                     element: <Table_Menus/>
@@ -582,7 +603,19 @@ const router = createHashRouter([
                   {
                     path: 'Menus/Drinks',
                     element: <Table_Drinks/>,
-                  }
+                  },
+                  {
+                    path: 'Orders/Kitchen',
+                    element: <Kitchen_Orders/>,
+                  },
+                  {
+                    path: 'Orders/Nutritionist',
+                    element: <Nutritionist_Orders/>,
+                  },
+                  {
+                    path: 'Orders/Doctor',
+                    element: <Doctor_Orders/>,
+                  },
                 ]
               },
             ]

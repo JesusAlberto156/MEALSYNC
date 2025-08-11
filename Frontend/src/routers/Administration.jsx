@@ -6,7 +6,7 @@ import { Outlet,useNavigate,Navigate } from "react-router-dom";
 import { ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { LoggedUserContext,LoggedLogContext,LoggedLoggedContext,LoggedPermissionsContext,LoggedStatusContext,LoggedTypeContext } from "../contexts/SessionProvider";
 import { ActionBlockContext } from "../contexts/VariablesProvider";
-import { TextFieldsUserContext,TextFieldsWarehouseOrderContext,TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsWarehouseOrderContext,TextFieldsObservationContext,TextFieldsCleaningTypeContext,TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext,TextFieldsSupplierContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyCategoryContext,TextFieldsSupplyTypesContext,TextFieldsMenuTypeContext } from "../contexts/FormsProvider";
 // Hooks personalizados
 import { DeleteSessionStorage,ResetViews,ResetVariables } from "../hooks/Session";
 // Estilos personalizados
@@ -23,6 +23,7 @@ export const PrivateRouteAdministration = () => {
         nombreTipoInsumo: false,
         nombreInsumo: false,
         nombreCategoriaLimpieza: false,
+        nombreTipoLimpieza: false,
         nombreSuministro: false,
         nombreGastoFijo: false,
         nombreMenu: false,
@@ -40,6 +41,7 @@ export const PrivateRouteAdministration = () => {
         descripcionTipoInsumo: false,
         descripcionInsumo: false,
         descripcionCategoriaLimpieza: false,
+        descripcionTipoLimpieza: false,
         descripcionSuministro: false,
         descripcionGastoFijo: false,
         descripcionPlatillo: false,
@@ -53,6 +55,7 @@ export const PrivateRouteAdministration = () => {
         codigoInsumo: false,
         codigoSuministro: false,
         campus: false,
+        observacionPedidoAlmacen: false,
     });
     // Constantes con el valor de los contextos
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
@@ -66,10 +69,12 @@ export const PrivateRouteAdministration = () => {
     const [isLoggedStatus,setIsLoggedStatus] = useContext(LoggedStatusContext);
     const [isTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isTextFieldsSupplier] = useContext(TextFieldsSupplierContext); 
+    const [isTextFieldsObservation] = useContext(TextFieldsObservationContext);
     const [isTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
     const [isTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
     const [isTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isTextFieldsCleaningCategory] = useContext(TextFieldsCleaningCategoryContext);
+    const [isTextFieldsCleaningType] = useContext(TextFieldsCleaningTypeContext); 
     const [isTextFieldsCleaningSupply] = useContext(TextFieldsCleaningSupplyContext); 
     const [isTextFieldsFixedExpense] = useContext(TextFieldsFixedExpenseContext);
     const [isTextFieldsWarehouseOrder] = useContext(TextFieldsWarehouseOrderContext);
@@ -219,6 +224,21 @@ export const PrivateRouteAdministration = () => {
                 alertKey: 'descripcionCategoriaLimpieza',
                 message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
             },
+            // TIPOS DE LIMPIEZA
+            {
+                source: isTextFieldsCleaningType,
+                key: 'tipo',
+                limit: 150,
+                alertKey: 'nombreTipoLimpieza',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en el nombre!',
+            },
+            {
+                source: isTextFieldsCleaningType,
+                key: 'descripcion',
+                limit: 250,
+                alertKey: 'descripcionTipoLimpieza',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la descripción!',
+            },
             // SUMINISTROS DE LIMPIEZA
             {
                 source: isTextFieldsCleaningSupply,
@@ -270,6 +290,13 @@ export const PrivateRouteAdministration = () => {
                 limit: 50,
                 alertKey: 'campus',
                 message: '¡Ha alcanzado el límite de caracteres permitidos en el campus!',
+            },
+            {
+                source: isTextFieldsObservation,
+                key: 'observacion',
+                limit: 250,
+                alertKey: 'observacionPedidoAlmacen',
+                message: '¡Ha alcanzado el límite de caracteres permitidos en la observación del proveedor!',
             },
             // MENUS
             {
@@ -373,7 +400,7 @@ export const PrivateRouteAdministration = () => {
                 }
             }
         });
-    }, [isTextFieldsUser,isTextFieldsSupplier,isTextFieldsWarehouseOrder,isTextFieldsCleaningCategory,isTextFieldsCleaningSupply,isTextFieldsFixedExpense,isTextFieldsSupplyCategory,isTextFieldsDish,isTextFieldsSideDish,isTextFieldsDrink,isTextFieldsSupplyType,isTextFieldsSupply,isTextFieldsMenuType,alertShown]);
+    }, [isTextFieldsUser,isTextFieldsSupplier,isTextFieldsCleaningType,isTextFieldsObservation,isTextFieldsWarehouseOrder,isTextFieldsCleaningCategory,isTextFieldsCleaningSupply,isTextFieldsFixedExpense,isTextFieldsSupplyCategory,isTextFieldsDish,isTextFieldsSideDish,isTextFieldsDrink,isTextFieldsSupplyType,isTextFieldsSupply,isTextFieldsMenuType,alertShown]);
     // useEffect con el cerrado de sesión
     useEffect(() => {
         if(isLoggedLog && isLoggedLogged){

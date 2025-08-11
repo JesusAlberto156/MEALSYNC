@@ -38,6 +38,7 @@ export const ResetTextFieldsObservation = () => {
         calificacion: 0,
         fecha: '',
         idproveedor: 0,
+        idpedido: 0,
     };
     // Función del hook
     const resetTextFieldsObservation = () => {

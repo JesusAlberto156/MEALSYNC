@@ -57,19 +57,6 @@ export const HandleModalViewExtras = () => {
                 return navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Categoria-Limpieza-Cantidad-Agregar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                if(sidebar === 'true'){
-                    setIsSidebar(true);
-                }
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                return navigate(route,{ replace: true });
-            },750);
-        }
         if(currentMView === 'Categoria-Limpieza-Eliminar' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {
@@ -87,7 +74,64 @@ export const HandleModalViewExtras = () => {
                 return navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Categoria-Limpieza-Detalles' && View === ''){
+        // TIPOS DE LIMPIEZA ✔️
+        if(currentMView === 'Tipo-Limpieza-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Tipo-Limpieza-Editar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Tipo-Limpieza-Cantidad-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Tipo-Limpieza-Eliminar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                setIsFunctionBlock(false)
+                setIsVerificationBlock(false);
+                sessionStorage.removeItem('Función del Bloqueo');
+                sessionStorage.removeItem('Verificación del Bloqueo');
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Tipo-Limpieza-Detalles' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {
                 if(sidebar === 'true'){

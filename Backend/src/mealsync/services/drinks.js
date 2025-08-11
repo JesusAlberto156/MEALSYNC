@@ -95,11 +95,20 @@ export const getMenuTypeDrinksService = async () => {
 export const insertDrinkService = async (nombre,idmenu) => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request()
-            .input('nombre',sql.VarChar(100),nombre)
-            .input('idmenu',sql.Int,idmenu)
-            .query('INSERT INTO bebida (nombre,idmenu) VALUES (@nombre,@idmenu)');
+        
+        let result; 
 
+        if(idmenu === null || idmenu === 0){
+            result = await pool.request()
+                .input('nombre',sql.VarChar(100),nombre)
+                .query('INSERT INTO bebida (nombre) VALUES (@nombre)');
+        }else{
+            result = await pool.request()
+                .input('nombre',sql.VarChar(100),nombre)
+                .input('idmenu',sql.Int,idmenu)
+                .query('INSERT INTO bebida (nombre,idmenu) VALUES (@nombre,@idmenu)');
+        }
+        
         if(result.rowsAffected[0]>0){
             return 'Bebida insertada...';
         }else{
@@ -113,15 +122,28 @@ export const insertDrinkService = async (nombre,idmenu) => {
 export const insertLogDrinkService = async (idbebida,idusuario,nombre,idmenu) => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Bebidas')
-            .input('operacion', sql.VarChar(20), 'INSERT')
-            .input('idtabla',sql.Int,idbebida)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),nombre)
-            .input('campo3',sql.VarChar(500),idmenu)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+        
+        let result; 
 
+        if(idmenu === null || idmenu === 0){
+            result = await pool.request()
+                .input('tabla', sql.VarChar(50), 'Bebidas')
+                .input('operacion', sql.VarChar(20), 'INSERT')
+                .input('idtabla',sql.Int,idbebida)
+                .input('idusuario',sql.Int,idusuario)
+                .input('campo2',sql.VarChar(500),nombre)
+                .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+        }else{
+            result = await pool.request()
+                .input('tabla', sql.VarChar(50), 'Bebidas')
+                .input('operacion', sql.VarChar(20), 'INSERT')
+                .input('idtabla',sql.Int,idbebida)
+                .input('idusuario',sql.Int,idusuario)
+                .input('campo2',sql.VarChar(500),nombre)
+                .input('campo3',sql.VarChar(500),idmenu)
+                .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+        }
+        
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
         }else{
@@ -308,12 +330,23 @@ export const insertLogMenuTypeDrinkService = async (idusuario,idtipo,idbebida) =
 export const updateDrinkService = async (idbebida,nombre,idmenu) => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request()
-            .input('idbebida',sql.Int,idbebida)
-            .input('nombre',sql.VarChar(100),nombre)
-            .input('idmenu',sql.Int,idmenu)
-            .query('UPDATE bebida SET nombre = @nombre, idmenu = @idmenu WHERE idbebida = @idbebida');
 
+        let result; 
+
+        if(idmenu === null || idmenu === 0){
+            result = await pool.request()
+                .input('idbebida',sql.Int,idbebida)
+                .input('nombre',sql.VarChar(100),nombre)
+                .input('idmenu',sql.Int,null)
+                .query('UPDATE bebida SET nombre = @nombre, idmenu = @idmenu WHERE idbebida = @idbebida');
+        }else{
+            result = await pool.request()
+                .input('idbebida',sql.Int,idbebida)
+                .input('nombre',sql.VarChar(100),nombre)
+                .input('idmenu',sql.Int,idmenu)
+                .query('UPDATE bebida SET nombre = @nombre, idmenu = @idmenu WHERE idbebida = @idbebida');
+        }
+        
         if(result.rowsAffected[0]>0){
             return 'Platillo actualizado...';
         }else{
@@ -327,15 +360,29 @@ export const updateDrinkService = async (idbebida,nombre,idmenu) => {
 export const updateLogDrinkService = async (idbebida,idusuario,nombre,idmenu) => {
     try{
         const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Bebidas')
-            .input('operacion', sql.VarChar(20), 'UPDATE')
-            .input('idtabla',sql.Int,idbebida)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),nombre)
-            .input('campo3',sql.VarChar(500),idmenu)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
 
+        let result; 
+
+        if(idmenu === null || idmenu === 0){
+            result = await pool.request()
+                .input('tabla', sql.VarChar(50), 'Bebidas')
+                .input('operacion', sql.VarChar(20), 'UPDATE')
+                .input('idtabla',sql.Int,idbebida)
+                .input('idusuario',sql.Int,idusuario)
+                .input('campo2',sql.VarChar(500),nombre)
+                .input('campo3',sql.VarChar(500),null)
+                .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+        }else{
+            result = await pool.request()
+                .input('tabla', sql.VarChar(50), 'Bebidas')
+                .input('operacion', sql.VarChar(20), 'UPDATE')
+                .input('idtabla',sql.Int,idbebida)
+                .input('idusuario',sql.Int,idusuario)
+                .input('campo2',sql.VarChar(500),nombre)
+                .input('campo3',sql.VarChar(500),idmenu)
+                .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+        }
+        
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
         }else{

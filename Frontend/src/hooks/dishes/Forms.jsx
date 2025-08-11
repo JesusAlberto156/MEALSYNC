@@ -78,7 +78,7 @@ export const HandleDishAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsDish.nombre === '' || isTextFieldsDish.idmenu === 0 || isTextFieldsDish.descripcion === '' || isTextFieldsDish.precio === '' || isTextFieldsDish.preparacion === '' || isTextFieldsDish.ingredientes.length === 0){
+                        if(isTextFieldsDish.nombre === '' || isTextFieldsDish.descripcion === '' || isTextFieldsDish.precio === '' || isTextFieldsDish.preparacion === '' || isTextFieldsDish.ingredientes.length === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del platillo!')
                         };
@@ -247,7 +247,7 @@ export const HandleDishEdit = () => {
                     setIsActionBlock(true);
                     setTimeout(() => {
                         
-                        if(isTextFieldsDish.nombre === '' || isTextFieldsDish.idmenu === 0 || isTextFieldsDish.descripcion === '' || isTextFieldsDish.precio === '' || isTextFieldsDish.preparacion === '' || isTextFieldsDish.ingredientes.length === 0){
+                        if(isTextFieldsDish.nombre === '' || isTextFieldsDish.descripcion === '' || isTextFieldsDish.precio === '' || isTextFieldsDish.preparacion === '' || isTextFieldsDish.ingredientes.length === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del platillo!')
                         };

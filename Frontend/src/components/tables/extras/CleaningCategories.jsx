@@ -4,8 +4,7 @@ import { useContext,useEffect } from "react"
 // Contextos
 import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
 import { TextFieldsCleaningCategoryContext } from "../../../contexts/FormsProvider"
-import { CountCleaningCategoriesContext } from "../../../contexts/ExtrasProvider"
-import { RefModalContext,RefFormContext,RefButtonAddContext,RefButtonEditContext,RefButtonDeleteContext,RefButtonDetailContext } from "../../../contexts/RefsProvider"
+import { RefModalContext,RefFormContext,RefButtonEditContext,RefButtonDeleteContext } from "../../../contexts/RefsProvider"
 // Hooks personalizados
 import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
 import { ResetTextFieldsCleaningCategory } from "../../../hooks/extras/Texts"
@@ -13,7 +12,7 @@ import { TableActionsCleaningCategories } from "../../../hooks/extras/Tables"
 // Estilos personalizados
 import { Table_Container,Table,Table_Head_Thead_Blue,Table_Body_Tbody_White,Table_Body_Td } from "../../styled/Tables";
 // Componentes personalizados
-import { Table_Title_Numeric,Table_Title_Text } from "../Titles"
+import { Table_Title_Normal,Table_Title_Text } from "../Titles"
 import { Table_Pagination } from "../Pagination"
 //____________IMPORT/EXPORT____________
 
@@ -23,12 +22,9 @@ export default function Table_Cleaning_Categories(){
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const isModal = useContext(RefModalContext);
     const isForm = useContext(RefFormContext);
-    const isButtonAdd = useContext(RefButtonAddContext);
     const isButtonEdit = useContext(RefButtonEditContext);
     const isButtonDelete = useContext(RefButtonDeleteContext);
-    const isButtonDetail = useContext(RefButtonDetailContext);
     const [isTextFieldsCleaningCategory,setIsTextFieldsCleaningCategory] = useContext(TextFieldsCleaningCategoryContext);
-    const [isCountCleaningCategories] = useContext(CountCleaningCategoriesContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -37,33 +33,25 @@ export default function Table_Cleaning_Categories(){
             const isClickInsideTable = table && table.contains(event.target);
             const isClickInsideModal = isModal?.current?.contains(event.target);
             const isClickInsideForm = isForm?.current?.contains(event.target);
-            const isClickInsideAdd = isButtonAdd?.current?.contains(event.target);
             const isClickInsideEdit = isButtonEdit?.current?.contains(event.target);
             const isClickInsideDelete = isButtonDelete?.current?.contains(event.target);
-            const isClickInsideDetail = isButtonDetail?.current?.contains(event.target);
 
-            if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideAdd && !isClickInsideEdit && !isClickInsideDelete && !isClickInsideDetail) {
+            if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete) {
                 setIsSelectedRow(null);
             }
         };
     
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    },[isModal,isForm,isButtonAdd,isButtonEdit,isButtonDelete,isButtonDetail]);
+    },[isModal,isForm,isButtonEdit,isButtonDelete]);
     // UseEfect para pasar el valor del renglon seleccionado a los input
     useEffect(() => {
         if(isSelectedRow !== null){
-            const cantidadesFiltradas = isCountCleaningCategories.filter(count => count.idcategoria === isSelectedRow.idcategoria).map(count => ({ cantidad: count.cantidad}))
             setIsTextFieldsCleaningCategory(prev => ({
                 ...prev,
                 idcategoria: isSelectedRow.idcategoria,
                 nombre: isSelectedRow.nombre,
                 descripcion: isSelectedRow.descripcion,
-                unidad: isSelectedRow.unidad,
-                limite: isSelectedRow.limite,
-                cantidades: cantidadesFiltradas.length > 0
-                    ? cantidadesFiltradas
-                    : [{ cantidad: '' }]
             }))
         }else{
             resetTextFieldsCleaningCategory();
@@ -85,13 +73,8 @@ export default function Table_Cleaning_Categories(){
                                 title="Nombre"
                                 order="Nombre"
                             />
-                            <Table_Title_Text
-                                title="Unidad"
-                                order="Unidad"
-                            />
-                            <Table_Title_Numeric
-                                title="Cantidad Mínima (Kg/Lt/Pz)"
-                                order="Cantidad Mínima"
+                            <Table_Title_Normal
+                                title="Descripción"
                             />
                         </tr>
                     </Table_Head_Thead_Blue>
@@ -107,8 +90,7 @@ export default function Table_Cleaning_Categories(){
                                 }}
                             >
                                 <Table_Body_Td style={{ color: isSelectedRow === category ? 'white' : ''}}>{category.nombre || 'Desconocido'}</Table_Body_Td>
-                                <Table_Body_Td style={{ color: isSelectedRow === category ? 'white' : ''}}>{category.unidad || 'Desconocida'}</Table_Body_Td>
-                                <Table_Body_Td style={{ color: isSelectedRow === category ? 'white' : ''}}>{category.limite || 'Desconocida'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === category ? 'white' : ''}}>{category.descripcion || 'Desconocida'}</Table_Body_Td>
                             </tr>
                         ))}
                     </Table_Body_Tbody_White>

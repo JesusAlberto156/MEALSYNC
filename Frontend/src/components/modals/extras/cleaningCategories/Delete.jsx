@@ -121,7 +121,7 @@ export default function Cleaning_Category_Delete(){
                                         <Text_Color_Green_16>Categoría de limpieza</Text_Color_Green_16>
                                         <Text_Span_16_Center_Black>:  {isTextFieldsCleaningCategory.nombre || 'Desconocido'}</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Auto_Center>
-                                    <Text_Span_12_Justify_Black>La eliminación de esta categoría de limpieza impedirá agregarle nuevos suministros o reasignar sus suministros a una categoría de limpieza distinta.</Text_Span_12_Justify_Black>
+                                    <Text_Span_12_Justify_Black>La eliminación de esta categoría impedirá agregarle nuevos suministros o reasignar sus suministros a una categoría distinta, tambien no se podrá agregar nuevos tipos de limpieza a esta categoría o reasignarle sus tipos de limpieza a otra categoría.</Text_Span_12_Justify_Black>
                                     <Modal_Form_Button_Delete
                                         onCancel={() => handleModalViewExtras('')}
                                         onAction={() => handleCleaningCategoryDelete()}

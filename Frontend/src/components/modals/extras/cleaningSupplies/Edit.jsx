@@ -4,18 +4,18 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
-import { SearchTerm1Context,SearchTerm2Context } from "../../../../contexts/SearchsProvider";
+import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../../../contexts/SearchsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
 import { TextFieldsCleaningSupplyContext } from "../../../../contexts/FormsProvider";
 import { DeletedSuppliersContext,SuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { CleaningCategoriesContext,DeletedCleaningCategoriesContext,CleaningSupplyEditContext,DeletedCleaningSuppliesContext } from "../../../../contexts/ExtrasProvider";
+import { CleaningCategoriesContext,DeletedCleaningCategoriesContext,DeletedCleaningTypesContext,CleaningTypesContext,CleaningSupplyEditContext,DeletedCleaningSuppliesContext } from "../../../../contexts/ExtrasProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 // Hooks personalizados
 import { HandleModalViewExtras } from "../../../../hooks/extras/Views";
-import { HandleCleaningSupplyEdit,FilteredRecordsCountCleaningCategories,FilteredRecordsSuppliers,FilteredRecordsSuppliersDeleted,FilteredRecordsCleaningCategories,FilteredRecordsCleaningCategoriesDeleted } from "../../../../hooks/extras/Forms";
+import { HandleCleaningSupplyEdit,FilteredRecordsCountCleaningTypes,FilteredRecordsCleaningTypes,FilteredRecordsSuppliers,FilteredRecordsSuppliersDeleted,FilteredRecordsCleaningCategories,FilteredRecordsCleaningCategoriesDeleted } from "../../../../hooks/extras/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
 //__________IMAGENES__________
 import Cleaning from '../../../imgs/Cleaning.jpg'
@@ -50,6 +50,7 @@ export default function Cleaning_Supply_Edit(){
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
     const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
     const [isSearchTerm2,setIsSearchTerm2] = useContext(SearchTerm2Context);
+    const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context);
     const [isCleaningCategories] = useContext(CleaningCategoriesContext);
     const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
     const [isDeletedCleaningCategories] = useContext(DeletedCleaningCategoriesContext);
@@ -66,6 +67,8 @@ export default function Cleaning_Supply_Edit(){
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isDeletedCleaningSupplies] = useContext(DeletedCleaningSuppliesContext);
+    const [isDeletedCleaningTypes] = useContext(DeletedCleaningTypesContext);
+    const [isCleaningTypes] = useContext(CleaningTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewExtras = HandleModalViewExtras();
@@ -74,7 +77,8 @@ export default function Cleaning_Supply_Edit(){
     const filteredRecordsSuppliers = FilteredRecordsSuppliers();
     const filteredRecordsCleaningCategories = FilteredRecordsCleaningCategories();
     const filteredRecordsCleaningCategoriesDeleted = FilteredRecordsCleaningCategoriesDeleted();
-    const filteredRecordsCountCleaningCategories = FilteredRecordsCountCleaningCategories();
+    const filteredRecordsCountCleaningTypes = FilteredRecordsCountCleaningTypes();
+    const filteredRecordsCleaningTypes = FilteredRecordsCleaningTypes();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
     // Constantes con el valor de useState
     const [isTotalCode,setIsTotalCode] = useState(0)
@@ -111,13 +115,33 @@ export default function Cleaning_Supply_Edit(){
     },[isSearchTerm2]);
     useEffect(() => {
         if (!isSelectedRow) return;
+        if(isSelectedRow.idtipo !== isTextFieldsCleaningSupply.idtipo){
+            setIsTextFieldsCleaningSupply(prev => ({
+                ...prev,
+                idtipo: 0,
+                idcantidad: 0,
+            }));
+        }
+    },[isSearchTerm3]);
+    useEffect(() => {
+        if (!isSelectedRow) return;
         if(isSelectedRow.idcategoria !== isTextFieldsCleaningSupply.idcategoria){
+            setIsTextFieldsCleaningSupply(prev => ({
+                ...prev,
+                idtipo: 0,
+                idcantidad: 0,
+            }));
+        }
+    },[isTextFieldsCleaningSupply.idcategoria]);
+    useEffect(() => {
+        if (!isSelectedRow) return;
+        if(isSelectedRow.idtipo !== isTextFieldsCleaningSupply.idtipo){
             setIsTextFieldsCleaningSupply(prev => ({
                 ...prev,
                 idcantidad: 0,
             }));
         }
-    },[isTextFieldsCleaningSupply.idcategoria]);
+    },[isTextFieldsCleaningSupply.idtipo]);
     useEffect(() => {
         if (!isSelectedRow) return;
         if(isSelectedRow.idproveedor !== isTextFieldsCleaningSupply.idproveedor){
@@ -139,12 +163,25 @@ export default function Cleaning_Supply_Edit(){
                     setIsTextFieldsCleaningSupply(prev => ({
                         ...prev,
                         idcategoria: 0,
-                        idcantidad: 0,
                     }));
                 }
             }
         }
     },[isDeletedCleaningCategories]);
+    useEffect(() => {
+        if (!isSelectedRow) return;
+        if(isSelectedRow.idtipo !== isTextFieldsCleaningSupply.idtipo){
+            if(isTextFieldsCleaningSupply.idtipo !== 0){
+                if(isDeletedCleaningTypes.some(deleted => deleted.idtipo === isTextFieldsCleaningSupply.idtipo)){
+                    setIsTextFieldsCleaningSupply(prev => ({
+                        ...prev,
+                        idtipo: 0,
+                        idcantidad: 0,
+                    }));
+                }
+            }
+        }
+    },[isDeletedCleaningTypes]);
     // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
         setIsTotalCode(isTextFieldsCleaningSupply.codigo.length);
@@ -180,7 +217,7 @@ export default function Cleaning_Supply_Edit(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Update-Cleaning-Supply',isLoggedUser.idusuario,isTextFieldsCleaningSupply.idsuministro,isTextFieldsCleaningSupply.codigo.trim(),isTextFieldsCleaningSupply.nombre.trim(),isTextFieldsCleaningSupply.descripcion.trim(),isTextFieldsCleaningSupply.imagen,isTextFieldsCleaningSupply.idproveedor,isTextFieldsCleaningSupply.idcategoria,isTextFieldsCleaningSupply.idcantidad);
+                        socket.emit('Update-Cleaning-Supply',isLoggedUser.idusuario,isTextFieldsCleaningSupply.idsuministro,isTextFieldsCleaningSupply.codigo.trim(),isTextFieldsCleaningSupply.nombre.trim(),isTextFieldsCleaningSupply.descripcion.trim(),isTextFieldsCleaningSupply.imagen,isTextFieldsCleaningSupply.idproveedor,isTextFieldsCleaningSupply.idcategoria,isTextFieldsCleaningSupply.idcantidad,isTextFieldsCleaningSupply.idtipo);
 
                         resolve('¡Editó al suministro de limpieza!');
 
@@ -482,20 +519,84 @@ export default function Cleaning_Supply_Edit(){
                                         )}  
                                     </>
                                 )}
+                                {isDeletedCleaningTypes.some(type => type.idtipo === isTextFieldsCleaningSupply.idtipo) ? (
+                                    <Container_Row_NG_Auto_Center>
+                                        <Text_Color_Green_16>Tipo de limpieza</Text_Color_Green_16>
+                                        <Text_Span_16_Center_Black>: {isCleaningTypes.find(type => type.idtipo === isTextFieldsCleaningSupply.idtipo)?.tipo || 'Desconocido'}</Text_Span_16_Center_Black>
+                                    </Container_Row_NG_Auto_Center>
+                                ):(
+                                    <>
+                                        <Container_Row_NG_Auto_Center>
+                                            <Text_Color_Green_16>Tipo de limpieza</Text_Color_Green_16>
+                                            <Text_Span_16_Center_Black>:</Text_Span_16_Center_Black>
+                                        </Container_Row_NG_Auto_Center>
+                                        {isTextFieldsCleaningSupply.idcategoria !== 0 ? (
+                                            <>
+                                                <Container_Row_100_Center>
+                                                    <Icon_24><FcSearch/></Icon_24>
+                                                    <Input_Text_60_Black
+                                                        id="Input-Buscador-3"
+                                                        type="text"
+                                                        placeholder="Buscar..."
+                                                        value={isSearchTerm3}
+                                                        onChange={(e) => setIsSearchTerm3(e.target.value)}
+                                                        onFocus={() => {
+                                                            if(isKeyboardTouch.current){
+                                                                setIsKeyboard(true);
+                                                                setIsKeyboardView('Buscador-Tipo-Suministro');
+                                                            }
+                                                        }}
+                                                        disabled={isActionBlock}
+                                                    />
+                                                </Container_Row_100_Center>
+                                                <Select_300
+                                                    data={filteredRecordsCleaningTypes.length}
+                                                    options={filteredRecordsCleaningTypes.map((type) => ({
+                                                        value: type.idtipo,
+                                                        label: type.tipo
+                                                    }))}
+                                                    placeholder='Tipos de limpieza...'
+                                                    value={filteredRecordsCleaningTypes
+                                                        .map(type => ({ value: type.idtipo, label: type.tipo }))
+                                                        .find(option => option.value === isTextFieldsCleaningSupply.idtipo)
+                                                    }
+                                                    onChange={(e) => {
+                                                        if (e) {
+                                                            setIsTextFieldsCleaningSupply(prev => ({
+                                                                ...prev,
+                                                                idtipo: e.value,
+                                                            }));
+                                                        } else {
+                                                            setIsTextFieldsCleaningSupply(prev => ({
+                                                                ...prev,
+                                                                idtipo: 0,
+                                                            }));
+                                                        }
+                                                    }}
+                                                    isDisabled={isActionBlock}
+                                                />
+                                            </>
+                                        ):(
+                                            <Container_Row_100_Center>
+                                                <Text_Span_16_Center_Black>¡No hay datos disponibles!</Text_Span_16_Center_Black>
+                                            </Container_Row_100_Center>
+                                        )}
+                                    </>
+                                )}
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Green_16>Cantidad</Text_Color_Green_16>
                                     <Text_Span_16_Center_Black>:</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
-                                {isTextFieldsCleaningSupply.idcategoria !== 0 ? (
+                                {isTextFieldsCleaningSupply.idtipo !== 0 ? (
                                     <Select_300
-                                        data={filteredRecordsCountCleaningCategories.length}
-                                        options={filteredRecordsCountCleaningCategories.map((count) => ({
+                                        data={filteredRecordsCountCleaningTypes.length}
+                                        options={filteredRecordsCountCleaningTypes.map((count) => ({
                                             value: count.idcantidad,
-                                            label: `${count.cantidad} ${isCleaningCategories.find(category => category.idcategoria === isTextFieldsCleaningSupply.idcategoria)?.unidad}${count.cantidad !== 1 ? 's' : ''}`
+                                            label: `${count.cantidad} ${isCleaningTypes.find(type => type.idtipo === isTextFieldsCleaningSupply.idtipo)?.unidad}${count.cantidad !== 1 ? 's' : ''}`
                                         }))}
-                                        placeholder='Cantidades de las categorías de limpieza...'
-                                        value={filteredRecordsCountCleaningCategories.filter(count => count.idcategoria === isTextFieldsCleaningSupply.idcategoria)
-                                            .map(c => ({ value: c.idcantidad, label: `${c.cantidad} ${isCleaningCategories.find(category => category.idcategoria === isTextFieldsCleaningSupply.idcategoria)?.unidad}${c.cantidad !== 1 ? 's' : ''}` }))
+                                        placeholder='Cantidades de los tipos de limpieza...'
+                                        value={filteredRecordsCountCleaningTypes.filter(count => count.idtipo === isTextFieldsCleaningSupply.idtipo)
+                                            .map(c => ({ value: c.idcantidad, label: `${c.cantidad} ${isCleaningTypes.find(type => type.idtipo === isTextFieldsCleaningSupply.idtipo)?.unidad}${c.cantidad !== 1 ? 's' : ''}` }))
                                             .find(option => option.value === isTextFieldsCleaningSupply.idcantidad) || null
                                         }
                                         onChange={(e) => {

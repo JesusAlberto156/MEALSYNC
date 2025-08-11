@@ -2055,6 +2055,82 @@ export const Button_Icon_Orange_60 = styled.button`
     }
 `;
 //-------- Naranja
+//-------- Morado
+export const Button_Icon_Purple_60 = styled.button`
+    width: 60px;
+    height: auto;
+    font-family: Century Gothic,Prompt;
+    color: white;
+    padding: 6px;
+    border-radius: 30px;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    background-color: rgb(155, 28, 195);
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.4s, transform 0.4s;
+    
+    &:not(:disabled):hover {
+        background-color: rgb(120, 13, 137);
+        transform: scale(1.15);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        background: rgba(84, 88, 89, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        width: 50px;
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;  
+        width: 40px;    
+        padding: 2px;
+    }
+`;
+export const Button_Icon_Purple_Auto_40 = styled.button`
+    width: 40%;
+    height: auto;
+    font-family: Century Gothic,Prompt;
+    color: white;
+    padding: 6px;
+    border-radius: 30px;
+    border: 1px solid black;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    background-color: rgb(155, 28, 195);
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.4s, transform 0.4s;
+    
+    &:not(:disabled):hover {
+        background-color: rgb(120, 13, 137);
+        transform: scale(1.2);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        background: rgba(84, 88, 89, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        padding: 4px;
+    }
+
+    @media (max-width: 480px) {
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;      
+        padding: 2px;
+    }
+`;
+//-------- Morado
 //____________ICON____________
 //____________TEXT____________
 //-------- Azul

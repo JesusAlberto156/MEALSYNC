@@ -1,15 +1,19 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Componentes de React externos
 import { Tooltip } from "@mui/material";
 // Contextos
 import { NavbarViewContext,SidebarViewContext,SidebarContext } from "../../../contexts/ViewsProvider";
-import { LoggedLoggedContext,LoggedTypeContext } from "../../../contexts/SessionProvider";
+import { LoggedLoggedContext,LoggedTypeContext,LoggedLogContext } from "../../../contexts/SessionProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
+import { TextFieldsSearchOrdersContext } from "../../../contexts/FormsProvider";
+import { DeletedMenuTypesContext,MenuTypeUbicationsContext } from "../../../contexts/MenusProvider";
 // Hooks personalizados
-import { ToggleSidebar,HandleModalView } from "../../../hooks/Views";
+import { ToggleSidebar,HandleModalView,HandleNavbarView } from "../../../hooks/Views";
+import { FilteredRecordsMenuTypesKitchen,FilteredRecordsMenuTypesNutritionist,FilteredRecordsMenuTypesDoctor } from "../../../hooks/orders/Forms";
+import { HandleSidebarView } from "../../../hooks/Views";
 //__________IMAGENES__________
 import Logo_Hospital from '../../imgs/Logo-Hospital.png'
 //__________IMAGENES__________
@@ -30,6 +34,7 @@ import { FaBoxOpen } from "react-icons/fa6";
 // Iconos para la opcion de extras del navbar
 import { FaBroom } from "react-icons/fa6";
 import { GiLiquidSoap } from "react-icons/gi";
+import { GiPowderBag } from "react-icons/gi";
 import { GiMoneyStack } from "react-icons/gi";
 // Iconos para la sección de inventario del navbar
 import { MdAssignment } from "react-icons/md";
@@ -48,9 +53,9 @@ import { BiSolidToggleRight } from "react-icons/bi";
 import { ImExit } from "react-icons/im";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Navbar_Row_General_White,Container_Navbar_Row_General,Container_Navbar_Row_Function_Blue,Container_Navbar_Text,Container_Navbar_Row_Buttom } from "../../styled/Containers";
-import { Button_Icon_Blue_80,Button_Icon_Red_80 } from '../../styled/Buttons';
-import { Icon_16 } from "../../styled/Icons";
+import { Container_Navbar_Row_General_White,Container_Navbar_Row_General,Container_Navbar_Row_Function_Blue,Container_Navbar_Text,Container_Navbar_Row_Buttom, Container_Row_Auto_Left } from "../../styled/Containers";
+import { Button_Icon_Blue_80,Button_Icon_Red_80, Button_Icon_White_100 } from '../../styled/Buttons';
+import { Icon_16, Icon_24 } from "../../styled/Icons";
 import { Text_Title_24_White } from '../../styled/Text';
 import { Image_Navbar } from "../../styled/Imgs";
 // Componentes personalizados
@@ -66,10 +71,64 @@ export default function Nav_Bar(){
     const [isLoggedType] = useContext(LoggedTypeContext);
     const [isSidebar] = useContext(SidebarContext);
     const [isActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsSearchOrders,setIsTextFieldsSearchOrders] = useContext(TextFieldsSearchOrdersContext);
+    const [isDeletedMenuTypes] = useContext(DeletedMenuTypesContext);
+    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
+    const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext);
+    // Constantes con la funcionalidad de los useState
+    const [isIndex,setIsIndex] = useState(0);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const toggleSidebar = ToggleSidebar();
     const handleModalView = HandleModalView();
+    const handleNavbarView = HandleNavbarView();
+    const filteredRecordsMenuTypesKitchen = FilteredRecordsMenuTypesKitchen();
+    const filteredRecordsMenuTypesNutritionist = FilteredRecordsMenuTypesNutritionist();
+    const filteredRecordsMenuTypesDoctor = FilteredRecordsMenuTypesDoctor();
+    const handleSidebarView = HandleSidebarView();
+    // UseEffect para reiniciar valores para la eliminacion del menu 
+    useEffect(() => {
+        if(currentSView !== 'Pedidos') return
+        if(isDeletedMenuTypes.some(m => m.idtipo === isTextFieldsSearchOrders.idtipo)){
+            setIsTextFieldsSearchOrders(prev => ({
+                ...prev,
+                tiempo: '',
+                idtipo: 0,
+            }));
+            
+            handleNavbarView('');
+            setIsIndex(0);
+
+            if(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo'){
+                handleSidebarView('Inicio');
+                sessionStorage.setItem('Ruta','/Kitchen/Home');
+                navigate('/Kitchen/Home',{ replace: true });
+            }
+            if(isLoggedType === 'Médico'){
+                setIsLoggedLog(true);
+            }
+        }
+        if(isMenuTypeUbications.some(m => m.idtipo === isTextFieldsSearchOrders.idtipo)) return;
+        
+        setIsTextFieldsSearchOrders(prev => ({
+            ...prev,
+            tiempo: '',
+            idtipo: 0,
+        }));
+        
+        handleNavbarView('');
+        setIsIndex(0);
+
+        if(isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo'){
+            handleSidebarView('Inicio');
+            sessionStorage.setItem('Ruta','/Kitchen/Home');
+            navigate('/Kitchen/Home',{ replace: true });
+        }
+        if(isLoggedType === 'Médico'){
+            setIsLoggedLog(true);
+        
+        }   
+    },[isDeletedMenuTypes,isMenuTypeUbications]);
     // Estructura del componente
     return(
         <>
@@ -210,6 +269,12 @@ export default function Nav_Bar(){
                                         icon={<><FaBroom/><GiLiquidSoap/></>}
                                     />
                                     <Nav_Bar_Button_White
+                                        title="Tipos de limpieza"
+                                        view="Tipos de limpieza"
+                                        route="/Administration/Index/Extras/Cleaning/Types"
+                                        icon={<GiPowderBag/>}
+                                    />
+                                    <Nav_Bar_Button_White
                                         title="Suministros de limpieza"
                                         view="Suministros de limpieza"
                                         route="/Administration/Index/Extras/Cleaning/Supplies"
@@ -224,6 +289,13 @@ export default function Nav_Bar(){
                                     {currentNView === 'Categorias de limpieza' ? (
                                         <Container_Navbar_Text>
                                             <Text_Title_24_White>CATEGORÍAS DE LIMPIEZA</Text_Title_24_White>
+                                        </Container_Navbar_Text>
+                                    ):(
+                                        <></>
+                                    )}
+                                    {currentNView === 'Tipos de limpieza' ? (
+                                        <Container_Navbar_Text>
+                                            <Text_Title_24_White>TIPOS DE LIMPIEZA</Text_Title_24_White>
                                         </Container_Navbar_Text>
                                     ):(
                                         <></>
@@ -305,7 +377,6 @@ export default function Nav_Bar(){
                             ):(
                                 <></>
                             )}
-
                             {currentSView === 'Menus' ? (
                                 <>
                                     {isLoggedType !== 'Almacenista' ? (
@@ -361,6 +432,156 @@ export default function Nav_Bar(){
                                         <Container_Navbar_Text>
                                             <Text_Title_24_White>BEBIDAS</Text_Title_24_White>
                                         </Container_Navbar_Text>
+                                    ):(
+                                        <></>
+                                    )}
+                                </>
+                            ):(
+                                <></>
+                            )}
+                            {currentSView === 'Pedidos' ? (
+                                <>
+                                    {isLoggedType === 'Cocinero' ? (
+                                        filteredRecordsMenuTypesKitchen.length !== 0 ? (
+                                            <>
+                                                {filteredRecordsMenuTypesKitchen.map((menu,index) => (
+                                                    <Container_Row_Auto_Left key={index}>
+                                                        {isActionBlock ? (
+                                                            <>
+                                                                <Button_Icon_White_100 disabled>
+                                                                    <Icon_24><MdOutlineMenuBook/></Icon_24>
+                                                                </Button_Icon_White_100>
+                                                            </>
+                                                        ):(
+                                                            <Tooltip title={menu?.nombre} placement="bottom">
+                                                                <Button_Icon_White_100 
+                                                                    style={{ 
+                                                                        backgroundColor: currentNView === menu?.nombre ? 'rgba(0, 0, 0, 1)' : '',
+                                                                        borderColor: currentNView === menu?.nombre ? 'white' : '',
+                                                                        color: currentNView === menu?.nombre ? 'white' : '',
+                                                                    }}
+                                                                    onClick={() => {
+                                                                        handleNavbarView(menu?.nombre);
+                                                                        setIsIndex(index);
+                                                                        setIsTextFieldsSearchOrders(prev => ({
+                                                                            ...prev,
+                                                                            idtipo: menu.idtipo,
+                                                                        }));
+                                                                    }}
+                                                                >
+                                                                    <Icon_24><MdOutlineMenuBook/></Icon_24>
+                                                                </Button_Icon_White_100>
+                                                            </Tooltip>
+                                                        )}
+                                                    </Container_Row_Auto_Left>    
+                                                ))}
+                                                {currentNView === `${filteredRecordsMenuTypesKitchen[isIndex]?.nombre}` ? (
+                                                    <Container_Navbar_Text>
+                                                        <Text_Title_24_White>{filteredRecordsMenuTypesKitchen[isIndex]?.nombre?.toUpperCase()}</Text_Title_24_White>
+                                                    </Container_Navbar_Text>
+                                                ):(
+                                                    <></>                                   
+                                                )}
+                                            </>
+                                        ):(
+                                            <></>
+                                        )
+                                    ):(
+                                        <></>
+                                    )}
+                                    {isLoggedType === 'Nutriólogo' ? (
+                                        filteredRecordsMenuTypesNutritionist.length !== 0 ? (
+                                            <>
+                                                {filteredRecordsMenuTypesNutritionist.map((menu,index) => (
+                                                    <Container_Row_Auto_Left key={index}>
+                                                        {isActionBlock ? (
+                                                            <>
+                                                                <Button_Icon_White_100 disabled>
+                                                                    <Icon_24><MdOutlineMenuBook/></Icon_24>
+                                                                </Button_Icon_White_100>
+                                                            </>
+                                                        ):(
+                                                            <Tooltip title={menu?.nombre} placement="bottom">
+                                                                <Button_Icon_White_100 
+                                                                    style={{ 
+                                                                        backgroundColor: currentNView === menu?.nombre ? 'rgba(0, 0, 0, 1)' : '',
+                                                                        borderColor: currentNView === menu?.nombre ? 'white' : '',
+                                                                        color: currentNView === menu?.nombre ? 'white' : '',
+                                                                    }}
+                                                                    onClick={() => {
+                                                                        handleNavbarView(menu?.nombre);
+                                                                        setIsIndex(index);
+                                                                        setIsTextFieldsSearchOrders(prev => ({
+                                                                            ...prev,
+                                                                            idtipo: menu.idtipo,
+                                                                        }));
+                                                                    }}
+                                                                >
+                                                                    <Icon_24><MdOutlineMenuBook/></Icon_24>
+                                                                </Button_Icon_White_100>
+                                                            </Tooltip>
+                                                        )}
+                                                    </Container_Row_Auto_Left>    
+                                                ))}
+                                                {currentNView === `${filteredRecordsMenuTypesNutritionist[isIndex]?.nombre}` ? (
+                                                    <Container_Navbar_Text>
+                                                        <Text_Title_24_White>{filteredRecordsMenuTypesNutritionist[isIndex]?.nombre?.toUpperCase()}</Text_Title_24_White>
+                                                    </Container_Navbar_Text>
+                                                ):(
+                                                    <></>                                   
+                                                )}
+                                            </>
+                                        ):(
+                                            <></>
+                                        )
+                                    ):(
+                                        <></>
+                                    )}
+                                    {isLoggedType === 'Médico' ? (
+                                        filteredRecordsMenuTypesDoctor.length !== 0 ? (
+                                            <>
+                                                {filteredRecordsMenuTypesDoctor.map((menu,index) => (
+                                                    <Container_Row_Auto_Left key={index}>
+                                                        {isActionBlock ? (
+                                                            <>
+                                                                <Button_Icon_White_100 disabled>
+                                                                    <Icon_24><MdOutlineMenuBook/></Icon_24>
+                                                                </Button_Icon_White_100>
+                                                            </>
+                                                        ):(
+                                                            <Tooltip title={menu?.nombre} placement="bottom">
+                                                                <Button_Icon_White_100 
+                                                                    style={{ 
+                                                                        backgroundColor: currentNView === menu?.nombre ? 'rgba(0, 0, 0, 1)' : '',
+                                                                        borderColor: currentNView === menu?.nombre ? 'white' : '',
+                                                                        color: currentNView === menu?.nombre ? 'white' : '',
+                                                                    }}
+                                                                    onClick={() => {
+                                                                        handleNavbarView(menu?.nombre);
+                                                                        setIsIndex(index);
+                                                                        setIsTextFieldsSearchOrders(prev => ({
+                                                                            ...prev,
+                                                                            idtipo: menu.idtipo,
+                                                                        }));
+                                                                    }}
+                                                                >
+                                                                    <Icon_24><MdOutlineMenuBook/></Icon_24>
+                                                                </Button_Icon_White_100>
+                                                            </Tooltip>
+                                                        )}
+                                                    </Container_Row_Auto_Left>    
+                                                ))}
+                                                {currentNView === `${filteredRecordsMenuTypesDoctor[isIndex]?.nombre}` ? (
+                                                    <Container_Navbar_Text>
+                                                        <Text_Title_24_White>{filteredRecordsMenuTypesDoctor[isIndex]?.nombre?.toUpperCase()}</Text_Title_24_White>
+                                                    </Container_Navbar_Text>
+                                                ):(
+                                                    <></>                                   
+                                                )}
+                                            </>
+                                        ):(
+                                            <></>
+                                        )
                                     ):(
                                         <></>
                                     )}

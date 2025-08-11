@@ -124,4 +124,49 @@ export const Label_Button_16_Black = styled.label.withConfig({
 
 `;
 //-------- Negro
+//-------- Blanco
+export const Label_Button_16_White = styled.label.withConfig({
+    shouldForwardProp: (prop) => prop !== 'Disabled',
+})`
+    color: white;
+    background: transparent;
+    border: none;
+    font-family: Century Gothic,Prompt;
+    font-style: normal;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.4s ease;
+
+    ${({ Disabled }) => (Disabled ? 
+        `cursor: not-allowed;
+         color: rgba(255, 255, 255, 0.6);` 
+        : 
+        `&:hover{
+            color: rgb(20, 165, 76);
+            transform: scale(1.15);
+        }`)}
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        gap: 4px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 12px;
+        gap: 2px;
+        ${({ Disabled }) => (Disabled ? 
+        `cursor: not-allowed;
+         color: rgba(255, 255, 255, 0.6);` 
+        : 
+        `&:hover{
+            color: rgb(20, 165, 76);
+            transform: scale(1.15);
+        }`)}
+    }
+
+`;
+//-------- Blanco
 //____________BUTTOM____________

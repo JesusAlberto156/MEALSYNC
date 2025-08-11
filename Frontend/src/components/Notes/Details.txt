@@ -1,4 +1,9 @@
  - Falta agregar acciones a la pagina en caso de que se desconecte del servidor.
  - Falta agregar el cerrado de session automatico por actividad.
- 
+ - Falta agregar en las compras o ventas la fecha manual o uatomatica
+ - Falta modificar la creacion de menus y platillos, bebidas y guarniciones enla parte de nutriologia 
+ - Falta las alertas del inventario de insumos y suministros.
+ - Falta realizar el excel de reportes mensuales o solicitud de pedidos e imprimirlos
+ - Falta realizar el pdf de los pedidos de nutriologia, area medica y cocina, asi como impirmirlos.
+
 KZHdayW6Us

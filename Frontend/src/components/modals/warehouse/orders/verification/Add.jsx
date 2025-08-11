@@ -1,16 +1,19 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../../contexts/ViewsProvider";
 import { SelectedRowContext } from "../../../../../contexts/SelectedesProvider";
 import { TextFieldsWarehouseOrderContext } from "../../../../../contexts/FormsProvider";
 import { RefModalContext,RefFormContext,RefKeyboardContext,RefKeyboardTouchContext } from "../../../../../contexts/RefsProvider";
 import { CountSupplyTypesContext,SuppliesContext,SupplyTypesContext } from "../../../../../contexts/SuppliesProvider";
-import { DeletedOrdersContext } from "../../../../../contexts/WarehouseProvider";
+import { DeletedOrdersContext,SupplyOrderVerificationAddContext,OrdersContext,CleaningSupplyOrderVerificationAddContext } from "../../../../../contexts/WarehouseProvider";
 import { SuppliersContext } from "../../../../../contexts/SuppliersProvider";
+import { SocketContext } from "../../../../../contexts/SocketProvider";
+import { LoggedUserContext } from "../../../../../contexts/SessionProvider";
 import { ActionBlockContext,TouchContext,KeyboardContext,KeyboardViewContext,IndexDetailContext } from "../../../../../contexts/VariablesProvider";
-import { CleaningSuppliesContext,CountCleaningCategoriesContext,CleaningCategoriesContext } from "../../../../../contexts/ExtrasProvider";
+import { CleaningTypesContext,CountCleaningTypesContext,CleaningSuppliesContext } from "../../../../../contexts/ExtrasProvider";
 // Hooks personalizados
 import { HandleModalViewWarehouse } from "../../../../../hooks/warehouse/Views";
 import { HandleKeyboard } from "../../../../../hooks/Views";
@@ -29,43 +32,49 @@ import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_C
 import { Label_Button_16_Black,Label_Text_16_Black,Label_Area_12_Black } from "../../../../styled/Labels";
 import { Icon_Button_Blue_20 } from "../../../../styled/Icons";
 import { Input_Radio_20,Input_Area_100_Black,Input_Group } from "../../../../styled/Inputs";
-import { Alert_Sonner_Warning } from "../../../../styled/Alerts";
+import { Alert_Sonner_Promise } from "../../../../styled/Alerts";
 // Componentes personalizados
-import Error_View from "../../../errors/View";
 import { Modal_Form_Button_Add } from "../../../../forms/Button";
 import { Image_Modal, Image_Modal_150 } from "../../../../styled/Imgs";
 import { Keyboard_Form_Warehouse_Order } from "../../../../keyboards/Form";
+import Error_Add from "../../../errors/Add";
 //____________IMPORT/EXPORT____________
 
-// Modal para visualizar los detalles de los pedidos de almacén de su tabla
+// Modal para agregar revisión a los pedidos de almacén de su tabla
 export default function Warehouse_Order_Verification_Add(){
     // Constantes con el valor de los contextos
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [currentMView] = useContext(ModalViewContext);
-    const [isModal] = useContext(ModalContext);
+    const [currentMView,setCurrentMView] = useContext(ModalViewContext);
+    const [isModal,setIsModal] = useContext(ModalContext);
     const [isTextFieldsWarehouseOrder,setIsTextFieldsWarehouseOrder] = useContext(TextFieldsWarehouseOrderContext);
     const Modal = useContext(RefModalContext);
     const isForm = useContext(RefFormContext); 
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     const [isDeletedOrders] = useContext(DeletedOrdersContext);
     const [isSuppliers] = useContext(SuppliersContext);
-    const [isSupplies] = useContext(SuppliesContext);
-    const [isCleaningSupplies] = useContext(CleaningSuppliesContext); 
-    const [isCountCleaningCategories] = useContext(CountCleaningCategoriesContext);
-    const [isCleaningCategories] = useContext(CleaningCategoriesContext);
+    const [isSupplies] = useContext(SuppliesContext); 
+    const [isCleaningTypes] = useContext(CleaningTypesContext); 
+    const [isCleaningSupplies] = useContext(CleaningSuppliesContext);
+    const [isCountCleaningTypes] = useContext(CountCleaningTypesContext); 
     const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
-    const [isActionBlock] = useContext(ActionBlockContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isLoggedUser] = useContext(LoggedUserContext);
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
     const isKeyboardTouch = useContext(RefKeyboardTouchContext);
     const [isTouch] = useContext(TouchContext);
     const [isIndexDetail,setIsIndexDetail] = useContext(IndexDetailContext);
+    const [isSupplyOrderVerificationAdd,setIsSupplyOrderVerificationAdd] = useContext(SupplyOrderVerificationAddContext);
+    const [isCleaningSupplyOrderVerificationAdd,setIsCleaningSupplyOrderVerificationAdd] = useContext(CleaningSupplyOrderVerificationAddContext);
+    const [socket] = useContext(SocketContext);
+    const [isOrders] = useContext(OrdersContext); 
     // Constantes con la funcionalidad de los hooks
     const handleModalViewWarehouse = HandleModalViewWarehouse();
     const handleWarehouseOrderVerificationAdd = HandleWarehouseOrderVerificationAdd();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
+    const navigate = useNavigate();
     // UseEffct para verificar la eliminacion del pedido de almacén
     useEffect(() => {
         if(isDeletedOrders.length !== 0){
@@ -74,6 +83,16 @@ export default function Warehouse_Order_Verification_Add(){
             }
         }
     },[isDeletedOrders]);
+    // UseEffect para verififcar si el pedido dejo de ser solicitud 
+    useEffect(() => {
+        if(isOrders.length !== 0){
+            if(isOrders.some(order => order.idpedido === isTextFieldsWarehouseOrder.idpedido && order.estado !== 'Solicitud')){
+                setTimeout(() => {
+                    setIsSelectedRow(null);
+                },1000);
+            }
+        }
+    },[isOrders])
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){
@@ -90,6 +109,79 @@ export default function Warehouse_Order_Verification_Add(){
     useEffect(() => {
         isKeyboardTouch.current = isTouch;
     },[isTouch]);
+    // UseEffect para agregar datos a la base de datos
+    useEffect(() => {
+        if(isSupplyOrderVerificationAdd){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Insert-Supply-Order-Verification',isLoggedUser.idusuario,isTextFieldsWarehouseOrder.idpedido,isTextFieldsWarehouseOrder.estado,isTextFieldsWarehouseOrder.insumos);
+
+                        resolve('¡Agregó la revisión al pedido del almacén!');
+
+                        setIsSupplyOrderVerificationAdd(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+                        const sidebar = sessionStorage.getItem('Estado del Sidebar');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            if(sidebar === 'true'){
+                                setIsSidebar(true);
+                            }
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            return navigate(route,{ replace: true });
+                        },750);
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    setIsSupplyOrderVerificationAdd(false);
+                    return reject('¡Ocurrio un error inesperado!');
+                }
+            });
+
+            return Alert_Sonner_Promise(promise,'¡Agregando la revisión al pedido del almacén!','2');
+        }
+        if(isCleaningSupplyOrderVerificationAdd){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setTimeout(() => {
+                        socket.emit('Insert-Cleaning-Supply-Order-Verification',isLoggedUser.idusuario,isTextFieldsWarehouseOrder.idpedido,isTextFieldsWarehouseOrder.estado,isTextFieldsWarehouseOrder.suministros);
+
+                        resolve('¡Agregó la revisión al pedido del almacén!');
+
+                        setIsCleaningSupplyOrderVerificationAdd(false);
+
+                        const route = sessionStorage.getItem('Ruta');
+                        const sidebar = sessionStorage.getItem('Estado del Sidebar');
+
+                        setCurrentMView('');
+                        sessionStorage.setItem('Vista del Modal','');
+                        setTimeout(() => {
+                            if(sidebar === 'true'){
+                                setIsSidebar(true);
+                            }
+                            setIsModal(false);
+                            sessionStorage.setItem('Estado del Modal',false);
+                            setIsActionBlock(false);
+                            setIsSelectedRow(null);
+                            return navigate(route,{ replace: true });
+                        },750);
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    setIsCleaningSupplyOrderVerificationAdd(false);
+                    return reject('¡Ocurrio un error inesperado!');
+                }
+            });
+
+            return Alert_Sonner_Promise(promise,'¡Agregando la revisión al pedido del almacén!','2');
+        }
+    },[isSupplyOrderVerificationAdd,isCleaningSupplyOrderVerificationAdd]);
     // Estructura del componente
     return(
         <>
@@ -105,7 +197,7 @@ export default function Warehouse_Order_Verification_Add(){
                                     <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Container_Row_NG_Auto_Center>
-                                    <Text_Color_Green_16>Fecha</Text_Color_Green_16>
+                                    <Text_Color_Green_16>Fecha de inicio</Text_Color_Green_16>
                                     <Text_Span_16_Center_Black>: {isTextFieldsWarehouseOrder?.fecha || 'Desconocida'}</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Container_Row_NG_Auto_Center>
@@ -270,8 +362,8 @@ export default function Warehouse_Order_Verification_Add(){
                                                             <Text_Span_16_Center_Black>: {(() => {
                                                                 const S = isCleaningSupplies.find(s => s.idsuministro === supply.idsuministro);
                                                                 if(!S) return;
-                                                                const count = isCountCleaningCategories.find(c => c.idcantidad === S.idcantidad);
-                                                                const category = isCleaningCategories.find(t => t.idcategoria === S.idcategoria);
+                                                                const count = isCountCleaningTypes.find(c => c.idcantidad === S.idcantidad);
+                                                                const category = isCleaningTypes.find(t => t.idtipo === S.idtipo);
                                                                 const s = count.cantidad !== 1 ? 's':'';
                                                                 if(!count || !category) return;
                                                                 return `: ${count.cantidad} ${category.unidad}${s}`
@@ -397,7 +489,7 @@ export default function Warehouse_Order_Verification_Add(){
             ):(
                 currentMView === 'Pedido-Almacen-Verificacion-Agregar' ? (
                     <>
-                        <Error_View/>
+                        <Error_Add/>
                     </>
                 ):(
                     <></>

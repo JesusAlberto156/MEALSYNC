@@ -14,7 +14,6 @@ export const PermissionUpdatedContext = createContext(null);
 export const IndexSearchContext = createContext(null);
 export const IndexCountContext = createContext(null);
 export const IndexDetailContext = createContext(null);
-export const IndexContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para las variables generales para funcionalidades ✔️
@@ -32,9 +31,7 @@ export const Index_Variables = ({children}) => {
                                             <Index_Search>
                                                 <Index_Count>
                                                     <Index_Detail>
-                                                        <Index>
-                                                            {children}
-                                                        </Index>
+                                                        {children}
                                                     </Index_Detail>
                                                 </Index_Count>
                                             </Index_Search>
@@ -186,16 +183,5 @@ export const Index_Detail = ({children}) => {
         <IndexDetailContext.Provider value={[isIndexDetail,setIsIndexDetail]}>
             {children}
         </IndexDetailContext.Provider>
-    );
-}
-// Función Contexto para controlar el index ✔️
-export const Index = ({children}) => {
-    // UseState para controlar el valor del contexto
-    const [isIndex,setIsIndex] = useState(null);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <IndexContext.Provider value={[isIndex,setIsIndex]}>
-            {children}
-        </IndexContext.Provider>
     );
 }

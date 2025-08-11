@@ -85,7 +85,7 @@ export default function Table_Supply_Types(){
                         <tr>
                             <Table_Title_Text
                                 title="Nombre"
-                                order="Tipo"
+                                order="Nombre"
                             />
                             <Table_Title_Text
                                 title="Unidad"

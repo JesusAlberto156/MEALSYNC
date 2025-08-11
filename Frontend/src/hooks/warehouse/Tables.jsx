@@ -4,15 +4,15 @@ import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
 import { SuppliersContext } from "../../contexts/SuppliersProvider";
 import { UsersContext } from "../../contexts/UsersProvider";
-import { OrdersContext,DeletedOrdersContext,WarehouseSupplyTypesContext,WarehouseCategoriesContext } from "../../contexts/WarehouseProvider";
-import { SupplyCategoriesContext,SupplyTypesContext } from "../../contexts/SuppliesProvider";
+import { OrdersContext,DeletedOrdersContext,WarehouseCleaningContext,WarehouseFixedExpensesContext,WarehouseCategoriesContext } from "../../contexts/WarehouseProvider";
+import { SupplyCategoriesContext } from "../../contexts/SuppliesProvider";
+import { FixedExpensesContext,CleaningCategoriesContext } from "../../contexts/ExtrasProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { TextFieldsSearchDateContext } from "../../contexts/FormsProvider";
 // Hooks personalizados
 import { Dates } from "../Dates";
 //____________IMPORT/EXPORT____________
-
 
 // Hook para realizar las acciones de la tabla de pedidos de almacen ✔️
 export const TableActionsWarehouseOrders = () => {
@@ -148,31 +148,32 @@ export const TableActionsWarehouseOrders = () => {
     // Retorno de la función del hook
     return { handleRowClick,prevPage,currentPage,nextPageWarehouseOrders,currentRecordsWarehouseOrders,filteredRecordsWarehouseOrders,totalPagesWarehouseOrders}
 }
-
 // Hook para realizar las acciones de la tabla de compras ✔️
 export const TableActionsPurchases = () => {
     // Constantes con el valor de los contextos 
-    const [isWarehouseCategories] = useContext(WarehouseCategoriesContext);
-    const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); 
-    const [isSupplyCategories,] = useContext(SupplyCategoriesContext);
-    const [isSupplyTypes] = useContext(SupplyTypesContext); 
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isWarehouseCategories] = useContext(WarehouseCategoriesContext); 
+    const [isSupplyCategories] = useContext(SupplyCategoriesContext);
+    const [isWarehouseCleaning] = useContext(WarehouseCleaningContext);
+    const [isCleaningCategories] = useContext(CleaningCategoriesContext); 
+    const [isWarehouseFixedExpenses] = useContext(WarehouseFixedExpensesContext);
+    const [isFixedExpenses] = useContext(FixedExpensesContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
-    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
-    const [isSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext); 
+    const [isSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
     const [isTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
     const { getDate } = Dates();
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsPurchases = useMemo(() => {
-        if(isSelectedOptionOrderPlus === 'Categorías'){
-            if(isSelectedOptionOrderPlusUltra === 'General'){
+        if(isSelectedOptionOrderPlus === 'Insumos'){
+                if(isSelectedOptionOrderPlusUltra === 'General'){
                 const filtered = isWarehouseCategories.filter((data) => {
-                    if(data.transaccion === 'Venta') return false;
+                    if(data.transaccion === 'Venta' || data.transaccion === 'Venta-Rapida') return false;
                     
                     if (isSelectedOptionSearch === 'General') {
                         const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
@@ -189,127 +190,6 @@ export const TableActionsPurchases = () => {
                     if (isSelectedOptionSearch === 'Nombre') {
                         const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
                         return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
-                    }
-                    if (isSelectedOptionSearch === 'Fecha') {
-                        const date = new Date(data.fecha);
-                        const year = date.getFullYear();
-                        const month = date.getMonth()+1;
-
-                        return year === isTextFieldsSearchDate.año && month === isTextFieldsSearchDate.mes;
-                    }
-
-                    return false;
-                });
-
-                return [...filtered].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Categorías'){
-                        return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
-                        : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
-                    }
-                    if(isSelectedOptionOrder === 'Fecha'){
-                        return isSelectedOptionOrderDirection === 'Asc'
-                        ? new Date(a.fecha) - new Date(b.fecha)
-                        : new Date(b.fecha) - new Date(a.fecha)
-                    }
-                    if(isSelectedOptionOrder === 'Cantidad'){
-                        return isSelectedOptionOrderDirection === 'Asc'
-                        ? a.cantidadreal - b.cantidadreal
-                        : b.cantidadreal - a.cantidadreal
-                    }
-                    if(isSelectedOptionOrder === 'Total'){
-                        return isSelectedOptionOrderDirection === 'Asc'
-                        ? a.precio - b.precio
-                        : b.precio - a.precio
-                    }
-
-                    return 0
-                });
-            }
-            if(isSelectedOptionOrderPlusUltra === 'Totales'){
-                const filtered = isWarehouseCategories.filter((data) => {
-                    if(data.transaccion === 'Venta') return false;
-                    
-                    if (isSelectedOptionSearch === 'General') {
-                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
-                        const fecha = getDate(data.fecha);
-                        return [
-                            category,
-                            fecha,
-                            data.cantidadreal,
-                            data.precio,
-                        ].some(value =>
-                            String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
-                        );
-                    }
-                    if (isSelectedOptionSearch === 'Nombre') {
-                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
-                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
-                    }
-                    if (isSelectedOptionSearch === 'Fecha') {
-                        const date = new Date(data.fecha);
-                        const year = date.getFullYear();
-                        const month = date.getMonth()+1;
-
-                        return year === isTextFieldsSearchDate.año && month === isTextFieldsSearchDate.mes;
-                    }
-
-                    return false;
-                });
-
-                const totals = filtered.reduce((index,item) => {
-                    const exist = index.find(category => category.idcategoria === item.idcategoria);
-                    if(exist){
-                        exist.cantidadreal += item.cantidadreal;
-                        exist.precio += item.precio;
-                    }else{
-                        index.push({...item});
-                    }
-                    return index;
-                },[]);
-
-                return [...totals].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Categorías'){
-                        return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
-                        : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
-                    }
-                    if(isSelectedOptionOrder === 'Cantidad'){
-                        return isSelectedOptionOrderDirection === 'Asc'
-                        ? a.cantidadreal - b.cantidadreal
-                        : b.cantidadreal - a.cantidadreal
-                    }
-                    if(isSelectedOptionOrder === 'Total'){
-                        return isSelectedOptionOrderDirection === 'Asc'
-                        ? a.precio - b.precio
-                        : b.precio - a.precio
-                    }
-
-                    return 0
-                });
-            }
-            return [];
-        }
-        if(isSelectedOptionOrderPlus === 'Tipos de Insumo'){
-            if(isSelectedOptionOrderPlusUltra === 'General'){
-                const filtered = isWarehouseSupplyTypes.filter((data) => {
-                    if(data.transaccion === 'Venta') return false;
-                    
-                    if (isSelectedOptionSearch === 'General') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
-                        const fecha = getDate(data.fecha);
-                        return [
-                            type,
-                            fecha,
-                            data.cantidadreal,
-                            data.precio,
-                        ].some(value =>
-                            String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
-                        );
-                    }
-                    if (isSelectedOptionSearch === 'Nombre') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
-                        return type?.toLowerCase().includes(isSearchTerm.toLowerCase());
                     }
                     if (isSelectedOptionSearch === 'Fecha') {
                         const date = new Date(data.fecha);
@@ -323,10 +203,10 @@ export const TableActionsPurchases = () => {
                 });
 
                 return [...filtered].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Tipos de Insumo'){
+                    if(isSelectedOptionOrder === 'Insumo'){
                         return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo,'es', { sensitivity: 'base' })
-                        : isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo,'es', { sensitivity: 'base' })
+                        ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
                     }
                     if(isSelectedOptionOrder === 'Fecha'){
                         return isSelectedOptionOrderDirection === 'Asc'
@@ -338,7 +218,7 @@ export const TableActionsPurchases = () => {
                         ? a.cantidadreal - b.cantidadreal
                         : b.cantidadreal - a.cantidadreal
                     }
-                    if(isSelectedOptionOrder === 'Total'){
+                    if(isSelectedOptionOrder === 'Precio'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.precio - b.precio
                         : b.precio - a.precio
@@ -348,14 +228,14 @@ export const TableActionsPurchases = () => {
                 });
             }
             if(isSelectedOptionOrderPlusUltra === 'Totales'){
-                const filtered = isWarehouseSupplyTypes.filter((data) => {
-                    if(data.transaccion === 'Venta') return false;
+                const filtered = isWarehouseCategories.filter((data) => {
+                    if(data.transaccion === 'Venta' || data.transaccion === 'Venta-Rapida') return false;
                     
                     if (isSelectedOptionSearch === 'General') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
+                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
                         const fecha = getDate(data.fecha);
                         return [
-                            type,
+                            category,
                             fecha,
                             data.cantidadreal,
                             data.precio,
@@ -364,8 +244,8 @@ export const TableActionsPurchases = () => {
                         );
                     }
                     if (isSelectedOptionSearch === 'Nombre') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
-                        return type?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
+                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
                     }
                     if (isSelectedOptionSearch === 'Fecha') {
                         const date = new Date(data.fecha);
@@ -390,17 +270,245 @@ export const TableActionsPurchases = () => {
                 },[]);
 
                 return [...totals].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Tipos de Insumo'){
+                    if(isSelectedOptionOrder === 'Insumo'){
                         return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo,'es', { sensitivity: 'base' })
-                        : isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo,'es', { sensitivity: 'base' })
+                        ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
                     }
                     if(isSelectedOptionOrder === 'Cantidad'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.cantidadreal - b.cantidadreal
                         : b.cantidadreal - a.cantidadreal
                     }
-                    if(isSelectedOptionOrder === 'Total'){
+                    if(isSelectedOptionOrder === 'Precio'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.precio - b.precio
+                        : b.precio - a.precio
+                    }
+
+                    return 0
+                });
+            }
+            return [];
+        }
+        if(isSelectedOptionOrderPlus === 'Suministros'){
+                if(isSelectedOptionOrderPlusUltra === 'General'){
+                const filtered = isWarehouseCleaning.filter((data) => {
+                    if(data.transaccion === 'Consumo') return false;
+                    
+                    if (isSelectedOptionSearch === 'General') {
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
+                        const fecha = getDate(data.fecha);
+                        return [
+                            category,
+                            fecha,
+                            data.cantidadreal,
+                            data.precio,
+                        ].some(value =>
+                            String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                        );
+                    }
+                    if (isSelectedOptionSearch === 'Nombre') {
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
+                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                    }
+                    if (isSelectedOptionSearch === 'Fecha') {
+                        const date = new Date(data.fecha);
+                        const year = date.getFullYear();
+                        const month = date.getMonth()+1;
+
+                        return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+                    }
+
+                    return false;
+                });
+
+                return [...filtered].sort((a, b) => {
+                    if(isSelectedOptionOrder === 'Suministro'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                    }
+                    if(isSelectedOptionOrder === 'Fecha'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? new Date(a.fecha) - new Date(b.fecha)
+                        : new Date(b.fecha) - new Date(a.fecha)
+                    }
+                    if(isSelectedOptionOrder === 'Cantidad'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.cantidadreal - b.cantidadreal
+                        : b.cantidadreal - a.cantidadreal
+                    }
+                    if(isSelectedOptionOrder === 'Precio'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.precio - b.precio
+                        : b.precio - a.precio
+                    }
+
+                    return 0
+                });
+            }
+            if(isSelectedOptionOrderPlusUltra === 'Totales'){
+                const filtered = isWarehouseCleaning.filter((data) => {
+                    if(data.transaccion === 'Consumo') return false;
+                    
+                    if (isSelectedOptionSearch === 'General') {
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
+                        const fecha = getDate(data.fecha);
+                        return [
+                            category,
+                            fecha,
+                            data.cantidadreal,
+                            data.precio,
+                        ].some(value =>
+                            String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                        );
+                    }
+                    if (isSelectedOptionSearch === 'Nombre') {
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
+                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                    }
+                    if (isSelectedOptionSearch === 'Fecha') {
+                        const date = new Date(data.fecha);
+                        const year = date.getFullYear();
+                        const month = date.getMonth()+1;
+
+                        return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+                    }
+
+                    return false;
+                });
+
+                const totals = filtered.reduce((index,item) => {
+                    const exist = index.find(type => type.idcategoria === item.idcategoria);
+                    if(exist){
+                        exist.cantidadreal += item.cantidadreal;
+                        exist.precio += item.precio;
+                    }else{
+                        index.push({...item});
+                    }
+                    return index;
+                },[]);
+
+                return [...totals].sort((a, b) => {
+                    if(isSelectedOptionOrder === 'Suministro'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                    }
+                    if(isSelectedOptionOrder === 'Cantidad'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.cantidadreal - b.cantidadreal
+                        : b.cantidadreal - a.cantidadreal
+                    }
+                    if(isSelectedOptionOrder === 'Precio'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.precio - b.precio
+                        : b.precio - a.precio
+                    }
+
+                    return 0
+                });
+            }
+            return [];
+        }
+        if(isSelectedOptionOrderPlus === 'Gastos fijos'){
+                if(isSelectedOptionOrderPlusUltra === 'General'){
+                const filtered = isWarehouseFixedExpenses.filter((data) => {
+                    if (isSelectedOptionSearch === 'General') {
+                        const c = isFixedExpenses.find(type => type.idgasto === data.idgasto)?.nombre
+                        const fecha = getDate(data.fecha);
+                        return [
+                            c,
+                            fecha,
+                            data.cantidadreal,
+                            data.precio,
+                        ].some(value =>
+                            String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                        );
+                    }
+                    if (isSelectedOptionSearch === 'Nombre') {
+                        const c = isFixedExpenses.find(type => type.idgasto === data.idgasto)?.nombre
+                        return c?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                    }
+                    if (isSelectedOptionSearch === 'Fecha') {
+                        const date = new Date(data.fecha);
+                        const year = date.getFullYear();
+                        const month = date.getMonth()+1;
+
+                        return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+                    }
+
+                    return false;
+                });
+
+                return [...filtered].sort((a, b) => {
+                    if(isSelectedOptionOrder === 'Gastos fijo'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? isFixedExpenses.find(type => type.idgasto === a.idgasto)?.nombre.localeCompare(isFixedExpenses.find(type => type.idgasto === b.idgasto)?.nombre,'es', { sensitivity: 'base' })
+                        : isFixedExpenses.find(type => type.idgasto === b.idgasto)?.nombre.localeCompare(isFixedExpenses.find(type => type.idgasto === a.idgasto)?.nombre,'es', { sensitivity: 'base' })
+                    }
+                    if(isSelectedOptionOrder === 'Fecha'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? new Date(a.fecha) - new Date(b.fecha)
+                        : new Date(b.fecha) - new Date(a.fecha)
+                    }
+                    if(isSelectedOptionOrder === 'Precio'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? a.precio - b.precio
+                        : b.precio - a.precio
+                    }
+
+                    return 0
+                });
+            }
+            if(isSelectedOptionOrderPlusUltra === 'Totales'){
+                const filtered = isWarehouseFixedExpenses.filter((data) => {
+                    if (isSelectedOptionSearch === 'General') {
+                        const c = isFixedExpenses.find(type => type.idgasto === data.idgasto)?.nombre
+                        const fecha = getDate(data.fecha);
+                        return [
+                            c,
+                            fecha,
+                            data.cantidadreal,
+                            data.precio,
+                        ].some(value =>
+                            String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
+                        );
+                    }
+                    if (isSelectedOptionSearch === 'Nombre') {
+                        const c = isFixedExpenses.find(type => type.idgasto === data.idgasto)?.nombre
+                        return c?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                    }
+                    if (isSelectedOptionSearch === 'Fecha') {
+                        const date = new Date(data.fecha);
+                        const year = date.getFullYear();
+                        const month = date.getMonth()+1;
+
+                        return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+                    }
+
+                    return false;
+                });
+
+                const totals = filtered.reduce((index,item) => {
+                    const exist = index.find(type => type.idgasto === item.idgasto);
+                    if(exist){
+                        exist.cantidadreal += item.cantidadreal;
+                        exist.precio += item.precio;
+                    }else{
+                        index.push({...item});
+                    }
+                    return index;
+                },[]);
+
+                return [...totals].sort((a, b) => {
+                    if(isSelectedOptionOrder === 'Gasto fijo'){
+                        return isSelectedOptionOrderDirection === 'Asc'
+                        ? isFixedExpenses.find(type => type.idgasto === a.idgasto)?.nombre.localeCompare(isFixedExpenses.find(type => type.idgasto === b.idgasto)?.nombre,'es', { sensitivity: 'base' })
+                        : isFixedExpenses.find(type => type.idgasto === b.idgasto)?.nombre.localeCompare(isFixedExpenses.find(type => type.idgasto === a.idgasto)?.nombre,'es', { sensitivity: 'base' })
+                    }
+                    if(isSelectedOptionOrder === 'Precio'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.precio - b.precio
                         : b.precio - a.precio
@@ -412,17 +520,9 @@ export const TableActionsPurchases = () => {
             return [];
         }
         return [];
-    }, [isWarehouseCategories, isSupplyCategories, isSupplyTypes, isSearchTerm, isSelectedOptionOrderPlus, isSelectedOptionOrderPlusUltra, isSelectedOptionSearch, isSelectedOptionOrderDirection, isTextFieldsSearchDate]);
-    // Cambio de direccion del ordenamiento
-    const ToggleOrderDirection = () => {
-        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
-    };
-    // Cambio de lo que quiere ordenar
-    const ToggleOrder = (option) => {
-        setIsSelectedOptionOrder(option);
-    };
+    }, [isWarehouseCategories,isCleaningCategories,isWarehouseCleaning,isFixedExpenses,isWarehouseFixedExpenses, isSupplyCategories, isSearchTerm, isSelectedOptionOrderPlus, isSelectedOptionOrderPlusUltra, isSelectedOptionSearch, isSelectedOptionOrderDirection, isTextFieldsSearchDate]);
     // Total de registros visibles de la tabla
-    const recordsPerPage = 8;
+    const recordsPerPage = 6;
     // Indices de los registros
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -451,35 +551,35 @@ export const TableActionsPurchases = () => {
         }
     },[isSearchTerm])
     // Retorno de la función del hook
-    return { handleRowClick,prevPage,currentPage,nextPagePurchases,currentRecordsPurchases,filteredRecordsPurchases,ToggleOrder,ToggleOrderDirection,totalPagesPurchases}
+    return { handleRowClick,prevPage,currentPage,nextPagePurchases,currentRecordsPurchases,filteredRecordsPurchases,totalPagesPurchases}
 }
 // Hook para realizar las acciones de la tabla de ventas ✔️
 export const TableActionsSales = () => {
-    // Constantes con el valor de los contextos 
-    const [isWarehouseCategories] = useContext(WarehouseCategoriesContext);
-    const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); 
-    const [isSupplyCategories,] = useContext(SupplyCategoriesContext);
-    const [isSupplyTypes] = useContext(SupplyTypesContext); 
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    // Constantes con el valor de los contextos
+    const [isSupplyCategories] = useContext(SupplyCategoriesContext);
+    const [isWarehouseCategories] = useContext(WarehouseCategoriesContext); 
+    const [isWarehouseCleaning] = useContext(WarehouseCleaningContext);
+    const [isCleaningCategories] = useContext(CleaningCategoriesContext);
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
     const [isSearchTerm] = useContext(SearchTermContext);
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
-    const [isSelectedOptionOrderDirection,setIsSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
-    const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
-    const [isSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext); 
+    const [isSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
     const [isTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
     const { getDate } = Dates();
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
     const filteredRecordsSales = useMemo(() => {
-        if(isSelectedOptionOrderPlus === 'Categorías'){
+        if(isSelectedOptionOrderPlus === 'Insumos'){
             if(isSelectedOptionOrderPlusUltra === 'General'){
                 const filtered = isWarehouseCategories.filter((data) => {
                     if(data.transaccion === 'Compra') return false;
                     
                     if (isSelectedOptionSearch === 'General') {
-                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
+                        const category = isSupplyCategories.find(c => c.idcategoria === data.idcategoria)?.nombre
                         const fecha = getDate(data.fecha);
                         return [
                             category,
@@ -491,7 +591,7 @@ export const TableActionsSales = () => {
                         );
                     }
                     if (isSelectedOptionSearch === 'Nombre') {
-                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
+                        const category = isSupplyCategories.find(c => c.idcategoria === data.idcategoria)?.nombre
                         return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
                     }
                     if (isSelectedOptionSearch === 'Fecha') {
@@ -499,17 +599,17 @@ export const TableActionsSales = () => {
                         const year = date.getFullYear();
                         const month = date.getMonth()+1;
 
-                        return year === isTextFieldsSearchDate.año && month === isTextFieldsSearchDate.mes;
+                        return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
                     }
 
                     return false;
                 });
 
                 return [...filtered].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Categorías'){
+                    if(isSelectedOptionOrder === 'Tipo de insumo'){
                         return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
-                        : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        ? isSupplyCategories.find(c => c.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(c => c.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isSupplyCategories.find(c => c.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(c => c.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
                     }
                     if(isSelectedOptionOrder === 'Fecha'){
                         return isSelectedOptionOrderDirection === 'Asc'
@@ -521,7 +621,7 @@ export const TableActionsSales = () => {
                         ? a.cantidadreal - b.cantidadreal
                         : b.cantidadreal - a.cantidadreal
                     }
-                    if(isSelectedOptionOrder === 'Total'){
+                    if(isSelectedOptionOrder === 'Precio'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.precio - b.precio
                         : b.precio - a.precio
@@ -535,7 +635,7 @@ export const TableActionsSales = () => {
                     if(data.transaccion === 'Compra') return false;
                     
                     if (isSelectedOptionSearch === 'General') {
-                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
+                        const category = isSupplyCategories.find(c => c.idcategoria === data.idcategoria)?.nombre
                         const fecha = getDate(data.fecha);
                         return [
                             category,
@@ -547,7 +647,7 @@ export const TableActionsSales = () => {
                         );
                     }
                     if (isSelectedOptionSearch === 'Nombre') {
-                        const category = isSupplyCategories.find(category => category.idcategoria === data.idcategoria)?.nombre
+                        const category = isSupplyCategories.find(c => c.idcategoria === data.idcategoria)?.nombre
                         return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
                     }
                     if (isSelectedOptionSearch === 'Fecha') {
@@ -555,14 +655,14 @@ export const TableActionsSales = () => {
                         const year = date.getFullYear();
                         const month = date.getMonth()+1;
 
-                        return year === isTextFieldsSearchDate.año && month === isTextFieldsSearchDate.mes;
+                        return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
                     }
 
                     return false;
                 });
 
                 const totals = filtered.reduce((index,item) => {
-                    const exist = index.find(category => category.idcategoria === item.idcategoria);
+                    const exist = index.find(type => type.idcategoria === item.idcategoria);
                     if(exist){
                         exist.cantidadreal += item.cantidadreal;
                         exist.precio += item.precio;
@@ -573,17 +673,17 @@ export const TableActionsSales = () => {
                 },[]);
 
                 return [...totals].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Categorías'){
+                    if(isSelectedOptionOrder === 'Tipo de insumo'){
                         return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
-                        : isSupplyCategories.find(category => category.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(category => category.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        ? isSupplyCategories.find(c => c.idcategoria === a.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(c => c.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isSupplyCategories.find(c => c.idcategoria === b.idcategoria)?.nombre.localeCompare(isSupplyCategories.find(c => c.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
                     }
                     if(isSelectedOptionOrder === 'Cantidad'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.cantidadreal - b.cantidadreal
                         : b.cantidadreal - a.cantidadreal
                     }
-                    if(isSelectedOptionOrder === 'Total'){
+                    if(isSelectedOptionOrder === 'Precio'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.precio - b.precio
                         : b.precio - a.precio
@@ -594,16 +694,16 @@ export const TableActionsSales = () => {
             }
             return [];
         }
-        if(isSelectedOptionOrderPlus === 'Tipos de Insumo'){
+        if(isSelectedOptionOrderPlus === 'Suministros'){
             if(isSelectedOptionOrderPlusUltra === 'General'){
-                const filtered = isWarehouseSupplyTypes.filter((data) => {
+                const filtered = isWarehouseCleaning.filter((data) => {
                     if(data.transaccion === 'Compra') return false;
                     
                     if (isSelectedOptionSearch === 'General') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
                         const fecha = getDate(data.fecha);
                         return [
-                            type,
+                            category,
                             fecha,
                             data.cantidadreal,
                             data.precio,
@@ -612,8 +712,8 @@ export const TableActionsSales = () => {
                         );
                     }
                     if (isSelectedOptionSearch === 'Nombre') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
-                        return type?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
+                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
                     }
                     if (isSelectedOptionSearch === 'Fecha') {
                         const date = new Date(data.fecha);
@@ -625,12 +725,11 @@ export const TableActionsSales = () => {
 
                     return false;
                 });
-
                 return [...filtered].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Tipos de Insumo'){
+                    if(isSelectedOptionOrder === 'Suministro'){
                         return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo,'es', { sensitivity: 'base' })
-                        : isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo,'es', { sensitivity: 'base' })
+                        ? isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
                     }
                     if(isSelectedOptionOrder === 'Fecha'){
                         return isSelectedOptionOrderDirection === 'Asc'
@@ -642,7 +741,7 @@ export const TableActionsSales = () => {
                         ? a.cantidadreal - b.cantidadreal
                         : b.cantidadreal - a.cantidadreal
                     }
-                    if(isSelectedOptionOrder === 'Total'){
+                    if(isSelectedOptionOrder === 'Precio'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.precio - b.precio
                         : b.precio - a.precio
@@ -652,14 +751,14 @@ export const TableActionsSales = () => {
                 });
             }
             if(isSelectedOptionOrderPlusUltra === 'Totales'){
-                const filtered = isWarehouseSupplyTypes.filter((data) => {
+                const filtered = isWarehouseCleaning.filter((data) => {
                     if(data.transaccion === 'Compra') return false;
                     
                     if (isSelectedOptionSearch === 'General') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
                         const fecha = getDate(data.fecha);
                         return [
-                            type,
+                            category,
                             fecha,
                             data.cantidadreal,
                             data.precio,
@@ -668,8 +767,8 @@ export const TableActionsSales = () => {
                         );
                     }
                     if (isSelectedOptionSearch === 'Nombre') {
-                        const type = isSupplyTypes.find(type => type.idtipo === data.idtipo)?.tipo
-                        return type?.toLowerCase().includes(isSearchTerm.toLowerCase());
+                        const category = isCleaningCategories.find(type => type.idcategoria === data.idcategoria)?.nombre
+                        return category?.toLowerCase().includes(isSearchTerm.toLowerCase());
                     }
                     if (isSelectedOptionSearch === 'Fecha') {
                         const date = new Date(data.fecha);
@@ -683,7 +782,7 @@ export const TableActionsSales = () => {
                 });
 
                 const totals = filtered.reduce((index,item) => {
-                    const exist = index.find(type => type.idtipo === item.idtipo);
+                    const exist = index.find(type => type.idcategoria === item.idcategoria);
                     if(exist){
                         exist.cantidadreal += item.cantidadreal;
                         exist.precio += item.precio;
@@ -694,17 +793,17 @@ export const TableActionsSales = () => {
                 },[]);
 
                 return [...totals].sort((a, b) => {
-                    if(isSelectedOptionOrder === 'Tipos de Insumo'){
+                    if(isSelectedOptionOrder === 'Suministro'){
                         return isSelectedOptionOrderDirection === 'Asc'
-                        ? isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo,'es', { sensitivity: 'base' })
-                        : isSupplyTypes.find(type => type.idtipo === b.idtipo)?.tipo.localeCompare(isSupplyTypes.find(type => type.idtipo === a.idtipo)?.tipo,'es', { sensitivity: 'base' })
+                        ? isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre,'es', { sensitivity: 'base' })
+                        : isCleaningCategories.find(type => type.idcategoria === b.idcategoria)?.nombre.localeCompare(isCleaningCategories.find(type => type.idcategoria === a.idcategoria)?.nombre,'es', { sensitivity: 'base' })
                     }
                     if(isSelectedOptionOrder === 'Cantidad'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.cantidadreal - b.cantidadreal
                         : b.cantidadreal - a.cantidadreal
                     }
-                    if(isSelectedOptionOrder === 'Total'){
+                    if(isSelectedOptionOrder === 'Precio'){
                         return isSelectedOptionOrderDirection === 'Asc'
                         ? a.precio - b.precio
                         : b.precio - a.precio
@@ -716,17 +815,9 @@ export const TableActionsSales = () => {
             return [];
         }
         return [];
-    }, [isWarehouseCategories, isSupplyCategories, isSupplyTypes, isSearchTerm, isSelectedOptionOrderPlus, isSelectedOptionOrderPlusUltra, isSelectedOptionSearch, isSelectedOptionOrderDirection, isTextFieldsSearchDate]);
-    // Cambio de direccion del ordenamiento
-    const ToggleOrderDirection = () => {
-        setIsSelectedOptionOrderDirection(prev => prev === 'Asc' ? 'Desc' : 'Asc');
-    };
-    // Cambio de lo que quiere ordenar
-    const ToggleOrder = (option) => {
-        setIsSelectedOptionOrder(option);
-    };
+    }, [isWarehouseCategories,isCleaningCategories,isWarehouseCleaning, isSupplyCategories, isSearchTerm, isSelectedOptionOrderPlus, isSelectedOptionOrderPlusUltra, isSelectedOptionSearch, isSelectedOptionOrderDirection, isTextFieldsSearchDate]);
     // Total de registros visibles de la tabla
-    const recordsPerPage = 8;
+    const recordsPerPage = 6;
     // Indices de los registros
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -755,5 +846,500 @@ export const TableActionsSales = () => {
         }
     },[isSearchTerm])
     // Retorno de la función del hook
-    return { handleRowClick,prevPage,currentPage,nextPageSales,currentRecordsSales,filteredRecordsSales,ToggleOrder,ToggleOrderDirection,totalPagesSales}
+    return { handleRowClick,prevPage,currentPage,nextPageSales,currentRecordsSales,filteredRecordsSales,totalPagesSales}
+}
+// Hook para realizar las acciones de la tabla de reportes ✔️
+export const TableActionsReports = () => {
+    // Constantes con el valor de los contextos 
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
+    const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
+    const [isWarehouseFixedExpenses] = useContext(WarehouseFixedExpensesContext);
+    const [isFixedExpenses] = useContext(FixedExpensesContext);
+    const [isWarehouseCategories] = useContext(WarehouseCategoriesContext);
+    const [isSupplyCategories] = useContext(SupplyCategoriesContext); 
+    const [isWarehouseCleaning] = useContext(WarehouseCleaningContext);
+    const [isCleaningCategories] = useContext(CleaningCategoriesContext);
+    // Paginación de la tabla
+    const [currentPage, setCurrentPage] = useState(1);
+    // Filtrado de datos
+    const filteredRecordsReports = useMemo(() => {
+        if(isSelectedOptionOrderPlus === 'Categorías de insumos'){
+            const fechaLimite = new Date(isTextFieldsSearchDate.año,isTextFieldsSearchDate.mes - 1, 1);
+
+            const filteredComprasAnteriores = isWarehouseCategories.filter((data) => {
+                if(data.transaccion === 'Venta' || data.transaccion === 'Venta-Rapida') return false;
+                    
+                const fecha = new Date(data.fecha);
+
+                return fecha < fechaLimite;
+            });
+            const filteredVentasAnteriores = isWarehouseCategories.filter((data) => {
+                if(data.transaccion === 'Compra') return false;
+                    
+                const fecha = new Date(data.fecha);
+
+                return fecha < fechaLimite;
+            });
+
+            const agruparPorGasto = (arr) => {
+                return Object.values(
+                    arr.reduce((acc, item) => {
+                        if (!acc[item.idcategoria]) {
+                            acc[item.idcategoria] = { ...item, total: item.precio };
+                        } else {
+                            acc[item.idcategoria].total += item.precio;
+                        }
+                        return acc;
+                    }, {})
+                );
+            };
+
+            const comprasAnterioresAgrupadas = agruparPorGasto(filteredComprasAnteriores);
+            const ventasAnterioresAgrupadas = agruparPorGasto(filteredVentasAnteriores);
+
+            const gastoNetoAnteriorPorCategoria = comprasAnterioresAgrupadas.map(compra => {
+                const venta = ventasAnterioresAgrupadas.find(v => v.idcategoria === compra.idcategoria);
+                const totalVentas = venta ? venta.total : 0;
+                return {
+                    idcategoria: compra.idcategoria,
+                    nombre: compra.nombre || "",
+                    totalCompras: compra.total,
+                    totalVentas: totalVentas,
+                    gastoNeto: compra.total - totalVentas
+                };
+            });
+            ventasAnterioresAgrupadas.forEach(venta => {
+                const yaExiste = gastoNetoAnteriorPorCategoria.some(g => g.idcategoria === venta.idcategoria);
+                if (!yaExiste) {
+                    gastoNetoAnteriorPorCategoria.push({
+                        idcategoria: venta.idcategoria,
+                        nombre: venta.nombre || "",
+                        totalCompras: 0,
+                        totalVentas: venta.total,
+                        gastoNeto: 0 - venta.total
+                    });
+                }
+            });
+
+            const filteredComprasActuales = isWarehouseCategories.filter((data) => {
+                if (data.transaccion === 'Venta' || data.transaccion === 'Venta-Rapida') return false;
+
+                const date = new Date(data.fecha);
+                const year = date.getFullYear();
+                const month = date.getMonth()+1;
+
+                return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+            });
+            const filteredVentasActuales = isWarehouseCategories.filter((data) => {
+                if (data.transaccion === 'Compra') return false;
+
+                const date = new Date(data.fecha);
+                const year = date.getFullYear();
+                const month = date.getMonth()+1;
+
+                return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+            });
+
+            const comprasActualesAgrupadas = agruparPorGasto(filteredComprasActuales);
+            const ventasActualesAgrupadas = agruparPorGasto(filteredVentasActuales);
+
+            const gastoNetoActualPorCategoria = comprasActualesAgrupadas.map(compra => {
+                const venta = ventasActualesAgrupadas.find(v => v.idcategoria === compra.idcategoria);
+                const totalVentas = venta ? venta.total : 0;
+                return {
+                    idcategoria: compra.idcategoria,
+                    nombre: compra.nombre || "",
+                    totalCompras: compra.total,
+                    totalVentas: totalVentas,
+                    gastoNeto: compra.total - totalVentas
+                };
+            });
+            ventasActualesAgrupadas.forEach(venta => {
+                const yaExiste = gastoNetoActualPorCategoria.some(g => g.idcategoria === venta.idcategoria);
+                if (!yaExiste) {
+                    gastoNetoActualPorCategoria.push({
+                        idcategoria: venta.idcategoria,
+                        nombre: venta.nombre || "",
+                        totalCompras: 0,
+                        totalVentas: venta.total,
+                        gastoNeto: 0 - venta.total
+                    });
+                }
+            });
+
+            const resultadoPorCategoria = gastoNetoAnteriorPorCategoria.map(inicial => {
+                //Obtener el nombre de la categoria
+                const nombre = isSupplyCategories.find(c => c.idcategoria === inicial.idcategoria)?.nombre;
+                // Obtener compras del mes para esa categoría
+                const compraMes = comprasActualesAgrupadas.find(c => c.idcategoria === inicial.idcategoria);
+                const totalComprasMes = compraMes ? compraMes.total : 0;
+
+                // Obtener ventas del mes para esa categoría
+                const ventaMes = ventasActualesAgrupadas.find(v => v.idcategoria === inicial.idcategoria);
+                const totalVentasMes = ventaMes ? ventaMes.total : 0;
+
+                // Inventario final = inventario inicial + compras - ventas
+                const inventarioFinal = inicial.gastoNeto + totalComprasMes - totalVentasMes;
+
+                const costo = (inicial.gastoNeto + totalComprasMes) - inventarioFinal;
+
+                return {
+                    idcategoria: inicial.idcategoria,
+                    nombre: nombre,
+                    inventarioInicial: inicial.gastoNeto,
+                    comprasDelMes: totalComprasMes,
+                    inventarioFinal: inventarioFinal,
+                    costo: costo,
+                };
+            });
+
+            // Agregar categorías que solo aparecen en el mes actual (no en inventario inicial)
+            comprasActualesAgrupadas.forEach(compraMes => {
+                const yaExiste = resultadoPorCategoria.some(r => r.idcategoria === compraMes.idcategoria);
+                if (!yaExiste) {
+                    const ventaMes = ventasActualesAgrupadas.find(v => v.idcategoria === compraMes.idcategoria);
+                    const nombre = isSupplyCategories.find(c => c.idcategoria === compraMes.idcategoria)?.nombre;
+                    const totalVentasMes = ventaMes ? ventaMes.total : 0;
+                    const inventarioFinal = compraMes.total - totalVentasMes;
+                    const costo = (0 + compraMes.total) - inventarioFinal;
+
+                    resultadoPorCategoria.push({
+                        idcategoria: compraMes.idcategoria,
+                        nombre: nombre,
+                        inventarioInicial: 0,
+                        comprasDelMes: compraMes.total,
+                        inventarioFinal: compraMes.total - totalVentasMes,
+                        costo: costo,
+                    });
+                }
+            });
+
+            // Agregar categorías que solo aparecen en ventas del mes (ni en inventario inicial ni en compras)
+            ventasActualesAgrupadas.forEach(ventaMes => {
+                const yaExiste = resultadoPorCategoria.some(r => r.idcategoria === ventaMes.idcategoria);
+                if (!yaExiste) {
+                    const nombre = isSupplyCategories.find(c => c.idcategoria === ventaMes.idcategoria)?.nombre;
+                    const inventarioFinal = 0 - ventaMes.total;
+                    const costo = (0 + 0) - inventarioFinal;
+
+                    resultadoPorCategoria.push({
+                        idcategoria: ventaMes.idcategoria,
+                        nombre: nombre,
+                        inventarioInicial: 0,
+                        comprasDelMes: 0,
+                        inventarioFinal: 0 - ventaMes.total,
+                        costo: costo,
+                    });
+                }
+            });
+
+            return [...resultadoPorCategoria].sort((a, b) => {
+                if(isSelectedOptionOrder === 'Nombre'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.nombre.localeCompare(b.nombre,'es', { sensitivity: 'base' })
+                    : b.nombre.localeCompare(a.nombre,'es', { sensitivity: 'base' })
+                }
+                if(isSelectedOptionOrder === 'Inventario inicial'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.inventarioInicial - b.inventarioInicial
+                    : b.inventarioInicial - a.inventarioInicial
+                }
+                if(isSelectedOptionOrder === 'Compras'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.comprasDelMes - b.comprasDelMes
+                    : b.comprasDelMes - a.comprasDelMes
+                }
+                if(isSelectedOptionOrder === 'Inventario final'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.inventarioFinal - b.inventarioFinal
+                    : b.inventarioFinal - a.inventarioFinal
+                }
+                if(isSelectedOptionOrder === 'Costo'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.costo - b.costo
+                    : b.costo - a.costo
+                }
+
+                return 0
+            });
+        }
+        if(isSelectedOptionOrderPlus === 'Categorías de limpieza'){
+            const fechaLimite = new Date(isTextFieldsSearchDate.año,isTextFieldsSearchDate.mes - 1, 1);
+
+            const filteredComprasAnteriores = isWarehouseCleaning.filter((data) => {
+                if(data.transaccion === 'Consumo') return false;
+                    
+                const fecha = new Date(data.fecha);
+
+                return fecha < fechaLimite;
+            });
+            const filteredVentasAnteriores = isWarehouseCleaning.filter((data) => {
+                if(data.transaccion === 'Compra') return false;
+                    
+                const fecha = new Date(data.fecha);
+
+                return fecha < fechaLimite;
+            });
+
+            const agruparPorGasto = (arr) => {
+                return Object.values(
+                    arr.reduce((acc, item) => {
+                        if (!acc[item.idcategoria]) {
+                            acc[item.idcategoria] = { ...item, total: item.precio };
+                        } else {
+                            acc[item.idcategoria].total += item.precio;
+                        }
+                        return acc;
+                    }, {})
+                );
+            };
+
+            const comprasAnterioresAgrupadas = agruparPorGasto(filteredComprasAnteriores);
+            const ventasAnterioresAgrupadas = agruparPorGasto(filteredVentasAnteriores);
+
+            const gastoNetoAnteriorPorCategoria = comprasAnterioresAgrupadas.map(compra => {
+                const venta = ventasAnterioresAgrupadas.find(v => v.idcategoria === compra.idcategoria);
+                const totalVentas = venta ? venta.total : 0;
+                return {
+                    idcategoria: compra.idcategoria,
+                    nombre: compra.nombre || "",
+                    totalCompras: compra.total,
+                    totalVentas: totalVentas,
+                    gastoNeto: compra.total - totalVentas
+                };
+            });
+            ventasAnterioresAgrupadas.forEach(venta => {
+                const yaExiste = gastoNetoAnteriorPorCategoria.some(g => g.idcategoria === venta.idcategoria);
+                if (!yaExiste) {
+                    gastoNetoAnteriorPorCategoria.push({
+                        idcategoria: venta.idcategoria,
+                        nombre: venta.nombre || "",
+                        totalCompras: 0,
+                        totalVentas: venta.total,
+                        gastoNeto: 0 - venta.total
+                    });
+                }
+            });
+
+            const filteredComprasActuales = isWarehouseCleaning.filter((data) => {
+                if (data.transaccion === 'Consumo') return false;
+
+                const date = new Date(data.fecha);
+                const year = date.getFullYear();
+                const month = date.getMonth()+1;
+
+                return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+            });
+            const filteredVentasActuales = isWarehouseCleaning.filter((data) => {
+                if (data.transaccion === 'Compra') return false;
+
+                const date = new Date(data.fecha);
+                const year = date.getFullYear();
+                const month = date.getMonth()+1;
+
+                return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+            });
+
+            const comprasActualesAgrupadas = agruparPorGasto(filteredComprasActuales);
+            const ventasActualesAgrupadas = agruparPorGasto(filteredVentasActuales);
+
+            const gastoNetoActualPorCategoria = comprasActualesAgrupadas.map(compra => {
+                const venta = ventasActualesAgrupadas.find(v => v.idcategoria === compra.idcategoria);
+                const totalVentas = venta ? venta.total : 0;
+                return {
+                    idcategoria: compra.idcategoria,
+                    nombre: compra.nombre || "",
+                    totalCompras: compra.total,
+                    totalVentas: totalVentas,
+                    gastoNeto: compra.total - totalVentas
+                };
+            });
+            ventasActualesAgrupadas.forEach(venta => {
+                const yaExiste = gastoNetoActualPorCategoria.some(g => g.idcategoria === venta.idcategoria);
+                if (!yaExiste) {
+                    gastoNetoActualPorCategoria.push({
+                        idcategoria: venta.idcategoria,
+                        nombre: venta.nombre || "",
+                        totalCompras: 0,
+                        totalVentas: venta.total,
+                        gastoNeto: 0 - venta.total
+                    });
+                }
+            });
+
+            const resultadoPorCategoria = gastoNetoAnteriorPorCategoria.map(inicial => {
+                //Obtener el nombre de la categoria
+                const nombre = isCleaningCategories.find(c => c.idcategoria === inicial.idcategoria)?.nombre;
+                // Obtener compras del mes para esa categoría
+                const compraMes = comprasActualesAgrupadas.find(c => c.idcategoria === inicial.idcategoria);
+                const totalComprasMes = compraMes ? compraMes.total : 0;
+
+                // Obtener ventas del mes para esa categoría
+                const ventaMes = ventasActualesAgrupadas.find(v => v.idcategoria === inicial.idcategoria);
+                const totalVentasMes = ventaMes ? ventaMes.total : 0;
+
+                // Inventario final = inventario inicial + compras - ventas
+                const inventarioFinal = inicial.gastoNeto + totalComprasMes - totalVentasMes;
+
+                const costo = (inicial.gastoNeto + totalComprasMes) - inventarioFinal;
+
+                return {
+                    idcategoria: inicial.idcategoria,
+                    nombre: nombre,
+                    inventarioInicial: inicial.gastoNeto,
+                    comprasDelMes: totalComprasMes,
+                    inventarioFinal: inventarioFinal,
+                    costo: costo,
+                };
+            });
+
+            // Agregar categorías que solo aparecen en el mes actual (no en inventario inicial)
+            comprasActualesAgrupadas.forEach(compraMes => {
+                const yaExiste = resultadoPorCategoria.some(r => r.idcategoria === compraMes.idcategoria);
+                if (!yaExiste) {
+                    const ventaMes = ventasActualesAgrupadas.find(v => v.idcategoria === compraMes.idcategoria);
+                    const nombre = isCleaningCategories.find(c => c.idcategoria === compraMes.idcategoria)?.nombre;
+                    const totalVentasMes = ventaMes ? ventaMes.total : 0;
+                    const inventarioFinal = compraMes.total - totalVentasMes;
+                    const costo = (0 + compraMes.total) - inventarioFinal;
+
+                    resultadoPorCategoria.push({
+                        idcategoria: compraMes.idcategoria,
+                        nombre: nombre,
+                        inventarioInicial: 0,
+                        comprasDelMes: compraMes.total,
+                        inventarioFinal: compraMes.total - totalVentasMes,
+                        costo: costo,
+                    });
+                }
+            });
+
+            // Agregar categorías que solo aparecen en ventas del mes (ni en inventario inicial ni en compras)
+            ventasActualesAgrupadas.forEach(ventaMes => {
+                const yaExiste = resultadoPorCategoria.some(r => r.idcategoria === ventaMes.idcategoria);
+                if (!yaExiste) {
+                    const nombre = isCleaningCategories.find(c => c.idcategoria === ventaMes.idcategoria)?.nombre;
+                    const inventarioFinal = 0 - ventaMes.total;
+                    const costo = (0 + 0) - inventarioFinal;
+
+                    resultadoPorCategoria.push({
+                        idcategoria: ventaMes.idcategoria,
+                        nombre: nombre,
+                        inventarioInicial: 0,
+                        comprasDelMes: 0,
+                        inventarioFinal: 0 - ventaMes.total,
+                        costo: costo,
+                    });
+                }
+            });
+
+            return [...resultadoPorCategoria].sort((a, b) => {
+                if(isSelectedOptionOrder === 'Nombre'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.nombre.localeCompare(b.nombre,'es', { sensitivity: 'base' })
+                    : b.nombre.localeCompare(a.nombre,'es', { sensitivity: 'base' })
+                }
+                if(isSelectedOptionOrder === 'Inventario inicial'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.inventarioInicial - b.inventarioInicial
+                    : b.inventarioInicial - a.inventarioInicial
+                }
+                if(isSelectedOptionOrder === 'Compras'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.comprasDelMes - b.comprasDelMes
+                    : b.comprasDelMes - a.comprasDelMes
+                }
+                if(isSelectedOptionOrder === 'Inventario final'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.inventarioFinal - b.inventarioFinal
+                    : b.inventarioFinal - a.inventarioFinal
+                }
+                if(isSelectedOptionOrder === 'Costo'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.costo - b.costo
+                    : b.costo - a.costo
+                }
+
+                return 0
+            });
+        }
+        if(isSelectedOptionOrderPlus === 'Gastos fijos'){
+            const filtered = isWarehouseFixedExpenses.filter((data) => {
+                const date = new Date(data.fecha);
+                const year = date.getFullYear();
+                const month = date.getMonth()+1;
+
+                return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+            });
+
+            const totals = filtered.reduce((index,item) => {
+                const exist = index.find(type => type.idgasto === item.idgasto);
+                if(exist){
+                    exist.cantidadreal += item.cantidadreal;
+                    exist.precio += item.precio;
+                }else{
+                    index.push({...item});
+                }
+                return index;
+            },[]);
+
+            return [...totals].sort((a, b) => {
+                if(isSelectedOptionOrder === 'Gasto fijo'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? isFixedExpenses.find(type => type.idgasto === a.idgasto)?.nombre.localeCompare(isFixedExpenses.find(type => type.idgasto === b.idgasto)?.nombre,'es', { sensitivity: 'base' })
+                    : isFixedExpenses.find(type => type.idgasto === b.idgasto)?.nombre.localeCompare(isFixedExpenses.find(type => type.idgasto === a.idgasto)?.nombre,'es', { sensitivity: 'base' })
+                }
+                if(isSelectedOptionOrder === 'Precio'){
+                    return isSelectedOptionOrderDirection === 'Asc'
+                    ? a.precio - b.precio
+                    : b.precio - a.precio
+                }
+
+                return 0
+            });
+        }
+        return [];
+    }, [isWarehouseCategories,isSupplyCategories,isWarehouseFixedExpenses,isFixedExpenses,isWarehouseCleaning,isCleaningCategories,isSelectedOptionOrderPlus,isSelectedOptionOrderDirection,isTextFieldsSearchDate]);
+    // Total de registros visibles de la tabla
+    const recordsPerPage = 6;
+    // Indices de los registros
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    // Total de páginas 
+    const totalPagesReports = Math.ceil(filteredRecordsReports.length / recordsPerPage);
+    // Filtrado de datos por página
+    const currentRecordsReports = filteredRecordsReports.slice(indexOfFirstRecord, indexOfLastRecord);
+    // Función de selección de los renglones de la tabla
+    const handleRowClick = (report) => {
+        if(isSelectedOptionOrderPlus === 'Categorías de insumos' || isSelectedOptionOrderPlus === 'Categorías de limpieza'){
+            setIsSelectedRow((prevSelected) => {
+                return prevSelected?.idcategoria === report.idcategoria ? null : report;
+            });
+        }
+        if(isSelectedOptionOrderPlus === 'Gastos fijos'){
+            setIsSelectedRow((prevSelected) => {
+                return prevSelected?.idalmacen === report.idalmacen ? null : report;
+            });
+        }
+    };
+    // Función de siguiente de registros de la tabla
+    const nextPageReports = () => {
+        if (currentPage < totalPagesReports) setCurrentPage(currentPage + 1);
+    };
+    // Función de retroceso de registros de la tabla
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesReports){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
+    // Retorno de la función del hook
+    return { handleRowClick,prevPage,currentPage,nextPageReports,currentRecordsReports,filteredRecordsReports,totalPagesReports}
 }

@@ -5,6 +5,8 @@ import { useState,useContext,useEffect,useMemo } from "react";
 import { SuppliersContext,DeletedSuppliersContext,ObservationsContext } from "../../contexts/SuppliersProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
+import { TextFieldsSearchDateContext } from "../../contexts/FormsProvider";
+import { OrdersContext } from "../../contexts/WarehouseProvider";
 // Hooks personalizados
 import { Dates } from "../Dates";
 //____________IMPORT/EXPORT____________
@@ -144,6 +146,7 @@ export const TableActionsObservations = () => {
                     supplier,
                     fechaFormateada,
                     data.calificacion,
+                    data.idpedido
                 ].some(value =>
                     String(value).toLowerCase().includes(isSearchTerm.toLowerCase())
                 );
@@ -158,6 +161,9 @@ export const TableActionsObservations = () => {
             }
             if(isSelectedOptionSearch === 'Calificación'){
                 return String(data.calificacion).toLowerCase().includes(isSearchTerm.toLowerCase());
+            }
+            if(isSelectedOptionSearch === 'ID Pedido'){
+                return String(data.idpedido).toLowerCase().includes(isSearchTerm.toLowerCase());
             }
         });
         return [...filtered].sort((a, b) => {
@@ -176,6 +182,11 @@ export const TableActionsObservations = () => {
                 return isSelectedOptionOrderDirection === 'Asc'
                 ? a.calificacion - b.calificacion
                 : b.calificacion - a.calificacion
+            }
+            if(isSelectedOptionOrder === 'ID Pedido'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.idpedido - b.idpedido
+                : b.idpedido - a.idpedido
             }
 
             return 0
@@ -212,4 +223,103 @@ export const TableActionsObservations = () => {
     },[isSearchTerm])
     // Retorno de la función del hook
     return { handleRowClick,prevPage,currentPage,nextPageObservations,currentRecordsObservations,filteredRecordsObservations,totalPagesObservations}
+}
+// Hook para realizar las acciones de la tabla de compras de proveedores ✔️
+export const TableActionsPurchases = () => {
+    // Constantes con el valor de los contextos 
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
+    const [isSearchTerm] = useContext(SearchTermContext);
+    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
+    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
+    const [isTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
+    const [isOrders] = useContext(OrdersContext);
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
+    // Paginación de la tabla
+    const [currentPage, setCurrentPage] = useState(1);
+    // Filtrado de datos
+    const filteredRecordsPurchases = useMemo(() => {
+        const filtered = isOrders.filter((data) => {
+            if(data.estado !== 'Finalizado') return false;
+
+            const date = new Date(data.fecha);
+            const year = date.getFullYear();
+            const month = date.getMonth()+1;
+
+            return year === isTextFieldsSearchDate?.año && month === isTextFieldsSearchDate?.mes;
+        });
+
+        const totals = filtered.reduce((index,item) => {
+            const exist = index.find(type => type.idproveedor === item.idproveedor);
+            if(exist){
+                exist.precio += item.precio;
+            }else{
+                index.push({...item});
+            }
+            return index;
+        },[]);
+
+        // Agregar proveedores que solo aparecen en la tabla de proveedores que no han sido eliminados
+        const filteredSuppliers = isSuppliers.filter((data) => {
+            const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
+            if (isDeleted) return false;
+
+            return true;
+        })
+
+        const resultadoPorProveedor = filteredSuppliers.map(supplier => {
+            const compra = totals.find(pedido => pedido.idproveedor === supplier.idproveedor);
+            return {
+                idproveedor: supplier.idproveedor,
+                nombre: supplier.nombre,
+                precio: compra ? compra.precio : 0
+            };
+        });
+
+        return [...resultadoPorProveedor].sort((a, b) => {
+            if(isSelectedOptionOrder === 'Nombre'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.nombre.localeCompare(b.nombre,'es', { sensitivity: 'base' })
+                : b.nombre.localeCompare(a.nombre,'es', { sensitivity: 'base' })
+            }
+            if(isSelectedOptionOrder === 'Compras'){
+                return isSelectedOptionOrderDirection === 'Asc'
+                ? a.precio - b.precio
+                : b.precio - a.precio
+            }
+
+            return 0
+        });
+    }, [isOrders, isSuppliers, isDeletedSuppliers, isSelectedOptionOrder, isSelectedOptionOrderDirection, isTextFieldsSearchDate]);
+    // Total de registros visibles de la tabla
+    const recordsPerPage = 6;
+    // Indices de los registros
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    // Total de páginas 
+    const totalPagesPurchases = Math.ceil(filteredRecordsPurchases.length / recordsPerPage);
+    // Filtrado de datos por página
+    const currentRecordsPurchases = filteredRecordsPurchases.slice(indexOfFirstRecord, indexOfLastRecord);
+    // Función de selección de los renglones de la tabla
+    const handleRowClick = (purchase) => {
+        setIsSelectedRow((prevSelected) => {
+            return prevSelected?.idproveedor === purchase.idproveedor ? null : purchase;
+        });
+    };
+    // Función de siguiente de registros de la tabla
+    const nextPagePurchases = () => {
+        if (currentPage < totalPagesPurchases) setCurrentPage(currentPage + 1);
+    };
+    // Función de retroceso de registros de la tabla
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+    // UseEffect para actualizar la paginación
+    useEffect(() => {
+        if(currentPage > totalPagesPurchases){
+            setCurrentPage(1);
+        }
+    },[isSearchTerm])
+    // Retorno de la función del hook
+    return { handleRowClick,prevPage,currentPage,nextPagePurchases,currentRecordsPurchases,filteredRecordsPurchases,totalPagesPurchases}
 }

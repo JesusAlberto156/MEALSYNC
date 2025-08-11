@@ -54,6 +54,7 @@ export default function Table_Supplier_Observations(){
                 calificacion: isSelectedRow.calificacion,
                 fecha: isSelectedRow.fecha,
                 idproveedor: isSelectedRow.idproveedor,
+                idpedido: isSelectedRow.idpedido,
             }))
         }else{
             resetTextFieldsObservation();
@@ -81,6 +82,10 @@ export default function Table_Supplier_Observations(){
                             <Table_Title_Numeric
                                 title="Calificación"
                                 order="Calificación"
+                            />
+                            <Table_Title_Numeric
+                                title="ID Pedido"
+                                order="ID Pedido"
                             />
                         </tr>
                     </Table_Head_Thead_Blue>
@@ -136,6 +141,7 @@ export default function Table_Supplier_Observations(){
                                 </Table_Body_Td>
                                 <Table_Body_Td style={{ color: isSelectedRow === observation ? 'white' : ''}}>{getDate(observation.fecha) || 'Desconocida'}</Table_Body_Td>
                                 <Table_Body_Td style={{ color: isSelectedRow === observation ? 'white' : ''}}>{observation.calificacion || 'Desconocida'}</Table_Body_Td>
+                                <Table_Body_Td style={{ color: isSelectedRow === observation ? 'white' : ''}}>{observation.idpedido || 'Desconocido'}</Table_Body_Td>
                             </tr>
                         ))}
                     </Table_Body_Tbody_White>

@@ -6,18 +6,25 @@ import { decryptData } from "../services/Crypto";
 // Contextos
 export const WarehouseCategoriesContext = createContext(null);
 export const WarehouseSupplyTypesContext = createContext(null);
+export const WarehouseSupplyAddContext = createContext(null);
 export const WarehouseCleaningContext = createContext(null);
+export const WarehouseCleaningTypesContext = createContext(null);
+export const WarehouseCleaningAddContext = createContext(null);
 export const WarehouseFixedExpensesContext = createContext(null);
+export const WarehouseFixedExpenseAddContext = createContext(null);
 export const OrdersContext = createContext(null);
 export const DeletedOrdersContext = createContext(null);
 export const OrderDeleteContext = createContext(null);
-export const SupplyOrderDeleteContext = createContext(null);
-export const CleaningSupplyOrderDeleteContext = createContext(null);
 export const SupplyOrdersContext = createContext(null);
 export const SupplyOrderAddContext = createContext(null);
+export const SupplyOrderEndContext = createContext(null);
 export const SupplyOrderVerificationAddContext = createContext(null);
+export const SupplyOrderVerificationEditContext = createContext(null);
 export const CleaningSupplyOrdersContext = createContext(null);
 export const CleaningSupplyOrderAddContext = createContext(null);
+export const CleaningSupplyOrderEndContext = createContext(null);
+export const CleaningSupplyOrderVerificationAddContext = createContext(null);
+export const CleaningSupplyOrderVerificationEditContext = createContext(null);
 export const MessageSupplyOrdersContext = createContext(null);
 export const MessageCleaningSupplyOrdersContext = createContext(null);
 // Contextos personalizados
@@ -29,33 +36,49 @@ export const Index_Warehouse = ({children}) => {
     return(
         <Warehouse_Categories>
             <Warehouse_Supply_Types>
-                <Warehouse_Cleaning>
-                    <Warehouse_Fixed_Expenses>
-                        <Orders>
-                            <Deleted_Orders>
-                                <Order_Delete>
-                                    <Supply_Order_Delete>
-                                        <Cleaning_Supply_Order_Delete>
-                                            <Supply_Orders>
-                                                <Supply_Order_Add>
-                                                    <Cleaning_Supply_Orders>
-                                                        <Cleaning_Supply_Order_Add>
-                                                            <Message_Supply_Orders>
-                                                                <Message_Cleaning_Supply_Orders>
-                                                                    {children}
-                                                                </Message_Cleaning_Supply_Orders>
-                                                            </Message_Supply_Orders>
-                                                        </Cleaning_Supply_Order_Add>
-                                                    </Cleaning_Supply_Orders>
-                                                </Supply_Order_Add>
-                                            </Supply_Orders>
-                                        </Cleaning_Supply_Order_Delete>
-                                    </Supply_Order_Delete>
-                                </Order_Delete>
-                            </Deleted_Orders>
-                        </Orders>
-                    </Warehouse_Fixed_Expenses>
-                </Warehouse_Cleaning>
+                <Warehouse_Supply_Add>
+                    <Warehouse_Cleaning>
+                        <Warehouse_Cleaning_Types>
+                            <Warehouse_Cleaning_Add>
+                                <Warehouse_Fixed_Expenses>
+                                    <Warehouse_Fixed_Expense_Add>
+                                        <Orders>
+                                            <Deleted_Orders>
+                                                <Order_Delete>
+                                                    <Supply_Orders>
+                                                        <Supply_Order_Add>
+                                                            <Supply_Order_End>
+                                                                <Supply_Order_Verification_Add>
+                                                                    <Supply_Order_Verification_Edit>
+                                                                        <Cleaning_Supply_Orders>
+                                                                            <Cleaning_Supply_Order_Add>
+                                                                                <Cleaning_Supply_Order_End>
+                                                                                    <Cleaning_Supply_Order_Verification_Add>
+                                                                                        <Cleaning_Supply_Order_Verification_Edit>
+                                                                                            <Message_Supply_Orders>
+                                                                                                <Message_Cleaning_Supply_Orders>
+                                                                                                    {children}
+                                                                                                </Message_Cleaning_Supply_Orders>
+                                                                                            </Message_Supply_Orders>
+                                                                                        </Cleaning_Supply_Order_Verification_Edit>
+                                                                                    </Cleaning_Supply_Order_Verification_Add>
+                                                                                </Cleaning_Supply_Order_End>
+                                                                            </Cleaning_Supply_Order_Add>
+                                                                        </Cleaning_Supply_Orders>
+                                                                    </Supply_Order_Verification_Edit>
+                                                                </Supply_Order_Verification_Add>
+                                                            </Supply_Order_End>
+                                                        </Supply_Order_Add>
+                                                    </Supply_Orders>
+                                                </Order_Delete>
+                                            </Deleted_Orders>
+                                        </Orders>
+                                    </Warehouse_Fixed_Expense_Add>
+                                </Warehouse_Fixed_Expenses>
+                            </Warehouse_Cleaning_Add>
+                        </Warehouse_Cleaning_Types>
+                    </Warehouse_Cleaning>
+                </Warehouse_Supply_Add>
             </Warehouse_Supply_Types>
         </Warehouse_Categories>
     );
@@ -142,6 +165,17 @@ export const Warehouse_Supply_Types = ({ children }) => {
         </WarehouseSupplyTypesContext.Provider>
     );
 }
+// Función contexto para controlar los datos agregados de una venta de insumo ✔️
+export const Warehouse_Supply_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isWarehouseSupplyAdd,setIsWarehouseSupplyAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <WarehouseSupplyAddContext.Provider value={[isWarehouseSupplyAdd,setIsWarehouseSupplyAdd]}>
+            {children}
+        </WarehouseSupplyAddContext.Provider>
+    );
+}
 //---------- ALMACEN DE TIPOS DE INSUMO 
 //---------- ALMACEN DE LIMPIEZA
 // Función contexto para controlar los datos de la base de datos de los almacenes por limpieza ✔️
@@ -184,6 +218,58 @@ export const Warehouse_Cleaning = ({ children }) => {
     );
 }
 //---------- ALMACEN DE LIMPIEZA
+//---------- ALMACEN DE TIPOS DE LIMPIEZA 
+// Función contexto para controlar los datos de la base de datos de los almacenes por tipos de limpieza ✔️
+export const Warehouse_Cleaning_Types = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isWarehouseCleaningTypes,setIsWarehouseCleaningTypes] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        const handleWarehouseCleaningTypes = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if (decryptedData) {
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Almacén por tipos de limpieza obtenido!');
+                    setIsWarehouseCleaningTypes(parsedData);
+                } else {
+                    console.warn('¡Error al desencriptar el almacén por tipos de limpieza!');
+                    setIsWarehouseCleaningTypes([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar el almacén por tipos de limpieza:', error);
+                setIsWarehouseCleaningTypes([]);
+            }
+        }
+
+        socket.emit('Get-Warehouse-Cleaning-Types');
+        socket.on('Get-Warehouse-Cleaning-Types',handleWarehouseCleaningTypes);
+
+        return () => {
+            socket.off('Get-Warehouse-Cleaning-Types',handleWarehouseCleaningTypes);
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <WarehouseCleaningTypesContext.Provider value={[isWarehouseCleaningTypes,setIsWarehouseCleaningTypes]}>
+            {children}
+        </WarehouseCleaningTypesContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de una venta de suministro ✔️
+export const Warehouse_Cleaning_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isWarehouseCleaningAdd,setIsWarehouseCleaningAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <WarehouseCleaningAddContext.Provider value={[isWarehouseCleaningAdd,setIsWarehouseCleaningAdd]}>
+            {children}
+        </WarehouseCleaningAddContext.Provider>
+    );
+}
+//---------- ALMACEN DE TIPOS DE LIMPIEZA 
 //---------- ALMACEN DE GASTOS FIJOS
 // Función contexto para controlar los datos de la base de datos de los almacenes por gastos fijos ✔️
 export const Warehouse_Fixed_Expenses = ({ children }) => {
@@ -222,6 +308,17 @@ export const Warehouse_Fixed_Expenses = ({ children }) => {
         <WarehouseFixedExpensesContext.Provider value={[isWarehouseFixedExpenses]}>
             {children}
         </WarehouseFixedExpensesContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de una compra de gasto fijo ✔️
+export const Warehouse_Fixed_Expense_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isWarehouseFixedExpenseAdd,setIsWarehouseFixedExpenseAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <WarehouseFixedExpenseAddContext.Provider value={[isWarehouseFixedExpenseAdd,setIsWarehouseFixedExpenseAdd]}>
+            {children}
+        </WarehouseFixedExpenseAddContext.Provider>
     );
 }
 //---------- ALMACEN DE GASTOS FIJOS
@@ -317,28 +414,6 @@ export const Order_Delete = ({ children }) => {
         </OrderDeleteContext.Provider>
     );
 }
-// Función contexto para controlar los datos eliminados de un pedido de insumo ✔️
-export const Supply_Order_Delete = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isSupplyOrderDelete,setIsSupplyOrderDelete] = useState(false);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <SupplyOrderDeleteContext.Provider value={[isSupplyOrderDelete,setIsSupplyOrderDelete]}>
-            {children}
-        </SupplyOrderDeleteContext.Provider>
-    );
-}
-// Función contexto para controlar los datos eliminados de un pedido de suministro ✔️
-export const Cleaning_Supply_Order_Delete = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isCleaningSupplyOrderDelete,setIsCleaningSupplyOrderDelete] = useState(false);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <CleaningSupplyOrderDeleteContext.Provider value={[isCleaningSupplyOrderDelete,setIsCleaningSupplyOrderDelete]}>
-            {children}
-        </CleaningSupplyOrderDeleteContext.Provider>
-    );
-}
 //---------- PEDIDOS ELIMINADOS 
 //---------- PEDIDOS DE INSUMOS
 // Función contexto para controlar los datos de la base de datos de los pedidos de insumos ✔️
@@ -391,7 +466,18 @@ export const Supply_Order_Add = ({ children }) => {
         </SupplyOrderAddContext.Provider>
     );
 }
-// Función contexto para controlar los datos agregados de una revisión pedido de insumo ✔️
+// Función contexto para controlar los datos finalizados de un pedido de insumo ✔️
+export const Supply_Order_End = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplyOrderEnd,setIsSupplyOrderEnd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SupplyOrderEndContext.Provider value={[isSupplyOrderEnd,setIsSupplyOrderEnd]}>
+            {children}
+        </SupplyOrderEndContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de una revisión de pedido de insumo ✔️
 export const Supply_Order_Verification_Add = ({ children }) => {
     // UseState para controlar el valor del contexto
     const [isSupplyOrderVerificationAdd,setIsSupplyOrderVerificationAdd] = useState(false);
@@ -400,6 +486,17 @@ export const Supply_Order_Verification_Add = ({ children }) => {
         <SupplyOrderVerificationAddContext.Provider value={[isSupplyOrderVerificationAdd,setIsSupplyOrderVerificationAdd]}>
             {children}
         </SupplyOrderVerificationAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de una revisión de pedido de insumo ✔️
+export const Supply_Order_Verification_Edit = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isSupplyOrderVerificationEdit,setIsSupplyOrderVerificationEdit] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <SupplyOrderVerificationEditContext.Provider value={[isSupplyOrderVerificationEdit,setIsSupplyOrderVerificationEdit]}>
+            {children}
+        </SupplyOrderVerificationEditContext.Provider>
     );
 }
 //---------- PEDIDOS DE INSUMOS
@@ -452,6 +549,39 @@ export const Cleaning_Supply_Order_Add = ({ children }) => {
         <CleaningSupplyOrderAddContext.Provider value={[isCleaningSupplyOrderAdd,setIsCleaningSupplyOrderAdd]}>
             {children}
         </CleaningSupplyOrderAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos finalizados de un pedido de suministro ✔️
+export const Cleaning_Supply_Order_End = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isCleaningSupplyOrderEnd,setIsCleaningSupplyOrderEnd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CleaningSupplyOrderEndContext.Provider value={[isCleaningSupplyOrderEnd,setIsCleaningSupplyOrderEnd]}>
+            {children}
+        </CleaningSupplyOrderEndContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de una revisión de pedido de suministro ✔️
+export const Cleaning_Supply_Order_Verification_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isCleaningSupplyOrderVerificationAdd,setIsCleaningSupplyOrderVerificationAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CleaningSupplyOrderVerificationAddContext.Provider value={[isCleaningSupplyOrderVerificationAdd,setIsCleaningSupplyOrderVerificationAdd]}>
+            {children}
+        </CleaningSupplyOrderVerificationAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de una revisión de pedido de suministro ✔️
+export const Cleaning_Supply_Order_Verification_Edit = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isCleaningSupplyOrderVerificationEdit,setIsCleaningSupplyOrderVerificationEdit] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CleaningSupplyOrderVerificationEditContext.Provider value={[isCleaningSupplyOrderVerificationEdit,setIsCleaningSupplyOrderVerificationEdit]}>
+            {children}
+        </CleaningSupplyOrderVerificationEditContext.Provider>
     );
 }
 //---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA

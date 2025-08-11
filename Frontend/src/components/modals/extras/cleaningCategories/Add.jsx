@@ -20,12 +20,12 @@ import { HandleKeyboard } from "../../../../hooks/Views";
 import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
-import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16 } from "../../../styled/Text";
-import { Input_Text_100_Black,Input_Area_100_Black,Input_Group,Input_Radio_20 } from "../../../styled/Inputs";
+import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black } from "../../../styled/Text";
+import { Input_Text_100_Black,Input_Area_100_Black,Input_Group } from "../../../styled/Inputs";
 import { Icon_Button_Blue_20 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
-import { Label_Text_12_Black,Label_Area_12_Black,Label_Button_16_Black,Label_Text_16_Black } from "../../../styled/Labels";
+import { Label_Text_12_Black,Label_Area_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import { Image_Modal } from "../../../styled/Imgs";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
@@ -86,7 +86,7 @@ export default function Cleaning_Category_Add(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Cleaning-Category',isLoggedUser.idusuario,isTextFieldsCleaningCategory.nombre.trim(),isTextFieldsCleaningCategory.descripcion.trim(),isTextFieldsCleaningCategory.unidad,Number(isTextFieldsCleaningCategory.limite));
+                        socket.emit('Insert-Cleaning-Category',isLoggedUser.idusuario,isTextFieldsCleaningCategory.nombre.trim(),isTextFieldsCleaningCategory.descripcion.trim());
 
                         resolve('¡Agregó la categoría de limpieza!');
 
@@ -185,60 +185,6 @@ export default function Cleaning_Category_Add(){
                                     <Icon_Button_Blue_20
                                         onClick={() => {
                                             setIsTextFieldsCleaningCategory(prev => ({...prev, descripcion: ''}))
-                                        }}
-                                        disabled={isActionBlock}
-                                    >
-                                        <MdCancel/>
-                                    </Icon_Button_Blue_20>
-                                </Container_Row_100_Left>
-                                <Container_Row_NG_Auto_Center>
-                                    <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
-                                    <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>
-                                </Container_Row_NG_Auto_Center>
-                                <Container_Row_NG_Auto_Center>
-                                    <Text_Color_Green_16>Unidad</Text_Color_Green_16>
-                                    <Text_Span_16_Center_Black>:</Text_Span_16_Center_Black>
-                                </Container_Row_NG_Auto_Center>
-                                <Container_Row_100_Center>
-                                    {['Kilogramo','Litro','Pieza'].map((item,index) => (
-                                        <Label_Button_16_Black Disabled={isActionBlock} key={index}>
-                                            <Input_Radio_20
-                                                type="radio"
-                                                name="units"
-                                                disabled={isActionBlock}
-                                                value={item}
-                                                checked={isTextFieldsCleaningCategory.unidad === item}
-                                                onChange={(e) => setIsTextFieldsCleaningCategory(prev => ({...prev, unidad: e.target.value}))}
-                                            />
-                                            {item}
-                                        </Label_Button_16_Black>
-                                    ))}
-                                </Container_Row_100_Center>
-                                <Container_Row_100_Left>
-                                    <Label_Text_16_Black>Cantidad mínima:</Label_Text_16_Black>
-                                    <Input_Group>
-                                        <Input_Text_100_Black
-                                            id="Input-Limite"
-                                            placeholder="..."
-                                            type="text"
-                                            disabled={isActionBlock}
-                                            value={isTextFieldsCleaningCategory.limite}
-                                            onChange={(e) => {
-                                                if(!isNaN(Number(e.target.value))){
-                                                    setIsTextFieldsCleaningCategory(prev => ({...prev, limite: e.target.value}))
-                                                }
-                                            }}
-                                            onFocus={() => {
-                                                if(isKeyboardTouch.current){
-                                                    setIsKeyboard(true);
-                                                    setIsKeyboardView('Limite-Categoria-Limpieza');
-                                                }
-                                            }}
-                                        />
-                                    </Input_Group>
-                                    <Icon_Button_Blue_20
-                                        onClick={() => {
-                                            setIsTextFieldsCleaningCategory(prev => ({...prev, limite: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >

@@ -3,9 +3,10 @@
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
 import { DeletedDrinksContext,DrinksContext,MenuTypeDrinksContext,DrinkSpecificationsContext } from "../../contexts/DrinksProvider";
-import { MenuTypesContext } from "../../contexts/MenusProvider";
+import { MenuTypesContext,MenuTypeUbicationsContext } from "../../contexts/MenusProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
+import { LoggedTypeContext } from "../../contexts/SessionProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para realizar las acciones de la tabla de las bebidas ✔️
@@ -22,6 +23,8 @@ export const TableActionsDrinks = () => {
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
+    const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext); 
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
@@ -35,6 +38,13 @@ export const TableActionsDrinks = () => {
             const types = isMenuTypes.filter(type =>
                 menus.some(menu => menu.idtipo === type.idtipo)
             );
+
+            if(isLoggedType == 'Nutriólogo'){
+                const tieneUbicacionDistinta = types.some(type =>
+                    isMenuTypeUbications.some(s => s.idtipo === type.idtipo && s.idubicacion === 2)
+                );
+                if (!tieneUbicacionDistinta) return false;
+            }
 
             if (isSelectedOptionSearch === 'General') {
                 
@@ -63,32 +73,28 @@ export const TableActionsDrinks = () => {
             }
         });
 
-        return [...filtered].sort((a, b) => {
-            if(isSelectedOptionOrderPlus === 'Normal'){
-                return 0;
+        const TimeFiltered = filtered.filter(item => {
+            if (isSelectedOptionOrderPlus === 'Normal') {
+                return true; // No filtra nada, muestra todo
             }
 
-            if(isSelectedOptionOrderPlus === 'Desayuno'){
-                const desayuno = b.idmenu - a.idmenu
-                
-                if(desayuno !== 1)return desayuno
+            if (isSelectedOptionOrderPlus === 'Desayuno') {
+                return item.idmenu === 1;
             }
 
-            if(isSelectedOptionOrderPlus === 'Comida'){
-                const comida = b.idmenu - a.idmenu
-                
-                if(comida !== 2)return comida
+            if (isSelectedOptionOrderPlus === 'Comida') {
+                return item.idmenu === 2;
             }
 
-            if(isSelectedOptionOrderPlus === 'Cena'){
-                const cena = b.idmenu - a.idmenu
-                
-                if(cena !== 3)return cena
+            if (isSelectedOptionOrderPlus === 'Cena') {
+                return item.idmenu === 3;
             }
 
-            return 0
+            return false
         });
-    }, [isDrinks, isDeletedDrinks, isDrinkSpecifications, isMenuTypeDrinks, isMenuTypes, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
+            
+        return TimeFiltered;
+    }, [isDrinks, isDeletedDrinks, isDrinkSpecifications, isMenuTypeDrinks, isMenuTypeUbications, isMenuTypes, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
     // Total de registros visibles de la tabla
     const recordsPerPage = 12;
     // Indices de los registros

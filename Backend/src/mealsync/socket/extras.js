@@ -1,16 +1,16 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getCleaningCategoriesService,getCountCleaningCategoriesService,getDeletedCleaningCategoriesService,getCleaningSuppliesService,getDeletedCleaningSuppliesService,getFixedExpensesService,getDeletedFixedExpensesService } from "../services/extras.js";
-import { insertCleaningCategoryService,insertCountCleaningCategoryService,insertDeletedCleaningCategoryService,insertCleaningSupplyService,insertDeletedCleaningSupplyService,insertFixedExpenseService,insertDeletedFixedExpenseService } from "../services/extras.js";
-import { updateCleaningCategoryService,updateCleaningSupplyService,updateFixedExpenseService } from "../services/extras.js";
-import { deleteDeletedCleaningCategoryService,deleteDeletedCleaningSupplyService,deleteDeletedFixedExpenseService } from "../services/extras.js";
+import { getCleaningCategoriesService,getDeletedCleaningCategoriesService,getCleaningTypesService,getCountCleaningTypesService,getDeletedCleaningTypesService,getCleaningSuppliesService,getDeletedCleaningSuppliesService,getFixedExpensesService,getDeletedFixedExpensesService } from "../services/extras.js";
+import { insertCleaningCategoryService,insertDeletedCleaningCategoryService,insertCleaningTypeService,insertCountCleaningTypeService,insertDeletedCleaningTypeService,insertCleaningSupplyService,insertDeletedCleaningSupplyService,insertFixedExpenseService,insertDeletedFixedExpenseService } from "../services/extras.js";
+import { updateCleaningCategoryService,updateCleaningTypeService,updateCleaningSupplyService,updateFixedExpenseService } from "../services/extras.js";
+import { deleteDeletedCleaningCategoryService,deleteDeletedCleaningTypeService,deleteDeletedCleaningSupplyService,deleteDeletedFixedExpenseService } from "../services/extras.js";
 import { getLogsService } from "../services/logs.js";
-import { insertLogCleaningCategoryService,insertLogCountCleaningCategoryService,insertLogDeletedCleaningCategoryService,insertLogCleaningSupplyService,insertLogDeletedCleaningSupplyService,insertLogFixedExpenseService,insertLogDeletedFixedExpenseService } from "../services/extras.js";
-import { updateLogCleaningCategoryService,updateLogCleaningSupplyService,updateLogFixedExpenseService } from "../services/extras.js";
-import { deleteLogDeletedCleaningCategoryService,deleteLogDeletedCleaningSupplyService,deleteLogDeletedFixedExpenseService } from "../services/extras.js";
-import { getWarehouseCleaningService,getWarehouseFixedExpensesService } from "../services/warehouse.js";
-import { insertWarehouseCleaningStartService,insertWarehouseFixedExpenseStartService } from "../services/warehouse.js";
-import { insertLogWarehouseCleaningStartService,insertLogWarehouseFixedExpenseStartService } from "../services/warehouse.js";
+import { insertLogCleaningCategoryService,insertLogDeletedCleaningCategoryService,insertLogCleaningTypeService,insertLogCountCleaningTypeService,insertLogDeletedCleaningTypeService,insertLogCleaningSupplyService,insertLogDeletedCleaningSupplyService,insertLogFixedExpenseService,insertLogDeletedFixedExpenseService } from "../services/extras.js";
+import { updateLogCleaningCategoryService,updateLogCleaningTypeService,updateLogCleaningSupplyService,updateLogFixedExpenseService } from "../services/extras.js";
+import { deleteLogDeletedCleaningCategoryService,deleteLogDeletedCleaningTypeService,deleteLogDeletedCleaningSupplyService,deleteLogDeletedFixedExpenseService } from "../services/extras.js";
+import { getWarehouseCleaningService,getWarehouseCleaningTypesService,getWarehouseFixedExpensesService } from "../services/warehouse.js";
+import { insertWarehouseCleaningStartService,insertWarehouseCleaningTypeStartService,insertWarehouseFixedExpenseStartService } from "../services/warehouse.js";
+import { insertLogWarehouseCleaningStartService,insertLogWarehouseCleaningTypeStartService,insertLogWarehouseFixedExpenseStartService } from "../services/warehouse.js";
 // Servidor socket
 import { io } from "../../index.js";
 // Servicios
@@ -29,22 +29,42 @@ export const Extras_GET = (socket) => {
             console.error('Error al obtener los datos: ', error);
         }
     });
-    //---------- CANTIDADES DE CATEGORÍAS DE LIMPIEZA ✔️
-    socket.on('Get-Count-Cleaning-Categories', async () => {
-        try {
-            const result = await getCountCleaningCategoriesService();
-            console.log('Cantidades de categorías obtenidas...');
-            io.emit('Get-Count-Cleaning-Categories', result);
-        } catch (error) {
-            console.error('Error al obtener los datos: ', error);
-        }
-    });
     //---------- CATEGORÍAS DE LIMPIEZA ELIMINADAS ✔️
     socket.on('Get-Deleted-Cleaning-Categories', async () => {
         try {
             const result = await getDeletedCleaningCategoriesService();
             console.log('Categorías de limpieza eliminadas obtenidas...');
             io.emit('Get-Deleted-Cleaning-Categories', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- TIPOS DE LIMPIEZA ✔️
+    socket.on('Get-Cleaning-Types', async () => {
+        try {
+            const result = await getCleaningTypesService();
+            console.log('Tipos de limpieza obtenidos...');
+            io.emit('Get-Cleaning-Types', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- CANTIDADES DE TIPOS DE LIMPIEZA ✔️
+    socket.on('Get-Count-Cleaning-Types', async () => {
+        try {
+            const result = await getCountCleaningTypesService();
+            console.log('Cantidades de tipos de limpieza obtenidas...');
+            io.emit('Get-Count-Cleaning-Types', result);
+        } catch (error) {
+            console.error('Error al obtener los datos: ', error);
+        }
+    });
+    //---------- TIPOS DE LIMPIEZA ELIMINADOS ✔️
+    socket.on('Get-Deleted-Cleaning-Types', async () => {
+        try {
+            const result = await getDeletedCleaningTypesService();
+            console.log('Tipos de limpieza eliminados obtenidos...');
+            io.emit('Get-Deleted-Cleaning-Types', result);
         } catch (error) {
             console.error('Error al obtener los datos: ', error);
         }
@@ -94,13 +114,13 @@ export const Extras_GET = (socket) => {
 //______________INSERT______________
 export const Extras_INSERT = (socket) => {
     //---------- CATEGORÍAS DE LIMPIEZA ✔️
-    socket.on('Insert-Cleaning-Category',async (idusuario,nombre,descripcion,unidad,limite) => {
+    socket.on('Insert-Cleaning-Category',async (idusuario,nombre,descripcion) => {
         try{
-            await insertCleaningCategoryService(nombre,descripcion,unidad,limite);
+            await insertCleaningCategoryService(nombre,descripcion);
             const resultCleaningCategories = await getCleaningCategoriesService();
             const decryptedData = decryptData(resultCleaningCategories);
             const parsedData = JSON.parse(decryptedData);
-            await insertLogCleaningCategoryService(parsedData.find(data => data.nombre === nombre)?.idcategoria,idusuario,nombre,descripcion,unidad,String(limite));
+            await insertLogCleaningCategoryService(parsedData.find(data => data.nombre === nombre)?.idcategoria,idusuario,nombre,descripcion);
             const category = parsedData.find(data => data.nombre === nombre)?.idcategoria
             await insertWarehouseCleaningStartService(category);
             const resultWarehouseCleaning = await getWarehouseCleaningService();
@@ -113,22 +133,6 @@ export const Extras_INSERT = (socket) => {
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al agregar la categoría de limpieza: ',error);
-            return error;
-        }
-    });
-    //---------- CANTIDADES DE CATEGORÍAS DE LIMPIEZA ✔️
-    socket.on('Insert-Count-Cleaning-Category',async (idusuario,cantidad,idcategoria) => {
-        try{
-            await insertCountCleaningCategoryService(cantidad,idcategoria);
-            const resultCountCleaningCategories = await getCountCleaningCategoriesService();
-            const decryptedData = decryptData(resultCountCleaningCategories);
-            const parsedData = JSON.parse(decryptedData);
-            await insertLogCountCleaningCategoryService(parsedData.find(data => data.idcategoria === idcategoria && data.cantidad === cantidad)?.idcantidad,idusuario,String(cantidad),String(idcategoria));
-            const resultLogs = await getLogsService();
-            io.emit('Get-Count-Cleaning-Categories',resultCountCleaningCategories)
-            io.emit('Get-Logs',resultLogs);
-        }catch(error){
-            console.error('Error al agregar la cantidad de la categoría de limpieza: ',error);
             return error;
         }
     });
@@ -148,14 +152,69 @@ export const Extras_INSERT = (socket) => {
             return error;
         }
     });
-    //---------- SUMINISTROS DE LIMPIEZA ✔️
-    socket.on('Insert-Cleaning-Supply',async (idusuario,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad) => {
+    //---------- TIPOS DE LIMPIEZA ✔️
+    socket.on('Insert-Cleaning-Type',async (idusuario,tipo,descripcion,unidad,idcategoria,limite) => {
         try{
-            await insertCleaningSupplyService(codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad);
+            await insertCleaningTypeService(tipo,descripcion,unidad,idcategoria,limite);
+            const resultCleaningTypes = await getCleaningTypesService();
+            const decryptedData = decryptData(resultCleaningTypes);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogCleaningTypeService(parsedData.find(data => data.tipo === tipo)?.idtipo,idusuario,tipo,descripcion,unidad,String(idcategoria),String(limite));
+            const type = parsedData.find(data => data.tipo === tipo)?.idtipo
+            await insertWarehouseCleaningTypeStartService(type);
+            const resultWarehouseCleaningType = await getWarehouseCleaningTypesService();
+            const decryptedDataWarehouse = decryptData(resultWarehouseCleaningType);
+            const parsedDataWarehouse = JSON.parse(decryptedDataWarehouse);
+            await insertLogWarehouseCleaningTypeStartService(parsedDataWarehouse.find(data => data.idtipo === type)?.idalmacen,idusuario,String(type));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Warehouse-Cleaning-Type',resultWarehouseCleaningType);
+            io.emit('Get-Cleaning-Types',resultCleaningTypes)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al agregar al tipo de limpieza: ',error);
+            return error;
+        }
+    });
+    //---------- CANTIDADES DE TIPOS DE LIMPIEZA ✔️
+    socket.on('Insert-Count-Cleaning-Type',async (idusuario,cantidad,idtipo) => {
+        try{
+            await insertCountCleaningTypeService(cantidad,idtipo);
+            const resultCountCleaningTypes = await getCountCleaningTypesService();
+            const decryptedData = decryptData(resultCountCleaningTypes);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogCountCleaningTypeService(parsedData.find(data => data.idtipo === idtipo && data.cantidad === cantidad)?.idcantidad,idusuario,String(cantidad),String(idtipo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Count-Cleaning-Types',resultCountCleaningTypes)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al agregar la cantidad del tipo de limpieza: ',error);
+            return error;
+        }
+    });
+    //---------- TIPOS DE LIMPIEZA ELIMINADOS ✔️
+    socket.on('Insert-Deleted-Cleaning-Type',async (idusuario,idtipo) => {
+        try{
+            await insertDeletedCleaningTypeService(idtipo);
+            const resultDeletedCleaningTypes = await getDeletedCleaningTypesService();
+            const decryptedData = decryptData(resultDeletedCleaningTypes);
+            const parsedData = JSON.parse(decryptedData);
+            await insertLogDeletedCleaningTypeService(parsedData.find(data => data.idtipo === idtipo)?.ideliminado,idusuario,String(idtipo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Cleaning-Types',resultDeletedCleaningTypes)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al eliminar la categoría de limpieza: ',error);
+            return error;
+        }
+    });
+    //---------- SUMINISTROS DE LIMPIEZA ✔️
+    socket.on('Insert-Cleaning-Supply',async (idusuario,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo) => {
+        try{
+            await insertCleaningSupplyService(codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo);
             const resultCleaningSupplies = await getCleaningSuppliesService();
             const decryptedData = decryptData(resultCleaningSupplies);
             const parsedData = JSON.parse(decryptedData);
-            await insertLogCleaningSupplyService(parsedData.find(data => data.nombre === nombre)?.idsuministro,idusuario,codigo,nombre,descripcion,imagen,String(idproveedor),String(idcategoria),String(idcantidad));
+            await insertLogCleaningSupplyService(parsedData.find(data => data.nombre === nombre)?.idsuministro,idusuario,codigo,nombre,descripcion,imagen,String(idproveedor),String(idcategoria),String(idcantidad),String(idtipo));
             const resultLogs = await getLogsService();
             io.emit('Get-Cleaning-Supplies',resultCleaningSupplies)
             io.emit('Get-Logs',resultLogs);
@@ -224,11 +283,11 @@ export const Extras_INSERT = (socket) => {
 //______________UPDATE______________
 export const Extras_UPDATE = (socket) => {
     //---------- CATEGORÍAS DE LIMPIEZA ✔️
-    socket.on('Update-Cleaning-Category',async (idusuario,idcategoria,nombre,descripcion,unidad,limite) => {
+    socket.on('Update-Cleaning-Category',async (idusuario,idcategoria,nombre,descripcion) => {
         try{
-            await updateCleaningCategoryService(idcategoria,nombre,descripcion,unidad,limite);
+            await updateCleaningCategoryService(idcategoria,nombre,descripcion);
             const resultCleaningCategories = await getCleaningCategoriesService();
-            await updateLogCleaningCategoryService(idcategoria,idusuario,nombre,descripcion,unidad,String(limite));
+            await updateLogCleaningCategoryService(idcategoria,idusuario,nombre,descripcion);
             const resultLogs = await getLogsService();
             io.emit('Get-Cleaning-Categories',resultCleaningCategories);
             io.emit('Get-Logs',resultLogs);
@@ -237,12 +296,26 @@ export const Extras_UPDATE = (socket) => {
             return error;
         }
     });
-    //---------- SUMINISTROS DE LIMPIEZA ✔️
-    socket.on('Update-Cleaning-Supply',async (idusuario,idsuministro,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad) => {
+    //---------- TIPOS DE LIMPIEZA ✔️
+    socket.on('Update-Cleaning-Type',async (idusuario,idtipo,tipo,descripcion,unidad,idcategoria,limite) => {
         try{
-            await updateCleaningSupplyService(idsuministro,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad);
+            await updateCleaningTypeService(idtipo,tipo,descripcion,unidad,idcategoria,limite);
+            const resultCleaningTypes = await getCleaningTypesService();
+            await updateLogCleaningTypeService(idtipo,idusuario,tipo,descripcion,unidad,String(idcategoria),String(limite));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Cleaning-Types',resultCleaningTypes);
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al editar al tipo de limpieza: ',error);
+            return error;
+        }
+    });
+    //---------- SUMINISTROS DE LIMPIEZA ✔️
+    socket.on('Update-Cleaning-Supply',async (idusuario,idsuministro,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo) => {
+        try{
+            await updateCleaningSupplyService(idsuministro,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo);
             const resultCleaningSupplies = await getCleaningSuppliesService();
-            await updateLogCleaningSupplyService(idsuministro,idusuario,codigo,nombre,descripcion,imagen,String(idproveedor),String(idcategoria),String(idcantidad));
+            await updateLogCleaningSupplyService(idsuministro,idusuario,codigo,nombre,descripcion,imagen,String(idproveedor),String(idcategoria),String(idcantidad),String(idtipo));
             const resultLogs = await getLogsService();
             io.emit('Get-Cleaning-Supplies',resultCleaningSupplies);
             io.emit('Get-Logs',resultLogs);
@@ -280,6 +353,20 @@ export const Extras_DELETE = (socket) => {
             io.emit('Get-Logs',resultLogs);
         }catch(error){
             console.error('Error al recuperar la categoría de limpieza: ',error);
+            return error;
+        }
+    });
+    //---------- TIPOS DE LIMPIEZA ELIMINADOS ✔️
+    socket.on('Delete-Deleted-Cleaning-Type',async (idusuario,ideliminado,idtipo) => {
+        try{
+            await deleteDeletedCleaningTypeService(idtipo);
+            const resultDeletedCleaningTypes = await getDeletedCleaningTypesService();
+            await deleteLogDeletedCleaningTypeService(ideliminado,idusuario,String(idtipo));
+            const resultLogs = await getLogsService();
+            io.emit('Get-Deleted-Cleaning-Types',resultDeletedCleaningTypes)
+            io.emit('Get-Logs',resultLogs);
+        }catch(error){
+            console.error('Error al recuperar al tipo de limpieza: ',error);
             return error;
         }
     });

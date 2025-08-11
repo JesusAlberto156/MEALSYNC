@@ -5,6 +5,14 @@ ADD codigo VARCHAR(20);
 ALTER TABLE suministrosLimpieza
 ADD codigo VARCHAR(20); 
 
+ALTER TABLE categoriasLimpieza
+DROP COLUMN unidad; 
+ALTER TABLE categoriasLimpieza
+DROP COLUMN limite; 
+
+ALTER TABLE pedidosAreaMedica
+ADD precio DECIMAL(12,4); 
+
 ALTER TABLE pedidoInsumo
 ADD estado VARCHAR(20); 
 EXEC sp_rename 'pedidoInsumo.preciounitiario', 'preciounitario', 'COLUMN';
@@ -22,6 +30,17 @@ ADD estado VARCHAR(20);
 ALTER TABLE mensajesPedidoInsumo
 ADD estado VARCHAR(20); 
 
+ALTER TABLE mensajesPedidoSuministro
+ADD idusuario INT; 
+ALTER TABLE mensajesPedidoInsumo
+ADD idusuario INT; 
+
+ALTER TABLE observacionesProveedor
+ADD idpedido INT; 
+
+ALTER TABLE suministrosLimpieza
+ADD idtipo INT; 
+
 ALTER TABLE almacenLimpieza
 ADD CONSTRAINT DF_almacenLimpieza_Fecha DEFAULT GETDATE() FOR fecha;
 ALTER TABLE almacenGastosFijos
@@ -36,6 +55,160 @@ ALTER TABLE mensajesPedidoInsumo
 ADD CONSTRAINT DF_mensajesPedidoInsumo_Fecha DEFAULT GETDATE() FOR fecha;
 ALTER TABLE mensajesPedidoSuministro
 ADD CONSTRAINT DF_mensajesPedidoSuministro_Fecha DEFAULT GETDATE() FOR fecha;
+ALTER TABLE observacionesProveedor
+ADD CONSTRAINT DF_observacionesProveedor_Fecha DEFAULT GETDATE() FOR fecha;
+ALTER TABLE almacenTipoLimpieza
+ADD CONSTRAINT DF_almacenTipoLimpieza_Fecha DEFAULT GETDATE() FOR fecha;
+
+ALTER TABLE pedidosCocina
+ADD CONSTRAINT DF_pedidosCocina_Fecha DEFAULT GETDATE() FOR fecha;
+
+CREATE TABLE [dbo].[pedidosAreaMedica](
+	[idpedido] [int] IDENTITY(1,1) NOT NULL,
+	[fecha] [datetime] NOT NULL,
+	[folio] [int] NOT NULL,
+	[sala] [varchar](10) NOT NULL,
+	[cirugia] [varchar](100) NOT NULL,
+	[medico] [varchar](150) NOT NULL,
+	[solicitante] [varchar](150) NOT NULL,
+	[idusuario] [int] NOT NULL,
+ CONSTRAINT [PK_pedidosAreaMedica] PRIMARY KEY CLUSTERED 
+(
+	[idpedido] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[pedidoAreaMedica](
+	[idpedidoindividual] [int] IDENTITY(1,1) NOT NULL,
+	[estado] [varchar](50) NULL,
+	[cometario] [varchar](100) NULL,
+	[idplatillo] [int] NULL,
+	[idguarnicion] [int] NULL,
+	[idbebida] [int] NULL,
+	[idpedido] [int] NOT NULL,
+ CONSTRAINT [PK_pedidoAreaMedica] PRIMARY KEY CLUSTERED 
+(
+	[idpedidoindividual] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[pedidosCocina](
+	[idpedido] [int] IDENTITY(1,1) NOT NULL,
+	[fecha] [datetime] NOT NULL,
+	[tipoubicacion] [varchar](50) NULL,
+	[ubicacion] [varchar](250) NULL,
+	[encargado] [varchar](150) NULL,
+	[precio] [decimal](12,4) NOT NULL,
+	[estado] [varchar](50) NULL,
+	[idusuario] [int] NOT NULL,
+ CONSTRAINT [PK_pedidosCocina] PRIMARY KEY CLUSTERED 
+(
+	[idpedido] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[pedidoCocinaCantidad](
+	[idpedidoindividual] [int] IDENTITY(1,1) NOT NULL,
+	[cantidad] [int] NOT NULL,
+	[estado] [varchar](50) NULL,
+	[idplatillo] [int] NULL,
+	[idguarnicion] [int] NULL,
+	[idbebida] [int] NULL,
+	[idpedido] [int] NOT NULL,
+ CONSTRAINT [PK_pedidoCocinaCantidad] PRIMARY KEY CLUSTERED 
+(
+	[idpedidoindividual] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[pedidosNutricion](
+	[idpedido] [int] IDENTITY(1,1) NOT NULL,
+	[fecha] [datetime] NOT NULL,
+	[tiempo] [varchar](20) NOT NULL,
+	[tipo] [varchar](50) NOT NULL,
+	[precio] [decimal](12,4) NOT NULL,
+	[idusuario] [int] NOT NULL,
+ CONSTRAINT [PK_pedidosNutricion] PRIMARY KEY CLUSTERED 
+(
+	[idpedido] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[pedidoNutricion](
+	[idpedidoindividual] [int] IDENTITY(1,1) NOT NULL,
+	[habitacion] [varchar](50) NOT NULL,
+	[dieta] [varchar](50) NULL,
+	[observacion] [varchar](50) NULL,
+	[estado] [varchar](50) NULL,
+	[idpedido] [int] NOT NULL,
+ CONSTRAINT [PK_pedidoNutricion] PRIMARY KEY CLUSTERED 
+(
+	[idpedidoindividual] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[pedidoNutricionComida](
+	[idpedidoindividual] [int] NOT NULL,
+	[idplatillo] [int] NULL,
+	[idguarnicion] [int] NULL,
+	[idbebida] [int] NULL
+)
+GO
+
+CREATE TABLE [dbo].[tipoLimpieza](
+	[idtipo] [int] IDENTITY(1,1) NOT NULL,
+	[tipo] [varchar](150) NOT NULL,
+	[descripcion] [varchar](250) NULL,
+	[unidad] [varchar](20) NOT NULL,
+	[idcategoria] [int] NOT NULL,
+	[limite] [decimal](10,4) NOT NULL,
+ CONSTRAINT [PK_tipoLimpieza] PRIMARY KEY CLUSTERED 
+(
+	[idtipo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[tipoLimpiezaEliminado](
+	[ideliminado] [int] IDENTITY(1,1) NOT NULL,
+	[idtipo] [int] NOT NULL,
+ CONSTRAINT [PK_tipoLimpiezaEliminado] PRIMARY KEY CLUSTERED 
+(
+	[ideliminado] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[almacenTipoLimpieza](
+	[idalmacen] [int] IDENTITY(1,1) NOT NULL,
+	[cantidadreal] [decimal](12, 4) NOT NULL,
+	[precio] [decimal](12, 4) NOT NULL,
+	[idtipo] [int] NOT NULL,
+	[fecha] [datetime] NOT NULL,
+	[transaccion] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_almacenTipoLimpieza] PRIMARY KEY CLUSTERED 
+(
+	[idalmacen] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[cantidadTipoLimpieza](
+	[idcantidad] [int] IDENTITY(1,1) NOT NULL,
+	[cantidad] [decimal](10, 4) NOT NULL,
+	[idtipo] [int] NOT NULL,
+ CONSTRAINT [PK_cantidadTipoLimpieza] PRIMARY KEY CLUSTERED 
+(
+	[idcantidad] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 
 CREATE TABLE [dbo].[mensajesPedidoInsumo](
 	[idmensaje] [int] IDENTITY(1,1) NOT NULL,
@@ -139,17 +312,6 @@ CREATE TABLE [dbo].[almacenGastosFijos](
  CONSTRAINT [PK_almacenGastosFijos] PRIMARY KEY CLUSTERED 
 (
 	[idalmacen] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-CREATE TABLE [dbo].[cantidadCategoriasLimpieza](
-	[idcantidad] [int] IDENTITY(1,1) NOT NULL,
-	[cantidad] [decimal](10, 4) NOT NULL,
-	[idcategoria] [int] NOT NULL,
- CONSTRAINT [PK_cantidadCategoriasLimpieza] PRIMARY KEY CLUSTERED 
-(
-	[idcantidad] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

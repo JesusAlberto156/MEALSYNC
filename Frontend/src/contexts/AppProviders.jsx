@@ -15,6 +15,7 @@ import { Index_Menus } from './MenusProvider';
 import { Index_Dishes } from './DishesProvider';
 import { Index_Side_Dishes } from './SideDishesProvider';
 import { Index_Drinks } from './DrinksProvider';
+import { Index_Orders } from './OrdersProvider';
 import { Index_Text_Fields } from './FormsProvider';
 import { Index_Charts } from './ChartsProvider';
 import { Index_Refs } from './RefsProvider';
@@ -39,13 +40,15 @@ export const AppProviders = ({children}) => {
                                                             <Index_Dishes>
                                                                 <Index_Side_Dishes>
                                                                     <Index_Drinks>
-                                                                        <Index_Text_Fields>
-                                                                            <Index_Charts>
-                                                                                <Index_Refs>
-                                                                                    {children}
-                                                                                </Index_Refs>
-                                                                            </Index_Charts>
-                                                                        </Index_Text_Fields>
+                                                                        <Index_Orders>
+                                                                            <Index_Text_Fields>
+                                                                                <Index_Charts>
+                                                                                    <Index_Refs>
+                                                                                        {children}
+                                                                                    </Index_Refs>
+                                                                                </Index_Charts>
+                                                                            </Index_Text_Fields>
+                                                                        </Index_Orders>
                                                                     </Index_Drinks>
                                                                 </Index_Side_Dishes>
                                                             </Index_Dishes>

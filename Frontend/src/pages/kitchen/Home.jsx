@@ -8,25 +8,39 @@ import { useContext,useEffect } from "react";
 // Rutas
 
 // Contextos
-
+import { LoggedPermissionsContext } from "../../contexts/SessionProvider";
 // Hooks personalizados
 
 //__________ICONOS__________
 
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_100_Left,Container_Row_100_Center } from "../../components/styled/Containers";
+import { Container_Home_Section_Title } from "../../components/styled/Containers";
+import { Text_Title_28_Black } from "../../components/styled/Text";
 // Componentes personalizados
+import Table_Total_Supplies from "../../components/tables/totals/Invetory/Supplies";
 //____________IMPORT/EXPORT____________
 
 // Componente para mostrar la seccion de inicio en administración/cocina
 export default function Home_Kitchen(){
     // Constantes con el valor de los contextos 
-
+    const [isLoggedPermissions] = useContext(LoggedPermissionsContext); 
     // Estructura del componente
     return(
         <> 
-             
+            <Container_Home_Section_Title>
+                <Text_Title_28_Black>SECCIÓN DE ALMACÉN</Text_Title_28_Black>
+            </Container_Home_Section_Title>
+            <Table_Total_Supplies/>
+            {isLoggedPermissions.superadministrador ? (
+                <>
+                    <Container_Home_Section_Title>
+                        <Text_Title_28_Black>SECCIÓN DE ORDENES</Text_Title_28_Black>
+                    </Container_Home_Section_Title>
+                </>
+            ):(
+                <></>
+            )}
         </>
     )
 }

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { TouchContext,KeyboardViewContext,KeyboardContext,ActionBlockContext,IndexCountContext,IndexSearchContext,IndexDetailContext } from "../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../contexts/RefsProvider";
-import { TextFieldsUserContext,TextFieldsWarehouseOrderContext,TextFieldsMenuTypeContext,TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext,TextFieldsSupplierContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyTypesContext,TextFieldsSupplyCategoryContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsWarehouseOrderContext,TextFieldsCleaningTypeContext,TextFieldsWarehouseFixedExpenseContext,TextFieldsWarehouseSupplyContext,TextFieldsWarehouseCleaningContext,TextFieldsObservationContext,TextFieldsMenuTypeContext,TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext,TextFieldsSupplierContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyTypesContext,TextFieldsSupplyCategoryContext } from "../contexts/FormsProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../contexts/SearchsProvider";
 // Hooks personalizados
@@ -69,13 +69,18 @@ export const HandleKeyboard = () => {
     const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context); 
     const [isTextFieldsUser,setIsTextFieldsUser] = useContext(TextFieldsUserContext);
     const [isTextFieldsSupplier,setIsTextFieldsSupplier] = useContext(TextFieldsSupplierContext); 
+    const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext);
     const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext); 
     const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext);
     const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext);
     const [isTextFieldsCleaningCategory,setIsTextFieldsCleaningCategory] = useContext(TextFieldsCleaningCategoryContext); 
+    const [isTextFieldsCleaningType,setIsTextFieldsCleaningType] = useContext(TextFieldsCleaningTypeContext); 
     const [isTextFieldsCleaningSupply,setIsTextFieldsCleaningSupply] = useContext(TextFieldsCleaningSupplyContext);
     const [isTextFieldsFixedExpense,setIsTextFieldsFixedExpense] = useContext(TextFieldsFixedExpenseContext);
     const [isTextFieldsWarehouseOrder,setIsTextFieldsWarehouseOrder] = useContext(TextFieldsWarehouseOrderContext);
+    const [isTextFieldsWarehouseFixedExpense,setIsTextFieldsWarehouseFixedExpense] = useContext(TextFieldsWarehouseFixedExpenseContext);
+    const [isTextFieldsWarehouseSupply,setIsTextFieldsWarehouseSupply] = useContext(TextFieldsWarehouseSupplyContext);
+    const [isTextFieldsWarehouseCleaning,setIsTextFieldsWarehouseCleaning] = useContext(TextFieldsWarehouseCleaningContext);
     const [isTextFieldsMenuType,setIsTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); 
     const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext);
     const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useContext(TextFieldsSideDishContext);
@@ -138,6 +143,9 @@ export const HandleKeyboard = () => {
                 const inputID = document.getElementById("Input-ID");
                 const inputCampus = document.getElementById("Input-Campus");
                 const inputDetalle = document.querySelectorAll(".Input-Detalle");
+                const inputObservation = document.getElementById("Input-Observacion");
+                // Almacen
+
                 // Platillos-Guarniciones-Bebidas
                 const inputsSearch = document.querySelectorAll(".Input-Buscador");
                 const inputsCount = document.querySelectorAll(".Input-Cantidad");
@@ -173,6 +181,7 @@ export const HandleKeyboard = () => {
                     // Pedidos de almacén
                     (inputID && inputID.contains(event.target)) ||
                     (inputCampus && inputCampus.contains(event.target)) ||
+                    (inputObservation && inputObservation.contains(event.target)) ||
                     // Platillos-Guarniciones-Bebidas
                     (inputPrice && inputPrice.contains(event.target)) ||
                     (inputPreparation && inputPreparation.contains(event.target));
@@ -294,14 +303,25 @@ export const HandleKeyboard = () => {
                 if (newValue.length > 250) return;
                 setIsTextFieldsCleaningCategory(prev => ({ ...prev, descripcion: newValue }));
                 break;
-            case 'Limite-Categoria-Limpieza':
-                if (isNaN(Number(newValue))) return;
-                setIsTextFieldsCleaningCategory(prev => ({ ...prev, limite: newValue }));
+            case 'Nombre-Tipo-Limpieza':
+                if (newValue.length > 150) return;
+                setIsTextFieldsCleaningType(prev => ({ ...prev, tipo: newValue }));
                 break;
-            case 'Cantidad-Categoria-Limpieza':
+            case 'Descripcion-Tipo-Limpieza':
+                if (newValue.length > 250) return;
+                setIsTextFieldsCleaningType(prev => ({ ...prev, descripcion: newValue }));
+                break;
+            case 'Limite-Tipo-Limpieza':
                 if (isNaN(Number(newValue))) return;
-                setIsTextFieldsCleaningCategory(prev => ({...prev, cantidades: [{ cantidad: newValue }]}))
-                break;            
+                setIsTextFieldsCleaningType(prev => ({ ...prev, limite: newValue }));
+                break;
+            case 'Cantidad-Tipo-Limpieza':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsCleaningType(prev => ({...prev, cantidades: [{ cantidad: newValue }]}))
+                break;
+            case 'Buscador-Tipo-Limpieza':
+                setIsSearchTerm(newValue);
+                break;  
             case 'Codigo-Suministro':
                 if (newValue.length > 20) return;
                 setIsTextFieldsCleaningSupply(prev => ({ ...prev, codigo: newValue }));
@@ -323,6 +343,9 @@ export const HandleKeyboard = () => {
                 break;
             case 'Buscador-Categoria-Suministro':
                 setIsSearchTerm2(newValue);
+                break;
+            case 'Buscador-Tipo-Suministro':
+                setIsSearchTerm3(newValue);
                 break;
             case 'Nombre-Gasto-Fijo':
                 if (newValue.length > 150) return;
@@ -374,6 +397,54 @@ export const HandleKeyboard = () => {
                     newSuministros[isIndexDetail].mensajes[0].mensaje = newValue;
                     return { ...prev, suministros: newSuministros };
                 });
+                break;
+            case `Precio-Pedido-Almacen-Insumo-${isIndexCount}`:
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsWarehouseOrder(prev => {
+                    const newInsumos = [...prev.insumos];
+                    const unitPrice = Number(newValue);
+                    const quantity = Number(newInsumos[isIndexCount].cantidad) || 0;
+                    const totalPrice = unitPrice * quantity;
+
+                    newInsumos[isIndexCount] = {
+                        ...newInsumos[isIndexCount],
+                        preciounitario: newValue,
+                        preciototal: totalPrice
+                    };
+                    return { ...prev, insumos: newInsumos };
+                });
+                break;
+            case `Precio-Pedido-Almacen-Suministro-${isIndexCount}`:
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsWarehouseOrder(prev => {
+                    const newSuministros = [...prev.suministros];
+                    const unitPrice = Number(newValue);
+                    const quantity = Number(newSuministros[isIndexCount].cantidad) || 0;
+                    const totalPrice = unitPrice * quantity;
+
+                    newSuministros[isIndexCount] = {
+                        ...newSuministros[isIndexCount],
+                        preciounitario: newValue,
+                        preciototal: totalPrice
+                    };
+                    return { ...prev, suministros: newSuministros };
+                });
+                break;
+            case 'Observacion-Pedido-Almacen':
+                if (newValue.length > 250) return;
+                setIsTextFieldsObservation(prev => ({ ...prev, observacion: newValue }));
+                break;
+            case 'Precio-Almacen-Gasto-Fijo':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsWarehouseFixedExpense(prev => ({...prev, precio: newValue}));
+                break;
+            case 'Cantidad-Almacen-Suministro':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsWarehouseCleaning(prev => ({...prev, cantidadreal: newValue}));
+                break;
+            case 'Cantidad-Almacen-Insumo':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsWarehouseSupply(prev => ({...prev, cantidadreal: newValue}));
                 break;
             case 'Nombre-Menu':
                 if (newValue.length > 100) return;

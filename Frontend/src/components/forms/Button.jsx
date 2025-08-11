@@ -18,10 +18,11 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal_Form_Button } from "../styled/Containers";
-import { Button_Icon_Blue_Auto_40,Button_Icon_Green_Auto_40,Button_Icon_Red_Auto_40,Button_Icon_Blue_Auto_50 } from "../styled/Buttons";
+import { Button_Icon_Blue_Auto_40,Button_Icon_Green_Auto_40,Button_Icon_Red_Auto_40,Button_Icon_Purple_Auto_40,Button_Icon_Blue_Auto_50 } from "../styled/Buttons";
 import { Icon_20 } from "../styled/Icons";
 //____________IMPORT/EXPORT____________
 
@@ -387,6 +388,46 @@ export const Modal_Form_Button_Return = ({ onHandleModalView = () => {} }) => {
                         >
                             <Icon_20><FaArrowAltCircleLeft/></Icon_20>
                         </Button_Icon_Blue_Auto_50>
+                    </Tooltip>
+                </Container_Modal_Form_Button>
+            )}
+        </>
+    );
+};
+export const Modal_Form_Button_End = ({ onCancel = () => {}, onAction = () => {}, icon = <FaCheckCircle/> }) => {
+    // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
+    // Estructura del componente
+    return (
+        <>
+            {isActionBlock ? (
+                <Container_Modal_Form_Button>
+                    <Button_Icon_Blue_Auto_40
+                        disabled
+                    >
+                        <Icon_20><MdCancel/></Icon_20>
+                    </Button_Icon_Blue_Auto_40>
+                    <Button_Icon_Purple_Auto_40
+                        disabled  
+                    >
+                        <Icon_20>{icon}</Icon_20>
+                    </Button_Icon_Purple_Auto_40>
+                </Container_Modal_Form_Button>
+            ):(
+                <Container_Modal_Form_Button>
+                    <Tooltip title='Cancelar' placement='top'>
+                        <Button_Icon_Blue_Auto_40
+                            onClick={() => onCancel()}  
+                        >
+                            <Icon_20><MdCancel/></Icon_20>
+                        </Button_Icon_Blue_Auto_40>
+                    </Tooltip>
+                    <Tooltip title='Finalizar' placement='top'>
+                        <Button_Icon_Purple_Auto_40
+                            onClick={() => onAction()}   
+                        >
+                            <Icon_20>{icon}</Icon_20>
+                        </Button_Icon_Purple_Auto_40>
                     </Tooltip>
                 </Container_Modal_Form_Button>
             )}

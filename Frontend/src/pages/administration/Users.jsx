@@ -19,7 +19,7 @@ import Table_Permissions_Administration from "../../components/tables/totals/use
 import Table_Permissions_Kitchen from "../../components/tables/totals/users/Kitchen";
 //____________IMPORT/EXPORT____________
 
-// Componente para mostrar la seccion de inicio en administración/cocina
+// Componente para mostrar la seccion de inicio en administración de los usuarios
 export default function Administration_Users(){
     // Constantes con el valor de los contextos 
     const [isLoggedType] = useContext(LoggedTypeContext);

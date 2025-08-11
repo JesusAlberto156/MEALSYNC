@@ -7,10 +7,15 @@ import { decryptData } from "../services/Crypto";
 export const CleaningCategoriesContext = createContext(null);
 export const CleaningCategoryAddContext = createContext(null);
 export const CleaningCategoryEditContext = createContext(null);
-export const CountCleaningCategoriesContext = createContext(null);
-export const CleaningCategoryCountAddContext = createContext(null);
 export const DeletedCleaningCategoriesContext = createContext(null);
 export const CleaningCategoryDeleteContext = createContext(null);
+export const CleaningTypesContext = createContext(null);
+export const CleaningTypeAddContext = createContext(null);
+export const CleaningTypeEditContext = createContext(null);
+export const CountCleaningTypesContext = createContext(null);
+export const CountCleaningTypeAddContext = createContext(null);
+export const DeletedCleaningTypesContext = createContext(null);
+export const CleaningTypeDeleteContext = createContext(null);
 export const CleaningSuppliesContext = createContext(null);
 export const CleaningSupplyAddContext = createContext(null);
 export const CleaningSupplyEditContext = createContext(null);
@@ -31,35 +36,45 @@ export const Index_Extras = ({children}) => {
         <Cleaning_Categories>
             <Cleaning_Category_Add>
                 <Cleaning_Category_Edit>
-                    <Count_Cleaning_Categories>
-                        <Cleaning_Category_Count_Add>
-                            <Deleted_Cleaning_Categories>
-                                <Cleaning_Category_Delete>
-                                    <Cleaning_Supplies>
-                                        <Cleaning_Supply_Add>
-                                            <Cleaning_Supply_Edit>
-                                                <Deleted_Cleaning_Supplies>
-                                                    <Cleaning_Supply_Delete>
-                                                        <Fixed_Expenses>
-                                                            <Fixed_Expense_Add>
-                                                                <Fixed_Expense_Edit>
-                                                                    <Deleted_Fixed_Expenses>
-                                                                        <Fixed_Expense_Delete>
-                                                                            {children}
-                                                                        </Fixed_Expense_Delete>
-                                                                    </Deleted_Fixed_Expenses>
-                                                                </Fixed_Expense_Edit>
-                                                            </Fixed_Expense_Add>
-                                                        </Fixed_Expenses>
-                                                    </Cleaning_Supply_Delete>
-                                                </Deleted_Cleaning_Supplies>
-                                            </Cleaning_Supply_Edit>
-                                        </Cleaning_Supply_Add>
-                                    </Cleaning_Supplies>
-                                </Cleaning_Category_Delete>
-                            </Deleted_Cleaning_Categories>
-                        </Cleaning_Category_Count_Add>
-                    </Count_Cleaning_Categories>
+                    <Deleted_Cleaning_Categories>
+                        <Cleaning_Category_Delete>
+                            <Cleaning_Types>
+                                <Cleaning_Type_Add>
+                                    <Cleaning_Type_Edit>
+                                        <Count_Cleaning_Types>
+                                            <Cleaning_Type_Count_Add>
+                                                <Deleted_Cleaning_Types>
+                                                    <Cleaning_Type_Delete>
+                                                        <Cleaning_Supplies>
+                                                            <Cleaning_Supply_Add>
+                                                                <Cleaning_Supply_Edit>
+                                                                    <Deleted_Cleaning_Supplies>
+                                                                        <Cleaning_Supply_Delete>
+                                                                            <Fixed_Expenses>
+                                                                                <Fixed_Expense_Add>
+                                                                                    <Fixed_Expense_Edit>
+                                                                                        <Deleted_Fixed_Expenses>
+                                                                                            <Fixed_Expense_Delete>
+                                                                                                {children}
+                                                                                            </Fixed_Expense_Delete>
+                                                                                        </Deleted_Fixed_Expenses>
+                                                                                    </Fixed_Expense_Edit>
+                                                                                </Fixed_Expense_Add>
+                                                                            </Fixed_Expenses>
+                                                                        </Cleaning_Supply_Delete>
+                                                                    </Deleted_Cleaning_Supplies>
+                                                                </Cleaning_Supply_Edit>
+                                                            </Cleaning_Supply_Add>
+                                                        </Cleaning_Supplies>
+                                                    </Cleaning_Type_Delete>
+                                                </Deleted_Cleaning_Types>
+                                            </Cleaning_Type_Count_Add>
+                                        </Count_Cleaning_Types>
+                                    </Cleaning_Type_Edit>
+                                </Cleaning_Type_Add>
+                            </Cleaning_Types>
+                        </Cleaning_Category_Delete>
+                    </Deleted_Cleaning_Categories>
                 </Cleaning_Category_Edit>
             </Cleaning_Category_Add>
         </Cleaning_Categories>
@@ -129,58 +144,6 @@ export const Cleaning_Category_Edit = ({ children }) => {
     );
 }
 //---------- CATEGORÍAS DE LIMPIEZA
-//---------- CANTIDADES DE CATEGORÍAS DE LIMPIEZA
-// Función contexto para controlar los datos de la base de datos de las cantidades de las categorías de limpieza ✔️
-export const Count_Cleaning_Categories = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [socket] = useContext(SocketContext);
-    // UseState para controlar el valor del contexto
-    const [isCountCleaningCategories,setIsCountCleaningCategories] = useState([]);
-    // UseEffect para obtener los datos desde la base de datos
-    useEffect(() => {
-        const handleCountCleaningCategories = (result) => {
-            try {
-                const decryptedData = decryptData(result);
-                if(decryptedData){
-                    const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Cantidades de las categorías de limpieza obtenidas!')
-                    setIsCountCleaningCategories(parsedData);
-                }else{
-                    console.log('¡Error al desencriptar las cantidades de las categorías de limpieza!');
-                    setIsCountCleaningCategories([]);
-                }
-            } catch (error) {
-                console.error('Error al procesar las cantidades de las categorías de limpieza:', error);
-                setIsCountCleaningCategories([]);
-            }
-        }
-
-        socket.emit('Get-Count-Cleaning-Categories');
-        socket.on('Get-Count-Cleaning-Categories',handleCountCleaningCategories);
-
-        return () => {
-            socket.off('Get-Count-Cleaning-Categories',handleCountCleaningCategories);
-        }
-    },[]);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <CountCleaningCategoriesContext.Provider value={[isCountCleaningCategories]}>
-            {children}
-        </CountCleaningCategoriesContext.Provider>
-    );
-}
-// Función contexto para controlar los datos agregados de una cantidad de una categoría de limpieza ✔️
-export const Cleaning_Category_Count_Add = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isCleaningCategoryCountAdd,setIsCleaningCategoryCountAdd] = useState(false);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <CleaningCategoryCountAddContext.Provider value={[isCleaningCategoryCountAdd,setIsCleaningCategoryCountAdd]}>
-            {children}
-        </CleaningCategoryCountAddContext.Provider>
-    );
-}
-//---------- CANTIDADES DE CATEGORÍAS DE LIMPIEZA
 //---------- CATEGORÍAS DE LIMPIEZA ELIMINADAS
 // Función contexto para controlar los datos de la base de datos de las categorías de limpieza eliminadas ✔️
 export const Deleted_Cleaning_Categories = ({ children }) => {
@@ -233,6 +196,173 @@ export const Cleaning_Category_Delete = ({ children }) => {
     );
 }
 //---------- CATEGORÍAS DE LIMPIEZA ELIMINADAS
+//---------- TIPOS DE LIMPIEZA
+// Función contexto para controlar los datos de la base de datos de los tipos de limpieza ✔️
+export const Cleaning_Types = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isCleaningTypes,setIsCleaningTypes] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        const handleCleaningTypes = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Tipos de limpieza obtenidos!')
+                    setIsCleaningTypes(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los tipos de limpieza!');
+                    setIsCleaningTypes([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los tipos de limpieza:', error);
+                setIsCleaningTypes([]);
+            }
+        }
+
+        socket.emit('Get-Cleaning-Types');
+        socket.on('Get-Cleaning-Types',handleCleaningTypes);
+
+        return () => {
+            socket.off('Get-Cleaning-Types',handleCleaningTypes);
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CleaningTypesContext.Provider value={[isCleaningTypes]}>
+            {children}
+        </CleaningTypesContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de un tipo de limpieza ✔️
+export const Cleaning_Type_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isCleaningTypeAdd,setIsCleaningTypeAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CleaningTypeAddContext.Provider value={[isCleaningTypeAdd,setIsCleaningTypeAdd]}>
+            {children}
+        </CleaningTypeAddContext.Provider>
+    );
+}
+// Función contexto para controlar los datos editados de un tipo de limpieza ✔️
+export const Cleaning_Type_Edit = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isCleaningTypeEdit,setIsCleaningTypeEdit] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CleaningTypeEditContext.Provider value={[isCleaningTypeEdit,setIsCleaningTypeEdit]}>
+            {children}
+        </CleaningTypeEditContext.Provider>
+    );
+}
+//---------- TIPOS DE LIMPIEZA
+//---------- CANTIDADES DE TIPOS DE LIMPIEZA
+// Función contexto para controlar los datos de la base de datos de las cantidades de los tipos de limpieza ✔️
+export const Count_Cleaning_Types = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isCountCleaningTypes,setIsCountCleaningTypes] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        const handleCountCleaningTypes = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Cantidades de los tipos de limpieza obtenidas!')
+                    setIsCountCleaningTypes(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar las cantidades de los tipos de limpieza!');
+                    setIsCountCleaningTypes([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar las cantidades de los tipos de limpieza:', error);
+                setIsCountCleaningTypes([]);
+            }
+        }
+
+        socket.emit('Get-Count-Cleaning-Types');
+        socket.on('Get-Count-Cleaning-Types',handleCountCleaningTypes);
+
+        return () => {
+            socket.off('Get-Count-Cleaning-Types',handleCountCleaningTypes);
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CountCleaningTypesContext.Provider value={[isCountCleaningTypes]}>
+            {children}
+        </CountCleaningTypesContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de una cantidad de un tipo de limpieza ✔️
+export const Cleaning_Type_Count_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isCleaningTypeCountAdd,setIsCleaningTypeCountAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CountCleaningTypeAddContext.Provider value={[isCleaningTypeCountAdd,setIsCleaningTypeCountAdd]}>
+            {children}
+        </CountCleaningTypeAddContext.Provider>
+    );
+}
+//---------- CANTIDADES DE TIPOS DE LIMPIEZA
+//---------- TIPOS DE LIMPIEZA ELIMINADOS 
+// Función contexto para controlar los datos de la base de datos de los tipos de limpieza eliminadas ✔️
+export const Deleted_Cleaning_Types = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isDeletedCleaningTypes,setIsDeletedCleaningTypes] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        const handleDeletedCleaningTypes = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Tipos de limpieza eliminados obtenidos!')
+                    setIsDeletedCleaningTypes(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los tipos de limpieza eliminados!');
+                    setIsDeletedCleaningTypes([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los tipos de limpieza eliminados:', error);
+                setIsDeletedCleaningTypes([]);
+            }
+        }
+
+        socket.emit('Get-Deleted-Cleaning-Types');
+        socket.on('Get-Deleted-Cleaning-Types',handleDeletedCleaningTypes);
+
+        return () => {
+            socket.off('Get-Deleted-Cleaning-Types',handleDeletedCleaningTypes);
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <DeletedCleaningTypesContext.Provider value={[isDeletedCleaningTypes]}>
+            {children}
+        </DeletedCleaningTypesContext.Provider>
+    );
+}
+// Función contexto para controlar los datos eliminados de un tipo de limpieza ✔️
+export const Cleaning_Type_Delete = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isCleaningTypeDelete,setIsCleaningTypeDelete] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <CleaningTypeDeleteContext.Provider value={[isCleaningTypeDelete,setIsCleaningTypeDelete]}>
+            {children}
+        </CleaningTypeDeleteContext.Provider>
+    );
+}
+//---------- TIPOS DE LIMPIEZA ELIMINADOS 
 //---------- SUMINISTROS DE LIMPIEZA
 // Función contexto para controlar los datos de la base de datos de los suministros de limpieza ✔️
 export const Cleaning_Supplies = ({ children }) => {

@@ -4,12 +4,13 @@ import { useState,useContext,useEffect } from "react";
 import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // Contextos
+import { TextFieldsSearchOrdersContext } from "../../../contexts/FormsProvider";
 import { SidebarContext,SidebarViewContext } from "../../../contexts/ViewsProvider";
 import { LoggedTypeContext,LoggedUserContext,LoggedPermissionsContext } from "../../../contexts/SessionProvider";
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
 // Hooks personalizados
-import { NutritionistData } from "../../../hooks/nutritionist/Data";
 import { HandleSidebarView,HandleNavbarView } from "../../../hooks/Views";
+import { FilteredRecordsMenuTypesKitchen,FilteredRecordsMenuTypesNutritionist,FilteredRecordsMenuTypesDoctor } from "../../../hooks/orders/Forms";
 //__________ICONOS__________
 // Icono para el inicio
 import { IoHome } from "react-icons/io5";
@@ -22,8 +23,6 @@ import { FaBroom } from "react-icons/fa6";
 import { GiMoneyStack } from "react-icons/gi";
 import { FaWarehouse } from "react-icons/fa";
 import { MdOutlineMenuBook } from "react-icons/md";
-// Iconos para la parte de cocina
-import { GiForkKnifeSpoon } from "react-icons/gi";
 //__________ICONOS__________
 //__________IMAGENES__________
 import Super_Administrator from '../../imgs/Super-Administrator.jpg';
@@ -53,6 +52,7 @@ export default function Side_Bar() {
   const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
   const [isActionBlock] = useContext(ActionBlockContext);
   const [currentSView] = useContext(SidebarViewContext);
+  const [isTextFieldsSearchOrders,setIsTextFieldsSearchOrders] = useContext(TextFieldsSearchOrdersContext);
   // Constantes con el valor de los useState
   const [profileImage, setProfileImage] = useState('');
   // UseEffect con la imagen del usuario
@@ -80,7 +80,9 @@ export default function Side_Bar() {
     }
   },[isLoggedPermissions]);
   // Constantes con la funcionalidad de los hooks
-  const { filteredRecordsMenuTypes } = NutritionistData();
+  const filteredRecordsMenuTypesKitchen = FilteredRecordsMenuTypesKitchen();
+  const filteredRecordsMenuTypesNutritionist = FilteredRecordsMenuTypesNutritionist();
+  const filteredRecordsMenuTypesDoctor = FilteredRecordsMenuTypesDoctor();
   const navigate = useNavigate();
   const handleSidebarView = HandleSidebarView();
   const handleNavbarView = HandleNavbarView();
@@ -106,11 +108,6 @@ export default function Side_Bar() {
           ):(
             <></>
           )}
-          {isLoggedType === 'Cocinero' ? (
-            <></>
-          ):(
-            <></>
-          )}
           {isLoggedType === 'Nutriólogo' ? (
             <>
               {isLoggedPermissions.superadministrador ? (
@@ -125,39 +122,112 @@ export default function Side_Bar() {
               ):(
                 <></>
               )}
-              {filteredRecordsMenuTypes.map((type) => (
-                <Container_Row_100_Center key={type.idtipo}> 
-                  {isActionBlock ? (
-                      <>
-                          <Button_Text_Blue_200 disabled>
-                              {type.nombre}<Icon_20><MdOutlineMenuBook/></Icon_20>
-                          </Button_Text_Blue_200>
-                      </>
-                  ):(
-                      <Tooltip title={type.nombre} placement="right">
-                          <Button_Text_Blue_200 
-                              style={{
-                                  backgroundColor: currentSView === type.nombre ? 'rgb(12, 54, 109)' : '',
-                              }}
-                              onClick={() => {
-                                  handleSidebarView(type.nombre);
-                                  handleNavbarView('Platillos');
-                                  sessionStorage.setItem('Ruta','/Kitchen/Index/Menus');
-                                  navigate('/Kitchen/Index/Menus',{ replace: true });
-                              }}
-                          >
-                              {type.nombre}<Icon_20><MdOutlineMenuBook/></Icon_20>
-                          </Button_Text_Blue_200>
-                      </Tooltip>
-                  )}
-                </Container_Row_100_Center>
-              ))}
+            </>
+          ):(
+            <></>
+          )}
+          {isLoggedType === 'Cocinero' ? (
+            <>
+              <Container_Row_100_Center>
+                {isActionBlock || filteredRecordsMenuTypesKitchen.length === 0 ? (
+                  <>
+                    <Button_Text_Blue_200 disabled>
+                      Pedidos<Icon_20><MdOutlineMenuBook/></Icon_20>
+                    </Button_Text_Blue_200>
+                  </>
+                ):(
+                  <Tooltip title='Pedidos' placement="right">
+                    <Button_Text_Blue_200 
+                      style={{
+                        backgroundColor: currentSView === 'Pedidos' ? 'rgb(12, 54, 109)' : '',
+                      }}
+                      onClick={() => {
+                        setIsTextFieldsSearchOrders(prev => ({
+                          ...prev,
+                          idtipo: filteredRecordsMenuTypesKitchen[0]?.idtipo,
+                        }))
+                        handleSidebarView('Pedidos');
+                        handleNavbarView(filteredRecordsMenuTypesKitchen[0]?.nombre);
+                        sessionStorage.setItem('Ruta','/Kitchen/Index/Orders/Kitchen');
+                        navigate('/Kitchen/Index/Orders/Kitchen',{ replace: true });
+                      }}
+                  >
+                      Pedidos<Icon_20><MdOutlineMenuBook/></Icon_20>
+                    </Button_Text_Blue_200>
+                  </Tooltip>
+                )}
+              </Container_Row_100_Center>
+            </>
+          ):(
+            <></>
+          )}
+          {isLoggedType === 'Nutriólogo' ? (
+            <>
+              <Container_Row_100_Center>
+                {isActionBlock || filteredRecordsMenuTypesNutritionist.length === 0 ? (
+                  <>
+                    <Button_Text_Blue_200 disabled>
+                      Pedidos<Icon_20><MdOutlineMenuBook/></Icon_20>
+                    </Button_Text_Blue_200>
+                  </>
+                ):(
+                  <Tooltip title='Pedidos' placement="right">
+                    <Button_Text_Blue_200 
+                      style={{
+                        backgroundColor: currentSView === 'Pedidos' ? 'rgb(12, 54, 109)' : '',
+                      }}
+                      onClick={() => {
+                        setIsTextFieldsSearchOrders(prev => ({
+                          ...prev,
+                          idtipo: filteredRecordsMenuTypesNutritionist[0]?.idtipo,
+                        }))
+                        handleSidebarView('Pedidos');
+                        handleNavbarView(filteredRecordsMenuTypesNutritionist[0]?.nombre);
+                        sessionStorage.setItem('Ruta','/Kitchen/Index/Orders/Nutritionist');
+                        navigate('/Kitchen/Index/Orders/Nutritionist',{ replace: true });
+                      }}
+                  >
+                      Pedidos<Icon_20><MdOutlineMenuBook/></Icon_20>
+                    </Button_Text_Blue_200>
+                  </Tooltip>
+                )}
+              </Container_Row_100_Center>
             </>
           ):(
             <></>
           )}
           {isLoggedType === 'Médico' ? (
-            <></>
+            <>
+              <Container_Row_100_Center>
+                {isActionBlock || filteredRecordsMenuTypesDoctor.length === 0 ? (
+                  <>
+                    <Button_Text_Blue_200 disabled>
+                      Pedidos<Icon_20><MdOutlineMenuBook/></Icon_20>
+                    </Button_Text_Blue_200>
+                  </>
+                ):(
+                  <Tooltip title='Pedidos' placement="right">
+                    <Button_Text_Blue_200 
+                      style={{
+                        backgroundColor: currentSView === 'Pedidos' ? 'rgb(12, 54, 109)' : '',
+                      }}
+                      onClick={() => {
+                        setIsTextFieldsSearchOrders(prev => ({
+                          ...prev,
+                          idtipo: filteredRecordsMenuTypesDoctor[0]?.idtipo,
+                        }))
+                        handleSidebarView('Pedidos');
+                        handleNavbarView(filteredRecordsMenuTypesDoctor[0]?.nombre);
+                        sessionStorage.setItem('Ruta','/Kitchen/Index/Orders/Doctor');
+                        navigate('/Kitchen/Index/Orders/Doctor',{ replace: true });
+                      }}
+                  >
+                      Pedidos<Icon_20><MdOutlineMenuBook/></Icon_20>
+                    </Button_Text_Blue_200>
+                  </Tooltip>
+                )}
+              </Container_Row_100_Center>
+            </>
           ):(
             <></>
           )}

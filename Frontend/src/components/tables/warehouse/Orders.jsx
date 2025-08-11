@@ -1,24 +1,27 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react"
+import { useContext,useEffect,useState } from "react"
 // Contextos
 import { SelectedRowContext } from "../../../contexts/SelectedesProvider"
 import { UsersContext } from "../../../contexts/UsersProvider"
-import { SuppliersContext } from "../../../contexts/SuppliersProvider"
+import { SuppliersContext,ObservationsContext } from "../../../contexts/SuppliersProvider"
 import { SupplyOrdersContext,CleaningSupplyOrdersContext,MessageSupplyOrdersContext,MessageCleaningSupplyOrdersContext } from "../../../contexts/WarehouseProvider"
-import { RefModalContext,RefFormContext,RefButtonVerificationBlueContext,RefButtonEditContext,RefButtonVerificationGreenContext,RefButtonVerificationRedContext,RefButtonDetailContext } from "../../../contexts/RefsProvider"
-import { TextFieldsWarehouseOrderContext } from "../../../contexts/FormsProvider"
+import { RefModalContext,RefFormContext,RefButtonVerificationBlueContext,RefButtonEditContext,RefButtonEndContext,RefButtonVerificationGreenContext,RefButtonVerificationRedContext,RefButtonDetailContext } from "../../../contexts/RefsProvider"
+import { TextFieldsWarehouseOrderContext,TextFieldsObservationContext } from "../../../contexts/FormsProvider"
+import { SuppliesContext,CountSupplyTypesContext } from "../../../contexts/SuppliesProvider"
+import { CleaningSuppliesContext,CountCleaningTypesContext } from "../../../contexts/ExtrasProvider"
 // Hooks personalizados
 import { TableActionsWarehouseOrders } from "../../../hooks/warehouse/Tables"
 import { ResetTextFieldsWarehouseOrder } from "../../../hooks/warehouse/Texts"
 import { ResetTextFieldsUser } from "../../../hooks/users/Texts"
+import { ResetTextFieldsObservation } from "../../../hooks/suppliers/Texts"
 import { Dates } from "../../../hooks/Dates"
 //__________ICONOS__________
 import { MdOutlineAttachMoney } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Table_Container,Table,Table_Head_Thead_Blue,Table_Container_Item_Center,Table_Body_Tbody_White,Table_Body_Td } from "../../styled/Tables"
-import { Text_Background_Green_12,Text_Background_Lime_Green_12,Text_Background_Red_12,Text_Background_Blue_12,Text_Background_Yellow_12 } from "../../styled/Text";
+import { Text_Background_Green_12,Text_Background_Lime_Green_12,Text_Background_Red_12,Text_Background_Blue_12,Text_Background_Yellow_12, Text_Background_Orange_12 } from "../../styled/Text";
 // Componentes personalizados
 import { Table_Title_Text,Table_Title_Number, Table_Title_Numeric } from "../Titles"
 import { Table_Pagination } from "../Pagination"
@@ -36,12 +39,20 @@ export default function Table_Orders(){
     const isButtonVerificationGreen = useContext(RefButtonVerificationGreenContext);
     const isButtonVerificationBlue = useContext(RefButtonVerificationBlueContext);
     const isButtonVerificationRed = useContext(RefButtonVerificationRedContext);
+    const isButtonEnd = useContext(RefButtonEndContext);
     const isButtonDetail = useContext(RefButtonDetailContext);
     const [isSupplyOrders] = useContext(SupplyOrdersContext);
     const [isCleaningSupplyOrders] = useContext(CleaningSupplyOrdersContext); 
     const [isTextFieldsWarehouseOrder,setIsTextFieldsWarehouseOrder] = useContext(TextFieldsWarehouseOrderContext); 
+    const [isTextFieldsObservation,setIsTextFieldsObservation] = useContext(TextFieldsObservationContext);
     const [isMessageSupplyOrders] = useContext(MessageSupplyOrdersContext); 
     const [isMessageCleaningSupplyOrders] = useContext(MessageCleaningSupplyOrdersContext); 
+    const [isObservations] = useContext(ObservationsContext);
+    const [isSupplies] = useContext(SuppliesContext);
+    const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
+    const [isCleaningSupplies] = useContext(CleaningSuppliesContext); 
+    const [isCountCleaningTypes] = useContext(CountCleaningTypesContext);
+    const [calification,setCalification] = useState([]);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -54,9 +65,10 @@ export default function Table_Orders(){
             const isClickInsideDelete = isButtonVerificationRed?.current?.contains(event.target);
             const isClickInsideVerificationBlue = isButtonVerificationBlue?.current?.contains(event.target);
             const isClickInsideVerificationGreen = isButtonVerificationGreen?.current?.contains(event.target);
+            const isClickInsideEnd = isButtonEnd?.current?.contains(event.target);
             const isClickInsideDetail = isButtonDetail?.current?.contains(event.target);
 
-            if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete && !isClickInsideVerificationBlue && !isClickInsideVerificationGreen && !isClickInsideDetail) {
+            if (!isClickInsideTable && !isClickInsideModal && !isClickInsideForm && !isClickInsideEdit && !isClickInsideDelete && !isClickInsideVerificationBlue && !isClickInsideVerificationGreen && !isClickInsideEnd && !isClickInsideDetail) {
                 setIsSelectedRow(null);
             }
         };
@@ -66,7 +78,7 @@ export default function Table_Orders(){
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    },[isModal,isForm,isButtonEdit,isButtonVerificationBlue,isButtonVerificationRed,isButtonVerificationGreen,isButtonDetail]);
+    },[isModal,isForm,isButtonEdit,isButtonVerificationBlue,isButtonVerificationRed,isButtonVerificationGreen,isButtonEnd,isButtonDetail]);
     // UseEffect que pasa el valor a un check con la selección de la tabla
     useEffect(() => {
         if(isSelectedRow !== null){
@@ -81,12 +93,19 @@ export default function Table_Orders(){
                                                             idpedidoindividual: m.idpedidoindividual,
                                                             tipo: m.tipo,
                                                             estado: m.estado,
+                                                            idusuario: m.idusuario,
                                                         }));
+                                                    const insumo = isSupplies.find(S => S.idinsumo === s.idinsumo)
+                                                    const cantidad = isCountSupplyTypes.find(c => c.idcantidad === insumo?.idcantidad)
+
                                                     return {
                                                         idpedidoindividual: s.idpedidoindividual,
                                                         fecha: getDate(s.fecha),
                                                         idinsumo: s.idinsumo,
-                                                        cantidad: s.cantidad,
+                                                        idtipo: insumo?.idtipo,
+                                                        idcategoria: insumo?.idcategoria,
+                                                        cantidadreal: cantidad?.cantidad * s.cantidad,
+                                                        cantidad: String(s.cantidad),
                                                         preciounitario: s.preciounitario,
                                                         preciototal: s.preciototal,
                                                         idpedido: s.idpedido,
@@ -100,12 +119,13 @@ export default function Table_Orders(){
                                                                     idpedidoindividual: s.idpedidoindividual,
                                                                     tipo: '',
                                                                     estado: '',
+                                                                    idusuario: 0,
                                                                 }]
                                                     }
                                                 })
             const suministrosFiltrados = isCleaningSupplyOrders.filter(supply => supply.idpedido === isSelectedRow.idpedido)
                                                 .map(s => { 
-                                                    const mensajesFiltrados = isMessageSupplyOrders
+                                                    const mensajesFiltrados = isMessageCleaningSupplyOrders
                                                         .filter(m => m.idpedidoindividual === s.idpedidoindividual && m.estado === 'Visible')
                                                         .map(m => ({
                                                             idmensaje: m.idmensaje,
@@ -114,12 +134,20 @@ export default function Table_Orders(){
                                                             idpedidoindividual: m.idpedidoindividual,
                                                             tipo: m.tipo,
                                                             estado: m.estado,
+                                                            idusuario: m.idusuario,
                                                         }));
+
+                                                        const suministro = isCleaningSupplies.find(S => S.idsuministro === s.idsuministro)
+                                                        const cantidad = isCountCleaningTypes.find(c => c.idcantidad === suministro?.idcantidad)
+                                                    
                                                     return{     
                                                         idpedidoindividual: s.idpedidoindividual,
                                                         fecha: getDate(s.fecha),
                                                         idsuministro: s.idsuministro,
-                                                        cantidad: s.cantidad,
+                                                        idtipo: suministro?.idtipo,
+                                                        idcategoria: suministro?.idcategoria,
+                                                        cantidadreal: cantidad?.cantidad * s.cantidad,
+                                                        cantidad: String(s.cantidad),
                                                         preciounitario: s.preciounitario,
                                                         preciototal: s.preciototal,
                                                         idpedido: s.idpedido,
@@ -133,6 +161,7 @@ export default function Table_Orders(){
                                                                     idpedidoindividual: s.idpedidoindividual,
                                                                     tipo: '',
                                                                     estado: '',
+                                                                    idusuario: 0,
                                                                 }]
                                                     }
                                                 })
@@ -156,15 +185,51 @@ export default function Table_Orders(){
                     : [],
             }));
 
+            const observation = isObservations.find(o => o.idpedido === isSelectedRow.idpedido);
+
+            setIsTextFieldsObservation(prev => ({
+                ...prev,
+                idobservacion: observation?.idobservacion || 0,
+                observacion: observation?.observacion || '',
+                calificacion: observation?.calificacion || 0,
+                fecha: getDate(observation?.fecha),
+                idproveedor: isSelectedRow.idproveedor,
+                idpedido: isSelectedRow.idpedido,
+            }));
         }else{
             resetTextFieldsUser();
             resetTextFieldsWarehouseOrder();
+            resetTextFieldsObservation();
         }
     },[isSelectedRow]);
+    // UseEffect para determinar la calificacion promedio de cada proveedor
+    useEffect(() => {
+        const totalCalificaciones = isSuppliers.map((supplier) => {
+            const proveedorObservaciones = isObservations.filter(
+            obs => obs.idproveedor === supplier.idproveedor
+            );
+
+            const suma = proveedorObservaciones.reduce(
+                (sum, obs) => sum + Number(obs.calificacion), 0
+            );
+
+            const promedio = proveedorObservaciones.length > 0
+                ? suma / proveedorObservaciones.length
+                : 0;
+
+            return {
+                idproveedor: supplier.idproveedor,
+                calificacion: promedio
+            };
+        })
+
+        setCalification(totalCalificaciones);
+    },[isObservations,isSuppliers]);
     // Constantes con la funcionalidad de los hooks
     const {getDate} = Dates();
     const resetTextFieldsUser = ResetTextFieldsUser();
     const resetTextFieldsWarehouseOrder = ResetTextFieldsWarehouseOrder();
+    const resetTextFieldsObservation = ResetTextFieldsObservation();
     const {handleRowClick,nextPageWarehouseOrders,prevPage,currentRecordsWarehouseOrders,currentPage,totalPagesWarehouseOrders} = TableActionsWarehouseOrders();
     // Estructura del componente
     return(
@@ -235,10 +300,48 @@ export default function Table_Orders(){
                                             <Text_Background_Green_12 style={{border: isSelectedRow === order ? '2px solid white' : ''}}>{order.estado.toUpperCase()}</Text_Background_Green_12>
                                         :<></>}
                                     </Table_Container_Item_Center>
-                                </Table_Body_Td>                                
-                                <Table_Body_Td style={{color: isSelectedRow === order ? 'white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === order.idproveedor)?.nombre}</Table_Body_Td>
+                                </Table_Body_Td>     
+                                <Table_Body_Td>
+                                    {calification.find(item => item.idproveedor === order.idproveedor)?.calificacion === 0 ? (
+                                        <>
+                                            <Table_Container_Item_Center><Text_Background_Blue_12 style={{border: isSelectedRow === order ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === order.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Blue_12></Table_Container_Item_Center>
+                                        </>
+                                    ):(
+                                        calification.find(item => item.idproveedor === order.idproveedor)?.calificacion <= 1 ? (
+                                            <>
+                                                <Table_Container_Item_Center><Text_Background_Red_12 style={{border: isSelectedRow === order ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === order.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Red_12></Table_Container_Item_Center>
+                                            </>
+                                        ):(
+                                            calification.find(item => item.idproveedor === order.idproveedor)?.calificacion <= 2 ? (
+                                                <>
+                                                    <Table_Container_Item_Center><Text_Background_Orange_12 style={{border: isSelectedRow === order ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === order.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Orange_12></Table_Container_Item_Center>
+                                                </>
+                                            ):(
+                                                calification.find(item => item.idproveedor === order.idproveedor)?.calificacion <= 3 ? (
+                                                    <>
+                                                        <Table_Container_Item_Center><Text_Background_Yellow_12 style={{border: isSelectedRow === order ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === order.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Yellow_12></Table_Container_Item_Center>
+                                                    </>
+                                                ):(
+                                                    calification.find(item => item.idproveedor === order.idproveedor)?.calificacion <= 4 ? (
+                                                        <>
+                                                            <Table_Container_Item_Center><Text_Background_Lime_Green_12 style={{border: isSelectedRow === order ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === order.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Lime_Green_12></Table_Container_Item_Center>
+                                                        </>
+                                                    ):(
+                                                        calification.find(item => item.idproveedor === order.idproveedor)?.calificacion <= 5 ? (
+                                                            <>
+                                                                <Table_Container_Item_Center><Text_Background_Green_12 style={{border: isSelectedRow === order ? '2px solid white' : ''}}>{isSuppliers.find(supplier => supplier.idproveedor === order.idproveedor)?.nombre || 'Desconocido'}</Text_Background_Green_12></Table_Container_Item_Center>
+                                                            </>
+                                                        ):(
+                                                            <></>
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )}
+                                </Table_Body_Td>                           
                                 <Table_Body_Td style={{color: isSelectedRow === order ? 'white' : ''}}>{isUsers.find(user => user.idusuario === order.idusuario)?.nombrecorto}</Table_Body_Td>
-                                <Table_Body_Td style={{color: isSelectedRow === order ? 'white' : ''}}><MdOutlineAttachMoney/> {order.precio || 'Desconocido'} MXN</Table_Body_Td>
+                                <Table_Body_Td style={{color: isSelectedRow === order ? 'white' : ''}}><MdOutlineAttachMoney/> {order.precio || '0'} MXN</Table_Body_Td>
                             </tr>
                         ))}
                     </Table_Body_Tbody_White>

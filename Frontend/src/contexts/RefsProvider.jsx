@@ -18,6 +18,7 @@ export const RefButtonDetailContext = createContext(null);
 export const RefButtonVerificationGreenContext = createContext(null);
 export const RefButtonVerificationBlueContext = createContext(null);
 export const RefButtonVerificationRedContext = createContext(null);
+export const RefButtonEndContext = createContext(null);
 export const RefSuppliersContext = createContext(null);
 // Contextos personalizados
 import { TouchContext } from "./VariablesProvider";
@@ -41,11 +42,13 @@ export const Index_Refs = ({children}) => {
                                                         <Ref_Button_Verification_Green>
                                                             <Ref_Button_Verification_Blue>
                                                                 <Ref_Button_Verification_Red>
-                                                                    <Ref_Button_Detail>
-                                                                        <Ref_Suppliers>
-                                                                            {children}
-                                                                        </Ref_Suppliers>
-                                                                    </Ref_Button_Detail>
+                                                                    <Ref_Button_End>
+                                                                        <Ref_Button_Detail>
+                                                                            <Ref_Suppliers>
+                                                                                {children}
+                                                                            </Ref_Suppliers>
+                                                                        </Ref_Button_Detail>
+                                                                    </Ref_Button_End>
                                                                 </Ref_Button_Verification_Red>
                                                             </Ref_Button_Verification_Blue>
                                                         </Ref_Button_Verification_Green>
@@ -231,6 +234,17 @@ export const Ref_Button_Verification_Red = ({ children }) => {
         <RefButtonVerificationRedContext.Provider value={isButtonVerificationRed}>
             {children}
         </RefButtonVerificationRedContext.Provider>
+    );
+}
+// Función contexto para controlar las tablas con referencia a traves del boton de finalizar ✔️
+export const Ref_Button_End = ({ children }) => {
+    // UseRef para controlar el valor del contexto
+    const isButtonEnd = useRef(null);
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <RefButtonEndContext.Provider value={isButtonEnd}>
+            {children}
+        </RefButtonEndContext.Provider>
     );
 }
 // Función contexto para controlar las tablas con referencia a traves del boton de detalles ✔️

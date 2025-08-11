@@ -1,7 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Eventos socket
 import { Logs_GET } from './logs.js';
-import { Notifications_GET,Notifications_INSERT,Notifications_UPDATE } from './notifications.js';
 import { Users_GET,Users_INSERT,Users_UPDATE,Users_DELETE } from './users.js';
 import { Suppliers_GET,Suppliers_INSERT,Suppliers_UPDATE,Suppliers_DELETE } from './suppliers.js';
 import { Supplies_GET,Supplies_INSERT,Supplies_UPDATE,Supplies_DELETE } from './supplies.js';
@@ -11,6 +10,7 @@ import { Menus_GET,Menus_INSERT,Menus_UPDATE,Menus_DELETE } from './menus.js';
 import { Dishes_GET,Dishes_INSERT,Dishes_UPDATE,Dishes_DELETE } from './dishes.js';
 import { Side_Dishes_GET,Side_Dishes_INSERT,Side_Dishes_UPDATE,Side_Dishes_DELETE } from './sideDishes.js';
 import { Drinks_GET,Drinks_INSERT,Drinks_UPDATE,Drinks_DELETE } from './drinks.js';
+import { Orders_GET,Orders_INSERT,Orders_UPDATE } from './orders.js';
 // Servidor socket
 import { io } from '../../index.js';
 //____________IMPORT/EXPORT____________
@@ -41,10 +41,6 @@ export const socketEvents = () => {
         }
         // Registros ✔️
         Logs_GET(socket)
-        // Notificaciones ✔️
-        Notifications_GET(socket);
-        Notifications_INSERT(socket);
-        Notifications_UPDATE(socket);
         // Usuarios ✔️
         Users_GET(socket);
         Users_INSERT(socket);
@@ -90,6 +86,10 @@ export const socketEvents = () => {
         Drinks_INSERT(socket);
         Drinks_UPDATE(socket);
         Drinks_DELETE(socket);
+        // Ordenes ✔️
+        Orders_GET(socket);
+        Orders_INSERT(socket);
+        Orders_UPDATE(socket);
         socket.on('disconnect', () => {
             console.log(`Sesión desconectada: ${clientSessionId}`);
 

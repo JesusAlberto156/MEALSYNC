@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ActionBlockContext } from "../../../contexts/VariablesProvider";
-import { RefButtonAddContext,RefButtonEditContext,RefButtonVerificationGreenContext,RefButtonVerificationBlueContext,RefButtonVerificationRedContext,RefButtonDeleteContext,RefButtonDisableContext,RefButtonEnableContext,RefButtonDetailContext } from "../../../contexts/RefsProvider";
+import { RefButtonAddContext,RefButtonEditContext,RefButtonVerificationGreenContext,RefButtonEndContext,RefButtonVerificationBlueContext,RefButtonVerificationRedContext,RefButtonDeleteContext,RefButtonDisableContext,RefButtonEnableContext,RefButtonDetailContext } from "../../../contexts/RefsProvider";
 import { SelectedOptionSearchContext,SelectedOptionOrderPlusContext } from "../../../contexts/SelectedesProvider";
 // Hooks personalizados
 import { ResetFilteredOrder,ResetFilteredSearch } from "../../../hooks/Texts";
@@ -17,12 +17,14 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsClipboardPlusFill } from "react-icons/bs";
 import { BsClipboardFill } from "react-icons/bs";
+import { IoMdDownload } from "react-icons/io";
+import { FaCheckCircle } from "react-icons/fa";
 // Iconos para metodos de ordenamiento y busqueda
 import { IoSearch } from "react-icons/io5";
 import { LuArrowDownUp } from "react-icons/lu";
 //__________ICONOS__________
 // Estilos personalizados
-import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Orange_60,Button_Text_Blue_Auto } from "../../styled/Buttons";
+import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Purple_60,Button_Icon_Orange_60,Button_Text_Blue_Auto } from "../../styled/Buttons";
 import { Icon_16,Icon_Button_White_20 } from "../../styled/Icons";
 //____________IMPORT/EXPORT____________
 
@@ -288,6 +290,46 @@ export const Search_Bar_Button_View = ({
         </>
     );
 }
+export const Search_Bar_Button_Verification_Green_Download = ({
+    onHandleAction = () => {},
+    row = null,
+    icon = <IoMdDownload/>,
+    title = '',
+    condition = false,
+}) => {
+    // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const isButtonVerificationGreen = useContext(RefButtonVerificationGreenContext);
+    // Estructura del componente
+    return(
+        <>
+            {isActionBlock ? (
+                <>
+                    <Button_Icon_Green_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Green_60>
+                </>
+            ):(
+                row !== null && condition  ? (
+                    <Tooltip title={title} placement="top">
+                        <Button_Icon_Green_60 
+                            ref={isButtonVerificationGreen}
+                            onClick={() => {
+                                onHandleAction();
+                            }}
+                        >
+                            <Icon_16>{icon}</Icon_16>
+                        </Button_Icon_Green_60>  
+                    </Tooltip>
+                ):(
+                    <Button_Icon_Green_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Green_60>
+                ) 
+            )}
+        </>
+    );
+}
 export const Search_Bar_Button_Verification_Green = ({
     route = '',
     onHandleAction = () => {},
@@ -454,6 +496,50 @@ export const Search_Bar_Button_Verification_Red = ({
                         >
                             <Icon_16>{icon}</Icon_16>
                         </Button_Icon_Red_60>  
+                    </Tooltip>
+                ):(
+                    <Button_Icon_Red_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Red_60>
+                ) 
+            )}
+        </>
+    );
+}
+export const Search_Bar_Button_End_Condition = ({
+    route = '',
+    onHandleAction = () => {},
+    row = null,
+    icon = <FaCheckCircle/>,
+    title = '',
+    condition = false,
+}) => {
+    // Constantes con el valor de los contextos
+    const [isActionBlock] = useContext(ActionBlockContext);
+    const isButtonEnd = useContext(RefButtonEndContext);
+    // constantes con el valor de los hooks
+    const navigate = useNavigate();
+    // Estructura del componente
+    return(
+        <>
+            {isActionBlock ? (
+                <>
+                    <Button_Icon_Purple_60 disabled>
+                        <Icon_16>{icon}</Icon_16>
+                    </Button_Icon_Purple_60>
+                </>
+            ):(
+                row !== null && condition  ? (
+                    <Tooltip title={title} placement="top">
+                        <Button_Icon_Purple_60 
+                            ref={isButtonEnd}
+                            onClick={() => {
+                                onHandleAction();
+                                navigate(route,{ replace: true });
+                            }}
+                        >
+                            <Icon_16>{icon}</Icon_16>
+                        </Button_Icon_Purple_60>  
                     </Tooltip>
                 ):(
                     <Button_Icon_Red_60 disabled>

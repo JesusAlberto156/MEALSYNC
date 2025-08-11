@@ -84,7 +84,7 @@ export const Side_Dishes_INSERT = (socket) => {
             const resultSideDishSpecifications = await getSideDishSpecificationsService();
             const decryptedDataSideDishSpecifications = decryptData(resultSideDishSpecifications);
             const parseDataSideDishSpecifications = JSON.parse(decryptedDataSideDishSpecifications);
-            await insertLogSideDishSpecificationsService(parseDataSideDishSpecifications.find(data => data.idguarnicion === idguarnicion)?.idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idplatillo),imagen);
+            await insertLogSideDishSpecificationsService(parseDataSideDishSpecifications.find(data => data.idguarnicion === idguarnicion)?.idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idguarnicion),imagen);
             
             let resultMenuTypeSideDishes;
             let resultWarehouseSideDishes;

@@ -3,7 +3,7 @@
 import { useState,useContext,useEffect,useMemo } from "react";
 // Contextos
 import { DeletedDishesContext,DishesContext,MenuTypeDishesContext,DishSpecificationsContext } from "../../contexts/DishesProvider";
-import { MenuTypesContext } from "../../contexts/MenusProvider";
+import { MenuTypesContext,MenuTypeUbicationsContext } from "../../contexts/MenusProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { LoggedTypeContext } from "../../contexts/SessionProvider";
@@ -24,6 +24,7 @@ export const TableActionsDishes = () => {
     const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
+    const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext); 
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
@@ -37,6 +38,13 @@ export const TableActionsDishes = () => {
             const types = isMenuTypes.filter(type =>
                 menus.some(menu => menu.idtipo === type.idtipo)
             );
+
+            if(isLoggedType == 'Nutriólogo'){
+                const tieneUbicacionDistinta = types.some(type =>
+                    isMenuTypeUbications.some(s => s.idtipo === type.idtipo && s.idubicacion === 2)
+                );
+                if (!tieneUbicacionDistinta) return false;
+            }
 
             if (isSelectedOptionSearch === 'General') {
                 
@@ -84,15 +92,9 @@ export const TableActionsDishes = () => {
 
             return false
         });
-
-        if(isLoggedType === 'Nutriólogo'){
             
-
-            return TimeFiltered;
-        }else{
-            return TimeFiltered;
-        }
-    }, [isDishes, isDeletedDishes, isDishSpecifications, isMenuTypeDishes, isMenuTypes, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
+        return TimeFiltered;
+    }, [isDishes, isDeletedDishes, isDishSpecifications, isMenuTypeDishes, isMenuTypes, isMenuTypeUbications, isSearchTerm, isSelectedOptionOrderDirection, isSelectedOptionOrderPlus, isSelectedOptionOrder, isSelectedOptionSearch]);
     // Total de registros visibles de la tabla
     const recordsPerPage = 12;
     // Indices de los registros

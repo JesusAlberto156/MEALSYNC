@@ -102,8 +102,8 @@ export const ResetFilteredSearch = () => {
         setIsSelectedOptionSearch('General');
         setIsTextFieldsSearchDate(prev => ({ 
             ...prev,
-            año: 0,
-            mes: 0,
+            año: new Date().getFullYear(),
+            mes: new Date().getMonth() + 1,
         }));
     }
     // Retorno de la función del hook

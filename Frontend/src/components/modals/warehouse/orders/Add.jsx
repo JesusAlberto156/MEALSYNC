@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { TextFieldsWarehouseOrderContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,KeyboardViewContext,KeyboardContext,TouchContext,IndexCountContext } from "../../../../contexts/VariablesProvider";
-import { DeletedCleaningSuppliesContext,CleaningCategoriesContext,CleaningSuppliesContext,CountCleaningCategoriesContext } from "../../../../contexts/ExtrasProvider";
+import { DeletedCleaningSuppliesContext,CleaningTypesContext,CleaningSuppliesContext,CountCleaningTypesContext } from "../../../../contexts/ExtrasProvider";
 import { DeletedSuppliersContext } from "../../../../contexts/SuppliersProvider";
 import { CleaningSupplyOrderAddContext,SupplyOrderAddContext } from "../../../../contexts/WarehouseProvider";
 import { SuppliesContext,DeletedSuppliesContext,CountSupplyTypesContext } from "../../../../contexts/SuppliesProvider";
@@ -59,8 +59,8 @@ export default function Warehouse_Order_Add(){
     const [isSupplyOrderAdd,setIsSupplyOrderAdd] = useContext(SupplyOrderAddContext);
     const [isCleaningSupplyOrderAdd,setIsCleaningSupplyOrderAdd] = useContext(CleaningSupplyOrderAddContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext);
-    const [isCleaningCategories] = useContext(CleaningCategoriesContext);
-    const [isCountCleaningCategories] = useContext(CountCleaningCategoriesContext);
+    const [isCleaningTypes] = useContext(CleaningTypesContext); 
+    const [isCountCleaningTypes] = useContext(CountCleaningTypesContext);
     const [isCleaningSupplies] = useContext(CleaningSuppliesContext);
     const [isDeletedCleaningSupplies] = useContext(DeletedCleaningSuppliesContext);
     const [isSearchTerm1,setIsSearchTerm1] = useContext(SearchTerm1Context);
@@ -190,6 +190,9 @@ export default function Warehouse_Order_Add(){
                 idpedidoindividual: 0,
                 fecha: '',
                 idinsumo: 0,
+                idtipo: 0,
+                idcategoria: 0,
+                cantidadreal: 0,
                 cantidad: '',
                 preciounitario: '',
                 preciototal: '',
@@ -199,6 +202,9 @@ export default function Warehouse_Order_Add(){
             suministros: [{
                 idpedidoindividual: 0,
                 fecha: '',
+                idtipo: 0,
+                idcategoria: 0,
+                cantidadreal: 0,
                 idsuministro: 0,
                 cantidad: '',
                 preciounitario: '',
@@ -328,7 +334,7 @@ export default function Warehouse_Order_Add(){
                                         </Icon_Button_Blue_20>
                                     </Container_Row_100_Left>
                                     <Container_Row_100_Left>
-                                        <Label_Text_16_Black>Fecha:</Label_Text_16_Black>
+                                        <Label_Text_16_Black>Fecha de inicio:</Label_Text_16_Black>
                                         <Input_Text_100_Black
                                             placeholder="..."
                                             type="text"
@@ -678,11 +684,11 @@ export default function Warehouse_Order_Add(){
                                                                     <Text_Span_16_Center_Black>: {(() => {
                                                                                                 const CleaningSupply = isCleaningSupplies.find(s => s.idsuministro === cleaningSupply.idsuministro);
                                                                                                 if (!CleaningSupply) return 'Desconocida';
-                                                                                                const count = isCountCleaningCategories.find(count => count.idcantidad === CleaningSupply.idcantidad);
-                                                                                                const category = isCleaningCategories.find(category => category.idcategoria === CleaningSupply.idcategoria);
-                                                                                                if (!count || !category) return 'Desconocida';
+                                                                                                const count = isCountCleaningTypes.find(count => count.idcantidad === CleaningSupply.idcantidad);
+                                                                                                const type = isCleaningTypes.find(type => type.idtipo === CleaningSupply.idtipo);
+                                                                                                if (!count || !type) return 'Desconocida';
                                                                                                 const s = count.cantidad !== 1 ? 's' : '';
-                                                                                                return `${count.cantidad} ${category.unidad}${s}` || 'Desconocida'
+                                                                                                return `${count.cantidad} ${type.unidad}${s}` || 'Desconocida'
                                                                                             })()}
                                                                     </Text_Span_16_Center_Black>
                                                                 </Container_Row_NG_Auto_Center>                           

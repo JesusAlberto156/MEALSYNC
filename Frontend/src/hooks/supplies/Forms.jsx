@@ -188,7 +188,7 @@ export const HandleSupplyTypeAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSupplyType.tipo === '' || isTextFieldsSupplyType.unidad === '' || isTextFieldsSupplyType.idcategoria === 0 || isTextFieldsSupplyType.limite === 0){
+                        if(isTextFieldsSupplyType.tipo === '' || isTextFieldsSupplyType.unidad === '' || isTextFieldsSupplyType.idcategoria === 0 || isTextFieldsSupplyType.limite === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información del tipo de insumo!')
                         };
@@ -211,12 +211,12 @@ export const HandleSupplyTypeAdd = () => {
                             return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!');
                         }
 
-                        if(isTextFieldsSupplyType.limite <= 0){
+                        if(Number(isTextFieldsSupplyType.limite) <= 0){
                             setIsActionBlock(false);
                             return reject('¡La cantidad mínima no es válida, debe de ser mayor a 0!');
                         }
 
-                        if(isTextFieldsSupplyType.limite > 999999.9999){
+                        if(Number(isTextFieldsSupplyType.limite) > 999999.9999){
                             setIsActionBlock(false);
                             return reject('¡La cantidad mínima no es válida, excede el valor máximo posible!');
                         }
@@ -280,7 +280,7 @@ export const HandleSupplyTypeEdit = () => {
                             return reject('¡No hay información del tipo de insumo modificada!')
                         }
 
-                        if(isTextFieldsSupplyType.tipo === '' || isTextFieldsSupplyType.unidad === '' || isTextFieldsSupplyType.idcategoria === 0 || isTextFieldsSupplyType.limite === 0){
+                        if(isTextFieldsSupplyType.tipo === '' || isTextFieldsSupplyType.unidad === '' || isTextFieldsSupplyType.idcategoria === 0 || isTextFieldsSupplyType.limite === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información del tipo de insumo!')
                         };
@@ -305,12 +305,12 @@ export const HandleSupplyTypeEdit = () => {
                             return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!');
                         }
 
-                        if(isTextFieldsSupplyType.limite <= 0){
+                        if(Number(isTextFieldsSupplyType.limite) <= 0){
                             setIsActionBlock(false);
                             return reject('¡La cantidad mínima no es válida, debe de ser mayor a 0!');
                         }
 
-                        if(isTextFieldsSupplyType.limite > 999999.9999){
+                        if(Number(isTextFieldsSupplyType.limite) > 999999.9999){
                             setIsActionBlock(false);
                             return reject('¡La cantidad mínima no es válida, excede el valor máximo posible!');
                         }
@@ -378,12 +378,12 @@ export const HandleCountSupplyTypeAdd = () => {
                             return reject('¡Cantidad ya existente al tipo de insumo!');
                         }
 
-                        if(isTextFieldsSupplyType.cantidades[0].cantidad <= 0){
+                        if(Number(isTextFieldsSupplyType.cantidades[0].cantidad) <= 0){
                             setIsActionBlock(false);
                             return reject('¡La cantidad no es válida, debe de ser mayor a 0!');
                         }
 
-                        if(isTextFieldsSupplyType.cantidades[0].cantidad > 999999.9999){
+                        if(Number(isTextFieldsSupplyType.cantidades[0].cantidad) > 999999.9999){
                             setIsActionBlock(false);
                             return reject('¡La cantidad no es válida, excede el valor máximo posible!');
                         }

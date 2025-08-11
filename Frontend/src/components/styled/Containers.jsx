@@ -119,7 +119,7 @@ export const Container_Page_Logged = styled.div.withConfig({
         `background-image: url(${Background_Menus_Drinks});`:''
     }
 
-    ${({ TypeUser,Sidebar,Navbar,Logged }) => (TypeUser === 'Nutriólogo') && (Sidebar !== 'Inicio' && Sidebar !== 'Menus') && (Navbar === 'Platillos') && Logged ? 
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Nutriólogo') && (Sidebar !== 'Inicio' && Sidebar !== 'Menus') && Logged ? 
         `background-image: url(${Background_Customized});`:''
     }
     background-Size: cover;

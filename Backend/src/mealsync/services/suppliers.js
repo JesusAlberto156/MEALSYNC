@@ -106,15 +106,15 @@ export const insertLogSupplierService = async (idproveedor,idusuario,nombre,rfc,
     }
 }
 //---------- OBSERVACIONES ✔️
-export const insertObservationService = async (observacion,calificacion,fecha,idproveedor) => {
+export const insertObservationService = async (observacion,calificacion,idproveedor,idpedido) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('observacion',sql.VarChar(250),observacion)
             .input('calificacion',sql.Int,calificacion)
-            .input('fecha',sql.DateTime,fecha)
             .input('idproveedor',sql.Int,idproveedor)
-            .query('INSERT INTO observacionesProveedor (observacion,calificacion,fecha,idproveedor) VALUES (@observacion,@calificacion,@domicilio,@fecha,@idproveedor)');
+            .input('idpedido',sql.Int,idpedido)
+            .query('INSERT INTO observacionesProveedor (observacion,calificacion,idproveedor,idpedido) VALUES (@observacion,@calificacion,@idproveedor,@idpedido)');
 
         if(result.rowsAffected[0]>0){
             return 'Observación del proveedor insertada...';
@@ -126,7 +126,7 @@ export const insertObservationService = async (observacion,calificacion,fecha,id
         throw error;
     }
 }
-export const insertLogObservationService = async (idobservacion,idusuario,observacion,calificacion,fecha,idproveedor) => {
+export const insertLogObservationService = async (idobservacion,idusuario,observacion,calificacion,idproveedor,idpedido) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -136,9 +136,10 @@ export const insertLogObservationService = async (idobservacion,idusuario,observ
             .input('idusuario',sql.Int,idusuario)
             .input('campo2',sql.VarChar(500),observacion)
             .input('campo3',sql.VarChar(500),calificacion)
-            .input('campo4',sql.VarChar(500),fecha)
+            .input('campo4',sql.VarChar(500),new Date().toISOString())
             .input('campo5',sql.VarChar(500),idproveedor)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
+            .input('campo6',sql.VarChar(500),idpedido)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';

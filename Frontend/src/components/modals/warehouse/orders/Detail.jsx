@@ -4,12 +4,12 @@ import { useContext,useEffect } from "react";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
-import { TextFieldsWarehouseOrderContext } from "../../../../contexts/FormsProvider";
+import { TextFieldsWarehouseOrderContext,TextFieldsObservationContext } from "../../../../contexts/FormsProvider";
 import { RefModalContext,RefFormContext } from "../../../../contexts/RefsProvider";
 import { CountSupplyTypesContext,SuppliesContext,SupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 import { DeletedOrdersContext } from "../../../../contexts/WarehouseProvider";
 import { SuppliersContext } from "../../../../contexts/SuppliersProvider";
-import { CleaningSuppliesContext,CountCleaningCategoriesContext,CleaningCategoriesContext } from "../../../../contexts/ExtrasProvider";
+import { CleaningSuppliesContext,CleaningTypesContext,CountCleaningTypesContext } from "../../../../contexts/ExtrasProvider";
 // Hooks personalizados
 import { HandleModalViewWarehouse } from "../../../../hooks/warehouse/Views";
 //__________IMAGENES__________
@@ -21,7 +21,7 @@ import { MdOutlineAttachMoney } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal_Background_Black,Container_Row_100_Center,Container_Row_NG_Auto_Center,Container_Modal_Form_White,Container_Modal_Form,Container_Modal_Form_White_600, Container_Column_100_Center, Container_Row_NG_Auto_Left, Container_Column_100_Left, Container_Row_100_Left, Container_Row_100_Right } from "../../../styled/Containers";
-import { Text_Span_16_Center_Black,Text_Background_Red_12,Text_Background_Lime_Green_12,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16,Text_Background_Blue_12,Text_Background_Green_12,Text_Background_Yellow_12, Text_Title_20_Black } from "../../../styled/Text";
+import { Text_Span_16_Center_Black,Text_Background_Red_12,Text_Background_Lime_Green_12,Text_Color_Blue_16,Text_Title_28_Black,Text_Color_Green_16,Text_Background_Blue_12,Text_Background_Green_12,Text_Background_Yellow_12, Text_Title_20_Black, Text_Span_16_Justify_Black } from "../../../styled/Text";
 // Componentes personalizados
 import Error_View from "../../errors/View";
 import { Modal_Form_Button_Return } from "../../../forms/Button";
@@ -42,10 +42,11 @@ export default function Warehouse_Order_Details(){
     const [isSuppliers] = useContext(SuppliersContext);
     const [isSupplies] = useContext(SuppliesContext);
     const [isCleaningSupplies] = useContext(CleaningSuppliesContext); 
-    const [isCountCleaningCategories] = useContext(CountCleaningCategoriesContext);
-    const [isCleaningCategories] = useContext(CleaningCategoriesContext);
+    const [isCleaningTypes] = useContext(CleaningTypesContext);
+    const [isCountCleaningTypes] = useContext(CountCleaningTypesContext); 
     const [isCountSupplyTypes] = useContext(CountSupplyTypesContext);
     const [isSupplyTypes] = useContext(SupplyTypesContext); 
+    const [isTextFieldsObservation] = useContext(TextFieldsObservationContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalViewWarehouse = HandleModalViewWarehouse();
     // UseEffct para verificar la eliminacion del pedido de almacén
@@ -77,8 +78,12 @@ export default function Warehouse_Order_Details(){
                                     <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Container_Row_NG_Auto_Center>
-                                    <Text_Color_Green_16>Fecha</Text_Color_Green_16>
+                                    <Text_Color_Green_16>Fecha de inicio</Text_Color_Green_16>
                                     <Text_Span_16_Center_Black>: {isTextFieldsWarehouseOrder?.fecha || 'Desconocida'}</Text_Span_16_Center_Black>
+                                </Container_Row_NG_Auto_Center>
+                                <Container_Row_NG_Auto_Center>
+                                    <Text_Color_Green_16>Fecha de finalización</Text_Color_Green_16>
+                                    <Text_Span_16_Center_Black>: {isTextFieldsObservation.fecha}</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Green_16>Proveedor</Text_Color_Green_16>
@@ -86,7 +91,7 @@ export default function Warehouse_Order_Details(){
                                 </Container_Row_NG_Auto_Center>
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Green_16>Precio Total</Text_Color_Green_16>
-                                    <Text_Span_16_Center_Black>: <MdOutlineAttachMoney/> {isTextFieldsWarehouseOrder?.precio || 'Desconocido'} MXN</Text_Span_16_Center_Black>
+                                    <Text_Span_16_Center_Black>: <MdOutlineAttachMoney/> {isTextFieldsWarehouseOrder?.precio || '0'} MXN</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Green_16>Estado</Text_Color_Green_16>
@@ -198,6 +203,29 @@ export default function Warehouse_Order_Details(){
                                                     </Container_Column_100_Left>
                                                     <Image_Modal_150 src={isSupplies.find(s => s.idinsumo === supply.idinsumo)?.imagen || Supply}/>
                                                 </Container_Row_100_Center>
+                                                {supply.estado === 'Modificar' || supply.estado === 'Cancelado' || supply.estado === 'Devolución' ? (
+                                                    <Container_Row_100_Center>
+                                                        <Text_Span_16_Justify_Black>{supply.mensajes[0].mensaje}</Text_Span_16_Justify_Black>
+                                                    </Container_Row_100_Center>
+                                                ):(
+                                                    <></>
+                                                )}
+                                                {supply.estado === 'Aceptado' ? (
+                                                    <>
+                                                        <Container_Column_100_Left>
+                                                            <Container_Row_NG_Auto_Left>
+                                                                <Text_Color_Green_16>Precio unitario</Text_Color_Green_16>
+                                                                <Text_Span_16_Center_Black>: {supply.preciounitario}</Text_Span_16_Center_Black>
+                                                            </Container_Row_NG_Auto_Left>
+                                                            <Container_Row_NG_Auto_Left>
+                                                                <Text_Color_Green_16>Precio total</Text_Color_Green_16>
+                                                                <Text_Span_16_Center_Black>: {supply.preciototal}</Text_Span_16_Center_Black>
+                                                            </Container_Row_NG_Auto_Left>
+                                                        </Container_Column_100_Left>
+                                                    </>
+                                                ):(
+                                                    <></>
+                                                )}
                                                 <Container_Row_100_Right>
                                                     <Text_Span_16_Center_Black>No. Insumo {index+1}</Text_Span_16_Center_Black>
                                                 </Container_Row_100_Right>
@@ -227,11 +255,11 @@ export default function Warehouse_Order_Details(){
                                                             <Text_Span_16_Center_Black>: {(() => {
                                                                 const S = isCleaningSupplies.find(s => s.idsuministro === supply.idsuministro);
                                                                 if(!S) return;
-                                                                const count = isCountCleaningCategories.find(c => c.idcantidad === S.idcantidad);
-                                                                const category = isCleaningCategories.find(t => t.idcategoria === S.idcategoria);
+                                                                const count = isCountCleaningTypes.find(c => c.idcantidad === S.idcantidad);
+                                                                const type = isCleaningTypes.find(t => t.idtipo === S.idtipo);
                                                                 const s = count.cantidad !== 1 ? 's':'';
-                                                                if(!count || !category) return;
-                                                                return `: ${count.cantidad} ${category.unidad}${s}`
+                                                                if(!count || !type) return;
+                                                                return `: ${count.cantidad} ${type.unidad}${s}`
                                                             })()}</Text_Span_16_Center_Black>
                                                         </Container_Row_NG_Auto_Left>
                                                         <Container_Row_NG_Auto_Left>
@@ -284,6 +312,29 @@ export default function Warehouse_Order_Details(){
                                                     </Container_Column_100_Left>
                                                     <Image_Modal_150 src={isCleaningSupplies.find(s => s.idsuministro === supply.idsuministro)?.imagen || Cleaning}/>
                                                 </Container_Row_100_Center>
+                                                {supply.estado === 'Modificar' || supply.estado === 'Cancelado' || supply.estado === 'Devolución' ? (
+                                                    <Container_Row_100_Center>
+                                                        <Text_Span_16_Justify_Black>{supply.mensajes[0].mensaje}</Text_Span_16_Justify_Black>
+                                                    </Container_Row_100_Center>
+                                                ):(
+                                                    <></>
+                                                )}
+                                                {supply.estado === 'Aceptado' ? (
+                                                    <>
+                                                        <Container_Column_100_Left>
+                                                            <Container_Row_NG_Auto_Left>
+                                                                <Text_Color_Green_16>Precio unitario</Text_Color_Green_16>
+                                                                <Text_Span_16_Center_Black>: {supply.preciounitario}</Text_Span_16_Center_Black>
+                                                            </Container_Row_NG_Auto_Left>
+                                                            <Container_Row_NG_Auto_Left>
+                                                                <Text_Color_Green_16>Precio total</Text_Color_Green_16>
+                                                                <Text_Span_16_Center_Black>: {supply.preciototal}</Text_Span_16_Center_Black>
+                                                            </Container_Row_NG_Auto_Left>
+                                                        </Container_Column_100_Left>
+                                                    </>
+                                                ):(
+                                                    <></>
+                                                )}
                                                 <Container_Row_100_Right>
                                                     <Text_Span_16_Center_Black>No. Suministro {index+1}</Text_Span_16_Center_Black>
                                                 </Container_Row_100_Right>

@@ -24,10 +24,15 @@ const [isMenuTypeDrinks] = useContext(MenuTypeDrinksContext); ✔️
 const [isCleaningCategories] = useContext(CleaningCategoriesContext); ✔️
 const [isCleaningCategoryAdd,setIsCleaningCategoryAdd] = useContext(CleaningCategoryAddContext); ✔️
 const [isCleaningCategoryEdit,setIsCleaningCategoryEdit] = useContext(CleaningCategoryEditContext); ✔️
-const [isCountCleaningCategories] = useContext(CountCleaningCategoriesContext); ✔️
-const [isCleaningCategoryCountAdd,setIsCleaningCategoryCountAdd] = useContext(CleaningCategoryCountAddContext); ✔️
 const [isDeletedCleaningCategories] = useContext(DeletedCleaningCategoriesContext); ✔️
 const [isCleaningCategoryDelete,setIsCleaningCategoryDelete] = useContext(CleaningCategoryDeleteContext); ✔️
+const [isCleaningTypes] = useContext(CleaningTypesContext); ✔️
+const [isCleaningTypeAdd,setIsCleaningTypeAdd] = useContext(CleaningTypeAddContext); ✔️
+const [isCleaningTypeEdit,setIsCleaningTypeEdit] = useContext(CleaningTypeEditContext); ✔️
+const [isCountCleaningTypes] = useContext(CountCleaningTypesContext); ✔️
+const [isCleaningTypeCountAdd,setIsCleaningTypeCountAdd] = useContext(CountCleaningTypeAddContext); ✔️
+const [isDeletedCleaningTypes] = useContext(DeletedCleaningTypesContext); ✔️
+const [isCleaningTypeDelete,setIsCleaningTypeDelete] = useContext(CleaningTypeDeleteContext); ✔️
 const [isCleaningSupplies] = useContext(CleaningSuppliesContext); ✔️
 const [isCleaningSupplyAdd,setIsCleaningSupplyAdd] = useContext(CleaningSupplyAddContext); ✔️
 const [isCleaningSupplyEdit,setIsCleaningSupplyEdit] = useContext(CleaningSupplyEditContext); ✔️
@@ -49,17 +54,21 @@ const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(Te
 const [isTextFieldsSupplyType,setIsTextFieldsSupplyType] = useContext(TextFieldsSupplyTypesContext); ✔️
 const [isTextFieldsSupply,setIsTextFieldsSupply] = useContext(TextFieldsSupplyContext); ✔️
 const [isTextFieldsCleaningCategory,setIsTextFieldsCleaningCategory] = useContext(TextFieldsCleaningCategoryContext); ✔️
+const [isTextFieldsCleaningType,setIsTextFieldsCleaningType] = useContext(TextFieldsCleaningTypeContext); ✔️
 const [isTextFieldsCleaningSupply,setIsTextFieldsCleaningSupply] = useContext(TextFieldsCleaningSupplyContext); ✔️
 const [isTextFieldsFixedExpense,setIsTextFieldsFixedExpense] = useContext(TextFieldsFixedExpenseContext); ✔️
 const [isTextFieldsWarehouseOrder,setIsTextFieldsWarehouseOrder] = useContext(TextFieldsWarehouseOrderContext); ✔️
-
-const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); 
+const [isTextFieldsWarehouseFixedExpense,setIsTextFieldsWarehouseFixedExpense] = useContext(TextFieldsWarehouseFixedExpenseContext); ✔️
+const [isTextFieldsWarehouseSupply,setIsTextFieldsWarehouseSupply] = useContext(TextFieldsWarehouseSupplyContext); ✔️
+const [isTextFieldsWarehouseCleaning,setIsTextFieldsWarehouseCleaning] = useContext(TextFieldsWarehouseCleaningContext);✔️
+const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext); ✔️
 const [isTextFieldsMenuType,setIsTextFieldsMenuType] = useContext(TextFieldsMenuTypeContext); ✔️
 const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext); ✔️
 const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useContext(TextFieldsSideDishContext); ✔️
 const [isTextFieldsDrink,setIsTextFieldsDrink] = useContext(TextFieldsDrinkContext); ✔️
-
-const [isTextFieldsCustomized,setIsTextFieldsCustomized] = useContext(TextFieldsCustomizedContext); 
+const [isTextFieldsSearchOrders,setIsTextFieldsSearchOrders] = useContext(TextFieldsSearchOrdersContext); ✔️
+const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); 
+const [isTextFieldsKitchen,setIsTextFieldsKitchen] = useContext(TextFieldsKitchenContext); 
 //____________FORMS____________
 //____________MENUS____________
 const [isMenus] = useContext(MenusContext); ✔️
@@ -71,6 +80,13 @@ const [isMenuTypeDelete,setIsMenuTypeDelete] = useContext(MenuTypeDeleteContext)
 const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext); ✔️
 const [isMenuUbications] = useContext(MenuUbicationsContext); ✔️
 //____________MENUS____________
+//____________ORDERS____________
+const [isDoctors] = useContext(DoctorsContext); ✔️
+const [isSurgeries] = useContext(SurgeriesContext); ✔️
+const [isSurgeryTypes] = useContext(SurgeryTypesContext); ✔️
+const [isOrderKitchen] = useContext(OrderKitchenContext);
+const [isCountOrderKitchen] = useContext(CountOrderKitchenContext);
+//____________ORDERS____________
 //____________REF____________
 const isAlert = useContext(RefAlertsContext); ✔️
 const isKeyboard = useContext(RefKeyboardContext); ✔️
@@ -87,6 +103,7 @@ const isButtonView = useContext(RefButtonViewContext); ✔️
 const isButtonVerificationGreen = useContext(RefButtonVerificationGreenContext); ✔️
 const isButtonVerificationBlue = useContext(RefButtonVerificationBlueContext); ✔️
 const isButtonVerificationRed = useContext(RefButtonVerificationRedContext); ✔️
+const isButtonEnd = useContext(RefButtonEndContext); ✔️
 const isButtonDetail = useContext(RefButtonDetailContext); ✔️
 //____________REF____________
 //____________SEARCH____________
@@ -99,6 +116,7 @@ const [isSearchTerm3,setIsSearchTerm3] = useContext(SearchTerm3Context); ✔️
 const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); ✔️
 const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context); 
 const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context); 
+const [isSelectedRow3,setIsSelectedRow3] = useContext(SelectedRow3Context); 
 const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext); ✔️
 const [isSelectedOptionOrder,setIsSelectedOptionOrder] = useContext(SelectedOptionOrderContext); ✔️
 const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext); ✔️
@@ -183,7 +201,6 @@ const [isPermissionUpdated,setIsPermissionUpdated] = useContext(PermissionUpdate
 const [isIndexSearch,setIsIndexSearch] = useContext(IndexSearchContext); ✔️
 const [isIndexCount,setIsIndexCount] = useContext(IndexCountContext); ✔️
 const [isIndexDetail,setIsIndexDetail] = useContext(IndexDetailContext); ✔️
-const [isIndex,setIsIndex] = useContext(IndexContext); ✔️
 //____________VARIABLES____________
 //____________VIEWS____________
 const [currentLView,setCurrentLView] = useContext(LoginViewContext); ✔️
@@ -196,16 +213,25 @@ const [isModal,setIsModal] = useContext(ModalContext); ✔️
 //____________WAREHOUSE____________
 const [isWarehouseCategories] = useContext(WarehouseCategoriesContext); ✔️
 const [isWarehouseSupplyTypes] = useContext(WarehouseSupplyTypesContext); ✔️
+const [isWarehouseSupplyAdd,setIsWarehouseSupplyAdd] = useContext(WarehouseSupplyAddContext); ✔️
 const [isWarehouseCleaning] = useContext(WarehouseCleaningContext); ✔️
+const [isWarehouseCleaningTypes] = useContext(WarehouseCleaningTypesContext); ✔️
+const [isWarehouseCleaningAdd,setIsWarehouseCleaningAdd] = useContext(WarehouseCleaningAddContext); ✔️
 const [isWarehouseFixedExpenses] = useContext(WarehouseFixedExpensesContext); ✔️
+const [isWarehouseFixedExpenseAdd,setIsWarehouseFixedExpenseAdd] = useContext(WarehouseFixedExpenseAddContext); ✔️
 const [isOrders] = useContext(OrdersContext); ✔️
 const [isDeletedOrders] = useContext(DeletedOrdersContext); ✔️
 const [isOrderDelete,setIsOrderDelete] = useContext(OrderDeleteContext); ✔️
 const [isSupplyOrders] = useContext(SupplyOrdersContext); ✔️
 const [isSupplyOrderAdd,setIsSupplyOrderAdd] = useContext(SupplyOrderAddContext); ✔️
+const [isSupplyOrderEnd,setIsSupplyOrderEnd] = useContext(SupplyOrderEndContext); ✔️
 const [isSupplyOrderVerificationAdd,setIsSupplyOrderVerificationAdd] = useContext(SupplyOrderVerificationAddContext); ✔️
+const [isSupplyOrderVerificationEdit,setIsSupplyOrderVerificationEdit] = useContext(SupplyOrderVerificationEditContext); ✔️
 const [isCleaningSupplyOrders] = useContext(CleaningSupplyOrdersContext); ✔️
 const [isCleaningSupplyOrderAdd,setIsCleaningSupplyOrderAdd] = useContext(CleaningSupplyOrderAddContext); ✔️
+const [isCleaningSupplyOrderEnd,setIsCleaningSupplyOrderEnd] = useContext(CleaningSupplyOrderEndContext); ✔️
+const [isCleaningSupplyOrderVerificationAdd,setIsCleaningSupplyOrderVerificationAdd] = useContext(CleaningSupplyOrderVerificationAddContext); ✔️
+const [isCleaningSupplyOrderVerificationEdit,setIsCleaningSupplyOrderVerificationEdit] = useContext(CleaningSupplyOrderVerificationEditContext); ✔️
 const [isMessageSupplyOrders] = useContext(MessageSupplyOrdersContext); ✔️
 const [isMessageCleaningSupplyOrders] = useContext(MessageCleaningSupplyOrdersContext); ✔️
 //____________WAREHOUSE____________

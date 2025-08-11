@@ -2,12 +2,12 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext } from "../../contexts/FormsProvider";
+import { TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext,TextFieldsCleaningTypeContext } from "../../contexts/FormsProvider";
 import { SuppliersContext,DeletedSuppliersContext } from "../../contexts/SuppliersProvider";
 import { SuppliesContext } from "../../contexts/SuppliesProvider";
-import { CleaningCategoriesContext,CleaningCategoryAddContext,DeletedCleaningCategoriesContext,FixedExpensesContext,FixedExpenseAddContext,FixedExpenseEditContext,FixedExpenseDeleteContext,CleaningSuppliesContext,CleaningSupplyAddContext,CleaningSupplyEditContext,CleaningSupplyDeleteContext,CleaningCategoryEditContext,CountCleaningCategoriesContext,CleaningCategoryCountAddContext,CleaningCategoryDeleteContext } from "../../contexts/ExtrasProvider";
+import { CleaningCategoriesContext,CleaningTypeAddContext,CleaningTypesContext,DeletedCleaningTypesContext,CountCleaningTypesContext,CountCleaningTypeAddContext,CleaningTypeEditContext,CleaningTypeDeleteContext,CleaningCategoryAddContext,DeletedCleaningCategoriesContext,FixedExpensesContext,FixedExpenseAddContext,FixedExpenseEditContext,FixedExpenseDeleteContext,CleaningSuppliesContext,CleaningSupplyAddContext,CleaningSupplyEditContext,CleaningSupplyDeleteContext,CleaningCategoryEditContext,CleaningCategoryDeleteContext } from "../../contexts/ExtrasProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
-import { SearchTerm1Context,SearchTerm2Context } from "../../contexts/SearchsProvider";
+import { SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../../contexts/SearchsProvider";
 import { ActionBlockContext } from "../../contexts/VariablesProvider";
 import { NavbarViewContext,SidebarViewContext,ModalViewContext } from "../../contexts/ViewsProvider";
 // Estilos personalizados
@@ -31,7 +31,7 @@ export const HandleCleaningCategoryAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsCleaningCategory.nombre === '' || isTextFieldsCleaningCategory.unidad === '' || isTextFieldsCleaningCategory.limite === ''){
+                        if(isTextFieldsCleaningCategory.nombre === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la categoría de limpieza!')
                         };
@@ -52,34 +52,6 @@ export const HandleCleaningCategoryAdd = () => {
                         if(!regexDescriptions.test(isTextFieldsCleaningCategory.descripcion.trim())){
                             setIsActionBlock(false);
                             return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!');
-                        }
-
-                        if(isTextFieldsCleaningCategory.limite <= 0){
-                            setIsActionBlock(false);
-                            return reject('¡La cantidad mínima no es válida, debe de ser mayor a 0!');
-                        }
-
-                        if(isTextFieldsCleaningCategory.limite > 999999.9999){
-                            setIsActionBlock(false);
-                            return reject('¡La cantidad mínima no es válida, excede el valor máximo posible!');
-                        }
-
-                        if(isTextFieldsCleaningCategory.unidad === 'Kilogramo' || isTextFieldsCleaningCategory.unidad === 'Litro'){
-                            const regexNumbers = /^\d+(\.\d{1,4})?$/;
-
-                            if(!regexNumbers.test(isTextFieldsCleaningCategory.limite)){
-                                setIsActionBlock(false);
-                                return reject('¡La cantidad mínima no es válida, solo puede contener números decimales de hasta 4 dígitos decimales o enteros!');
-                            }
-                        }
-
-                        if(isTextFieldsCleaningCategory.unidad === 'Pieza'){
-                            const regexNumbers = /^\d+$/;  
-
-                            if(!regexNumbers.test(isTextFieldsCleaningCategory.limite)){
-                                setIsActionBlock(false);
-                                return reject('¡La cantidad mínima no es válida, solo puede contener números enteros!');
-                            }
                         }
 
                         resolve('¡Información verificada!');
@@ -118,12 +90,12 @@ export const HandleCleaningCategoryEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isSelectedRow.nombre === isTextFieldsCleaningCategory.nombre && isSelectedRow.descripcion === isTextFieldsCleaningCategory.descripcion && isSelectedRow.unidad === isTextFieldsCleaningCategory.unidad && isSelectedRow.linite === isTextFieldsCleaningCategory.limite){
+                        if(isSelectedRow.nombre === isTextFieldsCleaningCategory.nombre && isSelectedRow.descripcion === isTextFieldsCleaningCategory.descripcion){
                             setIsActionBlock(false);
                             return reject('¡No hay información de la categoría de limpieza modificada!')
                         }
 
-                        if(isTextFieldsCleaningCategory.nombre === '' || isTextFieldsCleaningCategory.unidad === '' || isTextFieldsCleaningCategory.limite === ''){
+                        if(isTextFieldsCleaningCategory.nombre === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la categoría de limpieza!')
                         };
@@ -146,34 +118,6 @@ export const HandleCleaningCategoryEdit = () => {
                         if(!regexDescriptions.test(isTextFieldsCleaningCategory.descripcion.trim())){
                             setIsActionBlock(false);
                             return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!');
-                        }
-
-                        if(isTextFieldsCleaningCategory.limite <= 0){
-                            setIsActionBlock(false);
-                            return reject('¡La cantidad mínima no es válida, debe de ser mayor a 0!');
-                        }
-
-                        if(isTextFieldsCleaningCategory.limite > 999999.9999){
-                            setIsActionBlock(false);
-                            return reject('¡La cantidad mínima no es válida, excede el valor máximo posible!');
-                        }
-
-                        if(isTextFieldsCleaningCategory.unidad === 'Kilogramo' || isTextFieldsCleaningCategory.unidad === 'Litro'){
-                            const regexNumbers = /^\d+(\.\d{1,4})?$/;
-
-                            if(!regexNumbers.test(isTextFieldsCleaningCategory.limite)){
-                                setIsActionBlock(false);
-                                return reject('¡La cantidad mínima no es válida, solo puede contener números decimales de hasta 4 dígitos decimales o enteros!');
-                            }
-                        }
-
-                        if(isTextFieldsCleaningCategory.unidad === 'Pieza'){
-                            const regexNumbers = /^\d+$/;  
-
-                            if(!regexNumbers.test(isTextFieldsCleaningCategory.limite)){
-                                setIsActionBlock(false);
-                                return reject('¡La cantidad mínima no es válida, solo puede contener números enteros!');
-                            }
                         }
 
                         resolve('¡Información verificada!');
@@ -212,65 +156,93 @@ export const HandleCleaningCategoryDelete = () => {
     // Retorno de la función del hook
     return handleCleaningCategoryDelete;
 }
-// Hook para agregar cantidades a una categoría de limpieza desde el modal ✔️
-export const HandleCountCleaningCategoryAdd = () => {
+// Hook para filtrar las categorías de limpieza sin eliminar ✔️
+export const FilteredRecordsCleaningCategoriesDeleted = () => {
     // Constantes con el valor de los contextos 
+    const [isCleaningCategories] = useContext(CleaningCategoriesContext);
+    const [isDeletedCleaningCategories] = useContext(DeletedCleaningCategoriesContext);
+    // Función del hook
+    const filtered = isCleaningCategories.filter((data) => {
+        const isDeleted = isDeletedCleaningCategories.some(category => category.idcategoria === data.idcategoria);
+        if (isDeleted) return false;
+        
+        return true;
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para agregar un tipo de limpieza desde el modal ✔️
+export const HandleCleaningTypeAdd = () => {
+    // Constantes con el valor de los contextos 
+    const [isCleaningTypeAdd,setIsCleaningTypeAdd] = useContext(CleaningTypeAddContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [currentMView] = useContext(ModalViewContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isTextFieldsCleaningCategory] = useContext(TextFieldsCleaningCategoryContext);
-    const [isCountCleaningCategories] = useContext(CountCleaningCategoriesContext);
-    const [isCleaningCategoryCountAdd,setIsCleaningCategoryCountAdd] = useContext(CleaningCategoryCountAddContext);
+    const [isTextFieldsCleaningType] = useContext(TextFieldsCleaningTypeContext); 
+    const [isCleaningTypes] = useContext(CleaningTypesContext);
     // Función del hook
-    const handleCountCleaningCategoryAdd = () => {
-        if(currentNView === 'Categorias de limpieza' && currentSView === 'Extras' && currentMView === 'Categoria-Limpieza-Cantidad-Agregar'){
+    const handleCleaningTypeAdd = () => {
+        if(currentNView === 'Tipos de limpieza' && currentSView === 'Extras' && currentMView === 'Tipo-Limpieza-Agregar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsCleaningCategory.cantidades[0].cantidad === 0){
+                        if(isTextFieldsCleaningType.tipo === '' || isTextFieldsCleaningType.unidad === '' || isTextFieldsCleaningType.idcategoria === 0 || isTextFieldsCleaningType.limite === ''){
                             setIsActionBlock(false);
-                            return reject('¡Falta información de la cantidad de la categoría de limpieza!')
+                            return reject('¡Falta información del tipo de limpieza!')
                         };
 
-                        if(isCountCleaningCategories.some(count => count.idcategoria === isTextFieldsCleaningCategory.idcategoria && count.cantidad === parseFloat(isTextFieldsCleaningCategory.cantidades[0].cantidad))){
+                        if(isCleaningTypes.some(type => type.tipo === isTextFieldsCleaningType.tipo)){
                             setIsActionBlock(false);
-                            return reject('¡Cantidad ya existente a la categoría de limpieza!');
+                            return reject('¡Tipo de limpieza ya existente!');
                         }
 
-                        if(isTextFieldsCleaningCategory.cantidades[0].cantidad <= 0){
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
+                        const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(!regexNames.test(isTextFieldsCleaningType.tipo.trim())){
                             setIsActionBlock(false);
-                            return reject('¡La cantidad no es válida, debe de ser mayor a 0!');
+                            return reject('¡El nombre no es válido, solo puede contener letras, números, espacios y los siguientes caracteres: - . , & ( )!');
                         }
 
-                        if(isTextFieldsCleaningCategory.cantidades[0].cantidad > 999999.9999){
+                        if(!regexDescriptions.test(isTextFieldsCleaningType.descripcion.trim())){
                             setIsActionBlock(false);
-                            return reject('¡La cantidad no es válida, excede el valor máximo posible!');
+                            return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!');
                         }
 
-                        if(isTextFieldsCleaningCategory.unidad === 'Kilogramo' || isTextFieldsCleaningCategory.unidad === 'Litro'){
+                        if(Number(isTextFieldsCleaningType.limite) <= 0){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad mínima no es válida, debe de ser mayor a 0!');
+                        }
+
+                        if(Number(isTextFieldsCleaningType.limite) > 999999.9999){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad mínima no es válida, excede el valor máximo posible!');
+                        }
+
+                        if(isTextFieldsCleaningType.unidad === 'Kilogramo' || isTextFieldsCleaningType.unidad === 'Litro'){
                             const regexNumbers = /^\d+(\.\d{1,4})?$/;
 
-                            if(!regexNumbers.test(isTextFieldsCleaningCategory.cantidades[0].cantidad)){
+                            if(!regexNumbers.test(isTextFieldsCleaningType.limite)){
                                 setIsActionBlock(false);
-                                return reject('¡La cantidad no es válida, solo puede contener números decimales de hasta 4 dígitos decimales o enteros!');
+                                return reject('¡La cantidad mínima no es válida, solo puede contener números decimales de hasta 4 dígitos decimales o enteros!');
                             }
                         }
 
-                        if(isTextFieldsCleaningCategory.unidad === 'Pieza'){
+                        if(isTextFieldsCleaningType.unidad === 'Pieza'){
                             const regexNumbers = /^\d+$/;  
 
-                            if(!regexNumbers.test(isTextFieldsCleaningCategory.cantidades[0].cantidad)){
+                            if(!regexNumbers.test(isTextFieldsCleaningType.limite)){
                                 setIsActionBlock(false);
-                                return reject('¡La cantidad no es válida, solo puede contener números enteros!');
+                                return reject('¡La cantidad mínima no es válida, solo puede contener números enteros!');
                             }
                         }
 
                         resolve('¡Información verificada!');
                         
                         setTimeout(() => {
-                            return setIsCleaningCategoryCountAdd(true);
+                            return setIsCleaningTypeAdd(true);
                         },1000);
                     },1000);
                 }catch(e){
@@ -283,19 +255,273 @@ export const HandleCountCleaningCategoryAdd = () => {
         }
     }
     // Retorno de la función del hook
-    return handleCountCleaningCategoryAdd;
+    return handleCleaningTypeAdd;
 }
-// Hook para filtrar las categorías de limpieza sin eliminar ✔️
-export const FilteredRecordsCleaningCategoriesDeleted = () => {
+// Hook para agregar cantidades a un tipo de limpieza desde el modal ✔️
+export const HandleCountCleaningTypeAdd = () => {
     // Constantes con el valor de los contextos 
-    const [isCleaningCategories] = useContext(CleaningCategoriesContext);
+    const [isCleaningTypeCountAdd,setIsCleaningTypeCountAdd] = useContext(CountCleaningTypeAddContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsCleaningType] = useContext(TextFieldsCleaningTypeContext); 
+    const [isCountCleaningTypes] = useContext(CountCleaningTypesContext);
+    // Función del hook
+    const handleCountCleaningTypeAdd = () => {
+        if(currentNView === 'Tipos de limpieza' && currentSView === 'Extras' && currentMView === 'Tipo-Limpieza-Cantidad-Agregar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isTextFieldsCleaningType.cantidades[0].cantidad === ''){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información de la cantidad de tipo de limpieza!')
+                        };
+
+                        if(isCountCleaningTypes.some(count => count.idtipo === isTextFieldsCleaningType.idtipo && count.cantidad === parseFloat(isTextFieldsCleaningType.cantidades[0].cantidad))){
+                            setIsActionBlock(false);
+                            return reject('¡Cantidad ya existente al tipo de limpieza!');
+                        }
+
+                        if(Number(isTextFieldsCleaningType.cantidades[0].cantidad) <= 0){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, debe de ser mayor a 0!');
+                        }
+
+                        if(Number(isTextFieldsCleaningType.cantidades[0].cantidad) > 999999.9999){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad no es válida, excede el valor máximo posible!');
+                        }
+
+                        if(isTextFieldsCleaningType.unidad === 'Kilogramo' || isTextFieldsCleaningType.unidad === 'Litro'){
+                            const regexNumbers = /^\d+(\.\d{1,4})?$/;
+
+                            if(!regexNumbers.test(isTextFieldsCleaningType.cantidades[0].cantidad)){
+                                setIsActionBlock(false);
+                                return reject('¡La cantidad no es válida, solo puede contener números decimales de hasta 4 dígitos decimales o enteros!');
+                            }
+                        }
+
+                        if(isTextFieldsCleaningType.unidad === 'Pieza'){
+                            const regexNumbers = /^\d+$/;  
+
+                            if(!regexNumbers.test(isTextFieldsCleaningType.cantidades[0].cantidad)){
+                                setIsActionBlock(false);
+                                return reject('¡La cantidad no es válida, solo puede contener números enteros!');
+                            }
+                        }
+
+                        resolve('¡Información verificada!');
+                        
+                        setTimeout(() => {
+                            return setIsCleaningTypeCountAdd(true);
+                        },1000);
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!');
+                }
+            });
+
+            return Alert_Sonner_Promise(promise,'¡Verificando información!','1');
+        }
+    }
+    // Retorno de la función del hook
+    return handleCountCleaningTypeAdd;
+}
+// Hook para editar un tipo de insumo desde el modal ✔️
+export const HandleCleaningTypeEdit = () => {
+    // Constantes con el valor de los contextos 
+    const [isCleaningTypeEdit,setIsCleaningTypeEdit] = useContext(CleaningTypeEditContext);
+    const [isSelectedRow] = useContext(SelectedRowContext);
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isTextFieldsCleaningType] = useContext(TextFieldsCleaningTypeContext); 
+    const [isCleaningTypes] = useContext(CleaningTypesContext);
+    // Función del hook
+    const handleCleaningTypeEdit = () => {
+        if(currentNView === 'Tipos de limpieza' && currentSView === 'Extras' && currentMView === 'Tipo-Limpieza-Editar'){
+            const promise = new Promise((resolve,reject) => {
+                try{
+                    setIsActionBlock(true);
+                    setTimeout(() => {
+                        if(isSelectedRow.tipo === isTextFieldsCleaningType.tipo && isSelectedRow.descripcion === isTextFieldsCleaningType.descripcion && isSelectedRow.unidad === isTextFieldsCleaningType.unidad && isSelectedRow.idcategoria === isTextFieldsCleaningType.idcategoria && isSelectedRow.limite === isTextFieldsCleaningType.limite){
+                            setIsActionBlock(false);
+                            return reject('¡No hay información del tipo de limpieza modificada!')
+                        }
+
+                        if(isTextFieldsCleaningType.tipo === '' || isTextFieldsCleaningType.unidad === '' || isTextFieldsCleaningType.idcategoria === 0 || isTextFieldsCleaningType.limite === ''){
+                            setIsActionBlock(false);
+                            return reject('¡Falta información del tipo de limpieza!')
+                        };
+
+                        if(isSelectedRow.tipo !== isTextFieldsCleaningType.tipo){
+                            if(isCleaningTypes.some(type => type.tipo === isTextFieldsCleaningType.tipo)){
+                                setIsActionBlock(false);
+                                return reject('¡Tipo de limpieza ya existente!');
+                            }
+                        }
+
+                        const regexNames = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9\s\-.,&()]+$/
+                        const regexDescriptions = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9.,;:()\- ]*$/;
+
+                        if(!regexNames.test(isTextFieldsCleaningType.tipo.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡El nombre no es válido, solo puede contener letras, números, espacios y los siguientes caracteres: - . , & ( )!');
+                        }
+
+                        if(!regexDescriptions.test(isTextFieldsCleaningType.descripcion.trim())){
+                            setIsActionBlock(false);
+                            return reject('¡La descripción no es válida, solo puede contener letras, números, espacios y los siguientes signos: punto, coma, punto y coma, dos puntos, guiones y paréntesis!');
+                        }
+
+                        if(Number(isTextFieldsCleaningType.limite) <= 0){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad mínima no es válida, debe de ser mayor a 0!');
+                        }
+
+                        if(Number(isTextFieldsCleaningType.limite) > 999999.9999){
+                            setIsActionBlock(false);
+                            return reject('¡La cantidad mínima no es válida, excede el valor máximo posible!');
+                        }
+
+                        if(isTextFieldsCleaningType.unidad === 'Kilogramo' || isTextFieldsCleaningType.unidad === 'Litro'){
+                            const regexNumbers = /^\d+(\.\d{1,4})?$/;
+
+                            if(!regexNumbers.test(isTextFieldsCleaningType.limite)){
+                                setIsActionBlock(false);
+                                return reject('¡La cantidad mínima no es válida, solo puede contener números decimales de hasta 4 dígitos decimales o enteros!');
+                            }
+                        }
+
+                        if(isTextFieldsCleaningType.unidad === 'Pieza'){
+                            const regexNumbers = /^\d+$/;  
+
+                            if(!regexNumbers.test(isTextFieldsCleaningType.limite)){
+                                setIsActionBlock(false);
+                                return reject('¡La cantidad mínima no es válida, solo puede contener números enteros!');
+                            }
+                        }
+
+                        resolve('¡Información verificada!');
+                        
+                        setTimeout(() => {
+                            return setIsCleaningTypeEdit(true);
+                        },1000);
+                    },1000);
+                }catch(e){
+                    setIsActionBlock(false);
+                    return reject('¡Ocurrio un error inesperado!');
+                }
+            });
+
+            return Alert_Sonner_Promise(promise,'¡Verificando información!','1');
+        }
+    }
+    // Retorno de la función del hook
+    return handleCleaningTypeEdit;
+}
+// Hook para eliminar un tipo de limpieza desde el modal ✔️
+export const HandleCleaningTypeDelete = () => {
+    // Constantes con el valor de los contextos 
+    const [currentNView] = useContext(NavbarViewContext);
+    const [currentSView] = useContext(SidebarViewContext);
+    const [currentMView] = useContext(ModalViewContext);
+    const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
+    const [isCleaningTypeDelete,setIsCleaningTypeDelete] = useContext(CleaningTypeDeleteContext);    
+    // Función del hook
+    const handleCleaningTypeDelete = () => {
+        if(currentNView === 'Tipos de limpieza' && currentSView === 'Extras' && currentMView === 'Tipo-Limpieza-Eliminar'){
+            setIsActionBlock(true);
+            return setIsCleaningTypeDelete(true);
+        }
+    } 
+    // Retorno de la función del hook
+    return handleCleaningTypeDelete;
+}
+// Hook para filtrar los proveedores ✔️
+export const FilteredRecordsSuppliers = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm1] = useContext(SearchTerm1Context); 
+    const [isSuppliers] = useContext(SuppliersContext);
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
+    // Función del hook
+    const filtered = isSuppliers.filter((data) => {
+        const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
+        if (isDeleted) return false;
+        
+        return data.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase());;
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para filtrar los proveedores sin eliminar ✔️
+export const FilteredRecordsSuppliersDeleted = () => {
+    // Constantes con el valor de los contextos 
+    const [isSuppliers] = useContext(SuppliersContext); 
+    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
+    // Función del hook
+    const filtered = isSuppliers.filter((data) => {
+        const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
+        if (isDeleted) return false;
+        
+        return true;
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para filtrar las categorias por limpieza ✔️
+export const FilteredRecordsCleaningCategories = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm2] = useContext(SearchTerm2Context); 
+    const [isCleaningCategories] = useContext(CleaningCategoriesContext); 
     const [isDeletedCleaningCategories] = useContext(DeletedCleaningCategoriesContext);
     // Función del hook
     const filtered = isCleaningCategories.filter((data) => {
         const isDeleted = isDeletedCleaningCategories.some(category => category.idcategoria === data.idcategoria);
         if (isDeleted) return false;
         
-        return true;
+        return data.nombre.toLowerCase().includes(isSearchTerm2.toLowerCase());
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para filtrar los tipos de limpieza ✔️
+export const FilteredRecordsCleaningTypes = () => {
+    // Constantes con el valor de los contextos 
+    const [isSearchTerm3] = useContext(SearchTerm3Context); 
+    const [isCleaningTypes] = useContext(CleaningTypesContext); 
+    const [isDeletedCleaningTypes] = useContext(DeletedCleaningTypesContext);
+    const [isTextFieldsCleaningSupply] = useContext(TextFieldsCleaningSupplyContext);  
+    // Función del hook
+    const filtered = isCleaningTypes.filter((data) => {
+        if(data.idcategoria === isTextFieldsCleaningSupply.idcategoria){
+            const isDeleted = isDeletedCleaningTypes.some(type => type.idtipo === data.idtipo);
+            if (isDeleted) return false;
+                
+            return data.tipo.toLowerCase().includes(isSearchTerm3.toLowerCase())
+        }
+    });
+    // Retorno de la función del hook
+    return filtered;
+}
+// Hook para filtrar las cantidades de los tipos de limpieza ✔️
+export const FilteredRecordsCountCleaningTypes = () => {
+    // Constantes con el valor de los contextos 
+    const [isCountCleaningTypes] = useContext(CountCleaningTypesContext); 
+    const [isDeletedCleaningTypes] = useContext(DeletedCleaningTypesContext);
+    const [isTextFieldsCleaningSupply] = useContext(TextFieldsCleaningSupplyContext);
+    // Función del hook
+    const filtered = isCountCleaningTypes.filter((data) => {
+        if(data.idtipo === isTextFieldsCleaningSupply.idtipo){
+            const isDeleted = isDeletedCleaningTypes.some(type => type.idtipo === data.idtipo);
+            if (isDeleted) return false;
+                
+            return true;
+        }
     });
     // Retorno de la función del hook
     return filtered;
@@ -318,7 +544,7 @@ export const HandleCleaningSupplyAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsCleaningSupply.codigo === '' || isTextFieldsCleaningSupply.nombre === '' || isTextFieldsCleaningSupply.idproveedor === 0 || isTextFieldsCleaningSupply.idcategoria === 0 || isTextFieldsCleaningSupply.idcantidad === 0){
+                        if(isTextFieldsCleaningSupply.codigo === '' || isTextFieldsCleaningSupply.nombre === '' || isTextFieldsCleaningSupply.idproveedor === 0 || isTextFieldsCleaningSupply.idcategoria === 0 || isTextFieldsCleaningSupply.idtipo === 0 || isTextFieldsCleaningSupply.idcantidad === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del suministro de limpieza!')
                         };
@@ -398,12 +624,12 @@ export const HandleCleaningSupplyEdit = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isSelectedRow.codigo === isTextFieldsCleaningSupply.codigo && isSelectedRow.nombre === isTextFieldsCleaningSupply.nombre && isSelectedRow.descripcion === isTextFieldsCleaningSupply.descripcion && isSelectedRow.imagen === isTextFieldsCleaningSupply.imagen && isSelectedRow.idcategoria === isTextFieldsCleaningSupply.idcategoria && isSelectedRow.idproveedor === isTextFieldsCleaningSupply.idproveedor && isTextFieldsCleaningSupply.idcantidad === isSelectedRow.idcantidad){
+                        if(isSelectedRow.codigo === isTextFieldsCleaningSupply.codigo && isSelectedRow.nombre === isTextFieldsCleaningSupply.nombre && isSelectedRow.descripcion === isTextFieldsCleaningSupply.descripcion && isSelectedRow.imagen === isTextFieldsCleaningSupply.imagen && isSelectedRow.idcategoria === isTextFieldsCleaningSupply.idcategoria && isSelectedRow.idproveedor === isTextFieldsCleaningSupply.idproveedor && isSelectedRow.idtipo === isTextFieldsCleaningSupply.idtipo && isTextFieldsCleaningSupply.idcantidad === isSelectedRow.idcantidad){
                             setIsActionBlock(false);
                             return reject('¡No hay información del suministro de limpieza modificada!')
                         }
 
-                        if(isTextFieldsCleaningSupply.codigo === '' || isTextFieldsCleaningSupply.nombre === '' || isTextFieldsCleaningSupply.idproveedor === 0 || isTextFieldsCleaningSupply.idcategoria === 0 || isTextFieldsCleaningSupply.idcantidad === 0){
+                        if(isTextFieldsCleaningSupply.codigo === '' || isTextFieldsCleaningSupply.nombre === '' || isTextFieldsCleaningSupply.idproveedor === 0 || isTextFieldsCleaningSupply.idcategoria === 0 || isTextFieldsCleaningSupply.idtipo === 0 || isTextFieldsCleaningSupply.idcantidad === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información del suministro de limpieza!')
                         };
@@ -485,71 +711,6 @@ export const HandleCleaningSupplyDelete = () => {
     } 
     // Retorno de la función del hook
     return handleCleaningSupplyDelete;
-}
-// Hook para filtrar los proveedores ✔️
-export const FilteredRecordsSuppliers = () => {
-    // Constantes con el valor de los contextos 
-    const [isSearchTerm1] = useContext(SearchTerm1Context); 
-    const [isSuppliers] = useContext(SuppliersContext);
-    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
-    // Función del hook
-    const filtered = isSuppliers.filter((data) => {
-        const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
-        if (isDeleted) return false;
-        
-        return data.nombre.toLowerCase().includes(isSearchTerm1.toLowerCase());;
-    });
-    // Retorno de la función del hook
-    return filtered;
-}
-// Hook para filtrar los proveedores sin eliminar ✔️
-export const FilteredRecordsSuppliersDeleted = () => {
-    // Constantes con el valor de los contextos 
-    const [isSuppliers] = useContext(SuppliersContext); 
-    const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
-    // Función del hook
-    const filtered = isSuppliers.filter((data) => {
-        const isDeleted = isDeletedSuppliers.some(supplier => supplier.idproveedor === data.idproveedor);
-        if (isDeleted) return false;
-        
-        return true;
-    });
-    // Retorno de la función del hook
-    return filtered;
-}
-// Hook para filtrar las categorias por insumo ✔️
-export const FilteredRecordsCleaningCategories = () => {
-    // Constantes con el valor de los contextos 
-    const [isSearchTerm2] = useContext(SearchTerm2Context); 
-    const [isCleaningCategories] = useContext(CleaningCategoriesContext); 
-    const [isDeletedCleaningCategories] = useContext(DeletedCleaningCategoriesContext);
-    // Función del hook
-    const filtered = isCleaningCategories.filter((data) => {
-        const isDeleted = isDeletedCleaningCategories.some(category => category.idcategoria === data.idcategoria);
-        if (isDeleted) return false;
-        
-        return data.nombre.toLowerCase().includes(isSearchTerm2.toLowerCase());
-    });
-    // Retorno de la función del hook
-    return filtered;
-}
-// Hook para filtrar las cantidades de las categorias de limpieza ✔️
-export const FilteredRecordsCountCleaningCategories = () => {
-    // Constantes con el valor de los contextos 
-    const [isCountCleaningCategories] = useContext(CountCleaningCategoriesContext); 
-    const [isDeletedCleaningCategories] = useContext(DeletedCleaningCategoriesContext);
-    const [isTextFieldsCleaningSupply] = useContext(TextFieldsCleaningSupplyContext);
-    // Función del hook
-    const filtered = isCountCleaningCategories.filter((data) => {
-        if(data.idcategoria === isTextFieldsCleaningSupply.idcategoria){
-            const isDeleted = isDeletedCleaningCategories.some(category => category.idcategoria === data.idcategoria);
-            if (isDeleted) return false;
-                
-            return true;
-        }
-    });
-    // Retorno de la función del hook
-    return filtered;
 }
 // Hook para agregar un gasto fijo desde el modal ✔️
 export const HandleFixedExpenseAdd = () => {

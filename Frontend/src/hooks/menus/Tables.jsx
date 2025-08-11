@@ -6,6 +6,7 @@ import { MenuTypesContext,DeletedMenuTypesContext,MenuTypeUbicationsContext } fr
 import { SelectedOptionOrderDirectionContext,SelectedOptionOrderContext } from "../../contexts/SelectedesProvider";
 import { SearchTermContext } from "../../contexts/SearchsProvider";
 import { SelectedRowContext } from "../../contexts/SelectedesProvider";
+import { LoggedTypeContext } from "../../contexts/SessionProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para realizar las acciones de la tabla de tipos de menú ✔️
@@ -18,6 +19,7 @@ export const TableActionsMenuTypes = () => {
     const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext);
     const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
     // Paginación de la tabla
     const [currentPage, setCurrentPage] = useState(1);
     // Filtrado de datos
@@ -26,6 +28,10 @@ export const TableActionsMenuTypes = () => {
             const isDeleted = isDeletedMenuTypes.some(type => type.idtipo === data.idtipo);
             if (isDeleted) return false;
             
+            if(isLoggedType == 'Nutriólogo'){
+                if(isMenuTypeUbications.some(s => s.idubicacion !== 2 && s.idtipo === data.idtipo)) return false
+            }
+
             return data.nombre.toLowerCase().includes(isSearchTerm.toLowerCase());
         });
 

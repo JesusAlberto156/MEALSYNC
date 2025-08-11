@@ -78,7 +78,7 @@ export const HandleDrinkAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsDrink.nombre === '' || isTextFieldsDrink.idmenu === 0 || isTextFieldsDrink.descripcion === '' || isTextFieldsDrink.precio === '' || isTextFieldsDrink.preparacion === '' || isTextFieldsDrink.ingredientes.length === 0){
+                        if(isTextFieldsDrink.nombre === '' || isTextFieldsDrink.descripcion === '' || isTextFieldsDrink.precio === '' || isTextFieldsDrink.preparacion === '' || isTextFieldsDrink.ingredientes.length === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la bebida!')
                         };
@@ -247,7 +247,7 @@ export const HandleDrinkEdit = () => {
                     setIsActionBlock(true);
                     setTimeout(() => {
                         
-                        if(isTextFieldsDrink.nombre === '' || isTextFieldsDrink.idmenu === 0 || isTextFieldsDrink.descripcion === '' || isTextFieldsDrink.precio === '' || isTextFieldsDrink.preparacion === '' || isTextFieldsDrink.ingredientes.length === 0){
+                        if(isTextFieldsDrink.nombre === '' || isTextFieldsDrink.descripcion === '' || isTextFieldsDrink.precio === '' || isTextFieldsDrink.preparacion === '' || isTextFieldsDrink.ingredientes.length === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la bebida!')
                         };

@@ -78,7 +78,7 @@ export const HandleSideDishAdd = () => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsSideDish.nombre === '' || isTextFieldsSideDish.idmenu === 0 || isTextFieldsSideDish.descripcion === '' || isTextFieldsSideDish.precio === '' || isTextFieldsSideDish.preparacion === '' || isTextFieldsSideDish.ingredientes.length === 0){
+                        if(isTextFieldsSideDish.nombre === '' || isTextFieldsSideDish.descripcion === '' || isTextFieldsSideDish.precio === '' || isTextFieldsSideDish.preparacion === '' || isTextFieldsSideDish.ingredientes.length === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la guarnición!')
                         };
@@ -247,7 +247,7 @@ export const HandleSideDishEdit = () => {
                     setIsActionBlock(true);
                     setTimeout(() => {
                         
-                        if(isTextFieldsSideDish.nombre === '' || isTextFieldsSideDish.idmenu === 0 || isTextFieldsSideDish.descripcion === '' || isTextFieldsSideDish.precio === '' || isTextFieldsSideDish.preparacion === '' || isTextFieldsSideDish.ingredientes.length === 0){
+                        if(isTextFieldsSideDish.nombre === '' || isTextFieldsSideDish.descripcion === '' || isTextFieldsSideDish.precio === '' || isTextFieldsSideDish.preparacion === '' || isTextFieldsSideDish.ingredientes.length === 0){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la guarnición!')
                         };

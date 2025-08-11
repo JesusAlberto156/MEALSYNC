@@ -71,7 +71,7 @@ export const Drinks_GET = (socket) => {
 //______________INSERT______________
 export const Drinks_INSERT = (socket) => {
     // ---------- BEBIDAS ✔️
-    socket.on('Insert-Drinks',async (idusuario,nombre,idmenu,descripcion,precio,preparacion,imagen,tipos,ingredientes) => {
+    socket.on('Insert-Drink',async (idusuario,nombre,idmenu,descripcion,precio,preparacion,imagen,tipos,ingredientes) => {
         try{
             await insertDrinkService(nombre,idmenu);
             const resultDrinks = await getDrinksService();
@@ -84,7 +84,7 @@ export const Drinks_INSERT = (socket) => {
             const resultDrinkSpecifications = await getDrinkSpecificationsService();
             const decryptedDataDrinkSpecifications = decryptData(resultDrinkSpecifications);
             const parseDataDrinkSpecifications = JSON.parse(decryptedDataDrinkSpecifications);
-            await insertLogDrinkSpecificationsService(parseDataDrinkSpecifications.find(data => data.idbebida === idbebida)?.idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idplatillo),imagen);
+            await insertLogDrinkSpecificationsService(parseDataDrinkSpecifications.find(data => data.idbebida === idbebida)?.idespecificacion,idusuario,descripcion,String(precio),String(preparacion),String(idbebida),imagen);
             
             let resultMenuTypeDrinks;
             let resultWarehouseDrinks;
@@ -122,7 +122,7 @@ export const Drinks_INSERT = (socket) => {
         }
     });
     // ---------- BEBIDAS ELIMINADAS ✔️
-    socket.on('Insert-Deleted-Drinks',async (idusuario,idbebida,tipos,ingredientes) => {
+    socket.on('Insert-Deleted-Drink',async (idusuario,idbebida,tipos,ingredientes) => {
         try{
             await insertDeletedDrinkService(idbebida);
             const resultDeletedDrinks = await getDeletedDrinksService();

@@ -4,14 +4,14 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
-import { MenusContext,MenuTypesContext,DeletedMenuTypesContext } from "../../../../contexts/MenusProvider";
+import { MenusContext,MenuTypesContext,DeletedMenuTypesContext,MenuTypeUbicationsContext } from "../../../../contexts/MenusProvider";
 import { TextFieldsSideDishContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,KeyboardViewContext,KeyboardContext,TouchContext,IndexSearchContext,IndexCountContext } from "../../../../contexts/VariablesProvider";
 import { SideDishAddContext } from "../../../../contexts/SideDishesProvider";
 import { SupplyTypesContext } from "../../../../contexts/SuppliesProvider";
 import { WarehouseSupplyTypesContext } from "../../../../contexts/WarehouseProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
-import { LoggedUserContext } from "../../../../contexts/SessionProvider";
+import { LoggedUserContext,LoggedTypeContext } from "../../../../contexts/SessionProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 // Hooks personalizados
@@ -58,6 +58,8 @@ export default function Side_Dish_Add(){
     const [socket] = useContext(SocketContext);
     const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useContext(TextFieldsSideDishContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
+    const [isLoggedType] = useContext(LoggedTypeContext);
+    const [isMenuTypeUbications] = useContext(MenuTypeUbicationsContext); 
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
@@ -265,7 +267,7 @@ export default function Side_Dish_Add(){
                                         <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>
                                     </Container_Row_NG_Auto_Center>
                                     <Container_Row_100_Left>
-                                        <Label_Text_16_Black>Descripción:</Label_Text_16_Black>
+                                        <Label_Text_16_Black>Preparación:</Label_Text_16_Black>
                                         <Input_Group>
                                             <Input_Area_100_Black
                                                 id="Input-Descripcion"
@@ -367,15 +369,15 @@ export default function Side_Dish_Add(){
                                         isTextFieldsSideDish.tipos.map((menu,index) => {
                                             const filteredRecordsMenuTypes = isMenuTypes.filter((data) => {
                                                 const isDeleted = isDeletedMenuTypes.some(type => type.idtipo === data.idtipo);
+                                                if (isDeleted) return false;
                                                 
-                                                const isAlreadySelected = isTextFieldsSideDish.tipos.some((ing, i) => 
-                                                    i !== index && ing.idtipo === data.idtipo
-                                                );
+                                                if(isTextFieldsSideDish.tipos.some((ing, i) => i !== index && ing.idtipo === data.idtipo)) return false
 
-                                                return (
-                                                    !isDeleted &&
-                                                    !isAlreadySelected
-                                                );
+                                                if(isLoggedType == 'Nutriólogo'){
+                                                    if(isMenuTypeUbications.some(s => s.idubicacion !== 2 && s.idtipo === data.idtipo)) return false
+                                                }
+
+                                                return true;
                                             });
 
                                             return (

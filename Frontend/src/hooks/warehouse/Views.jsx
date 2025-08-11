@@ -44,19 +44,6 @@ export const HandleModalViewWarehouse = () => {
                 return navigate(route,{ replace: true });
             },750);
         }
-        if(currentMView === 'Pedido-Almacen-Editar' && View === ''){
-            setIsActionBlock(true);
-            setTimeout(() => {
-                if(sidebar === 'true'){
-                    setIsSidebar(true);
-                }
-                setIsModal(false);
-                sessionStorage.setItem('Estado del Modal',false);
-                setIsSelectedRow(null);
-                setIsActionBlock(false);
-                return navigate(route,{ replace: true });
-            },750);
-        }
         if(currentMView === 'Pedido-Almacen-Eliminar' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {
@@ -100,7 +87,61 @@ export const HandleModalViewWarehouse = () => {
                 return navigate(route,{ replace: true });
             },750);
         }
+        if(currentMView === 'Pedido-Almacen-Finalizar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
         if(currentMView === 'Pedido-Almacen-Detalles' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        // COMPRAS ✔️
+        if(currentMView === 'Almacen-Compra-Gasto-Fijo-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        // VENTAS ✔️
+        if(currentMView === 'Almacen-Venta-Insumo-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Almacen-Venta-Suministro-Agregar' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {
                 if(sidebar === 'true'){

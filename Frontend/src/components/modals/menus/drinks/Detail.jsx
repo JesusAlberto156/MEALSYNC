@@ -79,12 +79,12 @@ export default function Drink_Details(){
                                 <Text_Title_20_Black>{isTextFieldsDrink.nombre || 'Desconocido'}</Text_Title_20_Black>
                                 <Image_Modal_150 src={isTextFieldsDrink.imagen || Drink}/>
                                 <Container_Row_NG_Auto_Center>
-                                    <Text_Color_Green_16>Descripción</Text_Color_Green_16>
+                                    <Text_Color_Green_16>Preparación</Text_Color_Green_16>
                                     <Text_Span_16_Center_Black>:</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Text_Span_16_Justify_Black>{isTextFieldsDrink.descripcion || 'Desconocida'}</Text_Span_16_Justify_Black>
                                 <Container_Row_NG_Auto_Center>
-                                    <Text_Color_Green_16>Tipo de platillo</Text_Color_Green_16>
+                                    <Text_Color_Green_16>Tiempo de bebida</Text_Color_Green_16>
                                     <Text_Span_16_Center_Black>: {isMenus.find(menu => menu.idmenu === isTextFieldsDrink.idmenu)?.nombre || 'Desconocido'}</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Container_Row_NG_Auto_Center>
@@ -136,7 +136,7 @@ export default function Drink_Details(){
                                     isTextFieldsDrink.ingredientes.map((ingredient,index) => (
                                         <Container_Row_100_Left key={index}>
                                             <Text_Span_16_Center_Black>
-                                                <MdOutlineRestaurantMenu/> -- {isSupplyTypes.find(type => type.idtipo === ingredient.idtipo)?.tipo || 'Desconocido'} ------------------------------ {ingredient.cantidad} - {ingredient.unidad}{ingredient.cantidad !== 1 ? 's' : ''}
+                                                <MdOutlineRestaurantMenu/> -- {isSupplyTypes.find(type => type.idtipo === ingredient.idtipo)?.tipo || 'Desconocido'} ---------- {ingredient.cantidad} - {ingredient.unidad}{ingredient.cantidad !== 1 ? 's' : ''}
                                             </Text_Span_16_Center_Black>
                                         </Container_Row_100_Left>
                                     ))

@@ -1,14 +1,11 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-// Componentes de React externos
-import { Tooltip } from "@mui/material";
 // Contextos
-import { ThemeModeContext,NavbarViewContext,SidebarViewContext } from "../../../contexts/ViewsProvider";
+import { NavbarViewContext,SidebarViewContext } from "../../../contexts/ViewsProvider";
 import { ActionBlockContext,KeyboardViewContext,KeyboardContext,TouchContext } from "../../../contexts/VariablesProvider";
 import { SearchTermContext } from "../../../contexts/SearchsProvider";
-import { TextFieldsSearchDateContext } from "../../../contexts/FormsProvider";
+import { TextFieldsSearchDateContext,TextFieldsSearchOrdersContext } from "../../../contexts/FormsProvider";
 import { SelectedRowContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../../contexts/SelectedesProvider";
 import { LoggedPermissionsContext,LoggedTypeContext } from "../../../contexts/SessionProvider";
 import { UsersViewPasswordContext } from "../../../contexts/UsersProvider";
@@ -21,17 +18,14 @@ import { HandleModalViewSupplies } from "../../../hooks/supplies/Views";
 import { HandleModalViewExtras } from "../../../hooks/extras/Views";
 import { HandleModalViewMenuTypes } from "../../../hooks/menus/Views";
 import { HandleModalViewWarehouse } from "../../../hooks/warehouse/Views";
-import { ResetFilteredSearch,ResetFilteredOrder } from "../../../hooks/Texts";
 import { HandleKeyboard } from "../../../hooks/Views";
+import { HandleWarehouseOrderStart } from "../../../hooks/warehouse/Forms";
+import { HandleModalViewOrderKitchen } from "../../../hooks/orders/Views";
 //__________ICONOS__________
 // Icono para la seccion del buscador
 import { IoSearch } from "react-icons/io5";
-import { LuArrowDownUp } from "react-icons/lu";
 // Iconos para un crud
-import { MdEdit,MdDelete } from "react-icons/md";
-
-import { IoIosAddCircle } from "react-icons/io";
-
+import { MdDelete } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { IoIosEyeOff } from "react-icons/io";
 import { FaUnlock } from "react-icons/fa";
@@ -40,15 +34,16 @@ import { FaLockOpen } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa6";
 import { MdAddBox } from "react-icons/md";
 import { MdOutlineMessage } from "react-icons/md";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function } from "../../styled/Containers";
-import { Button_Text_Blue_Auto,Button_Icon_Green_60 } from "../../styled/Buttons";
-import { Icon_White_20,Icon_Button_White_20,Icon_16 } from "../../styled/Icons";
+import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function, Container_Row_100_Center } from "../../styled/Containers";
+import { Icon_White_20 } from "../../styled/Icons";
 import { Input_Search_Table_White,Input_Radio_20 } from "../../styled/Inputs";
-import { Text_Span_12_Center_White } from "../../styled/Text";
+import { Label_Button_16_White } from "../../styled/Labels";
+import { Text_Title_20_White,Text_Background_Green_12,Text_Title_16_White,Text_Background_Yellow_12,Text_Background_Red_12 } from "../../styled/Text";
 // Componentes personalizados
-import { Search_Bar_Button_Search,Search_Bar_Button_Order,Search_Bar_Icon_Button_Order,Search_Bar_Icon_Button_Search,Search_Bar_Icon_Button_Search_Order, Search_Bar_Button_Verification_Blue_Edit } from "./Buttons";
+import { Search_Bar_Button_Search,Search_Bar_Button_Order,Search_Bar_Button_End_Condition,Search_Bar_Icon_Button_Order,Search_Bar_Icon_Button_Search,Search_Bar_Icon_Button_Search_Order,Search_Bar_Button_Verification_Green_Download } from "./Buttons";
 import { Search_Bar_Button_Add,Search_Bar_Button_Verification_Blue,Search_Bar_Button_Verification_Red,Search_Bar_Button_Edit,Search_Bar_Button_Verification_Green,Search_Bar_Button_Delete,Search_Bar_Button_Enable,Search_Bar_Button_View,Search_Bar_Button_Detail } from "./Buttons";
 import { Keyboard_Form_Search } from "../../keyboards/Form";
 //____________IMPORT/EXPORT____________
@@ -57,7 +52,6 @@ import { Keyboard_Form_Search } from "../../keyboards/Form";
 export default function Search_Bar (){
     // Constantes con el valor de los contextos
     const [isActionBlock] = useContext(ActionBlockContext);
-    const [themeMode] = useContext(ThemeModeContext);
     const [currentNView] = useContext(NavbarViewContext);
     const [currentSView] = useContext(SidebarViewContext);
     const [isSearchTerm,setIsSearchTerm] = useContext(SearchTermContext);
@@ -65,35 +59,35 @@ export default function Search_Bar (){
     const [isLoggedPermissions] = useContext(LoggedPermissionsContext);
     const [isUsersViewPassword] = useContext(UsersViewPasswordContext);
     const [isLoggedType] = useContext(LoggedTypeContext);
-    const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
+    const [isSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     const [isSelectedOptionOrderPlus,setIsSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
-    const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext); 
+    const [isSelectedOptionOrderPlusUltra,setIsSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
     const [isTextFieldsSearchDate,setIsTextFieldsSearchDate] = useContext(TextFieldsSearchDateContext);
     const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
     const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     const Keyboard = useContext(RefKeyboardContext);
     const isKeyboardTouch = useContext(RefKeyboardTouchContext);
+    const [isTextFieldsSearchOrders,setIsTextFieldsSearchOrders] = useContext(TextFieldsSearchOrdersContext);
     const [isTouch] = useContext(TouchContext);
     // Constante con las opciones de los buscadores
     const isOptionUsers = ['General','Nombre','Nombre corto','Usuario','Tipo de usuario'];
     const isOptionStatusSearch = ['General','Nombre','Usuario'];
     const isOptionStatus = ['Normal','Activo','Inactivo'];
     const isOptionSuppliers = ['General','Nombre','RFC','Domicilio','Teléfono','Correo'];
-    const isOptionSupplierObservations = ['General','Proveedor','Fecha','Calificación'];
-    const isOptionSupplyTypes = ['General','Tipo','Unidad','Categoría','Cantidad Mínima'];
+    const isOptionSupplierObservations = ['General','Proveedor','Fecha','Calificación','ID Pedido'];
+    const isOptionSupplyTypes = ['General','Nombre','Unidad','Categoría','Cantidad Mínima'];
     const isOptionSupplies = ['General','Código','Nombre','Proveedor','Categoría','Tipo','Cantidad'];
-    const isOptionCleaningCategories = ['General','Nombre','Unidad','Cantidad Mínima'];
+    const isOptionCleaningTypes = ['General','Nombre','Unidad','Categoría','Cantidad Mínima'];
     const isOptionCleaningSupplies = ['General','Código','Nombre','Proveedor','Categoría','Cantidad'];
     const isOptionOrders = ['General','ID Pedido','Fecha','Campus','Estado','Proveedor','Usuario','Precio Total'];
-
-    const isOptionPurchases = ['Categorías','Tipos de Insumo'];
-    const isOptionSales = ['Categorías','Tipos de Insumo'];
     const isOptionWarehouse = ['Nombre','Fecha'];
-    
+    const isOptionWarehouseViewPurchases = ['Insumos','Suministros','Gastos fijos'];
+    const isOptionWarehouseViewSales = ['Insumos','Suministros'];
+    const isOptionWarehouseReports = ['Categorías de insumos','Categorías de limpieza','Gastos fijos'];
     const isOptionsMaelSearch = ['General','Nombre','Tiempo de preparación','Precio','Menú'];
     const isOptionsMaelOrder = ['Normal','Desayuno','Comida','Cena'];
+    const isOptionsOrder = ['Platillos','Guarniciones','Bebidas'];
     // Constantes con la funcionalidad de los hooks
-    const navigate = useNavigate();
     const handleModalViewUsers = HandleModalViewUsers();
     const handleViewPassword = HandleViewPassword();
     const handleModalViewSuppliers = HandleModalViewSuppliers();
@@ -101,9 +95,9 @@ export default function Search_Bar (){
     const handleModalViewExtras = HandleModalViewExtras();
     const handleModalViewMenuTypes = HandleModalViewMenuTypes();
     const handleModalViewWarehouse = HandleModalViewWarehouse();
-    const resetFilteredSearch = ResetFilteredSearch();
-    const resetFilteredOrder = ResetFilteredOrder();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
+    const handleWarehouseOrderStart = HandleWarehouseOrderStart();
+    const handleModalViewOrderKitchen = HandleModalViewOrderKitchen();
     // UseEffets para controlar el teclado
     useEffect(() => {
         KeyboardView();
@@ -134,12 +128,50 @@ export default function Search_Bar (){
             }))
         }
     },[isSelectedOptionSearch])
+    useEffect(() => {
+        if(currentNView === 'Reportes'){
+            setIsTextFieldsSearchDate(prev => ({
+                ...prev,
+                año: new Date().getFullYear(),
+                mes: new Date().getMonth() + 1,
+            }))
+        }
+    },[currentNView])
+    // useEffect para definir la hora del sistema 
+    useEffect(() => {
+        if (!isTextFieldsSearchOrders.fecha) return;
+
+        const currentHour = new Date(isTextFieldsSearchOrders.fecha).getHours();
+
+        if (currentHour >= 4 && currentHour < 12) {
+            setIsTextFieldsSearchOrders(prev => ({
+                ...prev,
+                tiempo: 'Desayuno',
+            }));
+        } else if (currentHour >= 12 && currentHour < 20) {
+            setIsTextFieldsSearchOrders(prev => ({
+                ...prev,
+                tiempo: 'Comida',
+            }));
+        } else {
+            setIsTextFieldsSearchOrders(prev => ({
+                ...prev,
+                tiempo: 'Cena',
+            }));
+        }
+    },[isTextFieldsSearchOrders.fecha]);
+    // useEffect para cargar los platillos en los pedidos
+    useEffect(() => {
+        if(currentSView === 'Pedidos'){
+            setIsSelectedOptionOrderPlus('Platillos');
+        }
+    },[]);
     // Estructura del componente
     return(
         <>
             <Container_Searchbar_Row_General_Black>
                 <Container_Searchbar_Row_General>
-                    {currentSView === 'Inventario' && currentNView === 'Compras' || currentNView === 'Ventas' ? (
+                    {currentSView === 'Inventario' && currentNView === 'Compras' || currentNView === 'Ventas' || currentNView === 'Reportes' ? (
                         <></>
                     ):(
                         <>
@@ -239,9 +271,14 @@ export default function Search_Bar (){
                         <></>
                     )}
                     {currentSView === 'Extras' && currentNView === 'Categorias de limpieza' ? (
+                        <Search_Bar_Icon_Button_Search_Order/>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Extras' && currentNView === 'Tipos de limpieza' ? (
                         <Container_Searchbar_Row_Search_Blue>
                             <Search_Bar_Button_Search
-                                options={isOptionCleaningCategories}
+                                options={isOptionCleaningTypes}
                             />
                             <Search_Bar_Icon_Button_Search_Order/>
                         </Container_Searchbar_Row_Search_Blue>
@@ -273,76 +310,30 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
-
-
                     {currentSView === 'Inventario' && currentNView === 'Compras' ? (
                         <Container_Searchbar_Row_Search_Blue>
-                            {isOptionWarehouse.map((option,index) => (
-                                <Button_Text_Blue_Auto
-                                    key={index}
-                                    onClick={() => setIsSelectedOptionSearch(option)}
-                                    style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
-                                        color: isSelectedOptionSearch === option ? 'white' : 'white',
-                                    }}
-                                >
-                                    {option}
-                                </Button_Text_Blue_Auto>
-                            ))}
-                            <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
-                            </Tooltip>
-                            {isOptionPurchases.map((option,index) => (
-                                <Button_Text_Blue_Auto
-                                    key={index}
-                                    onClick={() => setIsSelectedOptionOrderPlus(option)}
-                                    style={{
-                                        backgroundColor: isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
-                                        color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
-                                    }}
-                                >
-                                    {option}
-                                </Button_Text_Blue_Auto>
-                            ))}
-                            <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
-                            </Tooltip>
+                            <Search_Bar_Button_Search
+                                options={isOptionWarehouse}
+                            />
+                            <Search_Bar_Icon_Button_Search/>
+                            <Search_Bar_Button_Order
+                                options={isOptionWarehouseViewPurchases}
+                            />
+                            <Search_Bar_Icon_Button_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
                     {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
                         <Container_Searchbar_Row_Search_Blue>
-                            {isOptionWarehouse.map((option,index) => (
-                                <Button_Text_Blue_Auto
-                                    key={index}
-                                    onClick={() => setIsSelectedOptionSearch(option)}
-                                    style={{
-                                        backgroundColor: isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
-                                        color: isSelectedOptionSearch === option ? 'white' : 'white',
-                                    }}
-                                >
-                                    {option}
-                                </Button_Text_Blue_Auto>
-                            ))}
-                            <Tooltip title='Restablecer filtros de búsqueda' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredSearch()}><IoSearch/></Icon_Button_White_20>
-                            </Tooltip>
-                            {isOptionSales.map((option,index) => (
-                                <Button_Text_Blue_Auto
-                                    key={index}
-                                    onClick={() => setIsSelectedOptionOrderPlus(option)}
-                                    style={{
-                                        backgroundColor: isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : 'rgb(58,93,174)',
-                                        color: isSelectedOptionOrderPlus === option ? 'white' : 'white',
-                                    }}
-                                >
-                                    {option}
-                                </Button_Text_Blue_Auto>
-                            ))}
-                            <Tooltip title='Restablecer filtros de ordenamiento' placement="top">
-                                <Icon_Button_White_20 onClick={() => resetFilteredOrder()}><LuArrowDownUp/></Icon_Button_White_20>
-                            </Tooltip>
+                            <Search_Bar_Button_Search
+                                options={isOptionWarehouse}
+                            />
+                            <Search_Bar_Icon_Button_Search/>
+                            <Search_Bar_Button_Order
+                                options={isOptionWarehouseViewSales}
+                            />
+                            <Search_Bar_Icon_Button_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
@@ -404,7 +395,58 @@ export default function Search_Bar (){
                     ):(
                         <></>
                     )}
-
+                    {currentSView === 'Inventario' && currentNView === 'Reportes' ? (
+                        <Container_Searchbar_Row_Search_Blue>
+                            <Text_Title_20_White>
+                                REPORTE DE INVENTARIOS Y COSTOS DEL MES DE 
+                            </Text_Title_20_White>
+                            <select
+                                value={isTextFieldsSearchDate.mes}
+                                onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, mes: parseInt(value) }))}
+                                style={{
+                                    fontFamily: 'Century Gothic',
+                                    fontSize: '16px',
+                                    borderRadius: '15px',
+                                    border: '2px solid black',
+                                    padding:'5px',
+                                    background: 'white',
+                                }}
+                            >
+                                {Array.from({ length: isTextFieldsSearchDate.año === new Date().getFullYear() ? new Date().getMonth() + 1 : 12 }, (_, i) => (
+                                    <option key={i} value={i+1}>
+                                        {new Date(0, i).toLocaleString("es", { month: "long" }).toUpperCase()}
+                                    </option>
+                                ))}
+                            </select>
+                            <Text_Title_20_White>
+                                DEL 
+                            </Text_Title_20_White>
+                            <select
+                                value={isTextFieldsSearchDate.año}
+                                onChange={({ target: { value } }) => setIsTextFieldsSearchDate(prev => ({ ...prev, año: parseInt(value) }))}
+                                style={{
+                                    fontFamily: 'Century Gothic',
+                                    fontSize: '16px',
+                                    borderRadius: '15px',
+                                    border: '2px solid black',
+                                    padding:'5px',
+                                    background: 'white',
+                                }}
+                            >
+                                {Array.from({ length: 51 }, (_, i) => {
+                                    const year = new Date().getFullYear() - i;
+                                    return <option key={year} value={year}>{year}</option>;
+                                })}
+                            </select>
+                            <Search_Bar_Icon_Button_Search/>
+                            <Search_Bar_Button_Order
+                                options={isOptionWarehouseReports}
+                            />
+                            <Search_Bar_Icon_Button_Order/>
+                        </Container_Searchbar_Row_Search_Blue>
+                    ):(
+                        <></>
+                    )}
                     {currentSView === 'Menus' && currentNView === 'Menus' ? (
                         <>
                             <Search_Bar_Icon_Button_Search_Order/>
@@ -457,6 +499,32 @@ export default function Search_Bar (){
                                 <Search_Bar_Icon_Button_Order/>
                             </Container_Searchbar_Row_Search_Blue>
                         </>
+                    ):(
+                        <></>
+                    )}
+                    {currentSView === 'Pedidos' ? (
+                        <Container_Searchbar_Row_Search_Blue>
+                            <Search_Bar_Icon_Button_Search/>
+                            <Text_Title_16_White>Tiempo de </Text_Title_16_White>
+                            {isTextFieldsSearchOrders.tiempo === 'Desayuno' ? (
+                                <Text_Background_Red_12>{isTextFieldsSearchOrders?.tiempo.toUpperCase() || 'DESCONOCIDO'}</Text_Background_Red_12>
+                            ):(
+                                <></>
+                            )}
+                            {isTextFieldsSearchOrders.tiempo === 'Comida' ? (
+                                <Text_Background_Yellow_12>{isTextFieldsSearchOrders?.tiempo.toUpperCase() || 'DESCONOCIDO'}</Text_Background_Yellow_12>
+                            ):(
+                                <></>
+                            )}
+                            {isTextFieldsSearchOrders.tiempo === 'Cena' ? (
+                                <Text_Background_Green_12>{isTextFieldsSearchOrders?.tiempo.toUpperCase() || 'DESCONOCIDO'}</Text_Background_Green_12>
+                            ):(
+                                <></>
+                            )}
+                            <Search_Bar_Button_Order
+                                options={isOptionsOrder}
+                            />
+                        </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
                     )}
@@ -737,13 +805,44 @@ export default function Search_Bar (){
                                 ):(
                                     <></>
                                 )}
+                            </>
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Extras' && currentNView === 'Tipos de limpieza' ? (
+                            <>
+                                {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
+                                    <>
+                                        <Search_Bar_Button_Add
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Cleaning/Types/Add"
+                                            onHandleModalView={() => handleModalViewExtras('Tipo-Limpieza-Agregar')}
+                                        />
+                                        <Search_Bar_Button_Edit
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Extras/Cleaning/Types/Edit"
+                                            onHandleModalView={() => handleModalViewExtras('Tipo-Limpieza-Editar')}
+                                        />
+                                    </>
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' ? (
+                                    <Search_Bar_Button_Delete
+                                        row={isSelectedRow}
+                                        route="/Administration/Index/Extras/Cleaning/Types/Delete"
+                                        onHandleModalView={() => handleModalViewExtras('Tipo-Limpieza-Eliminar')}
+                                    />
+                                ):(
+                                    <></>
+                                )}
                                 {isLoggedType === 'Chef' || isLoggedType === 'Almacenista' ? (
                                     <Search_Bar_Button_Add
                                         title="Agregar cantidades"
                                         row={isSelectedRow}
                                         icon={<MdAddBox/>}
-                                        route="/Administration/Index/Extras/Cleaning/Categories/Count/Add"
-                                        onHandleModalView={() => handleModalViewExtras('Categoria-Limpieza-Cantidad-Agregar')}
+                                        route="/Administration/Index/Extras/Cleaning/Types/Count/Add"
+                                        onHandleModalView={() => handleModalViewExtras('Tipo-Limpieza-Cantidad-Agregar')}
                                         mode={true}
                                     />
                                 ):(
@@ -751,10 +850,10 @@ export default function Search_Bar (){
                                 )}
                                 <Search_Bar_Button_Detail
                                     icon={<MdOutlineMessage/>}
-                                    title="Detalles de categoría de limpieza"
-                                    route="/Administration/Index/Extras/Cleaning/Categories/Detail"
+                                    title="Detalles de tipo de limpieza"
+                                    route="/Administration/Index/Extras/Cleaning/Types/Detail"
                                     row={isSelectedRow}
-                                    onHandleModalView={() => handleModalViewExtras('Categoria-Limpieza-Detalles')}
+                                    onHandleModalView={() => handleModalViewExtras('Tipo-Limpieza-Detalles')}
                                 />
                             </>
                         ):(
@@ -838,14 +937,6 @@ export default function Search_Bar (){
                                             route="/Administration/Index/Warehouse/Orders/Add"
                                             onHandleModalView={() => handleModalViewWarehouse('Pedido-Almacen-Agregar')}
                                         />
-                                        <Search_Bar_Button_Verification_Blue_Edit
-                                            title="Editar"
-                                            icon={<MdEdit/>}
-                                            row={isSelectedRow}
-                                            route="/Administration/Index/Warehouse/Orders/Edit"
-                                            onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Editar')}
-                                            condition={isSelectedRow?.estado === 'Solicitud'}
-                                        />
                                     </>
                                 ):(
                                     <></>
@@ -863,13 +954,28 @@ export default function Search_Bar (){
                                     <></>
                                 )}
                                 {isLoggedType === 'Almacenista' ? (
-                                    <Search_Bar_Button_Verification_Blue
-                                        title="Editar revisión"
-                                        row={isSelectedRow}
-                                        route="/Administration/Index/Warehouse/Orders/Verification/Edit"
-                                        onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Verificacion-Editar')}
-                                        condition={isSelectedRow?.estado === 'Rechazado'}
-                                    />
+                                    <>
+                                        <Search_Bar_Button_Verification_Blue
+                                            title="Editar revisión"
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Warehouse/Orders/Verification/Edit"
+                                            onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Verificacion-Editar')}
+                                            condition={isSelectedRow?.estado === 'Rechazado'}
+                                        />
+                                        <Search_Bar_Button_Verification_Green_Download
+                                            title="Iniciar operación"
+                                            row={isSelectedRow}
+                                            onHandleAction={() => handleWarehouseOrderStart()}
+                                            condition={isSelectedRow?.estado === 'Aceptado'}
+                                        />
+                                        <Search_Bar_Button_End_Condition
+                                            title="Finalizar operación"
+                                            row={isSelectedRow}
+                                            route="/Administration/Index/Warehouse/Orders/End"
+                                            onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Finalizar')}
+                                            condition={isSelectedRow?.estado === 'En curso'}
+                                        />
+                                    </>
                                 ):(
                                     <></>
                                 )}
@@ -895,63 +1001,67 @@ export default function Search_Bar (){
                         ):(
                             <></>
                         )}
-
-                        {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus !== 'Normal' ? (
-                            ['General','Totales'].map((item,index) => (
-                                <Text_Span_12_Center_White ThemeMode={themeMode} key={index}>
-                                    <Input_Radio_20 ThemeMode={themeMode}
-                                        type="radio"
-                                        name="options"
-                                        value={item}
-                                        checked={isSelectedOptionOrderPlusUltra === item}
-                                        onChange={(e) => setIsSelectedOptionOrderPlusUltra(e.target.value)}
-                                    />
-                                    {item}
-                                </Text_Span_12_Center_White>
-                            ))
+                        {currentSView === 'Inventario' && (currentNView === 'Compras' || currentNView === 'Ventas') ? (
+                            <Container_Row_100_Center>
+                                {['General','Totales',].map((item,index) => (
+                                    <Label_Button_16_White 
+                                        Disabled={isActionBlock}
+                                        key={index}
+                                    >
+                                        <Input_Radio_20
+                                            type="radio"
+                                            name={'options'}
+                                            disabled={isActionBlock}
+                                            value={item}
+                                            checked={isSelectedOptionOrderPlusUltra === item}
+                                            onChange={(e) => setIsSelectedOptionOrderPlusUltra(e.target.value)}
+                                        />
+                                        {item}
+                                    </Label_Button_16_White>
+                                ))}
+                            </Container_Row_100_Center>
                         ):(
                             <></>
                         )}
-                        {currentSView === 'Inventario' && currentNView === 'Ventas' && isSelectedOptionOrderPlus !== 'Normal' ? (
-                            ['General','Totales'].map((item,index) => (
-                                <Text_Span_12_Center_White ThemeMode={themeMode} key={index}>
-                                    <Input_Radio_20 ThemeMode={themeMode}
-                                        type="radio"
-                                        name="options"
-                                        value={item}
-                                        checked={isSelectedOptionOrderPlusUltra === item}
-                                        onChange={(e) => setIsSelectedOptionOrderPlusUltra(e.target.value)}
-                                    />
-                                    {item}
-                                </Text_Span_12_Center_White>
-                            ))
-                        ):(
-                            <></>
-                        )}
-                        {currentSView === 'Inventario' && currentNView === 'Ventas' ? (
+                        {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus === 'Gastos fijos' ? (
                             isLoggedType === 'Chef' || isLoggedPermissions.superadministrador ? (
-                                isSelectedRow !== null ? (
-                                    <></>
-                                ):(
-                                    <>
-                                        <Tooltip title='Agregar' placement="top">
-                                            <Button_Icon_Green_60 ThemeMode={themeMode} className={isSelectedRow === null ? 'fade-button-in':'fade-button-out'}
-                                            onClick={() => {
-                                                handleModalViewWarehouse('Almacen-Tipo-Insumo-Agregar');
-                                                navigate('/Administration/Index/Warehouse/Sales/Add',{ replace: true });
-                                            }}>
-                                                <Icon_16><IoIosAddCircle/></Icon_16>
-                                            </Button_Icon_Green_60>
-                                        </Tooltip>
-                                    </>
-                                )
+                                <Search_Bar_Button_Add
+                                    row={isSelectedRow}
+                                    route="/Administration/Index/Warehouse/Purchases/Fixed/Expanses/Add"
+                                    onHandleModalView={() => handleModalViewWarehouse('Almacen-Compra-Gasto-Fijo-Agregar')}
+                                />
                             ):(
                                 <></>
                             )
                         ):(
                             <></>
                         )}
-
+                        {currentSView === 'Inventario' && currentNView === 'Ventas' && isSelectedOptionOrderPlus === 'Insumos' ? (
+                            isLoggedType === 'Chef' || isLoggedPermissions.superadministrador ? (
+                                <Search_Bar_Button_Add
+                                    row={isSelectedRow}
+                                    route="/Administration/Index/Warehouse/Sales/Supplies/Add"
+                                    onHandleModalView={() => handleModalViewWarehouse('Almacen-Venta-Insumo-Agregar')}
+                                />
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Inventario' && currentNView === 'Ventas' && isSelectedOptionOrderPlus === 'Suministros' ? (
+                            isLoggedType === 'Chef' || isLoggedPermissions.superadministrador ? (
+                                <Search_Bar_Button_Add
+                                    row={isSelectedRow}
+                                    route="/Administration/Index/Warehouse/Sales/Cleaning/Supplies/Add"
+                                    onHandleModalView={() => handleModalViewExtras('Almacen-Venta-Suministro-Agregar')}
+                                />
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
                         {currentSView === 'Menus' && currentNView === 'Menus' ? (
                             <>
                                 {isLoggedType === 'Chef' || isLoggedType === 'Nutriólogo' ? (
@@ -970,11 +1080,27 @@ export default function Search_Bar (){
                                 ):(
                                     <></>
                                 )}
-                                {isLoggedPermissions.superadministrador || isLoggedType === 'Chef' || isLoggedType === 'Nutriólogo' ? (
+                                {isLoggedType === 'Chef' || (isLoggedPermissions.superadministrador && isLoggedType !== 'Nutriólogo') ? (
                                     <Search_Bar_Button_Delete
                                         row={isSelectedRow}
                                         route={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Menus/Delete" : "/Administration/Index/Menus/Menus/Delete"}
                                         onHandleModalView={() => handleModalViewMenuTypes('Tipo-Menu-Eliminar')}
+                                    />
+                                ):(
+                                    <></>
+                                )}
+                            </>
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Pedidos' ? (
+                            <>
+                                {isLoggedType === 'Cocinero' ? (
+                                    <Search_Bar_Button_Add
+                                        row={isSelectedRow}
+                                        icon={<MdOutlineShoppingCartCheckout/>}
+                                        route="/Kitchen/Index/Orders/Kitchen/Add"
+                                        onHandleModalView={() => handleModalViewOrderKitchen('Pedido-Cocina-Agregar')}
                                     />
                                 ):(
                                     <></>

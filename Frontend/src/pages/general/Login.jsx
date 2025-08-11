@@ -162,7 +162,7 @@ export default function Login(){
                                                 setIsActionBlock(false);
                                                 setCurrentSView('Inicio');
                                                 sessionStorage.setItem('Vista del Sidebar','Inicio');
-                                                sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' || isLoggedType === 'Médico' ? '/Kitchen/Home' : '/Administration/Home');
+                                                sessionStorage.setItem('Ruta',isLoggedType === 'Cocinero' || isLoggedType === 'Nutriólogo' ? '/Kitchen/Home' : isLoggedType === 'Médico'  ? '/Kitchen/Index/Verification' : '/Administration/Home');
                                                 setIsAnimation(false);
                                                 return navigate('/',{ replace: true });
                                             },2500);

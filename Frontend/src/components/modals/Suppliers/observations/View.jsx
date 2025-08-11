@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext,useEffect } from "react";
 // Contextos
-import { ModalContext,ModalViewContext } from "../../../../contexts/ViewsProvider";
+import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
 import { TextFieldsObservationContext } from "../../../../contexts/FormsProvider";
 import { SuppliersContext,DeletedSuppliersContext } from "../../../../contexts/SuppliersProvider";
@@ -34,9 +34,16 @@ export default function Supplier_Observation_View(){
     const isForm = useContext(RefFormContext);
     const [isSuppliers] = useContext(SuppliersContext);
     const [isDeletedSuppliers] = useContext(DeletedSuppliersContext);
+    const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     // Constantes con la funcionalidad de los hooks
     const handleModalViewSuppliers = HandleModalViewSuppliers();
     const { getDate } = Dates();
+    // Useffect para controlar el sidebar
+    useEffect(() => {
+        if(isSidebar){
+            setIsSidebar(false);
+        }
+    },[]);
     // UseEffct para verificar la eliminacion del proveedor
     useEffect(() => {
         if(isDeletedSuppliers.length !== 0){
@@ -130,6 +137,10 @@ export default function Supplier_Observation_View(){
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>
+                                </Container_Row_NG_Auto_Center>
+                                <Container_Row_NG_Auto_Center>
+                                    <Text_Color_Green_16>No. Pedido</Text_Color_Green_16>
+                                    <Text_Span_16_Center_Black>: {isTextFieldsObservation.idpedido || 'Desconocido'}</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
                                 <Text_Span_16_Justify_Black>{isTextFieldsObservation.observacion}</Text_Span_16_Justify_Black>
                                 <Modal_Form_Button_Return

@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext } from "../../contexts/FormsProvider";
+import { TextFieldsCleaningCategoryContext,TextFieldsCleaningTypeContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext } from "../../contexts/FormsProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de las categorías de limpieza ✔️
@@ -14,7 +14,25 @@ export const ResetTextFieldsCleaningCategory = () => {
         idcategoria: 0,
         nombre: '',
         descripcion: '',
+    };
+    // Función del hook
+    const resetTextFieldsCleaningCategory = () => {
+        setIsTextFieldsCleaningCategory(initialTextFieldsCleaningCategory);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsCleaningCategory;
+}
+// Hook para reinciar los campos de texto de los tipos de limpieza ✔️
+export const ResetTextFieldsCleaningType = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsCleaningType,setIsTextFieldsCleaningType] = useContext(TextFieldsCleaningTypeContext); 
+    // Estados iniciales de los contextos
+    const initialTextFieldsCleaningType = {
+        idtipo: 0,
+        tipo: '',
+        descripcion: '',
         unidad: '',
+        idcategoria: 0,
         limite: '',
         cantidades: [
             {
@@ -23,11 +41,11 @@ export const ResetTextFieldsCleaningCategory = () => {
         ],
     };
     // Función del hook
-    const resetTextFieldsCleaningCategory = () => {
-        setIsTextFieldsCleaningCategory(initialTextFieldsCleaningCategory);
+    const resetTextFieldsCleaningType = () => {
+        setIsTextFieldsCleaningType(initialTextFieldsCleaningType);
     }
     // Retorno de la función del hook
-    return resetTextFieldsCleaningCategory;
+    return resetTextFieldsCleaningType;
 }
 // Hook para reinciar los campos de texto de los suministros de limpieza ✔️
 export const ResetTextFieldsCleaningSupply = () => {
@@ -42,6 +60,7 @@ export const ResetTextFieldsCleaningSupply = () => {
         imagen: '',
         idproveedor: 0,
         idcategoria: 0,
+        idtipo: 0,
         idcantidad: 0,
     };
     // Función del hook

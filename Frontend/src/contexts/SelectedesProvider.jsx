@@ -9,6 +9,9 @@ export const SelectedOptionSearchContext = createContext(null);
 export const SelectedOptionOrderContext = createContext(null);
 export const SelectedOptionOrderPlusContext = createContext(null);
 export const SelectedOptionOrderPlusUltraContext = createContext(null);
+export const SelectedOptionOrderPlusUltra1Context = createContext(null);
+export const SelectedOptionOrderPlusUltra2Context = createContext(null);
+export const SelectedOptionOrderPlusUltra3Context = createContext(null);
 export const SelectedOptionOrderDirectionContext = createContext(null);
 //____________IMPORT/EXPORT____________
 // Todos los contextos para lo que se seleccione de varias opciones ✔️

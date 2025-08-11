@@ -24,22 +24,6 @@ export const getCleaningCategoriesService = async () => {
         throw error;
     }
 }
-//---------- CANTIDADES DE CATEGORÍAS DE LIMPIEZA ✔️
-export const getCountCleaningCategoriesService = async () => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request().query('SELECT * FROM cantidadCategoriasLimpieza');
-
-        const jsonData = JSON.stringify(result.recordset);
-
-        const encryptedData = encryptData(jsonData);
-
-        return encryptedData;
-    }catch(error){
-        console.error('Error al obtener las cantidades de las categorías de limpieza: ',error.message);
-        throw error;
-    }
-}
 //---------- CATEGORÍAS DE LIMPIEZA ELIMINADAS ✔️
 export const getDeletedCleaningCategoriesService = async () => {
     try{
@@ -53,6 +37,54 @@ export const getDeletedCleaningCategoriesService = async () => {
         return encryptedData;
     }catch(error){
         console.error('Error al obtener las categorías de limpieza eliminadas: ',error.message);
+        throw error;
+    }
+}
+//---------- TIPOS DE LIMPIEZA ✔️
+export const getCleaningTypesService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM tipoLimpieza');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los tipos de limpieza: ',error.message);
+        throw error;
+    }
+}
+//---------- CANTIDADES DE TIPOS DE LIMPIEZA ✔️
+export const getCountCleaningTypesService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM cantidadTipoLimpieza');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener las cantidades de los tipos de limpieza: ',error.message);
+        throw error;
+    }
+}
+//---------- TIPOS DE LIMPIEZA ELIMINADOS ✔️
+export const getDeletedCleaningTypesService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM tipoLimpiezaEliminado');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los tipos de limpieza eliminados: ',error.message);
         throw error;
     }
 }
@@ -123,15 +155,13 @@ export const getDeletedFixedExpensesService = async () => {
 //______________GET______________
 //______________INSERT______________
 //---------- CATEGORÍAS DE LIMPIEZA ✔️
-export const insertCleaningCategoryService = async (nombre,descripcion,unidad,limite) => {
+export const insertCleaningCategoryService = async (nombre,descripcion) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('nombre',sql.VarChar(150),nombre)
             .input('descripcion',sql.VarChar(250),descripcion)
-            .input('unidad',sql.VarChar(20),unidad)
-            .input('limite',sql.Decimal(10,4),limite)
-            .query('INSERT INTO categoriasLimpieza (nombre,descripcion,unidad,limite) VALUES (@nombre,@descripcion,@unidad,@limite)');
+            .query('INSERT INTO categoriasLimpieza (nombre,descripcion) VALUES (@nombre,@descripcion)');
 
         if(result.rowsAffected[0]>0){
             return 'Categoría de limpieza insertada...';
@@ -143,7 +173,7 @@ export const insertCleaningCategoryService = async (nombre,descripcion,unidad,li
         throw error;
     }
 }
-export const insertLogCleaningCategoryService = async (idcategoria,idusuario,nombre,descripcion,unidad,limite) => {
+export const insertLogCleaningCategoryService = async (idcategoria,idusuario,nombre,descripcion) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -153,49 +183,6 @@ export const insertLogCleaningCategoryService = async (idcategoria,idusuario,nom
             .input('idusuario',sql.Int,idusuario)
             .input('campo2',sql.VarChar(500),nombre)
             .input('campo3',sql.VarChar(500),descripcion)
-            .input('campo4',sql.VarChar(500),unidad)
-            .input('campo5',sql.VarChar(500),limite)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
-//---------- CANTIDADES DE CATEGORÍAS DE LIMPIEZA ✔️
-export const insertCountCleaningCategoryService = async (cantidad,idcategoria) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('cantidad',sql.Decimal(10,4),cantidad)
-            .input('idcategoria',sql.Int,idcategoria)
-            .query('INSERT INTO cantidadCategoriasLimpieza (cantidad,idcategoria) VALUES (@cantidad,@idcategoria)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Cantidad a la categoría de limpieza insertada...';
-        }else{
-            return 'No se pudo insertar la cantidad a la categoría de limpieza...';
-        }
-    }catch(error){
-        console.error('Error al insertar la cantidad a la categoría de limpieza: ',error.message);
-        throw error;
-    }
-}
-export const insertLogCountCleaningCategoryService = async (idcantidad,idusuario,cantidad,idcategoria) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50),'Cantidad de Catedorías de Limpieza')
-            .input('operacion', sql.VarChar(20),'INSERT')
-            .input('idtabla',sql.Int,idcantidad)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),cantidad)
-            .input('campo3',sql.VarChar(500),idcategoria)
             .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
 
         if(result.rowsAffected[0]>0){
@@ -247,8 +234,135 @@ export const insertLogDeletedCleaningCategoryService = async (ideliminado,idusua
         throw error;
     }
 }
+//---------- TIPOS DE LIMPIEZA ✔️
+export const insertCleaningTypeService = async (tipo,descripcion,unidad,idcategoria,limite) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tipo',sql.VarChar(150),tipo)
+            .input('descripcion',sql.VarChar(250),descripcion)
+            .input('unidad',sql.VarChar(20),unidad)
+            .input('idcategoria',sql.Int,idcategoria)
+            .input('limite',sql.Decimal(10,4),limite)
+            .query('INSERT INTO tipoLimpieza (tipo,descripcion,unidad,idcategoria,limite) VALUES (@tipo,@descripcion,@unidad,@idcategoria,@limite)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Tipo de limpieza insertado...';
+        }else{
+            return 'No se pudo insertar al tipo de limpieza...';
+        }
+    }catch(error){
+        console.error('Error al insertar al tipo de limpieza: ',error.message);
+        throw error;
+    }
+}
+export const insertLogCleaningTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria,limite) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Tipos de Limpieza')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idtipo)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),tipo)
+            .input('campo3',sql.VarChar(500),descripcion)
+            .input('campo4',sql.VarChar(500),unidad)
+            .input('campo5',sql.VarChar(500),idcategoria)
+            .input('campo6',sql.VarChar(500),limite)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- CANTIDADES DE TIPOS DE LIMPIEZA ✔️
+export const insertCountCleaningTypeService = async (cantidad,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('cantidad',sql.Decimal(10,4),cantidad)
+            .input('idtipo',sql.Int,idtipo)
+            .query('INSERT INTO cantidadTipoLimpieza (cantidad,idtipo) VALUES (@cantidad,@idtipo)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Cantidad al tipo de limpieza insertada...';
+        }else{
+            return 'No se pudo insertar la cantidad al tipo de limpieza...';
+        }
+    }catch(error){
+        console.error('Error al insertar la cantidad al tipo de limpieza: ',error.message);
+        throw error;
+    }
+}
+export const insertLogCountCleaningTypeService = async (idcantidad,idusuario,cantidad,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50),'Cantidad de Tipos de Limpieza')
+            .input('operacion', sql.VarChar(20),'INSERT')
+            .input('idtabla',sql.Int,idcantidad)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),cantidad)
+            .input('campo3',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- TIPOS DE LIMPIEZA ELIMINADOS ✔️
+export const insertDeletedCleaningTypeService = async (idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idtipo',sql.Int,idtipo)
+            .query('INSERT INTO tipoLimpiezaEliminado (idtipo) VALUES (@idtipo)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Tipo de limpieza eliminado...';
+        }else{
+            return 'No se pudo eliminar al tipo de limpieza...';
+        }
+    }catch(error){
+        console.error('Error al eliminar al tipo de limpieza: ',error.message);
+        throw error;
+    }
+}
+export const insertLogDeletedCleaningTypeService = async (ideliminado,idusuario,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Tipos de Limpieza Eliminados')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- SUMINISTROS DE LIMPIEZA ✔️
-export const insertCleaningSupplyService = async (codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad) => {
+export const insertCleaningSupplyService = async (codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -259,7 +373,8 @@ export const insertCleaningSupplyService = async (codigo,nombre,descripcion,imag
             .input('idproveedor',sql.Int,idproveedor)
             .input('idcategoria',sql.Int,idcategoria)
             .input('idcantidad',sql.Int,idcantidad)
-            .query('INSERT INTO suministrosLimpieza (codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad) VALUES (@codigo,@nombre,@descripcion,@imagen,@idproveedor,@idcategoria,@idcantidad)');
+            .input('idtipo',sql.Int,idtipo)
+            .query('INSERT INTO suministrosLimpieza (codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo) VALUES (@codigo,@nombre,@descripcion,@imagen,@idproveedor,@idcategoria,@idcantidad,@idtipo)');
 
         if(result.rowsAffected[0]>0){
             return 'Suministro de limpieza insertado...';
@@ -271,7 +386,7 @@ export const insertCleaningSupplyService = async (codigo,nombre,descripcion,imag
         throw error;
     }
 }
-export const insertLogCleaningSupplyService = async (idsuministro,idusuario,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad) => {
+export const insertLogCleaningSupplyService = async (idsuministro,idusuario,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -286,7 +401,8 @@ export const insertLogCleaningSupplyService = async (idsuministro,idusuario,codi
             .input('campo5',sql.VarChar(500),idproveedor)
             .input('campo6',sql.VarChar(500),idcategoria)
             .input('campo7',sql.VarChar(500),idcantidad)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7)');
+            .input('campo8',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -420,16 +536,14 @@ export const insertLogDeletedFixedExpenseService = async (ideliminado,idusuario,
 //______________INSERT______________
 //______________UPDATE______________
 //---------- CATEGORÍAS DE LIMPIEZA ✔️
-export const updateCleaningCategoryService = async (idcategoria,nombre,descripcion,unidad,limite) => {
+export const updateCleaningCategoryService = async (idcategoria,nombre,descripcion) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idcategoria',sql.Int,idcategoria)
             .input('nombre',sql.VarChar(150),nombre)
             .input('descripcion',sql.VarChar(250),descripcion)
-            .input('unidad',sql.VarChar(20),unidad)
-            .input('limite',sql.Decimal(10,4),limite)
-            .query('UPDATE categoriasLimpieza SET nombre = @nombre, descripcion = @descripcion, unidad = @unidad, limite = @limite WHERE idcategoria = @idcategoria');
+            .query('UPDATE categoriasLimpieza SET nombre = @nombre, descripcion = @descripcion WHERE idcategoria = @idcategoria');
 
         if(result.rowsAffected[0]>0){
             return 'Categoría de limpieza actualizada...';
@@ -441,7 +555,7 @@ export const updateCleaningCategoryService = async (idcategoria,nombre,descripci
         throw error;
     }
 }
-export const updateLogCleaningCategoryService = async (idcategoria,idusuario,nombre,descripcion,unidad,limite) => {
+export const updateLogCleaningCategoryService = async (idcategoria,idusuario,nombre,descripcion) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -451,9 +565,55 @@ export const updateLogCleaningCategoryService = async (idcategoria,idusuario,nom
             .input('idusuario',sql.Int,idusuario)
             .input('campo2',sql.VarChar(500),nombre)
             .input('campo3',sql.VarChar(500),descripcion)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- TIPOS DE LIMPIEZA ✔️
+export const updateCleaningTypeService = async (idtipo,tipo,descripcion,unidad,idcategoria,limite) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idtipo',sql.Int,idtipo)
+            .input('tipo',sql.VarChar(150),tipo)
+            .input('descripcion',sql.VarChar(250),descripcion)
+            .input('unidad',sql.VarChar(20),unidad)
+            .input('idcategoria',sql.Int,idcategoria)
+            .input('limite',sql.Decimal(10,4),limite)
+            .query('UPDATE tipoLimpieza SET tipo = @tipo, descripcion = @descripcion, unidad = @unidad, idcategoria = @idcategoria, limite = @limite WHERE idtipo = @idtipo');
+
+        if(result.rowsAffected[0]>0){
+            return 'Tipo de limpieza actualizado...';
+        }else{
+            return 'No se pudo actualizar al tipo de limpieza...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al tipo de limpieza: ',error.message);
+        throw error;
+    }
+}
+export const updateLogCleaningTypeService = async (idtipo,idusuario,tipo,descripcion,unidad,idcategoria,limite) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Tipos de Limpieza')
+            .input('operacion', sql.VarChar(20), 'UPDATE')
+            .input('idtabla',sql.Int,idtipo)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),tipo)
+            .input('campo3',sql.VarChar(500),descripcion)
             .input('campo4',sql.VarChar(500),unidad)
-            .input('campo5',sql.VarChar(500),limite)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5)');
+            .input('campo5',sql.VarChar(500),idcategoria)
+            .input('campo6',sql.VarChar(500),limite)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -466,7 +626,7 @@ export const updateLogCleaningCategoryService = async (idcategoria,idusuario,nom
     }
 }
 //---------- SUMINISTROS DE LIMPIEZA ✔️
-export const updateCleaningSupplyService = async (idsuministro,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad) => {
+export const updateCleaningSupplyService = async (idsuministro,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -478,7 +638,8 @@ export const updateCleaningSupplyService = async (idsuministro,codigo,nombre,des
             .input('idproveedor',sql.Int,idproveedor)
             .input('idcategoria',sql.Int,idcategoria)
             .input('idcantidad',sql.Int,idcantidad)
-            .query('UPDATE suministrosLimpieza SET codigo = @codigo, nombre = @nombre, descripcion = @descripcion, imagen = @imagen, idproveedor = @idproveedor, idcategoria = @idcategoria, idcantidad = @idcantidad WHERE idsuministro = @idsuministro');
+            .input('idtipo',sql.Int,idtipo)
+            .query('UPDATE suministrosLimpieza SET codigo = @codigo, nombre = @nombre, descripcion = @descripcion, imagen = @imagen, idproveedor = @idproveedor, idcategoria = @idcategoria, idcantidad = @idcantidad, idtipo = @idtipo WHERE idsuministro = @idsuministro');
 
         if(result.rowsAffected[0]>0){
             return 'Suministro de limpieza actualizado...';
@@ -490,7 +651,7 @@ export const updateCleaningSupplyService = async (idsuministro,codigo,nombre,des
         throw error;
     }
 }
-export const updateLogCleaningSupplyService = async (idsuministro,idusuario,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad) => {
+export const updateLogCleaningSupplyService = async (idsuministro,idusuario,codigo,nombre,descripcion,imagen,idproveedor,idcategoria,idcantidad,idtipo) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -498,14 +659,15 @@ export const updateLogCleaningSupplyService = async (idsuministro,idusuario,codi
             .input('operacion', sql.VarChar(20), 'UPDATE')
             .input('idtabla',sql.Int,idsuministro)
             .input('idusuario',sql.Int,idusuario)
-            .input('campo1',sql.VarChar(500),imagen)
+            .input('campo1',sql.VarChar(sql.MAX),imagen)
             .input('campo2',sql.VarChar(500),codigo)
             .input('campo3',sql.VarChar(500),nombre)
             .input('campo4',sql.VarChar(500),descripcion)
             .input('campo5',sql.VarChar(500),idproveedor)
             .input('campo6',sql.VarChar(500),idcategoria)
             .input('campo7',sql.VarChar(500),idcantidad)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7)');
+            .input('campo8',sql.VarChar(500),idtipo)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo1,campo2,campo3,campo4,campo5,campo6,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo1,@campo2,@campo3,@campo4,@campo5,@campo6,@campo7,@campo8)');
 
         if(result.rowsAffected[0]>0){
             return 'Operación regisrada...';
@@ -588,6 +750,45 @@ export const deleteLogDeletedCleaningCategoryService = async (ideliminado,idusua
             .input('idtabla',sql.Int,ideliminado)
             .input('idusuario',sql.Int,idusuario)
             .input('campo2',sql.VarChar(500),idcategoria)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- TIPOS DE LIMPIEZA ELIMINADOS ✔️
+export const deleteDeletedCleaningTypeService = async (idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idtipo',sql.Int,idtipo)
+            .query('DELETE FROM tipoLimpiezaEliminado WHERE idtipo = @idtipo');
+
+        if(result.rowsAffected[0]>0){
+            return 'Tipo de limpieza recuperado...';
+        }else{
+            return 'No se pudo recuperar al tipo de limpieza...';
+        }
+    }catch(error){
+        console.error('Error al recuperar al tipo de limpieza: ',error.message);
+        throw error;
+    }
+}
+export const deleteLogDeletedCleaningTypeService = async (ideliminado,idusuario,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Tipos de Limpieza Eliminados')
+            .input('operacion', sql.VarChar(20), 'DELETE')
+            .input('idtabla',sql.Int,ideliminado)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),idtipo)
             .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2)');
 
         if(result.rowsAffected[0]>0){

@@ -56,6 +56,22 @@ export const getWarehouseCleaningService = async () => {
         throw error;
     }
 }
+//---------- ALMACEN DE TIPOS DE LIMPIEZA ✔️
+export const getWarehouseCleaningTypesService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM almacenTipoLimpieza');
+
+        const jsonData = JSON.stringify(result.recordset);
+
+        const encryptedData = encryptData(jsonData);
+
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener el almacén por tipos de limpieza: ',error.message);
+        throw error;
+    }
+}
 //---------- ALMACEN DE GASTOS FIJOS ✔️
 export const getWarehouseFixedExpensesService = async () => {
     try{
@@ -437,6 +453,95 @@ export const insertLogWarehouseCleaningService = async (idalmacen,idusuario,cant
         throw error;
     }
 }
+//---------- ALMACEN DE TIPOS DE LIMPIEZA ✔️
+export const insertWarehouseCleaningTypeStartService = async (idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idtipo',sql.Int,idtipo)
+            .input('transaccion',sql.VarChar(20),'Inicial')
+            .query('INSERT INTO almacenTipoLimpieza (cantidadreal,precio,idtipo,transaccion) VALUES (0,0,@idtipo,@transaccion)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Almacén de tipo de limpieza insertado...';
+        }else{
+            return 'No se pudo insertar el almacén de tipo de limpieza...';
+        }
+    }catch(error){
+        console.error('Error al insertar el almacén de tipo de limpieza: ',error.message);
+        throw error;
+    }
+}
+export const insertLogWarehouseCleaningTypeStartService = async (idalmacen,idusuario,idtipo) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Almacen por Tipos de Limpieza')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idalmacen)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),'0')
+            .input('campo3',sql.VarChar(500),'0')
+            .input('campo4',sql.VarChar(500),idtipo)
+            .input('campo5',sql.VarChar(500),new Date().toISOString())
+            .input('campo6',sql.VarChar(500),'Inicial')
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+export const insertWarehouseCleaningTypeService = async (cantidadreal,precio,idtipo,transaccion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('cantidadreal',sql.Decimal(12,4),cantidadreal)
+            .input('precio',sql.Decimal(12,4),precio)
+            .input('idtipo',sql.Int,idtipo)
+            .input('transaccion',sql.VarChar(20),transaccion)
+            .query('INSERT INTO almacenTipoLimpieza (cantidadreal,precio,idtipo,transaccion) VALUES (@cantidadreal,@precio,@idtipo,@transaccion)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Almacén de tipo de limpieza insertado...';
+        }else{
+            return 'No se pudo insertar el almacén de tipo de limpieza...';
+        }
+    }catch(error){
+        console.error('Error al insertar el almacén de tipo de limpieza: ',error.message);
+        throw error;
+    }
+}
+export const insertLogWarehouseCleaningTypeService = async (idalmacen,idusuario,cantidadreal,precio,idtipo,transaccion) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('tabla', sql.VarChar(50), 'Almacen por Tipos de Limpieza')
+            .input('operacion', sql.VarChar(20), 'INSERT')
+            .input('idtabla',sql.Int,idalmacen)
+            .input('idusuario',sql.Int,idusuario)
+            .input('campo2',sql.VarChar(500),cantidadreal)
+            .input('campo3',sql.VarChar(500),precio)
+            .input('campo4',sql.VarChar(500),idtipo)
+            .input('campo5',sql.VarChar(500),new Date().toISOString())
+            .input('campo6',sql.VarChar(500),transaccion)
+            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Operación regisrada...';
+        }else{
+            return 'No se pudo registrar la operación...';
+        }
+    }catch(error){
+        console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
 //---------- ALMACEN DE GASTOS FIJOS ✔️
 export const insertWarehouseFixedExpenseStartService = async (idgasto) => {
     try{
@@ -630,31 +735,6 @@ export const insertSupplyOrderService = async (idinsumo,cantidad,idpedido) => {
         throw error;
     }
 }
-export const insertLogSupplyOrderService = async (idpedidoindividual,idusuario,idinsumo,cantidad,idpedido) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Pedidos de Insumo del Almacen')
-            .input('operacion', sql.VarChar(20), 'INSERT')
-            .input('idtabla',sql.Int,idpedidoindividual)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),new Date().toISOString())
-            .input('campo3',sql.VarChar(500),idinsumo)
-            .input('campo4',sql.VarChar(500),cantidad)
-            .input('campo7',sql.VarChar(500),idpedido)
-            .input('campo8',sql.VarChar(500),'En espera')
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo7,@campo8)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
 //---------- PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
 export const insertCleaningSupplyOrderService = async (idsuministro,cantidad,idpedido) => {
     try{
@@ -676,33 +756,8 @@ export const insertCleaningSupplyOrderService = async (idsuministro,cantidad,idp
         throw error;
     }
 }
-export const insertLogCleaningSupplyOrderService = async (idpedidoindividual,idusuario,idsuministro,cantidad,idpedido) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Pedidos de Suministro del Almacen')
-            .input('operacion', sql.VarChar(20), 'INSERT')
-            .input('idtabla',sql.Int,idpedidoindividual)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),new Date().toISOString())
-            .input('campo3',sql.VarChar(500),idsuministro)
-            .input('campo4',sql.VarChar(500),cantidad)
-            .input('campo7',sql.VarChar(500),idpedido)
-            .input('campo8',sql.VarChar(500),'En espera')
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo7,campo8) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo7,@campo8)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
 //---------- MENSAJES PEDIDOS DE INSUMOS ✔️
-export const insertMessageSupplyOrderService = async (mensaje,idpedidoindividual,tipo,estado) => {
+export const insertMessageSupplyOrderService = async (mensaje,idpedidoindividual,tipo,estado,idusuario) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -710,7 +765,8 @@ export const insertMessageSupplyOrderService = async (mensaje,idpedidoindividual
             .input('idpedidoindividual',sql.Int,idpedidoindividual)
             .input('tipo',sql.VarChar(20),tipo)
             .input('estado',sql.VarChar(20),estado)
-            .query('INSERT INTO mensajesPedidoInsumo (mensaje,idpedidoindividual,tipo,estado) VALUES (@mensaje,@idpedidoindividual,@tipo,@estado)');
+            .input('idusuario',sql.Int,idusuario)
+            .query('INSERT INTO mensajesPedidoInsumo (mensaje,idpedidoindividual,tipo,estado,idusuario) VALUES (@mensaje,@idpedidoindividual,@tipo,@estado,@idusuario)');
 
         if(result.rowsAffected[0]>0){
             return 'Mensaje de pedido de insumo del alamcén insertado...'
@@ -722,41 +778,17 @@ export const insertMessageSupplyOrderService = async (mensaje,idpedidoindividual
         throw error;
     }
 }
-export const insertLogMessageSupplyOrderService = async (idmensaje,idusuario,mensaje,idpedidoindividual,tipo,estado) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Insumo del Almacen')
-            .input('operacion', sql.VarChar(20), 'INSERT')
-            .input('idtabla',sql.Int,idmensaje)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),new Date().toISOString())
-            .input('campo3',sql.VarChar(500),mensaje)
-            .input('campo4',sql.VarChar(500),idpedidoindividual)
-            .input('campo5',sql.VarChar(500),tipo)
-            .input('campo6',sql.VarChar(500),estado)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
-        throw error;
-    }
-}
 //---------- MENSAJES PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
-export const insertMessageCleaningSupplyOrderService = async (mensaje,idpedidoindividual,tipo,estado) => {
+export const insertMessageCleaningSupplyOrderService = async (mensaje,idpedidoindividual,tipo,estado,idusuario) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('mensaje',sql.VarChar(500),mensaje)
             .input('idpedidoindividual',sql.Int,idpedidoindividual)
             .input('tipo',sql.VarChar(20),tipo)
-            .input('tipo',sql.VarChar(20),estado)
-            .query('INSERT INTO mensajesPedidoSuministro (mensaje,idpedidoindividual,tipo,estado) VALUES (@mensaje,@idpedidoindividual,@tipo,@estado)');
+            .input('estado',sql.VarChar(20),estado)
+            .input('idusuario',sql.Int,idusuario)
+            .query('INSERT INTO mensajesPedidoSuministro (mensaje,idpedidoindividual,tipo,estado,idusuario) VALUES (@mensaje,@idpedidoindividual,@tipo,@estado,@idusuario)');
 
         if(result.rowsAffected[0]>0){
             return 'Mensaje de pedido de suministro del alamcén insertado...'
@@ -765,31 +797,6 @@ export const insertMessageCleaningSupplyOrderService = async (mensaje,idpedidoin
         }
     }catch(error){
         console.error('Error al insertar el mensaje de pedido de suministro del almacén: ',error.message);
-        throw error;
-    }
-}
-export const insertLogMessageCleaningSupplyOrderService = async (idmensaje,idusuario,mensaje,idpedidoindividual,tipo,estado) => {
-    try{
-        const pool = await conexionDB();
-        const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Suministro del Almacen')
-            .input('operacion', sql.VarChar(20), 'INSERT')
-            .input('idtabla',sql.Int,idmensaje)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo2',sql.VarChar(500),new Date().toISOString())
-            .input('campo3',sql.VarChar(500),mensaje)
-            .input('campo4',sql.VarChar(500),idpedidoindividual)
-            .input('campo5',sql.VarChar(500),tipo)
-            .input('campo6',sql.VarChar(500),estado)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo2,campo3,campo4,campo5,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo2,@campo3,@campo4,@campo5,@campo6)');
-
-        if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
-        }else{
-            return 'No se pudo registrar la operación...';
-        }
-    }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
         throw error;
     }
 }
@@ -1160,14 +1167,15 @@ export const updateLogCleaningSupplyOrderPriceService = async (idpedidoindividua
     }
 }
 //---------- MENSAJES PEDIDOS DE INSUMOS ✔️
-export const updateMessageSupplyOrderService = async (idmensaje,mensaje,estado) => {
+export const updateMessageSupplyOrderService = async (idmensaje,mensaje,estado,idusuario) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idmensaje',sql.Int,idmensaje)
             .input('mensaje',sql.VarChar(500),mensaje)
             .input('estado',sql.VarChar(20),estado)
-            .query('UPDATE mensajesPedidoInsumo SET mensaje = @mensaje, estado = @estado WHERE idmensaje = @idmensaje');
+            .input('idusuario',sql.Int,idusuario)
+            .query('UPDATE mensajesPedidoInsumo SET mensaje = @mensaje, estado = @estado, idusuario = @idusuario WHERE idmensaje = @idmensaje');
 
         if(result.rowsAffected[0]>0){
             return 'Mensaje de pedido de insumo del alamcén actualizado...';
@@ -1179,37 +1187,34 @@ export const updateMessageSupplyOrderService = async (idmensaje,mensaje,estado) 
         throw error;
     }
 }
-export const updateLogMessageSupplyOrderService = async (idmensaje,idusuario,mensaje,estado) => {
+export const updateMessageSupplyOrderStateService = async (idmensaje,estado) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Insumo del Almacen')
-            .input('operacion', sql.VarChar(20), 'UPDATE')
-            .input('idtabla',sql.Int,idmensaje)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo3',sql.VarChar(500),mensaje)
-            .input('campo6',sql.VarChar(500),estado)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo3,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo3,@campo6)');
+            .input('idmensaje',sql.Int,idmensaje)
+            .input('estado',sql.VarChar(20),estado)
+            .query('UPDATE mensajesPedidoInsumo SET estado = @estado WHERE idmensaje = @idmensaje');
 
         if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
+            return 'Mensaje de pedido de insumo del alamcén actualizado...';
         }else{
-            return 'No se pudo registrar la operación...';
+            return 'No se pudo actualizar al mensaje de pedido de insumo del alamcén...';
         }
     }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
+        console.error('Error al actualizar al mensaje de pedido de insumo del alamcén: ',error.message);
         throw error;
     }
 }
 //---------- MENSAJES PEDIDOS DE SUMINISTROS DE LIMPIEZA ✔️
-export const updateMessageCleaningSupplyOrderService = async (idmensaje,mensaje,estado) => {
+export const updateMessageCleaningSupplyOrderService = async (idmensaje,mensaje,estado,idusuario) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
             .input('idmensaje',sql.Int,idmensaje)
             .input('mensaje',sql.VarChar(500),mensaje)
             .input('estado',sql.VarChar(20),estado)
-            .query('UPDATE mensajesPedidoSuministro SET mensaje = @mensaje, estado = @estado WHERE idmensaje = @idmensaje');
+            .input('idusuario',sql.Int,idusuario)
+            .query('UPDATE mensajesPedidoSuministro SET mensaje = @mensaje, estado = @estado, idusuario = @idusuario WHERE idmensaje = @idmensaje');
 
         if(result.rowsAffected[0]>0){
             return 'Mensaje de pedido de suministro del alamcén actualizado...';
@@ -1221,25 +1226,21 @@ export const updateMessageCleaningSupplyOrderService = async (idmensaje,mensaje,
         throw error;
     }
 }
-export const updateLogMessageCleaningSupplyOrderService = async (idmensaje,idusuario,mensaje,estado) => {
+export const updateMessageCleaningSupplyOrderStateService = async (idmensaje,estado) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
-            .input('tabla', sql.VarChar(50), 'Mensajes de Pedidos de Suministro del Almacen')
-            .input('operacion', sql.VarChar(20), 'UPDATE')
-            .input('idtabla',sql.Int,idmensaje)
-            .input('idusuario',sql.Int,idusuario)
-            .input('campo3',sql.VarChar(500),mensaje)
-            .input('campo6',sql.VarChar(500),estado)
-            .query('INSERT INTO logComandaMedicaTepic (tabla,operacion,idtabla,idusuario,campo3,campo6) VALUES (@tabla,@operacion,@idtabla,@idusuario,@campo3,@campo6)');
+            .input('idmensaje',sql.Int,idmensaje)
+            .input('estado',sql.VarChar(20),estado)
+            .query('UPDATE mensajesPedidoSuministro SET estado = @estado WHERE idmensaje = @idmensaje');
 
         if(result.rowsAffected[0]>0){
-            return 'Operación regisrada...';
+            return 'Mensaje de pedido de suministro del alamcén actualizado...';
         }else{
-            return 'No se pudo registrar la operación...';
+            return 'No se pudo actualizar al mensaje de pedido de suministro del alamcén...';
         }
     }catch(error){
-        console.error('Error al registrar la operación: ',error.message);
+        console.error('Error al actualizar al mensaje de pedido de suministro del alamcén: ',error.message);
         throw error;
     }
 }
@@ -1357,6 +1358,42 @@ export const deleteLogCleaningSupplyOrderService = async (idpedidoindividual,idu
         }
     }catch(error){
         console.error('Error al registrar la operación: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE INSUMOS
+export const deleteMessageSupplyOrderService = async (idpedidoindividual) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .query('DELETE FROM mensajesPedidoInsumo WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Mensajes de pedido de insumo del almacén eliminado...';
+        }else{
+            return 'No se pudo eliminar a los mensajes de pedido de insumo del almacén...';
+        }
+    }catch(error){
+        console.error('Error al eliminar a los mensajes de pedido de insumo del almacén: ',error.message);
+        throw error;
+    }
+}
+//---------- MENSAJES PEDIDOS DE SUMINISTROS DE LIMPIEZA
+export const deleteMessageCleaningSupplyOrderService = async (idpedidoindividual) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .query('DELETE FROM mensajesPedidoInsumo WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Mensajes de pedido de suministro del almacén eliminado...';
+        }else{
+            return 'No se pudo eliminar a los mensajes de pedido de suministro del almacén...';
+        }
+    }catch(error){
+        console.error('Error al eliminar a los mensajes de pedido de suministro del almacén: ',error.message);
         throw error;
     }
 }

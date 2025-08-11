@@ -1,47 +1,33 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
 import { useContext,useEffect } from "react"
-// Componentes de React externos
-import { Tooltip } from "@mui/material"
 // Contextos
-import { SelectedRowContext,SelectedOptionOrderDirectionContext,SelectedOptionOrderContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../../../contexts/SelectedesProvider"
-import { ThemeModeContext } from "../../../contexts/ViewsProvider"
-import { SupplyTypesContext,SupplyCategoriesContext } from "../../../contexts/SuppliesProvider"
+import { SelectedRowContext,SelectedOptionOrderPlusUltraContext,SelectedOptionOrderPlusContext } from "../../../contexts/SelectedesProvider"
+import { SupplyCategoriesContext } from "../../../contexts/SuppliesProvider"
+import { CleaningCategoriesContext,FixedExpensesContext } from "../../../contexts/ExtrasProvider"
 // Hooks personalizados
 import { TableActionsPurchases } from "../../../hooks/warehouse/Tables"
 import { Dates } from "../../../hooks/Dates"
+import { ResetTextFieldsWarehouseFixedExpense } from "../../../hooks/warehouse/Texts"
 //__________ICONOS__________
 // Iconos de las tablas
-import { FaSortAlphaDown } from "react-icons/fa";
-import { FaSortAlphaDownAlt } from "react-icons/fa";
-import { FaLongArrowAltUp } from "react-icons/fa";
-import { FaLongArrowAltDown } from "react-icons/fa";
 import { MdOutlineAttachMoney } from "react-icons/md";
-import { FaSortNumericUp } from "react-icons/fa";
-import { FaSortNumericUpAlt } from "react-icons/fa";
-import { CgArrowsV } from "react-icons/cg";
-// Iconos de la paginación
-import { GrNext,GrPrevious } from "react-icons/gr";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Row_100_Center } from "../../styled/Containers";
-import { Table,Thead,Th,Tbody,Td,TContainer_Center } from "../../styled/Tables";
-import { Button_Icon_Blue_160 } from "../../styled/Buttons";
-import { Text_Span_16_Center_Black,Text_Fade_Title_32_Black } from "../../styled/Text";
-import { Icon_20,Icon_Button_White_16 } from "../../styled/Icons";
+import { Table,Table_Container, Table_Head_Thead_Blue, Table_Body_Tbody_White, Table_Body_Td } from "../../styled/Tables";
+import { Table_Title_Number, Table_Title_Numeric, Table_Title_Text } from "../Titles"
+import { Table_Pagination } from "../Pagination"
 //____________IMPORT/EXPORT____________
 
-// Tabla de los usuarios
+// Tabla de las compras
 export default function Table_Purchases(){
     // Constantes con el valor de los contextos
-    const [themeMode] = useContext(ThemeModeContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isSelectedOptionOrderDirection] = useContext(SelectedOptionOrderDirectionContext);
-    const [isSelectedOptionOrder] = useContext(SelectedOptionOrderContext);
-    const [isSupplyTypes] = useContext(SupplyTypesContext); 
+    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext); 
     const [isSupplyCategories] = useContext(SupplyCategoriesContext);
-    const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
+    const [isCleaningCategories] = useContext(CleaningCategoriesContext); 
+    const [isFixedExpenses] = useContext(FixedExpensesContext);
     const [isSelectedOptionOrderPlusUltra] = useContext(SelectedOptionOrderPlusUltraContext);
+    const [isSelectedOptionOrderPlus] = useContext(SelectedOptionOrderPlusContext);
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -57,137 +43,118 @@ export default function Table_Purchases(){
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
     },[]);
+    // UseEffect que pasa el valor a un check con la selección de la tabla
+    useEffect(() => {
+        if(isSelectedRow === null){
+            resetTextFieldsWarehouseFixedExpense();
+        }
+    },[isSelectedRow]);
     // Constantes con la funcionalidad de los hooks
-    const { handleRowClick,nextPagePurchases,prevPage,currentRecordsPurchases,currentPage,totalPagesPurchases,ToggleOrder,ToggleOrderDirection } = TableActionsPurchases();
+    const { handleRowClick,nextPagePurchases,prevPage,currentPage,currentRecordsPurchases,totalPagesPurchases } = TableActionsPurchases();
     const { getDate } = Dates();
+    const resetTextFieldsWarehouseFixedExpense = ResetTextFieldsWarehouseFixedExpense();
     // Estructura del componente
     return(
         <>
-            <Table id="Table-Purchases">
-                <Thead ThemeMode={themeMode}>
-                    <tr>
-                        <Th>
-                            <TContainer_Center>
-                                {isSelectedOptionOrderPlus === 'Categorías' ? (
-                                    <>
-                                        <Icon_Button_White_16 onClick={() => {
-                                                ToggleOrder('Categorías')
-                                                ToggleOrderDirection()
-                                            }}
-                                        >
-                                            {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Categorías' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Categorías' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Categoría
-                                        </Icon_Button_White_16>
-                                    </>
-                                ):(
-                                    <>
-                                        {isSelectedOptionOrderPlus === 'Tipos de Insumo' ? (
-                                            <>
-                                                <Icon_Button_White_16 onClick={() => {
-                                                        ToggleOrder('Tipos de Insumo')
-                                                        ToggleOrderDirection()
-                                                    }}
-                                                >
-                                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Tipos de Insumo' ? <FaSortAlphaDown/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Tipos de Insumo' ? <FaSortAlphaDownAlt/> : <CgArrowsV/>} Tipo de Insumo
-                                                </Icon_Button_White_16>
-                                            </>
-                                        ):(
-                                            <>Desconocido</>
-                                        )}
-                                    </>
-                                )}
-                            </TContainer_Center>
-                        </Th>
-                        {isSelectedOptionOrderPlusUltra === 'General'? (
-                            <>
-                                <Th>
-                                    <TContainer_Center>
-                                        <Icon_Button_White_16 onClick={() => {
-                                                ToggleOrder('Fecha')
-                                                ToggleOrderDirection()
-                                            }}
-                                        >
-                                            {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Fecha' ? <FaLongArrowAltDown/> : <CgArrowsV/>} Fecha
-                                        </Icon_Button_White_16>
-                                    </TContainer_Center>
-                                </Th>  
-                            </>
-                        ):(
-                            <></>
-                        )}
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_White_16 onClick={() => {
-                                        ToggleOrder('Cantidad')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Cantidad' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Cantidad (kg/Lt)
-                                </Icon_Button_White_16>
-                            </TContainer_Center>
-                        </Th>
-                        <Th>
-                            <TContainer_Center>
-                                <Icon_Button_White_16 onClick={() => {
-                                        ToggleOrder('Total')
-                                        ToggleOrderDirection()
-                                    }}
-                                >
-                                    {isSelectedOptionOrderDirection === 'Asc' && isSelectedOptionOrder === 'Total' ? <FaSortNumericUp/> : isSelectedOptionOrderDirection === 'Desc' && isSelectedOptionOrder === 'Total' ? <FaSortNumericUpAlt/> : <CgArrowsV/>} Total
-                                </Icon_Button_White_16>
-                            </TContainer_Center>
-                        </Th>
-                    </tr>
-                </Thead>
-                <Tbody ThemeMode={themeMode}>
-                    {currentRecordsPurchases.map((warehouse) => (
-                        <tr 
-                            key={warehouse.idalmacen}
-                            onClick={() => handleRowClick(warehouse)}
-                            style={{
-                                backgroundColor:  isSelectedRow === warehouse ? 'rgba(255, 255, 255, 0.7)' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.5s ease',
-                            }}
-                        >
-                            <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' ? isSupplyCategories.find(category => category.idcategoria === warehouse.idcategoria)?.nombre || 'Desconocida...' : isSelectedOptionOrderPlus === 'Tipos de Insumo'  ? isSupplyTypes.find(type => type.idtipo === warehouse.idtipo)?.tipo || 'Desconocido...' : ''}</Td>
-                            {isSelectedOptionOrderPlusUltra === 'General'? (
-                                <>
-                                    <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? getDate(warehouse.fecha) || 'Desconocida...' : ''}</Td>
-                                </>
+            <Table_Container>
+                <Table id="Table-Purchases">
+                    <Table_Head_Thead_Blue>
+                        <tr>
+                            {isSelectedOptionOrderPlus === 'Insumos' ? (
+                                <Table_Title_Text
+                                    title="Insumos"
+                                    order="Insumo"
+                                />
                             ):(
                                 <></>
                             )}
-                            <Td ThemeMode={themeMode}>{isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? warehouse.cantidadreal : ''}</Td>
-                            <Td ThemeMode={themeMode}><MdOutlineAttachMoney/> {isSelectedOptionOrderPlus === 'Categorías' || isSelectedOptionOrderPlus === 'Tipos de Insumo' ? warehouse.precio : ''} MXN</Td>
+                            {isSelectedOptionOrderPlus === 'Suministros' ? (
+                                <Table_Title_Text
+                                    title="Suministros"
+                                    order="Suministro"
+                                />
+                            ):(
+                                <></>
+                            )}
+                            {isSelectedOptionOrderPlus === 'Gastos fijos' ? (
+                                <Table_Title_Text
+                                    title="Gastos fijos"
+                                    order="Gasto fijo"
+                                />
+                            ):(
+                                <></>
+                            )}
+                            {isSelectedOptionOrderPlusUltra === 'General'? (
+                                <Table_Title_Number
+                                    title="Fecha de operación"
+                                    order="Fecha"
+                                />
+                            ):(
+                                <></>
+                            )}
+                            {isSelectedOptionOrderPlus !== 'Gastos fijos' ? (
+                                <Table_Title_Numeric
+                                    title="Cantidad (Kg/Lt/Pz)"
+                                    order="Cantidad"
+                                />
+                            ):(
+                                <></>
+                            )}
+                            <Table_Title_Numeric
+                                title="Precio"
+                                order="Precio"
+                            />
                         </tr>
-                    ))}
-                </Tbody>
-            </Table>
-            {currentRecordsPurchases.length !== 0 ? (
-                <>
-                    <Container_Row_100_Center>
-                        <Tooltip title='Página anterior' placement="top">
-                            <Button_Icon_Blue_160 ThemeMode={themeMode} className={currentPage === 1 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={prevPage}>
-                                <Icon_20><GrPrevious/></Icon_20>
-                            </Button_Icon_Blue_160>
-                        </Tooltip>
-                        <Text_Span_16_Center_Black ThemeMode={themeMode}>Página {currentPage} de {totalPagesPurchases}</Text_Span_16_Center_Black>
-                        <Tooltip title='Página siguiente' placement="top">
-                            <Button_Icon_Blue_160 ThemeMode={themeMode} className={currentPage === totalPagesPurchases || totalPagesPurchases === 0 ? 'roll-out-button-left' : 'roll-in-button-left'}
-                                onClick={nextPagePurchases}>
-                                <Icon_20><GrNext/></Icon_20>
-                            </Button_Icon_Blue_160>
-                        </Tooltip>
-                    </Container_Row_100_Center>
-                </>
-            ):(
-                <>
-                    <Container_Row_100_Center>
-                        <Text_Fade_Title_32_Black ThemeMode={themeMode}>No hay datos disponibles</Text_Fade_Title_32_Black>
-                    </Container_Row_100_Center>
-                </>
-            )}
+                    </Table_Head_Thead_Blue>
+                    <Table_Body_Tbody_White>
+                        {currentRecordsPurchases.map((warehouse) => (
+                            <tr 
+                                key={warehouse.idalmacen}
+                                onClick={() => handleRowClick(warehouse)}
+                                style={{
+                                    backgroundColor: isSelectedRow === warehouse ? 'rgba(0, 0, 0, 0.85)' : 'transparent',
+                                    cursor: 'pointer',
+                                    transition: 'background-color 1s ease',
+                                }}
+                            >
+                                {isSelectedOptionOrderPlus === 'Insumos' ? (
+                                    <Table_Body_Td style={{color: isSelectedRow === warehouse ? 'white' : ''}}>{isSupplyCategories.find(s => s.idcategoria === warehouse.idcategoria)?.nombre || 'Desconocido'}</Table_Body_Td>
+                                ):(
+                                    <></>
+                                )}
+                                {isSelectedOptionOrderPlus === 'Suministros' ? (
+                                    <Table_Body_Td style={{color: isSelectedRow === warehouse ? 'white' : ''}}>{isCleaningCategories.find(s => s.idcategoria === warehouse.idcategoria)?.nombre || 'Desconocido'}</Table_Body_Td>
+                                ):(
+                                    <></>
+                                )}
+                                {isSelectedOptionOrderPlus === 'Gastos fijos' ? (
+                                    <Table_Body_Td style={{color: isSelectedRow === warehouse ? 'white' : ''}}>{isFixedExpenses.find(s => s.idgasto === warehouse.idgasto)?.nombre || 'Desconocido'}</Table_Body_Td>
+                                ):(
+                                    <></>
+                                )}
+                                {isSelectedOptionOrderPlusUltra === 'General'? (
+                                    <Table_Body_Td style={{color: isSelectedRow === warehouse ? 'white' : ''}}>{getDate(warehouse.fecha)}</Table_Body_Td>
+                                ):(
+                                    <></>
+                                )}
+                                {isSelectedOptionOrderPlus !== 'Gastos fijos' ? (
+                                    <Table_Body_Td style={{color: isSelectedRow === warehouse ? 'white' : ''}}>{warehouse.cantidadreal}</Table_Body_Td>
+                                ):(
+                                    <></>
+                                )}
+                                <Table_Body_Td style={{color: isSelectedRow === warehouse ? 'white' : ''}}><MdOutlineAttachMoney/> {warehouse.precio || '0'} MXN</Table_Body_Td>
+                            </tr>
+                        ))}
+                    </Table_Body_Tbody_White>
+                </Table>
+            </Table_Container>
+            <Table_Pagination
+                currentPage={currentPage}
+                currentRecords={currentRecordsPurchases}
+                totalPage={totalPagesPurchases}
+                onNextPage={() => nextPagePurchases()}
+                onPrevPage={() => prevPage()}
+            />
         </>
     );
 }

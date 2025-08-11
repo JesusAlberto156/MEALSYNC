@@ -2,7 +2,7 @@
 // Hooks de React
 import { useContext } from "react";
 // Contextos
-import { TextFieldsWarehouseOrderContext,TextFieldsWarehouseSaleContext } from "../../contexts/FormsProvider";
+import { TextFieldsWarehouseOrderContext,TextFieldsWarehouseFixedExpenseContext,TextFieldsWarehouseSupplyContext,TextFieldsWarehouseCleaningContext } from "../../contexts/FormsProvider";
 //____________IMPORT/EXPORT____________
 
 // Hook para reinciar los campos de texto de los pedidos de almacen ✔️
@@ -23,6 +23,9 @@ export const ResetTextFieldsWarehouseOrder = () => {
             idpedidoindividual: 0,
             fecha: '',
             idinsumo: 0,
+            idtipo: 0,
+            idcategoria: 0,
+            cantidadreal: 0,
             cantidad: '',
             preciounitario: '',
             preciototal: '',
@@ -41,6 +44,9 @@ export const ResetTextFieldsWarehouseOrder = () => {
             idpedidoindividual: 0,
             fecha: '',
             idsuministro: 0,
+            idtipo: 0,
+            idcategoria: 0,
+            cantidadreal: 0,
             cantidad: '',
             preciounitario: '',
             preciototal: '',
@@ -63,24 +69,72 @@ export const ResetTextFieldsWarehouseOrder = () => {
     // Retorno de la función del hook
     return resetTextFieldsWarehouseOrder;
 }
-
-
-// Hook para reinciar los campos de texto de los almacenes de venta ✔️
-export const ResetTextFieldsWarehouseSale = () => {
+// Hook para reinciar los campos de texto de las compras de gasto fijo ✔️
+export const ResetTextFieldsWarehouseFixedExpense = () => {
     // Constantes con el valor de los contextos 
-    const [isTextFieldsWarehouseSale,setIsTextFieldsWarehouseSale] = useContext(TextFieldsWarehouseSaleContext);
+    const [isTextFieldsWarehouseFixedExpense,setIsTextFieldsWarehouseFixedExpense] = useContext(TextFieldsWarehouseFixedExpenseContext);
     // Estados iniciales de los contextos
-    const initialTextFieldsWarehouseSale = {
-        idcategoria: 0,
-        idtipo: 0,
-        cantidadreal: 0,
-        precio: 0,
-        transaccion: 'Venta'
+    const initialTextFieldsWarehouseFixedExpense = {
+        idalmacen: 0,
+        precio: '',
+        idgasto: 0,
+        fecha: '',
+        transaccion: '',
     };
     // Función del hook
-    const resetTextFieldsWarehouseSale = () => {
-        setIsTextFieldsWarehouseSale(initialTextFieldsWarehouseSale);
+    const resetTextFieldsWarehouseFixedExpense = () => {
+        setIsTextFieldsWarehouseFixedExpense(initialTextFieldsWarehouseFixedExpense);
     }
     // Retorno de la función del hook
-    return resetTextFieldsWarehouseSale;
+    return resetTextFieldsWarehouseFixedExpense;
+}
+// Hook para reinciar los campos de texto de las ventas de insumo ✔️
+export const ResetTextFieldsWarehouseSupply = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsWarehouseSupply,setIsTextFieldsWarehouseSupply] = useContext(TextFieldsWarehouseSupplyContext);
+    // Estados iniciales de los contextos
+    const initialTextFieldsWarehouseSupply = {
+        idalmacen: 0,
+        precio: '',
+        cantidadreal:'',
+        idtipo: 0,
+        idcategoria: 0,
+        unidad: '',
+        cantidadtotal: 0,
+        preciototal: 0,
+        preciounitario: 0,
+        fecha: '',
+        transaccion: '',
+    };
+    // Función del hook
+    const resetTextFieldsWarehouseSupply = () => {
+        setIsTextFieldsWarehouseSupply(initialTextFieldsWarehouseSupply);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsWarehouseSupply;
+}
+// Hook para reinciar los campos de texto de las ventas de suministro ✔️
+export const ResetTextFieldsWarehouseCleaning = () => {
+    // Constantes con el valor de los contextos 
+    const [isTextFieldsWarehouseCleaning,setIsTextFieldsWarehouseCleaning] = useContext(TextFieldsWarehouseCleaningContext);
+    // Estados iniciales de los contextos
+    const initialTextFieldsWarehouseCleaning = {
+        idalmacen: 0,
+        precio: '',
+        cantidadreal:'',
+        idtipo: 0,
+        idcategoria: 0,
+        unidad: '',
+        cantidadtotal: 0,
+        preciototal: 0,
+        preciounitario: 0,
+        fecha: '',
+        transaccion: '',
+    };
+    // Función del hook
+    const resetTextFieldsWarehouseCleaning = () => {
+        setIsTextFieldsWarehouseCleaning(initialTextFieldsWarehouseCleaning);
+    }
+    // Retorno de la función del hook
+    return resetTextFieldsWarehouseCleaning;
 }

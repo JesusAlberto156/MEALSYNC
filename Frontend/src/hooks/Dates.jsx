@@ -22,6 +22,11 @@ export function Dates() {
     // Funcion para dar formato a la fecha y mostrarla en el sistema
     const getDate = useCallback((fechaInput) => {
         const fecha = new Date(fechaInput);
+
+        if (isNaN(fecha.getTime())) {
+            return 'Desconocida';
+        }
+        
         fecha.setHours(fecha.getHours() + 7);
 
         const opcionesFecha = { day: '2-digit', month: 'long', year: 'numeric' };

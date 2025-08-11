@@ -21,7 +21,9 @@ import Background_Menus_Menu from '../imgs/Background-Menu-Menu.jpg';
 import Background_Menus_Dishes from '../imgs/Background-Menu-Dishes.jpg';
 import Background_Menus_Side_Dishes from '../imgs/Background-Menu-Side-Dishes.jpg';
 import Background_Menus_Drinks from '../imgs/Background-Menu-Drinks.jpg';
-// Personalizado
+// Cocina
+import Background_Kitchen from '../imgs/Background_Kitchen.jpg';
+// Nutrición
 import Background_Customized from '../imgs/Background-Menus-Nutritionist.jpg';
 // Menus
 
@@ -118,7 +120,9 @@ export const Container_Page_Logged = styled.div.withConfig({
     ${({ Sidebar,Navbar,Logged }) => (Sidebar === 'Menus') && (Navbar === 'Bebidas') && Logged ? 
         `background-image: url(${Background_Menus_Drinks});`:''
     }
-
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Cocinero') && (Sidebar === 'Pedidos') && Logged ? 
+        `background-image: url(${Background_Kitchen});`:''
+    }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Nutriólogo') && (Sidebar !== 'Inicio' && Sidebar !== 'Menus') && Logged ? 
         `background-image: url(${Background_Customized});`:''
     }

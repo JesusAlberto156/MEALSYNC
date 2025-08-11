@@ -11,6 +11,7 @@ import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../contexts/Re
 import { SocketContext } from "../../../contexts/SocketProvider";
 import { LoggedUserContext } from "../../../contexts/SessionProvider";
 import { SelectedRowContext } from "../../../contexts/SelectedesProvider";
+import { SurgeriesContext,SurgeryTypesContext } from "../../../contexts/OrdersProvider";
 // Hooks personalizados
 import { HandleModalViewSupplies } from "../../../hooks/supplies/Views";
 import { HandleSupplyCategoryAdd } from "../../../hooks/supplies/Forms";
@@ -29,6 +30,7 @@ import { Label_Area_12_Black,Label_Button_16_Black,Label_Text_12_Black,Label_Tex
 import { Image_Modal } from "../../styled/Imgs";
 import { Keyboard_Form_Supply_Category } from "../../keyboards/Form";
 import { Modal_Form_Button_Add, Modal_Form_Button_Return } from "../../forms/Button";
+import { Select_300 } from "../../styled/Selects";
 //____________IMPORT/EXPORT____________
 
 // Modal para verificar cirugias disponibles
@@ -49,6 +51,8 @@ export default function Alert_Medico(){
     const [isTouch] = useContext(TouchContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
+    const [isSurgeries] = useContext(SurgeriesContext);
+    const [isSurgeryTypes] = useContext(SurgeryTypesContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
@@ -132,6 +136,32 @@ export default function Alert_Medico(){
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
+                                <Select_300
+                                    data={isSurgeries.length}
+                                    options={isSurgeries.map((surgery) => ({
+                                        value: surgery.IDE,
+                                        label: `${isSurgeryTypes.find(s => s.ID === surgery.ID_Cirugia)?.NombreCirugia}`
+                                    }))}
+                                    placeholder='Cirugías...'
+                                    value={isSurgeries
+                                        .map(surgery => ({ value: surgery.IDE, label: `${isSurgeryTypes.find(s => s.ID === surgery.ID_Cirugia)?.NombreCirugia}` }))
+                                        .find(option => option.value === isTextFieldsOrderKitchen.idpedido)
+                                    }
+                                    onChange={(e) => {
+                                        if (e) {
+                                            setIsTextFieldsOrderKitchen(prev => ({
+                                                ...prev,
+                                                idpedido: e.value,
+                                            }));
+                                        } else {
+                                            setIsTextFieldsOrderKitchen(prev => ({
+                                                ...prev,
+                                                idpedido: 0,
+                                            }));
+                                        }
+                                    }}
+                                    isDisabled={isActionBlock}
+                                />
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Green_16>Ubicación</Text_Color_Green_16>
                                     <Text_Span_16_Center_Black>:</Text_Span_16_Center_Black>

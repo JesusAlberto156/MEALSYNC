@@ -26,6 +26,7 @@ export const TextFieldsDrinkContext = createContext(null);
 export const TextFieldsSearchOrdersContext = createContext(null);
 export const TextFieldsOrderKitchenContext = createContext(null);
 export const TextFieldsKitchenContext = createContext(null);
+export const TextFieldsOrderDoctorContext = createContext(null);
 //____________IMPORT/EXPORT____________
 
 // Todos los contextos para los campos de texto para los formularios ✔️
@@ -55,7 +56,9 @@ export const Index_Text_Fields = ({children}) => {
                                                                                             <Text_Fields_Search_Orders>
                                                                                                 <Text_Fields_Order_Kitchen>
                                                                                                     <Text_Fields_Kitchen>
-                                                                                                        {children}
+                                                                                                        <Text_Fields_Order_Doctor>
+                                                                                                            {children}
+                                                                                                        </Text_Fields_Order_Doctor>
                                                                                                     </Text_Fields_Kitchen>
                                                                                                 </Text_Fields_Order_Kitchen>
                                                                                             </Text_Fields_Search_Orders>
@@ -644,5 +647,34 @@ export const Text_Fields_Kitchen = ({ children }) => {
         <TextFieldsKitchenContext.Provider value={[isTextFieldsKitchen,setIsTextFieldsKitchen]}> 
             {children}
         </TextFieldsKitchenContext.Provider>
+    );
+}
+// Función contexto para controlar los campos de registro de un formulario de un pedido de medicos ✔️
+export const Text_Fields_Order_Doctor = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useState({
+        idpedido: 0,
+        fecha: '',
+        sala: '',
+        idcirugia: 0,
+        cirugia: '',
+        medico: '',
+        idusuario: 0,
+        precio: '',
+        pedidos: [{
+            idpedidoindividual: 0,
+            cantidad: '',
+            estado: '',
+            idplatillo: 0,
+            idguarnicion: 0,
+            idbebida: 0,
+            idpedido: 0,
+        }]
+    });
+    // Return para darle valor al contexto y heredarlo
+    return(
+        <TextFieldsOrderDoctorContext.Provider value={[isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor]}> 
+            {children}
+        </TextFieldsOrderDoctorContext.Provider>
     );
 }

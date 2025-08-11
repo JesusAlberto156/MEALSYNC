@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../contexts/ViewsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../contexts/VariablesProvider";
-import { TextFieldsSupplyCategoryContext,TextFieldsOrderKitchenContext } from "../../../contexts/FormsProvider";
+import { TextFieldsSupplyCategoryContext,TextFieldsOrderKitchenContext,TextFieldsOrderDoctorContext } from "../../../contexts/FormsProvider";
 import { SupplyCategoryAddContext } from "../../../contexts/SuppliesProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../contexts/RefsProvider";
 import { SocketContext } from "../../../contexts/SocketProvider";
@@ -53,6 +53,7 @@ export default function Alert_Medico(){
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isSurgeries] = useContext(SurgeriesContext);
     const [isSurgeryTypes] = useContext(SurgeryTypesContext);
+    const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); 
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewSupplies = HandleModalViewSupplies();
@@ -174,7 +175,7 @@ export default function Alert_Medico(){
                                             placeholder="..."
                                             type="text"
                                             disabled
-                                            value={isTextFieldsOrderKitchen.ubicacion}
+                                            value={isTextFieldsOrderDoctor.ubicacion}
                                             onChange={(e) => setIsTextFieldsOrderKitchen(prev => ({...prev, ubicacion: e.target.value}))}
                                             onFocus={() => {
                                                 if(isKeyboardTouch.current){

@@ -69,6 +69,7 @@ const [isTextFieldsDrink,setIsTextFieldsDrink] = useContext(TextFieldsDrinkConte
 const [isTextFieldsSearchOrders,setIsTextFieldsSearchOrders] = useContext(TextFieldsSearchOrdersContext); ✔️
 const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); 
 const [isTextFieldsKitchen,setIsTextFieldsKitchen] = useContext(TextFieldsKitchenContext); 
+const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); 
 //____________FORMS____________
 //____________MENUS____________
 const [isMenus] = useContext(MenusContext); ✔️

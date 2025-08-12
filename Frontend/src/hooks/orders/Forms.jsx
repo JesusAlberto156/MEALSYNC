@@ -66,9 +66,19 @@ export const FilteredRecordsMenuTypesDoctor = () => {
 // Hook para filtrar los cirujanos agregados en las cirugias ✔️
 export const FilteredRecordsSurgeryDoctor = () => {
     // Constantes con el valor de los contextos 
-    const [isSurgeries] = useContext(SurgeriesContext); 
+    const [isSurgeries] = useContext(SurgeriesContext);
+    
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const todayStr = today.toISOString().split('T')[0];
+    const yesterdayStr = yesterday.toISOString().split('T')[0];
     // Función del hook
-    const uniqueSurgery = isSurgeries.filter((surgery, index, self) =>
+    const uniqueSurgery = isSurgeries.filter(surgery => {
+            const fechaCirugia = surgery.Fecha.split('T')[0];
+            return fechaCirugia === todayStr || fechaCirugia === yesterdayStr
+        }).filter((surgery, index, self) =>
         index === self.findIndex((t) => (
             t.Cirujano === surgery.Cirujano
         ))

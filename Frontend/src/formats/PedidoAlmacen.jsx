@@ -44,6 +44,14 @@ const ExcelExportButton = () => {
   const exportToExcel = async () => {
   const workbook = new ExcelJS.Workbook();
   const sheet = workbook.addWorksheet("Bitácora");
+
+  sheet.pageSetup = {
+    fitToPage: true,
+    fitToWidth: 1,  // Ajusta a 1 página de ancho
+    fitToHeight: 0, // Sin límite de alto
+    orientation: 'landscape',
+    horizontalCentered: true
+  };
   // Ajustar ancho columnas
   sheet.columns = [
     { width: 5 }, // Col A
@@ -2433,12 +2441,12 @@ const ExcelExportButton = () => {
           <Icon_16><IoMdDownload/></Icon_16>
         </Button_Icon_Green_60>
       ):(
-        isSelectedRow !== null && isSelectedRow?.estado === 'Aceptado' ? (
+        isSelectedRow !== null ? (
           <Tooltip title='Iniciar Operación' placement='top'>
             <Button_Icon_Green_60
               ref={isButtonVerificationGreen}
               onClick={() => {
-                exportToExcel
+                exportToExcel()
                 handleWarehouseOrderStart()
               }}
             >

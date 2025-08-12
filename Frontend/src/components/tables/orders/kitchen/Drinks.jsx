@@ -14,13 +14,14 @@ import { HandleModalViewDrinks } from "../../../../hooks/drinks/Views"
 import { ResetTextFieldsUser } from "../../../../hooks/users/Texts"
 import { ResetTextFieldsDrink } from "../../../../hooks/drinks/Texts"
 import { TableActionsDrinks } from "../../../../hooks/orders/Tables"
+import { HandleTextDishesKitchen } from "../../../../hooks/orders/Forms"
 //____________IMAGENES______________
 import Drink from '../../../imgs/Drink.jpg'
 //____________IMAGENES______________
 // Estilos personalizados
 import { Container_Menu_100_Center } from "../../../styled/Containers";
 // Componentes personalizados
-import Card_Information from "../../../cards/Information"
+import Card_Information from "../../../cards/OrderAdd"
 import { Table_Pagination,Table_Pagination_Top } from "../../Pagination"
 //____________IMPORT/EXPORT____________
 
@@ -44,6 +45,7 @@ export default function Table_Drinks(){
     const handleModalViewDrinks = HandleModalViewDrinks();
     const resetTextFieldsDrink = ResetTextFieldsDrink();
     const resetTextFieldsUser = ResetTextFieldsUser();
+    const { DrinkAddCook,DrinkDeleteCook } = HandleTextDishesKitchen();
     const {currentRecordsDrinks,handleRowClick,prevPage,nextPageDrinks,currentPage,totalPagesDrinks} = TableActionsDrinks();
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
@@ -123,14 +125,13 @@ export default function Table_Drinks(){
                             key={drink.idbebida}
                             title={drink.nombre}
                             image={spec?.imagen || Drink}
-                            preparation={spec?.preparacion || 'Desconocido'}
+                            idbebida={drink.idbebida}
+                            row={isSelectedRow}
                             price={spec?.precio || 'Desconocido'}
                             onHandleModalViewDetail={() => handleModalViewDrinks('Bebida-Detalles')}
-                            routeDetail={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Drinks/Detail" : "/Administration/Index/Menus/Drinks/Detail"}
-                            onHandleModalViewEdit={() => handleModalViewDrinks('Bebida-Editar')}
-                            routeEdit={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Drinks/Edit" : "/Administration/Index/Menus/Drinks/Edit"}
-                            onHandleModalViewDelete={() => handleModalViewDrinks('Bebida-Eliminar')}
-                            routeDelete={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Drinks/Delete" : "/Administration/Index/Menus/Drinks/Delete"}
+                            routeDetail={"/Kitchen/Index/Menus/Drinks/Detail"}
+                            onAddCook={() => DrinkAddCook(drink.idbebida)}
+                            onDeleteCook={() => DrinkDeleteCook(drink.idbebida)}
                         />
                     )
                 })}

@@ -613,15 +613,7 @@ export const Text_Fields_Order_Kitchen = ({ children }) => {
         encargado: '',
         precio: '',
         idusuario: 0,
-        pedidos: [{
-            idpedidoindividual: 0,
-            cantidad: '',
-            estado: '',
-            idplatillo: 0,
-            idguarnicion: 0,
-            idbebida: 0,
-            idpedido: 0,
-        }]
+        pedidos: []
     });
     // Return para darle valor al contexto y heredarlo
     return(
@@ -659,17 +651,10 @@ export const Text_Fields_Order_Doctor = ({ children }) => {
         idcirugia: 0,
         cirugia: '',
         medico: '',
+        solicitante: '',
         idusuario: 0,
         precio: '',
-        pedidos: [{
-            idpedidoindividual: 0,
-            cantidad: '',
-            estado: '',
-            idplatillo: 0,
-            idguarnicion: 0,
-            idbebida: 0,
-            idpedido: 0,
-        }]
+        pedidos: []
     });
     // Return para darle valor al contexto y heredarlo
     return(

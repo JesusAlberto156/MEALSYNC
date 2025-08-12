@@ -119,6 +119,7 @@ import Home_Kitchen from './pages/kitchen/Home';
 import Kitchen_Index from './pages/kitchen/Index';
 import Kitchen_Orders from './pages/kitchen/KitchenOrders';
 import Order_Kitchen_Add from './components/modals/orders/kitchen/Add';
+import Order_Doctor_Add from './components/modals/orders/doctor/Add';
 import Nutritionist_Orders from './pages/kitchen/NutritionistOrders';
 import Doctor_Orders from './pages/kitchen/DoctorOrders';
 import Alert_Medico from './components/modals/general/AlertDoctor';
@@ -571,6 +572,14 @@ const router = createHashRouter([
           {
             path: 'Kitchen/Index/Orders/Kitchen/Add',
             element: <Order_Kitchen_Add/>,
+          },
+          {
+            path: 'Kitchen/Index/Orders/Doctor/Add',
+            element: <Order_Doctor_Add/>,
+          },
+          {
+            path: 'Kitchen/Index/Orders/Nutritionist/Add',
+            
           },
           {
             path: 'Kitchen/Index/Verification',

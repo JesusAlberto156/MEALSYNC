@@ -17,7 +17,6 @@ import { Index_Side_Dishes } from './SideDishesProvider';
 import { Index_Drinks } from './DrinksProvider';
 import { Index_Orders } from './OrdersProvider';
 import { Index_Text_Fields } from './FormsProvider';
-import { Index_Charts } from './ChartsProvider';
 import { Index_Refs } from './RefsProvider';
 //____________IMPORT/EXPORT____________
 
@@ -42,11 +41,9 @@ export const AppProviders = ({children}) => {
                                                                     <Index_Drinks>
                                                                         <Index_Orders>
                                                                             <Index_Text_Fields>
-                                                                                <Index_Charts>
-                                                                                    <Index_Refs>
-                                                                                        {children}
-                                                                                    </Index_Refs>
-                                                                                </Index_Charts>
+                                                                                <Index_Refs>
+                                                                                    {children}
+                                                                                </Index_Refs>
                                                                             </Index_Text_Fields>
                                                                         </Index_Orders>
                                                                     </Index_Drinks>

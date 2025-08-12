@@ -22,7 +22,9 @@ import Background_Menus_Dishes from '../imgs/Background-Menu-Dishes.jpg';
 import Background_Menus_Side_Dishes from '../imgs/Background-Menu-Side-Dishes.jpg';
 import Background_Menus_Drinks from '../imgs/Background-Menu-Drinks.jpg';
 // Cocina
-import Background_Kitchen from '../imgs/Background_Kitchen.jpg';
+import Background_Kitchen from '../imgs/Background-Kitchen.jpg';
+// Área medica
+import Background_Doctor from '../imgs/Background-Doctor.jpg';
 // Nutrición
 import Background_Customized from '../imgs/Background-Menus-Nutritionist.jpg';
 // Menus
@@ -122,6 +124,9 @@ export const Container_Page_Logged = styled.div.withConfig({
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Cocinero') && (Sidebar === 'Pedidos') && Logged ? 
         `background-image: url(${Background_Kitchen});`:''
+    }
+    ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Médico') && (Sidebar === 'Pedidos') && Logged ? 
+        `background-image: url(${Background_Doctor});`:''
     }
     ${({ TypeUser,Sidebar,Logged }) => (TypeUser === 'Nutriólogo') && (Sidebar !== 'Inicio' && Sidebar !== 'Menus') && Logged ? 
         `background-image: url(${Background_Customized});`:''
@@ -445,6 +450,25 @@ export const Container_Column_Auto_Center = styled.div`
 
     @media (max-width: 480px) {
         gap: 16px;
+    }
+}
+`;
+export const Container_Column_G_100_Center = styled.div` 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;        
+    background: transparent;
+    width: 100%;
+    height: auto;  
+    gap: 6px; 
+
+    @media (max-width: 768px) {
+        gap: 4px;    
+    }
+
+    @media (max-width: 480px) {
+        gap: 2px;
     }
 }
 `;

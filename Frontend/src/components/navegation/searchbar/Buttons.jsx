@@ -26,6 +26,8 @@ import { LuArrowDownUp } from "react-icons/lu";
 // Estilos personalizados
 import { Button_Icon_Green_60,Button_Icon_Blue_60,Button_Icon_Red_60,Button_Icon_Purple_60,Button_Icon_Orange_60,Button_Text_Blue_Auto } from "../../styled/Buttons";
 import { Icon_16,Icon_Button_White_20 } from "../../styled/Icons";
+import { Container_Column_G_100_Center, Container_Row_100_Center } from "../../styled/Containers";
+import { Text_Span_12_Center_White } from "../../styled/Text";
 //____________IMPORT/EXPORT____________
 
 // Botonoes de funcionalidades
@@ -604,19 +606,24 @@ export const Search_Bar_Button_Search = ({options = []}) => {
     const [isSelectedOptionSearch,setIsSelectedOptionSearch] = useContext(SelectedOptionSearchContext);
     // Estructura del componente
     return(
-        <>
-            {options?.map((option,index) => (
-                <Button_Text_Blue_Auto
-                    key={index}
-                    disabled={isActionBlock}
-                    onClick={() => setIsSelectedOptionSearch(option)}
-                    style={{
-                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : '',
-                    }}
-                >
-                    {option}
-                </Button_Text_Blue_Auto>
-            ))}
+        <>  
+            <Container_Column_G_100_Center>
+                <Container_Row_100_Center>
+                    {options?.map((option,index) => (
+                        <Button_Text_Blue_Auto
+                            key={index}
+                            disabled={isActionBlock}
+                            onClick={() => setIsSelectedOptionSearch(option)}
+                            style={{
+                                backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : isSelectedOptionSearch === option ? 'rgb(12, 54, 109)' : '',
+                            }}
+                        >
+                            {option}
+                        </Button_Text_Blue_Auto>
+                    ))}
+                </Container_Row_100_Center>
+                <Text_Span_12_Center_White>Filtros de busqueda</Text_Span_12_Center_White>
+            </Container_Column_G_100_Center>
         </>
     );
 }
@@ -627,18 +634,20 @@ export const Search_Bar_Button_Order = ({options = []}) => {
     // Estructura del componente
     return(
         <>
-            {options?.map((option,index) => (
-                <Button_Text_Blue_Auto
-                    key={index}
-                    disabled={isActionBlock}
-                    onClick={() => setIsSelectedOptionOrderPlus(option)}
-                    style={{
-                        backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : '',
-                    }}
-                >
-                    {option}
-                </Button_Text_Blue_Auto>
-            ))}
+            <Container_Row_100_Center>
+                {options?.map((option,index) => (
+                    <Button_Text_Blue_Auto
+                        key={index}
+                        disabled={isActionBlock}
+                        onClick={() => setIsSelectedOptionOrderPlus(option)}
+                        style={{
+                            backgroundColor: isActionBlock ? 'rgba(84, 88, 89, 0.5)' : isSelectedOptionOrderPlus === option ? 'rgb(12, 54, 109)' : '',
+                        }}
+                    >
+                        {option}
+                    </Button_Text_Blue_Auto>
+                ))}
+            </Container_Row_100_Center>
         </>
     );
 }

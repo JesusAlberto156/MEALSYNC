@@ -1,8 +1,8 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
-import { getDoctorsService,getSurgeriesService,getSurgeryTypesService,getOrderKitchenService,getCountOrderKitchenService } from "../services/orders.js";
-import { insertOrderKitchenService,insertCountOrderKitchenDishService,insertCountOrderKitchenSideDishService,insertCountOrderKitchenDrinkService } from "../services/orders.js";
-import { updateOrderKitchenPriceService,updateCountOrderKitchenStateService } from "../services/orders.js";
+import { getSurgeriesService,getSurgeryTypesService,getOrderKitchenService,getCountOrderKitchenService,getOrderDoctorService,getOrderDoctorOrderService } from "../services/orders.js";
+import { insertOrderKitchenService,insertCountOrderKitchenDishService,insertCountOrderKitchenSideDishService,insertCountOrderKitchenDrinkService,insertOrderDoctorService,insertOrderDoctorOrderService } from "../services/orders.js";
+import { updateOrderKitchenPriceService,updateCountOrderKitchenStateService,updateOrderDoctorPriceService,updateOrderDoctorOrderStateService } from "../services/orders.js";
 // Servidor socket
 import { io } from "../../index.js";
 // Servicios
@@ -11,16 +11,6 @@ import { decryptData } from "../../config/crypto.js";
 
 //______________GET______________
 export const Orders_GET = (socket) => {
-    // ---------- MÉDICOS ✔️
-    socket.on('Get-Doctors', async () => {
-        try {
-          const result = await getDoctorsService();
-          console.log('Médicos credencializados obtenidos...');
-          io.emit('Get-Doctors', result);
-        } catch (error) {
-          console.error('Error al obtener los datos: ', error);
-        }
-    });
     // ---------- CIRUGIAS ✔️
     socket.on('Get-Surgeries', async () => {
         try {
@@ -41,7 +31,7 @@ export const Orders_GET = (socket) => {
           console.error('Error al obtener los datos: ', error);
         }
     });
-    // ---------- COCINA
+    // ---------- COCINA ✔️
     socket.on('Get-Order-Kitchen', async () => {
         try {
           const result = await getOrderKitchenService();
@@ -60,7 +50,25 @@ export const Orders_GET = (socket) => {
           console.error('Error al obtener los datos: ', error);
         }
     });
-
+    // ---------- ÁREA MÉDICA ✔️
+    socket.on('Get-Order-Doctor', async () => {
+        try {
+          const result = await getOrderDoctorService();
+          console.log('Pedidos de estar médico obtenidos...');
+          io.emit('Get-Order-Doctor', result);
+        } catch (error) {
+          console.error('Error al obtener los datos: ', error);
+        }
+    });
+    socket.on('Get-Order-Doctor-Order', async () => {
+        try {
+          const result = await getOrderDoctorOrderService();
+          console.log('Pedidos individuales de estar médico obtenidos...');
+          io.emit('Get-Order-Doctor-Order', result);
+        } catch (error) {
+          console.error('Error al obtener los datos: ', error);
+        }
+    });
 }
 //______________GET______________
 //______________INSERT______________

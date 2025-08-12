@@ -2,28 +2,12 @@
 // Librería 'mssql'
 import sql from 'mssql';
 // Conexión a Base de datos
-import { conexionDB,conexionDB_Medicos,conexionDB_Cirugias } from "../../config/database.config.js";
+import { conexionDB,conexionDB_Cirugias } from "../../config/database.config.js";
 // Método de Encryptación
 import { encryptData } from "../../config/crypto.js";
 //____________IMPORT/EXPORT____________
 
 //______________GET______________
-// ---------- MÉDICOS ✔️
-export const getDoctorsService = async () => {
-    try{
-        const pool = await conexionDB_Medicos();
-        const result = await pool.request().query('SELECT * FROM Medicos_Credencializados');
-    
-        const jsonData = JSON.stringify(result.recordset);
-    
-        const encryptedData = encryptData(jsonData);
-    
-        return encryptedData;
-    }catch(error){
-        console.error('Error al obtener los médicos credencializados: ',error.message);
-        throw error;
-    }
-}
 // ---------- CIRUGIAS ✔️
 export const getSurgeriesService = async () => {
     try{
@@ -87,7 +71,37 @@ export const getCountOrderKitchenService = async () => {
         throw error;
     }
 }
-
+// ---------- ÁREA MÉDICA ✔️
+export const getOrderDoctorService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM pedidosAreaMedica');
+    
+        const jsonData = JSON.stringify(result.recordset);
+    
+        const encryptedData = encryptData(jsonData);
+    
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener los pedidos del estar médico: ',error.message);
+        throw error;
+    }
+}
+export const getOrderDoctorOrderService = async () => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request().query('SELECT * FROM pedidoAreaMedica');
+    
+        const jsonData = JSON.stringify(result.recordset);
+    
+        const encryptedData = encryptData(jsonData);
+    
+        return encryptedData;
+    }catch(error){
+        console.error('Error al obtener las cantidades de los pedidos del estar médico: ',error.message);
+        throw error;
+    }
+}
 //______________GET______________
 //______________INSERT______________
 // ---------- COCINA ✔️
@@ -172,7 +186,52 @@ export const insertCountOrderKitchenDrinkService = async (cantidad,estado,idbebi
         throw error;
     }
 }
+// ---------- ÁREA MÉDICA ✔️
+export const insertOrderDoctorService = async (sala,cirugia,medico,solicitante,idusuario,precio,fechacirugia) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('sala',sql.VarChar(10),sala)
+            .input('cirugia',sql.VarChar(100),cirugia)
+            .input('medico',sql.VarChar(150),medico)
+            .input('solicitante',sql.VarChar(150),solicitante)
+            .input('idusuario',sql.Int,idusuario)
+            .input('precio',sql.Decimal(12,4),precio)
+            .input('fechacirugia',sql.Date,fechacirugia)
+            .query('INSERT INTO pedidosAreaMedica (sala,cirugia,medico,solicitante,idusuario,precio,fechacirugia) VALUES (@sala,@cirugia,@medico,@solicitante,@idusuario,@precio,@fechacirugia)');
 
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de estar médico insertado...';
+        }else{
+            return 'No se pudo insertar al pedido de estar médico...';
+        }
+    }catch(error){
+        console.error('Error al insertar al pedido de estar médico: ',error.message);
+        throw error;
+    }
+}
+export const insertOrderDoctorOrderService = async (estado,comentario,idplatillo,idguarnicion,idbebida,idpedido) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('estado',sql.VarChar(50),estado)
+            .input('comentario',sql.VarChar(100),comentario)
+            .input('idplatillo',sql.Int,idplatillo)
+            .input('idguarnicion',sql.Int,idguarnicion)
+            .input('idbebida',sql.Int,idbebida)
+            .input('idpedido',sql.Int,idpedido)
+            .query('INSERT INTO pedidoAreaMedica (estado,comentario,idplatillo,idguarnicion,idbebida,idpedido) VALUES (@estado,@comentario,@idplatillo,@idguarnicion,@idbebida,@idpedido)');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de estar médico insertado...';
+        }else{
+            return 'No se pudo insertar al pedido de estar médico...';
+        }
+    }catch(error){
+        console.error('Error al insertar al pedido de estar médico: ',error.message);
+        throw error;
+    }
+}
 //______________INSERT______________
 //______________UPDATE______________
 // ---------- COCINA ✔️
@@ -212,5 +271,41 @@ export const updateCountOrderKitchenStateService = async (idpedidoindividual,est
         throw error;
     }
 }
+// ---------- ÁREA MÉDICA ✔️
+export const updateOrderDoctorPriceService = async (idpedido,precio) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedido',sql.Int,idpedido)
+            .input('precio',sql.Decimal(12,4),precio)
+            .query('UPDATE pedidosAreaMedica SET precio = @precio WHERE idpedido = @idpedido');
 
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de estar médico actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de estar médico...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de estar médico: ',error.message);
+        throw error;
+    }
+}
+export const updateOrderDoctorOrderStateService = async (idpedidoindividual,estado) => {
+    try{
+        const pool = await conexionDB();
+        const result = await pool.request()
+            .input('idpedidoindividual',sql.Int,idpedidoindividual)
+            .input('estado',sql.VarChar(50),estado)
+            .query('UPDATE pedidoAreaMedica SET estado = @estado WHERE idpedidoindividual = @idpedidoindividual');
+
+        if(result.rowsAffected[0]>0){
+            return 'Pedido de estar médico actualizado...';
+        }else{
+            return 'No se pudo actualizar al pedido de estar médico...';
+        }
+    }catch(error){
+        console.error('Error al actualizar al pedido de estar médico: ',error.message);
+        throw error;
+    }
+}
 //______________UPDATE______________

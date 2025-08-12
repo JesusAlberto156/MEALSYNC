@@ -44,6 +44,19 @@ export const HandleModalViewOrderKitchen = () => {
                 return navigate(route,{ replace: true });
             },750);
         }
+        if(currentMView === 'Pedido-Medico-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
         setCurrentMView(View);
         sessionStorage.setItem('Vista del Modal',View);
         resetSelectedOptions();

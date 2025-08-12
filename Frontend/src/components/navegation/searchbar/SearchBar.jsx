@@ -19,7 +19,6 @@ import { HandleModalViewExtras } from "../../../hooks/extras/Views";
 import { HandleModalViewMenuTypes } from "../../../hooks/menus/Views";
 import { HandleModalViewWarehouse } from "../../../hooks/warehouse/Views";
 import { HandleKeyboard } from "../../../hooks/Views";
-import { HandleWarehouseOrderStart } from "../../../hooks/warehouse/Forms";
 import { HandleModalViewOrderKitchen } from "../../../hooks/orders/Views";
 //__________ICONOS__________
 // Icono para la seccion del buscador
@@ -37,15 +36,16 @@ import { MdOutlineMessage } from "react-icons/md";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function, Container_Row_100_Center } from "../../styled/Containers";
+import { Container_Searchbar_Row_General_Black,Container_Searchbar_Row_General,Container_Searchbar_Row_Search_Blue,Container_Searchbar_Row_Function, Container_Row_100_Center, Container_Column_100_Center, Container_Column_NG_100_Center, Container_Column_G_100_Center } from "../../styled/Containers";
 import { Icon_White_20 } from "../../styled/Icons";
 import { Input_Search_Table_White,Input_Radio_20 } from "../../styled/Inputs";
 import { Label_Button_16_White } from "../../styled/Labels";
-import { Text_Title_20_White,Text_Background_Green_12,Text_Title_16_White,Text_Background_Yellow_12,Text_Background_Red_12 } from "../../styled/Text";
+import { Text_Title_20_White,Text_Background_Green_12,Text_Title_16_White,Text_Background_Yellow_12,Text_Background_Red_12, Text_Span_12_Center_White } from "../../styled/Text";
 // Componentes personalizados
 import { Search_Bar_Button_Search,Search_Bar_Button_Order,Search_Bar_Button_End_Condition,Search_Bar_Icon_Button_Order,Search_Bar_Icon_Button_Search,Search_Bar_Icon_Button_Search_Order,Search_Bar_Button_Verification_Green_Download } from "./Buttons";
 import { Search_Bar_Button_Add,Search_Bar_Button_Verification_Blue,Search_Bar_Button_Verification_Red,Search_Bar_Button_Edit,Search_Bar_Button_Verification_Green,Search_Bar_Button_Delete,Search_Bar_Button_Enable,Search_Bar_Button_View,Search_Bar_Button_Detail } from "./Buttons";
 import { Keyboard_Form_Search } from "../../keyboards/Form";
+import ExcelExportButton from "../../../formats/PedidoAlmacen";
 //____________IMPORT/EXPORT____________
 
 // Componente para buscar elementos o acciones en las tablas
@@ -96,7 +96,6 @@ export default function Search_Bar (){
     const handleModalViewMenuTypes = HandleModalViewMenuTypes();
     const handleModalViewWarehouse = HandleModalViewWarehouse();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
-    const handleWarehouseOrderStart = HandleWarehouseOrderStart();
     const handleModalViewOrderKitchen = HandleModalViewOrderKitchen();
     // UseEffets para controlar el teclado
     useEffect(() => {
@@ -215,9 +214,12 @@ export default function Search_Bar (){
                                 options={isOptionStatusSearch}
                             />
                             <Search_Bar_Icon_Button_Search/>
-                            <Search_Bar_Button_Order
-                                options={isOptionStatus}
-                            />
+                            <Container_Column_G_100_Center>
+                                <Search_Bar_Button_Order
+                                    options={isOptionStatus}
+                                />
+                                <Text_Span_12_Center_White>Filtros de ordenamiento</Text_Span_12_Center_White>
+                            </Container_Column_G_100_Center>
                             <Search_Bar_Icon_Button_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
@@ -316,9 +318,12 @@ export default function Search_Bar (){
                                 options={isOptionWarehouse}
                             />
                             <Search_Bar_Icon_Button_Search/>
-                            <Search_Bar_Button_Order
-                                options={isOptionWarehouseViewPurchases}
-                            />
+                            <Container_Column_G_100_Center>
+                                <Search_Bar_Button_Order
+                                    options={isOptionWarehouseViewPurchases}
+                                />
+                                <Text_Span_12_Center_White>Tablas</Text_Span_12_Center_White>
+                            </Container_Column_G_100_Center>
                             <Search_Bar_Icon_Button_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
@@ -330,9 +335,13 @@ export default function Search_Bar (){
                                 options={isOptionWarehouse}
                             />
                             <Search_Bar_Icon_Button_Search/>
-                            <Search_Bar_Button_Order
-                                options={isOptionWarehouseViewSales}
-                            />
+                            <Container_Column_G_100_Center>
+                                <Search_Bar_Button_Order
+                                    options={isOptionWarehouseViewSales}
+                                />
+                                <Text_Span_12_Center_White>Tablas</Text_Span_12_Center_White>
+                            </Container_Column_G_100_Center>
+                            
                             <Search_Bar_Icon_Button_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
@@ -439,9 +448,12 @@ export default function Search_Bar (){
                                 })}
                             </select>
                             <Search_Bar_Icon_Button_Search/>
-                            <Search_Bar_Button_Order
-                                options={isOptionWarehouseReports}
-                            />
+                            <Container_Column_G_100_Center>
+                                <Search_Bar_Button_Order
+                                    options={isOptionWarehouseReports}
+                                />
+                                <Text_Span_12_Center_White>Tablas</Text_Span_12_Center_White>
+                            </Container_Column_G_100_Center>
                             <Search_Bar_Icon_Button_Order/>
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
@@ -461,9 +473,12 @@ export default function Search_Bar (){
                                     options={isOptionsMaelSearch}
                                 />
                                 <Search_Bar_Icon_Button_Search/>
-                                <Search_Bar_Button_Order
-                                    options={isOptionsMaelOrder}
-                                />
+                                <Container_Column_G_100_Center>
+                                    <Search_Bar_Button_Order
+                                        options={isOptionsMaelOrder}
+                                    />
+                                    <Text_Span_12_Center_White>Filtros de platillos</Text_Span_12_Center_White>
+                                </Container_Column_G_100_Center>
                                 <Search_Bar_Icon_Button_Order/>
                             </Container_Searchbar_Row_Search_Blue>
                         </>
@@ -477,9 +492,12 @@ export default function Search_Bar (){
                                     options={isOptionsMaelSearch}
                                 />
                                 <Search_Bar_Icon_Button_Search/>
-                                <Search_Bar_Button_Order
-                                    options={isOptionsMaelOrder}
-                                />
+                                <Container_Column_G_100_Center>
+                                    <Search_Bar_Button_Order
+                                        options={isOptionsMaelOrder}
+                                    />
+                                    <Text_Span_12_Center_White>Filtros de guarniciones</Text_Span_12_Center_White>
+                                </Container_Column_G_100_Center>
                                 <Search_Bar_Icon_Button_Order/>
                             </Container_Searchbar_Row_Search_Blue>
                         </>
@@ -493,9 +511,12 @@ export default function Search_Bar (){
                                     options={isOptionsMaelSearch}
                                 />
                                 <Search_Bar_Icon_Button_Search/>
-                                <Search_Bar_Button_Order
-                                    options={isOptionsMaelOrder}
-                                />
+                                <Container_Column_G_100_Center>
+                                    <Search_Bar_Button_Order
+                                        options={isOptionsMaelOrder}
+                                    />
+                                    <Text_Span_12_Center_White>Filtros de bebidas</Text_Span_12_Center_White>
+                                </Container_Column_G_100_Center>
                                 <Search_Bar_Icon_Button_Order/>
                             </Container_Searchbar_Row_Search_Blue>
                         </>
@@ -521,9 +542,13 @@ export default function Search_Bar (){
                             ):(
                                 <></>
                             )}
-                            <Search_Bar_Button_Order
-                                options={isOptionsOrder}
-                            />
+                            {isLoggedType !== 'Médico' ? (
+                                <Search_Bar_Button_Order
+                                    options={isOptionsOrder}
+                                />
+                            ):(
+                                <></>
+                            )}
                         </Container_Searchbar_Row_Search_Blue>
                     ):(
                         <></>
@@ -962,12 +987,7 @@ export default function Search_Bar (){
                                             onHandleAction={() => handleModalViewWarehouse('Pedido-Almacen-Verificacion-Editar')}
                                             condition={isSelectedRow?.estado === 'Rechazado'}
                                         />
-                                        <Search_Bar_Button_Verification_Green_Download
-                                            title="Iniciar operación"
-                                            row={isSelectedRow}
-                                            onHandleAction={() => handleWarehouseOrderStart()}
-                                            condition={isSelectedRow?.estado === 'Aceptado'}
-                                        />
+                                        <ExcelExportButton/>
                                         <Search_Bar_Button_End_Condition
                                             title="Finalizar operación"
                                             row={isSelectedRow}
@@ -1101,6 +1121,16 @@ export default function Search_Bar (){
                                         icon={<MdOutlineShoppingCartCheckout/>}
                                         route="/Kitchen/Index/Orders/Kitchen/Add"
                                         onHandleModalView={() => handleModalViewOrderKitchen('Pedido-Cocina-Agregar')}
+                                    />
+                                ):(
+                                    <></>
+                                )}
+                                {isLoggedType === 'Médico' ? (
+                                    <Search_Bar_Button_Add
+                                        row={isSelectedRow}
+                                        icon={<MdOutlineShoppingCartCheckout/>}
+                                        route="/Kitchen/Index/Orders/Doctor/Add"
+                                        onHandleModalView={() => handleModalViewOrderKitchen('Pedido-Medico-Agregar')}
                                     />
                                 ):(
                                     <></>

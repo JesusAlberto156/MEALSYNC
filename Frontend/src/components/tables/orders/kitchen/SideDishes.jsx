@@ -14,13 +14,14 @@ import { HandleModalViewSideDishes } from "../../../../hooks/sideDishes/Views"
 import { ResetTextFieldsUser } from "../../../../hooks/users/Texts"
 import { ResetTextFieldsSideDish } from "../../../../hooks/sideDishes/Texts"
 import { TableActionsSideDishes } from "../../../../hooks/orders/Tables"
+import { HandleTextDishesKitchen } from "../../../../hooks/orders/Forms"
 //____________IMAGENES______________
 import SideDish from '../../../imgs/Side-Dish.jpg'
 //____________IMAGENES______________
 // Estilos personalizados
 import { Container_Menu_100_Center } from "../../../styled/Containers";
 // Componentes personalizados
-import Card_Information from "../../../cards/Information"
+import Card_Information from "../../../cards/OrderAdd"
 import { Table_Pagination, Table_Pagination_Top } from "../../Pagination"
 //____________IMPORT/EXPORT____________
 
@@ -44,6 +45,7 @@ export default function Table_Side_Dishes(){
     const handleModalViewSideDishes = HandleModalViewSideDishes();
     const resetTextFieldsSideDish = ResetTextFieldsSideDish();
     const resetTextFieldsUser = ResetTextFieldsUser();
+     const { SideDishAddCook,SideDishDeleteCook } = HandleTextDishesKitchen();
     const {currentRecordsSideDishes,handleRowClick,prevPage,nextPageSideDishes,currentPage,totalPagesSideDishes} = TableActionsSideDishes();
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
@@ -124,13 +126,13 @@ export default function Table_Side_Dishes(){
                             title={sideDish.nombre}
                             image={spec?.imagen || SideDish}
                             preparation={spec?.preparacion || 'Desconocido'}
+                            idguarnicion={sideDish.idguarnicion}
+                            row={isSelectedRow}
                             price={spec?.precio || 'Desconocido'}
                             onHandleModalViewDetail={() => handleModalViewSideDishes('Guarnicion-Detalles')}
-                            routeDetail={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Side/Dishes/Detail" : "/Administration/Index/Menus/Side/Dishes/Detail"}
-                            onHandleModalViewEdit={() => handleModalViewSideDishes('Guarnicion-Editar')}
-                            routeEdit={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Side/Dishes/Edit" : "/Administration/Index/Menus/Side/Dishes/Edit"}
-                            onHandleModalViewDelete={() => handleModalViewSideDishes('Guarnicion-Eliminar')}
-                            routeDelete={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Side/Dishes/Delete" : "/Administration/Index/Menus/Side/Dishes/Delete"}
+                            routeDetail={"/Kitchen/Index/Menus/Side/Dishes/Detail"}
+                            onAddCook={() => SideDishAddCook(sideDish.idguarnicion)}
+                            onDeleteCook={() => SideDishDeleteCook(sideDish.idguarnicion)}    
                         />
                     )
                 })}

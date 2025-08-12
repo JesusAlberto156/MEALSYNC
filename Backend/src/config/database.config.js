@@ -34,30 +34,6 @@ export const conexionDB = async () => {
     }
 };
 // Función para establecer la conexión con la base de datos de medicos
-export const conexionDB_Medicos = async () => {
-    try {
-        // Si no existe una conexión activa, se crea una nueva
-        if(!poolMedicos){
-            poolMedicos = await new sql.ConnectionPool({
-                user: config.USER,
-                password: config.PASSWORD,
-                server: config.SERVER,
-                database: config.DATABASE_MEDICOS,
-                options: {
-                    encrypt: false,
-                    trustServerCertificate: true
-                },
-                requestTimeout: 15000,
-            }).connect();
-            console.log('Conectado a la Base de Datos: ',config.DATABASE_MEDICOS);
-        }
-        // Retornamos la conexión existente o recién creada
-        return poolMedicos;
-    } catch (error) {
-        console.log('Error: ', error);
-    }
-};
-// Función para establecer la conexión con la base de datos de medicos
 export const conexionDB_Cirugias = async () => {
     try {
         // Si no existe una conexión activa, se crea una nueva

@@ -2,7 +2,7 @@
 // Variables de entorno
 import config from './config/config.js';
 // Configuración de la base de datos
-import { conexionDB,conexionDB_Medicos,conexionDB_Cirugias } from './config/database.config.js';
+import { conexionDB,conexionDB_Cirugias } from './config/database.config.js';
 // Rutas del servidor
 import { routerAPI } from './mealsync/routes/index.js';
 // Creación del servidor
@@ -48,16 +48,6 @@ app.get(`${api}`, (req,res)=>{
 })
 // Conexión a la base de datos
 conexionDB().then(() => {
-  console.log('Conexion a la base de datos exitosa...');
-
-  routerAPI(app);
-  
-}).catch((error) => {
-  console.error('Error al conectar a la base de datos:', error.message);
-  process.exit(1);
-})
-// Conexión a la base de datos de medicos
-conexionDB_Medicos().then(() => {
   console.log('Conexion a la base de datos exitosa...');
 
   routerAPI(app);

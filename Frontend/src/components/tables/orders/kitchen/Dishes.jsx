@@ -3,7 +3,7 @@
 import { useContext,useEffect } from "react"
 // Contextos
 import { SelectedRowContext } from "../../../../contexts/SelectedesProvider"
-import { TextFieldsDishContext } from "../../../../contexts/FormsProvider"
+import { TextFieldsDishContext,TextFieldsOrderDoctorContext,TextFieldsOrderKitchenContext } from "../../../../contexts/FormsProvider"
 import { LoggedTypeContext } from "../../../../contexts/SessionProvider"
 import { RefModalContext,RefFormContext,RefButtonDetailContext,RefButtonEditContext,RefButtonDeleteContext } from "../../../../contexts/RefsProvider"
 import { DishSpecificationsContext,WarehouseDishesContext,MenuTypeDishesContext } from "../../../../contexts/DishesProvider"
@@ -14,13 +14,14 @@ import { HandleModalViewDishes } from "../../../../hooks/dishes/Views"
 import { ResetTextFieldsUser } from "../../../../hooks/users/Texts"
 import { ResetTextFieldsDish } from "../../../../hooks/dishes/Texts"
 import { TableActionsDishes } from "../../../../hooks/orders/Tables"
+import { HandleTextDishesDoctor,HandleTextDishesKitchen } from "../../../../hooks/orders/Forms"
 //____________IMAGENES______________
 import Dish from '../../../imgs/Dish.png'
 //____________IMAGENES______________
 // Estilos personalizados
 import { Container_Menu_100_Center } from "../../../styled/Containers";
 // Componentes personalizados
-import Card_Information from "../../../cards/Information"
+import Card_Information from "../../../cards/OrderAdd"
 import { Table_Pagination,Table_Pagination_Top } from "../../Pagination"
 //____________IMPORT/EXPORT____________
 
@@ -39,11 +40,15 @@ export default function Table_Dishes(){
     const isButtonDelete = useContext(RefButtonDeleteContext);
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext);
+    const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); 
+    const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); 
     const [isLoggedType] = useContext(LoggedTypeContext); 
     // Constantes con la funcionalidad de los hooks
     const handleModalViewDishes = HandleModalViewDishes();
     const resetTextFieldsDish = ResetTextFieldsDish();
     const resetTextFieldsUser = ResetTextFieldsUser();
+    const { DishAdd,DishDelete} = HandleTextDishesDoctor();
+    const { DishAddCook,DishDeleteCook } = HandleTextDishesKitchen();
     const {currentRecordsDishes,handleRowClick,prevPage,nextPageDishes,currentPage,totalPagesDishes} = TableActionsDishes();
     // UseEffect que determina la selección de la tabla
     useEffect(() => {
@@ -102,6 +107,12 @@ export default function Table_Dishes(){
             resetTextFieldsUser();
         }
     },[isSelectedRow]);
+    useEffect(() => {
+        console.log(isTextFieldsOrderDoctor);
+    },[isTextFieldsOrderDoctor])
+    useEffect(() => {
+        console.log(isTextFieldsOrderKitchen);
+    },[isTextFieldsOrderKitchen])
     // Estructura del componente
     return(
         <>
@@ -123,14 +134,15 @@ export default function Table_Dishes(){
                             key={dish.idplatillo}
                             title={dish.nombre}
                             image={spec?.imagen || Dish}
-                            preparation={spec?.preparacion || 'Desconocido'}
                             price={spec?.precio || 'Desconocido'}
+                            idplatillo={dish.idplatillo}
+                            row={isSelectedRow}
                             onHandleModalViewDetail={() => handleModalViewDishes('Platillo-Detalles')}
-                            routeDetail={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes/Detail" : "/Administration/Index/Menus/Dishes/Detail"}
-                            onHandleModalViewEdit={() => handleModalViewDishes('Platillo-Editar')}
-                            routeEdit={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes/Edit" : "/Administration/Index/Menus/Dishes/Edit"}
-                            onHandleModalViewDelete={() => handleModalViewDishes('Platillo-Eliminar')}
-                            routeDelete={isLoggedType === 'Nutriólogo' ? "/Kitchen/Index/Menus/Dishes/Delete" : "/Administration/Index/Menus/Dishes/Delete"}
+                            routeDetail={"/Kitchen/Index/Menus/Dishes/Detail"}
+                            onAdd={() => DishAdd(dish.idplatillo)}
+                            onDelete={() => DishDelete(dish.idplatillo)}
+                            onAddCook={() => DishAddCook(dish.idplatillo)}
+                            onDeleteCook={() => DishDeleteCook(dish.idplatillo)}
                         />
                     )
                 })}

@@ -12,7 +12,6 @@ export default {
     API_URL: process.env.API_URL || '/Mealsync',
     SERVER: process.env.SERVER || 'localhost',
     DATABASE_PRINCIPAL: process.env.DATABASE_PRINCIPAL || 'myDataBase',
-    DATABASE_MEDICOS: process.env.DATABASE_MEDICOS || 'myDataBase',
     DATABASE_CIRUGIAS: process.env.DATABASE_CIRUGIAS || 'myDataBase',
     PASSWORD: process.env.PASSWORD || 'defaultPassword',
     USER: process.env.USER || 'defaultUser',

@@ -9,6 +9,8 @@ export const SurgeriesContext = createContext(null);
 export const SurgeryTypesContext = createContext(null);
 export const OrderKitchenContext = createContext(null);
 export const CountOrderKitchenContext = createContext(null);
+export const OrderDoctorContext = createContext(null);
+export const OrderDoctorOrderContext = createContext(null);
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
 //____________IMPORT/EXPORT____________
@@ -16,61 +18,22 @@ import { SocketContext } from "./SocketProvider";
 // Todos los contextos para las funcionalidades de las tablas de los pedidos ✔️
 export const Index_Orders = ({children}) => {
     return(
-        <Doctors>
-            <Surgeries>
-                <Surgery_Types>
-                    <Order_Kitchen>
-                        <Count_Order_Kitchen>
-                            {children}
-                        </Count_Order_Kitchen>
-                    </Order_Kitchen>
-                </Surgery_Types>
-            </Surgeries>
-        </Doctors>
+        <Surgeries>
+            <Surgery_Types>
+                <Order_Kitchen>
+                    <Count_Order_Kitchen>
+                        <Order_Doctor>
+                            <Order_Doctor_Order>
+                                {children}
+                            </Order_Doctor_Order>
+                        </Order_Doctor>
+                    </Count_Order_Kitchen>
+                </Order_Kitchen>
+            </Surgery_Types>
+        </Surgeries>
     )
 }
 
-// ---------- MÉDICOS 
-// Función contexto para controlar los datos de la base de datos de los medicos centralizados ✔️
-export const Doctors = ({ children }) => {
-    // constantes con contextos perzonalizados
-    const [socket] = useContext(SocketContext);
-    // UseState para controlar el valor del contexto
-    const [isDoctors,setIsDoctors] = useState([]);
-    // UseEffect para obtener los datos desde la base de datos
-    useEffect(() => {
-        const handleDoctors = (result) => {
-            try {
-                const decryptedData = decryptData(result);
-                if(decryptedData){
-                    const parsedData = JSON.parse(decryptedData);
-                    console.log('¡Médicos centralizados obtenidos!')
-                    setIsDoctors(parsedData);
-                }else{
-                    console.log('¡Error al desencriptar los médicos centralizados!');
-                    setIsDoctors([]);
-                }
-            } catch (error) {
-                console.error('Error al procesar los médicos centralizados:', error);
-                setIsDoctors([]);
-            }
-        }
-
-        socket.emit('Get-Doctors');
-        socket.on('Get-Doctors',handleDoctors);
-
-        return () => {
-            socket.off('Get-Doctors',handleDoctors);
-        }
-    },[]);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <DoctorsContext.Provider value={[isDoctors]}>
-            {children}
-        </DoctorsContext.Provider>
-    );
-}
-// ---------- MÉDICOS 
 // ---------- CIRUGIAS
 // Función contexto para controlar los datos de la base de datos de las cirujías ✔️
 export const Surgeries = ({ children }) => {
@@ -233,3 +196,83 @@ export const Count_Order_Kitchen = ({ children }) => {
     );
 }
 // ---------- COCINA
+// ---------- ÁREA MÉDICA
+// Función contexto para controlar los datos de la base de datos de los pedidos de estar médico ✔️
+export const Order_Doctor = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isOrderDoctor,setIsOrderDoctor] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        const handleOrderDoctor = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Pedidos de estar médico obtenidos!')
+                    setIsOrderDoctor(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los pedidos de estar médico!');
+                    setIsOrderDoctor([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los pedidos de estar médico:', error);
+                setIsOrderDoctor([]);
+            }
+        }
+
+        socket.emit('Get-Order-Doctor');
+        socket.on('Get-Order-Doctor',handleOrderDoctor);
+
+        return () => {
+            socket.off('Get-Order-Doctor',handleOrderDoctor);
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <OrderDoctorContext.Provider value={[isOrderDoctor]}>
+            {children}
+        </OrderDoctorContext.Provider>
+    );
+}
+// Función contexto para controlar los datos de la base de datos de los pedidos de estar médico individuales ✔️
+export const Order_Doctor_Order = ({ children }) => {
+    // constantes con contextos perzonalizados
+    const [socket] = useContext(SocketContext);
+    // UseState para controlar el valor del contexto
+    const [isOrderDoctorOrder,setIsOrderDoctorOrder] = useState([]);
+    // UseEffect para obtener los datos desde la base de datos
+    useEffect(() => {
+        const handleOrderDoctorOrder = (result) => {
+            try {
+                const decryptedData = decryptData(result);
+                if(decryptedData){
+                    const parsedData = JSON.parse(decryptedData);
+                    console.log('¡Pedidos de estar médico individuales obtenidos!')
+                    setIsOrderDoctorOrder(parsedData);
+                }else{
+                    console.log('¡Error al desencriptar los pedidos de estar médico individuales!');
+                    setIsOrderDoctorOrder([]);
+                }
+            } catch (error) {
+                console.error('Error al procesar los pedidos de estar médico individuales:', error);
+                setIsOrderDoctorOrder([]);
+            }
+        }
+
+        socket.emit('Get-Order-Doctor-Order');
+        socket.on('Get-Order-Doctor-Order',handleOrderDoctorOrder);
+
+        return () => {
+            socket.off('Get-Order-Doctor-Order',handleOrderDoctorOrder);
+        }
+    },[]);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <OrderDoctorOrderContext.Provider value={[isOrderDoctorOrder]}>
+            {children}
+        </OrderDoctorOrderContext.Provider>
+    );
+}
+// ---------- ÁREA MÉDICA

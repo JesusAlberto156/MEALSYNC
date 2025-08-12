@@ -4,7 +4,7 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
-import { MenusContext,MenuTypesContext,DeletedMenuTypesContext,MenuTypeUbicationsContext } from "../../../../contexts/MenusProvider";
+import { MenusContext,MenuTypesContext,DeletedMenuTypesContext,MenuTypeUbicationsContext,MenuUbicationsContext } from "../../../../contexts/MenusProvider";
 import { TextFieldsDishContext } from "../../../../contexts/FormsProvider";
 import { ActionBlockContext,KeyboardViewContext,KeyboardContext,TouchContext,IndexSearchContext,IndexCountContext } from "../../../../contexts/VariablesProvider";
 import { DishEditContext,WarehouseDishesContext,MenuTypeDishesContext,DeletedDishesContext } from "../../../../contexts/DishesProvider";
@@ -89,6 +89,7 @@ export default function Dish_Edit(){
     const handleDishEdit = HandleDishEdit();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
     const { MenuAdd,MenuDelete,IngredientAdd,IngredientDelete } = HandleTextDishes();
+    const [isMenuUbications] = useContext(MenuUbicationsContext);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){
@@ -449,6 +450,33 @@ export default function Dish_Edit(){
                                                             isDisabled={isActionBlock}
                                                         />
                                                     )}
+                                                    <Text_Span_16_Center_Black>
+                                                        {isLoggedType === 'Nutriólogo' ? (
+                                                            <>
+                                                                {
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 2) ? `${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}` : 'Desconocidas'
+                                                                }
+                                                            </>
+                                                        ):(
+                                                            <>
+                                                                {
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 1) && isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 2) && isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 3) ?
+                                                                    `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` :
+
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 1) && isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 2) ?
+                                                                    `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}` :
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 1) && isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 3) ?
+                                                                    `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` :
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 2) && isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 3) ?
+                                                                    `${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}, ${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` :
+
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 1) ? `${isMenuUbications.find(ubication => ubication.idubicacion === 1)?.nombre}` :
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 2) ? `${isMenuUbications.find(ubication => ubication.idubicacion === 2)?.nombre}` :
+                                                                    isMenuTypeUbications.some(t => t.idtipo === menu.idtipo && t.idubicacion === 3) ? `${isMenuUbications.find(ubication => ubication.idubicacion === 3)?.nombre}` : 'Desconocidas'
+                                                                }  
+                                                            </>
+                                                        )}
+                                                    </Text_Span_16_Center_Black>    
                                                     <Container_Row_100_Center>
                                                         <Container_Row_100_Left>
                                                             <Text_Title_20_Black>No. Menú: {index+1}</Text_Title_20_Black>

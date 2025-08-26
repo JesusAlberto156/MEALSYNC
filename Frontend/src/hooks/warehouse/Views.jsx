@@ -114,6 +114,32 @@ export const HandleModalViewWarehouse = () => {
             },750);
         }
         // COMPRAS ✔️
+        if(currentMView === 'Almacen-Compra-Insumo-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
+        if(currentMView === 'Almacen-Compra-Suministro-Agregar' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                if(sidebar === 'true'){
+                    setIsSidebar(true);
+                }
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                setIsSelectedRow(null);
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
         if(currentMView === 'Almacen-Compra-Gasto-Fijo-Agregar' && View === ''){
             setIsActionBlock(true);
             setTimeout(() => {

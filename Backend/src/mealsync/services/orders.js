@@ -187,7 +187,7 @@ export const insertCountOrderKitchenDrinkService = async (cantidad,estado,idbebi
     }
 }
 // ---------- ÁREA MÉDICA ✔️
-export const insertOrderDoctorService = async (sala,cirugia,medico,solicitante,idusuario,precio,fechacirugia) => {
+export const insertOrderDoctorService = async (sala,cirugia,medico,solicitante,idusuario,precio,idcirugia) => {
     try{
         const pool = await conexionDB();
         const result = await pool.request()
@@ -197,8 +197,8 @@ export const insertOrderDoctorService = async (sala,cirugia,medico,solicitante,i
             .input('solicitante',sql.VarChar(150),solicitante)
             .input('idusuario',sql.Int,idusuario)
             .input('precio',sql.Decimal(12,4),precio)
-            .input('fechacirugia',sql.Date,fechacirugia)
-            .query('INSERT INTO pedidosAreaMedica (sala,cirugia,medico,solicitante,idusuario,precio,fechacirugia) VALUES (@sala,@cirugia,@medico,@solicitante,@idusuario,@precio,@fechacirugia)');
+            .input('idcirugia',sql.Int,idcirugia)
+            .query('INSERT INTO pedidosAreaMedica (sala,cirugia,medico,solicitante,idusuario,precio,idcirugia) VALUES (@sala,@cirugia,@medico,@solicitante,@idusuario,@precio,@idcirugia)');
 
         if(result.rowsAffected[0]>0){
             return 'Pedido de estar médico insertado...';

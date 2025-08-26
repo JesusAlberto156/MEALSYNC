@@ -1,34 +1,31 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext,useEffect } from "react";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
 import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
-import { TextFieldsSupplyCategoryContext,TextFieldsOrderKitchenContext,TextFieldsOrderDoctorContext } from "../../../../contexts/FormsProvider";
-import { SupplyCategoryAddContext } from "../../../../contexts/SuppliesProvider";
+import { TextFieldsOrderDoctorContext } from "../../../../contexts/FormsProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
-import { LoggedUserContext } from "../../../../contexts/SessionProvider";
-import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
+import { LoggedUserContext,LoggedLogContext } from "../../../../contexts/SessionProvider";
 import { DishesContext } from "../../../../contexts/DishesProvider";
+import { OrderDoctorAddContext } from "../../../../contexts/OrdersProvider";
+import { OrderDoctorContext } from "../../../../contexts/OrdersProvider";
 // Hooks personalizados
-import { HandleModalViewSupplies } from "../../../../hooks/supplies/Views";
-import { HandleSupplyCategoryAdd } from "../../../../hooks/supplies/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
 import { TableActionsDrinks,TableActionsSideDishes } from "../../../../hooks/orders/Tables";
-import { HandleTextDishesDoctor } from "../../../../hooks/orders/Forms";
+import { HandleTextDishesDoctor,HandleOrderDoctorAdd } from "../../../../hooks/orders/Forms";
 import { HandleModalViewOrderKitchen } from "../../../../hooks/orders/Views";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form,Container_Row_100_Left, Container_Row_100_Center, Container_Order_100_Center, Container_Row_100_Right } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form,Container_Row_100_Left, Container_Order_100_Center, Container_Row_100_Right } from "../../../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black, Text_Color_Green_16, Text_Title_20_Black } from "../../../styled/Text";
-import { Input_Text_100_Black,Input_Area_100_Black,Input_Group, Input_Radio_20 } from "../../../styled/Inputs";
+import { Input_Text_100_Black,Input_Group } from "../../../styled/Inputs";
 import { Icon_20, Icon_Button_Blue_20 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
-import { Label_Area_12_Black,Label_Button_16_Black,Label_Text_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
+import { Label_Text_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import { Image_Modal } from "../../../styled/Imgs";
 import { Keyboard_Form_Supply_Category } from "../../../keyboards/Form";
@@ -36,6 +33,8 @@ import { Modal_Form_Button_Add } from "../../../forms/Button";
 import { Select_300 } from "../../../styled/Selects";
 import { Button_Icon_Red_80 } from "../../../styled/Buttons";
 import { FaMinus } from "react-icons/fa6";
+// Servicios
+import { downloadPDF } from "../../../../formats/ComandaMedica";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar pedidos de medico
@@ -44,9 +43,6 @@ export default function Order_Doctor_Add(){
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext);
-    const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
-    const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); 
     const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); 
     const [socket] = useContext(SocketContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
@@ -56,20 +52,17 @@ export default function Order_Doctor_Add(){
     const isKeyboardTouch = useContext(RefKeyboardTouchContext);
     const [isTouch] = useContext(TouchContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isDishes] = useContext(DishesContext);
+    const [isOrderDoctorAdd,setIsOrderDoctorAdd] = useContext(OrderDoctorAddContext);
+    const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext); 
+    const [isOrderDoctor] = useContext(OrderDoctorContext); 
     // Constantes con la funcionalidad de los hooks
-    const navigate = useNavigate();
-    const handleModalViewSupplies = HandleModalViewSupplies();
-    const handleSupplyCategoryAdd = HandleSupplyCategoryAdd();
+    const handleOrderDoctorAdd = HandleOrderDoctorAdd();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
     const { filteredRecordsSideDishes } = TableActionsSideDishes();
     const { filteredRecordsDrinks } = TableActionsDrinks();
     const { DishDelete } = HandleTextDishesDoctor();
     const handleModalViewOrderKitchen = HandleModalViewOrderKitchen()
-    // Constantes con el valor de useState
-    const [isTotalDescription,setIsTotalDescription] = useState(0)
-    const [isTotalName,setIsTotalName] = useState(0)
     // Funcion para formatear la fecha
     function getFormattedDateTime() {
         const now = new Date();
@@ -94,13 +87,6 @@ export default function Order_Doctor_Add(){
 
         return () => clearInterval(interval);
     },[])
-    // UseEffects para el limite de caracteres de los campos del formulario
-    useEffect(() => {
-        setIsTotalName(isTextFieldsSupplyCategory.nombre.length);
-    },[isTextFieldsSupplyCategory.nombre]);
-    useEffect(() => {
-        setIsTotalDescription(isTextFieldsSupplyCategory.descripcion.length);
-    },[isTextFieldsSupplyCategory.descripcion]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){
@@ -119,17 +105,18 @@ export default function Order_Doctor_Add(){
     },[isTouch]);
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isSupplyCategoryAdd){
+        if(isOrderDoctorAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Supply-Category',isLoggedUser.idusuario,isTextFieldsSupplyCategory.nombre.trim(),isTextFieldsSupplyCategory.descripcion.trim());
+                        socket.emit('Insert-Order-Doctor',isLoggedUser.idusuario,isTextFieldsOrderDoctor.sala.trim(),isTextFieldsOrderDoctor.cirugia.trim(),isTextFieldsOrderDoctor.medico.trim(),isTextFieldsOrderDoctor.solicitante.trim(),isTextFieldsOrderDoctor.precio,isTextFieldsOrderDoctor.idcirugia,isTextFieldsOrderDoctor.pedidos);
 
-                        resolve('¡Agregó la categoría!');
+                        resolve('¡Agregó al pedido!');
 
-                        setIsSupplyCategoryAdd(false)
+                        downloadPDF(isOrderDoctor,isTextFieldsOrderDoctor);
 
-                        const route = sessionStorage.getItem('Ruta');
+                        setIsOrderDoctorAdd(false)
+
                         const sidebar = sessionStorage.getItem('Estado del Sidebar');
 
                         setCurrentMView('');
@@ -140,21 +127,20 @@ export default function Order_Doctor_Add(){
                             }
                             setIsModal(false);
                             sessionStorage.setItem('Estado del Modal',false);
-                            setIsSelectedRow(null);
                             setIsActionBlock(false);
-                            return navigate(route,{ replace: true });
+                            setIsLoggedLog(true);
                         },750);
                     },1000);
                 }catch(e){
                     setIsActionBlock(false);
-                    setIsSupplyCategoryAdd(false);
+                    setIsOrderDoctorAdd(false);
                     return reject('¡Ocurrio un error inesperado!');
                 }
             });
 
-            return Alert_Sonner_Promise(promise,'¡Agregando una categoría!','2');
+            return Alert_Sonner_Promise(promise,'¡Agregando un pedido!','2');
         }
-    },[isSupplyCategoryAdd]);
+    },[isOrderDoctorAdd]);
     // Estructura del componente
     return(
         <>
@@ -227,7 +213,8 @@ export default function Order_Doctor_Add(){
                                                         const newGuarnicion = [...prev.pedidos];
                                                         newGuarnicion[index] = {
                                                             ...newGuarnicion[index],
-                                                            idgaurnicion: e.value
+                                                            idgaurnicion: e.value,
+                                                            nombreguarnicion: e.label,
                                                         };
                                                         return {
                                                             ...prev,
@@ -240,6 +227,7 @@ export default function Order_Doctor_Add(){
                                                         newGuarnicion[index] = {
                                                             ...newGuarnicion[index],
                                                             idguarnicion: 0,
+                                                            nombreguarnicion: '',
                                                         };
                                                         return {
                                                             ...prev,
@@ -267,7 +255,8 @@ export default function Order_Doctor_Add(){
                                                         const newGuarnicion = [...prev.pedidos];
                                                         newGuarnicion[index] = {
                                                             ...newGuarnicion[index],
-                                                            idbebida: e.value
+                                                            idbebida: e.value,
+                                                            nombrebebida: e.label,
                                                         };
                                                         return {
                                                             ...prev,
@@ -280,6 +269,7 @@ export default function Order_Doctor_Add(){
                                                         newGuarnicion[index] = {
                                                             ...newGuarnicion[index],
                                                             idbebida: 0,
+                                                            nombrebebida: '',
                                                         };
                                                         return {
                                                             ...prev,
@@ -372,7 +362,7 @@ export default function Order_Doctor_Add(){
                                 </Container_Row_100_Left>
                                 <Modal_Form_Button_Add
                                     onCancel={() => handleModalViewOrderKitchen('')}
-                                    onAction={() => handleSupplyCategoryAdd()}
+                                    onAction={() => handleOrderDoctorAdd()}
                                 />
                             </Container_Modal_Form>
                         </Container_Modal_Form_White>

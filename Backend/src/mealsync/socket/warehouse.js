@@ -1,11 +1,11 @@
 //____________IMPORT/EXPORT____________
 // Consultas de sql
 import { getWarehouseCategoriesService,getWarehouseSupplyTypesService,getWarehouseCleaningTypesService,getWarehouseCleaningService,getWarehouseFixedExpensesService,getOrdersService,getDeletedOrdersService,getSupplyOrdersService,getCleaningSupplyOrdersService,getMessageSupplyOrdersService,getMessageCleaningSupplyOrdersService,updateSupplyOrderPriceService,updateLogSupplyOrderPriceService, updateCleaningSupplyOrderPriceService, updateLogCleaningSupplyOrderPriceService } from "../services/warehouse.js";
-import { insertWarehouseCategoryService,insertWarehouseSupplyTypeService,insertWarehouseCleaningTypeService,insertWarehouseCleaningService,insertWarehouseFixedExpenseService,insertOrderService,insertDeletedOrderService,insertSupplyOrderService,insertCleaningSupplyOrderService } from "../services/warehouse.js";
+import { insertWarehouseCategoryService,insertWarehouseCategoryDateService,insertWarehouseSupplyTypeService,insertWarehouseSupplyTypeDateService,insertWarehouseCleaningTypeService,insertWarehouseCleaningDateService,insertWarehouseCleaningTypeDateService,insertWarehouseCleaningService,insertWarehouseFixedExpenseService,insertOrderService,insertDeletedOrderService,insertWarehouseFixedExpenseDateService,insertSupplyOrderService,insertCleaningSupplyOrderService } from "../services/warehouse.js";
 import { updateOrderStateService,updateSupplyOrderStateService,updateCleaningSupplyOrderStateService,updateSupplyOrderCountService,updateCleaningSupplyOrderCountService,updateOrderPriceService } from "../services/warehouse.js";
 import { deleteSupplyOrderService,deleteCleaningSupplyOrderService } from "../services/warehouse.js";
 import { getLogsService } from "../services/logs.js";
-import { insertLogWarehouseCategoryService,insertLogWarehouseSupplyTypeService,insertLogWarehouseCleaningTypeService,insertLogWarehouseCleaningService,insertLogWarehouseFixedExpenseService,insertLogOrderService,insertLogDeletedOrderService } from "../services/warehouse.js";
+import { insertLogWarehouseCategoryService,insertLogWarehouseCategoryDateService,insertLogWarehouseSupplyTypeService,insertLogWarehouseSupplyTypeDateService,insertLogWarehouseCleaningTypeService,insertLogWarehouseCleaningDateService,insertLogWarehouseCleaningTypeDateService,insertLogWarehouseCleaningService,insertLogWarehouseFixedExpenseService,insertLogWarehouseFixedExpenseDateService,insertLogOrderService,insertLogDeletedOrderService } from "../services/warehouse.js";
 import { updateLogOrderStateService,updateLogSupplyOrderStateService,updateLogCleaningSupplyOrderStateService,updateLogSupplyOrderCountService,updateLogCleaningSupplyOrderCountService,updateLogOrderPriceService } from "../services/warehouse.js";
 import { deleteLogSupplyOrderService,deleteLogCleaningSupplyOrderService } from "../services/warehouse.js";
 import { insertMessageSupplyOrderService,insertMessageCleaningSupplyOrderService } from "../services/warehouse.js";
@@ -137,62 +137,112 @@ export const Warehouse_GET = (socket) => {
 //______________INSERT______________
 export const Warehouse_INSERT = (socket) => {
     //---------- ALMACEN DE TIPOS DE INSUMO ✔️
-    socket.on('Insert-Warehouse-Supply-Type',async (idusuario,cantidadreal,precio,idtipo,idcategoria,transaccion) => {
+    socket.on('Insert-Warehouse-Supply-Type',async (idusuario,cantidadreal,precio,fecha,idtipo,idcategoria,transaccion,tipofecha) => {
         try{
-            await insertWarehouseSupplyTypeService(cantidadreal,precio,idtipo,transaccion);
-            await insertWarehouseCategoryService(cantidadreal,precio,idcategoria,transaccion);
-            const resultWarehouseSupplyTypes = await getWarehouseSupplyTypesService();
-            const resultWarehouseCategories = await getWarehouseCategoriesService();
-            const decryptedDataC = decryptData(resultWarehouseSupplyTypes);
-            const parsedDataC = JSON.parse(decryptedDataC);
-            await insertLogWarehouseSupplyTypeService(parsedDataC.find(data => data.idtipo === idtipo)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idtipo),transaccion);
-            const decryptedDataS = decryptData(resultWarehouseCategories);
-            const parsedDataS = JSON.parse(decryptedDataS);
-            await insertLogWarehouseCategoryService(parsedDataS.find(data => data.idcategoria === idcategoria)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idcategoria),transaccion);
-            
-            const resultLogs = await getLogsService()
-            io.emit('Get-Warehouse-Supply-Types',resultWarehouseSupplyTypes);
-            io.emit('Get-Warehouse-Categories',resultWarehouseCategories);
-            io.emit('Get-Logs',resultLogs);
+            if(tipofecha === 'Automática'){
+                await insertWarehouseSupplyTypeService(cantidadreal,precio,idtipo,transaccion);
+                await insertWarehouseCategoryService(cantidadreal,precio,idcategoria,transaccion);
+                const resultWarehouseSupplyTypes = await getWarehouseSupplyTypesService();
+                const resultWarehouseCategories = await getWarehouseCategoriesService();
+                const decryptedDataC = decryptData(resultWarehouseSupplyTypes);
+                const parsedDataC = JSON.parse(decryptedDataC);
+                await insertLogWarehouseSupplyTypeService(parsedDataC.find(data => data.idtipo === idtipo)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idtipo),transaccion);
+                const decryptedDataS = decryptData(resultWarehouseCategories);
+                const parsedDataS = JSON.parse(decryptedDataS);
+                await insertLogWarehouseCategoryService(parsedDataS.find(data => data.idcategoria === idcategoria)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idcategoria),transaccion);
+                
+                const resultLogs = await getLogsService()
+                io.emit('Get-Warehouse-Supply-Types',resultWarehouseSupplyTypes);
+                io.emit('Get-Warehouse-Categories',resultWarehouseCategories);
+                io.emit('Get-Logs',resultLogs);
+            }
+            if(tipofecha === 'Personalizada'){
+                await insertWarehouseSupplyTypeDateService(cantidadreal,precio,fecha,idtipo,transaccion);
+                await insertWarehouseCategoryDateService(cantidadreal,precio,fecha,idcategoria,transaccion);
+                const resultWarehouseSupplyTypes = await getWarehouseSupplyTypesService();
+                const resultWarehouseCategories = await getWarehouseCategoriesService();
+                const decryptedDataC = decryptData(resultWarehouseSupplyTypes);
+                const parsedDataC = JSON.parse(decryptedDataC);
+                await insertLogWarehouseSupplyTypeDateService(parsedDataC.find(data => data.idtipo === idtipo)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(fecha),String(idtipo),transaccion);
+                const decryptedDataS = decryptData(resultWarehouseCategories);
+                const parsedDataS = JSON.parse(decryptedDataS);
+                await insertLogWarehouseCategoryDateService(parsedDataS.find(data => data.idcategoria === idcategoria)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(fecha),String(idcategoria),transaccion);
+                
+                const resultLogs = await getLogsService()
+                io.emit('Get-Warehouse-Supply-Types',resultWarehouseSupplyTypes);
+                io.emit('Get-Warehouse-Categories',resultWarehouseCategories);
+                io.emit('Get-Logs',resultLogs);
+            }
         }catch(error){
             console.error('Error al agregar un almacén por tipo de insumo: ',error);
             return error;
         }
     });
     //---------- ALMACEN DE LIMPIEZA ✔️
-    socket.on('Insert-Warehouse-Cleaning',async (idusuario,cantidadreal,precio,idtipo,idcategoria,transaccion) => {
+    socket.on('Insert-Warehouse-Cleaning',async (idusuario,cantidadreal,precio,fecha,idtipo,idcategoria,transaccion,tipofecha) => {
         try{
-            await insertWarehouseCleaningTypeService(cantidadreal,precio,idtipo,transaccion);
-            await insertWarehouseCleaningService(cantidadreal,precio,idcategoria,transaccion);
-            const resultWarehouseCleaningTypes = await getWarehouseCleaningTypesService();
-            const resultWarehouseCleaning = await getWarehouseCleaningService();
-            const decryptedDataC = decryptData(resultWarehouseCleaningTypes);
-            const parsedDataC = JSON.parse(decryptedDataC);
-            await insertLogWarehouseCleaningTypeService(parsedDataC.find(data => data.idtipo === idtipo)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idtipo),transaccion);
-            const decryptedDataS = decryptData(resultWarehouseCleaning);
-            const parsedDataS = JSON.parse(decryptedDataS);
-            await insertLogWarehouseCleaningService(parsedDataS.find(data => data.idcategoria === idcategoria)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idcategoria),transaccion);
-            
-            const resultLogs = await getLogsService()
-            io.emit('Get-Warehouse-Cleaning-Types',resultWarehouseCleaningTypes);
-            io.emit('Get-Warehouse-Cleaning',resultWarehouseCleaning);
-            io.emit('Get-Logs',resultLogs);
+            if(tipofecha === 'Automática'){
+                await insertWarehouseCleaningTypeService(cantidadreal,precio,idtipo,transaccion);
+                await insertWarehouseCleaningService(cantidadreal,precio,idcategoria,transaccion);
+                const resultWarehouseCleaningTypes = await getWarehouseCleaningTypesService();
+                const resultWarehouseCleaning = await getWarehouseCleaningService();
+                const decryptedDataC = decryptData(resultWarehouseCleaningTypes);
+                const parsedDataC = JSON.parse(decryptedDataC);
+                await insertLogWarehouseCleaningTypeService(parsedDataC.find(data => data.idtipo === idtipo)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idtipo),transaccion);
+                const decryptedDataS = decryptData(resultWarehouseCleaning);
+                const parsedDataS = JSON.parse(decryptedDataS);
+                await insertLogWarehouseCleaningService(parsedDataS.find(data => data.idcategoria === idcategoria)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(idcategoria),transaccion);
+                
+                const resultLogs = await getLogsService()
+                io.emit('Get-Warehouse-Cleaning-Types',resultWarehouseCleaningTypes);
+                io.emit('Get-Warehouse-Cleaning',resultWarehouseCleaning);
+                io.emit('Get-Logs',resultLogs);
+            }
+            if(tipofecha === 'Personalizada'){
+                await insertWarehouseCleaningTypeDateService(cantidadreal,precio,fecha,idtipo,transaccion);
+                await insertWarehouseCleaningDateService(cantidadreal,precio,fecha,idcategoria,transaccion);
+                const resultWarehouseCleaningTypes = await getWarehouseCleaningTypesService();
+                const resultWarehouseCleaning = await getWarehouseCleaningService();
+                const decryptedDataC = decryptData(resultWarehouseCleaningTypes);
+                const parsedDataC = JSON.parse(decryptedDataC);
+                await insertLogWarehouseCleaningTypeDateService(parsedDataC.find(data => data.idtipo === idtipo)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(fecha),String(idtipo),transaccion);
+                const decryptedDataS = decryptData(resultWarehouseCleaning);
+                const parsedDataS = JSON.parse(decryptedDataS);
+                await insertLogWarehouseCleaningDateService(parsedDataS.find(data => data.idcategoria === idcategoria)?.idalmacen,idusuario,String(cantidadreal),String(precio),String(fecha),String(idcategoria),transaccion);
+                
+                const resultLogs = await getLogsService()
+                io.emit('Get-Warehouse-Cleaning-Types',resultWarehouseCleaningTypes);
+                io.emit('Get-Warehouse-Cleaning',resultWarehouseCleaning);
+                io.emit('Get-Logs',resultLogs);
+            }
         }catch(error){
             console.error('Error al agregar un almacén por limpieza: ',error);
             return error;
         }
     });
     //---------- ALMACEN DE GASTOS FIJOS ✔️
-    socket.on('Insert-Warehouse-Fixed-Expense',async (idusuario,precio,idgasto,transaccion) => {
+    socket.on('Insert-Warehouse-Fixed-Expense',async (idusuario,precio,fecha,idgasto,transaccion,tipofecha) => {
         try{
-            await insertWarehouseFixedExpenseService(precio,idgasto,transaccion);
-            const resultWarehouseFixedExpenses = await getWarehouseFixedExpensesService();
-            const decryptedData = decryptData(resultWarehouseFixedExpenses);
-            const parsedData = JSON.parse(decryptedData);
-            await insertLogWarehouseFixedExpenseService(parsedData.find(data => data.idgasto === idgasto)?.idalmacen,idusuario,String(precio),String(idgasto),transaccion);
-            const resultLogs = await getLogsService()
-            io.emit('Get-Warehouse-Fixed-Expenses',resultWarehouseFixedExpenses);
-            io.emit('Get-Logs',resultLogs);
+            if(tipofecha === 'Automática'){
+                await insertWarehouseFixedExpenseService(precio,idgasto,transaccion);
+                const resultWarehouseFixedExpenses = await getWarehouseFixedExpensesService();
+                const decryptedData = decryptData(resultWarehouseFixedExpenses);
+                const parsedData = JSON.parse(decryptedData);
+                await insertLogWarehouseFixedExpenseService(parsedData.find(data => data.idgasto === idgasto)?.idalmacen,idusuario,String(precio),String(idgasto),transaccion);
+                const resultLogs = await getLogsService()
+                io.emit('Get-Warehouse-Fixed-Expenses',resultWarehouseFixedExpenses);
+                io.emit('Get-Logs',resultLogs);
+            }
+            if(tipofecha === 'Personalizada'){
+                await insertWarehouseFixedExpenseDateService(precio,fecha,idgasto,transaccion);
+                const resultWarehouseFixedExpenses = await getWarehouseFixedExpensesService();
+                const decryptedData = decryptData(resultWarehouseFixedExpenses);
+                const parsedData = JSON.parse(decryptedData);
+                await insertLogWarehouseFixedExpenseDateService(parsedData.find(data => data.idgasto === idgasto)?.idalmacen,idusuario,String(precio),String(fecha),String(idgasto),transaccion);
+                const resultLogs = await getLogsService()
+                io.emit('Get-Warehouse-Fixed-Expenses',resultWarehouseFixedExpenses);
+                io.emit('Get-Logs',resultLogs);
+            }
         }catch(error){
             console.error('Error al agregar un almacén por gasto fijo: ',error);
             return error;

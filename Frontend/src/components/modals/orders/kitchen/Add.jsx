@@ -4,35 +4,33 @@ import { useContext,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
-import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext } from "../../../../contexts/VariablesProvider";
-import { TextFieldsSupplyCategoryContext,TextFieldsOrderKitchenContext } from "../../../../contexts/FormsProvider";
-import { SupplyCategoryAddContext } from "../../../../contexts/SuppliesProvider";
+import { ActionBlockContext,KeyboardContext,KeyboardViewContext,TouchContext,IndexCountContext } from "../../../../contexts/VariablesProvider";
+import { TextFieldsOrderKitchenContext } from "../../../../contexts/FormsProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../../contexts/RefsProvider";
 import { SocketContext } from "../../../../contexts/SocketProvider";
 import { DrinksContext,DrinkSpecificationsContext } from "../../../../contexts/DrinksProvider";
 import { DishesContext,DishSpecificationsContext } from "../../../../contexts/DishesProvider";
 import { SideDishesContext,SideDishSpecificationsContext } from "../../../../contexts/SideDishesProvider";
 import { LoggedUserContext } from "../../../../contexts/SessionProvider";
-import { SelectedRowContext } from "../../../../contexts/SelectedesProvider";
+import { OrderKitchenAddContext } from "../../../../contexts/OrdersProvider";
 // Hooks personalizados
-import { HandleModalViewSupplies } from "../../../../hooks/supplies/Views";
 import { HandleModalViewOrderKitchen } from "../../../../hooks/orders/Views";
-import { HandleSupplyCategoryAdd } from "../../../../hooks/supplies/Forms";
 import { HandleKeyboard } from "../../../../hooks/Views";
-import { HandleTextDishesKitchen } from "../../../../hooks/orders/Forms";
+import { HandleTextDishesKitchen,HandleOrderKitchenAdd } from "../../../../hooks/orders/Forms";
+import { ResetTextFieldsOrderKitchen } from "../../../../hooks/orders/Texts";
 //__________ICONOS__________
 import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
 import { Container_Modal_Background_Black,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form,Container_Row_100_Left, Container_Row_100_Center, Container_Order_100_Center, Container_Row_100_Right } from "../../../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black, Text_Color_Green_16, Text_Title_20_Black } from "../../../styled/Text";
-import { Input_Text_100_Black,Input_Area_100_Black,Input_Group, Input_Radio_20 } from "../../../styled/Inputs";
+import { Input_Text_100_Black,Input_Group, Input_Radio_20 } from "../../../styled/Inputs";
 import { Icon_20, Icon_Button_Blue_20 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
-import { Label_Area_12_Black,Label_Button_16_Black,Label_Text_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
+import { Label_Button_16_Black,Label_Text_12_Black,Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import { Image_Modal } from "../../../styled/Imgs";
-import { Keyboard_Form_Supply_Category } from "../../../keyboards/Form";
+import { Keyboard_Form_Order_Kitchen } from "../../../keyboards/Form";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
 import { FaMinus } from "react-icons/fa6";
 import { Button_Icon_Red_80 } from "../../../styled/Buttons";
@@ -42,13 +40,11 @@ import { Button_Icon_Red_80 } from "../../../styled/Buttons";
 export default function Order_Kitchen_Add(){
     // Constantes con el valor de los contextos
     const [currentMView,setCurrentMView] = useContext(ModalViewContext);
-    const [iSidesDishes] = useContext(SideDishesContext); 
+    const [isSideDishes] = useContext(SideDishesContext); 
     const [isDishes] = useContext(DishesContext);
     const [isDrinks] = useContext(DrinksContext);
     const [isModal,setIsModal] = useContext(ModalContext);
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);
-    const [isSupplyCategoryAdd,setIsSupplyCategoryAdd] = useContext(SupplyCategoryAddContext);
-    const [isTextFieldsSupplyCategory,setIsTextFieldsSupplyCategory] = useContext(TextFieldsSupplyCategoryContext);
     const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); 
     const [socket] = useContext(SocketContext);
     const [isLoggedUser] = useContext(LoggedUserContext);
@@ -58,27 +54,24 @@ export default function Order_Kitchen_Add(){
     const isKeyboardTouch = useContext(RefKeyboardTouchContext);
     const [isTouch] = useContext(TouchContext);
     const [isSidebar,setIsSidebar] = useContext(SidebarContext);
-    const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isDrinkSpecifications] = useContext(DrinkSpecificationsContext);
     const [isDishSpecifications] = useContext(DishSpecificationsContext);
     const [isSideDishSpecifications] = useContext(SideDishSpecificationsContext);
+    const [isIndexCount,setIsIndexCount] = useContext(IndexCountContext);
+    const [isOrderKitchenAdd,setIsOrderKitchenAdd] = useContext(OrderKitchenAddContext);
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
-    const handleModalViewSupplies = HandleModalViewSupplies();
-    const handleSupplyCategoryAdd = HandleSupplyCategoryAdd();
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
     const handleModalViewOrderKitchen = HandleModalViewOrderKitchen();
     const { SideDishDeleteCook,DrinkDeleteCook,DishDeleteCook} = HandleTextDishesKitchen();
+    const handleOrderKitchenAdd = HandleOrderKitchenAdd(); 
+    const resetTextFieldsOrderKitchen = ResetTextFieldsOrderKitchen();
     // Constantes con el valor de useState
-    const [isTotalDescription,setIsTotalDescription] = useState(0)
-    const [isTotalName,setIsTotalName] = useState(0)
+    const [isTotalUbication,setIsTotalUbication] = useState(0)
     // UseEffects para el limite de caracteres de los campos del formulario
     useEffect(() => {
-        setIsTotalName(isTextFieldsSupplyCategory.nombre.length);
-    },[isTextFieldsSupplyCategory.nombre]);
-    useEffect(() => {
-        setIsTotalDescription(isTextFieldsSupplyCategory.descripcion.length);
-    },[isTextFieldsSupplyCategory.descripcion]);
+        setIsTotalUbication(isTextFieldsOrderKitchen.ubicacion.length);
+    },[isTextFieldsOrderKitchen.ubicacion]);
     // Useffect para controlar el sidebar
     useEffect(() => {
         if(isSidebar){
@@ -95,7 +88,6 @@ export default function Order_Kitchen_Add(){
     useEffect(() => {
         isKeyboardTouch.current = isTouch;
     },[isTouch]);
-
     useEffect(() => {
         const totalPrecio = isTextFieldsOrderKitchen.pedidos.reduce((acc, pedido) => {
             const cantidad = Number(pedido.cantidad) || 0;
@@ -114,18 +106,17 @@ export default function Order_Kitchen_Add(){
             return { ...prev, precio: totalPrecio };
         });
     }, [isTextFieldsOrderKitchen.pedidos, isDishSpecifications, isSideDishSpecifications, isDrinkSpecifications]);
-
     // UseEffect para agregar datos a la base de datos
     useEffect(() => {
-        if(isSupplyCategoryAdd){
+        if(isOrderKitchenAdd){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Supply-Category',isLoggedUser.idusuario,isTextFieldsSupplyCategory.nombre.trim(),isTextFieldsSupplyCategory.descripcion.trim());
+                        socket.emit('Insert-Order-Kitchen',isLoggedUser.idusuario,isTextFieldsOrderKitchen.tipoubicacion.trim(),isTextFieldsOrderKitchen.ubicacion.trim(),isTextFieldsOrderKitchen.encargado.trim(),isTextFieldsOrderKitchen.precio,isTextFieldsOrderKitchen.pedidos);
 
-                        resolve('¡Agregó la categoría!');
+                        resolve('¡Agregó el pedido!');
 
-                        setIsSupplyCategoryAdd(false)
+                        setIsOrderKitchenAdd(false)
 
                         const route = sessionStorage.getItem('Ruta');
                         const sidebar = sessionStorage.getItem('Estado del Sidebar');
@@ -138,21 +129,21 @@ export default function Order_Kitchen_Add(){
                             }
                             setIsModal(false);
                             sessionStorage.setItem('Estado del Modal',false);
-                            setIsSelectedRow(null);
+                            resetTextFieldsOrderKitchen();
                             setIsActionBlock(false);
                             return navigate(route,{ replace: true });
                         },750);
                     },1000);
                 }catch(e){
                     setIsActionBlock(false);
-                    setIsSupplyCategoryAdd(false);
+                    setIsOrderKitchenAdd(false);
                     return reject('¡Ocurrio un error inesperado!');
                 }
             });
 
-            return Alert_Sonner_Promise(promise,'¡Agregando una categoría!','2');
+            return Alert_Sonner_Promise(promise,'¡Agregando un pedido!','2');
         }
-    },[isSupplyCategoryAdd]);
+    },[isOrderKitchenAdd]);
     // Estructura del componente
     return(
         <>
@@ -255,21 +246,21 @@ export default function Order_Kitchen_Add(){
                                         <Label_Text_16_Black>Ubicación exacta:</Label_Text_16_Black>
                                         <Input_Group>
                                             <Input_Text_100_Black
-                                                id="Input-Nombre"
+                                                id="Input-Ubicacion"
                                                 placeholder="..."
                                                 type="text"
-                                                maxLength={150}
+                                                maxLength={250}
                                                 disabled={isActionBlock || isTextFieldsOrderKitchen.tipoubicacion !== 'OTRO'}
                                                 value={isTextFieldsOrderKitchen.ubicacion}
                                                 onChange={(e) => setIsTextFieldsOrderKitchen(prev => ({...prev, ubicacion: e.target.value}))}
                                                 onFocus={() => {
                                                     if(isKeyboardTouch.current){
                                                         setIsKeyboard(true);
-                                                        setIsKeyboardView('Nombre-Categoria-Insumo');
+                                                        setIsKeyboardView('Ubicacion');
                                                     }
                                                 }}
                                             />
-                                            <Label_Text_12_Black>{isTotalName}/150</Label_Text_12_Black>
+                                            <Label_Text_12_Black>{isTotalUbication}/250</Label_Text_12_Black>
                                         </Input_Group>
                                         <Icon_Button_Blue_20
                                             onClick={() => {
@@ -287,7 +278,7 @@ export default function Order_Kitchen_Add(){
                                     <Label_Text_16_Black>Encargado:</Label_Text_16_Black>
                                     <Input_Group>
                                         <Input_Text_100_Black
-                                            id="Input-Nombre"
+                                            id="Input-Encargado"
                                             placeholder="..."
                                             type="text"
                                             maxLength={150}
@@ -297,11 +288,11 @@ export default function Order_Kitchen_Add(){
                                             onFocus={() => {
                                                 if(isKeyboardTouch.current){
                                                     setIsKeyboard(true);
-                                                    setIsKeyboardView('Nombre-Categoria-Insumo');
+                                                    setIsKeyboardView('Encargado');
                                                 }
                                             }}
                                         />
-                                        <Label_Text_12_Black>{isTotalName}/150</Label_Text_12_Black>
+                                        <Label_Text_12_Black>{isTextFieldsOrderKitchen.encargado.length}/150</Label_Text_12_Black>
                                     </Input_Group>
                                     <Icon_Button_Blue_20
                                         onClick={() => {
@@ -324,24 +315,31 @@ export default function Order_Kitchen_Add(){
                                                     <Label_Text_16_Black>Cantidad:</Label_Text_16_Black>
                                                     <Input_Group>
                                                         <Input_Text_100_Black
+                                                            className="Input-Cantidad"
                                                             placeholder="..."
                                                             type="text"
-                                                            maxLength={100}
                                                             disabled={isActionBlock}
                                                             value={pedido.cantidad}
                                                             onChange={(e) => {
                                                                 if(!isNaN(Number(e.target.value))){
                                                                     setIsTextFieldsOrderKitchen(prev => {
-                                                                        const newGuarnicion = [...prev.pedidos];
-                                                                        newGuarnicion[index] = {
-                                                                            ...newGuarnicion[index],
+                                                                        const newPlatillo = [...prev.pedidos];
+                                                                        newPlatillo[index] = {
+                                                                            ...newPlatillo[index],
                                                                             cantidad: e.target.value
                                                                         };
                                                                         return {
                                                                             ...prev,
-                                                                            pedidos: newGuarnicion
+                                                                            pedidos: newPlatillo
                                                                         };
                                                                     });
+                                                                }
+                                                            }}
+                                                            onFocus={() => {
+                                                                if(isKeyboardTouch.current){
+                                                                    setIsKeyboard(true);
+                                                                    setIsKeyboardView(`Cantidad-Pedido-${index}`);
+                                                                    setIsIndexCount(index)
                                                                 }
                                                             }}
                                                         />
@@ -349,14 +347,14 @@ export default function Order_Kitchen_Add(){
                                                     <Icon_Button_Blue_20
                                                         onClick={() => {
                                                             setIsTextFieldsOrderKitchen(prev => {
-                                                                const newGuarnicion = [...prev.pedidos];
-                                                                newGuarnicion[index] = {
-                                                                    ...newGuarnicion[index],
+                                                                const newPlatillo = [...prev.pedidos];
+                                                                newPlatillo[index] = {
+                                                                    ...newPlatillo[index],
                                                                     cantidad: ''
                                                                 };
                                                                 return {
                                                                     ...prev,
-                                                                    pedidos: newGuarnicion
+                                                                    pedidos: newPlatillo
                                                                 };
                                                             });
                                                         }}
@@ -383,11 +381,163 @@ export default function Order_Kitchen_Add(){
                                         ):(
                                             <></>
                                         )} 
-                                         
+                                        {pedido.idguarnicion !== 0 ? (
+                                            <>
+                                                <Container_Row_NG_Auto_Center>
+                                                    <Text_Color_Green_16>Guarnición</Text_Color_Green_16>
+                                                    <Text_Span_16_Center_Black>: {isSideDishes.find(d => d.idguarnicion === pedido.idguarnicion)?.nombre}</Text_Span_16_Center_Black>
+                                                </Container_Row_NG_Auto_Center>
+                                                <Container_Row_100_Left>
+                                                    <Label_Text_16_Black>Cantidad:</Label_Text_16_Black>
+                                                    <Input_Group>
+                                                        <Input_Text_100_Black
+                                                            className="Input-Cantidad"
+                                                            placeholder="..."
+                                                            type="text"
+                                                            disabled={isActionBlock}
+                                                            value={pedido.cantidad}
+                                                            onChange={(e) => {
+                                                                if(!isNaN(Number(e.target.value))){
+                                                                    setIsTextFieldsOrderKitchen(prev => {
+                                                                        const newGuarnicion = [...prev.pedidos];
+                                                                        newGuarnicion[index] = {
+                                                                            ...newGuarnicion[index],
+                                                                            cantidad: e.target.value
+                                                                        };
+                                                                        return {
+                                                                            ...prev,
+                                                                            pedidos: newGuarnicion
+                                                                        };
+                                                                    });
+                                                                }
+                                                            }}
+                                                            onFocus={() => {
+                                                                if(isKeyboardTouch.current){
+                                                                    setIsKeyboard(true);
+                                                                    setIsKeyboardView(`Cantidad-Pedido-${index}`);
+                                                                    setIsIndexCount(index)
+                                                                }
+                                                            }}
+                                                        />
+                                                    </Input_Group>
+                                                    <Icon_Button_Blue_20
+                                                        onClick={() => {
+                                                            setIsTextFieldsOrderKitchen(prev => {
+                                                                const newGuarnicion = [...prev.pedidos];
+                                                                newGuarnicion[index] = {
+                                                                    ...newGuarnicion[index],
+                                                                    cantidad: ''
+                                                                };
+                                                                return {
+                                                                    ...prev,
+                                                                    pedidos: newGuarnicion
+                                                                };
+                                                            });
+                                                        }}
+                                                        disabled={isActionBlock}
+                                                    >
+                                                        <MdCancel/>
+                                                    </Icon_Button_Blue_20>
+                                                </Container_Row_100_Left>  
+                                                <Container_Row_100_Center>
+                                                    <Text_Span_16_Center_Black>Costo: $ {isSideDishSpecifications.find(d => d.idguarnicion === pedido.idguarnicion)?.precio} MXN</Text_Span_16_Center_Black>
+                                                </Container_Row_100_Center>
+                                                <Container_Row_100_Left>
+                                                    <Button_Icon_Red_80
+                                                        disabled={isActionBlock}
+                                                        onClick={() => SideDishDeleteCook(pedido.idguarnicion)}
+                                                    >
+                                                        <Icon_20><FaMinus/></Icon_20>
+                                                    </Button_Icon_Red_80>
+                                                    <Container_Row_100_Right>
+                                                        <Text_Title_20_Black>No. Platillo: {index+1}</Text_Title_20_Black>
+                                                    </Container_Row_100_Right>
+                                                </Container_Row_100_Left>  
+                                            </>
+                                        ):(
+                                            <></>
+                                        )}
+                                        {pedido.idbebida !== 0 ? (
+                                            <>
+                                                <Container_Row_NG_Auto_Center>
+                                                    <Text_Color_Green_16>Bebida</Text_Color_Green_16>
+                                                    <Text_Span_16_Center_Black>: {isDrinks.find(d => d.idbebida === pedido.idbebida)?.nombre}</Text_Span_16_Center_Black>
+                                                </Container_Row_NG_Auto_Center>
+                                                <Container_Row_100_Left>
+                                                    <Label_Text_16_Black>Cantidad:</Label_Text_16_Black>
+                                                    <Input_Group>
+                                                        <Input_Text_100_Black
+                                                            className="Input-Cantidad"
+                                                            placeholder="..."
+                                                            type="text"
+                                                            disabled={isActionBlock}
+                                                            value={pedido.cantidad}
+                                                            onChange={(e) => {
+                                                                if(!isNaN(Number(e.target.value))){
+                                                                    setIsTextFieldsOrderKitchen(prev => {
+                                                                        const newBebida = [...prev.pedidos];
+                                                                        newBebida[index] = {
+                                                                            ...newBebida[index],
+                                                                            cantidad: e.target.value
+                                                                        };
+                                                                        return {
+                                                                            ...prev,
+                                                                            pedidos: newBebida
+                                                                        };
+                                                                    });
+                                                                }
+                                                            }}
+                                                            onFocus={() => {
+                                                                if(isKeyboardTouch.current){
+                                                                    setIsKeyboard(true);
+                                                                    setIsKeyboardView(`Cantidad-Pedido-${index}`);
+                                                                    setIsIndexCount(index)
+                                                                }
+                                                            }}
+                                                        />
+                                                    </Input_Group>
+                                                    <Icon_Button_Blue_20
+                                                        onClick={() => {
+                                                            setIsTextFieldsOrderKitchen(prev => {
+                                                                const newBebida = [...prev.pedidos];
+                                                                newBebida[index] = {
+                                                                    ...newBebida[index],
+                                                                    cantidad: ''
+                                                                };
+                                                                return {
+                                                                    ...prev,
+                                                                    pedidos: newBebida
+                                                                };
+                                                            });
+                                                        }}
+                                                        disabled={isActionBlock}
+                                                    >
+                                                        <MdCancel/>
+                                                    </Icon_Button_Blue_20>
+                                                </Container_Row_100_Left>  
+                                                <Container_Row_100_Center>
+                                                    <Text_Span_16_Center_Black>Costo: $ {isDrinkSpecifications.find(d => d.idbebida === pedido.idbebida)?.precio} MXN</Text_Span_16_Center_Black>
+                                                </Container_Row_100_Center>
+                                                <Container_Row_100_Left>
+                                                    <Button_Icon_Red_80
+                                                        disabled={isActionBlock}
+                                                        onClick={() => DrinkDeleteCook(pedido.idbebida)}
+                                                    >
+                                                        <Icon_20><FaMinus/></Icon_20>
+                                                    </Button_Icon_Red_80>
+                                                    <Container_Row_100_Right>
+                                                        <Text_Title_20_Black>No. Platillo: {index+1}</Text_Title_20_Black>
+                                                    </Container_Row_100_Right>
+                                                </Container_Row_100_Left>  
+                                            </>
+                                        ):(
+                                            <></>
+                                        )}
                                     </Container_Order_100_Center>
                                 ))}
                                  <Container_Row_100_Left>
                                     <Label_Text_16_Black>Precio Total:</Label_Text_16_Black>
+                                    <Text_Span_16_Center_Black>$</Text_Span_16_Center_Black>
                                     <Input_Group>
                                         <Input_Text_100_Black
                                             placeholder="..."
@@ -395,16 +545,16 @@ export default function Order_Kitchen_Add(){
                                             value={isTextFieldsOrderKitchen.precio}
                                             disabled
                                         />
-                                    </Input_Group>    
+                                    </Input_Group>   
                                 </Container_Row_100_Left>
                                 <Modal_Form_Button_Add
                                     onCancel={() => handleModalViewOrderKitchen('')}
-                                    onAction={() => handleSupplyCategoryAdd()}
+                                    onAction={() => handleOrderKitchenAdd()}
                                 />
                             </Container_Modal_Form>
                         </Container_Modal_Form_White>
                     </Container_Modal_Form_White_600>
-                    <Keyboard_Form_Supply_Category/>
+                    <Keyboard_Form_Order_Kitchen/>
                 </Container_Modal_Background_Black>
             ):(
                 <></>

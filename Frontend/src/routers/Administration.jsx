@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect,useState } from "react";
+import { useContext,useEffect,useState,useRef } from "react";
 import { Outlet,useNavigate,Navigate } from "react-router-dom";
 // Contextos
 import { ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
@@ -10,11 +10,44 @@ import { TextFieldsUserContext,TextFieldsWarehouseOrderContext,TextFieldsObserva
 // Hooks personalizados
 import { DeleteSessionStorage,ResetViews,ResetVariables } from "../hooks/Session";
 // Estilos personalizados
-import { Alert_Sonner_Warning,Alert_Sonner_Promise } from "../components/styled/Alerts";
+import { Alert_Sonner_Warning,Alert_Sonner_Promise,Alert_Swal_Error } from "../components/styled/Alerts";
 //____________IMPORT/EXPORT____________
 
 // Componente para proteger las rutas de la pagina
 export const PrivateRouteAdministration = () => {
+    const [timeLeft, setTimeLeft] = useState(900);
+    const lastActivityRef = useRef(Date.now());
+
+    const resetTimer = () => {
+        lastActivityRef.current = Date.now();
+        setTimeLeft(900);
+    };
+
+    useEffect(() => {
+        const events = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+        events.forEach((event) => window.addEventListener(event, resetTimer));
+
+        return () => {
+            events.forEach((event) => window.removeEventListener(event, resetTimer));
+        };
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const elapsed = Math.floor((Date.now() - lastActivityRef.current) / 1000);
+            const remaining = 900 - elapsed;
+            if (remaining <= 0) {
+                clearInterval(interval);
+                Alert_Swal_Error('¡Sesión expirada por inactividad!');
+                setTimeout(() => setIsLoggedLog(true), 5000);
+                setTimeLeft(0);
+            } else {
+                setTimeLeft(remaining);
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
     // Contantes con el valor de los usestate
     const [alertShown, setAlertShown] = useState({
         nombreUsuario: false,
@@ -56,6 +89,8 @@ export const PrivateRouteAdministration = () => {
         codigoSuministro: false,
         campus: false,
         observacionPedidoAlmacen: false,
+        solicitante: false,
+        clave: false,
     });
     // Constantes con el valor de los contextos
     const [isActionBlock,setIsActionBlock] = useContext(ActionBlockContext);

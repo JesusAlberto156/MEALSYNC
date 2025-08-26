@@ -2439,4 +2439,35 @@ export const Button_Link_Blue_Auto = styled.button`
         font-size: 8px;
     }
 `;
+export const Button_Link_White_Auto = styled.button`
+    width: auto;
+    font-family: Century Gothic,Prompt;
+    font-size: 12px;
+    background-color: transparent;
+    color:rgba(161, 247, 250, 1);
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.4s, transform 0.4s;
+
+    &:not(:disabled):hover {
+        color:rgba(0, 175, 184, 1);
+        text-decoration: underline;
+        transform: scale(1.2);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        text-decoration: underline;
+        color: rgba(84, 88, 89, 0.5);
+    }
+
+    @media (max-width: 768px) {
+       font-size: 10px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 8px;
+    }
+`;
 //____________LINK____________

@@ -81,7 +81,7 @@ export default function Card_Information({
                 className={id}
             >
                 <Card_Menu_White 
-                    style={{ backgroundColor: isTextFieldsOrderDoctor.pedidos.some(p => p.idplatillo === isSelected) || isTextFieldsOrderKitchen.pedidos.some(p => p.idplatillo === isSelected || p.idguarnicion === isSelected || p.idbebida === isSelected) ? 'rgba(206, 135, 227, 1)' : ''}} 
+                    style={{ backgroundColor: (isTextFieldsOrderKitchen.pedidos.some(p => p.idplatillo === isSelected) && isSelectedOptionOrderPlus === 'Platillos') || (isTextFieldsOrderKitchen.pedidos.some(p => p.idguarnicion === isSelected) && isSelectedOptionOrderPlus === 'Guarniciones') || (isTextFieldsOrderKitchen.pedidos.some(p => p.idbebida === isSelected) && isSelectedOptionOrderPlus === 'Bebidas') ? 'rgba(180, 230, 244, 1)' : ''}} 
                     isDisabled={isActionBlock}
                 >
                     <Card_Menu_Functions>
@@ -130,7 +130,7 @@ export default function Card_Information({
                                                 <Icon_20><FaMinus/></Icon_20>
                                             </Button_Icon_Red_80>
                                             <Button_Icon_Green_80
-                                                disabled={isActionBlock || isTextFieldsOrderDoctor.pedidos.some(p => p.idplatillo === isSelected) || isTextFieldsOrderDoctor.pedidos.length === 4}
+                                                disabled={isActionBlock || isTextFieldsOrderDoctor.pedidos.some(p => p.idplatillo === isSelected) || isTextFieldsOrderDoctor.clavesecreta !== '' ? isTextFieldsOrderDoctor.pedidos.length === 12 : isTextFieldsOrderDoctor.pedidos.length === 4}
                                                 onClick={() => onAdd()}
                                             >
                                                 <Icon_20><FaPlus/></Icon_20>
@@ -150,13 +150,13 @@ export default function Card_Information({
                                         </Container_Row_NG_100_Left>
                                         <Container_Row_100_Center>
                                             <Button_Icon_Red_80
-                                                disabled={isActionBlock || !isTextFieldsOrderKitchen.pedidos.some(p => p.idplatillo === isSelected || p.idguarnicion === isSelected || p.idbebida === isSelected)}
+                                                disabled={isActionBlock || (!isTextFieldsOrderKitchen.pedidos.some(p => p.idplatillo === isSelected) && isSelectedOptionOrderPlus === 'Platillos') || (!isTextFieldsOrderKitchen.pedidos.some(p => p.idguarnicion === isSelected) && isSelectedOptionOrderPlus === 'Guarniciones') || (!isTextFieldsOrderKitchen.pedidos.some(p => p.idbebida === isSelected) && isSelectedOptionOrderPlus === 'Bebidas')}
                                                 onClick={() => onDeleteCook()}
                                             >
                                                 <Icon_20><FaMinus/></Icon_20>
                                             </Button_Icon_Red_80>
                                             <Button_Icon_Green_80
-                                                disabled={isActionBlock || isTextFieldsOrderKitchen.pedidos.some(p => p.idplatillo === isSelected || p.idguarnicion === isSelected || p.idbebida === isSelected)}
+                                                disabled={isActionBlock || (isTextFieldsOrderKitchen.pedidos.some(p => p.idplatillo === isSelected) && isSelectedOptionOrderPlus === 'Platillos') || (isTextFieldsOrderKitchen.pedidos.some(p => p.idguarnicion === isSelected) && isSelectedOptionOrderPlus === 'Guarniciones') || (isTextFieldsOrderKitchen.pedidos.some(p => p.idbebida === isSelected) && isSelectedOptionOrderPlus === 'Bebidas')}
                                                 onClick={() => onAddCook()}
                                             >
                                                 <Icon_20><FaPlus/></Icon_20>

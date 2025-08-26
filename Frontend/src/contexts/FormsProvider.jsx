@@ -652,6 +652,7 @@ export const Text_Fields_Order_Doctor = ({ children }) => {
         cirugia: '',
         medico: '',
         solicitante: '',
+        clavesecreta: '',
         idusuario: 0,
         precio: '',
         pedidos: []

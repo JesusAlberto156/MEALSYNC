@@ -19,7 +19,6 @@ export const RefButtonVerificationGreenContext = createContext(null);
 export const RefButtonVerificationBlueContext = createContext(null);
 export const RefButtonVerificationRedContext = createContext(null);
 export const RefButtonEndContext = createContext(null);
-export const RefSuppliersContext = createContext(null);
 // Contextos personalizados
 import { TouchContext } from "./VariablesProvider";
 //____________IMPORT/EXPORT____________
@@ -44,9 +43,7 @@ export const Index_Refs = ({children}) => {
                                                                 <Ref_Button_Verification_Red>
                                                                     <Ref_Button_End>
                                                                         <Ref_Button_Detail>
-                                                                            <Ref_Suppliers>
-                                                                                {children}
-                                                                            </Ref_Suppliers>
+                                                                            {children}
                                                                         </Ref_Button_Detail>
                                                                     </Ref_Button_End>
                                                                 </Ref_Button_Verification_Red>
@@ -256,22 +253,5 @@ export const Ref_Button_Detail = ({ children }) => {
         <RefButtonDetailContext.Provider value={isButtonDetail}>
             {children}
         </RefButtonDetailContext.Provider>
-    );
-}
-
-// Función contexto para controlar la tabla de proveedores con referencias ✔️
-export const Ref_Suppliers = ({ children }) => {
-    // UseRef para controlar el valor del contexto
-    const isSuppliers = {
-        Modal_Suppliers: useRef(null),
-        Form_Suppliers: useRef(null),
-        Button_Edit_Suppliers: useRef(null),
-        Button_Delete_Suppliers: useRef(null),
-    };
-    // Return para darle valor al contexto y heredarlo
-    return(
-        <RefSuppliersContext.Provider value={isSuppliers}>
-            {children}
-        </RefSuppliersContext.Provider>
     );
 }

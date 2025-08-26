@@ -4,7 +4,7 @@ import { useContext,useEffect,useState } from "react";
 import { Tooltip } from "@mui/material";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../contexts/ViewsProvider";
-import { ActionBlockContext,TouchContext } from "../../../contexts/VariablesProvider";
+import { ActionBlockContext,TouchContext,KeyboardContext,KeyboardViewContext } from "../../../contexts/VariablesProvider";
 import { TextFieldsOrderDoctorContext } from "../../../contexts/FormsProvider";
 import { RefKeyboardContext,RefKeyboardTouchContext } from "../../../contexts/RefsProvider";
 import { LoggedLogContext } from "../../../contexts/SessionProvider";
@@ -29,6 +29,7 @@ import { Button_Icon_Blue_Auto_40, Button_Icon_Red_Auto_40 } from "../../styled/
 // Componentes personalizados
 import { Image_Modal } from "../../styled/Imgs";
 import { Select_300 } from "../../styled/Selects";
+import { Keyboard_Form_Surgeries } from "../../keyboards/Form";
 //____________IMPORT/EXPORT____________
 
 // Modal para verificar cirugias disponibles
@@ -46,6 +47,8 @@ export default function Alert_Medico(){
     const [isLoggedLog,setIsLoggedLog] = useContext(LoggedLogContext);
     const [socket] = useContext(SocketContext);
     const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); 
+    const [isKeyboard,setIsKeyboard] = useContext(KeyboardContext);
+    const [isKeyboardView,setIsKeyboardView] = useContext(KeyboardViewContext);
     // Constantes con la funcionalidad de los hooks
     const { KeyboardView,KeyboardClick } = HandleKeyboard();
     const filteredRecordsSurgeryDoctor = FilteredRecordsSurgeryDoctor();
@@ -193,18 +196,54 @@ export default function Alert_Medico(){
                                     <Label_Text_16_Black>Solicitante:</Label_Text_16_Black>
                                     <Input_Group>
                                         <Input_Text_100_Black
+                                            id="Input-Solicitante"
                                             placeholder="..."
                                             type="text"
                                             maxLength={150}
                                             disabled={isActionBlock}
                                             value={isTextFieldsOrderDoctor.solicitante}
                                             onChange={(e) => setIsTextFieldsOrderDoctor(prev => ({...prev, solicitante: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Solicitante');
+                                                }
+                                            }}
                                         />
                                         <Label_Text_12_Black>{isTotal}/150</Label_Text_12_Black>
                                     </Input_Group>
                                     <Icon_Button_Blue_20
                                         onClick={() => {
                                             setIsTextFieldsOrderDoctor(prev => ({...prev, solicitante: ''}))
+                                        }}
+                                        disabled={isActionBlock}
+                                    >
+                                        <MdCancel/>
+                                    </Icon_Button_Blue_20>
+                                </Container_Row_100_Left>
+                                <Container_Row_100_Left>
+                                    <Label_Text_16_Black>Clave de autorización:</Label_Text_16_Black>
+                                    <Input_Group>
+                                        <Input_Text_100_Black
+                                            id="Input-Clave"
+                                            placeholder="..."
+                                            type="text"
+                                            maxLength={20}
+                                            disabled={isActionBlock}
+                                            value={isTextFieldsOrderDoctor.clavesecreta}
+                                            onChange={(e) => setIsTextFieldsOrderDoctor(prev => ({...prev, clavesecreta: e.target.value}))}
+                                            onFocus={() => {
+                                                if(isKeyboardTouch.current){
+                                                    setIsKeyboard(true);
+                                                    setIsKeyboardView('Clave');
+                                                }
+                                            }}
+                                        />
+                                        <Label_Text_12_Black>{isTextFieldsOrderDoctor.clavesecreta.length}/20</Label_Text_12_Black>
+                                    </Input_Group>
+                                    <Icon_Button_Blue_20
+                                        onClick={() => {
+                                            setIsTextFieldsOrderDoctor(prev => ({...prev, clavesecreta: ''}))
                                         }}
                                         disabled={isActionBlock}
                                     >
@@ -248,6 +287,7 @@ export default function Alert_Medico(){
                             </Container_Modal_Form>
                         </Container_Modal_Form_White>
                     </Container_Modal_Form_White_600>
+                    <Keyboard_Form_Surgeries/>
                 </Container_Modal_Background_Black>
             ):(
                 <></>

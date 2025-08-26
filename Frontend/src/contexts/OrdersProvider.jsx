@@ -8,8 +8,10 @@ export const DoctorsContext = createContext(null);
 export const SurgeriesContext = createContext(null);
 export const SurgeryTypesContext = createContext(null);
 export const OrderKitchenContext = createContext(null);
+export const OrderKitchenAddContext = createContext(null);
 export const CountOrderKitchenContext = createContext(null);
 export const OrderDoctorContext = createContext(null);
+export const OrderDoctorAddContext = createContext(null);
 export const OrderDoctorOrderContext = createContext(null);
 // Contextos personalizados
 import { SocketContext } from "./SocketProvider";
@@ -21,13 +23,17 @@ export const Index_Orders = ({children}) => {
         <Surgeries>
             <Surgery_Types>
                 <Order_Kitchen>
-                    <Count_Order_Kitchen>
-                        <Order_Doctor>
-                            <Order_Doctor_Order>
-                                {children}
-                            </Order_Doctor_Order>
-                        </Order_Doctor>
-                    </Count_Order_Kitchen>
+                    <Order_Kitchen_Add>
+                        <Count_Order_Kitchen>
+                            <Order_Doctor>
+                                <Order_Doctor_Add>
+                                    <Order_Doctor_Order>
+                                        {children}
+                                    </Order_Doctor_Order>
+                                </Order_Doctor_Add>
+                            </Order_Doctor>
+                        </Count_Order_Kitchen>
+                    </Order_Kitchen_Add>
                 </Order_Kitchen>
             </Surgery_Types>
         </Surgeries>
@@ -156,6 +162,17 @@ export const Order_Kitchen = ({ children }) => {
         </OrderKitchenContext.Provider>
     );
 }
+// Función contexto para controlar los datos agregados de una orden de pedido de cocina ✔️
+export const Order_Kitchen_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isOrderKitchenAdd,setIsOrderKitchenAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <OrderKitchenAddContext.Provider value={[isOrderKitchenAdd,setIsOrderKitchenAdd]}>
+            {children}
+        </OrderKitchenAddContext.Provider>
+    );
+}
 // Función contexto para controlar los datos de la base de datos de las cantidades de los pedidos de cocina ✔️
 export const Count_Order_Kitchen = ({ children }) => {
     // constantes con contextos perzonalizados
@@ -234,6 +251,17 @@ export const Order_Doctor = ({ children }) => {
         <OrderDoctorContext.Provider value={[isOrderDoctor]}>
             {children}
         </OrderDoctorContext.Provider>
+    );
+}
+// Función contexto para controlar los datos agregados de una orden de pedido de medico ✔️
+export const Order_Doctor_Add = ({ children }) => {
+    // UseState para controlar el valor del contexto
+    const [isOrderDoctorAdd,setIsOrderDoctorAdd] = useState(false);
+    // Return para darle valor al contexto y heredarlo
+    return (
+        <OrderDoctorAddContext.Provider value={[isOrderDoctorAdd,setIsOrderDoctorAdd]}>
+            {children}
+        </OrderDoctorAddContext.Provider>
     );
 }
 // Función contexto para controlar los datos de la base de datos de los pedidos de estar médico individuales ✔️

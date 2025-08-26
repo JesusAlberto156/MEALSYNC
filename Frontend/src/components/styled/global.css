@@ -8,3 +8,25 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+
+/* Día seleccionado */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: rgb(58, 93, 174) !important; /* fondo azul */
+  color: white !important; /* texto blanco */
+  border-radius: 50%; /* opcional: redondear */
+}
+
+/* Hover en cualquier día */
+.react-datepicker__day:hover {
+  background-color: rgb(230, 230, 230) !important;
+  color: black !important;
+  border-radius: 50%;
+}
+
+/* Hover sobre el día seleccionado */
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--keyboard-selected:hover {
+  background-color: rgb(40, 70, 140) !important; 
+  color: white !important;
+}

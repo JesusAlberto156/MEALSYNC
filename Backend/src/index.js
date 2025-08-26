@@ -5,6 +5,10 @@ import config from './config/config.js';
 import { conexionDB,conexionDB_Cirugias } from './config/database.config.js';
 // Rutas del servidor
 import { routerAPI } from './mealsync/routes/index.js';
+// Para la impresora 
+import escpos from 'escpos';
+import escposUSB from 'escpos-usb';
+import escposNetwork from 'escpos-network';
 // Creación del servidor
 import express from 'express';
 import morgan from 'morgan';
@@ -51,7 +55,69 @@ conexionDB().then(() => {
   console.log('Conexion a la base de datos exitosa...');
 
   routerAPI(app);
-  
+  // Endpoint para la impresion de tickets
+  app.post(`${api}/print-ticket`, async (req, res) => {
+    const { logo, fecha, ubicacion, numero, encargado, pedidos, propina, total, printerType, printerIP } = req.body;
+
+    try {
+      let device;
+
+      if (printerType === "USB") {
+        device = new escposUSB();
+      } else if (printerType === "Network") {
+        device = new escposNetwork(printerIP);
+      } else {
+        return res.status(400).send("Tipo de impresora inválido");
+      }
+
+      const printer = new escpos.Printer(device);
+
+      device.open(async () => {
+        printer.align("CT");
+
+        // Logo (opcional, si mandas ruta/base64 y tu librería escpos soporta imágenes)
+        if (logo) {
+          try {
+            const image = await escpos.Image.load(logo);
+            printer.image(image, "s8");
+          } catch (err) {
+            console.warn("No se pudo imprimir el logo:", err.message);
+          }
+        }
+
+        // Encabezado
+        printer.text("Hospital Puerta de Hierro")
+               .text("Restaurant COMANDA")
+               .text(`FECHA: ${fecha}`)
+               .text("----------------------------")
+               .align("LT");
+
+        // Datos del pedido
+        printer.text(`UBICACIÓN: ${ubicacion}`);
+        printer.text(`N°: ${numero}`);
+        printer.text(`ENCARGADO: ${encargado}`);
+        printer.text("----------------------------");
+
+        // Lista de pedidos
+        pedidos.forEach((p) => {
+          printer.text(`${p.cantidad}  ${p.nombre}   $${(p.precio * p.cantidad).toFixed(2)}`);
+        });
+
+        printer.text("----------------------------");
+        printer.text(`PROPINA: $${Number(propina).toFixed(2)}`);
+        printer.text(`TOTAL:   $${total}`);
+        printer.align("CT")
+               .text("¡Gracias!")
+               .cut()
+               .close();
+
+        res.send({ message: "Ticket enviado a impresora" });
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: "Error al imprimir ticket" });
+    }
+  });
 }).catch((error) => {
   console.error('Error al conectar a la base de datos:', error.message);
   process.exit(1);

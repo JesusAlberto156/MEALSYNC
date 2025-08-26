@@ -65,10 +65,13 @@ const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext)
 const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useContext(TextFieldsSideDishContext); ✔️
 const [isTextFieldsDrink,setIsTextFieldsDrink] = useContext(TextFieldsDrinkContext); ✔️
 const [isTextFieldsSearchOrders,setIsTextFieldsSearchOrders] = useContext(TextFieldsSearchOrdersContext); ✔️
-const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); 
+const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); ✔️
 const [isTextFieldsKitchen,setIsTextFieldsKitchen] = useContext(TextFieldsKitchenContext); 
-const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); 
+const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); ✔️
 //____________FORMS____________
+//____________KEY____________
+const [isKey] = useContext(KeyContext); ✔️
+//____________KEY____________
 //____________MENUS____________
 const [isMenus] = useContext(MenusContext); ✔️
 const [isMenuTypes] = useContext(MenuTypesContext); ✔️
@@ -82,10 +85,12 @@ const [isMenuUbications] = useContext(MenuUbicationsContext); ✔️
 //____________ORDERS____________
 const [isSurgeries] = useContext(SurgeriesContext); ✔️
 const [isSurgeryTypes] = useContext(SurgeryTypesContext); ✔️
-const [isOrderKitchen] = useContext(OrderKitchenContext);
-const [isCountOrderKitchen] = useContext(CountOrderKitchenContext);
-const [isOrderDoctor] = useContext(OrderDoctorContext);
-const [isOrderDoctorOrder] = useContext(OrderDoctorOrderContext);
+const [isOrderKitchen] = useContext(OrderKitchenContext); ✔️
+const [isOrderKitchenAdd,setIsOrderKitchenAdd] = useContext(OrderKitchenAddContext); ✔️
+const [isCountOrderKitchen] = useContext(CountOrderKitchenContext); ✔️
+const [isOrderDoctor] = useContext(OrderDoctorContext); ✔️
+const [isOrderDoctorAdd,setIsOrderDoctorAdd] = useContext(OrderDoctorAddContext);
+const [isOrderDoctorOrder] = useContext(OrderDoctorOrderContext); ✔️
 //____________ORDERS____________
 //____________REF____________
 const isAlert = useContext(RefAlertsContext); ✔️

@@ -314,7 +314,7 @@ export const TableActionsTotalSupplies = () => {
     // Filtrado de datos
     const filteredRecordsTotalSupplies = useMemo(() => {
         const filteredPurchases = isWarehouseSupplyTypes.filter((data) => {
-            if(data.transaccion === 'Venta' || data.transaccion === 'Venta-Rapida') return false;
+            if(data.transaccion === 'Venta' || data.transaccion === 'Venta-Rapida' || data.transaccion === 'Pedido Cancelado' || data.transaccion === 'Pedido') return false;
 
             return true;
         });

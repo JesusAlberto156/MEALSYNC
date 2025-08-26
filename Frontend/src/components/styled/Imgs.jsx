@@ -106,6 +106,24 @@ export const Image_Modal_150 = styled.img`
         border-bottom: 4px solid black;
     }
 `;
+export const Image_Modal_100 = styled.img`
+    width: auto; 
+    height: 100px;
+    object-fit: cover;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+
+    @media (max-width: 768px) {
+        height: 80px;
+    }
+
+    @media (max-width: 480px) {
+        height: 60px;
+    }
+`;
 //____________MODAL____________
 //____________LOGIN____________
 export const Image_Login_Auto = styled.img`

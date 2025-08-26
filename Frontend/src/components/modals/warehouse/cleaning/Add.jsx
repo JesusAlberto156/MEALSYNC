@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
@@ -22,17 +22,18 @@ import { MdCancel } from "react-icons/md";
 import { MdOutlineAttachMoney } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form, Container_Row_100_Center } from "../../../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black, Text_Color_Green_16, Text_Color_Red_16 } from "../../../styled/Text";
-import { Input_Text_100_Black,Input_Group } from "../../../styled/Inputs";
+import { Input_Text_100_Black,Input_Group, Input_Radio_20 } from "../../../styled/Inputs";
 import { Icon_Button_Blue_20 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
-import { Label_Text_16_Black } from "../../../styled/Labels";
+import { Label_Button_16_Black, Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import { Image_Modal } from "../../../styled/Imgs";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
 import { Keyboard_Form_Warehouse_Products } from "../../../keyboards/Form";
 import { Select_300 } from "../../../styled/Selects";
+import { Calendar_Input_100_Black } from "../../../styled/Calendars";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar venta de suministro a su tabla
@@ -55,6 +56,8 @@ export default function Warehouse_Cleaning_Supply_Add(){
     const [isCleaningCategories] = useContext(CleaningCategoriesContext);
     const [isWarehouseCleaningTypes] = useContext(WarehouseCleaningTypesContext); 
     const [isCleaningTypes] = useContext(CleaningTypesContext);
+    // Constantes con el valor de los useState
+    const [isDateType,setIsDateType] = useState('');
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewWarehouse = HandleModalViewWarehouse();
@@ -104,17 +107,31 @@ export default function Warehouse_Cleaning_Supply_Add(){
             const cantidadTotal = cantidadTotalCompra - cantidadTotalVenta;
             const precioTotal = precioTotalCompra - precioTotalVenta;
 
-            const preciounitario = (precioTotal/cantidadTotal).toFixed(4);
-            
-            const precio = (isTextFieldsWarehouseCleaning.cantidadreal * preciounitario).toFixed(4);
+            if(currentMView === 'Almacen-Venta-Suministro-Agregar'){
+                const preciounitario = (precioTotal/cantidadTotal)
+                
+                const precio = (isTextFieldsWarehouseCleaning.cantidadreal * preciounitario)
 
-            setIsTextFieldsWarehouseCleaning(prev => ({
-                ...prev,
-                preciototal: precioTotal,
-                cantidadtotal: cantidadTotal,
-                preciounitario: preciounitario,
-                precio: precio,
-            }));
+                setIsTextFieldsWarehouseCleaning(prev => ({
+                    ...prev,
+                    preciototal: Math.max(precioTotal,0),
+                    cantidadtotal: cantidadTotal,
+                    preciounitario: Math.max(preciounitario,0),
+                    precio: precio,
+                }));
+            }
+
+            if(currentMView === 'Almacen-Compra-Suministro-Agregar'){
+                
+                const precio = (isTextFieldsWarehouseCleaning.cantidadreal * isTextFieldsWarehouseCleaning.preciounitario)
+
+                setIsTextFieldsWarehouseCleaning(prev => ({
+                    ...prev,
+                    preciototal: Math.max(precioTotal,0),
+                    cantidadtotal: cantidadTotal,
+                    precio: precio,
+                }));
+            }
         }else{
             setIsTextFieldsWarehouseCleaning(prev => ({
                 ...prev,
@@ -146,15 +163,30 @@ export default function Warehouse_Cleaning_Supply_Add(){
     }
     // UseEffect para obtener la hora a tiepo real
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIsTextFieldsWarehouseCleaning((prev) => ({
-                ...prev,
-                fecha: getFormattedDateTime()
-            }));
-        }, 1000);
+        if(isDateType === 'Automática'){
+            const interval = setInterval(() => {
+                setIsTextFieldsWarehouseCleaning((prev) => ({
+                    ...prev,
+                    fecha: getFormattedDateTime()
+                }));
+            }, 1000);
 
-        return () => clearInterval(interval);
-    },[])
+            return () => clearInterval(interval);
+        }else{
+            setIsTextFieldsWarehouseCleaning(prev => ({
+                ...prev,
+                fecha: '',
+            }));
+        }
+    },[isDateType]);
+    useEffect(() => {
+        if(isTextFieldsWarehouseCleaning.fecha === null){
+            setIsTextFieldsWarehouseCleaning(prev => ({
+                ...prev,
+                fecha: '',
+            }));
+        }
+    },[isTextFieldsWarehouseCleaning.fecha]);
     // UseEffets para controlar el teclado
     useEffect(() => {
         KeyboardView();
@@ -171,9 +203,13 @@ export default function Warehouse_Cleaning_Supply_Add(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Warehouse-Cleaning',isLoggedUser.idusuario,isTextFieldsWarehouseCleaning.cantidadreal,isTextFieldsWarehouseCleaning.precio,isTextFieldsWarehouseCleaning.idtipo,isTextFieldsWarehouseCleaning.idcategoria,'Consumo');
+                        socket.emit('Insert-Warehouse-Cleaning',isLoggedUser.idusuario,isTextFieldsWarehouseCleaning.cantidadreal,isTextFieldsWarehouseCleaning.precio,isTextFieldsWarehouseCleaning.fecha,isTextFieldsWarehouseCleaning.idtipo,isTextFieldsWarehouseCleaning.idcategoria,currentMView === 'Almacen-Compra-Suministro-Agregar' ? 'Compra' : 'Consumo',isDateType);
 
-                        resolve('¡Agregó el consumo de suministro!');
+                        if(currentMView === 'Almacen-Compra-Suministro-Agregar'){
+                            resolve('¡Agregó la compra de suministro!');
+                        }else{
+                            resolve('¡Agregó el consumo de suministro!');
+                        }
 
                         setIsWarehouseCleaningAdd(false)
 
@@ -200,7 +236,7 @@ export default function Warehouse_Cleaning_Supply_Add(){
                 }
             });
 
-            Alert_Sonner_Promise(promise,'¡Agregando un consumo de suministro!','2');
+            Alert_Sonner_Promise(promise,currentMView === 'Almacen-Compra-Suministro-Agregar' ? '¡Agregando una compra de suministro!' : '¡Agregando un consumo de suministro!','2');
         }
     },[isWarehouseCleaningAdd]);
     // Estructura del componente
@@ -209,10 +245,19 @@ export default function Warehouse_Cleaning_Supply_Add(){
             {isModal ? (
                 <Container_Modal_Background_Black>
                     <Image_Modal/>
-                    <Container_Modal_Form_White_600 className={currentMView === 'Almacen-Venta-Suministro-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
+                    <Container_Modal_Form_White_600 className={currentMView === 'Almacen-Venta-Suministro-Agregar' || currentMView === 'Almacen-Compra-Suministro-Agregar' ? 'slide-in-container-top' : 'slide-out-container-top'}>
                         <Container_Modal_Form_White>
                             <Container_Modal_Form>
-                                <Text_Title_28_Black>AGREGAR CONSUMO DE SUMINISTRO</Text_Title_28_Black>
+                                {currentMView === 'Almacen-Venta-Suministro-Agregar' ? (
+                                    <Text_Title_28_Black>AGREGAR CONSUMO DE SUMINISTRO</Text_Title_28_Black>
+                                ):(
+                                    <></>
+                                )}
+                                {currentMView === 'Almacen-Compra-Suministro-Agregar' ? (
+                                    <Text_Title_28_Black>AGREGAR COMPRA DE SUMINISTRO</Text_Title_28_Black>
+                                ):(
+                                    <></>
+                                )}
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos generales</Text_Span_16_Center_Black>
@@ -267,23 +312,66 @@ export default function Warehouse_Cleaning_Supply_Add(){
                                     <Text_Color_Red_16>Valor total</Text_Color_Red_16>
                                     <Text_Span_16_Center_Black>: <MdOutlineAttachMoney/> {isTextFieldsWarehouseCleaning.preciototal || 0} MXN</Text_Span_16_Center_Black>
                                 </Container_Row_100_Left>
-                                <Container_Row_100_Left>
-                                    <Text_Color_Red_16>Valor unitario</Text_Color_Red_16>
-                                    <Text_Span_16_Center_Black>: <MdOutlineAttachMoney/> {isTextFieldsWarehouseCleaning.preciounitario || 0} MXN</Text_Span_16_Center_Black>
-                                </Container_Row_100_Left>
+                                {currentMView === 'Almacen-Venta-Suministro-Agregar' ? (
+                                    <Container_Row_100_Left>
+                                        <Text_Color_Red_16>Valor unitario</Text_Color_Red_16>
+                                        <Text_Span_16_Center_Black>: <MdOutlineAttachMoney/> {isTextFieldsWarehouseCleaning.preciounitario || 0} MXN</Text_Span_16_Center_Black>
+                                    </Container_Row_100_Left>
+                                ):(
+                                    <></>
+                                )}
                                 <Container_Row_NG_Auto_Center>
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
-                                <Container_Row_100_Left>
-                                    <Label_Text_16_Black>Fecha de operación:</Label_Text_16_Black>
-                                    <Input_Text_100_Black
-                                        placeholder="..."
-                                        type="text"
-                                        value={isTextFieldsWarehouseCleaning.fecha}
-                                        disabled
-                                    />
-                                </Container_Row_100_Left>
+                                <Container_Row_100_Center>
+                                    {['Automática','Personalizada'].map((item,index) => (
+                                        <Label_Button_16_Black 
+                                            Disabled={isActionBlock}
+                                            key={index}
+                                        >
+                                            <Input_Radio_20
+                                                type="radio"
+                                                name="type"
+                                                disabled={isActionBlock}
+                                                value={item}
+                                                checked={isDateType === item}
+                                                onChange={(e) => setIsDateType(e.target.value)}
+                                            />
+                                            {item}
+                                        </Label_Button_16_Black>
+                                    ))}
+                                </Container_Row_100_Center>
+                                {isDateType === 'Personalizada' ? (
+                                    <Container_Row_100_Left>
+                                        <Label_Text_16_Black>Fecha de operación:</Label_Text_16_Black>
+                                        <Calendar_Input_100_Black
+                                            date={isTextFieldsWarehouseCleaning.fecha}
+                                            isDateType={isDateType}
+                                            onChangeDate={(date) => {
+                                                setIsTextFieldsWarehouseCleaning((prev) => ({
+                                                    ...prev,
+                                                    fecha: date,
+                                                }));
+                                            }}
+                                        />
+                                    </Container_Row_100_Left>
+                                ):(
+                                    <></>
+                                )}
+                                {isDateType === 'Automática' ? (
+                                    <Container_Row_100_Left>
+                                        <Label_Text_16_Black>Fecha de operación:</Label_Text_16_Black>
+                                        <Input_Text_100_Black
+                                            placeholder="..."
+                                            type="text"
+                                            value={isTextFieldsWarehouseCleaning.fecha}
+                                            disabled
+                                        />
+                                    </Container_Row_100_Left>
+                                ):(
+                                    <></>
+                                )}
                                 <Container_Row_100_Left>
                                     <Label_Text_16_Black>Cantidad:</Label_Text_16_Black>
                                     <Input_Group>
@@ -297,7 +385,7 @@ export default function Warehouse_Cleaning_Supply_Add(){
                                                 if(!isNaN(Number(e.target.value))){
                                                     const cantidad = e.target.value;
                                                     const preciounitario = isTextFieldsWarehouseCleaning.preciounitario;
-                                                    const precio = (cantidad * preciounitario).toFixed(4);
+                                                    const precio = (Number(cantidad) * Number(preciounitario)).toFixed(4);
 
                                                     setIsTextFieldsWarehouseCleaning(prev => ({
                                                         ...prev, 
@@ -327,6 +415,53 @@ export default function Warehouse_Cleaning_Supply_Add(){
                                         <MdCancel/>
                                     </Icon_Button_Blue_20>
                                 </Container_Row_100_Left>
+                                {currentMView === 'Almacen-Compra-Suministro-Agregar' ? (
+                                    <Container_Row_100_Left>
+                                        <Label_Text_16_Black>Precio unitario:</Label_Text_16_Black>
+                                        <Input_Group>
+                                            <Input_Text_100_Black
+                                                id="Input-Precio"
+                                                placeholder="..."
+                                                type="text"
+                                                disabled={isActionBlock}
+                                                value={isTextFieldsWarehouseCleaning.preciounitario}
+                                                onChange={(e) => {
+                                                    if(!isNaN(Number(e.target.value))){
+                                                        const preciounitario = e.target.value;
+                                                        const cantidad = isTextFieldsWarehouseCleaning.cantidadreal;
+                                                        const precio = (Number(cantidad) * Number(preciounitario)).toFixed(4);
+
+                                                        setIsTextFieldsWarehouseCleaning(prev => ({
+                                                            ...prev, 
+                                                            preciounitario: e.target.value,
+                                                            precio: precio,
+                                                        }))
+                                                    }
+                                                }}
+                                                onFocus={() => {
+                                                    if(isKeyboardTouch.current){
+                                                        setIsKeyboard(true);
+                                                        setIsKeyboardView('Precio-Unitario-Almacen-Suministro');
+                                                    }
+                                                }}
+                                            />
+                                        </Input_Group>
+                                        <Icon_Button_Blue_20
+                                            onClick={() => {
+                                                setIsTextFieldsWarehouseCleaning(prev => ({
+                                                    ...prev, 
+                                                    preciounitario: '',
+                                                    precio: '',
+                                                }))
+                                            }}
+                                            disabled={isActionBlock}
+                                        >
+                                            <MdCancel/>
+                                        </Icon_Button_Blue_20>
+                                    </Container_Row_100_Left>
+                                ):(
+                                    <></>
+                                )}
                                 <Container_Row_100_Left>
                                     <Label_Text_16_Black>Costo total:</Label_Text_16_Black>
                                     <Input_Group>
@@ -340,7 +475,7 @@ export default function Warehouse_Cleaning_Supply_Add(){
                                 </Container_Row_100_Left>
                                 <Modal_Form_Button_Add
                                     onCancel={() => handleModalViewWarehouse('')}
-                                    onAction={() => handleWarehouseCleaningAdd()}
+                                    onAction={() => handleWarehouseCleaningAdd({isDateType})}
                                 />
                             </Container_Modal_Form>
                         </Container_Modal_Form_White>

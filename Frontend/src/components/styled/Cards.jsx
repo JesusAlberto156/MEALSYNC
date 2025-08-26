@@ -133,7 +133,7 @@ export const Card_Menu_Functions = styled.div`
     background-color: transparent;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 10px;
 `;
@@ -146,16 +146,13 @@ export const Card_Menu_Column_100_Add = styled.div`
     width: 100%;
     height: auto;  
     gap: 20px;
-    padding-top: 100px;
      
     @media (max-width: 768px) {
-        gap: 15px;  
-        padding-top: 80px;  
+        gap: 15px;   
     }
 
     @media (max-width: 480px) {
         gap: 10px;
-        padding-top: 40px;
     }
 }
 `;
@@ -168,16 +165,13 @@ export const Card_Menu_Column_100_Information = styled.div`
     width: 100%;
     height: auto;  
     gap: 20px;
-    padding-top: 95px;
      
     @media (max-width: 768px) {
         gap: 15px;  
-        padding-top: 65px;  
     }
 
     @media (max-width: 480px) {
         gap: 10px;
-        padding-top: 40px;
     }
 }
 `;

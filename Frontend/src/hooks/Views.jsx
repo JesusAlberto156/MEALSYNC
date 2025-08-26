@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginViewContext,NavbarViewContext,SidebarViewContext,SidebarContext,ModalViewContext,ModalContext } from "../contexts/ViewsProvider";
 import { TouchContext,KeyboardViewContext,KeyboardContext,ActionBlockContext,IndexCountContext,IndexSearchContext,IndexDetailContext } from "../contexts/VariablesProvider";
 import { RefKeyboardContext } from "../contexts/RefsProvider";
-import { TextFieldsUserContext,TextFieldsWarehouseOrderContext,TextFieldsCleaningTypeContext,TextFieldsWarehouseFixedExpenseContext,TextFieldsWarehouseSupplyContext,TextFieldsWarehouseCleaningContext,TextFieldsObservationContext,TextFieldsMenuTypeContext,TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext,TextFieldsSupplierContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyTypesContext,TextFieldsSupplyCategoryContext } from "../contexts/FormsProvider";
+import { TextFieldsUserContext,TextFieldsOrderDoctorContext,TextFieldsOrderKitchenContext,TextFieldsWarehouseOrderContext,TextFieldsCleaningTypeContext,TextFieldsWarehouseFixedExpenseContext,TextFieldsWarehouseSupplyContext,TextFieldsWarehouseCleaningContext,TextFieldsObservationContext,TextFieldsMenuTypeContext,TextFieldsCleaningCategoryContext,TextFieldsCleaningSupplyContext,TextFieldsFixedExpenseContext,TextFieldsSupplierContext,TextFieldsSideDishContext,TextFieldsDrinkContext,TextFieldsSupplyContext,TextFieldsDishContext,TextFieldsSupplyTypesContext,TextFieldsSupplyCategoryContext } from "../contexts/FormsProvider";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../contexts/SearchsProvider";
 // Hooks personalizados
@@ -85,6 +85,8 @@ export const HandleKeyboard = () => {
     const [isTextFieldsDish,setIsTextFieldsDish] = useContext(TextFieldsDishContext);
     const [isTextFieldsSideDish,setIsTextFieldsSideDish] = useContext(TextFieldsSideDishContext);
     const [isTextFieldsDrink,setIsTextFieldsDrink] = useContext(TextFieldsDrinkContext);
+    const [isTextFieldsOrderDoctor,setIsTextFieldsOrderDoctor] = useContext(TextFieldsOrderDoctorContext); 
+    const [isTextFieldsOrderKitchen,setIsTextFieldsOrderKitchen] = useContext(TextFieldsOrderKitchenContext); 
     const [isIndexSearch] = useContext(IndexSearchContext);
     const [isIndexCount] = useContext(IndexCountContext);
     const [isIndexDetail] = useContext(IndexDetailContext); 
@@ -144,13 +146,17 @@ export const HandleKeyboard = () => {
                 const inputCampus = document.getElementById("Input-Campus");
                 const inputDetalle = document.querySelectorAll(".Input-Detalle");
                 const inputObservation = document.getElementById("Input-Observacion");
-                // Almacen
-
                 // Platillos-Guarniciones-Bebidas
                 const inputsSearch = document.querySelectorAll(".Input-Buscador");
                 const inputsCount = document.querySelectorAll(".Input-Cantidad");
                 const inputPrice = document.getElementById("Input-Precio");
                 const inputPreparation = document.getElementById("Input-Preparacion");
+                // Pedido de doctor
+                const inputRequester = document.getElementById("Input-Solicitante");
+                const inputKey = document.getElementById("Input-Clave");
+                // Pedido de cocina
+                const inputUbication = document.getElementById("Input-Ubicacion");
+                const inputE = document.getElementById("Input-Encargado");
 
                 const keyboard = Keyboard.current && Keyboard.current.contains(event.target);
                 const clickInsideInputsDetail = Array.from(inputDetalle).some(input => input.contains(event.target));
@@ -184,7 +190,13 @@ export const HandleKeyboard = () => {
                     (inputObservation && inputObservation.contains(event.target)) ||
                     // Platillos-Guarniciones-Bebidas
                     (inputPrice && inputPrice.contains(event.target)) ||
-                    (inputPreparation && inputPreparation.contains(event.target));
+                    (inputPreparation && inputPreparation.contains(event.target)) ||
+                    // Pedido de doctor
+                    (inputRequester && inputRequester.contains(event.target)) || 
+                    (inputKey && inputKey.contains(event.target)) ||
+                    // Pedido de cocina
+                    (inputUbication && inputUbication.contains(event.target)) ||
+                    (inputE && inputE.contains(event.target));
 
                 if (!clickInsideInputs && !keyboard && !clickInsideInputsDetail && !clickInsideInputsSearch && !clickInsideInputsCount) {
                     setIsKeyboardView('');
@@ -442,9 +454,17 @@ export const HandleKeyboard = () => {
                 if (isNaN(Number(newValue))) return;
                 setIsTextFieldsWarehouseCleaning(prev => ({...prev, cantidadreal: newValue}));
                 break;
+            case 'Precio-Unitario-Almacen-Suministro':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsWarehouseCleaning(prev => ({...prev, preciounitario: newValue}));
+                break;
             case 'Cantidad-Almacen-Insumo':
                 if (isNaN(Number(newValue))) return;
                 setIsTextFieldsWarehouseSupply(prev => ({...prev, cantidadreal: newValue}));
+                break;
+            case 'Precio-Unitario-Almacen-Insumo':
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsWarehouseSupply(prev => ({...prev, preciounitario: newValue}));
                 break;
             case 'Nombre-Menu':
                 if (newValue.length > 100) return;
@@ -555,6 +575,30 @@ export const HandleKeyboard = () => {
                     return { ...prev, ingredientes: newIngredientes };
                 });
                 break;
+            case 'Solicitante':
+                if (newValue.length > 150) return;
+                setIsTextFieldsOrderDoctor(prev => ({ ...prev, solicitante: newValue }));
+                break;
+            case 'Clave':
+                if (newValue.length > 20) return;
+                setIsTextFieldsOrderDoctor(prev => ({ ...prev, clavesecreta: newValue }));
+                break;
+            case 'Ubicacion':
+                if (newValue.length > 250) return;
+                setIsTextFieldsOrderKitchen(prev => ({ ...prev, ubicacion: newValue }));
+                break;
+            case 'Encargado':
+                if (newValue.length > 150) return;
+                setIsTextFieldsOrderKitchen(prev => ({ ...prev, encargado: newValue }));
+                break;
+            case `Cantidad-Pedido-${isIndexCount}`:
+                if (isNaN(Number(newValue))) return;
+                setIsTextFieldsOrderKitchen(prev => {
+                    const newPedidos = [...prev.pedidos];
+                    newPedidos[isIndexCount].cantidad = newValue;
+                    return { ...prev, pedidos: newPedidos };
+                });
+                break;
         }
     }, [isKeyboardView]);
     // Retorno de las funciónes del hook
@@ -619,7 +663,17 @@ export const HandleModalView = () => {
                 return navigate(route,{ replace: true });
             },750);
         }
-        // CERRAR SESIÓN
+        // CLAVE SECRETA
+        if(currentMView === 'Clave-Secreta' && View === ''){
+            setIsActionBlock(true);
+            setTimeout(() => {
+                setIsModal(false);
+                sessionStorage.setItem('Estado del Modal',false);
+                if(sidebar === 'true'){setIsSidebar(true)};
+                setIsActionBlock(false);
+                return navigate(route,{ replace: true });
+            },750);
+        }
         setCurrentMView(View);
         sessionStorage.setItem('Vista del Modal',View);
         resetSelectedOptions();

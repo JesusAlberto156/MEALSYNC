@@ -990,10 +990,10 @@ export const TableActionsReports = () => {
                 return {
                     idcategoria: inicial.idcategoria,
                     nombre: nombre,
-                    inventarioInicial: inicial.gastoNeto,
-                    comprasDelMes: totalComprasMes,
-                    inventarioFinal: inventarioFinal,
-                    costo: costo,
+                    inventarioInicial: Math.max(inicial.gastoNeto,0),
+                    comprasDelMes: Math.max(totalComprasMes,0),
+                    inventarioFinal: Math.max(inventarioFinal,0),
+                    costo: Math.max(costo,0),
                 };
             });
 
@@ -1011,9 +1011,9 @@ export const TableActionsReports = () => {
                         idcategoria: compraMes.idcategoria,
                         nombre: nombre,
                         inventarioInicial: 0,
-                        comprasDelMes: compraMes.total,
-                        inventarioFinal: compraMes.total - totalVentasMes,
-                        costo: costo,
+                        comprasDelMes: Math.max(compraMes.total,0),
+                        inventarioFinal: Math.max(compraMes.total - totalVentasMes,0),
+                        costo: Math.max(costo,0),
                     });
                 }
             });
@@ -1190,10 +1190,10 @@ export const TableActionsReports = () => {
                 return {
                     idcategoria: inicial.idcategoria,
                     nombre: nombre,
-                    inventarioInicial: inicial.gastoNeto,
-                    comprasDelMes: totalComprasMes,
-                    inventarioFinal: inventarioFinal,
-                    costo: costo,
+                    inventarioInicial: Math.max(inicial.gastoNeto,0),
+                    comprasDelMes: Math.max(totalComprasMes,0),
+                    inventarioFinal: Math.max(inventarioFinal,0),
+                    costo: Math.max(costo,0),
                 };
             });
 
@@ -1211,9 +1211,9 @@ export const TableActionsReports = () => {
                         idcategoria: compraMes.idcategoria,
                         nombre: nombre,
                         inventarioInicial: 0,
-                        comprasDelMes: compraMes.total,
-                        inventarioFinal: compraMes.total - totalVentasMes,
-                        costo: costo,
+                        comprasDelMes: Math.max(compraMes.total,0),
+                        inventarioFinal: Math.max(compraMes.total - totalVentasMes,0),
+                        costo: Math.max(costo,0),
                     });
                 }
             });

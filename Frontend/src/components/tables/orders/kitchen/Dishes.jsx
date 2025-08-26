@@ -107,12 +107,6 @@ export default function Table_Dishes(){
             resetTextFieldsUser();
         }
     },[isSelectedRow]);
-    useEffect(() => {
-        console.log(isTextFieldsOrderDoctor);
-    },[isTextFieldsOrderDoctor])
-    useEffect(() => {
-        console.log(isTextFieldsOrderKitchen);
-    },[isTextFieldsOrderKitchen])
     // Estructura del componente
     return(
         <>

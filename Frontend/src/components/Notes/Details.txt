@@ -1,14 +1,8 @@
- - Falta agregar acciones a la pagina en caso de que se desconecte del servidor.
- - Falta agregar el cerrado de session automatico por actividad.
- - Falta agregar en las compras o ventas la fecha manual o uatomatica
  - Falta las alertas del inventario de insumos y suministros.
- - Falta realizar el excel de reportes mensuales o solicitud de pedidos e imprimirlos
- - Falta realizar el pdf de los pedidos de nutriologia, area medica y cocina, asi como impirmirlos.
- - Falta acomodar el filtro de menus en la parte de los pedidos 
- - Falta Verificar la cantidad del alamcen en los pedidos para que no de numeros negativos la cantidad del alamcen
- - Falta agregar la parte del contento de los pedidos realizados en cocina, area medica, y nutricion por dia, semana, o mes
- - Falta implementar el teclado en la seccion de medico
- - Falta agregar la alerta en el campo solicitante del registro de cirugia 
-
- 
-KZHdayW6Us
+ - Falta el modulo de nutriologia.
+ - Falta realizar el excel de reportes mensuales e imprimirlos.
+ - Falta agregar la parte del contento de los pedidos realizados en cocina, area medica, y nutricion por dia, semana, o mes.
+ - Falta implementar el teclado en la parte del pedido de estar medico.
+ - Falta mandar a imprimir los documentos ya realizados.
+ - Falta Verificar la cantidad del almacen en los pedidos para que no de numeros negativos la cantidad del alamcen.
+ - Falta agregar el historial de pedidos con opciones de iniciar, cancelar o finalizar estado del pedido.

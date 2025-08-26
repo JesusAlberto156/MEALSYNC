@@ -133,7 +133,7 @@ DBCC CHECKIDENT (almacenLimpieza, RESEED, 0);
 DELETE FROM almacenTipoLimpieza;
 DBCC CHECKIDENT (almacenTipoLimpieza, RESEED, 0);
 DELETE FROM almacenGastosFijos;
-DBCC CHECKIDENT (almacenGastosFijos, RESEED, 0);
+DBCC CHECKIDENT (almacenGastosFijos, RESEED, 4);
 DELETE FROM pedidos;
 DBCC CHECKIDENT (pedidos, RESEED, 0);
 DELETE FROM pedidosEliminados;

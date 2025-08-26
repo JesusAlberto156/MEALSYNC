@@ -334,14 +334,13 @@ export default function Login(){
                                                         >
                                                             <Icon_20><GiCook/></Icon_20>
                                                         </Button_Icon_Blue_200>
-                                                    </Tooltip>  
-                                                    <Tooltip title='Nutriólogo' placement="top">
-                                                        <Button_Icon_Blue_200
-                                                            onClick={() => handleLoginView('Login','Nutriólogo')}   
-                                                        >
-                                                            <Icon_20><IoNutrition/></Icon_20>
-                                                        </Button_Icon_Blue_200>
                                                     </Tooltip> 
+                                                    <Button_Icon_Blue_200
+                                                        disabled
+                                                        onClick={() => handleLoginView('Login','Nutriólogo')}   
+                                                    >
+                                                        <Icon_20><IoNutrition/></Icon_20>
+                                                    </Button_Icon_Blue_200>
                                                     <Tooltip title='Médico' placement="top">
                                                         <Button_Icon_Blue_200
                                                             onClick={() => handleLoginView('Login','Médico')} 

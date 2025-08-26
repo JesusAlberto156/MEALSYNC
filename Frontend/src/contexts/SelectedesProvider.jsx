@@ -3,8 +3,6 @@
 import { createContext,useState } from "react"
 // Contextos
 export const SelectedRowContext = createContext(null);
-export const SelectedRow1Context = createContext(null);
-export const SelectedRow2Context = createContext(null);
 export const SelectedOptionSearchContext = createContext(null);
 export const SelectedOptionOrderContext = createContext(null);
 export const SelectedOptionOrderPlusContext = createContext(null);
@@ -18,21 +16,17 @@ export const SelectedOptionOrderDirectionContext = createContext(null);
 export const Index_Selectedes = ({children}) => {
     return(
         <Selected_Row>
-            <Selected_Row_1>
-                <Selected_Row_2>
-                    <Selected_Option_Search>
-                        <Selected_Option_Order>
-                            <Selected_Option_Order_Plus>
-                                <Selected_Option_Order_Plus_Ultra>
-                                    <Selected_Option_Order_Direction>
-                                        {children}
-                                    </Selected_Option_Order_Direction>
-                                </Selected_Option_Order_Plus_Ultra>
-                            </Selected_Option_Order_Plus>
-                        </Selected_Option_Order>
-                    </Selected_Option_Search>
-                </Selected_Row_2>
-            </Selected_Row_1>
+            <Selected_Option_Search>
+                <Selected_Option_Order>
+                    <Selected_Option_Order_Plus>
+                        <Selected_Option_Order_Plus_Ultra>
+                            <Selected_Option_Order_Direction>
+                                {children}
+                            </Selected_Option_Order_Direction>
+                        </Selected_Option_Order_Plus_Ultra>
+                    </Selected_Option_Order_Plus>
+                </Selected_Option_Order>
+            </Selected_Option_Search>
         </Selected_Row>
     );
 }
@@ -46,28 +40,6 @@ export const Selected_Row = ({ children }) => {
         <SelectedRowContext.Provider value={[isSelectedRow,setIsSelectedRow]}>
             {children}
         </SelectedRowContext.Provider>
-    );
-}
-// Función Contexto para controlar el renglon seleccionado de la tabla 1 ✔️
-export const Selected_Row_1 = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isSelectedRow1,setIsSelectedRow1] = useState(null);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <SelectedRow1Context.Provider value={[isSelectedRow1,setIsSelectedRow1]}>
-            {children}
-        </SelectedRow1Context.Provider>
-    );
-}
-// Función Contexto para controlar el renglon seleccionado de la tabla 2 ✔️
-export const Selected_Row_2 = ({ children }) => {
-    // UseState para controlar el valor del contexto
-    const [isSelectedRow2,setIsSelectedRow2] = useState(null);
-    // Return para darle valor al contexto y heredarlo
-    return (
-        <SelectedRow2Context.Provider value={[isSelectedRow2,setIsSelectedRow2]}>
-            {children}
-        </SelectedRow2Context.Provider>
     );
 }
 // Función Contexto para controlar la opcion seleccionada en el buscador ✔️

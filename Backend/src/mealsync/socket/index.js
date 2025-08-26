@@ -11,6 +11,7 @@ import { Dishes_GET,Dishes_INSERT,Dishes_UPDATE,Dishes_DELETE } from './dishes.j
 import { Side_Dishes_GET,Side_Dishes_INSERT,Side_Dishes_UPDATE,Side_Dishes_DELETE } from './sideDishes.js';
 import { Drinks_GET,Drinks_INSERT,Drinks_UPDATE,Drinks_DELETE } from './drinks.js';
 import { Orders_GET,Orders_INSERT,Orders_UPDATE } from './orders.js';
+import { Key_GET,Key_INSERT,Key_UPDATE } from './Key.js';
 // Servidor socket
 import { io } from '../../index.js';
 //____________IMPORT/EXPORT____________
@@ -90,6 +91,10 @@ export const socketEvents = () => {
         Orders_GET(socket);
         Orders_INSERT(socket);
         Orders_UPDATE(socket);
+        // Clave de autorización
+        Key_GET(socket);
+        Key_INSERT(socket);
+        Key_UPDATE(socket);
         socket.on('disconnect', () => {
             console.log(`Sesión desconectada: ${clientSessionId}`);
 

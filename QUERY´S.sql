@@ -9,6 +9,4 @@ ADD idcirugia INT;
 ALTER TABLE pedidosAreaMedica
 ADD CONSTRAINT DF_pedidosAreaMedica_Fecha DEFAULT GETDATE() FOR fecha;
 
-use INFRAMED;
-SELECT * FROM TiposCirugias
-select * from ceye
+SELECT * FROM claveAutorizacion

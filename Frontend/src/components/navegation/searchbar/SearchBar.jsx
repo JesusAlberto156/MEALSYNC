@@ -1043,6 +1043,32 @@ export default function Search_Bar (){
                         ):(
                             <></>
                         )}
+                        {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus === 'Insumos' ? (
+                            isLoggedType === 'Chef' || isLoggedPermissions.superadministrador ? (
+                                <Search_Bar_Button_Add
+                                    row={isSelectedRow}
+                                    route="/Administration/Index/Warehouse/Purchases/Supplies/Add"
+                                    onHandleModalView={() => handleModalViewWarehouse('Almacen-Compra-Insumo-Agregar')}
+                                />
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
+                        {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus === 'Suministros' ? (
+                            isLoggedType === 'Chef' || isLoggedPermissions.superadministrador ? (
+                                <Search_Bar_Button_Add
+                                    row={isSelectedRow}
+                                    route="/Administration/Index/Warehouse/Purchases/Cleaning/Supplies/Add"
+                                    onHandleModalView={() => handleModalViewExtras('Almacen-Compra-Suministro-Agregar')}
+                                />
+                            ):(
+                                <></>
+                            )
+                        ):(
+                            <></>
+                        )}
                         {currentSView === 'Inventario' && currentNView === 'Compras' && isSelectedOptionOrderPlus === 'Gastos fijos' ? (
                             isLoggedType === 'Chef' || isLoggedPermissions.superadministrador ? (
                                 <Search_Bar_Button_Add

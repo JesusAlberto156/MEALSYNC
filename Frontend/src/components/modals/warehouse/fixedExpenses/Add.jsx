@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Hooks de React
-import { useContext,useEffect } from "react";
+import { useContext,useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Contextos
 import { ModalContext,ModalViewContext,SidebarContext } from "../../../../contexts/ViewsProvider";
@@ -21,17 +21,18 @@ import { HandleKeyboard } from "../../../../hooks/Views";
 import { MdCancel } from "react-icons/md";
 //__________ICONOS__________
 // Estilos personalizados
-import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form } from "../../../styled/Containers";
+import { Container_Modal_Background_Black,Container_Row_100_Left,Container_Row_NG_Auto_Center,Container_Modal_Form_White_600,Container_Modal_Form_White,Container_Modal_Form, Container_Row_100_Center } from "../../../styled/Containers";
 import { Text_Span_16_Center_Black,Text_Color_Blue_16,Text_Title_28_Black } from "../../../styled/Text";
-import { Input_Text_100_Black,Input_Group } from "../../../styled/Inputs";
+import { Input_Text_100_Black,Input_Group, Input_Radio_20 } from "../../../styled/Inputs";
 import { Icon_Button_Blue_20 } from "../../../styled/Icons";
 import { Alert_Sonner_Promise } from "../../../styled/Alerts";
-import { Label_Text_16_Black } from "../../../styled/Labels";
+import { Label_Button_16_Black, Label_Text_16_Black } from "../../../styled/Labels";
 // Componentes personalizados
 import { Image_Modal } from "../../../styled/Imgs";
 import { Modal_Form_Button_Add } from "../../../forms/Button";
 import { Keyboard_Form_Warehouse_Products } from "../../../keyboards/Form";
 import { Select_300 } from "../../../styled/Selects";
+import { Calendar_Input_100_Black } from "../../../styled/Calendars";
 //____________IMPORT/EXPORT____________
 
 // Modal para agregar compra de gasto fijo a su tabla
@@ -52,6 +53,8 @@ export default function Warehouse_Fixed_Expense_Add(){
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
     const [isDeletedFixedExpenses] = useContext(DeletedFixedExpensesContext); 
     const [isWarehouseFixedExpenseAdd,setIsWarehouseFixedExpenseAdd] = useContext(WarehouseFixedExpenseAddContext); 
+    // Constantes con el valor de los useState
+    const [isDateType,setIsDateType] = useState('');
     // Constantes con la funcionalidad de los hooks
     const navigate = useNavigate();
     const handleModalViewWarehouse = HandleModalViewWarehouse();
@@ -90,15 +93,30 @@ export default function Warehouse_Fixed_Expense_Add(){
     }
     // UseEffect para obtener la hora a tiepo real
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIsTextFieldsWarehouseFixedExpense((prev) => ({
-                ...prev,
-                fecha: getFormattedDateTime()
-            }));
-        }, 1000);
+        if(isDateType === 'Automática'){
+            const interval = setInterval(() => {
+                setIsTextFieldsWarehouseFixedExpense((prev) => ({
+                    ...prev,
+                    fecha: getFormattedDateTime()
+                }));
+            }, 1000);
 
-        return () => clearInterval(interval);
-    },[])
+            return () => clearInterval(interval);
+        }else{
+            setIsTextFieldsWarehouseFixedExpense(prev => ({
+                ...prev,
+                fecha: '',
+            }));
+        }
+    },[isDateType]);
+    useEffect(() => {
+        if(isTextFieldsWarehouseFixedExpense.fecha === null){
+            setIsTextFieldsWarehouseFixedExpense(prev => ({
+                ...prev,
+                fecha: '',
+            }));
+        }
+    },[isTextFieldsWarehouseFixedExpense.fecha]);
     // UseEffets para controlar el teclado
     useEffect(() => {
         KeyboardView();
@@ -115,7 +133,7 @@ export default function Warehouse_Fixed_Expense_Add(){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setTimeout(() => {
-                        socket.emit('Insert-Warehouse-Fixed-Expense',isLoggedUser.idusuario,isTextFieldsWarehouseFixedExpense.precio,isTextFieldsWarehouseFixedExpense.idgasto,'Compra');
+                        socket.emit('Insert-Warehouse-Fixed-Expense',isLoggedUser.idusuario,isTextFieldsWarehouseFixedExpense.precio,isTextFieldsWarehouseFixedExpense.fecha,isTextFieldsWarehouseFixedExpense.idgasto,'Compra',isDateType);
 
                         resolve('¡Agregó la compra de gasto fijo!');
 
@@ -191,15 +209,54 @@ export default function Warehouse_Fixed_Expense_Add(){
                                     <Text_Color_Blue_16>MEALSYNC</Text_Color_Blue_16>
                                     <Text_Span_16_Center_Black>: Datos específicos</Text_Span_16_Center_Black>
                                 </Container_Row_NG_Auto_Center>
-                                <Container_Row_100_Left>
-                                    <Label_Text_16_Black>Fecha de operación:</Label_Text_16_Black>
-                                    <Input_Text_100_Black
-                                        placeholder="..."
-                                        type="text"
-                                        value={isTextFieldsWarehouseFixedExpense.fecha}
-                                        disabled
-                                    />
-                                </Container_Row_100_Left>
+                                <Container_Row_100_Center>
+                                    {['Automática','Personalizada'].map((item,index) => (
+                                        <Label_Button_16_Black 
+                                            Disabled={isActionBlock}
+                                            key={index}
+                                        >
+                                            <Input_Radio_20
+                                                type="radio"
+                                                name="type"
+                                                disabled={isActionBlock}
+                                                value={item}
+                                                checked={isDateType === item}
+                                                onChange={(e) => setIsDateType(e.target.value)}
+                                            />
+                                            {item}
+                                        </Label_Button_16_Black>
+                                    ))}
+                                </Container_Row_100_Center>
+                                {isDateType === 'Personalizada' ? (
+                                    <Container_Row_100_Left>
+                                        <Label_Text_16_Black>Fecha de operación:</Label_Text_16_Black>
+                                        <Calendar_Input_100_Black
+                                            date={isTextFieldsWarehouseFixedExpense.fecha}
+                                            isDateType={isDateType}
+                                            onChangeDate={(date) => {
+                                                setIsTextFieldsWarehouseFixedExpense((prev) => ({
+                                                    ...prev,
+                                                    fecha: date,
+                                                }));
+                                            }}
+                                        />
+                                    </Container_Row_100_Left>
+                                ):(
+                                    <></>
+                                )}
+                                {isDateType === 'Automática' ? (
+                                    <Container_Row_100_Left>
+                                        <Label_Text_16_Black>Fecha de operación:</Label_Text_16_Black>
+                                        <Input_Text_100_Black
+                                            placeholder="..."
+                                            type="text"
+                                            value={isTextFieldsWarehouseFixedExpense.fecha}
+                                            disabled
+                                        />
+                                    </Container_Row_100_Left>
+                                ):(
+                                    <></>
+                                )}
                                 <Container_Row_100_Left>
                                     <Label_Text_16_Black>Precio:</Label_Text_16_Black>
                                     <Input_Group>
@@ -233,7 +290,7 @@ export default function Warehouse_Fixed_Expense_Add(){
                                 </Container_Row_100_Left>
                                 <Modal_Form_Button_Add
                                     onCancel={() => handleModalViewWarehouse('')}
-                                    onAction={() => handleWarehouseFixedExpenseAdd()}
+                                    onAction={() => handleWarehouseFixedExpenseAdd({isDateType})}
                                 />
                             </Container_Modal_Form>
                         </Container_Modal_Form_White>

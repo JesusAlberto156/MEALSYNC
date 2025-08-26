@@ -795,16 +795,23 @@ export const HandleWarehouseFixedExpenseAdd = () => {
     const [isTextFieldsWarehouseFixedExpense] = useContext(TextFieldsWarehouseFixedExpenseContext);
     const [isWarehouseFixedExpenseAdd,setIsWarehouseFixedExpenseAdd] = useContext(WarehouseFixedExpenseAddContext);
     // Función del hook
-    const handleWarehouseFixedExpenseAdd = () => {
+    const handleWarehouseFixedExpenseAdd = ({isDateType}) => {
         if(currentNView === 'Compras' && currentSView === 'Inventario' && currentMView === 'Almacen-Compra-Gasto-Fijo-Agregar'){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsWarehouseFixedExpense.idgasto === 0 || isTextFieldsWarehouseFixedExpense.precio === ''){
+                        if(isTextFieldsWarehouseFixedExpense.idgasto === 0 || isTextFieldsWarehouseFixedExpense.precio === '' || isDateType === ''){
                             setIsActionBlock(false);
                             return reject('¡Falta información de la compra de gasto fijo!')
                         };
+
+                        if(isDateType === 'Personalizada'){
+                            if(isTextFieldsWarehouseFixedExpense.fecha === '' || !isTextFieldsWarehouseFixedExpense.fecha){
+                                setIsActionBlock(false);
+                                return reject('¡Falta información de la compra de gasto fijo!');
+                            }
+                        }
 
                         if(Number(isTextFieldsWarehouseFixedExpense.precio) <= 0){
                             setIsActionBlock(false);
@@ -816,7 +823,7 @@ export const HandleWarehouseFixedExpenseAdd = () => {
                             return reject('¡El precio no es válido, excede el valor máximo posible!');
                         }
 
-                         resolve('¡Información verificada!');
+                        resolve('¡Información verificada!');
 
                         setTimeout(() => {
                             return setIsWarehouseFixedExpenseAdd(true);
@@ -834,7 +841,7 @@ export const HandleWarehouseFixedExpenseAdd = () => {
     // Retorno de la función del hook
     return handleWarehouseFixedExpenseAdd;
 }
-// Hook para agregar una venta de insumo desde el modal ✔️
+// Hook para agregar una venta o compra de insumo desde el modal ✔️
 export const HandleWarehouseSupplyAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -844,16 +851,39 @@ export const HandleWarehouseSupplyAdd = () => {
     const [isTextFieldsWarehouseSupply] = useContext(TextFieldsWarehouseSupplyContext);
     const [isWarehouseSupplyAdd,setIsWarehouseSupplyAdd] = useContext(WarehouseSupplyAddContext);
     // Función del hook
-    const handleWarehouseSupplyAdd = () => {
-        if(currentNView === 'Ventas' && currentSView === 'Inventario' && currentMView === 'Almacen-Venta-Insumo-Agregar'){
+    const handleWarehouseSupplyAdd = ({ isDateType }) => {
+        if((currentNView === 'Ventas' && currentSView === 'Inventario' && currentMView === 'Almacen-Venta-Insumo-Agregar') || (currentNView === 'Compras' && currentSView === 'Inventario' && currentMView === 'Almacen-Compra-Insumo-Agregar')){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsWarehouseSupply.idtipo === 0 || isTextFieldsWarehouseSupply.cantidadreal === ''){
-                            setIsActionBlock(false);
-                            return reject('¡Falta información de la venta rapida del insumo!');
-                        };
+                        if(currentNView === 'Compras'){
+                            if(isTextFieldsWarehouseSupply.idtipo === 0 || isTextFieldsWarehouseSupply.cantidadreal === '' || isTextFieldsWarehouseSupply.preciounitario === '' || isDateType === ''){
+                                setIsActionBlock(false);
+                                return reject('¡Falta información de la compra del insumo!');
+                            };
+
+                            if(isDateType === 'Personalizada'){
+                                if(isTextFieldsWarehouseSupply.fecha === '' || !isTextFieldsWarehouseSupply.fecha){
+                                    setIsActionBlock(false);
+                                    return reject('¡Falta información de la compra del insumo!');
+                                }
+                            }
+                        }
+
+                        if(currentNView === 'Ventas'){
+                            if(isTextFieldsWarehouseSupply.idtipo === 0 || isTextFieldsWarehouseSupply.cantidadreal === '' || isDateType === ''){
+                                setIsActionBlock(false);
+                                return reject('¡Falta información de la venta rapida del insumo!');
+                            };
+
+                            if(isDateType === 'Personalizada'){
+                                if(isTextFieldsWarehouseSupply.fecha === '' || !isTextFieldsWarehouseSupply.fecha){
+                                    setIsActionBlock(false);
+                                    return reject('¡Falta información de la venta rapida del insumo!');
+                                }
+                            }
+                        }
 
                         if(Number(isTextFieldsWarehouseSupply.cantidadreal) <= 0){
                             setIsActionBlock(false);
@@ -863,6 +893,18 @@ export const HandleWarehouseSupplyAdd = () => {
                         if(Number(isTextFieldsWarehouseSupply.cantidadreal) > 999999.9999){
                             setIsActionBlock(false);
                             return reject('¡La cantidad no es válida, excede el valor máximo posible!');
+                        }
+
+                        if(currentNView === 'Compras'){
+                            if(Number(isTextFieldsWarehouseSupply.preciounitario) <= 0){
+                                setIsActionBlock(false);
+                                return reject('¡El precio unitario no es válido, debe de ser mayor a 0!');
+                            }
+
+                            if(Number(isTextFieldsWarehouseSupply.preciounitario) > 999999.9999){
+                                setIsActionBlock(false);
+                                return reject('¡El precio unitario no es válido, excede el valor máximo posible!');
+                            }
                         }
 
                         if(isTextFieldsWarehouseSupply.unidad === 'Kilogramo' || isTextFieldsWarehouseSupply.unidad === 'Litro'){
@@ -883,9 +925,11 @@ export const HandleWarehouseSupplyAdd = () => {
                             }
                         }
 
-                        if(Number(isTextFieldsWarehouseSupply.cantidadreal) > Number(isTextFieldsWarehouseSupply.cantidadtotal)){
-                            setIsActionBlock(false);
-                            return reject('¡La cantidad no es válida, excede la cantidad existente en el almacén!');
+                        if(currentNView === 'Ventas'){
+                            if(Number(isTextFieldsWarehouseSupply.cantidadreal) > Number(isTextFieldsWarehouseSupply.cantidadtotal)){
+                                setIsActionBlock(false);
+                                return reject('¡La cantidad no es válida, excede la cantidad existente en el almacén!');
+                            }
                         }
 
                         resolve('¡Información verificada!');
@@ -906,7 +950,7 @@ export const HandleWarehouseSupplyAdd = () => {
     // Retorno de la función del hook
     return handleWarehouseSupplyAdd;
 }
-// Hook para agregar una venta de suministro desde el modal ✔️
+// Hook para agregar una venta o compra de suministro desde el modal ✔️
 export const HandleWarehouseCleaningAdd = () => {
     // Constantes con el valor de los contextos 
     const [currentNView] = useContext(NavbarViewContext);
@@ -916,16 +960,39 @@ export const HandleWarehouseCleaningAdd = () => {
     const [isTextFieldsWarehouseCleaning] = useContext(TextFieldsWarehouseCleaningContext);
     const [isWarehouseCleaningAdd,setIsWarehouseCleaningAdd] = useContext(WarehouseCleaningAddContext);
     // Función del hook
-    const handleWarehouseCleaningAdd = () => {
-        if(currentNView === 'Ventas' && currentSView === 'Inventario' && currentMView === 'Almacen-Venta-Suministro-Agregar'){
+    const handleWarehouseCleaningAdd = ({isDateType}) => {
+        if((currentNView === 'Ventas' && currentSView === 'Inventario' && currentMView === 'Almacen-Venta-Suministro-Agregar') || (currentNView === 'Compras' && currentSView === 'Inventario' && currentMView === 'Almacen-Compra-Suministro-Agregar')){
             const promise = new Promise((resolve,reject) => {
                 try{
                     setIsActionBlock(true);
                     setTimeout(() => {
-                        if(isTextFieldsWarehouseCleaning.idcategoria === 0 || isTextFieldsWarehouseCleaning.cantidadreal === ''){
-                            setIsActionBlock(false);
-                            return reject('¡Falta información del consumo de suministro!');
-                        };
+                        if(currentNView === 'Compras'){
+                            if(isTextFieldsWarehouseCleaning.idtipo === 0 || isTextFieldsWarehouseCleaning.cantidadreal === '' || isTextFieldsWarehouseCleaning.preciounitario === '' || isDateType === ''){
+                                setIsActionBlock(false);
+                                return reject('¡Falta información de la compra de suministro!');
+                            };
+
+                            if(isDateType === 'Personalizada'){
+                                if(isTextFieldsWarehouseCleaning.fecha === '' || !isTextFieldsWarehouseCleaning.fecha){
+                                    setIsActionBlock(false);
+                                    return reject('¡Falta información de la compra de suministro!');
+                                }
+                            }
+                        }
+
+                        if(currentNView === 'Ventas'){
+                            if(isTextFieldsWarehouseCleaning.idtipo === 0 || isTextFieldsWarehouseCleaning.cantidadreal === '' || isDateType === ''){
+                                setIsActionBlock(false);
+                                return reject('¡Falta información del consumo de suministro!');
+                            };
+
+                            if(isDateType === 'Personalizada'){
+                                if(isTextFieldsWarehouseCleaning.fecha === '' || !isTextFieldsWarehouseCleaning.fecha){
+                                    setIsActionBlock(false);
+                                    return reject('¡Falta información del consumo de suministro!');
+                                }
+                            }
+                        }
 
                         if(Number(isTextFieldsWarehouseCleaning.cantidadreal) <= 0){
                             setIsActionBlock(false);
@@ -935,6 +1002,18 @@ export const HandleWarehouseCleaningAdd = () => {
                         if(Number(isTextFieldsWarehouseCleaning.cantidadreal) > 999999.9999){
                             setIsActionBlock(false);
                             return reject('¡La cantidad no es válida, excede el valor máximo posible!');
+                        }
+
+                        if(currentNView === 'Compras'){
+                            if(Number(isTextFieldsWarehouseCleaning.preciounitario) <= 0){
+                                setIsActionBlock(false);
+                                return reject('¡El precio unitario no es válido, debe de ser mayor a 0!');
+                            }
+
+                            if(Number(isTextFieldsWarehouseCleaning.preciounitario) > 999999.9999){
+                                setIsActionBlock(false);
+                                return reject('¡El precio unitario no es válido, excede el valor máximo posible!');
+                            }
                         }
 
                         if(isTextFieldsWarehouseCleaning.unidad === 'Kilogramo' || isTextFieldsWarehouseCleaning.unidad === 'Litro'){
@@ -955,9 +1034,11 @@ export const HandleWarehouseCleaningAdd = () => {
                             }
                         }
 
-                        if(Number(isTextFieldsWarehouseCleaning.cantidadreal) > Number(isTextFieldsWarehouseCleaning.cantidadtotal)){
-                            setIsActionBlock(false);
-                            return reject('¡La cantidad no es válida, excede la cantidad existente en el almacén!');
+                        if(currentNView === 'Ventas'){
+                            if(Number(isTextFieldsWarehouseCleaning.cantidadreal) > Number(isTextFieldsWarehouseCleaning.cantidadtotal)){
+                                setIsActionBlock(false);
+                                return reject('¡La cantidad no es válida, excede la cantidad existente en el almacén!');
+                            }
                         }
 
                         resolve('¡Información verificada!');

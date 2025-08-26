@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { LoggedTypeContext } from "../contexts/SessionProvider";
 import { LoginViewContext } from "../contexts/ViewsProvider";
 import { SearchTermContext,SearchTerm1Context,SearchTerm2Context,SearchTerm3Context } from "../contexts/SearchsProvider";
-import { SelectedRowContext,SelectedRow1Context,SelectedRow2Context,SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../contexts/SelectedesProvider";
+import { SelectedRowContext,SelectedOptionOrderContext,SelectedOptionOrderDirectionContext,SelectedOptionSearchContext,SelectedOptionOrderPlusContext,SelectedOptionOrderPlusUltraContext } from "../contexts/SelectedesProvider";
 import { TextFieldsSearchDateContext } from "../contexts/FormsProvider";
 // Hooks personalizados
 import { ResetTextFieldsUser } from "./users/Texts";
@@ -48,13 +48,9 @@ export const ResetSearchTerms = () => {
 export const ResetSelectedTables = () => {
     // Constantes con el valor de los contextos 
     const [isSelectedRow,setIsSelectedRow] = useContext(SelectedRowContext);
-    const [isSelectedRow1,setIsSelectedRow1] = useContext(SelectedRow1Context);
-    const [isSelectedRow2,setIsSelectedRow2] = useContext(SelectedRow2Context); 
     // Función del hook
     const resetSearchTerms = () => {
         setIsSelectedRow(null);
-        setIsSelectedRow1(null);
-        setIsSelectedRow2(null);
     }
     // Retorno de la función del hook
     return resetSearchTerms;

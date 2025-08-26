@@ -73,7 +73,68 @@ export const Orders_GET = (socket) => {
 //______________GET______________
 //______________INSERT______________
 export const Orders_INSERT = (socket) => {
-    
+    // ---------- COCINA ✔️
+    socket.on('Insert-Order-Kitchen',async (idusuario,tipoubicacion,ubicacion,encargado,precio,pedidos) => {
+        try{
+            await insertOrderKitchenService(tipoubicacion,ubicacion,encargado,precio,idusuario);
+            const resultOrder = await getOrderKitchenService();
+            const decryptedData = decryptData(resultOrder);
+            const parsedData = JSON.parse(decryptedData);
+            const idpedido = parsedData.find(data => data.tipoubicacion === tipoubicacion && data.ubicacion === ubicacion && data.encargado === encargado && data.precio === precio)?.idpedido;        
+
+            let resultCount;
+
+            if(Array.isArray(pedidos) && pedidos.length > 0){
+                for (const pedido of pedidos) {
+                    if(pedido.idplatillo !== 0){
+                      insertCountOrderKitchenDishService(pedido.cantidad,'En espera',pedido.idplatillo,idpedido);
+                    }
+                    if(pedido.idbebida !== 0){
+                      insertCountOrderKitchenDrinkService(pedido.cantidad,'En espera',pedido.idbebida,idpedido);
+                    }
+                    if(pedido.idguarnicion !== 0){
+                      insertCountOrderKitchenSideDishService(pedido.cantidad,'En espera',pedido.idguarnicion,idpedido);
+                    }
+                }
+                resultCount = await getCountOrderKitchenService();
+            }
+            
+            io.emit('Get-Order-Kitchen',resultOrder);
+            if(resultCount !== undefined){
+                io.emit('Get-Count-Order-Kitchen',resultCount);
+            }
+        }catch(error){
+            console.error('Error al agregar al pedido: ',error);
+            return error;
+        }
+    });
+    // ---------- ÁREA MÉDICA ✔️
+    socket.on('Insert-Order-Doctor',async (idusuario,sala,cirugia,medico,solicitante,precio,idcirugia,pedidos) => {
+        try{
+            await insertOrderDoctorService(sala,cirugia,medico,solicitante,idusuario,precio,idcirugia);
+            const resultOrder = await getOrderDoctorService();
+            const decryptedData = decryptData(resultOrder);
+            const parsedData = JSON.parse(decryptedData);
+            const idpedido = parsedData.find(data => data.idcirugia === idcirugia)?.idpedido;        
+
+            let resultO;
+
+            if(Array.isArray(pedidos) && pedidos.length > 0){
+                for (const pedido of pedidos) {
+                    insertOrderDoctorOrderService('En espera',pedido.comentario,pedido.idplatillo,pedido.idguarnicion,pedido.idbebida,idpedido)
+                }
+                resultO = await getOrderDoctorOrderService();
+            }
+            
+            io.emit('Get-Order-Doctor',resultOrder);
+            if(resultO !== undefined){
+                io.emit('Get-Order-Doctor-Order',resultO);
+            }
+        }catch(error){
+            console.error('Error al agregar al pedido: ',error);
+            return error;
+        }
+    });
 }
 //______________INSERT______________
 //______________UPDATE______________

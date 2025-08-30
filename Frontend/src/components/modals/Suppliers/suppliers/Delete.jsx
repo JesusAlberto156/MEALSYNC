@@ -131,8 +131,8 @@ export default function Supplier_Delete(){
                                                 <Icon_Blue_28 className='pulsate-icon-fwd-0'><FaStar/></Icon_Blue_28>
                                                 <Icon_Blue_28 className='pulsate-icon-fwd-1'><FaStar/></Icon_Blue_28>
                                                 <Icon_Blue_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_28>
-                                                <Icon_Black_28 className='pulsate-icon-fwd-3'><FaStar/></Icon_Black_28>
-                                                <Icon_Black_28 className='pulsate-icon-fwd-4'><FaStar/></Icon_Black_28>
+                                                <Icon_Blue_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_28>
+                                                <Icon_Blue_28 className='pulsate-icon-fwd-2'><FaStar/></Icon_Blue_28>
                                             </>
                                         ):(
                                             isTextFieldsSupplier.calificacion <= 1 ? (

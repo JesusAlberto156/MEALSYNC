@@ -27,7 +27,7 @@ function TicketPrinter() {
     setLoading(true);
     setMessage("");
     try {
-      const response = await fetch("http://localhost:3000/api/print-ticket", {
+      const response = await fetch("http://localhost:3500/api/print-ticket", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

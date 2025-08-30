@@ -1,7 +1,7 @@
 USE ComandaMedicaTepic
 
-ALTER TABLE pedidosAreaMedica
-DROP COLUMN folio;
+ALTER TABLE pedidosCocina
+DROP COLUMN estado;
 ALTER TABLE pedidosAreaMedica
 DROP COLUMN fechacirugia;
 ALTER TABLE pedidosAreaMedica

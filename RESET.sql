@@ -27,15 +27,15 @@ SELECT * FROM usuariosEliminados;
 INSERT INTO usuarios (nombre,nombrecorto,usuario,contrasena,idtipo) 
 VALUES ('JESUS ALBERTO PARTIDA MICHEL','JESUS PARTIDA','U.Partida04','Legendario156',1);
 INSERT INTO permisos (administrador,chef,almacenista,cocinero,nutriologo,medico,superadministrador,idusuario) 
-VALUES (1,0,0,0,0,0,1,1);
+VALUES (1,0,0,0,0,0,1,27);
 INSERT INTO estatus(habilitado,activo,idusuario) 
 VALUES (1,0,1);
 INSERT INTO tipoUsuario (tipo) VALUES ('TI');
 INSERT INTO tipoUsuario (tipo) VALUES ('Cocina');
 INSERT INTO tipoUsuario (tipo) VALUES ('Enfermeria');
 /*______DELETE______*/
-DELETE FROM usuarios; 
-DBCC CHECKIDENT (usuarios, RESEED, 0);
+DELETE FROM usuarios WHERE idusuario > 26; 
+DBCC CHECKIDENT (usuarios, RESEED, 26);
 DELETE FROM permisos;
 DBCC CHECKIDENT (permisos, RESEED, 0);
 DELETE FROM estatus;

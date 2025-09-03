@@ -1,6 +1,6 @@
 //____________IMPORT/EXPORT____________
 // Librería 'mssql'
-import sql from 'mssql';
+import sql, { MAX } from 'mssql';
 // Conexión a Base de datos
 import { conexionDB } from "../../config/database.config.js";
 // Método de Encryptación
@@ -184,7 +184,7 @@ export const insertLogDrinkSpecificationsService = async (idespecificacion,idusu
             .input('operacion', sql.VarChar(20), 'INSERT')
             .input('idtabla',sql.Int,idespecificacion)
             .input('idusuario',sql.Int,idusuario)
-            .input('campo1',sql.VarChar(500),imagen)
+            .input('campo1',sql.VarChar(sql.MAX),imagen)
             .input('campo2',sql.VarChar(500),descripcion)
             .input('campo3',sql.VarChar(500),precio)
             .input('campo4',sql.VarChar(500),preparacion)
@@ -423,7 +423,7 @@ export const updateLogDrinkSpecificationsService = async (idespecificacion,idusu
             .input('operacion', sql.VarChar(20), 'UPDATE')
             .input('idtabla',sql.Int,idespecificacion)
             .input('idusuario',sql.Int,idusuario)
-            .input('campo1',sql.VarChar(500),imagen)
+            .input('campo1',sql.VarChar(sql.MAX),imagen)
             .input('campo2',sql.VarChar(500),descripcion)
             .input('campo3',sql.VarChar(500),precio)
             .input('campo4',sql.VarChar(500),preparacion)

@@ -155,7 +155,7 @@ export const insertLogSupplyService = async (idinsumo,idusuario,imagen,codigo,no
             .input('operacion', sql.VarChar(20), 'INSERT')
             .input('idtabla',sql.Int,idinsumo)
             .input('idusuario',sql.Int,idusuario)
-            .input('campo1',sql.VarChar(sql,MAX),imagen)
+            .input('campo1',sql.VarChar(sql.MAX),imagen)
             .input('campo2',sql.VarChar(500),codigo)
             .input('campo3',sql.VarChar(500),nombre)
             .input('campo4',sql.VarChar(500),descripcion)
